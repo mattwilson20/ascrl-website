@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCRL Race Results | American Stock Car Racing League</title>
+    <style>
+        body { margin: 0; font-family: 'Arial Black', sans-serif; background: #000; color: #fff; }
+        .hero { background: linear-gradient(to bottom, #c00, #900); padding: 4rem 1rem; text-align: center; }
+        h1 { font-size: 4rem; margin: 0; text-shadow: 4px 4px #000; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        select { padding: 1rem; font-size: 1.2rem; margin: 2rem 0; background: #111; color: #fff; border: 2px solid #c00; border-radius: 10px; }
+        .race-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin: 2rem 0; }
+        .race-btn { background: #111; padding: 1.5rem; text-align: center; border-radius: 10px; cursor: pointer; border: 2px solid #333; transition: 0.3s; }
+        .race-btn:hover { background: #222; border-color: #c00; }
+        table { width: 100%; border-collapse: collapse; margin: 2rem 0; background: #111; }
+        th { background: #c00; padding: 1rem; }
+        td { padding: 1rem; border-bottom: 1px solid #333; }
+        .pole { color: #ff0; font-weight: bold; }
+        .fl { color: #0f0; font-weight: bold; }
+        footer { background: #111; padding: 2rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <h1>ASCRL RACE RESULTS</h1>
+        <p>2025-2026 Inaugural Season | Full Archive</p>
+    </header>
+    <div class="container">
+        <label for="series-select">Select Series:</label>
+        <select id="series-select">
+            <option value="">-- Choose Series --</option>
+        </select>
+        <div id="race-list" class="race-list"></div>
+        <div id="results-table"></div>
+    </div>
+    <footer>
+        © 2025-2026 ASCRL | Results powered by Discord bot
+    </footer>
+
+    <script>
+        const seriesOrder = ['Cup', 'Xfinity', 'Truck', 'Menards'];
+        let resultsData = {};
+
+        fetch('race_results.json')
+            .then(response => response.json())
+            .then(data => {
+                resultsData = data;
+                const select = document.getElementById('series-select');
+                seriesOrder.forEach(series => {
+                    if (data[series]) {
+                        const option = document.createElement('option');
+                        option.value = series;
+                        option.textContent = series + ' Series';
+                        select.appendChild(option);
+                    }
+                });
+            });
+
+        document.getElementById('series-select').addEventListener('change', function() {
+            const series = this.value;
+            const raceList = document.getElementById('race-list');
+            raceList.innerHTML = '';
+            document.getElementById('results-table').innerHTML = '';
+
+            if (!series || !resultsData[series]) return;
+
+            Object.keys(resultsData[series]).sort().reverse().forEach(race => {
+                const btn = document.createElement('div');
+                btn.className = 'race-btn';
+                btn.textContent = race;
+                btn.onclick = () => showResults(series, race);
+                raceList.appendChild(btn);
+            });
+        });
+
+        function showResults(series, race) {
+            const tableDiv = document.getElementById('results-table');
+            tableDiv.innerHTML = `<h2>${race} — ${series} Series</h2>`;
+            const table = document.createElement('table');
+            const thead = document.createElement('thead');
+            thead.innerHTML = '<tr><th>Pos</th><th>Driver</th><th>Points</th><th>Notes</th></tr>';
+            table.appendChild(thead);
+            const tbody = document.createElement('tbody');
+            resultsData[series][race].forEach(item => {
+                const tr = document.createElement('tr');
+                let notes = '';
+                if (item.pole) notes += 'Pole ';
+                if (item.fl) notes += 'FL ';
+                tr.innerHTML = `<td>${item.pos}</td><td>${item.driver}</td><td>${item.points}</td><td class="${item.pole ? 'pole' : ''} ${item.fl ? 'fl' : ''}">${notes}</td>`;
+                tbody.appendChild(tr);
+            });
+            table.appendChild(tbody);
+            tableDiv.appendChild(table);
+        }
+    </script>
+</body>
+</html>
