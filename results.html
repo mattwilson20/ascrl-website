@@ -9,16 +9,18 @@
         .hero { background: linear-gradient(to bottom, #c00, #900); padding: 4rem 1rem; text-align: center; }
         h1 { font-size: 4rem; margin: 0; text-shadow: 4px 4px #000; }
         .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
-        select { padding: 1rem; font-size: 1.2rem; margin: 2rem 0; background: #111; color: #fff; border: 2px solid #c00; border-radius: 10px; }
+        select { padding: 1rem; font-size: 1.2rem; margin: 2rem 0; background: #111; color: #fff; border: 2px solid #c00; border-radius: 10px; width: 100%; max-width: 400px; }
         .race-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin: 2rem 0; }
         .race-btn { background: #111; padding: 1.5rem; text-align: center; border-radius: 10px; cursor: pointer; border: 2px solid #333; transition: 0.3s; }
-        .race-btn:hover { background: #222; border-color: #c00; }
-        table { width: 100%; border-collapse: collapse; margin: 2rem 0; background: #111; }
+        .race-btn:hover { background: #222; border-color: #c00; transform: scale(1.05); }
+        table { width: 100%; border-collapse: collapse; margin: 2rem 0; background: #111; border-radius: 10px; overflow: hidden; }
         th { background: #c00; padding: 1rem; }
         td { padding: 1rem; border-bottom: 1px solid #333; }
+        tr:hover { background: #222; }
         .pole { color: #ff0; font-weight: bold; }
         .fl { color: #0f0; font-weight: bold; }
-        footer { background: #111; padding: 2rem; text-align: center; }
+        .winner { background: #330; font-weight: bold; }
+        footer { background: #111; padding: 2rem; text-align: center; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -35,26 +37,32 @@
         <div id="results-table"></div>
     </div>
     <footer>
-        © 2025-2026 ASCRL | Results powered by Discord bot
+        © 2025-2026 ASCRL | Results powered by Discord bot | NASCAR passion every week
     </footer>
 
     <script>
-        const seriesOrder = ['Cup', 'Xfinity', 'Truck', 'Menards'];
         let resultsData = {};
 
         fetch('race_results.json')
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) throw new Error('File not found');
+                return response.json();
+            })
             .then(data => {
                 resultsData = data;
                 const select = document.getElementById('series-select');
+                const seriesOrder = ['Cup', 'Xfinity', 'Truck', 'Menards'];
                 seriesOrder.forEach(series => {
                     if (data[series]) {
                         const option = document.createElement('option');
                         option.value = series;
-                        option.textContent = series + ' Series';
+                        option.textContent = `${series} Series (${Object.keys(data[series]).length} races)`;
                         select.appendChild(option);
                     }
                 });
+            })
+            .catch(err => {
+                document.getElementById('results-table').innerHTML = '<p>Race results loading... Upload race_results.json to repo!</p>';
             });
 
         document.getElementById('series-select').addEventListener('change', function() {
@@ -65,7 +73,8 @@
 
             if (!series || !resultsData[series]) return;
 
-            Object.keys(resultsData[series]).sort().reverse().forEach(race => {
+            // Sort races newest first
+            Object.keys(resultsData[series]).sort((a, b) => b.localeCompare(a)).forEach(race => {
                 const btn = document.createElement('div');
                 btn.className = 'race-btn';
                 btn.textContent = race;
@@ -79,15 +88,16 @@
             tableDiv.innerHTML = `<h2>${race} — ${series} Series</h2>`;
             const table = document.createElement('table');
             const thead = document.createElement('thead');
-            thead.innerHTML = '<tr><th>Pos</th><th>Driver</th><th>Points</th><th>Notes</th></tr>';
+            thead.innerHTML = '<tr><th>Pos</th><th>Driver</th><th>Notes</th></tr>';
             table.appendChild(thead);
             const tbody = document.createElement('tbody');
-            resultsData[series][race].forEach(item => {
+            resultsData[series][race].forEach((item, index) => {
                 const tr = document.createElement('tr');
+                if (index === 0) tr.className = 'winner';
                 let notes = '';
-                if (item.pole) notes += 'Pole ';
-                if (item.fl) notes += 'FL ';
-                tr.innerHTML = `<td>${item.pos}</td><td>${item.driver}</td><td>${item.points}</td><td class="${item.pole ? 'pole' : ''} ${item.fl ? 'fl' : ''}">${notes}</td>`;
+                if (item.pole === "Yes") notes += 'Pole ';
+                if (item.fl === "FL") notes += 'Fastest Lap ';
+                tr.innerHTML = `<td>${item.position}</td><td>${item.driver}</td><td class="${item.pole ? 'pole' : ''} ${item.fl ? 'fl' : ''}">${notes}</td>`;
                 tbody.appendChild(tr);
             });
             table.appendChild(tbody);
