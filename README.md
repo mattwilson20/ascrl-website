@@ -10,4 +10,4 @@ Official website for the premier Discord-based Stock Car Racing league.
 
 ASCRL brings the thrill every week.
 
-🏁 Let's go racing!
+🏁 Let's go racing! 
