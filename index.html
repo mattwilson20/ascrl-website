@@ -27,17 +27,16 @@
             <h1>ASCRL</h1>
             <p class="subtitle">American Stock Car Racing League | 2025-2026 Season</p>
             <a href="#standings" class="btn">View Standings</a>
-            <a href="https://discord.gg/YOUR_DISCORD_INVITE_LINK" class="btn">Join the League</a>
+            <a href="https://discord.gg/RgYEY5F3Kf" class="btn">Join the League</a>
         </div>
     </header>
     <div class="container">
         <div class="section" id="standings">
             <h2>Current Points Leaders (Live from Discord Bot)</h2>
             <div class="leaders" id="leaders-grid">
-                <!-- Leaders loaded dynamically from standings.json -->
                 <p>Loading live standings...</p>
             </div>
-            <p>Updated automatically after every race.</p>
+            <p>Full standings updated weekly in Discord bot.</p>
         </div>
         <div class="section">
             <h2>Latest Race Highlight</h2>
@@ -60,23 +59,20 @@
             .then(response => response.json())
             .then(data => {
                 const grid = document.getElementById('leaders-grid');
-                grid.innerHTML = '';  // Clear loading message
+                grid.innerHTML = '';
                 const seriesOrder = ['Cup', 'Xfinity', 'Truck', 'Menards'];
                 seriesOrder.forEach(series => {
                     if (data[series] && data[series].length > 0) {
                         const card = document.createElement('div');
                         card.className = 'leader-card';
-                        card.innerHTML = `<h3>${series} Series</h3><p>${data[series][0].driver}<br>${data[series][0].points} pts</p>`;
+                        card.innerHTML = `<h3>${series} Series</h3><p>${data[series][0].driver}<br><strong>${data[series][0].points} pts</strong></p>`;
                         grid.appendChild(card);
                     }
                 });
             })
             .catch(err => {
-                document.getElementById('leaders-grid').innerHTML = '<p>Standings loading... (refresh if needed)</p>';
+                document.getElementById('leaders-grid').innerHTML = '<p>Standings loading... Check back soon!</p>';
             });
     </script>
-</body>
-</html>
-    </footer>
 </body>
 </html>
