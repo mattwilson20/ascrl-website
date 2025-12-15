@@ -6,7 +6,7 @@ Official website for the premier Discord-based Stock Car Racing league.
 - Live bot-powered standings and Power Rankings
 - Weekly races with real NASCAR track schedule
 
-**Join the action:** [Discord Invite](https://discord.gg/7Xg9skjQtg)
+**Join the action:** [Discord Invite](https://discord.gg/RgYEY5F3Kf)
 
 ASCRL brings the thrill every week.
 
