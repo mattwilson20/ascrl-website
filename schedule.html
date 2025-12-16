@@ -14,6 +14,7 @@
         .hero { background: linear-gradient(to bottom, #c00, #900); padding: 10rem 1rem 6rem; text-align: center; margin-top: 60px; }
         h1 { font-size: 4rem; margin: 0; text-shadow: 4px 4px #000; }
         .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        select { padding: 1rem; font-size: 1.2rem; margin: 2rem 0; background: #111; color: #fff; border: 2px solid #c00; border-radius: 10px; width: 100%; max-width: 400px; }
         table { width: 100%; border-collapse: collapse; margin: 2rem 0; background: #111; border-radius: 10px; overflow: hidden; }
         th { background: #c00; padding: 1.2rem; text-align: center; }
         td { padding: 1rem; text-align: center; border-bottom: 1px solid #333; }
@@ -42,8 +43,16 @@
     </header>
     <div class="container">
         <p class="timeline"><strong>Race Night Timeline (EST):</strong> Practice 8:00 PM • Qualifying 9:00 PM • Race 9:20 PM</p>
+        <label for="series-select">Select Series:</label>
+        <select id="series-select">
+            <option value="">-- Choose a Series --</option>
+            <option value="Cup">Cup Series</option>
+            <option value="Xfinity">Xfinity Series</option>
+            <option value="Truck">Truck Series</option>
+            <option value="Menards">Menards Series</option>
+        </select>
         <div id="schedule-table">
-            <p>Loading schedule...</p>
+            <p>Select a series to view its schedule...</p>
         </div>
     </div>
     <footer>
@@ -51,53 +60,41 @@
     </footer>
 
     <script>
-        const currentDate = new Date('2025-12-15');
+        const currentDate = new Date('2025-12-15');  // Current date for highlighting
 
         fetch('schedule.json')
             .then(response => response.json())
             .then(data => {
-                const tableDiv = document.getElementById('schedule-table');
-                tableDiv.innerHTML = '';
-                const table = document.createElement('table');
-                const thead = document.createElement('thead');
-                thead.innerHTML = '<tr><th>Date</th><th>Cup Series</th><th>Xfinity Series</th><th>Truck Series</th><th>Menards Series</th></tr>';
-                table.appendChild(thead);
-                const tbody = document.createElement('tbody');
+                document.getElementById('series-select').addEventListener('change', function() {
+                    const series = this.value;
+                    const tableDiv = document.getElementById('schedule-table');
+                    tableDiv.innerHTML = '';
 
-                const maxRaces = Math.max(
-                    data.Cup.length || 0,
-                    data.Xfinity.length || 0,
-                    data.Truck.length || 0,
-                    data.Menards.length || 0
-                );
-
-                for (let i = 0; i < maxRaces; i++) {
-                    const tr = document.createElement('tr');
-                    const cup = data.Cup[i] || {date: '', track: ''};
-                    const xfinity = data.Xfinity[i] || {date: '', track: ''};
-                    const truck = data.Truck[i] || {date: '', track: ''};
-                    const menards = data.Menards[i] || {date: '', track: ''};
-
-                    const raceDate = cup.date || xfinity.date || truck.date || menards.date || '';
-                    const raceDateObj = raceDate ? new Date(raceDate) : null;
-
-                    if (raceDateObj && raceDateObj < currentDate) {
-                        tr.className = 'completed';
-                    } else if (raceDate) {
-                        tr.className = 'upcoming';
+                    if (!series || !data[series] || data[series].length === 0) {
+                        tableDiv.innerHTML = '<p>No races scheduled for this series yet.</p>';
+                        return;
                     }
 
-                    tr.innerHTML = `
-                        <td>${raceDate}</td>
-                        <td>${cup.track}</td>
-                        <td>${xfinity.track}</td>
-                        <td>${truck.track}</td>
-                        <td>${menards.track}</td>
-                    `;
-                    tbody.appendChild(tr);
-                }
-                table.appendChild(tbody);
-                tableDiv.appendChild(table);
+                    const table = document.createElement('table');
+                    const thead = document.createElement('thead');
+                    thead.innerHTML = `<tr><th>Date</th><th>${series} Series Track</th></tr>`;
+                    table.appendChild(thead);
+                    const tbody = document.createElement('tbody');
+
+                    data[series].forEach(race => {
+                        const tr = document.createElement('tr');
+                        const raceDateObj = new Date(race.date);
+                        if (raceDateObj < currentDate) {
+                            tr.className = 'completed';
+                        } else {
+                            tr.className = 'upcoming';
+                        }
+                        tr.innerHTML = `<td>${race.date}</td><td>${race.track}</td>`;
+                        tbody.appendChild(tr);
+                    });
+                    table.appendChild(tbody);
+                    tableDiv.appendChild(table);
+                });
             })
             .catch(err => {
                 document.getElementById('schedule-table').innerHTML = '<p>Schedule loading... Upload schedule.json!</p>';
