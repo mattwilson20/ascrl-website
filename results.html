@@ -13,18 +13,19 @@
         .nav-links a:hover { color: #ff0; text-shadow: 0 0 10px #c00; }
         .hero { background: linear-gradient(to bottom, #c00, #900); padding: 10rem 1rem 6rem; text-align: center; margin-top: 60px; }
         h1 { font-size: 4rem; margin: 0; text-shadow: 4px 4px #000; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; text-align: center; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
         select { padding: 1rem; font-size: 1.2rem; margin: 2rem 0; background: #111; color: #fff; border: 2px solid #c00; border-radius: 10px; width: 100%; max-width: 400px; }
         .race-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin: 2rem 0; }
-        .race-btn { background: #111; padding: 1.5rem; text-align: center; border-radius: 10px; cursor: pointer; border: 2px solid #333; transition: 0.3s; }
-        .race-btn:hover { background: #222; border-color: #c00; transform: scale(1.05); }
-        table { width: 100%; border-collapse: collapse; margin: 2rem 0; background: #111; border-radius: 10px; overflow: hidden; }
-        th { background: #c00; padding: 1rem; }
+        .race-card { background: #111; padding: 1.5rem; text-align: center; border-radius: 10px; cursor: pointer; border: 2px solid #333; transition: 0.3s; }
+        .race-card:hover { background: #222; border-color: #c00; transform: scale(1.05); }
+        .results-section { margin: 3rem 0; }
+        table { width: 100%; border-collapse: collapse; background: #111; border-radius: 10px; overflow: hidden; }
+        th { background: #c00; padding: 1.2rem; }
         td { padding: 1rem; border-bottom: 1px solid #333; }
         tr:hover { background: #222; }
+        .winner { background: #330; font-weight: bold; }
         .pole { color: #ff0; font-weight: bold; }
         .fl { color: #0f0; font-weight: bold; }
-        .winner { background: #330; font-weight: bold; }
         footer { background: #111; padding: 2rem; text-align: center; font-size: 0.9rem; }
     </style>
 </head>
@@ -50,7 +51,10 @@
             <option value="">-- Choose Series --</option>
         </select>
         <div id="race-list" class="race-list"></div>
-        <div id="results-table"></div>
+        <div id="results-section" class="results-section" style="display: none;">
+            <h2 id="race-title"></h2>
+            <table id="results-table"></table>
+        </div>
     </div>
     <footer>
         © 2025-2026 ASCRL | Results powered by Discord bot | NASCAR passion every week
@@ -78,35 +82,39 @@
                 });
             })
             .catch(err => {
-                document.getElementById('results-table').innerHTML = '<p>Race results loading... Upload race_results.json to repo!</p>';
+                document.getElementById('race-list').innerHTML = '<p>Race results loading... Upload race_results.json to repo!</p>';
             });
 
         document.getElementById('series-select').addEventListener('change', function() {
             const series = this.value;
             const raceList = document.getElementById('race-list');
             raceList.innerHTML = '';
-            document.getElementById('results-table').innerHTML = '';
+            document.getElementById('results-section').style.display = 'none';
 
             if (!series || !resultsData[series]) return;
 
             // Sort races newest first
             Object.keys(resultsData[series]).sort((a, b) => b.localeCompare(a)).forEach(race => {
-                const btn = document.createElement('div');
-                btn.className = 'race-btn';
-                btn.textContent = race;
-                btn.onclick = () => showResults(series, race);
-                raceList.appendChild(btn);
+                const card = document.createElement('div');
+                card.className = 'race-card';
+                card.textContent = race;
+                card.onclick = () => showResults(series, race);
+                raceList.appendChild(card);
             });
         });
 
         function showResults(series, race) {
-            const tableDiv = document.getElementById('results-table');
-            tableDiv.innerHTML = `<h2>${race} — ${series} Series</h2>`;
-            const table = document.createElement('table');
+            const section = document.getElementById('results-section');
+            section.style.display = 'block';
+            document.getElementById('race-title').textContent = `${race} — ${series} Series`;
+
+            const table = document.getElementById('results-table');
+            table.innerHTML = '';
             const thead = document.createElement('thead');
             thead.innerHTML = '<tr><th>Pos</th><th>Driver</th><th>Notes</th></tr>';
             table.appendChild(thead);
             const tbody = document.createElement('tbody');
+
             resultsData[series][race].forEach((item, index) => {
                 const tr = document.createElement('tr');
                 if (index === 0) tr.className = 'winner';
@@ -117,7 +125,6 @@
                 tbody.appendChild(tr);
             });
             table.appendChild(tbody);
-            tableDiv.appendChild(table);
         }
     </script>
 </body>
