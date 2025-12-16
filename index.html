@@ -5,14 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASCRL | American Stock Car Racing League</title>
     <style>
-        body { margin: 0; font-family: 'Arial Black', sans-serif; background: #000; color: #fff; }
-        /* Navigation Bar */
-        .navbar { position: fixed; top: 0; left: 0; width: 100%; background: rgba(0,0,0,0.9); padding: 1rem 2rem; display: flex; align-items: center; z-index: 1000; box-shadow: 0 4px 10px rgba(200,0,0,0.5); }
-        .navbar-logo { font-size: 2rem; font-weight: bold; color: #ff0; text-shadow: 2px 2px #c00; margin-right: 3rem; }
-        .nav-links { display: flex; gap: 2rem; }
-        .nav-links a { color: #fff; text-decoration: none; font-size: 1.2rem; transition: 0.3s; }
-        .nav-links a:hover { color: #ff0; text-shadow: 0 0 10px #c00; }
-        .hero { background: linear-gradient(to bottom, #c00, #900); padding: 10rem 1rem 6rem; text-align: center; position: relative; overflow: hidden; margin-top: 60px; }
+        body { margin: 0; font-family: 'Arial Black', sans-serif; background: #000; color: #fff; overflow-x: hidden; }
+        /* Hamburger Menu Button */
+        .hamburger { position: fixed; top: 1rem; left: 1rem; z-index: 1001; cursor: pointer; padding: 10px; background: rgba(0,0,0,0.8); border-radius: 8px; }
+        .hamburger-line { width: 30px; height: 4px; background: #ff0; margin: 6px 0; transition: 0.4s; border-radius: 2px; }
+        /* Dropdown Menu */
+        .nav-menu { position: fixed; top: 0; left: -250px; width: 250px; height: 100%; background: rgba(0,0,0,0.95); padding: 6rem 2rem 2rem; transition: 0.4s; z-index: 1000; box-shadow: 5px 0 15px rgba(200,0,0,0.8); }
+        .nav-menu.open { left: 0; }
+        .nav-logo { font-size: 2.5rem; color: #ff0; text-shadow: 3px 3px #c00; margin-bottom: 3rem; text-align: center; }
+        .nav-links { display: flex; flex-direction: column; gap: 1.5rem; }
+        .nav-links a { color: #fff; text-decoration: none; font-size: 1.5rem; padding: 1rem; border-radius: 10px; transition: 0.3s; text-align: center; }
+        .nav-links a:hover { background: #c00; color: #ff0; }
+        .hero { background: linear-gradient(to bottom, #c00, #900); padding: 10rem 1rem 6rem; text-align: center; position: relative; overflow: hidden; }
         .checkered { background: repeating-conic-gradient(#fff 0% 25%, #000 0% 50%) 50% / 40px 40px; opacity: 0.2; position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
         .hero-content { position: relative; z-index: 1; }
         h1 { font-size: 6rem; margin: 0; text-shadow: 5px 5px #000; letter-spacing: 0.1em; }
@@ -27,8 +31,16 @@
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="navbar-logo">ASCRL</div>
+    <!-- Hamburger Menu Button -->
+    <div class="hamburger" onclick="toggleMenu()">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </div>
+
+    <!-- Dropdown Navigation Menu -->
+    <div class="nav-menu" id="nav-menu">
+        <div class="nav-logo">ASCRL</div>
         <div class="nav-links">
             <a href="index.html">Home</a>
             <a href="standings.html">Standings</a>
@@ -37,22 +49,24 @@
             <a href="drivers.html">Drivers</a>
             <a href="rules.html">Rules</a>
         </div>
-    </nav>
+    </div>
+
     <header class="hero">
         <div class="checkered"></div>
         <div class="hero-content">
             <h1>ASCRL</h1>
             <p class="subtitle">American Stock Car Racing League | 2025-2026 Season</p>
-            <a href="standings.html" class="btn">View Standings</a>
+            <a href="#standings" class="btn">View Standings</a>
             <a href="https://discord.gg/RgYEY5F3Kf" class="btn">Join the League</a>
         </div>
     </header>
     <div class="container">
-        <div class="section">
+        <div class="section" id="standings">
             <h2>Current Points Leaders (Live from Discord Bot)</h2>
             <div class="leaders" id="leaders-grid">
                 <p>Loading live standings...</p>
             </div>
+            <p>Full standings updated weekly in Discord bot.</p>
         </div>
         <div class="section">
             <h2>Latest Race Highlight</h2>
@@ -71,6 +85,10 @@
     </footer>
 
     <script>
+        function toggleMenu() {
+            document.getElementById('nav-menu').classList.toggle('open');
+        }
+
         fetch('standings.json')
             .then(response => response.json())
             .then(data => {
