@@ -18,7 +18,7 @@
         th { background: #c00; padding: 1.2rem; text-align: center; }
         td { padding: 1rem; text-align: center; border-bottom: 1px solid #333; }
         tr:hover { background: #222; }
-        .completed { background: rgba(0, 255, 0, 0.1); font-style: italic; }
+        .completed { background: rgba(0, 255, 0, 0.1); }
         .upcoming { background: rgba(255, 255, 0, 0.1); font-weight: bold; }
         footer { background: #111; padding: 2rem; text-align: center; font-size: 0.9rem; }
     </style>
@@ -41,171 +41,66 @@
     </header>
     <div class="container">
         <p><strong>Race Night Timeline (EST):</strong> Practice 8:00 PM • Qualifying 9:00 PM • Race 9:20 PM</p>
-        <table>
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Cup Series</th>
-                    <th>Xfinity Series</th>
-                    <th>Truck Series</th>
-                    <th>Menards Series</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="completed">
-                    <td>Oct 20-21, 2025</td>
-                    <td>Daytona</td>
-                    <td></td>
-                    <td>Daytona</td>
-                    <td></td>
-                </tr>
-                <tr class="completed">
-                    <td>Oct 27-28, 2025</td>
-                    <td>Martinsville</td>
-                    <td></td>
-                    <td>Lime Rock</td>
-                    <td></td>
-                </tr>
-                <tr class="completed">
-                    <td>Nov 3-4, 2025</td>
-                    <td>Echopark</td>
-                    <td></td>
-                    <td>Martinsville</td>
-                    <td></td>
-                </tr>
-                <tr class="completed">
-                    <td>Nov 10-11, 2025</td>
-                    <td>Las Vegas</td>
-                    <td></td>
-                    <td>Nashville</td>
-                    <td></td>
-                </tr>
-                <tr class="completed">
-                    <td>Nov 17-18, 2025</td>
-                    <td>Bristol</td>
-                    <td></td>
-                    <td>Rockingham</td>
-                    <td></td>
-                </tr>
-                <tr class="completed">
-                    <td>Nov 20, 2025</td>
-                    <td></td>
-                    <td>Rockingham</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="completed">
-                    <td>Dec 1-2, 2025</td>
-                    <td>Watkins Glen</td>
-                    <td></td>
-                    <td>Texas</td>
-                    <td></td>
-                </tr>
-                <tr class="completed">
-                    <td>Dec 4, 2025</td>
-                    <td></td>
-                    <td>Watkins Glen</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="completed">
-                    <td>Dec 8-9, 2025</td>
-                    <td>Homestead</td>
-                    <td></td>
-                    <td>Michigan</td>
-                    <td></td>
-                </tr>
-                <tr class="completed">
-                    <td>Dec 11, 2025</td>
-                    <td></td>
-                    <td>Kansas</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="completed">
-                    <td>Dec 15-16, 2025</td>
-                    <td>Talladega</td>
-                    <td></td>
-                    <td>IRP</td>
-                    <td></td>
-                </tr>
-                <tr class="completed">
-                    <td>Dec 18, 2025</td>
-                    <td></td>
-                    <td>COTA</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="upcoming">
-                    <td>Dec 22, 2025</td>
-                    <td></td>
-                    <td></td>
-                    <td>Echopark</td>
-                    <td></td>
-                </tr>
-                <tr class="upcoming">
-                    <td>Dec 29-30, 2025</td>
-                    <td>North Wilkes</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="upcoming">
-                    <td>Jan 2, 2026</td>
-                    <td></td>
-                    <td>Martinsville</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="upcoming">
-                    <td>Jan 5-6, 2026</td>
-                    <td>Sonoma</td>
-                    <td></td>
-                    <td>Bristol</td>
-                    <td></td>
-                </tr>
-                <tr class="upcoming">
-                    <td>Jan 8, 2026</td>
-                    <td></td>
-                    <td>Sonoma</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="upcoming">
-                    <td>Jan 12-13, 2026</td>
-                    <td>Dover</td>
-                    <td></td>
-                    <td>Royal</td>
-                    <td></td>
-                </tr>
-                <tr class="upcoming">
-                    <td>Jan 15, 2026</td>
-                    <td></td>
-                    <td>Dover</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="upcoming">
-                    <td>Jan 19-20, 2026</td>
-                    <td>WWT</td>
-                    <td></td>
-                    <td>Homestead</td>
-                    <td></td>
-                </tr>
-                <tr class="upcoming">
-                    <td>Jan 22, 2026</td>
-                    <td></td>
-                    <td>Daytona</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-        <p><strong>Completed races</strong> highlighted in green • <strong>Upcoming</strong> in yellow</p>
-        <p>All times EST • Races streamed live in Discord</p>
+        <div id="schedule-table">
+            <p>Loading schedule...</p>
+        </div>
     </div>
     <footer>
         © 2025-2026 ASCRL | NASCAR-inspired fantasy league | Built for stock car racing passion
     </footer>
+
+    <script>
+        const currentDate = new Date('2025-12-15');  // Current date for completed/upcoming
+
+        fetch('schedule.json')
+            .then(response => response.json())
+            .then(data => {
+                const tableDiv = document.getElementById('schedule-table');
+                tableDiv.innerHTML = '';
+                const table = document.createElement('table');
+                const thead = document.createElement('thead');
+                thead.innerHTML = '<tr><th>Date</th><th>Cup Series</th><th>Xfinity Series</th><th>Truck Series</th><th>Menards Series</th></tr>';
+                table.appendChild(thead);
+                const tbody = document.createElement('tbody');
+
+                const maxRaces = Math.max(
+                    data.Cup.length,
+                    data.Xfinity.length,
+                    data.Truck.length,
+                    data.Menards.length
+                );
+
+                for (let i = 0; i < maxRaces; i++) {
+                    const tr = document.createElement('tr');
+                    const cup = data.Cup[i] || {date: '', track: ''};
+                    const xfinity = data.Xfinity[i] || {date: '', track: ''};
+                    const truck = data.Truck[i] || {date: '', track: ''};
+                    const menards = data.Menards[i] || {date: '', track: ''};
+
+                    const raceDate = cup.date || xfinity.date || truck.date || menards.date || '';
+                    const raceDateObj = raceDate ? new Date(raceDate) : null;
+
+                    if (raceDateObj && raceDateObj < currentDate) {
+                        tr.className = 'completed';
+                    } else if (raceDate) {
+                        tr.className = 'upcoming';
+                    }
+
+                    tr.innerHTML = `
+                        <td>${raceDate}</td>
+                        <td>${cup.track}</td>
+                        <td>${xfinity.track}</td>
+                        <td>${truck.track}</td>
+                        <td>${menards.track}</td>
+                    `;
+                    tbody.appendChild(tr);
+                }
+                table.appendChild(tbody);
+                tableDiv.appendChild(table);
+            })
+            .catch(err => {
+                document.getElementById('schedule-table').innerHTML = '<p>Schedule loading... Upload schedule.json!</p>';
+            });
+    </script>
 </body>
 </html>
