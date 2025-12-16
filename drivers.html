@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -18,9 +19,8 @@
         .driver-card { background: #111; padding: 2rem; border-radius: 15px; border: 3px solid #333; cursor: pointer; transition: 0.3s; text-align: center; }
         .driver-card:hover { border-color: #c00; transform: scale(1.05); background: #222; }
         .number { font-size: 3rem; font-weight: bold; color: #ff0; }
-        .manufacturer { font-size: 1.5rem; }
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 2000; }
-        .modal-content { background: #111; padding: 3rem; border-radius: 20px; max-width: 800px; text-align: center; border: 4px solid #c00; }
+        .modal-content { background: #111; padding: 3rem; border-radius: 20px; max-width: 800px; text-align: center; border: 4px solid #c00; position: relative; }
         .close { position: absolute; top: 20px; right: 30px; font-size: 3rem; cursor: pointer; color: #ff0; }
         footer { background: #111; padding: 2rem; text-align: center; font-size: 0.9rem; }
     </style>
@@ -47,11 +47,10 @@
         </div>
     </div>
 
-    <!-- Modal for Driver Profile -->
     <div id="driver-modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="document.getElementById('driver-modal').style.display='none'">×</span>
-            <h2 id="modal-name"></h2>
+            <h2 id="modal-title"></h2>
             <div id="modal-stats"></div>
         </div>
     </div>
@@ -66,18 +65,18 @@
             .then(data => {
                 const grid = document.getElementById('roster-grid');
                 grid.innerHTML = '';
-                Object.keys(data).forEach(did => {
+                Object.keys(data).sort().forEach(did => {
                     const profile = data[did];
                     const series = Object.keys(profile.series);
                     if (series.length === 0) return;
                     const primary = profile.series[series[0]];
                     const card = document.createElement('div');
                     card.className = 'driver-card';
-                    card.onclick = () => showProfile(did, profile);
+                    card.onclick = () => showProfile(profile);
                     card.innerHTML = `
                         <div class="number">#${primary.number || '?'}</div>
-                        <h3>${primary.driver || 'Driver'}</h3>
-                        <p class="manufacturer">${primary.manufacturer || ''}</p>
+                        <h3>${profile.display_name || 'Driver'}</h3>
+                        <p>${primary.manufacturer || ''}</p>
                         <p>${primary.team || ''}</p>
                         <p>${series.length} Series</p>
                     `;
@@ -85,22 +84,22 @@
                 });
             });
 
-        function showProfile(did, profile) {
+        function showProfile(profile) {
             const modal = document.getElementById('driver-modal');
-            document.getElementById('modal-name').textContent = profile.driver || 'Driver Profile';
+            document.getElementById('modal-title').textContent = `${profile.display_name || 'Driver'} — Full Career Profile`;
             const statsDiv = document.getElementById('modal-stats');
             statsDiv.innerHTML = '';
-            Object.keys(profile.series).forEach(series => {
+            Object.keys(profile.series).sort().forEach(series => {
                 const s = profile.series[series];
                 const stats = s.stats || {points: 0, wins: 0, top5: 0, top10: 0, poles: 0, avg: 'N/A'};
                 const div = document.createElement('div');
+                div.style.margin = '2rem 0';
                 div.innerHTML = `
-                    <h3>${series} Series — #${s.number || '?'}</h3>
+                    <h3>${series} Series — #${s.number || '?'} ${s.manufacturer || ''}</h3>
                     <p>Team: ${s.team || 'Independent'}</p>
-                    <p>Manufacturer: ${s.manufacturer || ''}</p>
                     <p>Points: ${stats.points} | Wins: ${stats.wins} | Top 5: ${stats.top5}</p>
                     <p>Top 10: ${stats.top10} | Poles: ${stats.poles} | Avg Finish: ${stats.avg}</p>
-                    <hr>
+                    <hr style="border-color: #333;">
                 `;
                 statsDiv.appendChild(div);
             });
