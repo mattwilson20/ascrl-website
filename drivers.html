@@ -24,7 +24,9 @@
         .driver-card:hover { border-color: #c00; transform: scale(1.05); background: #222; }
         .number { font-size: 3rem; font-weight: bold; color: #ff0; }
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 2000; }
-        .modal-content { background: #111; padding: 3rem; border-radius: 20px; max-width: 800px; text-align: center; border: 4px solid #c00; position: relative; }
+        .modal-content { background: #111; padding: 3rem; border-radius: 20px; max-width: 90%; max-height: 90%; border: 4px solid #c00; position: relative; display: flex; flex-direction: column; }
+        .modal-header { text-align: center; margin-bottom: 1rem; }
+        .modal-body { overflow-y: auto; padding: 1rem; flex: 1; }
         .close { position: absolute; top: 20px; right: 30px; font-size: 3rem; cursor: pointer; color: #ff0; }
         footer { background: #111; padding: 2rem; text-align: center; font-size: 0.9rem; }
         @media (max-width: 768px) {
@@ -67,8 +69,10 @@
     <div id="driver-modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="document.getElementById('driver-modal').style.display='none'">×</span>
-            <h2 id="modal-title"></h2>
-            <div id="modal-stats"></div>
+            <div class="modal-header">
+                <h2 id="modal-title"></h2>
+            </div>
+            <div class="modal-body" id="modal-stats"></div>
         </div>
     </div>
 
