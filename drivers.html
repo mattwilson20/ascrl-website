@@ -1,1 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCRL Drivers | American Stock Car Racing League</title>
+    <style>
+        body { margin: 0; font-family: 'Arial Black', sans-serif; background: #000; color: #fff; }
+        .navbar { position: fixed; top: 0; left: 0; width: 100%; background: rgba(0,0,0,0.9); padding: 1rem 2rem; display: flex; align-items: center; z-index: 1000; box-shadow: 0 4px 10px rgba(200,0,0,0.5); }
+        .navbar-logo { font-size: 2rem; font-weight: bold; color: #ff0; text-shadow: 2px 2px #c00; margin-right: 3rem; }
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a { color: #fff; text-decoration: none; font-size: 1.2rem; transition: 0.3s; }
+        .nav-links a:hover { color: #ff0; text-shadow: 0 0 10px #c00; }
+        .hero { background: linear-gradient(to bottom, #c00, #900); padding: 10rem 1rem 6rem; text-align: center; margin-top: 60px; }
+        h1 { font-size: 4rem; margin: 0; text-shadow: 4px 4px #000; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .roster { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 3rem 0; }
+        .driver-card { background: #111; padding: 2rem; border-radius: 15px; border: 3px solid #333; cursor: pointer; transition: 0.3s; text-align: center; }
+        .driver-card:hover { border-color: #c00; transform: scale(1.05); background: #222; }
+        .number { font-size: 3rem; font-weight: bold; color: #ff0; }
+        .manufacturer { font-size: 1.5rem; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 2000; }
+        .modal-content { background: #111; padding: 3rem; border-radius: 20px; max-width: 800px; text-align: center; border: 4px solid #c00; }
+        .close { position: absolute; top: 20px; right: 30px; font-size: 3rem; cursor: pointer; color: #ff0; }
+        footer { background: #111; padding: 2rem; text-align: center; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-logo">ASCRL</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="standings.html">Standings</a>
+            <a href="results.html">Results</a>
+            <a href="schedule.html">Schedule</a>
+            <a href="drivers.html">Drivers</a>
+            <a href="rules.html">Rules</a>
+        </div>
+    </nav>
+    <header class="hero">
+        <h1>ASCRL DRIVERS</h1>
+        <p>The Grid — 2025-2026 Season</p>
+    </header>
+    <div class="container">
+        <div id="roster-grid" class="roster">
+            <p>Loading drivers...</p>
+        </div>
+    </div>
 
+    <!-- Modal for Driver Profile -->
+    <div id="driver-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('driver-modal').style.display='none'">×</span>
+            <h2 id="modal-name"></h2>
+            <div id="modal-stats"></div>
+        </div>
+    </div>
+
+    <footer>
+        © 2025-2026 ASCRL | NASCAR-inspired fantasy league | Built for stock car racing passion
+    </footer>
+
+    <script>
+        fetch('drivers.json')
+            .then(response => response.json())
+            .then(data => {
+                const grid = document.getElementById('roster-grid');
+                grid.innerHTML = '';
+                Object.keys(data).forEach(did => {
+                    const profile = data[did];
+                    const series = Object.keys(profile.series);
+                    if (series.length === 0) return;
+                    const primary = profile.series[series[0]];
+                    const card = document.createElement('div');
+                    card.className = 'driver-card';
+                    card.onclick = () => showProfile(did, profile);
+                    card.innerHTML = `
+                        <div class="number">#${primary.number || '?'}</div>
+                        <h3>${primary.driver || 'Driver'}</h3>
+                        <p class="manufacturer">${primary.manufacturer || ''}</p>
+                        <p>${primary.team || ''}</p>
+                        <p>${series.length} Series</p>
+                    `;
+                    grid.appendChild(card);
+                });
+            });
+
+        function showProfile(did, profile) {
+            const modal = document.getElementById('driver-modal');
+            document.getElementById('modal-name').textContent = profile.driver || 'Driver Profile';
+            const statsDiv = document.getElementById('modal-stats');
+            statsDiv.innerHTML = '';
+            Object.keys(profile.series).forEach(series => {
+                const s = profile.series[series];
+                const stats = s.stats || {points: 0, wins: 0, top5: 0, top10: 0, poles: 0, avg: 'N/A'};
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    <h3>${series} Series — #${s.number || '?'}</h3>
+                    <p>Team: ${s.team || 'Independent'}</p>
+                    <p>Manufacturer: ${s.manufacturer || ''}</p>
+                    <p>Points: ${stats.points} | Wins: ${stats.wins} | Top 5: ${stats.top5}</p>
+                    <p>Top 10: ${stats.top10} | Poles: ${stats.poles} | Avg Finish: ${stats.avg}</p>
+                    <hr>
+                `;
+                statsDiv.appendChild(div);
+            });
+            modal.style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
