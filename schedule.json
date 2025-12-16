@@ -25,18 +25,18 @@
         {"date": "2026-01-22", "track": "Daytona"}
     ],
     "Truck": [
-        {"date": "2025-10-20", "track": "Daytona"},
-        {"date": "2025-10-27", "track": "Lime Rock"},
-        {"date": "2025-11-03", "track": "Martinsville"},
-        {"date": "2025-11-10", "track": "Nashville"},
-        {"date": "2025-11-17", "track": "The Rock"},
-        {"date": "2025-12-01", "track": "Texas"},
-        {"date": "2025-12-08", "track": "Michigan"},
-        {"date": "2025-12-15", "track": "IRP"},
-        {"date": "2025-12-29", "track": "Atlanta"},
-        {"date": "2026-01-05", "track": "Bristol"},
-        {"date": "2026-01-12", "track": "Roval"},
-        {"date": "2026-01-19", "track": "Homestead"}
+        {"date": "2025-10-21", "track": "Daytona"},
+        {"date": "2025-10-28", "track": "Lime Rock"},
+        {"date": "2025-11-04", "track": "Martinsville"},
+        {"date": "2025-11-11", "track": "Nashville"},
+        {"date": "2025-11-18", "track": "The Rock"},
+        {"date": "2025-12-02", "track": "Texas"},
+        {"date": "2025-12-09", "track": "Michigan"},
+        {"date": "2025-12-16", "track": "IRP"},
+        {"date": "2025-12-30", "track": "Atlanta"},
+        {"date": "2026-01-06", "track": "Bristol"},
+        {"date": "2026-01-13", "track": "Roval"},
+        {"date": "2026-01-20", "track": "Homestead"}
     ],
     "Menards": [
         {"date": "2025-11-09", "track": "Phoenix"},
