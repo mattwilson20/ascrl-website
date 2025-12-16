@@ -5,12 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASCRL Race Results | American Stock Car Racing League</title>
     <style>
-        body { margin: 0; font-family: 'Arial Black', sans-serif; background: #000; color: #fff; }
-        .navbar { position: fixed; top: 0; left: 0; width: 100%; background: rgba(0,0,0,0.9); padding: 1rem 2rem; display: flex; align-items: center; z-index: 1000; box-shadow: 0 4px 10px rgba(200,0,0,0.5); }
-        .navbar-logo { font-size: 2rem; font-weight: bold; color: #ff0; text-shadow: 2px 2px #c00; margin-right: 3rem; }
-        .nav-links { display: flex; gap: 2rem; }
-        .nav-links a { color: #fff; text-decoration: none; font-size: 1.2rem; transition: 0.3s; }
-        .nav-links a:hover { color: #ff0; text-shadow: 0 0 10px #c00; }
+        body { margin: 0; font-family: 'Arial Black', sans-serif; background: #000; color: #fff; overflow-x: hidden; }
+        /* Hamburger Button */
+        .hamburger { position: fixed; top: 1rem; left: 1rem; z-index: 1002; cursor: pointer; padding: 10px; background: rgba(0,0,0,0.8); border-radius: 8px; }
+        .hamburger-line { width: 30px; height: 4px; background: #ff0; margin: 6px 0; transition: 0.4s; border-radius: 2px; }
+        /* Overlay Menu */
+        .nav-overlay { position: fixed; top: 0; left: -100%; width: 80%; max-width: 300px; height: 100vh; background: rgba(0,0,0,0.95); transition: left 0.4s ease; z-index: 1001; padding-top: 80px; box-shadow: 5px 0 15px rgba(200,0,0,0.8); overflow-y: auto; }
+        .nav-overlay.open { left: 0; }
+        .nav-logo { font-size: 2.5rem; color: #ff0; text-shadow: 3px 3px #c00; margin: 0 0 3rem 2rem; }
+        .nav-links { display: flex; flex-direction: column; gap: 1rem; padding: 0 2rem; }
+        .nav-links a { color: #fff; text-decoration: none; font-size: 1.5rem; padding: 1rem; border-radius: 10px; transition: 0.3s; text-align: left; }
+        .nav-links a:hover { background: #c00; color: #ff0; }
         .hero { background: linear-gradient(to bottom, #c00, #900); padding: 10rem 1rem 6rem; text-align: center; margin-top: 60px; }
         h1 { font-size: 4rem; margin: 0; text-shadow: 4px 4px #000; }
         .container { max-width: 1200px; margin: 0 auto; padding: 2rem; text-align: center; }
@@ -27,11 +32,22 @@
         .pole { color: #ff0; font-weight: bold; }
         .fl { color: #0f0; font-weight: bold; }
         footer { background: #111; padding: 2rem; text-align: center; font-size: 0.9rem; }
+        @media (max-width: 768px) {
+            .hamburger { top: 0.5rem; left: 0.5rem; }
+        }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="navbar-logo">ASCRL</div>
+    <!-- Hamburger Button -->
+    <div class="hamburger" onclick="toggleMenu()">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </div>
+
+    <!-- Overlay Menu -->
+    <div class="nav-overlay" id="nav-menu">
+        <div class="nav-logo">ASCRL</div>
         <div class="nav-links">
             <a href="index.html">Home</a>
             <a href="standings.html">Standings</a>
@@ -40,7 +56,8 @@
             <a href="drivers.html">Drivers</a>
             <a href="rules.html">Rules</a>
         </div>
-    </nav>
+    </div>
+
     <header class="hero">
         <h1>ASCRL RACE RESULTS</h1>
         <p>2025-2026 Inaugural Season | Full Archive</p>
@@ -66,6 +83,10 @@
     </footer>
 
     <script>
+        function toggleMenu() {
+            document.getElementById('nav-menu').classList.toggle('open');
+        }
+
         let resultsData = {};
 
         fetch('race_results.json')
