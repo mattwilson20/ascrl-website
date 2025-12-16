@@ -18,8 +18,9 @@
         th { background: #c00; padding: 1.2rem; text-align: center; }
         td { padding: 1rem; text-align: center; border-bottom: 1px solid #333; }
         tr:hover { background: #222; }
-        .completed { background: rgba(0, 255, 0, 0.1); }
-        .upcoming { background: rgba(255, 255, 0, 0.1); font-weight: bold; }
+        .completed { background: rgba(0, 255, 0, 0.15); }
+        .upcoming { background: rgba(255, 255, 0, 0.15); font-weight: bold; }
+        .timeline { font-size: 1.3rem; margin: 2rem 0; text-align: center; color: #ff0; }
         footer { background: #111; padding: 2rem; text-align: center; font-size: 0.9rem; }
     </style>
 </head>
@@ -40,7 +41,7 @@
         <p>2025-2026 Inaugural Season | Weekly Racing Across Four Series</p>
     </header>
     <div class="container">
-        <p><strong>Race Night Timeline (EST):</strong> Practice 8:00 PM • Qualifying 9:00 PM • Race 9:20 PM</p>
+        <p class="timeline"><strong>Race Night Timeline (EST):</strong> Practice 8:00 PM • Qualifying 9:00 PM • Race 9:20 PM</p>
         <div id="schedule-table">
             <p>Loading schedule...</p>
         </div>
@@ -50,7 +51,7 @@
     </footer>
 
     <script>
-        const currentDate = new Date('2025-12-15');  // Current date for highlighting
+        const currentDate = new Date('2025-12-15');  // Today — December 15, 2025
 
         fetch('schedule.json')
             .then(response => response.json())
@@ -64,10 +65,10 @@
                 const tbody = document.createElement('tbody');
 
                 const maxRaces = Math.max(
-                    data.Cup.length,
-                    data.Xfinity.length,
-                    data.Truck.length,
-                    data.Menards.length
+                    data.Cup.length || 0,
+                    data.Xfinity.length || 0,
+                    data.Truck.length || 0,
+                    data.Menards.length || 0
                 );
 
                 for (let i = 0; i < maxRaces; i++) {
