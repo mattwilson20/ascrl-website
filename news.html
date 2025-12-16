@@ -62,7 +62,7 @@
     </header>
     <div class="container">
         <div class="article-list" id="articles">
-            <p>Loading latest articles...</p>
+            <p>Loading articles from archive...</p>
         </div>
     </div>
     <footer>
@@ -74,30 +74,27 @@
             document.getElementById('nav-menu').classList.toggle('open');
         }
 
-        // Load articles from /news/ folder
+        // Dynamic article loading from news/ folder
+        // List of articles (generated from filenames)
         const articles = [
-            // Bot will auto-populate this via JSON or GitHub API later
-            // For now, placeholder
+            // Bot will auto-populate — for now placeholder
             {
+                filename: "2025-12-16-irp-truck-recap.md",
                 title: "HockeyDeckout Dominates IRP Truck Thriller",
                 date: "December 16, 2025",
-                author: "League Writer",
-                content: `
-                    <p>HockeyDeckout delivered a masterclass at Lucas Oil Indianapolis Raceway Park, sweeping to victory with the fastest lap bonus in a flag-to-flag performance that shook up the Truck Series championship.</p>
-                    <p>The 18-truck field saw intense battles throughout, with dakotathomas1994 holding his points lead by a thread.</p>
-                    <p>Full results and reactions in Discord #race-results.</p>
-                `
+                content: "Your writer's recap here..."
             }
+            // More auto-added
         ];
 
         const list = document.getElementById('articles');
         list.innerHTML = '';
-        articles.forEach(article => {
+        articles.sort((a, b) => b.filename.localeCompare(a.filename)).forEach(article => {
             const div = document.createElement('div');
             div.className = 'article';
             div.innerHTML = `
                 <h2 class="article-title">${article.title}</h2>
-                <p class="article-meta">By ${article.author} • ${article.date}</p>
+                <p class="article-meta">${article.date}</p>
                 <div class="article-content">${article.content}</div>
             `;
             list.appendChild(div);
