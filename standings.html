@@ -17,10 +17,15 @@
         .series { margin-bottom: 4rem; }
         h2 { color: #ff0; text-shadow: 2px 2px #000; }
         table { width: 100%; border-collapse: collapse; background: #111; border-radius: 10px; overflow: hidden; }
-        th { background: #c00; padding: 1rem; }
+        th { background: #c00; padding: 1.2rem; }
         td { padding: 1rem; border-bottom: 1px solid #333; }
         tr:hover { background: #222; }
         .top-10 { background: rgba(255, 255, 0, 0.1); }
+        .driver-link { color: #ff0; cursor: pointer; text-decoration: underline; }
+        .driver-link:hover { color: #fff; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 2000; }
+        .modal-content { background: #111; padding: 3rem; border-radius: 20px; max-width: 800px; text-align: center; border: 4px solid #c00; }
+        .close { position: absolute; top: 20px; right: 30px; font-size: 3rem; cursor: pointer; color: #ff0; }
         footer { background: #111; padding: 2rem; text-align: center; font-size: 0.9rem; }
     </style>
 </head>
@@ -45,42 +50,103 @@
             <p>Loading live standings from Discord bot...</p>
         </div>
     </div>
+
+    <!-- Driver Profile Modal -->
+    <div id="driver-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('driver-modal').style.display='none'">×</span>
+            <h2 id="modal-title"></h2>
+            <div id="modal-stats"></div>
+        </div>
+    </div>
+
     <footer>
         © 2025-2026 ASCRL | Live data from Discord bot | NASCAR passion every week
     </footer>
 
     <script>
-        fetch('standings.json')
-            .then(response => response.json())
-            .then(data => {
-                const content = document.getElementById('standings-content');
-                content.innerHTML = '';
-                const seriesOrder = ['Cup', 'Xfinity', 'Truck', 'Menards'];
-                seriesOrder.forEach(series => {
-                    if (data[series] && data[series].length > 0) {
-                        const div = document.createElement('div');
-                        div.className = 'series';
-                        div.innerHTML = `<h2>${series} Series</h2>`;
-                        const table = document.createElement('table');
-                        const thead = document.createElement('thead');
-                        thead.innerHTML = '<tr><th>Pos</th><th>Driver</th><th>Points</th></tr>';
-                        table.appendChild(thead);
-                        const tbody = document.createElement('tbody');
-                        data[series].forEach((item, index) => {
-                            const tr = document.createElement('tr');
-                            if (index < 10) tr.className = 'top-10';
-                            tr.innerHTML = `<td>${index + 1}</td><td>${item.driver}</td><td>${item.points}</td>`;
-                            tbody.appendChild(tr);
+        let standingsData = {};
+        let driversData = {};
+
+        Promise.all([
+            fetch('standings.json').then(r => r.json()),
+            fetch('drivers.json').then(r => r.json())
+        ]).then(([standings, drivers]) => {
+            standingsData = standings;
+            driversData = drivers;
+            renderStandings();
+        });
+
+        function renderStandings() {
+            const content = document.getElementById('standings-content');
+            content.innerHTML = '';
+            const seriesOrder = ['Cup', 'Xfinity', 'Truck', 'Menards'];
+            seriesOrder.forEach(series => {
+                if (standingsData[series] && standingsData[series].length > 0) {
+                    const div = document.createElement('div');
+                    div.className = 'series';
+                    div.innerHTML = `<h2>${series} Series</h2>`;
+                    const table = document.createElement('table');
+                    const thead = document.createElement('thead');
+                    thead.innerHTML = '<tr><th>Pos</th><th>Driver</th><th>Points</th></tr>';
+                    table.appendChild(thead);
+                    const tbody = document.createElement('tbody');
+                    standingsData[series].forEach((item, index) => {
+                        const tr = document.createElement('tr');
+                        if (index < 10) tr.className = 'top-10';
+                        const driverTd = document.createElement('td');
+                        const link = document.createElement('span');
+                        link.className = 'driver-link';
+                        link.textContent = item.driver;
+                        link.onclick = () => showDriverProfile(item.driver);
+                        driverTd.appendChild(link);
+                        tr.innerHTML = `<td>${index + 1}</td>`;
+                        tr.appendChild(driverTd);
+                        tr.innerHTML += `<td>${item.points}</td>`;
+                        tbody.appendChild(tr);
+                    });
+                    table.appendChild(tbody);
+                    div.appendChild(table);
+                    content.appendChild(div);
+                }
+            });
+        }
+
+        function showDriverProfile(driverName) {
+            const modal = document.getElementById('driver-modal');
+            document.getElementById('modal-title').textContent = `${driverName} — Full Career Profile`;
+            const statsDiv = document.getElementById('modal-stats');
+            statsDiv.innerHTML = '<p>Cross-series stats loading...</p>';
+            modal.style.display = 'flex';
+
+            // Find driver in drivers.json by matching driver_name
+            let found = false;
+            Object.keys(driversData).forEach(did => {
+                const profile = driversData[did];
+                Object.keys(profile.series).forEach(series => {
+                    if (profile.series[series].driver_name === driverName) {
+                        statsDiv.innerHTML = '';
+                        Object.keys(profile.series).forEach(s => {
+                            const sData = profile.series[s];
+                            const stats = sData.stats || {points: 0, wins: 0, top5: 0, top10: 0, poles: 0, avg: 'N/A'};
+                            const div = document.createElement('div');
+                            div.innerHTML = `
+                                <h3>${s} Series — #${sData.number || '?'} ${sData.manufacturer || ''}</h3>
+                                <p>Team: ${sData.team || 'Independent'}</p>
+                                <p>Points: ${stats.points} | Wins: ${stats.wins} | Top 5: ${stats.top5}</p>
+                                <p>Top 10: ${stats.top10} | Poles: ${stats.poles} | Avg Finish: ${stats.avg}</p>
+                                <hr>
+                            `;
+                            statsDiv.appendChild(div);
                         });
-                        table.appendChild(tbody);
-                        div.appendChild(table);
-                        content.appendChild(div);
+                        found = true;
                     }
                 });
-            })
-            .catch(err => {
-                document.getElementById('standings-content').innerHTML = '<p>Standings updating... Refresh or check Discord!</p>';
             });
+            if (!found) {
+                statsDiv.innerHTML = '<p>No detailed profile found — check Discord /driver_all</p>';
+            }
+        }
     </script>
 </body>
 </html>
