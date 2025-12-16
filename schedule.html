@@ -18,9 +18,9 @@
         th { background: #c00; padding: 1.2rem; text-align: center; }
         td { padding: 1rem; text-align: center; border-bottom: 1px solid #333; }
         tr:hover { background: #222; }
-        .completed { background: rgba(0, 255, 0, 0.15); }
-        .upcoming { background: rgba(255, 255, 0, 0.15); font-weight: bold; }
-        .timeline { font-size: 1.3rem; margin: 2rem 0; text-align: center; color: #ff0; }
+        .completed { background: rgba(0, 255, 0, 0.2); }
+        .upcoming { background: rgba(255, 255, 0, 0.2); font-weight: bold; }
+        .timeline { font-size: 1.3rem; margin: 2rem 0; text-align: center; color: #ff0; text-shadow: 1px 1px #000; }
         footer { background: #111; padding: 2rem; text-align: center; font-size: 0.9rem; }
     </style>
 </head>
@@ -51,7 +51,7 @@
     </footer>
 
     <script>
-        const currentDate = new Date('2025-12-15');  // Today — December 15, 2025
+        const currentDate = new Date('2025-12-15');
 
         fetch('schedule.json')
             .then(response => response.json())
