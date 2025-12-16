@@ -6,17 +6,17 @@
     <title>ASCRL | American Stock Car Racing League</title>
     <style>
         body { margin: 0; font-family: 'Arial Black', sans-serif; background: #000; color: #fff; overflow-x: hidden; }
-        /* Hamburger Menu Button */
-        .hamburger { position: fixed; top: 1rem; left: 1rem; z-index: 1001; cursor: pointer; padding: 10px; background: rgba(0,0,0,0.8); border-radius: 8px; }
+        /* Hamburger Button */
+        .hamburger { position: fixed; top: 1rem; left: 1rem; z-index: 1002; cursor: pointer; padding: 10px; background: rgba(0,0,0,0.8); border-radius: 8px; }
         .hamburger-line { width: 30px; height: 4px; background: #ff0; margin: 6px 0; transition: 0.4s; border-radius: 2px; }
-        /* Dropdown Menu */
-        .nav-menu { position: fixed; top: 0; left: -250px; width: 250px; height: 100%; background: rgba(0,0,0,0.95); padding: 6rem 2rem 2rem; transition: left 0.4s ease; z-index: 1000; box-shadow: 5px 0 15px rgba(200,0,0,0.8); }
-        .nav-menu.open { left: 0; }
-        .nav-logo { font-size: 2.5rem; color: #ff0; text-shadow: 3px 3px #c00; margin-bottom: 3rem; text-align: center; }
-        .nav-links { display: flex; flex-direction: column; gap: 1.5rem; }
-        .nav-links a { color: #fff; text-decoration: none; font-size: 1.5rem; padding: 1rem; border-radius: 10px; transition: 0.3s; text-align: center; }
+        /* Overlay Menu - Limited Height */
+        .nav-overlay { position: fixed; top: 0; left: -100%; width: 80%; max-width: 300px; height: 100vh; background: rgba(0,0,0,0.95); transition: left 0.4s ease; z-index: 1001; padding-top: 80px; box-shadow: 5px 0 15px rgba(200,0,0,0.8); overflow-y: auto; }
+        .nav-overlay.open { left: 0; }
+        .nav-logo { font-size: 2.5rem; color: #ff0; text-shadow: 3px 3px #c00; margin: 0 0 3rem 2rem; }
+        .nav-links { display: flex; flex-direction: column; gap: 1rem; padding: 0 2rem; }
+        .nav-links a { color: #fff; text-decoration: none; font-size: 1.5rem; padding: 1rem; border-radius: 10px; transition: 0.3s; text-align: left; }
         .nav-links a:hover { background: #c00; color: #ff0; }
-        /* Hero Section */
+        /* Hero */
         .hero { background: linear-gradient(to bottom, #c00, #900); padding: 12rem 1rem 8rem; text-align: center; position: relative; overflow: hidden; }
         .checkered { background: repeating-conic-gradient(#fff 0% 25%, #000 0% 50%) 50% / 60px 60px; opacity: 0.15; position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
         .hero-content { position: relative; z-index: 1; }
@@ -36,15 +36,15 @@
     </style>
 </head>
 <body>
-    <!-- Hamburger Menu Button -->
+    <!-- Hamburger Button -->
     <div class="hamburger" onclick="toggleMenu()">
         <div class="hamburger-line"></div>
         <div class="hamburger-line"></div>
         <div class="hamburger-line"></div>
     </div>
 
-    <!-- Dropdown Navigation Menu -->
-    <div class="nav-menu" id="nav-menu">
+    <!-- Overlay Menu -->
+    <div class="nav-overlay" id="nav-menu">
         <div class="nav-logo">ASCRL</div>
         <div class="nav-links">
             <a href="index.html">Home</a>
