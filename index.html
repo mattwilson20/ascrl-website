@@ -24,18 +24,14 @@
         .btn { display: inline-block; background: #fff; color: #000; padding: clamp(1rem, 3vw, 1.5rem) clamp(2rem, 6vw, 3rem); margin: 1rem; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: clamp(1.2rem, 4vw, 1.8rem); transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
         .btn:hover { background: #ff0; transform: translateY(-5px); box-shadow: 0 8px 25px rgba(255,255,0,0.4); }
         .container { max-width: 1200px; margin: 0 auto; padding: 3rem 1rem; text-align: center; }
-        .section { margin: 4rem 0; line-height: 1.6; }
-        .countdown { background: #111; padding: 2rem; border-radius: 15px; border: 3px solid #c00; margin: 3rem 0; box-shadow: 0 4px 20px rgba(200,0,0,0.5); }
-        .countdown-title { font-size: 2rem; margin-bottom: 1rem; color: #ff0; text-shadow: 2px 2px #c00; }
-        .timer { font-size: clamp(2rem, 8vw, 4rem); font-weight: bold; letter-spacing: 0.1em; color: #ff0; text-shadow: 3px 3px #000; }
-        .next-race { font-size: 1.5rem; margin: 1rem 0; }
+        .countdowns { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 3rem 0; }
+        .countdown-card { background: #111; padding: 2rem; border-radius: 15px; border: 3px solid #c00; box-shadow: 0 4px 20px rgba(200,0,0,0.5); }
+        .series-title { font-size: 1.8rem; color: #ff0; text-shadow: 2px 2px #000; margin-bottom: 1rem; }
+        .next-race { font-size: 1.4rem; margin: 1rem 0; }
+        .timer { font-size: clamp(1.8rem, 6vw, 3rem); font-weight: bold; letter-spacing: 0.1em; color: #ff0; text-shadow: 3px 3px #000; }
         .leaders { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 3rem 0; }
         .leader-card { background: #111; padding: 2rem; border-radius: 15px; border: 3px solid #c00; box-shadow: 0 4px 15px rgba(200,0,0,0.5); }
         footer { background: #111; padding: 2rem; font-size: 0.9rem; }
-        @media (max-width: 768px) {
-            .hamburger { top: 0.5rem; left: 0.5rem; }
-            .hero { padding: 10rem 1rem 6rem; }
-        }
     </style>
 </head>
 <body>
@@ -69,11 +65,29 @@
         </div>
     </header>
     <div class="container">
-        <!-- Next Race Countdown -->
-        <div class="countdown">
-            <h2 class="countdown-title">NEXT RACE COUNTDOWN</h2>
-            <p class="next-race" id="next-race-info">Loading...</p>
-            <div class="timer" id="countdown-timer">Loading...</div>
+        <!-- Four Series Countdowns -->
+        <h2 style="font-size: 3rem; margin: 3rem 0;">NEXT RACE COUNTDOWNS</h2>
+        <div class="countdowns">
+            <div class="countdown-card" id="cup-countdown">
+                <div class="series-title">Cup Series</div>
+                <p class="next-race" id="cup-next">Loading...</p>
+                <div class="timer" id="cup-timer">Loading...</div>
+            </div>
+            <div class="countdown-card" id="xfinity-countdown">
+                <div class="series-title">Xfinity Series</div>
+                <p class="next-race" id="xfinity-next">Loading...</p>
+                <div class="timer" id="xfinity-timer">Loading...</div>
+            </div>
+            <div class="countdown-card" id="truck-countdown">
+                <div class="series-title">Truck Series</div>
+                <p class="next-race" id="truck-next">Loading...</p>
+                <div class="timer" id="truck-timer">Loading...</div>
+            </div>
+            <div class="countdown-card" id="menards-countdown">
+                <div class="series-title">Menards Series</div>
+                <p class="next-race" id="menards-next">Loading...</p>
+                <div class="timer" id="menards-timer">Loading...</div>
+            </div>
         </div>
 
         <div class="section">
@@ -104,35 +118,30 @@
             document.getElementById('nav-menu').classList.toggle('open');
         }
 
-        // Countdown Timer
+        // Four Series Countdowns
         fetch('schedule.json')
             .then(response => response.json())
             .then(data => {
-                const allRaces = [];
-                ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(series => {
-                    if (data[series]) {
-                        data[series].forEach(race => {
-                            allRaces.push({
-                                date: race.date,
-                                track: race.track,
-                                series: series
-                            });
-                        });
+                const seriesList = ['Cup', 'Xfinity', 'Truck', 'Menards'];
+                seriesList.forEach(series => {
+                    if (data[series] && data[series].length > 0) {
+                        const nextRace = data[series].find(r => new Date(r.date) > new Date());
+                        if (nextRace) {
+                            document.getElementById(`${series.toLowerCase()}-next`).textContent = `Next: ${nextRace.track} — ${nextRace.date}`;
+                            startCountdown(`${series.toLowerCase()}-timer`, new Date(nextRace.date + 'T20:00:00')); // 8:00 PM EST
+                        } else {
+                            document.getElementById(`${series.toLowerCase()}-next`).textContent = 'Season Complete';
+                            document.getElementById(`${series.toLowerCase()}-timer`).textContent = 'Championship Awaits!';
+                        }
+                    } else {
+                        document.getElementById(`${series.toLowerCase()}-next`).textContent = 'No races scheduled';
+                        document.getElementById(`${series.toLowerCase()}-timer`).textContent = '';
                     }
                 });
-                allRaces.sort((a, b) => new Date(a.date) - new Date(b.date));
-                const nextRace = allRaces.find(r => new Date(r.date) > new Date());
-                if (nextRace) {
-                    document.getElementById('next-race-info').textContent = `Next Up: ${nextRace.track} — ${nextRace.series} Series`;
-                    startCountdown(new Date(nextRace.date + 'T20:00:00')); // 8:00 PM EST
-                } else {
-                    document.getElementById('next-race-info').textContent = 'Season Complete — Championship Awaits!';
-                    document.getElementById('countdown-timer').textContent = 'Green Flag Flown';
-                }
             });
 
-        function startCountdown(targetDate) {
-            const timer = document.getElementById('countdown-timer');
+        function startCountdown(elementId, targetDate) {
+            const timer = document.getElementById(elementId);
             setInterval(() => {
                 const now = new Date();
                 const diff = targetDate - now;
