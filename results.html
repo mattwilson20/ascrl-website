@@ -72,7 +72,7 @@
             <h2 id="race-title"></h2>
             <table id="results-table">
                 <thead>
-                    <tr><th>Pos</th><th>Driver</th><th>Notes</th></tr>
+                    <tr><th>Pos</th><th>Driver</th><th>Points</th><th>Notes</th></tr>
                 </thead>
                 <tbody></tbody>
             </table>
@@ -151,7 +151,7 @@
                 let notes = '';
                 if (item.pole === "Yes") notes += 'Pole ';
                 if (item.fl === "FL") notes += 'Fastest Lap ';
-                tr.innerHTML = `<td>${item.position}</td><td>${item.driver}</td><td class="${item.pole ? 'pole' : ''} ${item.fl ? 'fl' : ''}">${notes}</td>`;
+                tr.innerHTML = `<td>${item.position}</td><td>${item.driver}</td><td>${item.points || 'N/A'}</td><td class="${item.pole ? 'pole' : ''} ${item.fl ? 'fl' : ''}">${notes}</td>`;
                 tbody.appendChild(tr);
             });
         }
