@@ -22,10 +22,10 @@
         .article-list { display: grid; gap: 3rem; }
         .article { background: #111; padding: 3rem; border-radius: 15px; border: 2px solid #333; transition: 0.3s; }
         .article:hover { border-color: #c00; }
-        .article-title { font-size: 2.5rem; margin: 0 0 1rem; color: #ff0; text-shadow: 2px 2px #000; }
-        .article-meta { font-style: italic; color: #ccc; margin-bottom: 2rem; }
-        .article-content { font-size: 1.2rem; }
-        .article-content img { max-width: 100%; border-radius: 10px; margin: 2rem 0; display: block; }
+        .article-title { font-size: 2.5rem; margin: 0 0 1rem; color: #ff0; text-shadow: 2px 2px #000; text-align: center; }
+        .article-meta { font-style: italic; color: #ccc; margin-bottom: 2rem; text-align: center; }
+        .article-content { font-size: 1.2rem; text-align: center; }
+        .article-content img { max-width: 100%; border-radius: 10px; margin: 2rem 0; display: block; box-shadow: 0 4px 20px rgba(255,255,0,0.3); }
         .article-content h2, .article-content h3 { color: #ff0; margin-top: 2rem; }
         .article-content p { margin: 1.5rem 0; }
         footer { background: #111; padding: 2rem; text-align: center; font-size: 0.9rem; }
@@ -62,7 +62,19 @@
     </header>
     <div class="container">
         <div class="article-list" id="articles">
-            <p>Loading articles from archive...</p>
+            <!-- BIG_FELLA Atlanta Home Win — November 6, 2025 -->
+            <div class="article">
+                <h2 class="article-title">BIG_FELLA Wins at Home — Atlanta Thriller</h2>
+                <p class="article-meta">November 6, 2025</p>
+                <div class="article-content">
+                    <p>After a bumpy start and what felt like 100 laps under yellow, the racing really picked up in the second half. Multiple restarts kept the pack tight most of the race, and a last-second shove put BIG_FELLAx2220 first across the line in front of his hometown fans in Atlanta!</p>
+                    <img src="https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/big-fella-atlanta-win.jpg" alt="BIG_FELLA Atlanta Victory Burnout — #3 Bass Pro Shops Camo Car">
+                    <p class="article-caption">BIG_FELLA celebrates with a massive burnout — the #3 car smokes tires as the checkered flag waves at Atlanta Motor Speedway.</p>
+                </div>
+            </div>
+
+            <!-- Placeholder for future auto-loaded articles -->
+            <p>Loading more articles from archive...</p>
         </div>
     </div>
     <footer>
@@ -73,32 +85,6 @@
         function toggleMenu() {
             document.getElementById('nav-menu').classList.toggle('open');
         }
-
-        // Dynamic article loading from news/ folder
-        // List of articles (generated from filenames)
-        const articles = [
-            // Bot will auto-populate — for now placeholder
-            {
-                filename: "2025-12-16-irp-truck-recap.md",
-                title: "HockeyDeckout Dominates IRP Truck Thriller",
-                date: "December 16, 2025",
-                content: "Your writer's recap here..."
-            }
-            // More auto-added
-        ];
-
-        const list = document.getElementById('articles');
-        list.innerHTML = '';
-        articles.sort((a, b) => b.filename.localeCompare(a.filename)).forEach(article => {
-            const div = document.createElement('div');
-            div.className = 'article';
-            div.innerHTML = `
-                <h2 class="article-title">${article.title}</h2>
-                <p class="article-meta">${article.date}</p>
-                <div class="article-content">${article.content}</div>
-            `;
-            list.appendChild(div);
-        });
     </script>
 </body>
 </html>
