@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCRL News & Articles | American Stock Car Racing League</title>
+    <style>
+        body { margin: 0; font-family: 'Georgia', serif; background: #000; color: #fff; line-height: 1.8; overflow-x: hidden; }
+        /* Hamburger Button */
+        .hamburger { position: fixed; top: 1rem; left: 1rem; z-index: 1002; cursor: pointer; padding: 10px; background: rgba(0,0,0,0.8); border-radius: 8px; }
+        .hamburger-line { width: 30px; height: 4px; background: #ff0; margin: 6px 0; transition: 0.4s; border-radius: 2px; }
+        /* Overlay Menu */
+        .nav-overlay { position: fixed; top: 0; left: -100%; width: 80%; max-width: 300px; height: 100vh; background: rgba(0,0,0,0.95); transition: left 0.4s ease; z-index: 1001; padding-top: 80px; box-shadow: 5px 0 15px rgba(200,0,0,0.8); overflow-y: auto; }
+        .nav-overlay.open { left: 0; }
+        .nav-logo { font-size: 2.5rem; color: #ff0; text-shadow: 3px 3px #c00; margin: 0 0 3rem 2rem; }
+        .nav-links { display: flex; flex-direction: column; gap: 1rem; padding: 0 2rem; }
+        .nav-links a { color: #fff; text-decoration: none; font-size: 1.5rem; padding: 1rem; border-radius: 10px; transition: 0.3s; text-align: left; }
+        .nav-links a:hover { background: #c00; color: #ff0; }
+        .hero { background: linear-gradient(to bottom, #c00, #900); padding: 10rem 1rem 6rem; text-align: center; margin-top: 60px; }
+        h1 { font-size: 4rem; margin: 0; text-shadow: 4px 4px #000; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 3rem 1rem; }
+        .article-list { display: grid; gap: 3rem; }
+        .article { background: #111; padding: 3rem; border-radius: 15px; border: 2px solid #333; transition: 0.3s; }
+        .article:hover { border-color: #c00; }
+        .article-title { font-size: 2.5rem; margin: 0 0 1rem; color: #ff0; text-shadow: 2px 2px #000; }
+        .article-meta { font-style: italic; color: #ccc; margin-bottom: 2rem; }
+        .article-content { font-size: 1.2rem; }
+        .article-content img { max-width: 100%; border-radius: 10px; margin: 2rem 0; display: block; }
+        .article-content h2, .article-content h3 { color: #ff0; margin-top: 2rem; }
+        .article-content p { margin: 1.5rem 0; }
+        footer { background: #111; padding: 2rem; text-align: center; font-size: 0.9rem; }
+        @media (max-width: 768px) {
+            .hamburger { top: 0.5rem; left: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hamburger Button -->
+    <div class="hamburger" onclick="toggleMenu()">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </div>
+
+    <!-- Overlay Menu -->
+    <div class="nav-overlay" id="nav-menu">
+        <div class="nav-logo">ASCRL</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="standings.html">Standings</a>
+            <a href="results.html">Results</a>
+            <a href="schedule.html">Schedule</a>
+            <a href="drivers.html">Drivers</a>
+            <a href="rules.html">Rules</a>
+            <a href="news.html">News</a>
+        </div>
+    </div>
+
+    <header class="hero">
+        <h1>ASCRL NEWS & ARTICLES</h1>
+        <p>Weekly Race Recaps • Driver Features • Championship Coverage</p>
+    </header>
+    <div class="container">
+        <div class="article-list" id="articles">
+            <p>Loading latest articles...</p>
+        </div>
+    </div>
+    <footer>
+        © 2025-2026 ASCRL | NASCAR-inspired journalism | Built for stock car racing passion
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('nav-menu').classList.toggle('open');
+        }
+
+        // Load articles from /news/ folder
+        const articles = [
+            // Bot will auto-populate this via JSON or GitHub API later
+            // For now, placeholder
+            {
+                title: "HockeyDeckout Dominates IRP Truck Thriller",
+                date: "December 16, 2025",
+                author: "League Writer",
+                content: `
+                    <p>HockeyDeckout delivered a masterclass at Lucas Oil Indianapolis Raceway Park, sweeping to victory with the fastest lap bonus in a flag-to-flag performance that shook up the Truck Series championship.</p>
+                    <p>The 18-truck field saw intense battles throughout, with dakotathomas1994 holding his points lead by a thread.</p>
+                    <p>Full results and reactions in Discord #race-results.</p>
+                `
+            }
+        ];
+
+        const list = document.getElementById('articles');
+        list.innerHTML = '';
+        articles.forEach(article => {
+            const div = document.createElement('div');
+            div.className = 'article';
+            div.innerHTML = `
+                <h2 class="article-title">${article.title}</h2>
+                <p class="article-meta">By ${article.author} • ${article.date}</p>
+                <div class="article-content">${article.content}</div>
+            `;
+            list.appendChild(div);
+        });
+    </script>
+</body>
+</html>
