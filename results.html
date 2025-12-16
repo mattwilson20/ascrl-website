@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASCRL Schedule | American Stock Car Racing League</title>
+    <title>ASCRL Race Results | American Stock Car Racing League</title>
     <style>
         body { margin: 0; font-family: 'Arial Black', sans-serif; background: #000; color: #fff; }
         .navbar { position: fixed; top: 0; left: 0; width: 100%; background: rgba(0,0,0,0.9); padding: 1rem 2rem; display: flex; align-items: center; z-index: 1000; box-shadow: 0 4px 10px rgba(200,0,0,0.5); }
@@ -13,15 +13,19 @@
         .nav-links a:hover { color: #ff0; text-shadow: 0 0 10px #c00; }
         .hero { background: linear-gradient(to bottom, #c00, #900); padding: 10rem 1rem 6rem; text-align: center; margin-top: 60px; }
         h1 { font-size: 4rem; margin: 0; text-shadow: 4px 4px #000; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
-        table { width: 100%; border-collapse: collapse; margin: 2rem 0; background: #111; border-radius: 10px; overflow: hidden; }
-        th { background: #c00; padding: 1.2rem; text-align: center; }
-        td { padding: 1rem; text-align: center; border-bottom: 1px solid #333; }
-        tr:hover { background: #222; }
-        .completed { background: rgba(0, 255, 0, 0.2); }
-        .upcoming { background: rgba(255, 255, 0, 0.2); font-weight: bold; }
-        .timeline { font-size: 1.3rem; margin: 2rem 0; text-align: center; color: #ff0; text-shadow: 1px 1px #000; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; text-align: center; }
         select { padding: 1rem; font-size: 1.2rem; margin: 2rem 0; background: #111; color: #fff; border: 2px solid #c00; border-radius: 10px; width: 100%; max-width: 400px; }
+        .race-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin: 2rem 0; }
+        .race-card { background: #111; padding: 1.5rem; text-align: center; border-radius: 10px; cursor: pointer; border: 2px solid #333; transition: 0.3s; }
+        .race-card:hover { background: #222; border-color: #c00; transform: scale(1.05); }
+        .results-section { margin: 3rem 0; }
+        table { width: 100%; border-collapse: collapse; background: #111; border-radius: 10px; overflow: hidden; }
+        th { background: #c00; padding: 1.2rem; }
+        td { padding: 1rem; border-bottom: 1px solid #333; }
+        tr:hover { background: #222; }
+        .winner { background: #330; font-weight: bold; }
+        .pole { color: #ff0; font-weight: bold; }
+        .fl { color: #0f0; font-weight: bold; }
         footer { background: #111; padding: 2rem; text-align: center; font-size: 0.9rem; }
     </style>
 </head>
@@ -38,70 +42,98 @@
         </div>
     </nav>
     <header class="hero">
-        <h1>ASCRL SCHEDULE</h1>
-        <p>2025-2026 Inaugural Season | Weekly Racing Across Four Series</p>
+        <h1>ASCRL RACE RESULTS</h1>
+        <p>2025-2026 Inaugural Season | Full Archive</p>
     </header>
     <div class="container">
-        <p class="timeline"><strong>Race Night Timeline (EST):</strong> Practice 8:00 PM • Qualifying 9:00 PM • Race 9:20 PM</p>
         <label for="series-select">Select Series:</label>
         <select id="series-select">
-            <option value="">-- Choose a Series --</option>
-            <option value="Cup">Cup Series</option>
-            <option value="Xfinity">Xfinity Series</option>
-            <option value="Truck">Truck Series</option>
-            <option value="Menards">Menards Series</option>
+            <option value="">-- Choose Series --</option>
         </select>
-        <div id="schedule-table">
-            <p>Select a series to view its schedule...</p>
+        <div id="race-list" class="race-list"></div>
+        <div id="results-section" class="results-section" style="display: none;">
+            <h2 id="race-title"></h2>
+            <table id="results-table">
+                <thead>
+                    <tr><th>Pos</th><th>Driver</th><th>Notes</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
     </div>
     <footer>
-        © 2025-2026 ASCRL | NASCAR-inspired fantasy league | Built for stock car racing passion
+        © 2025-2026 ASCRL | Results powered by Discord bot | NASCAR passion every week
     </footer>
 
     <script>
-        const currentDate = new Date('2025-12-15');
+        let resultsData = {};
 
-        fetch('schedule.json')
+        fetch('race_results.json')
             .then(response => {
                 if (!response.ok) throw new Error('File not found');
                 return response.json();
             })
             .then(data => {
-                document.getElementById('series-select').addEventListener('change', function() {
-                    const series = this.value;
-                    const tableDiv = document.getElementById('schedule-table');
-                    tableDiv.innerHTML = '';
-
-                    if (!series || !data[series] || data[series].length === 0) {
-                        tableDiv.innerHTML = '<p>No races scheduled for this series yet.</p>';
-                        return;
+                resultsData = data;
+                const select = document.getElementById('series-select');
+                const seriesMap = {};
+                Object.keys(data).forEach(key => {
+                    const parts = key.split(' - ');
+                    if (parts.length === 2) {
+                        const series = parts[0];
+                        if (!seriesMap[series]) seriesMap[series] = [];
+                        seriesMap[series].push(key);
                     }
-
-                    const table = document.createElement('table');
-                    const thead = document.createElement('thead');
-                    thead.innerHTML = `<tr><th>Date</th><th>${series} Series Track</th></tr>`;
-                    table.appendChild(thead);
-                    const tbody = document.createElement('tbody');
-
-                    data[series].forEach(race => {
-                        const tr = document.createElement('tr');
-                        const raceDateObj = new Date(race.date);
-                        if (raceDateObj < currentDate) {
-                            tr.className = 'completed';
-                        } else {
-                            tr.className = 'upcoming';
-                        }
-                        tr.innerHTML = `<td>${race.date}</td><td>${race.track}</td>`;
-                        tbody.appendChild(tr);
-                    });
-                    table.appendChild(tbody);
-                    tableDiv.appendChild(table);
+                });
+                Object.keys(seriesMap).sort().forEach(series => {
+                    const option = document.createElement('option');
+                    option.value = series;
+                    option.textContent = `${series} Series (${seriesMap[series].length} races)`;
+                    select.appendChild(option);
                 });
             })
             .catch(err => {
-                document.getElementById('schedule-table').innerHTML = '<p>Schedule loading... Make sure schedule.json is uploaded!</p>';
+                document.getElementById('race-list').innerHTML = '<p>Race results loading... Upload race_results.json to repo!</p>';
             });
+
+        document.getElementById('series-select').addEventListener('change', function() {
+            const series = this.value;
+            const raceList = document.getElementById('race-list');
+            raceList.innerHTML = '';
+            document.getElementById('results-section').style.display = 'none';
+
+            if (!series) return;
+
+            const races = Object.keys(resultsData).filter(key => key.startsWith(series + ' - ')).sort((a, b) => b.localeCompare(a));
+            races.forEach(raceKey => {
+                const raceName = raceKey.replace(series + ' - ', '');
+                const card = document.createElement('div');
+                card.className = 'race-card';
+                card.textContent = raceName;
+                card.onclick = () => showResults(raceKey);
+                raceList.appendChild(card);
+            });
+        });
+
+        function showResults(raceKey) {
+            const section = document.getElementById('results-section');
+            section.style.display = 'block';
+            const raceName = raceKey.replace(/^[^-]+ - /, '');
+            const series = raceKey.split(' - ')[0];
+            document.getElementById('race-title').textContent = `${raceName} — ${series} Series`;
+
+            const tbody = document.getElementById('results-table').querySelector('tbody');
+            tbody.innerHTML = '';
+            resultsData[raceKey].forEach((item, index) => {
+                const tr = document.createElement('tr');
+                if (index === 0) tr.className = 'winner';
+                let notes = '';
+                if (item.pole === "Yes") notes += 'Pole ';
+                if (item.fl === "FL") notes += 'Fastest Lap ';
+                tr.innerHTML = `<td>${item.position}</td><td>${item.driver}</td><td class="${item.pole ? 'pole' : ''} ${item.fl ? 'fl' : ''}">${notes}</td>`;
+                tbody.appendChild(tr);
+            });
+        }
     </script>
 </body>
 </html>
