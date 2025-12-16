@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -60,19 +59,22 @@
     </footer>
 
     <script>
+        let driversData = {};
+
         fetch('drivers.json')
             .then(response => response.json())
             .then(data => {
+                driversData = data;
                 const grid = document.getElementById('roster-grid');
                 grid.innerHTML = '';
-                Object.keys(data).sort().forEach(did => {
+                Object.keys(data).forEach(did => {
                     const profile = data[did];
                     const series = Object.keys(profile.series);
                     if (series.length === 0) return;
                     const primary = profile.series[series[0]];
                     const card = document.createElement('div');
                     card.className = 'driver-card';
-                    card.onclick = () => showProfile(profile);
+                    card.onclick = () => showProfile(did, profile);
                     card.innerHTML = `
                         <div class="number">#${primary.number || '?'}</div>
                         <h3>${profile.display_name || 'Driver'}</h3>
@@ -84,7 +86,7 @@
                 });
             });
 
-        function showProfile(profile) {
+        function showProfile(did, profile) {
             const modal = document.getElementById('driver-modal');
             document.getElementById('modal-title').textContent = `${profile.display_name || 'Driver'} — Full Career Profile`;
             const statsDiv = document.getElementById('modal-stats');
