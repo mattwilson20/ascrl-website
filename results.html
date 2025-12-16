@@ -23,7 +23,7 @@
         .race-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin: 2rem 0; }
         .race-card { background: #111; padding: 1.5rem; text-align: center; border-radius: 10px; cursor: pointer; border: 2px solid #333; transition: 0.3s; }
         .race-card:hover { background: #222; border-color: #c00; transform: scale(1.05); }
-        .results-section { margin: 3rem 0; }
+        .results-section { margin: 3rem 0; display: none; }
         table { width: 100%; border-collapse: collapse; background: #111; border-radius: 10px; overflow: hidden; }
         th { background: #c00; padding: 1.2rem; }
         td { padding: 1rem; border-bottom: 1px solid #333; }
@@ -68,7 +68,7 @@
             <option value="">-- Choose Series --</option>
         </select>
         <div id="race-list" class="race-list"></div>
-        <div id="results-section" class="results-section" style="display: none;">
+        <div id="results-section" class="results-section">
             <h2 id="race-title"></h2>
             <table id="results-table">
                 <thead>
