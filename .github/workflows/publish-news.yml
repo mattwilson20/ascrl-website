@@ -1,0 +1,22 @@
+name: Publish News Article
+
+on:
+  repository_dispatch:
+    types: [new_article]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create article file
+        run: |
+          mkdir -p news
+          echo "${{ github.event.client_payload.content }}" > ${{ github.event.client_payload.filename }}
+      - name: Commit and push
+        run: |
+          git config user.name "ASCRL Bot"
+          git config user.email "bot@ascrl.com"
+          git add ${{ github.event.client_payload.filename }}
+          git commit -m "New article: ${{ github.event.client_payload.title }}"
+          git push
