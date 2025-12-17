@@ -33,8 +33,10 @@
         .dot { display: inline-block; width: 12px; height: 12px; background: #333; border-radius: 50%; margin: 0 8px; cursor: pointer; transition: 0.3s; }
         .dot.active { background: #ff0; }
         /* Page Flip Book Styles */
-        .flipbook-container { width: 100%; max-width: 900px; margin: 2rem auto; box-shadow: 0 0 30px rgba(200,0,0,0.8); border-radius: 10px; overflow: hidden; }
-        .st-page-flip { background: #222; }
+        .flipbook-container { width: 100%; max-width: 900px; margin: 2rem auto; box-shadow: 0 0 30px rgba(200,0,0,0.8); border-radius: 10px; overflow: hidden; position: relative; }
+        .flipbook-container .loading { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #ff0; font-size: 1.5rem; z-index: 5; }
+        .st-page-flip { background: #222; opacity: 0; transition: opacity 0.5s; }
+        .st-page-flip.loaded { opacity: 1; }
         .st-page { background: #fff; color: #000; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
         .st-page img { max-width: 100%; max-height: 100%; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
         footer { background: #111; padding: 2rem; text-align: center; font-size: 0.9rem; }
@@ -130,13 +132,12 @@
         let currentSlide = 0;
         const carouselInner = document.getElementById('carousel-inner');
         const dotsContainer = document.getElementById('carousel-dots');
-
-        let flipInstances = []; // To store PageFlip instances
+        let flipInstances = [];
 
         function renderCarousel() {
             carouselInner.innerHTML = '';
             dotsContainer.innerHTML = '';
-            flipInstances.forEach(f => f.destroy()); // Cleanup old instances
+            flipInstances.forEach(f => f.destroy && f.destroy());
             flipInstances = [];
 
             articles.forEach((article, index) => {
@@ -151,8 +152,9 @@
                 if (article.isFlipbook) {
                     contentHTML += article.text + `
                         <div class="flipbook-container">
+                            <div class="loading">Loading ASCRL Weekly Magazine...</div>
                             <div id="flipbook-${index}" class="st-page-flip">
-                                ${article.images.map(src => `<div class="st-page"><img src="${src}" alt="ASCRL Weekly Page"></div>`).join('')}
+                                ${article.images.map(src => `<div class="st-page"><img src="${src}" alt="ASCRL Weekly Page" onload="this.parentElement.parentElement.parentElement.querySelector('.loading')?.remove(); this.parentElement.parentElement.classList.add('loaded');"></div>`).join('')}
                             </div>
                         </div>
                     `;
@@ -164,28 +166,39 @@
                 carouselInner.appendChild(slide);
 
                 if (article.isFlipbook) {
-                    setTimeout(() => {
+                    const initFlipbook = () => {
                         const element = document.getElementById(`flipbook-${index}`);
-                        if (element) {
-                            const flipbook = new St.PageFlip(element, {
-                                width: 450,
-                                height: 600,
-                                size: "stretch",
-                                minWidth: 315,
-                                maxWidth: 900,
-                                minHeight: 420,
-                                maxHeight: 1350,
-                                showCover: true,
-                                mobileScrollSupport: false,
-                                drawShadow: true,
-                                flippingTime: 800,
-                                usePortrait: true,
-                                autoSize: true
-                            });
-                            flipbook.loadFromHTML();
-                            flipInstances.push(flipbook);
+                        if (element && element.children.length > 0) {
+                            try {
+                                const flipbook = new St.PageFlip(element, {
+                                    width: 450,
+                                    height: 600,
+                                    size: "stretch",
+                                    minWidth: 315,
+                                    maxWidth: 900,
+                                    minHeight: 420,
+                                    maxHeight: 1350,
+                                    showCover: true,
+                                    mobileScrollSupport: false,
+                                    drawShadow: true,
+                                    flippingTime: 800,
+                                    usePortrait: true,
+                                    autoSize: true
+                                });
+                                flipbook.loadFromHTML(element.querySelectorAll('.st-page'));
+                                element.classList.add('loaded');
+                                element.parentElement.querySelector('.loading')?.remove();
+                                flipInstances.push(flipbook);
+                            } catch (e) {
+                                console.error("Flipbook init error:", e);
+                                element.parentElement.innerHTML += '<p style="color:#ff0; text-align:center;">Magazine load failed — displaying images below:</p>' + article.images.map(src => `<img src="${src}" alt="ASCRL Weekly Page">`).join('');
+                            }
                         }
-                    }, 100);
+                    };
+                    // Try init immediately and fallback to images loaded
+                    initFlipbook();
+                    // Also init after a short delay in case DOM ready issue
+                    setTimeout(initFlipbook, 500);
                 }
 
                 const dot = document.createElement('span');
@@ -207,6 +220,12 @@
         function changeSlide(n) {
             currentSlide = (currentSlide + n + articles.length) % articles.length;
             updateCarousel();
+            // Re-init flipbook if landing on it
+            if (articles[currentSlide].isFlipbook) {
+                setTimeout(() => {
+                    flipInstances.forEach(f => f.update && f.update());
+                }, 300);
+            }
         }
 
         function goToSlide(n) {
@@ -215,7 +234,7 @@
         }
 
         window.addEventListener('resize', () => {
-            flipInstances.forEach(f => f.update());
+            flipInstances.forEach(f => f.update && f.update());
         });
 
         renderCarousel();
