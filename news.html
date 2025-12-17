@@ -70,6 +70,7 @@
             transition: var(--transition); margin-top: 1rem;
         }
         .read-btn:hover { transform: scale(1.05); background: #fff; }
+        .read-btn:disabled { background: #444; color: #888; cursor: wait; }
 
         /* --- FULLSCREEN READER --- */
         #reader-overlay {
@@ -104,7 +105,6 @@
             .hero h1 { font-size: 2.2rem; }
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
 </head>
 <body>
 
@@ -148,6 +148,8 @@
     <footer>
         &copy; 2025 ASCRL | NASCAR-inspired Journalism
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
 
     <script>
         const articles = [
@@ -205,7 +207,7 @@
         ];
 
         let currentSlide = 0;
-        let pageFlipInstance = null;
+        let myFlipBook = null;
         let touchStartX = 0;
 
         function renderArticles() {
@@ -217,13 +219,12 @@
                     <span class="date">${art.date}</span>
                     <img src="${art.preview}" class="article-preview-img" alt="Race Image">
                     ${art.isMagazine ? 
-                        `<button class="read-btn" onclick="openReader(${idx})">Read Full Issue</button>` : 
+                        `<button class="read-btn" id="btn-${idx}" onclick="openReader(${idx})">Read Full Issue</button>` : 
                         `<p style="text-align:center; max-width:600px;">${art.content}</p>`
                     }
                 </div>
             `).join('');
 
-            // Mobile Swipe Detection
             const carousel = document.querySelector('.carousel');
             carousel.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX, {passive: true});
             carousel.addEventListener('touchend', e => {
@@ -238,7 +239,23 @@
             document.getElementById('carousel-inner').style.transform = `translateX(-${currentSlide * 100}%)`;
         }
 
-        function openReader(index) {
+        async function openReader(index) {
+            const btn = document.getElementById(`btn-${index}`);
+            btn.disabled = true;
+            btn.innerText = "Loading Pages...";
+
+            // Pre-load images to ensure they have dimensions for the library
+            const loadImages = articles[index].images.map(src => {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.src = src;
+                    img.onload = resolve;
+                    img.onerror = resolve; // Continue anyway if one fails
+                });
+            });
+
+            await Promise.all(loadImages);
+
             const overlay = document.getElementById('reader-overlay');
             overlay.style.display = 'flex';
             document.body.style.overflow = 'hidden'; 
@@ -246,29 +263,32 @@
             const root = document.getElementById('flipbook-root');
             root.innerHTML = `<div id="flipbook-el">${articles[index].images.map(img => `<div class="page"><img src="${img}"></div>`).join('')}</div>`;
 
-            // Corrected Constructor for page-flip library
-            pageFlipInstance = new pageFlip.PageFlip(document.getElementById('flipbook-el'), {
-                width: 550, 
-                height: 750,
-                size: "stretch",
-                minWidth: 315, 
-                maxWidth: 1000,
-                minHeight: 420, 
-                maxHeight: 1350,
-                showCover: true,
-                usePortrait: true,
-                mobileScrollSupport: false
-            });
-            
-            pageFlipInstance.loadFromHTML(document.querySelectorAll('.page'));
+            setTimeout(() => {
+                myFlipBook = new pageFlip.PageFlip(document.getElementById('flipbook-el'), {
+                    width: 550, 
+                    height: 750,
+                    size: "stretch",
+                    minWidth: 315, 
+                    maxWidth: 1000,
+                    minHeight: 420, 
+                    maxHeight: 1350,
+                    showCover: true,
+                    usePortrait: true,
+                    mobileScrollSupport: false
+                });
+                
+                myFlipBook.loadFromHTML(document.querySelectorAll('.page'));
+                btn.disabled = false;
+                btn.innerText = "Read Full Issue";
+            }, 100);
         }
 
         function closeReader() {
             document.getElementById('reader-overlay').style.display = 'none';
             document.body.style.overflow = 'auto';
-            if(pageFlipInstance) {
-                pageFlipInstance.destroy();
-                pageFlipInstance = null;
+            if(myFlipBook) {
+                myFlipBook.destroy();
+                myFlipBook = null;
             }
         }
 
