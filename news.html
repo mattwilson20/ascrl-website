@@ -1,273 +1,282 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ASCRL News | American Stock Car Racing League</title>
-    <style>
-        :root {
-            --primary: #ff0;
-            --secondary: #c00;
-            --bg-dark: #0a0a0a;
-            --card-bg: #1a1a1a;
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ASCRL News | American Stock Car Racing League</title>
+    <style>
+        :root {
+            --primary: #ff0;
+            --secondary: #c00;
+            --bg-dark: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-        body { 
-            margin: 0; 
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-            background: var(--bg-dark); 
-            color: #fff; 
-            line-height: 1.6; 
-            overflow-x: hidden; 
-        }
+        body { 
+            margin: 0; 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            background: var(--bg-dark); 
+            color: #fff; 
+            line-height: 1.6; 
+            overflow-x: hidden; 
+        }
 
-        /* --- NAVIGATION --- */
-        .hamburger { 
-            position: fixed; top: 1rem; left: 1rem; z-index: 2000; 
-            cursor: pointer; padding: 12px; background: rgba(0,0,0,0.8); 
-            border-radius: 12px; border: 1px solid rgba(255,255,0,0.3);
-            display: flex; flex-direction: column; gap: 5px;
-        }
-        .hamburger-line { width: 25px; height: 3px; background: var(--primary); transition: var(--transition); border-radius: 2px; }
-        
-        .nav-overlay { 
-            position: fixed; top: 0; left: -100%; width: 100%; max-width: 320px; 
-            height: 100vh; background: rgba(0,0,0,0.98); transition: var(--transition); 
-            z-index: 1999; padding-top: 100px; backdrop-filter: blur(10px);
-            border-right: 2px solid var(--secondary);
-        }
-        .nav-overlay.open { left: 0; }
-        .nav-links { display: flex; flex-direction: column; padding: 0 2rem; }
-        .nav-links a { 
-            color: #fff; text-decoration: none; font-size: 1.2rem; font-weight: bold;
-            padding: 1rem; border-bottom: 1px solid #222; transition: var(--transition); 
-        }
-        .nav-links a:hover { color: var(--primary); padding-left: 1.5rem; background: rgba(204,0,0,0.1); }
+        /* --- NAVIGATION --- */
+        .hamburger { 
+            position: fixed; top: 1rem; left: 1rem; z-index: 2000; 
+            cursor: pointer; padding: 12px; background: rgba(0,0,0,0.8); 
+            border-radius: 12px; border: 1px solid rgba(255,255,0,0.3);
+            display: flex; flex-direction: column; gap: 5px;
+        }
+        .hamburger-line { width: 25px; height: 3px; background: var(--primary); transition: var(--transition); border-radius: 2px; }
+        
+        .nav-overlay { 
+            position: fixed; top: 0; left: -100%; width: 100%; max-width: 320px; 
+            height: 100vh; background: rgba(0,0,0,0.98); transition: var(--transition); 
+            z-index: 1999; padding-top: 100px; backdrop-filter: blur(10px);
+            border-right: 2px solid var(--secondary);
+        }
+        .nav-overlay.open { left: 0; }
+        .nav-links { display: flex; flex-direction: column; padding: 0 2rem; }
+        .nav-links a { 
+            color: #fff; text-decoration: none; font-size: 1.2rem; font-weight: bold;
+            padding: 1rem; border-bottom: 1px solid #222; transition: var(--transition); 
+        }
+        .nav-links a:hover { color: var(--primary); padding-left: 1.5rem; background: rgba(204,0,0,0.1); }
 
-        /* --- HERO --- */
-        .hero { 
-            background: linear-gradient(135deg, #c00 0%, #600 100%); 
-            padding: 8rem 1rem 4rem; text-align: center; clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
-        }
-        .hero h1 { font-size: clamp(2.2rem, 8vw, 4.5rem); font-weight: 900; letter-spacing: -1px; text-shadow: 4px 4px 0 #000; margin: 0; }
-        .hero p { font-size: 1rem; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; margin-top: 10px; }
+        /* --- HERO --- */
+        .hero { 
+            background: linear-gradient(135deg, #c00 0%, #600 100%); 
+            padding: 8rem 1rem 4rem; text-align: center; clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+        .hero h1 { font-size: clamp(2.2rem, 8vw, 4.5rem); font-weight: 900; letter-spacing: -1px; text-shadow: 4px 4px 0 #000; margin: 0; }
+        .hero p { font-size: 1rem; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; margin-top: 10px; }
 
-        /* --- CAROUSEL SYSTEM --- */
-        .container { max-width: 1000px; margin: -2rem auto 4rem; padding: 0 1rem; position: relative; z-index: 10; }
-        .carousel { position: relative; overflow: hidden; border-radius: 20px; background: var(--card-bg); box-shadow: 0 20px 50px rgba(0,0,0,0.5); touch-action: pan-y; }
-        .carousel-inner { display: flex; transition: transform 0.6s cubic-bezier(0.7, 0, 0.3, 1); }
-        .carousel-item { min-width: 100%; padding: 2.5rem; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
-        
-        .article-tag { background: var(--secondary); color: white; padding: 4px 12px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; margin-bottom: 1rem; text-transform: uppercase; }
-        .carousel-item h2 { font-size: 1.8rem; margin: 0.5rem 0; text-align: center; line-height: 1.2; color: var(--primary); }
-        .carousel-item .date { color: #888; margin-bottom: 1.5rem; font-size: 0.9rem; }
-        .article-preview-img { width: 100%; max-width: 500px; border-radius: 10px; margin-bottom: 1.5rem; box-shadow: 0 10px 20px rgba(0,0,0,0.4); aspect-ratio: 4/3; object-fit: cover; }
-        
-        .read-btn { 
-            background: var(--primary); color: #000; padding: 12px 30px; border: none; 
-            border-radius: 50px; font-weight: 900; cursor: pointer; text-transform: uppercase;
-            transition: var(--transition); margin-top: 1rem;
-        }
-        .read-btn:hover { transform: scale(1.05); background: #fff; }
+        /* --- CAROUSEL SYSTEM --- */
+        .container { max-width: 1000px; margin: -2rem auto 4rem; padding: 0 1rem; position: relative; z-index: 10; }
+        .carousel { position: relative; overflow: hidden; border-radius: 20px; background: var(--card-bg); box-shadow: 0 20px 50px rgba(0,0,0,0.5); touch-action: pan-y; }
+        .carousel-inner { display: flex; transition: transform 0.6s cubic-bezier(0.7, 0, 0.3, 1); }
+        .carousel-item { min-width: 100%; padding: 2.5rem; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
+        
+        .article-tag { background: var(--secondary); color: white; padding: 4px 12px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; margin-bottom: 1rem; text-transform: uppercase; }
+        .carousel-item h2 { font-size: 1.8rem; margin: 0.5rem 0; text-align: center; line-height: 1.2; color: var(--primary); }
+        .carousel-item .date { color: #888; margin-bottom: 1.5rem; font-size: 0.9rem; }
+        .article-preview-img { width: 100%; max-width: 500px; border-radius: 10px; margin-bottom: 1.5rem; box-shadow: 0 10px 20px rgba(0,0,0,0.4); aspect-ratio: 4/3; object-fit: cover; }
+        
+        .read-btn { 
+            background: var(--primary); color: #000; padding: 12px 30px; border: none; 
+            border-radius: 50px; font-weight: 900; cursor: pointer; text-transform: uppercase;
+            transition: var(--transition); margin-top: 1rem;
+        }
+        .read-btn:hover { transform: scale(1.05); background: #fff; }
 
-        /* --- FULLSCREEN READER --- */
-        #reader-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.98); z-index: 3000; display: none;
-            flex-direction: column; align-items: center; justify-content: center;
-        }
-        .close-reader { position: absolute; top: 20px; right: 20px; color: #fff; font-size: 1.2rem; cursor: pointer; z-index: 3001; background: var(--secondary); padding: 8px 15px; border-radius: 5px; }
-        .flipbook-container { width: 95vw; height: 85vh; max-width: 1000px; }
-        .page { background: white; overflow: hidden; }
-        .page img { width: 100%; height: 100%; object-fit: contain; }
+        /* --- FULLSCREEN READER --- */
+        #reader-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.98); z-index: 3000; display: none;
+            flex-direction: column; align-items: center; justify-content: center;
+        }
+        .close-reader { position: absolute; top: 20px; right: 20px; color: #fff; font-size: 1.2rem; cursor: pointer; z-index: 3005; background: var(--secondary); padding: 8px 15px; border-radius: 5px; }
+        .flipbook-container { width: 95vw; height: 85vh; max-width: 1000px; display: flex; justify-content: center; align-items: center; }
+        .page { background: white; overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        .page img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* --- CONTROLS --- */
-        .carousel-arrow { 
-            position: absolute; top: 50%; transform: translateY(-50%); 
-            background: rgba(255,255,255,0.1); color: var(--primary); 
-            border: none; font-size: 2rem; width: 50px; height: 50px; 
-            border-radius: 50%; cursor: pointer; z-index: 100; backdrop-filter: blur(5px);
-        }
-        .arrow-left { left: 10px; }
-        .arrow-right { right: 10px; }
+        /* --- CONTROLS --- */
+        .carousel-arrow { 
+            position: absolute; top: 50%; transform: translateY(-50%); 
+            background: rgba(255,255,255,0.1); color: var(--primary); 
+            border: none; font-size: 2rem; width: 50px; height: 50px; 
+            border-radius: 50%; cursor: pointer; z-index: 100; backdrop-filter: blur(5px);
+        }
+        .arrow-left { left: 10px; }
+        .arrow-right { right: 10px; }
 
-        .swipe-hint { display: none; text-align: center; color: var(--primary); font-size: 0.8rem; padding: 10px; opacity: 0.6; }
+        .swipe-hint { display: none; text-align: center; color: var(--primary); font-size: 0.8rem; padding: 10px; opacity: 0.6; }
 
-        footer { padding: 4rem 2rem; text-align: center; color: #666; font-size: 0.8rem; border-top: 1px solid #222; }
+        footer { padding: 4rem 2rem; text-align: center; color: #666; font-size: 0.8rem; border-top: 1px solid #222; }
 
-        @media (max-width: 768px) {
-            .carousel-arrow { display: none; }
-            .swipe-hint { display: block; }
-            .carousel-item { padding: 2rem 1rem; }
-            .carousel-item h2 { font-size: 1.5rem; }
-            .hero h1 { font-size: 2.2rem; }
-        }
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
+        @media (max-width: 768px) {
+            .carousel-arrow { display: none; }
+            .swipe-hint { display: block; }
+            .carousel-item { padding: 2rem 1rem; }
+            .carousel-item h2 { font-size: 1.5rem; }
+            .hero h1 { font-size: 2.2rem; }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
 </head>
 <body>
 
-    <div class="hamburger" onclick="toggleMenu()">
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-    </div>
+    <div class="hamburger" onclick="toggleMenu()">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </div>
 
-    <nav class="nav-overlay" id="nav-menu">
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="standings.html">Standings</a>
-            <a href="results.html">Results</a>
-            <a href="schedule.html">Schedule</a>
-            <a href="drivers.html">Drivers</a>
-            <a href="rules.html">Rules</a>
-            <a href="news.html">News</a>
-        </div>
-    </nav>
+    <nav class="nav-overlay" id="nav-menu">
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="standings.html">Standings</a>
+            <a href="results.html">Results</a>
+            <a href="schedule.html">Schedule</a>
+            <a href="drivers.html">Drivers</a>
+            <a href="rules.html">Rules</a>
+            <a href="news.html">News</a>
+        </div>
+    </nav>
 
-    <header class="hero">
-        <h1>ASCRL NEWS</h1>
-        <p>Weekly Race Recaps & Coverage</p>
-    </header>
+    <header class="hero">
+        <h1>ASCRL NEWS</h1>
+        <p>Weekly Race Recaps & Coverage</p>
+    </header>
 
-    <div class="container">
-        <div class="carousel">
-            <button class="carousel-arrow arrow-left" onclick="changeSlide(-1)">‹</button>
-            <button class="carousel-arrow arrow-right" onclick="changeSlide(1)">›</button>
-            <div class="carousel-inner" id="carousel-inner"></div>
-            <div class="swipe-hint">↔ Swipe for more stories</div>
-        </div>
-    </div>
+    <div class="container">
+        <div class="carousel">
+            <button class="carousel-arrow arrow-left" onclick="changeSlide(-1)">‹</button>
+            <button class="carousel-arrow arrow-right" onclick="changeSlide(1)">›</button>
+            <div class="carousel-inner" id="carousel-inner"></div>
+            <div class="swipe-hint">↔ Swipe for more stories</div>
+        </div>
+    </div>
 
-    <div id="reader-overlay">
-        <span class="close-reader" onclick="closeReader()">✕ Close Reader</span>
-        <div class="flipbook-container" id="flipbook-root"></div>
-    </div>
+    <div id="reader-overlay">
+        <span class="close-reader" onclick="closeReader()">✕ Close Reader</span>
+        <div class="flipbook-container" id="flipbook-root"></div>
+    </div>
 
-    <footer>
-        &copy; 2025 ASCRL | NASCAR-inspired Journalism
-    </footer>
+    <footer>
+        &copy; 2025 ASCRL | NASCAR-inspired Journalism
+    </footer>
 
-    <script>
-        const articles = [
-            {
-                title: "ASCRL WEEKLY — Happy Veterans Day!",
-                date: "November 11, 2025",
-                tag: "Special Issue",
-                preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/ASCRweeklyissue6.jpg",
-                images: [
-                    "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/ASCRweeklyissue6.jpg",
-                    "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/ASCRPage2.jpg"
-                ],
-                isMagazine: true
-            },
-            {
-                title: "Singular_Nacho Scores at Nashville",
-                date: "November 11, 2025",
-                tag: "Race Recap",
-                preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/0a91dc765fb2ed87e57acdc2ec06585197ce0f30/ASCRweeklyissue5.jpg",
-                content: "Incredible parity in the ASCRL! Singular_Nacho charged to victory at Nashville Superspeedway, becoming the eighth different winner in eight races.",
-                isMagazine: false
-            },
-            {
-                title: "Dewshine: The Hometown Favorite",
-                date: "November 10, 2025",
-                tag: "Driver Feature",
-                preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/7654906eeda55824349300cf0fe1b8cddf32f9c0/ASCRweeklyissue4.jpg",
-                content: "Dewshine enters the weekend as the favorite. With the championship hunt heating up, can he deliver in front of the home crowd?",
-                isMagazine: false
-            },
-            {
-                title: "kevwood87 Dominates Phoenix",
-                date: "November 9, 2025",
-                tag: "Preseason",
-                preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/406d2c12bd729d7e5ad1133b1f2169d29db77069/ASCRweeklyissue3.jpg",
-                content: "In a stunning debut, kevwood87 held off the field at Phoenix to claim a massive preseason victory.",
-                isMagazine: false
-            },
-            {
-                title: "ASCRL WEEKLY — Phoenix Opener",
-                date: "November 9, 2025",
-                tag: "Hype",
-                preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/31611ef9897e38bb2880ce61e3717c660fd3941c/ASCRweeklyissue2.jpg",
-                content: "The field is set for Phoenix. Who will set the tone for the upcoming season?",
-                isMagazine: false
-            },
-            {
-                title: "BIG_FELLA Wins at Atlanta",
-                date: "November 6, 2025",
-                tag: "Race Recap",
-                preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/big-fella-atlanta-win.jpg",
-                content: "A last-second shove put BIG_FELLAx2220 first across the line in an Atlanta thriller.",
-                isMagazine: false
-            }
-        ];
+    <script>
+        const articles = [
+            {
+                title: "ASCRL WEEKLY — Happy Veterans Day!",
+                date: "November 11, 2025",
+                tag: "Special Issue",
+                preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/ASCRweeklyissue6.jpg",
+                images: [
+                    "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/ASCRweeklyissue6.jpg",
+                    "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/ASCRPage2.jpg"
+                ],
+                isMagazine: true
+            },
+            {
+                title: "Singular_Nacho Scores at Nashville",
+                date: "November 11, 2025",
+                tag: "Race Recap",
+                preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/0a91dc765fb2ed87e57acdc2ec06585197ce0f30/ASCRweeklyissue5.jpg",
+                content: "Incredible parity in the ASCRL! Singular_Nacho charged to victory at Nashville Superspeedway, becoming the eighth different winner in eight races.",
+                isMagazine: false
+            },
+            {
+                title: "Dewshine: The Hometown Favorite",
+                date: "November 10, 2025",
+                tag: "Driver Feature",
+                preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/7654906eeda55824349300cf0fe1b8cddf32f9c0/ASCRweeklyissue4.jpg",
+                content: "Dewshine enters the weekend as the favorite. With the championship hunt heating up, can he deliver in front of the home crowd?",
+                isMagazine: false
+            },
+            {
+                title: "kevwood87 Dominates Phoenix",
+                date: "November 9, 2025",
+                tag: "Preseason",
+                preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/406d2c12bd729d7e5ad1133b1f2169d29db77069/ASCRweeklyissue3.jpg",
+                content: "In a stunning debut, kevwood87 held off the field at Phoenix to claim a massive preseason victory.",
+                isMagazine: false
+            },
+            {
+                title: "ASCRL WEEKLY — Phoenix Opener",
+                date: "November 9, 2025",
+                tag: "Hype",
+                preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/31611ef9897e38bb2880ce61e3717c660fd3941c/ASCRweeklyissue2.jpg",
+                content: "The field is set for Phoenix. Who will set the tone for the upcoming season?",
+                isMagazine: false
+            },
+            {
+                title: "BIG_FELLA Wins at Atlanta",
+                date: "November 6, 2025",
+                tag: "Race Recap",
+                preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/big-fella-atlanta-win.jpg",
+                content: "A last-second shove put BIG_FELLAx2220 first across the line in an Atlanta thriller.",
+                isMagazine: false
+            }
+        ];
 
-        let currentSlide = 0;
-        let pageFlip = null;
-        let touchStartX = 0;
+        let currentSlide = 0;
+        let pageFlipInstance = null;
+        let touchStartX = 0;
 
-        function renderArticles() {
-            const container = document.getElementById('carousel-inner');
-            container.innerHTML = articles.map((art, idx) => `
-                <div class="carousel-item">
-                    <span class="article-tag">${art.tag}</span>
-                    <h2>${art.title}</h2>
-                    <span class="date">${art.date}</span>
-                    <img src="${art.preview}" class="article-preview-img" alt="Race Image">
-                    ${art.isMagazine ? 
-                        `<button class="read-btn" onclick="openReader(${idx})">Read Full Issue</button>` : 
-                        `<p style="text-align:center; max-width:600px;">${art.content}</p>`
-                    }
-                </div>
-            `).join('');
+        function renderArticles() {
+            const container = document.getElementById('carousel-inner');
+            container.innerHTML = articles.map((art, idx) => `
+                <div class="carousel-item">
+                    <span class="article-tag">${art.tag}</span>
+                    <h2>${art.title}</h2>
+                    <span class="date">${art.date}</span>
+                    <img src="${art.preview}" class="article-preview-img" alt="Race Image">
+                    ${art.isMagazine ? 
+                        `<button class="read-btn" onclick="openReader(${idx})">Read Full Issue</button>` : 
+                        `<p style="text-align:center; max-width:600px;">${art.content}</p>`
+                    }
+                </div>
+            `).join('');
 
-            // Mobile Swipe Detection
-            const carousel = document.querySelector('.carousel');
-            carousel.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX, {passive: true});
-            carousel.addEventListener('touchend', e => {
-                let touchEndX = e.changedTouches[0].screenX;
-                if (touchStartX - touchEndX > 50) changeSlide(1);
-                if (touchEndX - touchStartX > 50) changeSlide(-1);
-            }, {passive: true});
-        }
+            // Mobile Swipe Detection
+            const carousel = document.querySelector('.carousel');
+            carousel.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX, {passive: true});
+            carousel.addEventListener('touchend', e => {
+                let touchEndX = e.changedTouches[0].screenX;
+                if (touchStartX - touchEndX > 50) changeSlide(1);
+                if (touchEndX - touchStartX > 50) changeSlide(-1);
+            }, {passive: true});
+        }
 
-        function changeSlide(dir) {
-            currentSlide = (currentSlide + dir + articles.length) % articles.length;
-            document.getElementById('carousel-inner').style.transform = `translateX(-${currentSlide * 100}%)`;
-        }
+        function changeSlide(dir) {
+            currentSlide = (currentSlide + dir + articles.length) % articles.length;
+            document.getElementById('carousel-inner').style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
 
-        function openReader(index) {
-            const overlay = document.getElementById('reader-overlay');
-            overlay.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; 
-            
-            const root = document.getElementById('flipbook-root');
-            root.innerHTML = `<div id="flipbook-el">${articles[index].images.map(img => `<div class="page"><img src="${img}"></div>`).join('')}</div>`;
+        function openReader(index) {
+            const overlay = document.getElementById('reader-overlay');
+            overlay.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; 
+            
+            const root = document.getElementById('flipbook-root');
+            root.innerHTML = `<div id="flipbook-el">${articles[index].images.map(img => `<div class="page"><img src="${img}"></div>`).join('')}</div>`;
 
-            pageFlip = new St.PageFlip(document.getElementById('flipbook-el'), {
-                width: 550, height: 750,
-                size: "stretch",
-                minWidth: 315, maxWidth: 1000,
-                minHeight: 420, maxHeight: 1350,
-                showCover: true,
-                usePortrait: true
-            });
-            pageFlip.loadFromHTML(document.querySelectorAll('.page'));
-        }
+            // Corrected Constructor for page-flip library
+            pageFlipInstance = new pageFlip.PageFlip(document.getElementById('flipbook-el'), {
+                width: 550, 
+                height: 750,
+                size: "stretch",
+                minWidth: 315, 
+                maxWidth: 1000,
+                minHeight: 420, 
+                maxHeight: 1350,
+                showCover: true,
+                usePortrait: true,
+                mobileScrollSupport: false
+            });
+            
+            pageFlipInstance.loadFromHTML(document.querySelectorAll('.page'));
+        }
 
-        function closeReader() {
-            document.getElementById('reader-overlay').style.display = 'none';
-            document.body.style.overflow = 'auto';
-            if(pageFlip) pageFlip.destroy();
-        }
+        function closeReader() {
+            document.getElementById('reader-overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            if(pageFlipInstance) {
+                pageFlipInstance.destroy();
+                pageFlipInstance = null;
+            }
+        }
 
-        function toggleMenu() {
-            document.getElementById('nav-menu').classList.toggle('open');
-        }
+        function toggleMenu() {
+            document.getElementById('nav-menu').classList.toggle('open');
+        }
 
-        renderArticles();
-    </script>
+        renderArticles();
+    </script>
 </body>
 </html>
