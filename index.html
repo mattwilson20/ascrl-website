@@ -41,7 +41,6 @@
         <div class="hamburger-line"></div>
         <div class="hamburger-line"></div>
     </div>
-
     <!-- Overlay Menu -->
     <div class="nav-overlay" id="nav-menu">
         <div class="nav-logo">ASCRL</div>
@@ -55,7 +54,6 @@
             <a href="rules.html">Rules</a>
         </div>
     </div>
-
     <header class="hero">
         <div class="checkered"></div>
         <div class="hero-content">
@@ -90,7 +88,6 @@
                 <div class="timer" id="menards-timer">Loading...</div>
             </div>
         </div>
-
         <div class="section">
             <h2>Current Points Leaders (Live from Discord Bot)</h2>
             <div class="leaders" id="leaders-grid">
@@ -99,10 +96,11 @@
         </div>
         <div class="section">
             <h2>Latest Race Highlight</h2>
-            <p><strong>Lucas Oil Indianapolis Raceway Park (IRP) — Truck Series</strong></p>
-            <p>HockeyDeckout puts on a clinic, sweeping to victory with the fastest lap bonus in a flag-to-flag masterclass. From the front row, he held off a charging field to claim the win in an 18-truck showdown loaded with title contenders.</p>
-            <p>The victory shakes up the Truck Series championship — dakotathomas1994 maintains a narrow points lead, while On-A-Mission618 and kevwood87 complete the podium after a race packed with late-race passes and classic short-track intensity. Pure NASCAR drama, ASCRL style.</p>
-            <p>Full finishing order and reactions in Discord #race-results • <a href="results.html">View all Truck Series results →</a></p>
+            <p><strong>Talladega Superspeedway — Cup Series</strong></p>
+            <p>In a classic superspeedway thriller, #24 dakotathomas1994 held off the field in a last-lap dash to score his first-ever Cup Series victory — a breakthrough moment in the inaugural season!</p>
+            <p>The race was packed with drafting battles, multiple big packs, and late-race chaos. TheReaperRhino and KingG931 rounded out the podium, while DGibby17 claimed the fastest lap bonus and Orangeman96 earned pole points.</p>
+            <p>This win shakes up the Cup championship — dakotathomas1994 closes the gap on the leaders with a statement performance at one of NASCAR's most unpredictable tracks. Pure pack-racing drama, ASCRL style.</p>
+            <p>Full finishing order and reactions in Discord #race-results • <a href="results.html">View all Cup Series results →</a></p>
         </div>
         <div class="section">
             <h2>About ASCRL</h2>
@@ -113,12 +111,10 @@
     <footer>
         © 2025-2026 ASCRL | Built for Stock Car Racing fans, by Stock Car Racing fans
     </footer>
-
     <script>
         function toggleMenu() {
             document.getElementById('nav-menu').classList.toggle('open');
         }
-
         // Four Series Countdowns
         fetch('schedule.json')
             .then(response => response.json())
@@ -140,7 +136,6 @@
                     }
                 });
             });
-
         function startCountdown(elementId, targetDate) {
             const timer = document.getElementById(elementId);
             setInterval(() => {
@@ -157,7 +152,6 @@
                 timer.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
             }, 1000);
         }
-
         // Leaders Grid
         fetch('standings.json')
             .then(response => response.json())
