@@ -133,35 +133,58 @@
     <script>
         // Clean, maintainable data structure
         const articles = [
-            {
-                title: "Happy Veterans Day!",
-                date: "Nov 11, 2025",
-                tag: "SPECIAL ISSUE",
-                preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/ASCRweeklyissue6.jpg",
-                images: [
-                    "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/ASCRweeklyissue6.jpg",
-                    "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/ASCRPage2.jpg"
-                ],
-                isMagazine: true
-            },
-            {
-                title: "Singular_Nacho Scores Nashville",
-                date: "Nov 11, 2025",
-                tag: "RACE RECAP",
-                preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/0a91dc765fb2ed87e57acdc2ec06585197ce0f30/ASCRweeklyissue5.jpg",
-                content: "8 different winners in 8 races! The parity in ASCRL is unmatched as Singular_Nacho claims the guitars in Nashville.",
-                isMagazine: false
-            },
-            {
-                title: "Dewshine: Hometown Favorite",
-                date: "Nov 10, 2025",
-                tag: "DRIVER SPOTLIGHT",
-                preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/7654906eeda55824349300cf0fe1b8cddf32f9c0/ASCRweeklyissue4.jpg",
-                content: "The line at the hauler says it all. Dewshine carries the weight of the home crowd tonight.",
-                isMagazine: false
-            }
-            // Add more articles here as the season progresses
-        ];
+    {
+        title: "ASCRL WEEKLY — Happy Veterans Day!",
+        date: "November 11, 2025",
+        tag: "SPECIAL ISSUE",
+        preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/ASCRweeklyissue6.jpg",
+        images: [
+            "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/ASCRweeklyissue6.jpg",
+            "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/ASCRPage2.jpg"
+        ],
+        isMagazine: true
+    },
+    {
+        title: "Singular_Nacho Scores at Nashville",
+        date: "November 11, 2025",
+        tag: "RACE RECAP",
+        preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/0a91dc765fb2ed87e57acdc2ec06585197ce0f30/ASCRweeklyissue5.jpg",
+        content: "Incredible parity in the ASCRL! Singular_Nacho charged to the checkered flag at Nashville Superspeedway, becoming the eighth different winner in just eight races this season.",
+        isMagazine: false
+    },
+    {
+        title: "ASCRL WEEKLY — Hometown Favorite",
+        date: "November 10, 2025",
+        tag: "FEATURED",
+        preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/7654906eeda55824349300cf0fe1b8cddf32f9c0/ASCRweeklyissue4.jpg",
+        content: "Dewshine enters tonight's race as the clear favorite to win, but Hockey currently sits atop the championship leaderboard. Can Dewshine get it done in front of his home-state fans?",
+        isMagazine: false
+    },
+    {
+        title: "kevwood87 Dominates Phoenix",
+        date: "November 9, 2025",
+        tag: "PRESEASON",
+        preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/406d2c12bd729d7e5ad1133b1f2169d29db77069/ASCRweeklyissue3.jpg",
+        content: "kevwood87 made his first career start with ASCRL and immediately showed the league he is a force to be reckoned with, holding off fan favorite Blazee on the white-flag lap.",
+        isMagazine: false
+    },
+    {
+        title: "ASCRL WEEKLY — Phoenix Opener",
+        date: "November 9, 2025",
+        tag: "HYPE",
+        preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/31611ef9897e38bb2880ce61e3717c660fd3941c/ASCRweeklyissue2.jpg",
+        content: "Looking to be a small field at Phoenix for the preseason opener! Stay tuned for full coverage.",
+        isMagazine: false
+    },
+    {
+        title: "BIG_FELLA Wins at Home — Atlanta",
+        date: "November 6, 2025",
+        tag: "RACE RECAP",
+        preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/big-fella-atlanta-win.jpg",
+        content: "After a bumpy start, the racing picked up in the second half. A last-second shove put BIG_FELLAx2220 first across the line in front of his hometown fans in Atlanta!",
+        isMagazine: false
+    }
+];
 
         let currentSlide = 0;
         let pageFlip = null;
