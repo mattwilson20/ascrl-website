@@ -47,7 +47,6 @@
         <div class="hamburger-line"></div>
         <div class="hamburger-line"></div>
     </div>
-
     <!-- Overlay Menu -->
     <div class="nav-overlay" id="nav-menu">
         <div class="nav-logo">ASCRL</div>
@@ -61,7 +60,6 @@
             <a href="news.html">News</a>
         </div>
     </div>
-
     <header class="hero">
         <h1>ASCRL NEWS & ARTICLES</h1>
         <p>Weekly Race Recaps • Driver Features • Championship Coverage</p>
@@ -78,14 +76,17 @@
     <footer>
         © 2025-2026 ASCRL | NASCAR-inspired journalism | Built for stock car racing passion
     </footer>
-
     <script>
         function toggleMenu() {
             document.getElementById('nav-menu').classList.toggle('open');
         }
-
         // Articles array — newest first
         const articles = [
+            {
+                title: "kevwood87 Dominates Phoenix Preseason Opener in ASCRL Debut",
+                date: "November 9, 2025",
+                content: "<p>kevwood87 made his first career start with ASCRL and immediately showed the league he is a force to be reckoned with. The ARCA preseason opener at Phoenix saw some talented dirt guys cross over for a taste of asphalt racing, but it was kevwood87 who held off fan favorite Blazee on the white-flag lap to claim the victory. Congratulations to kevwood87 on the win and gracing the cover of this week's ASCRL Weekly newsletter!</p><img src='https://raw.githubusercontent.com/mattwilson20/ascrl-website/406d2c12bd729d7e5ad1133b1f2169d29db77069/ASCRweeklyissue3.jpg' alt='ASCRL Weekly Issue 3 — kevwood87 Phoenix Victory Cover'>"
+            },
             {
                 title: "ASCRL WEEKLY — Preseason Phoenix Opener",
                 date: "November 9, 2025",
@@ -98,11 +99,9 @@
             }
             // Add more articles here
         ];
-
         let currentSlide = 0;
         const carouselInner = document.getElementById('carousel-inner');
         const dotsContainer = document.getElementById('carousel-dots');
-
         function renderCarousel() {
             carouselInner.innerHTML = '';
             dotsContainer.innerHTML = '';
@@ -115,7 +114,6 @@
                     <div style="text-align:center;">${article.content}</div>
                 `;
                 carouselInner.appendChild(slide);
-
                 const dot = document.createElement('span');
                 dot.className = 'dot';
                 dot.onclick = () => goToSlide(index);
@@ -123,24 +121,20 @@
             });
             updateCarousel();
         }
-
         function updateCarousel() {
             carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
             document.querySelectorAll('.dot').forEach((dot, i) => {
                 dot.classList.toggle('active', i === currentSlide);
             });
         }
-
         function changeSlide(n) {
             currentSlide = (currentSlide + n + articles.length) % articles.length;
             updateCarousel();
         }
-
         function goToSlide(n) {
             currentSlide = n;
             updateCarousel();
         }
-
         renderCarousel();
     </script>
 </body>
