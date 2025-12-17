@@ -32,21 +32,18 @@
         .carousel-dots { text-align: center; margin: 2rem 0; }
         .dot { display: inline-block; width: 12px; height: 12px; background: #333; border-radius: 50%; margin: 0 8px; cursor: pointer; transition: 0.3s; }
         .dot.active { background: #ff0; }
-        /* Page Flip Book Styles - Perfect Mobile Centering */
+        /* Page Flip Book Styles - Perfect Mobile Fit & Centering */
         .flipbook-container { 
-            width: 90%; 
-            max-width: 500px; 
-            height: 70vh; 
-            min-height: 450px; 
+            width: 92%; 
+            max-width: 520px; 
+            height: 68vh; 
+            min-height: 420px; 
             margin: 2rem auto; 
             box-shadow: 0 0 30px rgba(200,0,0,0.8); 
-            border-radius: 20px; 
+            border-radius: 18px; 
             overflow: hidden; 
             position: relative; 
             background: #222; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
         .flipbook-container .loading { 
             position: absolute; 
@@ -65,12 +62,12 @@
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            padding: 20px; 
+            padding: 30px; /* Increased padding for breathing room */
             box-sizing: border-box; 
         }
         .page img { 
-            max-width: 100%; 
-            max-height: 100%; 
+            max-width: 96%; /* Slightly smaller to fit comfortably inside the page */
+            max-height: 96%; 
             border-radius: 8px; 
             box-shadow: 0 4px 20px rgba(0,0,0,0.5); 
             object-fit: contain; 
@@ -80,11 +77,13 @@
             .hamburger { top: 0.5rem; left: 0.5rem; }
             .carousel-arrow { font-size: 2.5rem; padding: 0.8rem; }
             .flipbook-container { 
-                width: 92%; 
-                height: 65vh; 
-                min-height: 420px; 
+                width: 94%; 
+                height: 62vh; 
+                min-height: 400px; 
                 border-radius: 15px;
             }
+            .page { padding: 20px; }
+            .page img { max-width: 95%; max-height: 95%; }
         }
     </style>
     <!-- Correct StPageFlip Browser CDN -->
@@ -148,7 +147,26 @@
                 date: "November 11, 2025",
                 content: "<p>Incredible parity in the ASCRL! Singular_Nacho charged to the checkered flag at Nashville Superspeedway, becoming the eighth different winner in just eight races this season. This kind of wide-open competition is pure NASCAR magic—any driver, any week, can park it in Victory Lane!</p><img src='https://raw.githubusercontent.com/mattwilson20/ascrl-website/0a91dc765fb2ed87e57acdc2ec06585197ce0f30/ASCRweeklyissue5.jpg' alt='ASCRL Weekly Issue 5 — Singular_Nacho Nashville Victory Cover'>"
             },
-            // ... (keep the rest of your articles as before)
+            {
+                title: "ASCRL WEEKLY — Dewshine the Hometown Favorite at Nashville",
+                date: "November 10, 2025",
+                content: "<p>Dewshine enters tonight's race as the clear favorite to win, but Hockey currently sits atop the championship leaderboard. And let's not forget Kevwood87, fresh off his thrilling victory in his very first ASCRL start just last night! Can Dewshine get it done in front of his passionate home-state fans? The line at his hauler stretched a mile long for autographs—pure NASCAR-style star power on display!</p><img src='https://raw.githubusercontent.com/mattwilson20/ascrl-website/7654906eeda55824349300cf0fe1b8cddf32f9c0/ASCRweeklyissue4.jpg' alt='ASCRL Weekly Issue 4 — Dewshine Nashville Hometown Hype Cover'>"
+            },
+            {
+                title: "kevwood87 Dominates Phoenix Preseason Opener in ASCRL Debut",
+                date: "November 9, 2025",
+                content: "<p>kevwood87 made his first career start with ASCRL and immediately showed the league he is a force to be reckoned with. The ARCA preseason opener at Phoenix saw some talented dirt guys cross over for a taste of asphalt racing, but it was kevwood87 who held off fan favorite Blazee on the white-flag lap to claim the victory. Congratulations to kevwood87 on the win and gracing the cover of this week's ASCRL Weekly newsletter!</p><img src='https://raw.githubusercontent.com/mattwilson20/ascrl-website/406d2c12bd729d7e5ad1133b1f2169d29db77069/ASCRweeklyissue3.jpg' alt='ASCRL Weekly Issue 3 — kevwood87 Phoenix Victory Cover'>"
+            },
+            {
+                title: "ASCRL WEEKLY — Preseason Phoenix Opener",
+                date: "November 9, 2025",
+                content: "<p>Looking to be small field at Phoenix for the preseason opener!</p><img src='https://raw.githubusercontent.com/mattwilson20/ascrl-website/31611ef9897e38bb2880ce61e3717c660fd3941c/ASCRweeklyissue2.jpg' alt='ASCRL WEEKLY Issue 2 — Preseason Phoenix Opener Hype'>"
+            },
+            {
+                title: "BIG_FELLA Wins at Home — Atlanta Thriller",
+                date: "November 6, 2025",
+                content: "<p>After a bumpy start and what felt like 100 laps under yellow, the racing really picked up in the second half. Multiple restarts kept the pack tight most of the race, and a last-second shove put BIG_FELLAx2220 first across the line in front of his hometown fans in Atlanta!</p><img src='https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/big-fella-atlanta-win.jpg' alt='BIG_FELLA Atlanta Victory Burnout'>"
+            }
         ];
 
         let currentSlide = 0;
@@ -193,13 +211,13 @@
                         if (element) {
                             try {
                                 const flipbook = new St.PageFlip(element, {
-                                    width: 380,
-                                    height: 560,
+                                    width: 360,               // Slightly smaller base for mobile comfort
+                                    height: 540,
                                     size: "stretch",
-                                    minWidth: 300,
+                                    minWidth: 280,
                                     maxWidth: 600,
-                                    minHeight: 400,
-                                    maxHeight: 800,
+                                    minHeight: 380,
+                                    maxHeight: 900,
                                     showCover: true,
                                     mobileScrollSupport: false,
                                     drawShadow: true,
