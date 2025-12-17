@@ -95,8 +95,8 @@
                 date: "November 11, 2025",
                 text: "<p>Happy Veterans Day to all who have served—thank you for your sacrifice and service. Go enjoy that well-deserved free meal and cold beer on us!</p>",
                 images: [
-                    "https://github.com/mattwilson20/ascrl-website/blob/main/ASCRweeklyissue6.jpg?raw=true",
-                    "https://github.com/mattwilson20/ascrl-website/blob/main/ASCRPage2.jpg?raw=true"
+                    "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/ASCRweeklyissue6.jpg",
+                    "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/ASCRPage2.jpg"
                 ],
                 isFlipbook: true
             },
@@ -131,11 +131,12 @@
         const carouselInner = document.getElementById('carousel-inner');
         const dotsContainer = document.getElementById('carousel-dots');
 
-        let flipInstances = []; // To store PageFlip instances for cleanup
+        let flipInstances = []; // To store PageFlip instances
 
         function renderCarousel() {
             carouselInner.innerHTML = '';
             dotsContainer.innerHTML = '';
+            flipInstances.forEach(f => f.destroy()); // Cleanup old instances
             flipInstances = [];
 
             articles.forEach((article, index) => {
@@ -148,7 +149,6 @@
                 `;
 
                 if (article.isFlipbook) {
-                    // Multi-page flipbook layout
                     contentHTML += article.text + `
                         <div class="flipbook-container">
                             <div id="flipbook-${index}" class="st-page-flip">
@@ -157,34 +157,34 @@
                         </div>
                     `;
                 } else {
-                    // Standard single/multiple image layout
                     contentHTML += `<div style="text-align:center;">${article.content || ''}</div>`;
                 }
 
                 slide.innerHTML = contentHTML;
                 carouselInner.appendChild(slide);
 
-                // Initialize flipbook if needed
                 if (article.isFlipbook) {
                     setTimeout(() => {
-                        const flipbook = new St.PageFlip(document.getElementById(`flipbook-${index}`), {
-                            width: 450,           // base page width
-                            height: 600,          // base page height
-                            size: "stretch",
-                            minWidth: 315,
-                            maxWidth: 900,
-                            minHeight: 420,
-                            maxHeight: 1350,
-                            showCover: true,
-                            mobileScrollSupport: false,
-                            drawShadow: true,
-                            flippingTime: 800,
-                            usePortrait: true,
-                            startPage: 0,
-                            autoSize: true
-                        });
-                        flipbook.loadFromHTML();
-                        flipInstances.push(flipbook);
+                        const element = document.getElementById(`flipbook-${index}`);
+                        if (element) {
+                            const flipbook = new St.PageFlip(element, {
+                                width: 450,
+                                height: 600,
+                                size: "stretch",
+                                minWidth: 315,
+                                maxWidth: 900,
+                                minHeight: 420,
+                                maxHeight: 1350,
+                                showCover: true,
+                                mobileScrollSupport: false,
+                                drawShadow: true,
+                                flippingTime: 800,
+                                usePortrait: true,
+                                autoSize: true
+                            });
+                            flipbook.loadFromHTML();
+                            flipInstances.push(flipbook);
+                        }
                     }, 100);
                 }
 
@@ -214,7 +214,6 @@
             updateCarousel();
         }
 
-        // Cleanup on slide change if needed (optional)
         window.addEventListener('resize', () => {
             flipInstances.forEach(f => f.update());
         });
