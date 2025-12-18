@@ -8,63 +8,77 @@
     <style>
         :root {
             --primary: #c00;
+            --accent: #ff0;
             --bg-dark: #000;
             --card-bg: #0d0d0d;
             --border: #1a1a1a;
             --text-muted: #a0a0a0;
+            --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
-        body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--bg-dark); color: #fff; }
+        body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--bg-dark); color: #fff; overflow-x: hidden; }
+
+        /* --- MODULAR NAVIGATION STYLES --- */
+        #nav-placeholder { position: relative; z-index: 2000; }
+        
+        .nav-overlay { 
+            position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; 
+            height: 100vh; background: #050505; transition: left 0.5s ease; 
+            z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); 
+        }
+        .nav-overlay.open { left: 0; }
+        .nav-links { display: flex; flex-direction: column; padding: 0 3rem; }
+        .nav-links a { 
+            color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; 
+            border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; 
+        }
+        .nav-links a:hover { color: var(--primary); padding-left: 10px; }
 
         /* --- HERO --- */
         .hero { 
             background: radial-gradient(circle at center, #222 0%, #000 100%); 
-            padding: 10rem 1rem 5rem; 
+            padding: 12rem 1rem 8rem; 
             text-align: center; 
             border-bottom: 1px solid var(--border);
         }
-        h1 { font-size: clamp(3rem, 10vw, 5rem); margin: 0; letter-spacing: -2px; }
+        h1 { font-size: clamp(3rem, 10vw, 5rem); margin: 0; letter-spacing: -2px; line-height: 0.9; }
+        .hero p { color: var(--primary); letter-spacing: 5px; text-transform: uppercase; font-size: 0.9rem; margin-top: 1rem; }
 
-        /* --- TABS --- */
-        .tabs {
-            display: flex;
-            justify-content: center;
-            background: #050505;
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+        /* --- FILTERS --- */
+        .controls { background: #050505; padding: 2rem 1rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; text-align: center; }
+        
+        select { 
+            background: #000; color: #fff; border: 1px solid var(--border); 
+            padding: 1.2rem 2rem; font-family: 'Arial Black', sans-serif; 
+            text-transform: uppercase; cursor: pointer; min-width: 300px;
+            font-size: 1rem;
         }
-        .tab-btn {
-            padding: 1.5rem 2rem;
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-family: 'Arial Black', sans-serif;
-            cursor: pointer;
-            transition: 0.3s;
-            letter-spacing: 2px;
-            font-size: 0.8rem;
-        }
-        .tab-btn.active { color: var(--primary); border-bottom: 2px solid var(--primary); }
-        .tab-btn:hover { color: #fff; }
+        select:focus { border-color: var(--primary); outline: none; background: #0a0a0a; }
 
         /* --- TABLE --- */
-        .container { max-width: 1000px; margin: 0 auto; padding: 4rem 1rem; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 4rem 2rem; }
         
-        table { width: 100%; border-collapse: collapse; background: var(--card-bg); border: 1px solid var(--border); }
-        th { background: #111; padding: 1.2rem; text-align: left; font-size: 0.7rem; letter-spacing: 2px; color: var(--primary); border-bottom: 1px solid var(--border); }
-        td { padding: 1.2rem; border-bottom: 1px solid var(--border); font-family: sans-serif; font-size: 0.9rem; }
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        th { 
+            text-align: left; padding: 1.5rem; color: var(--primary); 
+            border-bottom: 1px solid var(--border); font-size: 0.8rem; letter-spacing: 2px; 
+        }
+        td { 
+            padding: 1.5rem; border-bottom: 1px solid var(--border); 
+            font-family: sans-serif; font-size: 1rem; color: #ccc;
+        }
         
-        tr:hover { background: #151515; }
-        .pos-cell { font-family: 'Arial Black', sans-serif; width: 50px; text-align: center; color: var(--text-muted); }
-        .points-cell { font-family: 'Arial Black', sans-serif; color: #ff0; }
+        tr:hover td { background: #0a0a0a; color: #fff; }
         
-        footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px; }
+        .pos-cell { font-family: 'Arial Black', sans-serif; color: #fff; width: 50px; text-align: center; }
+        .points-cell { font-family: 'Arial Black', sans-serif; color: var(--accent); }
+        .leader-row td { background: rgba(204, 0, 0, 0.1); color: #fff; }
 
-        @media (max-width: 600px) {
-            .tab-btn { padding: 1rem; font-size: 0.6rem; }
-            td, th { padding: 0.8rem; font-size: 0.8rem; }
+        footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
+
+        @media (max-width: 768px) {
+            .hero { padding: 10rem 1rem 4rem; }
+            td, th { padding: 1rem; font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -73,26 +87,28 @@
     <div id="nav-placeholder"></div>
 
     <header class="hero">
-        <p style="letter-spacing: 8px; color: var(--primary); text-transform: uppercase; font-size: 0.8rem;">Season Championship</p>
+        <p>Season Championship</p>
         <h1>STANDINGS</h1>
     </header>
 
-    <nav class="tabs">
-        <button class="tab-btn active" onclick="loadSeries('Cup', this)">CUP</button>
-        <button class="tab-btn" onclick="loadSeries('Xfinity', this)">XFINITY</button>
-        <button class="tab-btn" onclick="loadSeries('Truck', this)">TRUCKS</button>
-        <button class="tab-btn" onclick="loadSeries('Menards', this)">MENARDS</button>
-    </nav>
+    <div class="controls">
+        <select id="series-select" onchange="loadSeries()">
+            <option value="Cup">NASCAR Cup Series</option>
+            <option value="Xfinity">Xfinity Series</option>
+            <option value="Truck">Truck Series</option>
+            <option value="Menards">ARCA Menards</option>
+        </select>
+    </div>
 
     <main class="container">
         <table id="standings-table">
             <thead>
                 <tr>
-                    <th class="pos-cell">POS</th>
+                    <th style="text-align: center;">POS</th>
                     <th>DRIVER</th>
                     <th>WINS</th>
                     <th>TOP 5</th>
-                    <th class="points-cell">PTS</th>
+                    <th>PTS</th>
                 </tr>
             </thead>
             <tbody id="standings-body">
@@ -100,54 +116,83 @@
         </table>
     </main>
 
-    <footer>© 2025-2026 AMERICAN STOCK CAR RACING LEAGUE</footer>
+    <footer>
+        © 2025-2026 American Stock Car Racing League | Strictly Professional Fantasy Racing
+    </footer>
 
     <script>
-        // 1. NAVIGATION
+        // --- 1. MODULAR NAVIGATION LOGIC ---
         fetch('nav.html')
-            .then(res => res.text())
-            .then(data => { document.getElementById('nav-placeholder').innerHTML = data; });
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+                
+                // Highlight current page
+                const currentPage = window.location.pathname.split("/").pop() || "index.html";
+                const navID = "nav-" + currentPage.split(".")[0];
+                const activeLink = document.getElementById(navID);
+                if (activeLink) {
+                    activeLink.style.color = "var(--primary)";
+                    activeLink.style.borderLeft = "4px solid var(--primary)";
+                    activeLink.style.paddingLeft = "15px";
+                }
+            })
+            .catch(err => console.error("Nav load error:", err));
 
         function toggleMenu() {
-            const m = document.getElementById('nav-menu');
-            if(m) m.classList.toggle('open');
+            const menu = document.getElementById('nav-menu');
+            if (menu) menu.classList.toggle('open');
         }
 
-        // 2. DATA LOADING
+        // --- 2. STANDINGS DATA LOGIC ---
         let standingsData = {};
 
         fetch('standings.json')
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) throw new Error('standings.json not found');
+                return res.json();
+            })
             .then(data => {
                 standingsData = data;
-                renderTable('Cup'); // Default view
+                loadSeries(); // Load default
+            })
+            .catch(err => {
+                document.getElementById('standings-body').innerHTML = 
+                    `<tr><td colspan="5" style="text-align:center; padding:2rem; color:var(--primary);">
+                        ERROR: ${err.message}<br>Check file name (standings.json) and location.
+                    </td></tr>`;
             });
 
-        function renderTable(series) {
+        function loadSeries() {
+            const selectedSeries = document.getElementById('series-select').value;
             const body = document.getElementById('standings-body');
             body.innerHTML = '';
-            
-            if(!standingsData[series]) return;
 
-            standingsData[series].forEach((entry, index) => {
-                const row = `
-                    <tr>
+            // Handle Key Matching (e.g. "Truck" vs "Trucks" or lowercase)
+            // We look for a key in the JSON that matches the selected value
+            let dataKey = Object.keys(standingsData).find(key => 
+                key.toLowerCase() === selectedSeries.toLowerCase()
+            );
+
+            if (!dataKey || !standingsData[dataKey]) {
+                body.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:2rem;">No standings found for this series.</td></tr>';
+                return;
+            }
+
+            standingsData[dataKey].forEach((entry, index) => {
+                const isLeader = index === 0 ? 'class="leader-row"' : '';
+                
+                body.innerHTML += `
+                    <tr ${isLeader}>
                         <td class="pos-cell">${index + 1}</td>
-                        <td style="font-weight:bold; letter-spacing:1px;">${entry.driver}</td>
+                        <td style="font-weight:bold; letter-spacing:1px; color:#fff;">${entry.driver}</td>
                         <td>${entry.wins || 0}</td>
                         <td>${entry.top5 || 0}</td>
                         <td class="points-cell">${entry.points}</td>
                     </tr>
                 `;
-                body.innerHTML += row;
             });
         }
-
-        function loadSeries(series, btn) {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            renderTable(series);
-        }
-    </script>
+    </script> 
 </body>
 </html>
