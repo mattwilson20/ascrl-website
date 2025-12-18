@@ -6,22 +6,68 @@
     <title>ASCRL | American Stock Car Racing League</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        :root {
-            --primary: #c00;
-            --accent: #ff0;
-            --bg-dark: #000;
-            --border: #1a1a1a;
-            --text-muted: #a0a0a0;
+        /* Home-specific Hero Animation & Layout */
+        .hero { 
+            position: relative; 
+            overflow: hidden; 
+            background: radial-gradient(circle at center, #222 0%, #000 100%); 
+            padding: 12rem 1rem 8rem; 
+            text-align: center; 
+            border-bottom: 1px solid var(--border);
         }
-        body { margin: 0; font-family: 'Arial Black', sans-serif; background: #000; color: #fff; }
-        .hero { padding: 8rem 1rem; text-align: center; background: radial-gradient(circle, #222, #000); }
-        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
-        .timer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: -2rem; }
-        .race-card { background: #0d0d0d; padding: 2rem; border: 1px solid var(--border); text-align: center; }
-        .leader-strip { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem; background: #050505; padding: 2rem; border: 1px solid var(--border); margin-top: 2rem; }
-        .stat-box { text-align: center; }
-        .stat-label { color: var(--primary); font-size: 0.7rem; letter-spacing: 2px; display: block; }
-        .stat-value { font-size: 1.5rem; display: block; margin: 5px 0; }
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: repeating-conic-gradient(rgba(255,255,255,0.03) 0% 25%, transparent 0% 50%) 50% / 80px 80px;
+            pointer-events: none;
+        }
+        
+        .timer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: -4rem; /* Overlap into Hero */
+            position: relative;
+            z-index: 10;
+        }
+
+        .race-card {
+            background: #0d0d0d;
+            padding: 2.5rem;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: 0.3s;
+        }
+        .race-card:hover { border-color: var(--primary); transform: translateY(-5px); }
+
+        .leader-strip {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+            background: #050505;
+            padding: 3rem;
+            border: 1px solid var(--border);
+        }
+
+        .highlight-box {
+            background: linear-gradient(90deg, #0d0d0d 0%, #000 100%);
+            border-left: 4px solid var(--primary);
+            padding: 4rem 3rem;
+            text-align: left;
+            margin: 4rem 0;
+        }
+
+        .stat-label { color: var(--primary); font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; display: block; }
+        .stat-value { font-size: 1.8rem; font-family: 'Arial Black', sans-serif; display: block; margin-top: 0.5rem; }
+        
+        h1 { font-size: clamp(4rem, 15vw, 8rem); margin: 0; letter-spacing: -2px; position: relative; z-index: 1; }
+        .text-gradient {
+            background: linear-gradient(to bottom, #fff 30%, #444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
     </style>
 </head>
 <body>
@@ -29,36 +75,73 @@
     <div id="nav-placeholder"></div>
 
     <header class="hero">
-        <p style="letter-spacing: 5px; color: var(--primary);">OFFICIAL LEAGUE PORTAL</p>
-        <h1 style="font-size: 5rem; margin: 0;">ASCRL</h1>
-        <a href="https://discord.gg/RgYEY5F3Kf" style="display:inline-block; margin-top:1rem; color:#fff; border:1px solid #fff; padding:10px 20px; text-decoration:none;">JOIN DISCORD</a>
+        <p style="letter-spacing: 8px; color: var(--primary); text-transform: uppercase; font-size: 0.8rem;">Official League Portal</p>
+        <h1 class="text-gradient">ASCRL</h1>
+        <div style="margin-top: 2rem; position: relative; z-index: 2;">
+            <a href="https://discord.gg/RgYEY5F3Kf" class="btn-primary" style="text-decoration: none; border: 1px solid #fff; padding: 12px 30px; color: #fff; letter-spacing: 2px; font-size: 0.8rem;">JOIN THE DISCORD</a>
+        </div>
     </header>
 
     <main class="container">
-        <div class="timer-container">
-            <div class="race-card"><span class="stat-label">CUP</span><h3 id="cup-next">LOADING...</h3><div id="cup-timer">--:--</div></div>
-            <div class="race-card"><span class="stat-label">XFINITY</span><h3 id="xfinity-next">LOADING...</h3><div id="xfinity-timer">--:--</div></div>
-            <div class="race-card"><span class="stat-label">TRUCKS</span><h3 id="truck-next">LOADING...</h3><div id="truck-timer">--:--</div></div>
-            <div class="race-card"><span class="stat-label">MENARDS</span><h3 id="menards-next">LOADING...</h3><div id="menards-timer">--:--</div></div>
-        </div>
+        <section>
+            <h2 style="margin-bottom: 2rem; font-size: 1.2rem; color: var(--text-muted); letter-spacing: 4px;">UPCOMING EVENTS</h2>
+            <div class="timer-container" id="race-countdowns">
+                <div class="race-card">
+                    <span class="stat-label">CUP SERIES</span>
+                    <h3 id="cup-next" style="font-size: 1.2rem; margin: 0.5rem 0;">...</h3>
+                    <div class="stat-value" id="cup-timer">--/--</div>
+                </div>
+                <div class="race-card">
+                    <span class="stat-label">XFINITY SERIES</span>
+                    <h3 id="xfinity-next" style="font-size: 1.2rem; margin: 0.5rem 0;">...</h3>
+                    <div class="stat-value" id="xfinity-timer">--/--</div>
+                </div>
+                <div class="race-card">
+                    <span class="stat-label">TRUCK SERIES</span>
+                    <h3 id="truck-next" style="font-size: 1.2rem; margin: 0.5rem 0;">...</h3>
+                    <div class="stat-value" id="truck-timer">--/--</div>
+                </div>
+                <div class="race-card">
+                    <span class="stat-label">MENARDS SERIES</span>
+                    <h3 id="menards-next" style="font-size: 1.2rem; margin: 0.5rem 0;">...</h3>
+                    <div class="stat-value" id="menards-timer">--/--</div>
+                </div>
+            </div>
+        </section>
 
-        <h2 style="text-align:center; margin-top:4rem; letter-spacing:3px;">POINTS LEADERS</h2>
-        <div class="leader-strip" id="leaders-grid"></div>
+        <section style="margin-top: 6rem;">
+            <h2 style="margin-bottom: 2rem; text-align: center; color: var(--text-muted); font-size: 1.2rem; letter-spacing: 4px;">CHAMPIONSHIP LEADERS</h2>
+            <div class="leader-strip" id="leaders-grid">
+                </div>
+        </section>
+
+        <section class="highlight-box">
+            <span class="stat-label">LATEST RECAP</span>
+            <h2 style="font-size: 3.5rem; margin: 1rem 0; line-height: 0.9;">TALLADEGA THRILLER</h2>
+            <p style="color: var(--text-muted); font-family: sans-serif; max-weight: 300; line-height: 1.6; max-width: 700px; margin: 1.5rem 0;">
+                In a classic superspeedway thriller, <strong>#24 dakotathomas1994</strong> held off the field in a last-lap dash to score his first-ever Cup Series victory. The race was defined by massive drafting packs and a chaotic final turn that reshaped the standings.
+            </p>
+            <a href="results.html" style="color: var(--accent); text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; font-weight: bold;">VIEW FULL FINISHING ORDER →</a>
+        </section>
     </main>
 
+    <footer style="padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px;">
+        © 2025-2026 AMERICAN STOCK CAR RACING LEAGUE
+    </footer>
+
     <script>
-        // 1. Load Navigation
+        // 1. NAVIGATION
         fetch('nav.html')
             .then(res => res.text())
             .then(data => { document.getElementById('nav-placeholder').innerHTML = data; })
-            .catch(err => console.log("Nav error"));
+            .catch(err => console.log("Nav failed"));
 
         function toggleMenu() {
             const m = document.getElementById('nav-menu');
             if(m) m.classList.toggle('open');
         }
 
-        // 2. Load Schedule
+        // 2. SCHEDULE DATA
         fetch('schedule.json')
             .then(res => res.json())
             .then(data => {
@@ -67,18 +150,25 @@
                     if(next) {
                         document.getElementById(s.toLowerCase() + '-next').innerText = next.track;
                         document.getElementById(s.toLowerCase() + '-timer').innerText = next.date;
+                    } else {
+                        document.getElementById(s.toLowerCase() + '-next').innerText = "SEASON COMPLETE";
                     }
                 });
             });
 
-        // 3. Load Standings
+        // 3. STANDINGS DATA
         fetch('standings.json')
             .then(res => res.json())
             .then(data => {
                 let html = '';
                 ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(s => {
                     if(data[s] && data[s][0]) {
-                        html += `<div class="stat-box"><span class="stat-label">${s}</span><span class="stat-value">${data[s][0].driver}</span></div>`;
+                        html += `
+                            <div style="text-align: center;">
+                                <span class="stat-label">${s}</span>
+                                <span class="stat-value">${data[s][0].driver}</span>
+                                <span style="font-size: 0.7rem; color: var(--text-muted);">${data[s][0].points} PTS</span>
+                            </div>`;
                     }
                 });
                 document.getElementById('leaders-grid').innerHTML = html;
