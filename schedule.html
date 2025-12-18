@@ -3,211 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASCRL Schedule | American Stock Car Racing League</title>
+    <title>Schedule | ASCRL</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        :root {
-            --primary: #c00;
-            --secondary: #ff0;
-            --bg-dark: #000;
-            --bg-alt: #0a0a0a;
-            --card-bg: #111;
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        /* Schedule-Specific Pro Styling */
+        .roadmap {
+            display: flex;
+            justify-content: space-between;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        
+        /* The Connecting Line */
+        .roadmap::after {
+            content: "";
+            position: absolute;
+            top: 50%; left: 10%; right: 10%;
+            height: 1px; background: var(--border);
+            z-index: 1;
         }
 
-        body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--bg-dark); color: #fff; overflow-x: hidden; }
-        
-        /* --- NAVIGATION --- */
-        .hamburger { position: fixed; top: 1rem; left: 1rem; z-index: 2000; cursor: pointer; padding: 10px; background: rgba(0,0,0,0.8); border-radius: 8px; border: 1px solid rgba(255,255,0,0.2); }
-        .hamburger-line { width: 30px; height: 4px; background: var(--secondary); margin: 6px 0; transition: var(--transition); border-radius: 2px; }
-        
-        .nav-overlay { position: fixed; top: 0; left: -100%; width: 80%; max-width: 300px; height: 100vh; background: rgba(0,0,0,0.98); transition: left 0.4s ease; z-index: 1999; padding-top: 80px; border-right: 2px solid var(--primary); }
-        .nav-overlay.open { left: 0; }
-        .nav-logo { font-size: 2.5rem; color: var(--secondary); text-shadow: 3px 3px var(--primary); margin: 0 0 3rem 2rem; }
-        .nav-links { display: flex; flex-direction: column; gap: 1rem; padding: 0 2rem; }
-        .nav-links a { color: #fff; text-decoration: none; font-size: 1.5rem; padding: 1rem; border-radius: 10px; transition: var(--transition); text-align: left; }
-        .nav-links a:hover { background: var(--primary); color: var(--secondary); }
-
-        /* --- HERO --- */
-        .hero { background: linear-gradient(to bottom, var(--primary), #900); padding: 10rem 1rem 6rem; text-align: center; clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); }
-        h1 { font-size: clamp(2.5rem, 8vw, 4rem); margin: 0; text-shadow: 4px 4px #000; }
-        
-        /* --- LAYOUT --- */
-        section { padding: 3rem 1rem; }
-        section:nth-of-type(even) { background: var(--bg-alt); }
-        .container { max-width: 1000px; margin: 0 auto; }
-
-        /* --- TIMELINE BANNER --- */
-        .timeline-banner { 
-            background: var(--card-bg); 
-            border: 2px solid var(--primary); 
-            border-radius: 15px; 
-            padding: 1.5rem; 
-            margin-bottom: 3rem; 
-            display: flex; 
-            justify-content: space-around; 
-            flex-wrap: wrap; 
-            gap: 1rem;
-            box-shadow: 0 5px 15px rgba(204, 0, 0, 0.2);
+        .step {
+            position: relative;
+            z-index: 2;
+            background: var(--card-bg);
+            padding: 0 1rem;
+            text-align: center;
         }
-        .time-slot { text-align: center; }
-        .time-slot div:first-child { color: var(--secondary); font-size: 0.8rem; text-transform: uppercase; }
-        .time-slot div:last-child { font-size: 1.4rem; font-weight: bold; }
 
-        /* --- UI ELEMENTS --- */
-        .selector-group { text-align: center; margin-bottom: 2rem; }
-        select { 
-            padding: 1rem; font-size: 1.2rem; background: var(--card-bg); color: #fff; 
-            border: 2px solid var(--primary); border-radius: 10px; width: 100%; max-width: 400px;
-            cursor: pointer; transition: var(--transition);
+        .step .dot {
+            width: 12px; height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            box-shadow: 0 0 10px var(--primary);
         }
-        select:hover { border-color: var(--secondary); }
 
-        /* --- TABLE STYLE --- */
-        .table-container { border-radius: 15px; overflow: hidden; border: 1px solid #333; animation: slideUp 0.5s ease; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .schedule-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
 
-        table { width: 100%; border-collapse: collapse; background: var(--card-bg); }
-        th { background: var(--primary); padding: 1.2rem; text-transform: uppercase; font-size: 0.9rem; }
-        td { padding: 1.2rem; text-align: center; border-bottom: 1px solid #222; font-family: sans-serif; font-weight: bold; }
-        
-        .completed { opacity: 0.6; background: rgba(255, 255, 255, 0.03); }
-        .completed td:first-child::before { content: "🏁 "; }
-        
-        .upcoming { background: rgba(255, 255, 0, 0.05); color: var(--secondary); }
-        .upcoming td { border-left: 4px solid var(--secondary); }
+        .entry {
+            display: grid;
+            grid-template-columns: 150px 1fr 120px;
+            align-items: center;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 1.5rem 2rem;
+            transition: var(--transition);
+        }
 
-        footer { background: #050505; padding: 3rem 1rem; text-align: center; font-size: 0.9rem; border-top: 1px solid #222; }
+        .entry:hover {
+            border-color: var(--primary);
+            background: #050505;
+        }
+
+        .entry.completed { opacity: 0.4; filter: grayscale(1); }
+        .entry.completed .date { text-decoration: line-through; }
+
+        .entry.upcoming {
+            border-left: 4px solid var(--accent);
+            background: linear-gradient(90deg, rgba(255,255,0,0.05) 0%, transparent 100%);
+        }
+
+        .date { font-family: sans-serif; font-weight: bold; color: var(--text-muted); }
+        .track { font-size: 1.4rem; letter-spacing: -1px; }
+        .status-pill {
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border: 1px solid var(--border);
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        select.custom-select {
+            background: #000;
+            color: white;
+            border: 1px solid var(--primary);
+            padding: 1rem 2rem;
+            font-family: 'Arial Black', sans-serif;
+            text-transform: uppercase;
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 3rem;
+            cursor: pointer;
+        }
 
         @media (max-width: 768px) {
-            .hero { padding: 8rem 1rem 4rem; }
-            .timeline-banner { flex-direction: column; }
-            td, th { padding: 0.8rem; font-size: 0.9rem; }
+            .entry { grid-template-columns: 1fr; gap: 10px; text-align: center; }
+            .roadmap { flex-direction: column; gap: 2rem; }
+            .roadmap::after { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <div class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <div class="hamburger" onclick="toggleMenu()">
         <div class="hamburger-line"></div>
         <div class="hamburger-line"></div>
         <div class="hamburger-line"></div>
     </div>
 
     <nav class="nav-overlay" id="nav-menu">
-        <div class="nav-logo">ASCRL</div>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="news.html">News</a>
-            <a href="standings.html">Standings</a>
-            <a href="results.html">Results</a>
-            <a href="schedule.html">Schedule</a>
-            <a href="drivers.html">Drivers</a>
-            <a href="rules.html">Rules</a>
+        <div class="nav-links" style="display:flex; flex-direction:column; padding: 2rem;">
+            <a href="index.html" style="color:white; text-decoration:none; font-size:1.5rem; margin:1rem 0;">DASHBOARD</a>
+            <a href="standings.html" style="color:white; text-decoration:none; font-size:1.5rem; margin:1rem 0;">STANDINGS</a>
+            <a href="results.html" style="color:white; text-decoration:none; font-size:1.5rem; margin:1rem 0;">RESULTS</a>
+            <a href="schedule.html" style="color:var(--primary); text-decoration:none; font-size:1.5rem; margin:1rem 0;">SCHEDULE</a>
+            <a href="drivers.html" style="color:white; text-decoration:none; font-size:1.5rem; margin:1rem 0;">THE GRID</a>
         </div>
     </nav>
 
     <header class="hero">
-        <h1>ASCRL SCHEDULE</h1>
-        <p>2025-2026 Inaugural Season | Official Race Dates</p>
+        <p style="letter-spacing: 8px; color: var(--primary);">OFFICIAL CALENDAR</p>
+        <h1 class="text-gradient">SEASON SCHEDULE</h1>
     </header>
 
-    <main>
-        <section id="race-timeline">
-            <div class="container">
-                <div class="timeline-banner">
-                    <div class="time-slot">
-                        <div>Practice</div>
-                        <div>8:00 PM EST</div>
-                    </div>
-                    <div class="time-slot" style="border-left: 1px solid #333; padding-left: 1rem;">
-                        <div>Qualifying</div>
-                        <div>9:00 PM EST</div>
-                    </div>
-                    <div class="time-slot" style="border-left: 1px solid #333; padding-left: 1rem;">
-                        <div>Green Flag</div>
-                        <div>9:20 PM EST</div>
-                    </div>
-                </div>
-
-                <div class="selector-group">
-                    <label for="series-select" style="display:block; margin-bottom:1rem; color:var(--secondary);">VIEW BY SERIES</label>
-                    <select id="series-select">
-                        <option value="">-- Choose a Series --</option>
-                        <option value="Cup">Cup Series</option>
-                        <option value="Xfinity">Xfinity Series</option>
-                        <option value="Truck">Truck Series</option>
-                        <option value="Menards">Menards Series</option>
-                    </select>
-                </div>
-
-                <div id="schedule-container" class="table-container" style="display:none;">
-                    <table id="schedule-table">
-                        <thead>
-                            <tr id="table-header"></tr>
-                        </thead>
-                        <tbody id="table-body"></tbody>
-                    </table>
-                </div>
-                <p id="placeholder-text" style="text-align:center; opacity:0.5; margin-top:2rem;">Select a series to view the upcoming calendar.</p>
+    <main class="container">
+        
+        <div class="roadmap">
+            <div class="step">
+                <div class="dot"></div>
+                <span class="stat-label">PRACTICE</span>
+                <span style="font-size: 1.2rem;">8:00 PM EST</span>
             </div>
-        </section>
+            <div class="step">
+                <div class="dot"></div>
+                <span class="stat-label">QUALIFYING</span>
+                <span style="font-size: 1.2rem;">9:00 PM EST</span>
+            </div>
+            <div class="step">
+                <div class="dot" style="background: var(--accent); box-shadow: 0 0 15px var(--accent);"></div>
+                <span class="stat-label" style="color: var(--accent);">GREEN FLAG</span>
+                <span style="font-size: 1.2rem;">9:20 PM EST</span>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <select id="series-select" class="custom-select">
+                <option value="">SELECT SERIES</option>
+                <option value="Cup">CUP SERIES</option>
+                <option value="Xfinity">XFINITY SERIES</option>
+                <option value="Truck">TRUCK SERIES</option>
+                <option value="Menards">MENARDS SERIES</option>
+            </select>
+        </div>
+
+        <div id="schedule-list" class="schedule-grid">
+            <p style="text-align: center; color: var(--text-muted); letter-spacing: 2px;">SELECT A SERIES TO VIEW CALENDAR</p>
+        </div>
+
     </main>
 
-    <footer>
-        © 2025-2026 ASCRL | Racing Every Week | Join us on Discord for Live Updates
-    </footer>
+    <footer>© 2025-2026 AMERICAN STOCK CAR RACING LEAGUE</footer>
 
     <script>
-        function toggleMenu() {
-            document.getElementById('nav-menu').classList.toggle('open');
-        }
+        function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
 
-        // Set the "Current Date" for comparison logic
-        const currentDate = new Date(); 
+        const currentDate = new Date();
 
-        fetch('schedule.json')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('series-select').addEventListener('change', function() {
-                    const series = this.value;
-                    const container = document.getElementById('schedule-container');
-                    const tbody = document.getElementById('table-body');
-                    const thead = document.getElementById('table-header');
-                    const placeholder = document.getElementById('placeholder-text');
+        fetch('schedule.json').then(r => r.json()).then(data => {
+            document.getElementById('series-select').addEventListener('change', function() {
+                const series = this.value;
+                const list = document.getElementById('schedule-list');
+                list.innerHTML = '';
 
-                    if (!series) {
-                        container.style.display = 'none';
-                        placeholder.style.display = 'block';
-                        return;
-                    }
+                if (!series || !data[series]) return;
 
-                    placeholder.style.display = 'none';
-                    container.style.display = 'block';
-                    tbody.innerHTML = '';
-                    thead.innerHTML = `<th>Date</th><th>${series} Series Track</th><th>Status</th>`;
-
-                    if (data[series]) {
-                        data[series].forEach(race => {
-                            const tr = document.createElement('tr');
-                            const raceDateObj = new Date(race.date);
-                            
-                            // Check if date is in the past
-                            const isPast = raceDateObj < currentDate;
-                            tr.className = isPast ? 'completed' : 'upcoming';
-
-                            tr.innerHTML = `
-                                <td>${race.date}</td>
-                                <td>${race.track}</td>
-                                <td>${isPast ? 'FINAL' : 'UPCOMING'}</td>
-                            `;
-                            tbody.appendChild(tr);
-                        });
-                    }
+                data[series].forEach(race => {
+                    const raceDate = new Date(race.date);
+                    const isPast = raceDate < currentDate;
+                    
+                    const entry = document.createElement('div');
+                    entry.className = `entry ${isPast ? 'completed' : 'upcoming'}`;
+                    
+                    entry.innerHTML = `
+                        <div class="date">${race.date}</div>
+                        <div class="track">${race.track.toUpperCase()}</div>
+                        <div class="status-pill">${isPast ? 'FINAL' : 'LIVE SOON'}</div>
+                    `;
+                    list.appendChild(entry);
                 });
-            })
-            .catch(err => {
-                document.getElementById('placeholder-text').innerHTML = 'Error loading schedule. Ensure schedule.json exists.';
             });
+        });
     </script>
 </body>
 </html>
