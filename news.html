@@ -177,6 +177,22 @@
        // --- 2. ARTICLE DATABASE ---
         const articles = [
             {
+                title: "TEAMS EDITION",
+                date: "NOV 13, 2025",
+                tag: "ASCR WEEKLY #8",
+                preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/52a4a9654a523f74d2cc913c553e678a7fa387c7/ASCRweeklyissue8.jpg",
+                teaser: "A fun and lighthearted look at the teams! Thanks to everyone who reached out with context to fill these pages.",
+                pages: [
+                    "https://raw.githubusercontent.com/mattwilson20/ascrl-website/52a4a9654a523f74d2cc913c553e678a7fa387c7/ASCRweeklyissue8.jpg",
+                    "https://raw.githubusercontent.com/mattwilson20/ascrl-website/738345e5637e178e82ca96f516d783f01fb0268d/ASCRPage2.jpg",
+                    "https://raw.githubusercontent.com/mattwilson20/ascrl-website/fbfa579723c77e6fbf3d60eb03885f5e66f0d1d9/ascrp3.jpg",
+                    "https://raw.githubusercontent.com/mattwilson20/ascrl-website/7052e9039271786c89076e3ec430c84f27f20c11/ascrp4.jpg",
+                    "https://raw.githubusercontent.com/mattwilson20/ascrl-website/52f9a743956628f894ed18cc68a7e1f7198311ca/ascrp5.jpg",
+                    "https://raw.githubusercontent.com/mattwilson20/ascrl-website/b9af07f0f081c9ee4802009f20ed588339aa9b98/ascrp6.jpg",
+                    "https://raw.githubusercontent.com/mattwilson20/ascrl-website/5097bc72fc757138a902981f441cf90e9882abe7/ascrp7.jpg"
+                ]
+            },
+            {
                 title: "HOCKEY DOMINATES VEGAS",
                 date: "NOV 12, 2025",
                 tag: "ASCR WEEKLY #7",
@@ -290,7 +306,16 @@
 
             // Setup HTML structure for pages
             root.innerHTML = `<div id="book-el">
-                ${articles[idx].pages.map(img => `<div class="page"><img src="${img}"></div>`).join('')}
+                ${articles[idx].pages.map(img => {
+                    // Check if content is text or image link
+                    if(img.startsWith('http')) {
+                        return `<div class="page"><img src="${img}"></div>`;
+                    } else {
+                        return `<div class="page" style="padding:20px; color:black; display:flex; align-items:center; justify-content:center; text-align:center;">
+                                    <p style="font-family:sans-serif; font-size:1.2rem;">${img}</p>
+                                </div>`;
+                    }
+                }).join('')}
             </div>`;
 
             // Initialize PageFlip Library
@@ -299,7 +324,7 @@
                 flipBook = new St.PageFlip(el, {
                     width: 500, height: 650,
                     size: "stretch", minWidth: 315, maxWidth: 950,
-                    showCover: articles[idx].pages.length > 1, // Only show cover logic if multiple pages
+                    showCover: articles[idx].pages.length > 1, 
                     drawShadow: true
                 });
                 
