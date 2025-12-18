@@ -230,28 +230,29 @@
         window.onclick = function(e) {
             if (e.target.className === 'modal') document.getElementById('driver-modal').style.display = 'none';
         }
-    </script>
-    // 1. Fetch and Load the Navigation
-fetch('nav.html')
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById('nav-placeholder').innerHTML = data;
-        
-        // 2. Highlight the current page
-        const currentPage = window.location.pathname.split("/").pop() || "index.html";
-        const navID = "nav-" + currentPage.split(".")[0];
-        const activeLink = document.getElementById(navID);
-        if (activeLink) {
-            activeLink.style.color = "var(--primary)";
-            activeLink.style.borderLeft = "4px solid var(--primary)";
-            activeLink.style.paddingLeft = "15px";
-        }
-    });
 
-// 3. The Toggle Function (Keep this here)
-function toggleMenu() {
-    const menu = document.getElementById('nav-menu');
-    if (menu) menu.classList.toggle('open');
-}
+        // --- ADDED NAVIGATION FETCH INSIDE THE SCRIPT TAG ---
+        fetch('nav.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+                
+                // Highlight the current page
+                const currentPage = window.location.pathname.split("/").pop() || "index.html";
+                const navID = "nav-" + currentPage.split(".")[0];
+                const activeLink = document.getElementById(navID);
+                if (activeLink) {
+                    activeLink.style.color = "var(--primary)";
+                    activeLink.style.borderLeft = "4px solid var(--primary)";
+                    activeLink.style.paddingLeft = "15px";
+                }
+            });
+
+        // The Toggle Function (Must be inside script tag)
+        function toggleMenu() {
+            const menu = document.getElementById('nav-menu');
+            if (menu) menu.classList.toggle('open');
+        }
+    </script> 
 </body>
 </html>
