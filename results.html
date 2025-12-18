@@ -3,118 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Race Results | Season Standings</title>
+    <title>Race Results</title>
     <style>
         :root {
             --bg-dark: #121212;
             --card-bg: #1e1e1e;
-            --accent: #e10600; /* Racing Red */
+            --accent: #e10600;
             --text-main: #ffffff;
-            --text-dim: #b0b0b0;
             --win-gold: #ffd700;
         }
 
         body { 
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-            margin: 0;
-            padding: 20px; 
+            font-family: 'Segoe UI', sans-serif; 
+            margin: 0; 
             background-color: var(--bg-dark); 
             color: var(--text-main);
         }
 
-        .container { 
-            max-width: 900px; 
-            margin: auto; 
-            background: var(--card-bg); 
-            padding: 30px; 
-            border-radius: 12px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border-top: 4px solid var(--accent);
+        /* --- NAVIGATION / HAMBURGER --- */
+        nav {
+            background: #000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--accent);
         }
 
-        h2 { 
-            text-transform: uppercase; 
-            letter-spacing: 2px; 
-            margin-bottom: 25px; 
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
         }
 
-        /* Dropdowns Styling */
-        .controls { 
-            display: flex; 
-            gap: 15px; 
-            margin-bottom: 30px; 
-        }
-
-        select { 
-            padding: 12px; 
-            border-radius: 6px; 
-            border: 1px solid #444; 
-            background: #2a2a2a; 
+        .nav-links a {
             color: white;
-            flex: 1;
-            font-size: 1rem;
-            outline: none;
-        }
-
-        select:focus { border-color: var(--accent); }
-
-        /* Table Styling */
-        table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            background: #252525;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        th { 
-            background: #000; 
-            color: var(--text-dim); 
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            padding: 15px; 
-            text-align: left; 
-        }
-
-        td { 
-            padding: 15px; 
-            border-bottom: 1px solid #333; 
-            font-size: 1.1rem;
-        }
-
-        /* Winner Row Highlight */
-        .win-row { 
-            background: rgba(255, 215, 0, 0.1); 
-            border-left: 5px solid var(--win-gold);
-        }
-        
-        .win-row td:nth-child(2) { color: var(--win-gold); }
-
-        /* Bonus Pills */
-        .bonus-pill {
-            font-size: 0.7rem;
-            padding: 3px 10px;
-            border-radius: 4px;
-            margin-left: 5px;
-            color: white;
+            text-decoration: none;
             font-weight: bold;
             text-transform: uppercase;
+            font-size: 0.9rem;
         }
-        .pole-pill { background: #dc3545; } 
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: white;
+        }
+
+        /* --- MAIN LAYOUT --- */
+        .container { 
+            max-width: 900px; 
+            margin: 40px auto; 
+            background: var(--card-bg); 
+            padding: 25px; 
+            border-radius: 8px; 
+        }
+
+        .controls { display: flex; gap: 15px; margin-bottom: 25px; }
+        
+        select { 
+            padding: 12px; 
+            background: #2a2a2a; 
+            color: white; 
+            border: 1px solid #444; 
+            border-radius: 4px; 
+            flex: 1; 
+        }
+
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #000; color: #888; padding: 12px; text-align: left; font-size: 0.8rem; }
+        td { padding: 12px; border-bottom: 1px solid #333; }
+
+        .win-row { background: rgba(255, 215, 0, 0.1); border-left: 4px solid var(--win-gold); }
+        .bonus-pill { font-size: 0.7rem; padding: 2px 6px; border-radius: 3px; margin-left: 4px; color: white; }
+        .pole-pill { background: #dc3545; }
         .fl-pill { background: #28a745; }
 
-        .error-msg {
-            color: #ff4444;
-            padding: 20px;
-            text-align: center;
-            background: rgba(255, 0, 0, 0.1);
-            border-radius: 8px;
+        /* Responsive Nav */
+        @media (max-width: 768px) {
+            .nav-links { display: none; flex-direction: column; width: 100%; position: absolute; top: 60px; left: 0; background: #000; padding: 20px; z-index: 100; }
+            .nav-links.active { display: flex; }
+            .hamburger { display: block; }
+            .controls { flex-direction: column; }
         }
     </style>
 </head>
 <body>
+
+<nav>
+    <div style="font-weight: bold; font-size: 1.2rem;">LEAGUE LOGO</div>
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="results.html">Results</a></li>
+        <li><a href="standings.html">Standings</a></li>
+    </ul>
+</nav>
 
 <div class="container">
     <h2>Race Results</h2>
@@ -123,8 +110,7 @@
         <select id="series-select" onchange="populateTracks()">
             <option value="Cup">NASCAR Cup Series</option>
             <option value="Xfinity">Xfinity Series</option>
-            <option value="Trucks">Truck Series</option>
-            <option value="Menards">ARCA Menards</option>
+            <option value="Truck">Truck Series</option> <option value="Menards">ARCA Menards</option>
         </select>
 
         <select id="track-select" onchange="displayResults()">
@@ -134,37 +120,31 @@
     <table>
         <thead>
             <tr>
-                <th style="width: 50px;">Pos</th>
+                <th>Pos</th>
                 <th>Driver</th>
                 <th style="text-align: center;">Points</th>
                 <th style="text-align: right;">Bonus</th>
             </tr>
         </thead>
-        <tbody id="results-body">
-            </tbody>
+        <tbody id="results-body"></tbody>
     </table>
 </div>
 
 <script>
     let raceData = {};
 
-    // 1. Fetch from race_results.json (matching your specific filename)
+    function toggleMenu() {
+        document.getElementById('navLinks').classList.toggle('active');
+    }
+
     fetch('./race_results.json')
-        .then(res => {
-            if (!res.ok) throw new Error('File not found: race_results.json');
-            return res.json();
-        })
+        .then(res => res.json())
         .then(data => {
             raceData = data;
-            populateTracks(); 
+            populateTracks();
         })
         .catch(err => {
-            console.error(err);
-            document.getElementById('results-body').innerHTML = 
-                `<tr><td colspan="4" class="error-msg">
-                <strong>Error:</strong> Data file missing or incorrectly named.<br>
-                Ensure "race_results.json" is in your GitHub folder.
-                </td></tr>`;
+            document.getElementById('results-body').innerHTML = `<tr><td colspan="4" style="color:red; text-align:center;">Failed to load race_results.json</td></tr>`;
         });
 
     function populateTracks() {
@@ -172,10 +152,13 @@
         const trackSelect = document.getElementById('track-select');
         trackSelect.innerHTML = '';
 
-        const availableTracks = Object.keys(raceData).filter(key => key.startsWith(series));
+        // SEARCH FIX: Looks for any key starting with the series name
+        const availableTracks = Object.keys(raceData).filter(key => 
+            key.toLowerCase().startsWith(series.toLowerCase())
+        );
 
         if (availableTracks.length === 0) {
-            trackSelect.innerHTML = '<option>No Tracks Available</option>';
+            trackSelect.innerHTML = '<option value="">No Tracks Found</option>';
         } else {
             availableTracks.forEach(trackKey => {
                 const option = document.createElement('option');
@@ -193,13 +176,12 @@
         body.innerHTML = '';
 
         if (!trackKey || !raceData[trackKey]) {
-            body.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 40px; color: #666;">No data found for this selection.</td></tr>';
+            body.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#666; padding: 20px;">No results found.</td></tr>';
             return;
         }
 
-        raceData[trackKey].forEach((row) => {
+        raceData[trackKey].forEach(row => {
             const isWinner = (row.position == 1) ? 'class="win-row"' : '';
-            
             let bonusHtml = '';
             if(row.pole === "Yes") bonusHtml += '<span class="bonus-pill pole-pill">Pole</span>';
             if(row.fl === "FL") bonusHtml += '<span class="bonus-pill fl-pill">FL</span>';
@@ -207,11 +189,10 @@
             body.innerHTML += `
                 <tr ${isWinner}>
                     <td>${row.position}</td>
-                    <td style="font-weight: bold;">${row.driver}</td>
-                    <td style="text-align: center;">${row.points}</td>
-                    <td style="text-align: right;">${bonusHtml}</td>
-                </tr>
-            `;
+                    <td style="font-weight:bold;">${row.driver}</td>
+                    <td style="text-align:center;">${row.points}</td>
+                    <td style="text-align:right;">${bonusHtml}</td>
+                </tr>`;
         });
     }
 </script>
