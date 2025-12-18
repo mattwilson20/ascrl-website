@@ -1,112 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASCRL | American Stock Car Racing League</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* Home-specific Hero Animation */
-        .hero { position: relative; overflow: hidden; }
-        .hero::after {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: repeating-conic-gradient(rgba(255,255,255,0.03) 0% 25%, transparent 0% 50%) 50% / 80px 80px;
-            pointer-events: none;
-        }
-        
-        .timer-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: -4rem; /* Overlap into Hero */
-            position: relative;
-            z-index: 10;
-        }
-
-        .leader-strip {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 2rem;
-            background: #050505;
-            padding: 2rem;
-            border: 1px solid var(--border);
-        }
-
-        .highlight-box {
-            background: linear-gradient(90deg, #0d0d0d 0%, #000 100%);
-            border-left: 4px solid var(--primary);
-            padding: 3rem;
-            text-align: left;
-        }
-    </style>
-</head>
-<body>
-
-    <div id="nav-placeholder"></div>
-
-    <header class="hero">
-        <p style="letter-spacing: 8px; color: var(--primary); text-transform: uppercase; font-size: 0.8rem;">Official League Portal</p>
-        <h1 class="text-gradient">ASCRL</h1>
-        <div style="margin-top: 2rem;">
-            <a href="https://discord.gg/RgYEY5F3Kf" class="btn-primary">JOIN THE DISCORD</a>
-        </div>
-    </header>
-
-    <main class="container">
-        <section>
-            <h2 style="margin-bottom: 2rem; font-size: 1.2rem; color: var(--text-muted); letter-spacing: 4px;">LIVE COUNTDOWNS</h2>
-            <div class="timer-container" id="race-countdowns">
-                <div class="race-card">
-                    <span class="stat-label">CUP SERIES</span>
-                    <h3 id="cup-next" style="font-size: 1.2rem; margin: 0.5rem 0;">CHECKING...</h3>
-                    <div class="stat-value" id="cup-timer" style="font-size: 1.8rem; margin-top: 1rem;">--:--:--</div>
-                </div>
-                <div class="race-card">
-                    <span class="stat-label">XFINITY SERIES</span>
-                    <h3 id="xfinity-next" style="font-size: 1.2rem; margin: 0.5rem 0;">CHECKING...</h3>
-                    <div class="stat-value" id="xfinity-timer" style="font-size: 1.8rem; margin-top: 1rem;">--:--:--</div>
-                </div>
-                <div class="race-card">
-                    <span class="stat-label">TRUCK SERIES</span>
-                    <h3 id="truck-next" style="font-size: 1.2rem; margin: 0.5rem 0;">CHECKING...</h3>
-                    <div class="stat-value" id="truck-timer" style="font-size: 1.8rem; margin-top: 1rem;">--:--:--</div>
-                </div>
-                <div class="race-card">
-                    <span class="stat-label">MENARDS SERIES</span>
-                    <h3 id="menards-next" style="font-size: 1.2rem; margin: 0.5rem 0;">CHECKING...</h3>
-                    <div class="stat-value" id="menards-timer" style="font-size: 1.8rem; margin-top: 1rem;">--:--:--</div>
-                </div>
-            </div>
-        </section>
-
-        <section style="margin-top: 4rem;">
-            <h2 style="margin-bottom: 2rem; text-align: center; color: var(--text-muted); font-size: 1.2rem; letter-spacing: 4px;">CHAMPIONSHIP LEADERS</h2>
-            <div class="leader-strip" id="leaders-grid"></div>
-        </section>
-
-        <section class="highlight-box" style="margin-top: 4rem;">
-            <span class="stat-label" style="color: var(--primary);">LATEST RECAP</span>
-            <h2 style="font-size: 3rem; margin: 1rem 0;">TALLADEGA THRILLER</h2>
-            <p style="color: var(--text-muted); font-family: sans-serif; max-width: 700px;">
-                In a classic superspeedway thriller, <strong>#24 dakotathomas1994</strong> held off the field in a last-lap dash to score his first-ever Cup Series victory. The race was defined by massive drafting packs and a chaotic final turn that reshaped the standings.
-            </p>
-            <a href="results.html" style="color: var(--accent); text-decoration: none; font-size: 0.8rem; letter-spacing: 2px;">VIEW FULL FINISHING ORDER →</a>
-        </section>
-    </main>
-
-    <footer>© 2025-2026 AMERICAN STOCK CAR RACING LEAGUE</footer>
-
-    <script>
-        // --- 1. MODULAR NAVIGATION FETCH ---
+<script>
+        // 1. NAVIGATION FETCH
         fetch('nav.html')
-            .then(response => response.text())
+            .then(response => {
+                if (!response.ok) throw new Error('Nav file missing');
+                return response.text();
+            })
             .then(data => {
                 document.getElementById('nav-placeholder').innerHTML = data;
-                
-                // Highlight current page
                 const currentPage = window.location.pathname.split("/").pop() || "index.html";
                 const navID = "nav-" + currentPage.split(".")[0];
                 const activeLink = document.getElementById(navID);
@@ -116,56 +16,46 @@
                     activeLink.style.paddingLeft = "15px";
                 }
             })
-            .catch(err => console.error("Nav load error:", err));
+            .catch(err => console.error("Navigation error:", err));
 
         function toggleMenu() { 
             const menu = document.getElementById('nav-menu');
             if (menu) menu.classList.toggle('open'); 
         }
 
-        // --- 2. DASHBOARD LOGIC ---
-
-        // Timer Function
+        // 2. DASHBOARD LOGIC (SCHEDULE & STANDINGS)
+        
+        // Timer Helper
         function startTimer(id, target) {
             const el = document.getElementById(id);
             if (!el) return;
-
             const update = () => {
                 const now = new Date();
                 const diff = target - now;
-
-                if (diff <= 0) {
-                    el.textContent = "RACE DAY";
-                    el.style.color = "var(--accent)";
-                    return;
-                }
-
+                if (diff <= 0) { el.textContent = "RACE DAY"; el.style.color = "var(--accent)"; return; }
                 const d = Math.floor(diff / 86400000);
                 const h = Math.floor((diff % 86400000) / 3600000);
                 const m = Math.floor((diff % 3600000) / 60000);
-                
                 el.textContent = `${d}D ${h}H ${m}M`;
             };
-
             update();
-            setInterval(update, 60000); // Update every minute to save resources
+            setInterval(update, 60000);
         }
 
-        // Fetch Schedule for Countdowns
+        // Fetch Schedule
+        // NOTE: Ensure your file is named exactly 'schedule.json' (all lowercase) on GitHub
         fetch('schedule.json')
             .then(r => r.json())
             .then(data => {
-                const seriesList = ['Cup', 'Xfinity', 'Truck', 'Menards'];
-                seriesList.forEach(series => {
+                ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(series => {
                     const idPrefix = series.toLowerCase();
                     const now = new Date();
-                    
-                    // Find the first race in the future
-                    const nextRace = data[series]?.find(r => new Date(r.date) >= now.setHours(0,0,0,0));
+                    now.setHours(0,0,0,0); // Set to start of today
+
+                    const nextRace = data[series]?.find(r => new Date(r.date) >= now);
 
                     if (nextRace) {
                         document.getElementById(`${idPrefix}-next`).textContent = nextRace.track;
-                        // Assuming 8:00 PM (20:00) start time for racers
                         startTimer(`${idPrefix}-timer`, new Date(nextRace.date + 'T20:00:00'));
                     } else {
                         document.getElementById(`${idPrefix}-next`).textContent = "SEASON COMPLETE";
@@ -173,19 +63,23 @@
                     }
                 });
             })
-            .catch(err => console.error("Schedule load error:", err));
+            .catch(err => {
+                console.error("Schedule load error. Check if schedule.json exists and is lowercase:", err);
+            });
 
-        // Fetch Standings for Leader Strip
+        // Fetch Standings
+        // NOTE: Ensure your file is named exactly 'standings.json' (all lowercase) on GitHub
         fetch('standings.json')
             .then(r => r.json())
             .then(data => {
                 const grid = document.getElementById('leaders-grid');
                 const seriesList = ['Cup', 'Xfinity', 'Truck', 'Menards'];
                 
-                grid.innerHTML = seriesList.map(s => {
+                let html = '';
+                seriesList.forEach(s => {
                     if (data[s] && data[s][0]) {
                         const leader = data[s][0];
-                        return `
+                        html += `
                             <div class="stat-box">
                                 <span class="stat-label">${s.toUpperCase()} LEADER</span>
                                 <span class="stat-value" style="color:white; display:block; margin: 0.5rem 0;">${leader.driver}</span>
@@ -193,10 +87,10 @@
                             </div>
                         `;
                     }
-                    return "";
-                }).join('');
+                });
+                grid.innerHTML = html;
             })
-            .catch(err => console.error("Standings load error:", err));
+            .catch(err => {
+                console.error("Standings load error. Check if standings.json exists and is lowercase:", err);
+            });
     </script>
-</body>
-</html>
