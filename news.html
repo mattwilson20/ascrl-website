@@ -7,7 +7,53 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
     <style>
-        /* News-Specific Enhancements */
+        :root {
+            --primary: #c00;
+            --accent: #ff0;
+            --bg-dark: #000;
+            --card-bg: #0d0d0d;
+            --border: #1a1a1a;
+            --text-muted: #a0a0a0;
+            --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--bg-dark); color: #fff; overflow-x: hidden; }
+
+        /* --- MODULAR NAVIGATION STYLES --- */
+        #nav-placeholder { position: relative; z-index: 2000; }
+        
+        .nav-overlay { 
+            position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; 
+            height: 100vh; background: #050505; transition: left 0.5s ease; 
+            z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); 
+        }
+        .nav-overlay.open { left: 0; }
+        .nav-links { display: flex; flex-direction: column; padding: 0 3rem; }
+        .nav-links a { 
+            color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; 
+            border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; 
+        }
+        .nav-links a:hover { color: var(--primary); padding-left: 10px; }
+
+        /* --- HERO --- */
+        .hero { 
+            background: radial-gradient(circle at center, #222 0%, #000 100%); 
+            padding: 12rem 1rem 8rem; 
+            text-align: center; 
+            border-bottom: 1px solid var(--border);
+        }
+        h1 { font-size: clamp(3rem, 10vw, 5rem); margin: 0; letter-spacing: -2px; line-height: 0.9; }
+        .hero p { color: var(--primary); letter-spacing: 5px; text-transform: uppercase; font-size: 0.9rem; margin-top: 1rem; }
+        
+        .text-gradient {
+            background: linear-gradient(to bottom, #fff 30%, #444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- MAGAZINE LAYOUT --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }
+
         .magazine-rack {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -24,7 +70,10 @@
             border: 1px solid var(--primary);
             overflow: hidden;
             box-shadow: 0 0 30px rgba(204, 0, 0, 0.2);
+            cursor: pointer;
+            transition: var(--transition);
         }
+        .featured-issue:hover { transform: translateY(-5px); }
 
         .issue-cover {
             width: 40%;
@@ -33,23 +82,34 @@
             transition: var(--transition);
         }
 
-        .featured-issue:hover .issue-cover {
-            transform: scale(1.05);
-        }
+        .featured-issue:hover .issue-cover { transform: scale(1.02); }
 
         .issue-info {
             padding: 3rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            text-align: left;
         }
 
-        /* Reader Overlay Styling */
+        .race-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            text-align: left;
+        }
+        .race-card:hover { border-color: var(--primary); transform: translateY(-5px); }
+
+        .stat-label { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 0.5rem; }
+        .btn-primary { background: var(--primary); color: #fff; padding: 10px 20px; text-decoration: none; border: none; font-family: 'Arial Black'; cursor: pointer; letter-spacing: 1px; }
+
+        /* --- READER OVERLAY --- */
         #reader-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.98); z-index: 3000; display: none;
+            background: rgba(0,0,0,0.95); z-index: 3000; display: none;
             flex-direction: column; align-items: center; justify-content: center;
-            backdrop-filter: blur(15px);
+            backdrop-filter: blur(10px);
         }
 
         .flipbook-container { 
@@ -58,13 +118,16 @@
             justify-content: center; align-items: center; 
         }
 
-        .page { background: white; box-shadow: 0 0 50px rgba(0,0,0,0.8); }
+        .page { background: #fff; box-shadow: 0 0 50px rgba(0,0,0,0.8); }
         .page img { width: 100%; height: 100%; object-fit: contain; }
+
+        footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px; }
 
         @media (max-width: 768px) {
             .featured-issue { flex-direction: column; }
             .issue-cover { width: 100%; height: 300px; }
             .magazine-rack { margin-top: 2rem; }
+            .issue-info { padding: 2rem; }
         }
     </style>
 </head>
@@ -73,7 +136,7 @@
     <div id="nav-placeholder"></div>
 
     <header class="hero">
-        <p style="letter-spacing: 8px; color: var(--primary);">WEEKLY PRESS</p>
+        <p>WEEKLY PRESS</p>
         <h1 class="text-gradient">ASCRL MAGAZINE</h1>
     </header>
 
@@ -82,21 +145,20 @@
     </main>
 
     <div id="reader-overlay">
-        <button class="btn-primary" style="position:fixed; top:2rem; right:2rem; z-index:3005; border:none; cursor:pointer;" onclick="closeReader()">CLOSE ISSUE</button>
-        <div id="reader-loading" style="color:var(--primary); font-family:'Arial Black';">LOADING TELEMETRY...</div>
+        <button class="btn-primary" style="position:fixed; top:2rem; right:2rem; z-index:3005;" onclick="closeReader()">CLOSE ISSUE ✕</button>
+        <div id="reader-loading" style="color:var(--primary); font-family:'Arial Black'; margin-bottom: 1rem;">LOADING TELEMETRY...</div>
         <div class="flipbook-container" id="flipbook-root"></div>
     </div>
 
     <footer>© 2025-2026 AMERICAN STOCK CAR RACING LEAGUE</footer>
 
     <script>
-        // --- 1. MODULAR NAVIGATION FETCH ---
+        // --- 1. MODULAR NAVIGATION ---
         fetch('nav.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('nav-placeholder').innerHTML = data;
                 
-                // Highlight current page
                 const currentPage = window.location.pathname.split("/").pop() || "index.html";
                 const navID = "nav-" + currentPage.split(".")[0];
                 const activeLink = document.getElementById(navID);
@@ -112,7 +174,7 @@
             if (menu) menu.classList.toggle('open'); 
         }
 
-        // --- 2. MAGAZINE LOGIC ---
+        // --- 2. MAGAZINE DATA ---
         const articles = [
             {
                 title: "VETERANS DAY TRIBUTE",
@@ -143,61 +205,71 @@
             }
         ];
 
+        // --- 3. RENDER LOGIC ---
         function initNews() {
             const grid = document.getElementById('magazine-grid');
             grid.innerHTML = articles.map((art, i) => {
+                // First item is the Featured Banner
                 if(i === 0) {
                     return `
                         <div class="featured-issue" onclick="openReader(${i})">
                             <img src="${art.preview}" class="issue-cover">
                             <div class="issue-info">
-                                <span class="stat-label" style="color:var(--primary)">LATEST EDITION</span>
-                                <h2 style="font-size:2.5rem; margin:1rem 0;">${art.title}</h2>
-                                <p style="color:var(--text-muted); margin-bottom:2rem;">${art.teaser}</p>
+                                <span class="stat-label" style="color:var(--primary)">LATEST EDITION // ${art.date}</span>
+                                <h2 style="font-size:2.5rem; margin:1rem 0; line-height:1;">${art.title}</h2>
+                                <p style="color:var(--text-muted); margin-bottom:2rem; font-family:sans-serif; line-height:1.5;">${art.teaser}</p>
                                 <span class="btn-primary" style="width:fit-content">READ MAGAZINE</span>
                             </div>
                         </div>
                     `;
                 }
+                // Other items are grid cards
                 return `
                     <div class="race-card" onclick="openReader(${i})" style="cursor:pointer">
                         <span class="stat-label">${art.tag}</span>
-                        <h3 style="margin:1rem 0;">${art.title}</h3>
-                        <img src="${art.preview}" style="width:100%; border-radius:4px; margin-bottom:1rem;">
-                        <span class="stat-label" style="color:var(--primary)">OPEN ISSUE →</span>
+                        <h3 style="margin:1rem 0; font-size:1.2rem;">${art.title}</h3>
+                        <img src="${art.preview}" style="width:100%; border-radius:4px; margin-bottom:1rem; border:1px solid #333;">
+                        <span class="stat-label" style="color:var(--primary); cursor:pointer;">OPEN ISSUE →</span>
                     </div>
                 `;
             }).join('');
         }
 
+        // --- 4. FLIPBOOK LOGIC ---
         let flipBook = null;
 
         function openReader(idx) {
             const overlay = document.getElementById('reader-overlay');
             const root = document.getElementById('flipbook-root');
+            
             overlay.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden'; // Stop background scrolling
 
-            root.innerHTML = `<div id="book-el">${articles[idx].pages.map(img => `<div class="page"><img src="${img}"></div>`).join('')}</div>`;
+            // Setup HTML structure for pages
+            root.innerHTML = `<div id="book-el">
+                ${articles[idx].pages.map(img => `<div class="page"><img src="${img}"></div>`).join('')}
+            </div>`;
 
+            // Initialize PageFlip Library
             setTimeout(() => {
                 const el = document.getElementById('book-el');
                 flipBook = new St.PageFlip(el, {
                     width: 500, height: 650,
                     size: "stretch", minWidth: 315, maxWidth: 950,
-                    showCover: articles[idx].pages.length > 1,
+                    showCover: articles[idx].pages.length > 1, // Only show cover logic if multiple pages
                     drawShadow: true
                 });
+                
                 flipBook.loadFromHTML(el.querySelectorAll('.page'));
                 document.getElementById('reader-loading').style.display = 'none';
-            }, 400);
+            }, 300);
         }
 
         function closeReader() {
             document.getElementById('reader-overlay').style.display = 'none';
-            document.body.style.overflow = 'auto';
+            document.body.style.overflow = 'auto'; // Restore scrolling
             if (flipBook) flipBook.destroy();
-            document.getElementById('reader-loading').style.display = 'block'; // Reset loader for next time
+            document.getElementById('reader-loading').style.display = 'block';
         }
 
         initNews();
