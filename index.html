@@ -1,96 +1,88 @@
-<script>
-        // 1. NAVIGATION FETCH
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCRL | American Stock Car Racing League</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary: #c00;
+            --accent: #ff0;
+            --bg-dark: #000;
+            --border: #1a1a1a;
+            --text-muted: #a0a0a0;
+        }
+        body { margin: 0; font-family: 'Arial Black', sans-serif; background: #000; color: #fff; }
+        .hero { padding: 8rem 1rem; text-align: center; background: radial-gradient(circle, #222, #000); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .timer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: -2rem; }
+        .race-card { background: #0d0d0d; padding: 2rem; border: 1px solid var(--border); text-align: center; }
+        .leader-strip { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem; background: #050505; padding: 2rem; border: 1px solid var(--border); margin-top: 2rem; }
+        .stat-box { text-align: center; }
+        .stat-label { color: var(--primary); font-size: 0.7rem; letter-spacing: 2px; display: block; }
+        .stat-value { font-size: 1.5rem; display: block; margin: 5px 0; }
+    </style>
+</head>
+<body>
+
+    <div id="nav-placeholder"></div>
+
+    <header class="hero">
+        <p style="letter-spacing: 5px; color: var(--primary);">OFFICIAL LEAGUE PORTAL</p>
+        <h1 style="font-size: 5rem; margin: 0;">ASCRL</h1>
+        <a href="https://discord.gg/RgYEY5F3Kf" style="display:inline-block; margin-top:1rem; color:#fff; border:1px solid #fff; padding:10px 20px; text-decoration:none;">JOIN DISCORD</a>
+    </header>
+
+    <main class="container">
+        <div class="timer-container">
+            <div class="race-card"><span class="stat-label">CUP</span><h3 id="cup-next">LOADING...</h3><div id="cup-timer">--:--</div></div>
+            <div class="race-card"><span class="stat-label">XFINITY</span><h3 id="xfinity-next">LOADING...</h3><div id="xfinity-timer">--:--</div></div>
+            <div class="race-card"><span class="stat-label">TRUCKS</span><h3 id="truck-next">LOADING...</h3><div id="truck-timer">--:--</div></div>
+            <div class="race-card"><span class="stat-label">MENARDS</span><h3 id="menards-next">LOADING...</h3><div id="menards-timer">--:--</div></div>
+        </div>
+
+        <h2 style="text-align:center; margin-top:4rem; letter-spacing:3px;">POINTS LEADERS</h2>
+        <div class="leader-strip" id="leaders-grid"></div>
+    </main>
+
+    <script>
+        // 1. Load Navigation
         fetch('nav.html')
-            .then(response => {
-                if (!response.ok) throw new Error('Nav file missing');
-                return response.text();
-            })
-            .then(data => {
-                document.getElementById('nav-placeholder').innerHTML = data;
-                const currentPage = window.location.pathname.split("/").pop() || "index.html";
-                const navID = "nav-" + currentPage.split(".")[0];
-                const activeLink = document.getElementById(navID);
-                if (activeLink) {
-                    activeLink.style.color = "var(--primary)";
-                    activeLink.style.borderLeft = "4px solid var(--primary)";
-                    activeLink.style.paddingLeft = "15px";
-                }
-            })
-            .catch(err => console.error("Navigation error:", err));
+            .then(res => res.text())
+            .then(data => { document.getElementById('nav-placeholder').innerHTML = data; })
+            .catch(err => console.log("Nav error"));
 
-        function toggleMenu() { 
-            const menu = document.getElementById('nav-menu');
-            if (menu) menu.classList.toggle('open'); 
+        function toggleMenu() {
+            const m = document.getElementById('nav-menu');
+            if(m) m.classList.toggle('open');
         }
 
-        // 2. DASHBOARD LOGIC (SCHEDULE & STANDINGS)
-        
-        // Timer Helper
-        function startTimer(id, target) {
-            const el = document.getElementById(id);
-            if (!el) return;
-            const update = () => {
-                const now = new Date();
-                const diff = target - now;
-                if (diff <= 0) { el.textContent = "RACE DAY"; el.style.color = "var(--accent)"; return; }
-                const d = Math.floor(diff / 86400000);
-                const h = Math.floor((diff % 86400000) / 3600000);
-                const m = Math.floor((diff % 3600000) / 60000);
-                el.textContent = `${d}D ${h}H ${m}M`;
-            };
-            update();
-            setInterval(update, 60000);
-        }
-
-        // Fetch Schedule
-        // NOTE: Ensure your file is named exactly 'schedule.json' (all lowercase) on GitHub
+        // 2. Load Schedule
         fetch('schedule.json')
-            .then(r => r.json())
+            .then(res => res.json())
             .then(data => {
-                ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(series => {
-                    const idPrefix = series.toLowerCase();
-                    const now = new Date();
-                    now.setHours(0,0,0,0); // Set to start of today
-
-                    const nextRace = data[series]?.find(r => new Date(r.date) >= now);
-
-                    if (nextRace) {
-                        document.getElementById(`${idPrefix}-next`).textContent = nextRace.track;
-                        startTimer(`${idPrefix}-timer`, new Date(nextRace.date + 'T20:00:00'));
-                    } else {
-                        document.getElementById(`${idPrefix}-next`).textContent = "SEASON COMPLETE";
-                        document.getElementById(`${idPrefix}-timer`).textContent = "OFF-SEASON";
+                ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(s => {
+                    const next = data[s]?.find(r => new Date(r.date) >= new Date().setHours(0,0,0,0));
+                    if(next) {
+                        document.getElementById(s.toLowerCase() + '-next').innerText = next.track;
+                        document.getElementById(s.toLowerCase() + '-timer').innerText = next.date;
                     }
                 });
-            })
-            .catch(err => {
-                console.error("Schedule load error. Check if schedule.json exists and is lowercase:", err);
             });
 
-        // Fetch Standings
-        // NOTE: Ensure your file is named exactly 'standings.json' (all lowercase) on GitHub
+        // 3. Load Standings
         fetch('standings.json')
-            .then(r => r.json())
+            .then(res => res.json())
             .then(data => {
-                const grid = document.getElementById('leaders-grid');
-                const seriesList = ['Cup', 'Xfinity', 'Truck', 'Menards'];
-                
                 let html = '';
-                seriesList.forEach(s => {
-                    if (data[s] && data[s][0]) {
-                        const leader = data[s][0];
-                        html += `
-                            <div class="stat-box">
-                                <span class="stat-label">${s.toUpperCase()} LEADER</span>
-                                <span class="stat-value" style="color:white; display:block; margin: 0.5rem 0;">${leader.driver}</span>
-                                <span class="stat-label" style="color:var(--primary)">${leader.points} PTS</span>
-                            </div>
-                        `;
+                ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(s => {
+                    if(data[s] && data[s][0]) {
+                        html += `<div class="stat-box"><span class="stat-label">${s}</span><span class="stat-value">${data[s][0].driver}</span></div>`;
                     }
                 });
-                grid.innerHTML = html;
-            })
-            .catch(err => {
-                console.error("Standings load error. Check if standings.json exists and is lowercase:", err);
+                document.getElementById('leaders-grid').innerHTML = html;
             });
     </script>
+</body>
+</html>
