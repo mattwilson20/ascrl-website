@@ -56,29 +56,34 @@
         select:focus { border-color: var(--primary); outline: none; background: #0a0a0a; }
 
         /* --- TABLE --- */
-        .container { max-width: 1000px; margin: 0 auto; padding: 4rem 2rem; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; overflow-x: auto; }
         
-        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; min-width: 800px; }
         th { 
-            text-align: left; padding: 1.5rem; color: var(--primary); 
+            text-align: center; padding: 1.5rem; color: var(--primary); 
             border-bottom: 1px solid var(--border); font-size: 0.8rem; letter-spacing: 2px; 
         }
+        th:nth-child(2) { text-align: left; } /* Align Driver Name Left */
+        
         td { 
             padding: 1.5rem; border-bottom: 1px solid var(--border); 
-            font-family: sans-serif; font-size: 1rem; color: #ccc;
+            font-family: sans-serif; font-size: 1rem; color: #ccc; text-align: center;
         }
+        td:nth-child(2) { text-align: left; } /* Align Driver Name Left */
         
         tr:hover td { background: #0a0a0a; color: #fff; }
         
-        .pos-cell { font-family: 'Arial Black', sans-serif; color: #fff; width: 50px; text-align: center; }
-        .points-cell { font-family: 'Arial Black', sans-serif; color: var(--accent); }
+        .pos-cell { font-family: 'Arial Black', sans-serif; color: #fff; width: 50px; }
+        .points-cell { font-family: 'Arial Black', sans-serif; color: var(--accent); font-size: 1.2rem; }
         .leader-row td { background: rgba(204, 0, 0, 0.1); color: #fff; }
+        .driver-name { font-weight: bold; letter-spacing: 1px; color: #fff; text-transform: uppercase; }
 
         footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
 
         @media (max-width: 768px) {
             .hero { padding: 10rem 1rem 4rem; }
-            td, th { padding: 1rem; font-size: 0.9rem; }
+            td, th { padding: 1rem 0.5rem; font-size: 0.8rem; }
+            .container { padding: 2rem 1rem; }
         }
     </style>
 </head>
@@ -104,10 +109,12 @@
         <table id="standings-table">
             <thead>
                 <tr>
-                    <th style="text-align: center;">POS</th>
+                    <th>POS</th>
                     <th>DRIVER</th>
                     <th>WINS</th>
                     <th>TOP 5</th>
+                    <th>TOP 10</th>
+                    <th>AVG FIN</th>
                     <th>PTS</th>
                 </tr>
             </thead>
@@ -127,7 +134,6 @@
             .then(data => {
                 document.getElementById('nav-placeholder').innerHTML = data;
                 
-                // Highlight current page
                 const currentPage = window.location.pathname.split("/").pop() || "index.html";
                 const navID = "nav-" + currentPage.split(".")[0];
                 const activeLink = document.getElementById(navID);
@@ -144,22 +150,23 @@
             if (menu) menu.classList.toggle('open');
         }
 
-        // --- 2. STANDINGS DATA LOGIC ---
-        let standingsData = {};
+        // --- 2. STANDINGS DATA LOGIC (PULLS FROM DRIVERS.JSON) ---
+        let driversData = {};
 
-        fetch('standings.json')
+        // Fetch drivers.json because it contains the detailed stats (Wins, Top5, etc)
+        fetch('drivers.json')
             .then(res => {
-                if (!res.ok) throw new Error('standings.json not found');
+                if (!res.ok) throw new Error('drivers.json not found');
                 return res.json();
             })
             .then(data => {
-                standingsData = data;
+                driversData = data;
                 loadSeries(); // Load default
             })
             .catch(err => {
                 document.getElementById('standings-body').innerHTML = 
-                    `<tr><td colspan="5" style="text-align:center; padding:2rem; color:var(--primary);">
-                        ERROR: ${err.message}<br>Check file name (standings.json) and location.
+                    `<tr><td colspan="7" style="text-align:center; padding:2rem; color:var(--primary);">
+                        ERROR: ${err.message}<br>Check file name (drivers.json) and location.
                     </td></tr>`;
             });
 
@@ -168,26 +175,48 @@
             const body = document.getElementById('standings-body');
             body.innerHTML = '';
 
-            // Handle Key Matching (e.g. "Truck" vs "Trucks" or lowercase)
-            // We look for a key in the JSON that matches the selected value
-            let dataKey = Object.keys(standingsData).find(key => 
-                key.toLowerCase() === selectedSeries.toLowerCase()
-            );
+            let seriesDrivers = [];
 
-            if (!dataKey || !standingsData[dataKey]) {
-                body.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:2rem;">No standings found for this series.</td></tr>';
+            // 1. Iterate through all drivers in drivers.json
+            Object.values(driversData).forEach(driver => {
+                // Check if this driver has data for the selected series
+                // Uses case-insensitive search for the series name (e.g. "Truck" vs "Trucks")
+                const seriesKey = Object.keys(driver.series).find(k => k.toLowerCase() === selectedSeries.toLowerCase());
+                
+                if (seriesKey) {
+                    const sData = driver.series[seriesKey];
+                    // Add to our list
+                    seriesDrivers.push({
+                        name: sData.driver_name || driver.display_name,
+                        points: sData.stats.points || 0,
+                        wins: sData.stats.wins || 0,
+                        top5: sData.stats.top5 || 0,
+                        top10: sData.stats.top10 || 0,
+                        avg: sData.stats.avg || '-'
+                    });
+                }
+            });
+
+            // 2. Sort by Points (Highest first)
+            seriesDrivers.sort((a, b) => b.points - a.points);
+
+            if (seriesDrivers.length === 0) {
+                body.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:2rem;">No standings found for this series.</td></tr>';
                 return;
             }
 
-            standingsData[dataKey].forEach((entry, index) => {
+            // 3. Render Table
+            seriesDrivers.forEach((entry, index) => {
                 const isLeader = index === 0 ? 'class="leader-row"' : '';
                 
                 body.innerHTML += `
                     <tr ${isLeader}>
                         <td class="pos-cell">${index + 1}</td>
-                        <td style="font-weight:bold; letter-spacing:1px; color:#fff;">${entry.driver}</td>
-                        <td>${entry.wins || 0}</td>
-                        <td>${entry.top5 || 0}</td>
+                        <td class="driver-name">${entry.name}</td>
+                        <td>${entry.wins}</td>
+                        <td>${entry.top5}</td>
+                        <td>${entry.top10}</td>
+                        <td>${entry.avg}</td>
                         <td class="points-cell">${entry.points}</td>
                     </tr>
                 `;
