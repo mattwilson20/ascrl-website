@@ -3,41 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASCRL Rules | American Stock Car Racing League</title>
+    <title>ASCRL Rules | Sporting Code</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         :root {
             --primary: #c00;
-            --secondary: #ff0;
+            --accent: #ff0;
             --bg-dark: #000;
-            --bg-alt: #0a0a0a;
-            --card-bg: #111;
-            --border: #222;
+            --card-bg: #0d0d0d;
+            --border: #1a1a1a;
+            --text-muted: #a0a0a0;
             --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--bg-dark); color: #fff; line-height: 1.6; }
+        body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--bg-dark); color: #fff; overflow-x: hidden; }
+
+        /* --- MODULAR NAVIGATION STYLES --- */
+        #nav-placeholder { position: relative; z-index: 2000; }
         
-        /* --- NAVIGATION --- */
-        .hamburger { position: fixed; top: 1.5rem; left: 1.5rem; z-index: 2000; cursor: pointer; padding: 12px; background: rgba(0,0,0,0.9); border-radius: 4px; border: 1px solid var(--border); }
-        .hamburger-line { width: 25px; height: 3px; background: #fff; margin: 5px 0; transition: var(--transition); }
-        .nav-overlay { position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; height: 100vh; background: #050505; transition: left 0.5s ease; z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); }
+        .nav-overlay { 
+            position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; 
+            height: 100vh; background: #050505; transition: left 0.5s ease; 
+            z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); 
+        }
         .nav-overlay.open { left: 0; }
         .nav-links { display: flex; flex-direction: column; padding: 0 3rem; }
-        .nav-links a { color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; }
+        .nav-links a { 
+            color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; 
+            border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; 
+        }
         .nav-links a:hover { color: var(--primary); padding-left: 10px; }
 
         /* --- HERO --- */
-        .hero { background: linear-gradient(45deg, #000 30%, #400 100%); padding: 12rem 1rem 6rem; text-align: center; border-bottom: 2px solid var(--primary); }
-        h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); margin: 0; letter-spacing: -2px; }
-        .hero p { color: var(--secondary); letter-spacing: 4px; text-transform: uppercase; font-size: 0.9rem; margin-top: 1rem; }
+        .hero { 
+            background: radial-gradient(circle at center, #222 0%, #000 100%); 
+            padding: 12rem 1rem 8rem; 
+            text-align: center; 
+            border-bottom: 1px solid var(--border);
+        }
+        h1 { font-size: clamp(3rem, 10vw, 5rem); margin: 0; letter-spacing: -2px; line-height: 0.9; }
+        .hero p { color: var(--primary); letter-spacing: 5px; text-transform: uppercase; font-size: 0.9rem; margin-top: 1rem; }
 
-        /* --- CONTENT --- */
+        /* --- ACCORDION CONTENT --- */
         .container { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; }
         
-        /* Accordion Style */
         .rule-section { margin-bottom: 1rem; border: 1px solid var(--border); background: var(--card-bg); transition: var(--transition); }
+        .rule-section:hover { border-color: #333; }
+
         .rule-header { 
-            padding: 1.5rem 2rem; 
+            padding: 2rem; 
             cursor: pointer; 
             display: flex; 
             justify-content: space-between; 
@@ -45,56 +59,47 @@
             background: #0a0a0a;
             user-select: none;
         }
-        .rule-header:hover { background: #151515; }
         .rule-header h2 { margin: 0; font-size: 1.2rem; letter-spacing: 1px; color: #fff; text-transform: uppercase; }
-        .rule-header .icon { color: var(--primary); font-size: 1.5rem; transition: var(--transition); }
+        .rule-header .icon { color: var(--primary); font-size: 1.5rem; transition: transform 0.3s ease; }
 
         .rule-content { 
             max-height: 0; 
             overflow: hidden; 
-            transition: max-height 0.4s ease-out; 
-            background: #0d0d0d;
+            transition: max-height 0.4s ease-out, padding 0.4s ease; 
+            background: #000;
             font-family: sans-serif;
             color: #ccc;
+            line-height: 1.6;
         }
-        .rule-content.open { max-height: 2000px; padding: 2rem; border-top: 1px solid var(--border); }
+        .rule-content.open { padding: 2rem; border-top: 1px solid var(--border); }
         
         /* Typography inside rules */
-        .rule-content h3 { color: var(--secondary); text-transform: uppercase; font-family: 'Arial Black'; font-size: 1rem; margin-top: 2rem; }
+        .rule-content h3 { color: var(--accent); text-transform: uppercase; font-family: 'Arial Black'; font-size: 1rem; margin-top: 2rem; letter-spacing: 1px; }
         .rule-content p { margin-bottom: 1rem; }
-        .rule-content ul { padding-left: 1.2rem; }
+        .rule-content ul { padding-left: 1.2rem; margin-bottom: 1.5rem; }
         .rule-content li { margin-bottom: 0.5rem; }
 
-        .points-table { width: 100%; border-collapse: collapse; margin: 1rem 0; border: 1px solid #333; }
-        .points-table td, .points-table th { padding: 10px; border: 1px solid #333; text-align: center; }
-        .points-table th { background: var(--primary); color: #fff; }
+        /* Points Table */
+        .points-table { width: 100%; border-collapse: collapse; margin: 2rem 0; border: 1px solid var(--border); }
+        .points-table td, .points-table th { padding: 15px; border: 1px solid var(--border); text-align: center; }
+        .points-table th { background: #151515; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; }
+        .points-table td { font-family: 'Arial Black'; color: #fff; }
 
-        footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #444; font-size: 0.8rem; letter-spacing: 2px; }
+        footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
+        
+        @media (max-width: 768px) {
+            .hero { padding: 10rem 1rem 4rem; }
+            .rule-header { padding: 1.5rem; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="hamburger" onclick="toggleMenu()">
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line (2)"></div>
-    </div>
-
-    <nav class="nav-overlay" id="nav-menu">
-        <div class="nav-links">
-            <a href="index.html">DASHBOARD</a>
-            <a href="news.html">NEWS</a>
-            <a href="standings.html">STANDINGS</a>
-            <a href="results.html">RESULTS</a>
-            <a href="schedule.html">CALENDAR</a>
-            <a href="drivers.html">ROSTER</a>
-            <a href="rules.html" style="color:var(--primary)">REGULATIONS</a>
-        </div>
-    </nav>
+    <div id="nav-placeholder"></div>
 
     <header class="hero">
+        <p>Official ASCRL Regulations</p>
         <h1>SPORTING CODE</h1>
-        <p>Official ASCRL Regulations & Procedures</p>
     </header>
 
     <main class="container">
@@ -126,7 +131,7 @@
                     <li><strong>9:00 PM:</strong> Mandatory Driver Briefing & Qualifying</li>
                     <li><strong>9:20 PM:</strong> Green Flag / Race Start</li>
                 </ul>
-                <p><em>*Failure to attend the driver briefing may result in a back-of-the-field penalty.</em></p>
+                <p style="color: var(--primary); font-style: italic;">*Failure to attend the driver briefing may result in a back-of-the-field penalty.</p>
             </div>
         </div>
 
@@ -159,22 +164,56 @@
     </main>
 
     <footer>
-        © 2025-2026 ASCRL | ALL RIGHTS RESERVED | SUBJECT TO STEWARD REVIEW
+        © 2025-2026 ASCRL | Subject to Steward Review
     </footer>
 
     <script>
-        function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
+        // --- 1. MODULAR NAVIGATION LOGIC ---
+        fetch('nav.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+                const currentPage = window.location.pathname.split("/").pop() || "index.html";
+                const navID = "nav-" + currentPage.split(".")[0];
+                const activeLink = document.getElementById(navID);
+                if (activeLink) {
+                    activeLink.style.color = "var(--primary)";
+                    activeLink.style.borderLeft = "4px solid var(--primary)";
+                    activeLink.style.paddingLeft = "15px";
+                }
+            });
 
+        function toggleMenu() {
+            const menu = document.getElementById('nav-menu');
+            if (menu) menu.classList.toggle('open');
+        }
+
+        // --- 2. ACCORDION LOGIC ---
         function toggleRule(header) {
             const content = header.nextElementSibling;
             const icon = header.querySelector('.icon');
             
+            // Close other sections (Optional - remove loop if you want multiple open)
+            document.querySelectorAll('.rule-content').forEach(el => {
+                if (el !== content) {
+                    el.classList.remove('open');
+                    el.style.maxHeight = null;
+                    // Reset icons of others
+                    if(el.previousElementSibling) {
+                        el.previousElementSibling.querySelector('.icon').textContent = '+';
+                        el.previousElementSibling.querySelector('.icon').style.transform = 'rotate(0deg)';
+                    }
+                }
+            });
+
             content.classList.toggle('open');
             
             if (content.classList.contains('open')) {
+                content.style.maxHeight = content.scrollHeight + "px"; // Smooth animation height
                 icon.textContent = '−';
                 icon.style.transform = 'rotate(180deg)';
             } else {
+                content.style.maxHeight = null;
                 icon.textContent = '+';
                 icon.style.transform = 'rotate(0deg)';
             }
