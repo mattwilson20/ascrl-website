@@ -3,223 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Results | ASCRL</title>
+    <title>Race Results | ASCRL</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Results-Specific Pro Styling */
-        .podium-container {
+        .hero { 
+            background: radial-gradient(circle at center, #222 0%, #000 100%); 
+            padding: 10rem 1rem 5rem; 
+            text-align: center; 
+            border-bottom: 1px solid var(--border);
+        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 4rem 1rem; }
+        
+        /* Dropdown Styling */
+        .filter-section {
             display: flex;
             justify-content: center;
-            align-items: flex-end;
-            gap: 1rem;
-            margin: 3rem 0;
-            padding: 2rem;
-            background: linear-gradient(180deg, transparent, rgba(204, 0, 0, 0.05));
+            gap: 20px;
+            margin-bottom: 30px;
         }
-
-        .podium-spot {
-            background: var(--card-bg);
+        select {
+            background: #111;
+            color: #fff;
             border: 1px solid var(--border);
-            padding: 1.5rem;
-            text-align: center;
-            width: 200px;
-            transition: var(--transition);
-        }
-
-        .spot-1 { height: 220px; border-top: 4px solid var(--accent); order: 2; scale: 1.1; }
-        .spot-2 { height: 180px; border-top: 4px solid #c0c0c0; order: 1; }
-        .spot-3 { height: 160px; border-top: 4px solid #cd7f32; order: 3; }
-
-        .podium-spot .rank { font-size: 0.7rem; color: var(--text-muted); display: block; margin-bottom: 0.5rem; }
-        .podium-spot .name { font-size: 1.2rem; display: block; margin-bottom: 0.5rem; }
-
-        .results-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-        }
-
-        .results-table th {
-            text-align: left;
-            padding: 1.5rem;
-            background: #050505;
-            color: var(--text-muted);
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .results-table td {
-            padding: 1.2rem 1.5rem;
-            border-bottom: 1px solid var(--border);
-            font-family: sans-serif;
-            font-size: 0.9rem;
-        }
-
-        .results-table tr:hover { background: #111; }
-
-        .badge {
-            font-size: 0.6rem;
-            padding: 2px 8px;
-            border-radius: 2px;
-            margin-right: 5px;
-            font-weight: bold;
-        }
-        .badge-pole { background: var(--accent); color: #000; }
-        .badge-fl { background: #0f0; color: #000; }
-
-        select.custom-select {
-            background: #000;
-            color: white;
-            border: 1px solid var(--primary);
-            padding: 1rem 2rem;
+            padding: 10px 20px;
             font-family: 'Arial Black', sans-serif;
             text-transform: uppercase;
-            width: 100%;
-            max-width: 400px;
             cursor: pointer;
         }
+
+        table { width: 100%; border-collapse: collapse; background: #0d0d0d; border: 1px solid var(--border); }
+        th { background: #111; padding: 1.2rem; text-align: left; font-size: 0.7rem; color: var(--primary); border-bottom: 1px solid var(--border); }
+        td { padding: 1.2rem; border-bottom: 1px solid var(--border); font-family: sans-serif; }
+        .win-row { background: rgba(255, 255, 0, 0.05); }
     </style>
 </head>
 <body>
 
-    <div class="hamburger" onclick="toggleMenu()">
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-    </div>
-
-    <nav class="nav-overlay" id="nav-menu">
-        <div class="nav-links">
-            <a href="index.html">DASHBOARD</a>
-            <a href="news.html">LATEST NEWS</a>
-            <a href="standings.html">STANDINGS</a>
-            <a href="results.html">RESULTS</a>
-            <a href="schedule.html">CALENDAR</a>
-            <a href="drivers.html" style="color:var(--primary)">ROSTER</a>
-            <a href="rules.html">REGULATIONS</a>
-        </div>
-    </nav>
-
+    <div id="nav-placeholder"></div>
 
     <header class="hero">
-        <p style="letter-spacing: 5px; color: var(--primary);">ARCHIVE</p>
-        <h1 class="text-gradient">RACE RESULTS</h1>
+        <p style="letter-spacing: 8px; color: var(--primary); text-transform: uppercase; font-size: 0.8rem;">Official Archive</p>
+        <h1>RACE RESULTS</h1>
     </header>
 
     <main class="container">
-        <section style="text-align: center;">
-            <select id="series-select" class="custom-select">
-                <option value="">SELECT SERIES</option>
+        <div class="filter-section">
+            <select id="series-select" onchange="updateResults()">
+                <option value="Cup">Cup Series</option>
+                <option value="Xfinity">Xfinity Series</option>
+                <option value="Truck">Truck Series</option>
+                <option value="Menards">Menards Series</option>
             </select>
-            
-            <div id="race-list" class="stats-grid" style="margin-top: 3rem;">
-                </div>
-        </section>
+        </div>
 
-        <section id="results-view" style="display: none;">
-            <button class="btn-primary" onclick="backToRaces()" style="margin-bottom: 2rem; border:none; cursor:pointer;">← ALL RACES</button>
-            <h2 id="race-title" style="font-size: 3rem; margin-bottom: 3rem;">RACE NAME</h2>
-
-            <div id="podium" class="podium-container">
-                </div>
-
-            <table class="results-table">
-                <thead>
-                    <tr>
-                        <th>POS</th>
-                        <th>DRIVER</th>
-                        <th>PTS</th>
-                        <th>AWARDS</th>
-                    </tr>
-                </thead>
-                <tbody id="results-body"></tbody>
-            </table>
-        </section>
+        <table id="results-table">
+            <thead>
+                <tr>
+                    <th style="width: 50px;">POS</th>
+                    <th>DRIVER</th>
+                    <th>CAR #</th>
+                    <th>LAPS</th>
+                    <th>STATUS</th>
+                </tr>
+            </thead>
+            <tbody id="results-body">
+                </tbody>
+        </table>
     </main>
 
-    <footer>© 2025-2026 AMERICAN STOCK CAR RACING LEAGUE</footer>
-
     <script>
-        function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
-        function backToRaces() {
-            document.getElementById('results-view').style.display = 'none';
-            document.getElementById('series-select').parentElement.style.display = 'block';
-        }
+        // 1. Navigation Loader
+        fetch('nav.html')
+            .then(res => res.text())
+            .then(data => { document.getElementById('nav-placeholder').innerHTML = data; });
 
-        let resultsData = {};
+        // 2. Data Fetching
+        let allResults = {};
 
-        fetch('race_results.json').then(r => r.json()).then(data => {
-            resultsData = data;
-            const select = document.getElementById('series-select');
-            const seriesNames = [...new Set(Object.keys(data).map(k => k.split(' - ')[0]))];
-            
-            seriesNames.sort().forEach(s => {
-                const opt = document.createElement('option');
-                opt.value = s;
-                opt.textContent = s + ' SERIES';
-                select.appendChild(opt);
-            });
-        });
+        fetch('results.json')
+            .then(res => res.json())
+            .then(data => {
+                allResults = data;
+                updateResults(); // Load default
+            })
+            .catch(err => console.error("Could not load results.json", err));
 
-        document.getElementById('series-select').addEventListener('change', function() {
-            const series = this.value;
-            const grid = document.getElementById('race-list');
-            grid.innerHTML = '';
-            if (!series) return;
-
-            Object.keys(resultsData).filter(k => k.startsWith(series)).forEach(key => {
-                const raceName = key.split(' - ')[1];
-                const card = document.createElement('div');
-                card.className = 'race-card';
-                card.onclick = () => showDetails(key);
-                card.innerHTML = `
-                    <span class="stat-label">COMPLETED</span>
-                    <span class="stat-value">${raceName}</span>
-                `;
-                grid.appendChild(card);
-            });
-        });
-
-        function showDetails(key) {
-            document.getElementById('series-select').parentElement.style.display = 'none';
-            document.getElementById('results-view').style.display = 'block';
-            document.getElementById('race-title').textContent = key.toUpperCase();
-
-            const podium = document.getElementById('podium');
+        function updateResults() {
+            const series = document.getElementById('series-select').value;
             const body = document.getElementById('results-body');
-            const race = resultsData[key];
-
-            // Build Podium
-            podium.innerHTML = '';
-            for(let i=0; i<3; i++) {
-                if(!race[i]) continue;
-                podium.innerHTML += `
-                    <div class="podium-spot spot-${i+1}">
-                        <span class="rank">P${i+1}</span>
-                        <span class="name">${race[i].driver}</span>
-                        <span class="stat-value" style="font-size:1rem">${race[i].points} PTS</span>
-                    </div>
-                `;
-            }
-
-            // Build Table
             body.innerHTML = '';
-            race.forEach((row, i) => {
-                let awards = '';
-                if(row.pole === "Yes") awards += '<span class="badge badge-pole">POLE</span>';
-                if(row.fl === "Yes" || row.fl === "FL") awards += '<span class="badge badge-fl">FASTEST LAP</span>';
-                
-                body.innerHTML += `
-                    <tr>
-                        <td>${row.position}</td>
-                        <td style="font-weight:900;">${row.driver}</td>
-                        <td style="color:var(--accent)">${row.points}</td>
-                        <td>${awards}</td>
-                    </tr>
-                `;
-            });
+
+            if (allResults[series]) {
+                allResults[series].forEach((entry, index) => {
+                    const isWinner = index === 0 ? 'class="win-row"' : '';
+                    body.innerHTML += `
+                        <tr ${isWinner}>
+                            <td style="font-family: 'Arial Black'">${index + 1}</td>
+                            <td style="font-weight: bold">${entry.driver}</td>
+                            <td>#${entry.carNumber}</td>
+                            <td>${entry.laps}</td>
+                            <td style="color: ${entry.status === 'Running' ? '#0f0' : '#f00'}">${entry.status}</td>
+                        </tr>
+                    `;
+                });
+            }
         }
     </script>
 </body>
