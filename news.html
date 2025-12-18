@@ -71,7 +71,15 @@
             color: white; padding: 12px 24px; border-radius: 5px; cursor: pointer; 
             font-weight: bold; z-index: 3001; 
         }
-        .flipbook-container { width: 95vw; height: 88vh; max-height: 900px; display: flex; justify-content: center; align-items: center; }
+        .flipbook-container { 
+            width: 90vw; 
+            height: 85vh; 
+            max-width: 950px; 
+            max-height: 780px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+        }
         .reader-loading { 
             position: absolute; color: var(--primary); font-size: 1.8rem; 
             background: rgba(0,0,0,0.7); padding: 1rem 2rem; border-radius: 10px; 
@@ -85,7 +93,10 @@
         @media (max-width: 768px) {
             .carousel-item { padding: 1.5rem 1rem; }
             .carousel-item h2 { font-size: 1.3rem; }
-            .flipbook-container { height: 85vh; }
+            .flipbook-container { height: 85vh; max-height: none; }
+        }
+        @media (min-width: 769px) {
+            .flipbook-container { height: 80vh; max-height: 720px; }
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
@@ -177,7 +188,7 @@
                     <h2>${art.title}</h2>
                     <div class="date">${art.date}</div>
                     <img src="${art.preview}" class="article-preview-img" alt="${art.title} Preview">
-                    <div class="read-hint">Tap to Read Full Issue</div>
+                    <div class="read-hint">Click to Read Full Issue</div>
                 </div>
             `).join('');
 
@@ -225,12 +236,12 @@
                 if (el) {
                     flipBook = new St.PageFlip(el, {
                         width: 500,
-                        height: 700,
+                        height: 650,
                         size: "stretch",
                         minWidth: 315,
-                        maxWidth: 1000,
+                        maxWidth: 950,
                         minHeight: 420,
-                        maxHeight: 1200,
+                        maxHeight: 800,
                         showCover: articles[idx].pages.length > 1,
                         mobileScrollSupport: false,
                         drawShadow: true,
