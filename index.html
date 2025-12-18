@@ -68,6 +68,11 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        
+        /* Mobile adjustment for leader strip */
+        @media (max-width: 768px) {
+            .leader-strip div { width: 45%; margin-bottom: 1rem; }
+        }
     </style>
 </head>
 <body>
@@ -141,38 +146,64 @@
             if(m) m.classList.toggle('open');
         }
 
-        // 2. SCHEDULE DATA
+        // 2. SCHEDULE DATA (Countdowns)
         fetch('schedule.json')
             .then(res => res.json())
             .then(data => {
                 ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(s => {
-                    const next = data[s]?.find(r => new Date(r.date) >= new Date().setHours(0,0,0,0));
-                    if(next) {
-                        document.getElementById(s.toLowerCase() + '-next').innerText = next.track;
-                        document.getElementById(s.toLowerCase() + '-timer').innerText = next.date;
-                    } else {
-                        document.getElementById(s.toLowerCase() + '-next').innerText = "SEASON COMPLETE";
+                    const seriesKey = Object.keys(data).find(k => k.toLowerCase() === s.toLowerCase());
+                    if (seriesKey && data[seriesKey]) {
+                        const next = data[seriesKey].find(r => new Date(r.date) >= new Date().setHours(0,0,0,0));
+                        if(next) {
+                            document.getElementById(s.toLowerCase() + '-next').innerText = next.track;
+                            document.getElementById(s.toLowerCase() + '-timer').innerText = next.date;
+                        } else {
+                            document.getElementById(s.toLowerCase() + '-next').innerText = "SEASON COMPLETE";
+                        }
                     }
                 });
-            });
+            })
+            .catch(err => console.log("Schedule error", err));
 
-        // 3. STANDINGS DATA
-        fetch('standings.json')
+        // 3. LEADERS DATA (Pulls from drivers.json now!)
+        fetch('drivers.json')
             .then(res => res.json())
             .then(data => {
                 let html = '';
-                ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(s => {
-                    if(data[s] && data[s][0]) {
+                const seriesList = ['Cup', 'Xfinity', 'Truck', 'Menards'];
+
+                seriesList.forEach(seriesName => {
+                    // Find the leader for this series
+                    let bestDriver = null;
+                    let maxPoints = -1;
+
+                    Object.values(data).forEach(driver => {
+                        const sKey = Object.keys(driver.series).find(k => k.toLowerCase() === seriesName.toLowerCase());
+                        if (sKey) {
+                            const points = driver.series[sKey].stats.points || 0;
+                            if (points > maxPoints) {
+                                maxPoints = points;
+                                bestDriver = {
+                                    name: driver.series[sKey].driver_name || driver.display_name,
+                                    points: points
+                                };
+                            }
+                        }
+                    });
+
+                    if (bestDriver) {
                         html += `
                             <div style="text-align: center;">
-                                <span class="stat-label">${s}</span>
-                                <span class="stat-value">${data[s][0].driver}</span>
-                                <span style="font-size: 0.7rem; color: var(--text-muted);">${data[s][0].points} PTS</span>
+                                <span class="stat-label">${seriesName}</span>
+                                <span class="stat-value">${bestDriver.name}</span>
+                                <span style="font-size: 0.7rem; color: var(--text-muted);">${bestDriver.points} PTS</span>
                             </div>`;
                     }
                 });
+                
                 document.getElementById('leaders-grid').innerHTML = html;
-            });
+            })
+            .catch(err => console.log("Drivers data error", err));
     </script>
 </body>
 </html>
