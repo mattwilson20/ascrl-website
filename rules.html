@@ -62,16 +62,29 @@
         .rule-header h2 { margin: 0; font-size: 1.2rem; letter-spacing: 1px; color: #fff; text-transform: uppercase; }
         .rule-header .icon { color: var(--primary); font-size: 1.5rem; transition: transform 0.3s ease; }
 
+        /* SCROLLABLE CONTENT AREA */
         .rule-content { 
             max-height: 0; 
-            overflow: hidden; 
+            overflow-y: hidden; /* Hidden by default for animation */
             transition: max-height 0.4s ease-out, padding 0.4s ease; 
             background: #000;
             font-family: sans-serif;
             color: #ccc;
             line-height: 1.6;
         }
-        .rule-content.open { padding: 2rem; border-top: 1px solid var(--border); }
+        
+        /* When open, we allow scrolling */
+        .rule-content.open { 
+            padding: 2rem; 
+            border-top: 1px solid var(--border); 
+            overflow-y: auto; /* Adds scroll if content exceeds max-height */
+        }
+
+        /* Custom Scrollbar for Dark Theme */
+        .rule-content::-webkit-scrollbar { width: 8px; }
+        .rule-content::-webkit-scrollbar-track { background: #000; }
+        .rule-content::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        .rule-content::-webkit-scrollbar-thumb:hover { background: var(--primary); }
         
         /* Typography inside rules */
         .rule-content h3 { color: var(--accent); text-transform: uppercase; font-family: 'Arial Black'; font-size: 1rem; margin-top: 2rem; letter-spacing: 1px; }
@@ -114,7 +127,10 @@
                     <li>No intentional "dumping" or wrecking of other competitors.</li>
                     <li>Verbal abuse in Discord or in-game chat will lead to immediate disqualification.</li>
                     <li>Drivers must have a stable internet connection to ensure the safety of the field.</li>
+                    <li>Drivers must use a wheel and pedal set. No controllers or keyboards permitted.</li>
+                    <li>Paint schemes must not contain offensive language or imagery.</li>
                 </ul>
+                <p>Any violation of these conduct rules will be reviewed by the stewardship committee and may result in point deductions or race suspensions.</p>
             </div>
         </div>
 
@@ -124,13 +140,16 @@
                 <span class="icon">+</span>
             </div>
             <div class="rule-content">
-                <p>Standard race nights follow a strict timeline to ensure broadcast quality and driver convenience.</p>
+                <p>Standard race nights follow a strict timeline to ensure broadcast quality and driver convenience. Times listed are Eastern Standard Time (EST).</p>
                 <h3>Timeline (EST)</h3>
                 <ul>
                     <li><strong>8:00 PM:</strong> Open Practice / Server Launch</li>
-                    <li><strong>9:00 PM:</strong> Mandatory Driver Briefing & Qualifying</li>
+                    <li><strong>8:50 PM:</strong> Qualifying (Lone Qualifier, 2 Laps, 5 Minutes)</li>
+                    <li><strong>9:00 PM:</strong> Mandatory Driver Briefing</li>
+                    <li><strong>9:10 PM:</strong> Happy Hour / Final Warmup</li>
                     <li><strong>9:20 PM:</strong> Green Flag / Race Start</li>
                 </ul>
+                <p><strong>Restarts:</strong> Initial start occurs in the restart zone. All subsequent restarts are double-file. The leader has lane choice.</p>
                 <p style="color: var(--primary); font-style: italic;">*Failure to attend the driver briefing may result in a back-of-the-field penalty.</p>
             </div>
         </div>
@@ -141,7 +160,7 @@
                 <span class="icon">+</span>
             </div>
             <div class="rule-content">
-                <p>Points are awarded based on finishing position and specific performance bonuses.</p>
+                <p>Points are awarded based on finishing position. The system is designed to reward consistency while offering bonuses for peak performance.</p>
                 <table class="points-table">
                     <thead>
                         <tr><th>Pos</th><th>Points</th><th>Pos</th><th>Points</th></tr>
@@ -158,6 +177,8 @@
                 <ul>
                     <li><strong>Pole Position:</strong> +1 Point</li>
                     <li><strong>Fastest Lap:</strong> +1 Point</li>
+                    <li><strong>Most Laps Led:</strong> +1 Point</li>
+                    <li><strong>Clean Race (0x Incidents):</strong> +2 Points</li>
                 </ul>
             </div>
         </div>
@@ -188,17 +209,19 @@
             if (menu) menu.classList.toggle('open');
         }
 
-        // --- 2. ACCORDION LOGIC ---
+        // --- 2. ACCORDION LOGIC WITH SCROLL LIMIT ---
         function toggleRule(header) {
             const content = header.nextElementSibling;
             const icon = header.querySelector('.icon');
             
-            // Close other sections (Optional - remove loop if you want multiple open)
+            // Limit height to 400px to force scroll if content is longer
+            const SCROLL_LIMIT = 400; 
+
+            // Close others
             document.querySelectorAll('.rule-content').forEach(el => {
                 if (el !== content) {
                     el.classList.remove('open');
                     el.style.maxHeight = null;
-                    // Reset icons of others
                     if(el.previousElementSibling) {
                         el.previousElementSibling.querySelector('.icon').textContent = '+';
                         el.previousElementSibling.querySelector('.icon').style.transform = 'rotate(0deg)';
@@ -209,7 +232,10 @@
             content.classList.toggle('open');
             
             if (content.classList.contains('open')) {
-                content.style.maxHeight = content.scrollHeight + "px"; // Smooth animation height
+                // If content is taller than 400px, cap it at 400px to enable scroll
+                const expandHeight = Math.min(content.scrollHeight, SCROLL_LIMIT);
+                content.style.maxHeight = expandHeight + "px";
+                
                 icon.textContent = '−';
                 icon.style.transform = 'rotate(180deg)';
             } else {
