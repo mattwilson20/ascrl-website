@@ -180,10 +180,12 @@
                 title: "BACK-TO-BACK IN VEGAS",
                 date: "NOV 15, 2025",
                 tag: "VIDEO HIGHLIGHT",
-                preview: "https://github.com/mattwilson20/ascrl-website/blob/main/ASCRweeklyissue7.jpg?raw=true",
+                // IMPORTANT: Replace this preview with a screenshot of the video!
+                preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/fbfa579723c77e6fbf3d60eb03885f5e66f0d1d9/ascrp3.jpg",
                 teaser: "Congrats to @HockeyDeckout for going back to back at Vegas! Watch the exclusive video coverage.",
                 pages: [
-                    "https://github.com/mattwilson20/ascrl-website/raw/refs/heads/main/VEGASASCRISSUE_-_Trim.mp4"
+                    // Corrected link to avoid 404 error
+                    "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/VEGASASCRISSUE_-_Trim.mp4"
                 ]
             },
             {
@@ -304,7 +306,7 @@
             }).join('');
         }
 
-        // --- 4. FLIPBOOK LOGIC ---
+        // --- 4. FLIPBOOK LOGIC (FIXED FOR VIDEO) ---
         let flipBook = null;
 
         function openReader(idx) {
@@ -316,13 +318,28 @@
 
             // Setup HTML structure for pages
             root.innerHTML = `<div id="book-el">
-                ${articles[idx].pages.map(img => {
-                    // Check if content is text or image link
-                    if(img.startsWith('http')) {
-                        return `<div class="page"><img src="${img}"></div>`;
-                    } else {
+                ${articles[idx].pages.map(content => {
+                    
+                    // 1. CHECK FOR DIRECT VIDEO FILE (MP4, WEBM)
+                    if (content.endsWith('.mp4') || content.endsWith('.webm')) {
+                        return `
+                            <div class="page" style="background:#000; display:flex; align-items:center; justify-content:center;">
+                                <video controls playsinline style="width:100%; height:100%; object-fit:contain;">
+                                    <source src="${content}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>`;
+                    }
+
+                    // 2. CHECK FOR IMAGE (Standard http links that aren't videos)
+                    else if (content.startsWith('http')) {
+                        return `<div class="page"><img src="${content}"></div>`;
+                    } 
+
+                    // 3. FALLBACK TO TEXT
+                    else {
                         return `<div class="page" style="padding:20px; color:black; display:flex; align-items:center; justify-content:center; text-align:center;">
-                                    <p style="font-family:sans-serif; font-size:1.2rem;">${img}</p>
+                                    <p style="font-family:sans-serif; font-size:1.2rem;">${content}</p>
                                 </div>`;
                     }
                 }).join('')}
