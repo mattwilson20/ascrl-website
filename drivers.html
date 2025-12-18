@@ -5,80 +5,126 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASCRL Drivers | American Stock Car Racing League</title>
     <style>
-        body { margin: 0; font-family: 'Arial Black', sans-serif; background: #000; color: #fff; overflow-x: hidden; }
-        /* Hamburger Button */
-        .hamburger { position: fixed; top: 1rem; left: 1rem; z-index: 1002; cursor: pointer; padding: 10px; background: rgba(0,0,0,0.8); border-radius: 8px; }
-        .hamburger-line { width: 30px; height: 4px; background: #ff0; margin: 6px 0; transition: 0.4s; border-radius: 2px; }
-        /* Overlay Menu */
-        .nav-overlay { position: fixed; top: 0; left: -100%; width: 80%; max-width: 300px; height: 100vh; background: rgba(0,0,0,0.95); transition: left 0.4s ease; z-index: 1001; padding-top: 80px; box-shadow: 5px 0 15px rgba(200,0,0,0.8); overflow-y: auto; }
+        :root {
+            --primary: #c00;
+            --secondary: #ff0;
+            --bg-dark: #000;
+            --bg-alt: #0a0a0a;
+            --card-bg: #111;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--bg-dark); color: #fff; overflow-x: hidden; }
+        
+        /* --- NAVIGATION --- */
+        .hamburger { position: fixed; top: 1rem; left: 1rem; z-index: 2000; cursor: pointer; padding: 10px; background: rgba(0,0,0,0.8); border-radius: 8px; border: 1px solid rgba(255,255,0,0.2); }
+        .hamburger-line { width: 30px; height: 4px; background: var(--secondary); margin: 6px 0; transition: var(--transition); border-radius: 2px; }
+        
+        .nav-overlay { position: fixed; top: 0; left: -100%; width: 80%; max-width: 300px; height: 100vh; background: rgba(0,0,0,0.98); transition: left 0.4s ease; z-index: 1999; padding-top: 80px; border-right: 2px solid var(--primary); }
         .nav-overlay.open { left: 0; }
-        .nav-logo { font-size: 2.5rem; color: #ff0; text-shadow: 3px 3px #c00; margin: 0 0 3rem 2rem; }
+        .nav-logo { font-size: 2.5rem; color: var(--secondary); text-shadow: 3px 3px var(--primary); margin: 0 0 3rem 2rem; }
         .nav-links { display: flex; flex-direction: column; gap: 1rem; padding: 0 2rem; }
-        .nav-links a { color: #fff; text-decoration: none; font-size: 1.5rem; padding: 1rem; border-radius: 10px; transition: 0.3s; text-align: left; }
-        .nav-links a:hover { background: #c00; color: #ff0; }
-        .hero { background: linear-gradient(to bottom, #c00, #900); padding: 10rem 1rem 6rem; text-align: center; margin-top: 60px; }
-        h1 { font-size: 4rem; margin: 0; text-shadow: 4px 4px #000; }
+        .nav-links a { color: #fff; text-decoration: none; font-size: 1.5rem; padding: 1rem; border-radius: 10px; transition: var(--transition); text-align: left; }
+        .nav-links a:hover { background: var(--primary); color: var(--secondary); }
+
+        /* --- HERO --- */
+        .hero { background: linear-gradient(to bottom, var(--primary), #900); padding: 10rem 1rem 6rem; text-align: center; clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); }
+        h1 { font-size: clamp(2.5rem, 8vw, 4rem); margin: 0; text-shadow: 4px 4px #000; }
+        
+        /* --- SEARCH & FILTERS --- */
+        .filter-section { padding: 2rem 1rem; text-align: center; background: var(--bg-alt); }
+        .search-bar { 
+            width: 100%; max-width: 500px; padding: 1rem; border-radius: 50px; 
+            border: 2px solid #333; background: #1a1a1a; color: #fff; 
+            font-size: 1.1rem; outline: none; transition: var(--transition);
+        }
+        .search-bar:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(204,0,0,0.3); }
+
+        /* --- GRID --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
-        .roster { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 3rem 0; }
-        .driver-card { background: #111; padding: 2rem; border-radius: 15px; border: 3px solid #333; cursor: pointer; transition: 0.3s; text-align: center; }
-        .driver-card:hover { border-color: #c00; transform: scale(1.05); background: #222; }
-        .number { font-size: 3rem; font-weight: bold; color: #ff0; }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 2000; }
-        .modal-content { background: #111; padding: 3rem; border-radius: 20px; max-width: 90%; max-height: 90%; border: 4px solid #c00; position: relative; display: flex; flex-direction: column; }
-        .modal-header { text-align: center; margin-bottom: 1rem; }
-        .modal-body { overflow-y: auto; padding: 1rem; flex: 1; }
-        .close { position: absolute; top: 20px; right: 30px; font-size: 3rem; cursor: pointer; color: #ff0; }
-        footer { background: #111; padding: 2rem; text-align: center; font-size: 0.9rem; }
+        .roster { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+
+        /* --- DRIVER CARD --- */
+        .driver-card { 
+            background: var(--card-bg); border-radius: 15px; border: 2px solid #222; 
+            overflow: hidden; cursor: pointer; transition: var(--transition); position: relative;
+        }
+        .driver-card:hover { 
+            transform: translateY(-10px); border-color: var(--primary);
+            box-shadow: 0 15px 30px rgba(204,0,0,0.2);
+        }
+        .card-header { background: #1a1a1a; padding: 1.5rem; text-align: center; border-bottom: 2px solid #222; }
+        .number { font-size: 3.5rem; color: var(--secondary); line-height: 1; margin-bottom: 0.5rem; font-style: italic; }
+        .card-body { padding: 1.5rem; text-align: center; }
+        .card-body h3 { margin: 0 0 0.5rem 0; font-size: 1.4rem; color: #fff; }
+        .card-body p { margin: 0.2rem 0; color: #888; font-family: sans-serif; font-weight: bold; font-size: 0.9rem; }
+        .tag { display: inline-block; background: var(--primary); color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; margin-top: 10px; }
+
+        /* --- MODAL --- */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; z-index: 3000; padding: 1rem; backdrop-filter: blur(8px); }
+        .modal-content { 
+            background: #111; padding: 2.5rem; border-radius: 20px; max-width: 700px; width: 100%;
+            border: 3px solid var(--primary); position: relative; max-height: 90vh; overflow-y: auto;
+        }
+        .close { position: absolute; top: 15px; right: 25px; font-size: 2.5rem; cursor: pointer; color: var(--secondary); z-index: 10; }
+
+        .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: #1a1a1a; padding: 1rem; border-radius: 10px; margin: 10px 0; border: 1px solid #333; }
+        .stat-item { text-align: center; padding: 5px; }
+        .stat-label { font-size: 0.65rem; color: #888; text-transform: uppercase; }
+        .stat-value { font-size: 1.1rem; color: var(--secondary); }
+
+        footer { background: #050505; padding: 3rem 1rem; text-align: center; font-size: 0.8rem; border-top: 1px solid #222; }
+
         @media (max-width: 768px) {
-            .hamburger { top: 0.5rem; left: 0.5rem; }
+            .hero { padding: 8rem 1rem 4rem; }
+            h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Hamburger Button -->
+
     <div class="hamburger" onclick="toggleMenu()">
         <div class="hamburger-line"></div>
         <div class="hamburger-line"></div>
         <div class="hamburger-line"></div>
     </div>
 
-    <!-- Overlay Menu -->
-    <div class="nav-overlay" id="nav-menu">
+    <nav class="nav-overlay" id="nav-menu">
         <div class="nav-logo">ASCRL</div>
         <div class="nav-links">
-            <a href="news.html">News</a>
             <a href="index.html">Home</a>
+            <a href="news.html">News</a>
             <a href="standings.html">Standings</a>
             <a href="results.html">Results</a>
             <a href="schedule.html">Schedule</a>
             <a href="drivers.html">Drivers</a>
             <a href="rules.html">Rules</a>
         </div>
-    </div>
+    </nav>
 
     <header class="hero">
-        <h1>ASCRL DRIVERS</h1>
-        <p>The Grid — 2025-2026 Season</p>
+        <h1>THE GRID</h1>
+        <p>Official 2025-2026 Driver Roster</p>
     </header>
-    <div class="container">
-        <div id="roster-grid" class="roster">
-            <p>Loading drivers...</p>
-        </div>
+
+    <div class="filter-section">
+        <input type="text" id="driverSearch" class="search-bar" placeholder="Search by driver name or number...">
     </div>
 
-    <!-- Driver Profile Modal -->
+    <div class="container">
+        <div id="roster-grid" class="roster">
+            </div>
+    </div>
+
     <div id="driver-modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="document.getElementById('driver-modal').style.display='none'">×</span>
-            <div class="modal-header">
-                <h2 id="modal-title"></h2>
-            </div>
-            <div class="modal-body" id="modal-stats"></div>
+            <div id="modal-content-inner"></div>
         </div>
     </div>
 
     <footer>
-        © 2025-2026 ASCRL | NASCAR-inspired fantasy league | Built for stock car racing passion
+        © 2025-2026 ASCRL | Racing With Pride | Powered by the Community
     </footer>
 
     <script>
@@ -86,53 +132,96 @@
             document.getElementById('nav-menu').classList.toggle('open');
         }
 
-        let driversData = {};
+        let allDrivers = [];
 
         fetch('drivers.json')
-            .then(response => response.json())
+            .then(r => r.json())
             .then(data => {
-                driversData = data;
-                const grid = document.getElementById('roster-grid');
-                grid.innerHTML = '';
-                Object.keys(data).forEach(did => {
-                    const profile = data[did];
-                    const series = Object.keys(profile.series);
-                    if (series.length === 0) return;
-                    const primary = profile.series[series[0]];
-                    const card = document.createElement('div');
-                    card.className = 'driver-card';
-                    card.onclick = () => showProfile(did, profile);
-                    card.innerHTML = `
-                        <div class="number">#${primary.number || '?'}</div>
-                        <h3>${profile.display_name || 'Driver'}</h3>
-                        <p>${primary.manufacturer || ''}</p>
-                        <p>${primary.team || ''}</p>
-                        <p>${series.length} Series</p>
-                    `;
-                    grid.appendChild(card);
-                });
+                allDrivers = Object.keys(data).map(did => ({ id: did, ...data[did] }));
+                renderRoster(allDrivers);
             });
 
-        function showProfile(did, profile) {
-            const modal = document.getElementById('driver-modal');
-            document.getElementById('modal-title').textContent = `${profile.display_name || 'Driver'} — Full Career Profile`;
-            const statsDiv = document.getElementById('modal-stats');
-            statsDiv.innerHTML = '';
-            Object.keys(profile.series).sort().forEach(series => {
-                const s = profile.series[series];
-                const stats = s.stats || {points: 0, wins: 0, top5: 0, top10: 0, poles: 0, avg: 'N/A'};
-                const div = document.createElement('div');
-                div.style.margin = '2rem 0';
-                div.innerHTML = `
-                    <h3>${series} Series — #${s.number || '?'} ${s.manufacturer || ''}</h3>
-                    <p>Team: ${s.team || 'Independent'}</p>
-                    <p>Points: ${stats.points} | Wins: ${stats.wins} | Top 5: ${stats.top5}</p>
-                    <p>Top 10: ${stats.top10} | Poles: ${stats.poles} | Avg Finish: ${stats.avg}</p>
-                    <hr style="border-color: #333;">
+        function renderRoster(drivers) {
+            const grid = document.getElementById('roster-grid');
+            grid.innerHTML = '';
+
+            drivers.forEach(driver => {
+                const seriesNames = Object.keys(driver.series);
+                if (seriesNames.length === 0) return;
+                
+                // Get primary series data (Cup if available, else first one)
+                const primaryKey = seriesNames.includes('Cup') ? 'Cup' : seriesNames[0];
+                const primary = driver.series[primaryKey];
+
+                const card = document.createElement('div');
+                card.className = 'driver-card';
+                card.onclick = () => showProfile(driver);
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="number">#${primary.number || '??'}</div>
+                    </div>
+                    <div class="card-body">
+                        <h3>${driver.display_name}</h3>
+                        <p>${primary.team || 'Independent'}</p>
+                        <p style="color:var(--primary)">${primary.manufacturer || ''}</p>
+                        <div class="tag">${seriesNames.length} SERIES REGISTERED</div>
+                    </div>
                 `;
-                statsDiv.appendChild(div);
+                grid.appendChild(card);
+            });
+        }
+
+        // Search logic
+        document.getElementById('driverSearch').addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = allDrivers.filter(d => {
+                const nameMatch = d.display_name.toLowerCase().includes(term);
+                const numMatch = Object.values(d.series).some(s => s.number && s.number.toString().includes(term));
+                return nameMatch || numMatch;
+            });
+            renderRoster(filtered);
+        });
+
+        function showProfile(driver) {
+            const modal = document.getElementById('driver-modal');
+            const inner = document.getElementById('modal-content-inner');
+            inner.innerHTML = `
+                <h2 style="color:var(--secondary); border-bottom: 2px solid var(--primary); padding-bottom:10px;">
+                    ${driver.display_name}
+                </h2>
+            `;
+
+            Object.keys(driver.series).sort().forEach(seriesName => {
+                const s = driver.series[seriesName];
+                const stats = s.stats || {points: 0, wins: 0, top5: 0, top10: 0, poles: 0, avg: 'N/A'};
+                
+                const sDiv = document.createElement('div');
+                sDiv.style.margin = '2rem 0';
+                sDiv.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <h3 style="margin:0;">${seriesName} Series</h3>
+                        <span style="background:#222; padding:5px 15px; border-radius:20px; color:var(--secondary);">#${s.number}</span>
+                    </div>
+                    <p style="font-family:sans-serif; color:#888;">Team: ${s.team || 'Independent'} | ${s.manufacturer || ''}</p>
+                    <div class="stat-grid">
+                        <div class="stat-item"><div class="stat-label">Wins</div><div class="stat-value">${stats.wins}</div></div>
+                        <div class="stat-item"><div class="stat-label">Top 5</div><div class="stat-value">${stats.top5}</div></div>
+                        <div class="stat-item"><div class="stat-label">Top 10</div><div class="stat-value">${stats.top10}</div></div>
+                        <div class="stat-item"><div class="stat-label">Poles</div><div class="stat-value">${stats.poles}</div></div>
+                        <div class="stat-item"><div class="stat-label">Avg Fin</div><div class="stat-value">${stats.avg}</div></div>
+                        <div class="stat-item"><div class="stat-label">Points</div><div class="stat-value">${stats.points}</div></div>
+                    </div>
+                `;
+                inner.appendChild(sDiv);
             });
             modal.style.display = 'flex';
+        }
+
+        // Close on background click
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('driver-modal')) {
+                document.getElementById('driver-modal').style.display = "none";
+            }
         }
     </script>
 </body>
