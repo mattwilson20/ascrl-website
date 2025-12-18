@@ -3,76 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASCRL Standings | American Stock Car Racing League</title>
+    <title>Standings | ASCRL</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        :root {
-            --primary: #c00;
-            --secondary: #ff0;
-            --bg-dark: #000;
-            --bg-alt: #0a0a0a;
-            --card-bg: #111;
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        /* Standings-Specific Pro Styling */
+        .championship-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid var(--primary);
+            padding-left: 1.5rem;
         }
 
-        body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--bg-dark); color: #fff; overflow-x: hidden; }
-        
-        /* --- NAVIGATION --- */
-        .hamburger { position: fixed; top: 1rem; left: 1rem; z-index: 2000; cursor: pointer; padding: 10px; background: rgba(0,0,0,0.8); border-radius: 8px; border: 1px solid rgba(255,255,0,0.2); }
-        .hamburger-line { width: 30px; height: 4px; background: var(--secondary); margin: 6px 0; transition: var(--transition); border-radius: 2px; }
-        
-        .nav-overlay { position: fixed; top: 0; left: -100%; width: 80%; max-width: 300px; height: 100vh; background: rgba(0,0,0,0.98); transition: left 0.4s ease; z-index: 1999; padding-top: 80px; border-right: 2px solid var(--primary); }
-        .nav-overlay.open { left: 0; }
-        .nav-logo { font-size: 2.5rem; color: var(--secondary); text-shadow: 3px 3px var(--primary); margin: 0 0 3rem 2rem; }
-        .nav-links { display: flex; flex-direction: column; gap: 1rem; padding: 0 2rem; }
-        .nav-links a { color: #fff; text-decoration: none; font-size: 1.5rem; padding: 1rem; border-radius: 10px; transition: var(--transition); text-align: left; }
-        .nav-links a:hover { background: var(--primary); color: var(--secondary); }
-
-        /* --- HERO --- */
-        .hero { background: linear-gradient(to bottom, var(--primary), #900); padding: 10rem 1rem 6rem; text-align: center; clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); }
-        h1 { font-size: clamp(2.5rem, 8vw, 4rem); margin: 0; text-shadow: 4px 4px #000; }
-        
-        /* --- LAYOUT --- */
-        section { padding: 4rem 1rem; }
-        section:nth-of-type(even) { background: var(--bg-alt); }
-        .container { max-width: 1000px; margin: 0 auto; }
-
-        h2 { color: var(--secondary); text-shadow: 2px 2px #000; font-size: 2rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; }
-        h2::before { content: ''; display: block; width: 10px; height: 30px; background: var(--primary); }
-
-        /* --- TABLES --- */
-        .table-container { border-radius: 15px; overflow: hidden; border: 1px solid #333; margin-bottom: 4rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        table { width: 100%; border-collapse: collapse; background: var(--card-bg); }
-        th { background: var(--primary); padding: 1.2rem; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
-        td { padding: 1.1rem; border-bottom: 1px solid #222; font-family: sans-serif; font-weight: bold; text-align: center; }
-        
-        /* Highlight Top 10 */
-        tr.top-10 { background: rgba(255, 255, 0, 0.03); }
-        tr.top-10 td:nth-child(2) { color: var(--secondary); }
-
-        .driver-link { cursor: pointer; text-decoration: none; transition: var(--transition); border-bottom: 1px dashed var(--secondary); }
-        .driver-link:hover { color: #fff; border-bottom-style: solid; }
-
-        /* --- MODAL --- */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; z-index: 3000; padding: 1rem; backdrop-filter: blur(10px); }
-        .modal-content { 
-            background: #111; padding: 2.5rem; border-radius: 20px; max-width: 700px; width: 100%;
-            border: 3px solid var(--primary); position: relative; max-height: 90vh; overflow-y: auto;
-            box-shadow: 0 0 50px rgba(204, 0, 0, 0.3);
+        .standings-grid {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            margin-bottom: 5rem;
         }
-        .close { position: absolute; top: 15px; right: 25px; font-size: 2.5rem; cursor: pointer; color: var(--secondary); transition: var(--transition); }
-        .close:hover { transform: rotate(90deg); color: #fff; }
 
-        .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: #222; padding: 1rem; border-radius: 10px; margin: 10px 0; }
-        .stat-item { text-align: center; border: 1px solid #333; padding: 10px; border-radius: 5px; }
-        .stat-label { font-size: 0.7rem; color: #888; text-transform: uppercase; }
-        .stat-value { font-size: 1.2rem; color: var(--secondary); }
-
-        footer { background: #050505; padding: 3rem 1rem; text-align: center; font-size: 0.8rem; border-top: 1px solid #222; opacity: 0.7; }
-
-        @media (max-width: 768px) {
-            .stat-grid { grid-template-columns: repeat(2, 1fr); }
-            .modal-content { padding: 1.5rem; }
+        .standings-grid th {
+            text-align: left;
+            padding: 1.5rem;
+            background: #050505;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
+
+        .standings-grid td {
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            font-family: sans-serif;
+            font-size: 1rem;
+        }
+
+        /* Top 3 Highlighting */
+        .rank-1 { color: var(--accent); font-weight: 900; background: rgba(255, 255, 0, 0.02); }
+        .rank-2 { color: #c0c0c0; }
+        .rank-3 { color: #cd7f32; }
+
+        .driver-name {
+            cursor: pointer;
+            font-weight: 900;
+            text-transform: uppercase;
+            transition: var(--transition);
+        }
+        .driver-name:hover { color: var(--primary); padding-left: 5px; }
+
+        .points-val { font-family: 'Arial Black', sans-serif; color: var(--accent); }
+
+        /* Modal Customization */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: var(--glass); z-index: 3000; justify-content: center; align-items: center; }
+        .modal-content { background: #000; border: 1px solid var(--primary); width: 90%; max-width: 600px; padding: 3rem; position: relative; max-height: 85vh; overflow-y: auto; }
     </style>
 </head>
 <body>
@@ -84,159 +70,114 @@
     </div>
 
     <nav class="nav-overlay" id="nav-menu">
-        <div class="nav-logo">ASCRL</div>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="news.html">News</a>
-            <a href="standings.html">Standings</a>
-            <a href="results.html">Results</a>
-            <a href="schedule.html">Schedule</a>
-            <a href="drivers.html">Drivers</a>
-            <a href="rules.html">Rules</a>
+        <div class="nav-links" style="display:flex; flex-direction:column; padding: 2rem;">
+            <a href="index.html" style="color:white; text-decoration:none; font-size:1.5rem; margin:1rem 0;">DASHBOARD</a>
+            <a href="standings.html" style="color:var(--primary); text-decoration:none; font-size:1.5rem; margin:1rem 0;">STANDINGS</a>
+            <a href="results.html" style="color:white; text-decoration:none; font-size:1.5rem; margin:1rem 0;">RESULTS</a>
+            <a href="schedule.html" style="color:white; text-decoration:none; font-size:1.5rem; margin:1rem 0;">SCHEDULE</a>
+            <a href="drivers.html" style="color:white; text-decoration:none; font-size:1.5rem; margin:1rem 0;">THE GRID</a>
         </div>
     </nav>
 
     <header class="hero">
-        <h1>SERIES STANDINGS</h1>
-        <p>Current Season Points | Updated Dec 2025</p>
+        <p style="letter-spacing: 8px; color: var(--primary);">LIVE DATA FEED</p>
+        <h1 class="text-gradient">SERIES STANDINGS</h1>
     </header>
 
     <main class="container" id="standings-content">
-        <p style="text-align:center; padding: 4rem;">Initializing high-speed data feed...</p>
-    </main>
+        </main>
 
     <div id="driver-modal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="document.getElementById('driver-modal').style.display='none'">×</span>
-            <h2 id="modal-title" style="font-size: 1.8rem; margin-bottom: 0.5rem;"></h2>
-            <p id="modal-subtitle" style="color: #888; margin-bottom: 2rem;">Driver Profile & Season History</p>
-            <div id="modal-stats"></div>
+            <span style="position:absolute; top:1rem; right:1.5rem; cursor:pointer; color:var(--primary); font-size:1.5rem;" onclick="closeModal()">CLOSE</span>
+            <div id="modal-data"></div>
         </div>
     </div>
 
-    <footer>
-        © 2025-2026 ASCRL | DATA INTEGRITY VERIFIED | DESIGNED BY RACING FANS
-    </footer>
+    <footer>© 2025-2026 AMERICAN STOCK CAR RACING LEAGUE</footer>
 
     <script>
-        function toggleMenu() {
-            document.getElementById('nav-menu').classList.toggle('open');
-        }
+        function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
+        function closeModal() { document.getElementById('driver-modal').style.display = 'none'; }
 
         let standingsData = {};
         let driversData = {};
 
-        // Load data files
         Promise.all([
             fetch('standings.json').then(r => r.json()),
             fetch('drivers.json').then(r => r.json())
         ]).then(([standings, drivers]) => {
             standingsData = standings;
             driversData = drivers;
-            renderStandings();
-        }).catch(err => {
-            document.getElementById('standings-content').innerHTML = '<p style="color:red; text-align:center;">Failed to load data. Ensure JSON files are correctly named.</p>';
+            render();
         });
 
-        function renderStandings() {
+        function render() {
             const content = document.getElementById('standings-content');
             content.innerHTML = '';
-            const seriesOrder = ['Cup', 'Xfinity', 'Truck', 'Menards'];
-            
-            seriesOrder.forEach(series => {
-                if (standingsData[series] && standingsData[series].length > 0) {
-                    const section = document.createElement('section');
-                    section.innerHTML = `<h2>${series} Series</h2>`;
-                    
-                    const tableContainer = document.createElement('div');
-                    tableContainer.className = 'table-container';
-                    
-                    const table = document.createElement('table');
-                    table.innerHTML = `
+            ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(series => {
+                if (!standingsData[series]) return;
+
+                const section = document.createElement('section');
+                section.innerHTML = `
+                    <div class="championship-header">
+                        <h2 style="font-size: 2.5rem;">${series.toUpperCase()} SERIES</h2>
+                    </div>
+                    <table class="standings-grid">
                         <thead>
                             <tr>
-                                <th>Pos</th>
-                                <th style="text-align:left;">Driver</th>
-                                <th>Points</th>
+                                <th style="width: 80px;">RANK</th>
+                                <th>DRIVER</th>
+                                <th style="text-align: right;">SEASON POINTS</th>
                             </tr>
                         </thead>
+                        <tbody>
+                            ${standingsData[series].map((item, i) => `
+                                <tr class="rank-${i+1}">
+                                    <td>${i+1}</td>
+                                    <td><span class="driver-name" onclick="showProfile('${item.driver}')">${item.driver}</span></td>
+                                    <td style="text-align: right;" class="points-val">${item.points}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+                content.appendChild(section);
+            });
+        }
+
+        function showProfile(name) {
+            const modal = document.getElementById('driver-modal');
+            const dataDiv = document.getElementById('modal-data');
+            
+            // Search for driver in profile data
+            const profile = Object.values(driversData).find(p => 
+                Object.values(p.series).some(s => s.driver_name === name)
+            );
+
+            if (profile) {
+                let html = `<h2 style="font-size:2.5rem; margin-bottom:2rem; border-bottom:1px solid var(--border);">${name}</h2>`;
+                Object.entries(profile.series).forEach(([sName, sData]) => {
+                    const st = sData.stats || {wins:0, top5:0, top10:0, poles:0, avg:'N/A', points:0};
+                    html += `
+                        <div style="margin-bottom:2rem;">
+                            <span class="stat-label" style="color:var(--primary)">${sName} SERIES</span>
+                            <div class="stats-grid">
+                                <div class="stat-box"><span class="stat-label">WINS</span><span class="stat-value">${st.wins}</span></div>
+                                <div class="stat-box"><span class="stat-label">T5</span><span class="stat-value">${st.top5}</span></div>
+                                <div class="stat-box"><span class="stat-label">AVG</span><span class="stat-value" style="font-size:1rem">${st.avg}</span></div>
+                            </div>
+                        </div>
                     `;
-                    
-                    const tbody = document.createElement('tbody');
-                    standingsData[series].forEach((item, index) => {
-                        const tr = document.createElement('tr');
-                        if (index < 10) tr.className = 'top-10';
-                        
-                        tr.innerHTML = `
-                            <td>${index + 1}</td>
-                            <td style="text-align:left;">
-                                <span class="driver-link" onclick="showDriverProfile('${item.driver}')">${item.driver}</span>
-                            </td>
-                            <td>${item.points}</td>
-                        `;
-                        tbody.appendChild(tr);
-                    });
-                    
-                    table.appendChild(tbody);
-                    tableContainer.appendChild(table);
-                    section.appendChild(tableContainer);
-                    content.appendChild(section);
-                }
-            });
-        }
-
-        function showDriverProfile(driverName) {
-            const modal = document.getElementById('driver-modal');
-            document.getElementById('modal-title').textContent = driverName;
-            const statsDiv = document.getElementById('modal-stats');
-            statsDiv.innerHTML = '';
+                });
+                dataDiv.innerHTML = html;
+            } else {
+                dataDiv.innerHTML = `<h2>${name}</h2><p>Telemetry data pending...</p>`;
+            }
             modal.style.display = 'flex';
-
-            let found = false;
-            // Iterate through the drivers.json structure
-            Object.values(driversData).forEach(profile => {
-                // Check if this driver appears in any of their registered series
-                const seriesEntries = Object.entries(profile.series);
-                const belongsToThisDriver = seriesEntries.some(([name, data]) => data.driver_name === driverName);
-
-                if (belongsToThisDriver) {
-                    found = true;
-                    seriesEntries.forEach(([seriesName, sData]) => {
-                        const stats = sData.stats || {points:0, wins:0, top5:0, top10:0, poles:0, avg:'N/A'};
-                        const div = document.createElement('div');
-                        div.style.marginBottom = '2.5rem';
-                        div.innerHTML = `
-                            <div style="border-bottom: 2px solid var(--primary); padding-bottom: 5px; margin-bottom: 15px;">
-                                <strong style="color:var(--secondary); font-size: 1.2rem;">${seriesName} Series</strong> 
-                                <span style="float:right;">#${sData.number || '??'} ${sData.manufacturer || ''}</span>
-                            </div>
-                            <div style="font-size: 0.9rem; margin-bottom: 10px;">Team: ${sData.team || 'Independent'}</div>
-                            <div class="stat-grid">
-                                <div class="stat-item"><div class="stat-label">Points</div><div class="stat-value">${stats.points}</div></div>
-                                <div class="stat-item"><div class="stat-label">Wins</div><div class="stat-value">${stats.wins}</div></div>
-                                <div class="stat-item"><div class="stat-label">Top 5</div><div class="stat-value">${stats.top5}</div></div>
-                                <div class="stat-item"><div class="stat-label">Top 10</div><div class="stat-value">${stats.top10}</div></div>
-                                <div class="stat-item"><div class="stat-label">Poles</div><div class="stat-value">${stats.poles}</div></div>
-                                <div class="stat-item"><div class="stat-label">Avg Fin</div><div class="stat-value">${stats.avg}</div></div>
-                            </div>
-                        `;
-                        statsDiv.appendChild(div);
-                    });
-                }
-            });
-
-            if (!found) {
-                statsDiv.innerHTML = '<p style="color:#666; text-align:center;">Detailed profile data not yet synced for this driver.</p>';
-            }
         }
 
-        // Close modal on outside click
-        window.onclick = function(event) {
-            const modal = document.getElementById('driver-modal');
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
+        window.onclick = (e) => { if(e.target.id === 'driver-modal') closeModal(); }
     </script>
 </body>
 </html>
