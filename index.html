@@ -61,33 +61,33 @@
             <div class="timer-container" id="race-countdowns">
                 <div class="race-card">
                     <span class="stat-label">CUP SERIES</span>
-                    <h3 id="cup-next" style="font-size: 1.2rem; margin: 0.5rem 0;">LOADING...</h3>
+                    <h3 id="cup-next" style="font-size: 1.2rem; margin: 0.5rem 0;">CHECKING...</h3>
                     <div class="stat-value" id="cup-timer" style="font-size: 1.8rem; margin-top: 1rem;">--:--:--</div>
                 </div>
                 <div class="race-card">
                     <span class="stat-label">XFINITY SERIES</span>
-                    <h3 id="xfinity-next" style="font-size: 1.2rem; margin: 0.5rem 0;">LOADING...</h3>
+                    <h3 id="xfinity-next" style="font-size: 1.2rem; margin: 0.5rem 0;">CHECKING...</h3>
                     <div class="stat-value" id="xfinity-timer" style="font-size: 1.8rem; margin-top: 1rem;">--:--:--</div>
                 </div>
                 <div class="race-card">
                     <span class="stat-label">TRUCK SERIES</span>
-                    <h3 id="truck-next" style="font-size: 1.2rem; margin: 0.5rem 0;">LOADING...</h3>
+                    <h3 id="truck-next" style="font-size: 1.2rem; margin: 0.5rem 0;">CHECKING...</h3>
                     <div class="stat-value" id="truck-timer" style="font-size: 1.8rem; margin-top: 1rem;">--:--:--</div>
                 </div>
                 <div class="race-card">
                     <span class="stat-label">MENARDS SERIES</span>
-                    <h3 id="menards-next" style="font-size: 1.2rem; margin: 0.5rem 0;">LOADING...</h3>
+                    <h3 id="menards-next" style="font-size: 1.2rem; margin: 0.5rem 0;">CHECKING...</h3>
                     <div class="stat-value" id="menards-timer" style="font-size: 1.8rem; margin-top: 1rem;">--:--:--</div>
                 </div>
             </div>
         </section>
 
-        <section>
-            <h2 style="margin-bottom: 2rem; text-align: center;">CHAMPIONSHIP LEADERS</h2>
+        <section style="margin-top: 4rem;">
+            <h2 style="margin-bottom: 2rem; text-align: center; color: var(--text-muted); font-size: 1.2rem; letter-spacing: 4px;">CHAMPIONSHIP LEADERS</h2>
             <div class="leader-strip" id="leaders-grid"></div>
         </section>
 
-        <section class="highlight-box">
+        <section class="highlight-box" style="margin-top: 4rem;">
             <span class="stat-label" style="color: var(--primary);">LATEST RECAP</span>
             <h2 style="font-size: 3rem; margin: 1rem 0;">TALLADEGA THRILLER</h2>
             <p style="color: var(--text-muted); font-family: sans-serif; max-width: 700px;">
@@ -97,12 +97,10 @@
         </section>
     </main>
 
-    <footer>
-        © 2025-2026 AMERICAN STOCK CAR RACING LEAGUE
-    </footer>
+    <footer>© 2025-2026 AMERICAN STOCK CAR RACING LEAGUE</footer>
 
     <script>
-        // 1. MODULAR NAVIGATION FETCH
+        // --- 1. MODULAR NAVIGATION FETCH ---
         fetch('nav.html')
             .then(response => response.text())
             .then(data => {
@@ -117,53 +115,88 @@
                     activeLink.style.borderLeft = "4px solid var(--primary)";
                     activeLink.style.paddingLeft = "15px";
                 }
-            });
+            })
+            .catch(err => console.error("Nav load error:", err));
 
         function toggleMenu() { 
             const menu = document.getElementById('nav-menu');
             if (menu) menu.classList.toggle('open'); 
         }
 
-        // 2. DASHBOARD LOGIC (Countdowns & Leaders)
-        fetch('schedule.json').then(r => r.json()).then(data => {
-            ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(series => {
-                const nextRace = data[series]?.find(r => new Date(r.date) > new Date());
-                const idPrefix = series.toLowerCase();
-                if (nextRace) {
-                    document.getElementById(`${idPrefix}-next`).textContent = nextRace.track;
-                    startTimer(`${idPrefix}-timer`, new Date(nextRace.date + 'T20:00:00'));
-                } else {
-                    document.getElementById(`${idPrefix}-next`).textContent = "SEASON ENDED";
-                }
-            });
-        });
+        // --- 2. DASHBOARD LOGIC ---
 
+        // Timer Function
         function startTimer(id, target) {
             const el = document.getElementById(id);
-            setInterval(() => {
-                const diff = target - new Date();
-                if (diff <= 0) { el.textContent = "RACE DAY"; return; }
+            if (!el) return;
+
+            const update = () => {
+                const now = new Date();
+                const diff = target - now;
+
+                if (diff <= 0) {
+                    el.textContent = "RACE DAY";
+                    el.style.color = "var(--accent)";
+                    return;
+                }
+
                 const d = Math.floor(diff / 86400000);
                 const h = Math.floor((diff % 86400000) / 3600000);
                 const m = Math.floor((diff % 3600000) / 60000);
+                
                 el.textContent = `${d}D ${h}H ${m}M`;
-            }, 1000);
+            };
+
+            update();
+            setInterval(update, 60000); // Update every minute to save resources
         }
 
-        fetch('standings.json').then(r => r.json()).then(data => {
-            const grid = document.getElementById('leaders-grid');
-            ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(s => {
-                if (data[s] && data[s][0]) {
-                    grid.innerHTML += `
-                        <div class="stat-box">
-                            <span class="stat-label">${s} LEADER</span>
-                            <span class="stat-value" style="color:white">${data[s][0].driver}</span>
-                            <span class="stat-label" style="margin-top:5px">${data[s][0].points} PTS</span>
-                        </div>
-                    `;
-                }
-            });
-        });
+        // Fetch Schedule for Countdowns
+        fetch('schedule.json')
+            .then(r => r.json())
+            .then(data => {
+                const seriesList = ['Cup', 'Xfinity', 'Truck', 'Menards'];
+                seriesList.forEach(series => {
+                    const idPrefix = series.toLowerCase();
+                    const now = new Date();
+                    
+                    // Find the first race in the future
+                    const nextRace = data[series]?.find(r => new Date(r.date) >= now.setHours(0,0,0,0));
+
+                    if (nextRace) {
+                        document.getElementById(`${idPrefix}-next`).textContent = nextRace.track;
+                        // Assuming 8:00 PM (20:00) start time for racers
+                        startTimer(`${idPrefix}-timer`, new Date(nextRace.date + 'T20:00:00'));
+                    } else {
+                        document.getElementById(`${idPrefix}-next`).textContent = "SEASON COMPLETE";
+                        document.getElementById(`${idPrefix}-timer`).textContent = "OFF-SEASON";
+                    }
+                });
+            })
+            .catch(err => console.error("Schedule load error:", err));
+
+        // Fetch Standings for Leader Strip
+        fetch('standings.json')
+            .then(r => r.json())
+            .then(data => {
+                const grid = document.getElementById('leaders-grid');
+                const seriesList = ['Cup', 'Xfinity', 'Truck', 'Menards'];
+                
+                grid.innerHTML = seriesList.map(s => {
+                    if (data[s] && data[s][0]) {
+                        const leader = data[s][0];
+                        return `
+                            <div class="stat-box">
+                                <span class="stat-label">${s.toUpperCase()} LEADER</span>
+                                <span class="stat-value" style="color:white; display:block; margin: 0.5rem 0;">${leader.driver}</span>
+                                <span class="stat-label" style="color:var(--primary)">${leader.points} PTS</span>
+                            </div>
+                        `;
+                    }
+                    return "";
+                }).join('');
+            })
+            .catch(err => console.error("Standings load error:", err));
     </script>
 </body>
 </html>
