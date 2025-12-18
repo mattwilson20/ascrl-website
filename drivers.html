@@ -124,24 +124,8 @@
     </style>
 </head>
 <body>
+<div id="nav-placeholder"></div>
 
-    <div class="hamburger" onclick="toggleMenu()" aria-label="Toggle Menu">
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-    </div>
-
-    <nav class="nav-overlay" id="nav-menu">
-        <div class="nav-links">
-            <a href="index.html">DASHBOARD</a>
-            <a href="news.html">LATEST NEWS</a>
-            <a href="standings.html">STANDINGS</a>
-            <a href="results.html">RESULTS</a>
-            <a href="schedule.html">CALENDAR</a>
-            <a href="drivers.html" style="color:var(--primary)">ROSTER</a>
-            <a href="rules.html">REGULATIONS</a>
-        </div>
-    </nav>
 
     <header class="hero">
         <p>Official League Roster</p>
@@ -247,5 +231,27 @@
             if (e.target.className === 'modal') document.getElementById('driver-modal').style.display = 'none';
         }
     </script>
+    // 1. Fetch and Load the Navigation
+fetch('nav.html')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('nav-placeholder').innerHTML = data;
+        
+        // 2. Highlight the current page
+        const currentPage = window.location.pathname.split("/").pop() || "index.html";
+        const navID = "nav-" + currentPage.split(".")[0];
+        const activeLink = document.getElementById(navID);
+        if (activeLink) {
+            activeLink.style.color = "var(--primary)";
+            activeLink.style.borderLeft = "4px solid var(--primary)";
+            activeLink.style.paddingLeft = "15px";
+        }
+    });
+
+// 3. The Toggle Function (Keep this here)
+function toggleMenu() {
+    const menu = document.getElementById('nav-menu');
+    if (menu) menu.classList.toggle('open');
+}
 </body>
 </html>
