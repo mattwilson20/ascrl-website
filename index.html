@@ -6,7 +6,35 @@
     <title>ASCRL | American Stock Car Racing League</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Home-specific Hero Animation & Layout */
+        :root {
+            --primary: #c00;
+            --accent: #ff0;
+            --bg-dark: #000;
+            --card-bg: #0d0d0d;
+            --border: #1a1a1a;
+            --text-muted: #a0a0a0;
+            --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--bg-dark); color: #fff; overflow-x: hidden; }
+
+        /* --- MODULAR NAVIGATION STYLES (MATCHING OTHER PAGES) --- */
+        #nav-placeholder { position: relative; z-index: 2000; }
+        
+        .nav-overlay { 
+            position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; 
+            height: 100vh; background: #050505; transition: left 0.5s ease; 
+            z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); 
+        }
+        .nav-overlay.open { left: 0; }
+        .nav-links { display: flex; flex-direction: column; padding: 0 3rem; }
+        .nav-links a { 
+            color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; 
+            border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; 
+        }
+        .nav-links a:hover { color: var(--primary); padding-left: 10px; }
+
+        /* --- HOME HERO ANIMATION & LAYOUT --- */
         .hero { 
             position: relative; 
             overflow: hidden; 
@@ -23,6 +51,14 @@
             pointer-events: none;
         }
         
+        h1 { font-size: clamp(4rem, 15vw, 8rem); margin: 0; letter-spacing: -2px; position: relative; z-index: 1; }
+        .text-gradient {
+            background: linear-gradient(to bottom, #fff 30%, #444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- DASHBOARD CARDS --- */
         .timer-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -62,14 +98,7 @@
         .stat-label { color: var(--primary); font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; display: block; }
         .stat-value { font-size: 1.8rem; font-family: 'Arial Black', sans-serif; display: block; margin-top: 0.5rem; }
         
-        h1 { font-size: clamp(4rem, 15vw, 8rem); margin: 0; letter-spacing: -2px; position: relative; z-index: 1; }
-        .text-gradient {
-            background: linear-gradient(to bottom, #fff 30%, #444 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        /* Mobile adjustment for leader strip */
+        /* Mobile adjustment */
         @media (max-width: 768px) {
             .leader-strip div { width: 45%; margin-bottom: 1rem; }
         }
@@ -87,7 +116,7 @@
         </div>
     </header>
 
-    <main class="container">
+    <main class="container" style="max-width: 1300px; margin: 0 auto; padding: 2rem;">
         <section>
             <h2 style="margin-bottom: 2rem; font-size: 1.2rem; color: var(--text-muted); letter-spacing: 4px;">UPCOMING EVENTS</h2>
             <div class="timer-container" id="race-countdowns">
@@ -138,7 +167,19 @@
         // 1. NAVIGATION
         fetch('nav.html')
             .then(res => res.text())
-            .then(data => { document.getElementById('nav-placeholder').innerHTML = data; })
+            .then(data => { 
+                document.getElementById('nav-placeholder').innerHTML = data; 
+                
+                // Highlight current page
+                const currentPage = window.location.pathname.split("/").pop() || "index.html";
+                const navID = "nav-" + currentPage.split(".")[0];
+                const activeLink = document.getElementById(navID);
+                if (activeLink) {
+                    activeLink.style.color = "var(--primary)";
+                    activeLink.style.borderLeft = "4px solid var(--primary)";
+                    activeLink.style.paddingLeft = "15px";
+                }
+            })
             .catch(err => console.log("Nav failed"));
 
         function toggleMenu() {
@@ -165,7 +206,7 @@
             })
             .catch(err => console.log("Schedule error", err));
 
-        // 3. LEADERS DATA (Pulls from drivers.json now!)
+        // 3. LEADERS DATA (Pulls from drivers.json)
         fetch('drivers.json')
             .then(res => res.json())
             .then(data => {
@@ -173,7 +214,6 @@
                 const seriesList = ['Cup', 'Xfinity', 'Truck', 'Menards'];
 
                 seriesList.forEach(seriesName => {
-                    // Find the leader for this series
                     let bestDriver = null;
                     let maxPoints = -1;
 
