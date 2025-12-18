@@ -3,126 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Race Results | ASCRL</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Race Results</title>
     <style>
-        .hero { padding: 8rem 1rem 3rem; text-align: center; background: #000; border-bottom: 1px solid var(--border); }
-        .container { max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; }
-        
-        .filter-section { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; }
-        select { 
-            background: #111; color: #fff; border: 1px solid var(--border); 
-            padding: 12px 20px; font-family: 'Arial Black', sans-serif; 
-            text-transform: uppercase; min-width: 200px;
+        :root {
+            --primary: #007bff;
+            --win-gold: #fff9c4;
         }
-
-        table { width: 100%; border-collapse: collapse; background: #0d0d0d; border: 1px solid var(--border); }
-        th { background: #111; padding: 1.2rem; text-align: left; font-size: 0.7rem; color: var(--primary); border-bottom: 1px solid var(--border); letter-spacing: 1px; }
-        td { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border); font-family: 'Inter', sans-serif; }
+        body { font-family: sans-serif; padding: 20px; background: #f4f4f9; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         
-        .win-row { background: rgba(255, 215, 0, 0.1); border-left: 4px solid #ffd700; }
-        .bonus-pill { font-size: 0.6rem; padding: 2px 6px; border-radius: 3px; margin-left: 8px; font-weight: bold; text-transform: uppercase; }
-        .pole-pill { background: #007bff; color: white; }
-        .fl-pill { background: #dc3545; color: white; }
+        .controls { display: flex; gap: 10px; margin-bottom: 20px; }
+        select { padding: 8px; border-radius: 4px; border: 1px solid #ccc; flex: 1; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th { background: #333; color: white; padding: 12px; text-align: left; }
+        td { padding: 12px; border-bottom: 1px solid #ddd; }
+        
+        .win-row { background-color: var(--win-gold); }
+        
+        .bonus-pill {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 5px;
+            color: white;
+            font-weight: bold;
+        }
+        .pole-pill { background: #dc3545; } /* Red */
+        .fl-pill { background: #28a745; }   /* Green */
     </style>
 </head>
 <body>
 
-    <div id="nav-placeholder"></div>
+<div class="container">
+    <h2>Season Results</h2>
 
-    <header class="hero">
-        <p style="letter-spacing: 8px; color: var(--primary); text-transform: uppercase; font-size: 0.8rem;">Official Archive</p>
-        <h1>RACE RESULTS</h1>
-    </header>
+    <div class="controls">
+        <select id="series-select" onchange="populateTracks()">
+            <option value="Cup">NASCAR Cup Series</option>
+            <option value="Xfinity">Xfinity Series</option>
+            <option value="Trucks">Truck Series</option>
+            <option value="Menards">ARCA Menards</option>
+        </select>
 
-    <main class="container">
-        <div class="filter-section">
-            <select id="series-select" onchange="populateTracks()">
-                <option value="Cup">Cup Series</option>
-                <option value="Menards">Menards Series</option>
-                <option value="Xfinity">Xfinity Series</option>
-                <option value="Truck">Truck Series</option>
+        <select id="track-select" onchange="displayResults()">
             </select>
+    </div>
 
-            <select id="track-select" onchange="displayResults()">
-                </select>
-        </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Pos</th>
+                <th>Driver</th>
+                <th style="text-align: center;">Points</th>
+                <th style="text-align: right;">Bonus</th>
+            </tr>
+        </thead>
+        <tbody id="results-body">
+            </tbody>
+    </table>
+</div>
 
-        <table id="results-table">
-            <thead>
-                <tr>
-                    <th style="width: 60px;">POS</th>
-                    <th>DRIVER</th>
-                    <th style="text-align: center;">PTS</th>
-                    <th style="text-align: right;">BONUS</th>
-                </tr>
-            </thead>
-            <tbody id="results-body">
-                </tbody>
-        </table>
-    </main>
+<script>
+    let raceData = {};
 
-    <script>
-        // Load Nav
-        fetch('nav.html').then(res => res.text()).then(data => { document.getElementById('nav-placeholder').innerHTML = data; });
+    // 1. Fetch data from the correct file name
+    fetch('race_results.json')
+        .then(res => {
+            if (!res.ok) throw new Error('File race_results.json not found (404)');
+            return res.json();
+        })
+        .then(data => {
+            console.log("Data loaded successfully");
+            raceData = data;
+            populateTracks(); 
+        })
+        .catch(err => {
+            console.error("Error:", err);
+            document.getElementById('results-body').innerHTML = 
+                `<tr><td colspan="4" style="text-align:center; color:red; padding: 20px;">
+                <strong>Error:</strong> ${err.message}<br>
+                Check that race_results.json is in the same folder as this file.
+                </td></tr>`;
+        });
 
-        let raceData = {};
+    function populateTracks() {
+        const series = document.getElementById('series-select').value;
+        const trackSelect = document.getElementById('track-select');
+        trackSelect.innerHTML = '';
 
-        // Fetch your JSON
-        fetch('results.json')
-            .then(res => res.json())
-            .then(data => {
-                raceData = data;
-                populateTracks(); // Initial load
-            });
+        // Filter JSON keys that start with the selected series (e.g., "Cup -")
+        const availableTracks = Object.keys(raceData).filter(key => key.startsWith(series));
 
-        function populateTracks() {
-            const series = document.getElementById('series-select').value;
-            const trackSelect = document.getElementById('track-select');
-            trackSelect.innerHTML = '';
-
-            // Filter keys that start with the selected series (e.g., "Cup - Atlanta")
-            const availableTracks = Object.keys(raceData).filter(key => key.startsWith(series));
-
+        if (availableTracks.length === 0) {
+            const option = document.createElement('option');
+            option.textContent = "No Data Found";
+            trackSelect.appendChild(option);
+        } else {
             availableTracks.forEach(trackKey => {
-                const trackName = trackKey.split(' - ')[1];
                 const option = document.createElement('option');
                 option.value = trackKey;
-                option.textContent = trackName;
+                // Cleans "Cup - Atlanta" to just show "Atlanta" in the dropdown
+                option.textContent = trackKey.includes(' - ') ? trackKey.split(' - ')[1] : trackKey;
                 trackSelect.appendChild(option);
             });
+        }
+        displayResults();
+    }
 
-            displayResults();
+    function displayResults() {
+        const trackKey = document.getElementById('track-select').value;
+        const body = document.getElementById('results-body');
+        body.innerHTML = '';
+
+        if (!trackKey || !raceData[trackKey]) {
+            body.innerHTML = '<tr><td colspan="4" style="text-align:center">Select a track to view results</td></tr>';
+            return;
         }
 
-        function displayResults() {
-            const trackKey = document.getElementById('track-select').value;
-            const body = document.getElementById('results-body');
-            body.innerHTML = '';
+        const results = raceData[trackKey];
 
-            if (!trackKey || !raceData[trackKey]) {
-                body.innerHTML = '<tr><td colspan="4" style="text-align:center">No data available for this event.</td></tr>';
-                return;
-            }
+        results.forEach((row) => {
+            // Apply gold background for the winner
+            const isWinner = row.position === 1 || row.position === "1" ? 'class="win-row"' : '';
+            
+            // Build bonus pills
+            let bonusHtml = '';
+            if(row.pole === "Yes") bonusHtml += '<span class="bonus-pill pole-pill">Pole</span>';
+            if(row.fl === "FL") bonusHtml += '<span class="bonus-pill fl-pill">FL</span>';
 
-            raceData[trackKey].forEach((row) => {
-                const isWinner = row.position === 1 ? 'class="win-row"' : '';
-                
-                // Add pills for Pole or Fastest Lap
-                let bonusHtml = '';
-                if(row.pole === "Yes") bonusHtml += '<span class="bonus-pill pole-pill">Pole</span>';
-                if(row.fl === "FL") bonusHtml += '<span class="bonus-pill fl-pill">Fast Lap</span>';
+            body.innerHTML += `
+                <tr ${isWinner}>
+                    <td>${row.position}</td>
+                    <td style="font-weight: bold;">${row.driver}</td>
+                    <td style="text-align: center;">${row.points}</td>
+                    <td style="text-align: right;">${bonusHtml}</td>
+                </tr>
+            `;
+        });
+    }
+</script>
 
-                body.innerHTML += `
-                    <tr ${isWinner}>
-                        <td style="font-family: 'Arial Black'">${row.position}</td>
-                        <td style="font-weight: bold; letter-spacing: 0.5px;">${row.driver}</td>
-                        <td style="text-align: center;">${row.points}</td>
-                        <td style="text-align: right;">${bonusHtml}</td>
-                    </tr>
-                `;
-            });
-        }
-    </script>
 </body>
 </html>
