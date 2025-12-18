@@ -45,24 +45,7 @@
 </head>
 <body>
 
-    <div class="hamburger" onclick="toggleMenu()">
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-    </div>
-
-    <nav class="nav-overlay" id="nav-menu">
-        <div class="nav-links">
-            <a href="index.html">DASHBOARD</a>
-            <a href="news.html">LATEST NEWS</a>
-            <a href="standings.html">STANDINGS</a>
-            <a href="results.html">RESULTS</a>
-            <a href="schedule.html">CALENDAR</a>
-            <a href="drivers.html" style="color:var(--primary)">ROSTER</a>
-            <a href="rules.html">REGULATIONS</a>
-        </div>
-    </nav>
-
+    <div id="nav-placeholder"></div>
 
     <header class="hero">
         <p style="letter-spacing: 8px; color: var(--primary); text-transform: uppercase; font-size: 0.8rem;">Official League Portal</p>
@@ -101,8 +84,7 @@
 
         <section>
             <h2 style="margin-bottom: 2rem; text-align: center;">CHAMPIONSHIP LEADERS</h2>
-            <div class="leader-strip" id="leaders-grid">
-                </div>
+            <div class="leader-strip" id="leaders-grid"></div>
         </section>
 
         <section class="highlight-box">
@@ -120,9 +102,29 @@
     </footer>
 
     <script>
-        function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
+        // 1. MODULAR NAVIGATION FETCH
+        fetch('nav.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+                
+                // Highlight current page
+                const currentPage = window.location.pathname.split("/").pop() || "index.html";
+                const navID = "nav-" + currentPage.split(".")[0];
+                const activeLink = document.getElementById(navID);
+                if (activeLink) {
+                    activeLink.style.color = "var(--primary)";
+                    activeLink.style.borderLeft = "4px solid var(--primary)";
+                    activeLink.style.paddingLeft = "15px";
+                }
+            });
 
-        // Logic for Countdowns
+        function toggleMenu() { 
+            const menu = document.getElementById('nav-menu');
+            if (menu) menu.classList.toggle('open'); 
+        }
+
+        // 2. DASHBOARD LOGIC (Countdowns & Leaders)
         fetch('schedule.json').then(r => r.json()).then(data => {
             ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(series => {
                 const nextRace = data[series]?.find(r => new Date(r.date) > new Date());
@@ -148,7 +150,6 @@
             }, 1000);
         }
 
-        // Logic for Leaders
         fetch('standings.json').then(r => r.json()).then(data => {
             const grid = document.getElementById('leaders-grid');
             ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(s => {
