@@ -3,199 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Race Results</title>
+    <title>Race Results | American Stock Car Racing League</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         :root {
-            --bg-dark: #121212;
-            --card-bg: #1e1e1e;
-            --accent: #e10600;
-            --text-main: #ffffff;
-            --win-gold: #ffd700;
+            --primary: #c00;
+            --accent: #ff0;
+            --bg-dark: #000;
+            --card-bg: #0d0d0d;
+            --border: #1a1a1a;
+            --text-muted: #a0a0a0;
+            --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
-        body { 
-            font-family: 'Segoe UI', sans-serif; 
-            margin: 0; 
-            background-color: var(--bg-dark); 
-            color: var(--text-main);
-        }
+        body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--bg-dark); color: #fff; overflow-x: hidden; }
 
-        /* --- NAVIGATION / HAMBURGER --- */
-        nav {
-            background: #000;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--accent);
+        /* --- MODULAR NAVIGATION STYLES --- */
+        #nav-placeholder { position: relative; z-index: 2000; }
+        
+        .nav-overlay { 
+            position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; 
+            height: 100vh; background: #050505; transition: left 0.5s ease; 
+            z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); 
         }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            list-style: none;
+        .nav-overlay.open { left: 0; }
+        .nav-links { display: flex; flex-direction: column; padding: 0 3rem; }
+        .nav-links a { 
+            color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; 
+            border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; 
         }
+        .nav-links a:hover { color: var(--primary); padding-left: 10px; }
 
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 0.9rem;
+        /* --- HERO --- */
+        .hero { 
+            background: radial-gradient(circle at center, #222 0%, #000 100%); 
+            padding: 12rem 1rem 8rem; 
+            text-align: center; 
+            border-bottom: 1px solid var(--border);
         }
+        h1 { font-size: clamp(3rem, 10vw, 5rem); margin: 0; letter-spacing: -2px; line-height: 0.9; }
+        .hero p { color: var(--primary); letter-spacing: 5px; text-transform: uppercase; font-size: 0.9rem; margin-top: 1rem; }
 
-        .hamburger {
-            display: none;
-            cursor: pointer;
-            font-size: 1.5rem;
-            background: none;
-            border: none;
-            color: white;
-        }
-
-        /* --- MAIN LAYOUT --- */
-        .container { 
-            max-width: 900px; 
-            margin: 40px auto; 
-            background: var(--card-bg); 
-            padding: 25px; 
-            border-radius: 8px; 
-        }
-
-        .controls { display: flex; gap: 15px; margin-bottom: 25px; }
+        /* --- FILTERS --- */
+        .controls { background: #050505; padding: 2rem 1rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; text-align: center; }
+        .filter-group { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
         
         select { 
-            padding: 12px; 
-            background: #2a2a2a; 
-            color: white; 
-            border: 1px solid #444; 
-            border-radius: 4px; 
-            flex: 1; 
+            background: #000; color: #fff; border: 1px solid var(--border); 
+            padding: 1.2rem 2rem; font-family: 'Arial Black', sans-serif; 
+            text-transform: uppercase; cursor: pointer; min-width: 250px;
+            font-size: 1rem;
         }
+        select:focus { border-color: var(--primary); outline: none; background: #0a0a0a; }
 
-        table { width: 100%; border-collapse: collapse; }
-        th { background: #000; color: #888; padding: 12px; text-align: left; font-size: 0.8rem; }
-        td { padding: 12px; border-bottom: 1px solid #333; }
+        /* --- TABLE --- */
+        .container { max-width: 1000px; margin: 0 auto; padding: 4rem 2rem; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        th { 
+            text-align: left; padding: 1.5rem; color: var(--primary); 
+            border-bottom: 1px solid var(--border); font-size: 0.8rem; letter-spacing: 2px; 
+        }
+        td { 
+            padding: 1.5rem; border-bottom: 1px solid var(--border); 
+            font-family: sans-serif; font-size: 1rem; color: #ccc;
+        }
+        
+        tr:hover td { background: #0a0a0a; color: #fff; }
+        
+        .pos-cell { font-family: 'Arial Black', sans-serif; color: #fff; width: 50px; }
+        .points-cell { font-family: 'Arial Black', sans-serif; color: var(--accent); text-align: center; }
+        .win-row td { background: rgba(204, 0, 0, 0.1); color: #fff; }
+        .win-row .pos-cell { color: var(--primary); }
 
-        .win-row { background: rgba(255, 215, 0, 0.1); border-left: 4px solid var(--win-gold); }
-        .bonus-pill { font-size: 0.7rem; padding: 2px 6px; border-radius: 3px; margin-left: 4px; color: white; }
-        .pole-pill { background: #dc3545; }
-        .fl-pill { background: #28a745; }
+        .bonus-pill { 
+            font-size: 0.7rem; padding: 4px 8px; border-radius: 2px; 
+            margin-left: 8px; color: #000; font-weight: bold; text-transform: uppercase; 
+        }
+        .pole-pill { background: #fff; }
+        .fl-pill { background: var(--primary); color: #fff; }
 
-        /* Responsive Nav */
+        footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
+
         @media (max-width: 768px) {
-            .nav-links { display: none; flex-direction: column; width: 100%; position: absolute; top: 60px; left: 0; background: #000; padding: 20px; z-index: 100; }
-            .nav-links.active { display: flex; }
-            .hamburger { display: block; }
-            .controls { flex-direction: column; }
+            .hero { padding: 10rem 1rem 4rem; }
+            td, th { padding: 1rem; font-size: 0.9rem; }
         }
     </style>
 </head>
 <body>
 
-<nav>
-    <div style="font-weight: bold; font-size: 1.2rem;">LEAGUE LOGO</div>
-    <button class="hamburger" onclick="toggleMenu()">☰</button>
-    <ul class="nav-links" id="navLinks">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="results.html">Results</a></li>
-        <li><a href="standings.html">Standings</a></li>
-    </ul>
-</nav>
+    <div id="nav-placeholder"></div>
 
-<div class="container">
-    <h2>Race Results</h2>
+    <header class="hero">
+        <p>Season Archive</p>
+        <h1>RACE RESULTS</h1>
+    </header>
 
     <div class="controls">
-        <select id="series-select" onchange="populateTracks()">
-            <option value="Cup">NASCAR Cup Series</option>
-            <option value="Xfinity">Xfinity Series</option>
-            <option value="Truck">Truck Series</option> <option value="Menards">ARCA Menards</option>
-        </select>
-
-        <select id="track-select" onchange="displayResults()">
+        <div class="filter-group">
+            <select id="series-select" onchange="populateTracks()">
+                <option value="Cup">NASCAR Cup Series</option>
+                <option value="Xfinity">Xfinity Series</option>
+                <option value="Truck">Truck Series</option>
+                <option value="Menards">ARCA Menards</option>
             </select>
+            <select id="track-select" onchange="displayResults()">
+                </select>
+        </div>
     </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Pos</th>
-                <th>Driver</th>
-                <th style="text-align: center;">Points</th>
-                <th style="text-align: right;">Bonus</th>
-            </tr>
-        </thead>
-        <tbody id="results-body"></tbody>
-    </table>
-</div>
+    <main class="container">
+        <table id="results-table">
+            <thead>
+                <tr>
+                    <th>POS</th>
+                    <th>DRIVER</th>
+                    <th style="text-align: center;">PTS</th>
+                    <th style="text-align: right;">BONUS</th>
+                </tr>
+            </thead>
+            <tbody id="results-body">
+                </tbody>
+        </table>
+    </main>
 
-<script>
-    let raceData = {};
+    <footer>
+        © 2025-2026 American Stock Car Racing League | Strictly Professional Fantasy Racing
+    </footer>
 
-    function toggleMenu() {
-        document.getElementById('navLinks').classList.toggle('active');
-    }
+    <script>
+        // --- 1. MODULAR NAVIGATION LOGIC ---
+        fetch('nav.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+                
+                // Highlight current page
+                const currentPage = window.location.pathname.split("/").pop() || "index.html";
+                const navID = "nav-" + currentPage.split(".")[0];
+                const activeLink = document.getElementById(navID);
+                if (activeLink) {
+                    activeLink.style.color = "var(--primary)";
+                    activeLink.style.borderLeft = "4px solid var(--primary)";
+                    activeLink.style.paddingLeft = "15px";
+                }
+            })
+            .catch(err => console.error("Nav load error:", err));
 
-    fetch('./race_results.json')
-        .then(res => res.json())
-        .then(data => {
-            raceData = data;
-            populateTracks();
-        })
-        .catch(err => {
-            document.getElementById('results-body').innerHTML = `<tr><td colspan="4" style="color:red; text-align:center;">Failed to load race_results.json</td></tr>`;
-        });
+        function toggleMenu() {
+            const menu = document.getElementById('nav-menu');
+            if (menu) menu.classList.toggle('open');
+        }
 
-    function populateTracks() {
-        const series = document.getElementById('series-select').value;
-        const trackSelect = document.getElementById('track-select');
-        trackSelect.innerHTML = '';
+        // --- 2. RESULTS DATA LOGIC ---
+        let raceData = {};
 
-        // SEARCH FIX: Looks for any key starting with the series name
-        const availableTracks = Object.keys(raceData).filter(key => 
-            key.toLowerCase().startsWith(series.toLowerCase())
-        );
+        fetch('race_results.json')
+            .then(res => {
+                if (!res.ok) throw new Error('race_results.json not found');
+                return res.json();
+            })
+            .then(data => {
+                raceData = data;
+                populateTracks();
+            })
+            .catch(err => {
+                document.getElementById('results-body').innerHTML = 
+                    `<tr><td colspan="4" style="text-align:center; padding:2rem; color:var(--primary);">
+                        ERROR: ${err.message}<br>Check file name and folder location.
+                    </td></tr>`;
+            });
 
-        if (availableTracks.length === 0) {
-            trackSelect.innerHTML = '<option value="">No Tracks Found</option>';
-        } else {
-            availableTracks.forEach(trackKey => {
-                const option = document.createElement('option');
-                option.value = trackKey;
-                option.textContent = trackKey.includes(' - ') ? trackKey.split(' - ')[1] : trackKey;
-                trackSelect.appendChild(option);
+        function populateTracks() {
+            const series = document.getElementById('series-select').value;
+            const trackSelect = document.getElementById('track-select');
+            trackSelect.innerHTML = '';
+
+            // Filter keys (Case Insensitive for "Truck" vs "Trucks")
+            const availableTracks = Object.keys(raceData).filter(key => 
+                key.toLowerCase().startsWith(series.toLowerCase())
+            );
+
+            if (availableTracks.length === 0) {
+                trackSelect.innerHTML = '<option>NO DATA FOUND</option>';
+                document.getElementById('results-body').innerHTML = '';
+            } else {
+                availableTracks.forEach(trackKey => {
+                    const option = document.createElement('option');
+                    option.value = trackKey;
+                    // Clean up name (remove "Cup - ")
+                    option.textContent = trackKey.includes(' - ') ? trackKey.split(' - ')[1] : trackKey;
+                    trackSelect.appendChild(option);
+                });
+                displayResults();
+            }
+        }
+
+        function displayResults() {
+            const trackKey = document.getElementById('track-select').value;
+            const body = document.getElementById('results-body');
+            body.innerHTML = '';
+
+            if (!trackKey || !raceData[trackKey]) return;
+
+            raceData[trackKey].forEach(row => {
+                const isWinner = (row.position == 1) ? 'class="win-row"' : '';
+                
+                let bonusHtml = '';
+                if(row.pole === "Yes") bonusHtml += '<span class="bonus-pill pole-pill">POLE</span>';
+                if(row.fl === "FL") bonusHtml += '<span class="bonus-pill fl-pill">FASTEST LAP</span>';
+
+                body.innerHTML += `
+                    <tr ${isWinner}>
+                        <td class="pos-cell">${row.position}</td>
+                        <td style="font-weight:bold; letter-spacing:1px; color:#fff;">${row.driver}</td>
+                        <td class="points-cell">${row.points}</td>
+                        <td style="text-align: right;">${bonusHtml}</td>
+                    </tr>
+                `;
             });
         }
-        displayResults();
-    }
-
-    function displayResults() {
-        const trackKey = document.getElementById('track-select').value;
-        const body = document.getElementById('results-body');
-        body.innerHTML = '';
-
-        if (!trackKey || !raceData[trackKey]) {
-            body.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#666; padding: 20px;">No results found.</td></tr>';
-            return;
-        }
-
-        raceData[trackKey].forEach(row => {
-            const isWinner = (row.position == 1) ? 'class="win-row"' : '';
-            let bonusHtml = '';
-            if(row.pole === "Yes") bonusHtml += '<span class="bonus-pill pole-pill">Pole</span>';
-            if(row.fl === "FL") bonusHtml += '<span class="bonus-pill fl-pill">FL</span>';
-
-            body.innerHTML += `
-                <tr ${isWinner}>
-                    <td>${row.position}</td>
-                    <td style="font-weight:bold;">${row.driver}</td>
-                    <td style="text-align:center;">${row.points}</td>
-                    <td style="text-align:right;">${bonusHtml}</td>
-                </tr>`;
-        });
-    }
-</script>
-
+    </script> 
 </body>
 </html>
