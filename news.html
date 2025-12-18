@@ -70,24 +70,7 @@
 </head>
 <body>
 
-   <div class="hamburger" onclick="toggleMenu()">
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-    </div>
-
-    <nav class="nav-overlay" id="nav-menu">
-        <div class="nav-links">
-            <a href="index.html">DASHBOARD</a>
-            <a href="news.html">LATEST NEWS</a>
-            <a href="standings.html">STANDINGS</a>
-            <a href="results.html">RESULTS</a>
-            <a href="schedule.html">CALENDAR</a>
-            <a href="drivers.html" style="color:var(--primary)">ROSTER</a>
-            <a href="rules.html">REGULATIONS</a>
-        </div>
-    </nav>
-
+    <div id="nav-placeholder"></div>
 
     <header class="hero">
         <p style="letter-spacing: 8px; color: var(--primary);">WEEKLY PRESS</p>
@@ -95,8 +78,7 @@
     </header>
 
     <main class="container">
-        <div class="magazine-rack" id="magazine-grid">
-            </div>
+        <div class="magazine-rack" id="magazine-grid"></div>
     </main>
 
     <div id="reader-overlay">
@@ -108,6 +90,29 @@
     <footer>© 2025-2026 AMERICAN STOCK CAR RACING LEAGUE</footer>
 
     <script>
+        // --- 1. MODULAR NAVIGATION FETCH ---
+        fetch('nav.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+                
+                // Highlight current page
+                const currentPage = window.location.pathname.split("/").pop() || "index.html";
+                const navID = "nav-" + currentPage.split(".")[0];
+                const activeLink = document.getElementById(navID);
+                if (activeLink) {
+                    activeLink.style.color = "var(--primary)";
+                    activeLink.style.borderLeft = "4px solid var(--primary)";
+                    activeLink.style.paddingLeft = "15px";
+                }
+            });
+
+        function toggleMenu() { 
+            const menu = document.getElementById('nav-menu');
+            if (menu) menu.classList.toggle('open'); 
+        }
+
+        // --- 2. MAGAZINE LOGIC ---
         const articles = [
             {
                 title: "VETERANS DAY TRIBUTE",
@@ -137,8 +142,6 @@
                 pages: ["https://raw.githubusercontent.com/mattwilson20/ascrl-website/7654906eeda55824349300cf0fe1b8cddf32f9c0/ASCRweeklyissue4.jpg"]
             }
         ];
-
-        function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
 
         function initNews() {
             const grid = document.getElementById('magazine-grid');
@@ -194,6 +197,7 @@
             document.getElementById('reader-overlay').style.display = 'none';
             document.body.style.overflow = 'auto';
             if (flipBook) flipBook.destroy();
+            document.getElementById('reader-loading').style.display = 'block'; // Reset loader for next time
         }
 
         initNews();
