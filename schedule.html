@@ -3,197 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schedule | ASCRL</title>
+    <title>Season Calendar | American Stock Car Racing League</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Schedule-Specific Pro Styling */
-        .roadmap {
-            display: flex;
-            justify-content: space-between;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 2rem;
-            margin-bottom: 4rem;
-            position: relative;
+        :root {
+            --primary: #c00;
+            --accent: #ff0;
+            --bg-dark: #000;
+            --card-bg: #0d0d0d;
+            --border: #1a1a1a;
+            --text-muted: #a0a0a0;
+            --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--bg-dark); color: #fff; overflow-x: hidden; }
+
+        /* --- NAVIGATION --- */
+        #nav-placeholder { position: relative; z-index: 2000; }
+        .nav-overlay { 
+            position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; 
+            height: 100vh; background: #050505; transition: left 0.5s ease; 
+            z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); 
+        }
+        .nav-overlay.open { left: 0; }
+        .nav-links { display: flex; flex-direction: column; padding: 0 3rem; }
+        .nav-links a { 
+            color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; 
+            border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; 
+        }
+        .nav-links a:hover { color: var(--primary); padding-left: 10px; }
+
+        /* --- HERO --- */
+        .hero { 
+            background: radial-gradient(circle at center, #222 0%, #000 100%); 
+            padding: 12rem 1rem 8rem; 
+            text-align: center; 
+            border-bottom: 1px solid var(--border);
+        }
+        h1 { font-size: clamp(3rem, 10vw, 5rem); margin: 0; letter-spacing: -2px; line-height: 0.9; }
+        .hero p { color: var(--primary); letter-spacing: 5px; text-transform: uppercase; font-size: 0.9rem; margin-top: 1rem; }
+
+        /* --- CONTROLS --- */
+        .controls { background: #050505; padding: 2rem 1rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; text-align: center; }
+        select { 
+            background: #000; color: #fff; border: 1px solid var(--border); 
+            padding: 1.2rem 2rem; font-family: 'Arial Black', sans-serif; 
+            text-transform: uppercase; cursor: pointer; min-width: 300px;
+            font-size: 1rem;
+        }
+        select:focus { border-color: var(--primary); outline: none; background: #0a0a0a; }
+
+        /* --- SCHEDULE LIST --- */
+        .container { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; }
+        .schedule-list { list-style: none; padding: 0; }
+        
+        .race-item { 
+            display: flex; align-items: center; justify-content: space-between;
+            background: var(--card-bg); border: 1px solid var(--border);
+            padding: 2rem; margin-bottom: 1rem; transition: var(--transition);
         }
         
-        /* The Connecting Line */
-        .roadmap::after {
-            content: "";
-            position: absolute;
-            top: 50%; left: 10%; right: 10%;
-            height: 1px; background: var(--border);
-            z-index: 1;
+        .race-date { 
+            display: flex; flex-direction: column; align-items: center; 
+            min-width: 100px; padding-right: 2rem; border-right: 1px solid #222;
+        }
+        .month { color: var(--primary); font-size: 0.8rem; letter-spacing: 2px; }
+        .day { font-size: 2.5rem; line-height: 1; }
+        
+        .race-info { padding-left: 2rem; flex-grow: 1; text-align: left; }
+        .race-info h3 { margin: 0; font-size: 1.5rem; text-transform: uppercase; letter-spacing: -1px; }
+        .race-info p { margin: 5px 0 0; color: var(--text-muted); font-family: sans-serif; font-size: 0.9rem; }
+
+        .status-badge { 
+            font-size: 0.7rem; padding: 5px 10px; border: 1px solid #333; 
+            border-radius: 4px; text-transform: uppercase; color: #666;
         }
 
-        .step {
-            position: relative;
-            z-index: 2;
-            background: var(--card-bg);
-            padding: 0 1rem;
-            text-align: center;
+        /* --- STATES --- */
+        .race-item.completed { opacity: 0.5; border-color: #111; }
+        .race-item.completed:hover { opacity: 1; }
+        
+        .race-item.next { 
+            border: 1px solid var(--primary); 
+            background: linear-gradient(90deg, #0d0d0d 0%, #1a0000 100%);
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(204, 0, 0, 0.15);
+        }
+        .race-item.next .status-badge { 
+            background: var(--primary); color: #fff; border-color: var(--primary); 
         }
 
-        .step .dot {
-            width: 12px; height: 12px;
-            background: var(--primary);
-            border-radius: 50%;
-            margin: 0 auto 10px;
-            box-shadow: 0 0 10px var(--primary);
-        }
-
-        .schedule-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .entry {
-            display: grid;
-            grid-template-columns: 150px 1fr 120px;
-            align-items: center;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 1.5rem 2rem;
-            transition: var(--transition);
-        }
-
-        .entry:hover {
-            border-color: var(--primary);
-            background: #050505;
-        }
-
-        .entry.completed { opacity: 0.4; filter: grayscale(1); }
-        .entry.completed .date { text-decoration: line-through; }
-
-        .entry.upcoming {
-            border-left: 4px solid var(--accent);
-            background: linear-gradient(90deg, rgba(255,255,0,0.05) 0%, transparent 100%);
-        }
-
-        .date { font-family: sans-serif; font-weight: bold; color: var(--text-muted); }
-        .track { font-size: 1.4rem; letter-spacing: -1px; }
-        .status-pill {
-            font-size: 0.7rem;
-            padding: 4px 10px;
-            border: 1px solid var(--border);
-            text-align: center;
-            letter-spacing: 1px;
-        }
-
-        select.custom-select {
-            background: #000;
-            color: white;
-            border: 1px solid var(--primary);
-            padding: 1rem 2rem;
-            font-family: 'Arial Black', sans-serif;
-            text-transform: uppercase;
-            width: 100%;
-            max-width: 400px;
-            margin-bottom: 3rem;
-            cursor: pointer;
-        }
+        footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
 
         @media (max-width: 768px) {
-            .entry { grid-template-columns: 1fr; gap: 10px; text-align: center; }
-            .roadmap { flex-direction: column; gap: 2rem; }
-            .roadmap::after { display: none; }
+            .hero { padding: 10rem 1rem 4rem; }
+            .race-item { flex-direction: column; text-align: center; gap: 1rem; }
+            .race-date { border-right: none; border-bottom: 1px solid #222; padding-right: 0; padding-bottom: 1rem; width: 100%; }
+            .race-info { padding-left: 0; }
         }
     </style>
 </head>
 <body>
 
-    <div class="hamburger" onclick="toggleMenu()">
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-    </div>
-
-    <nav class="nav-overlay" id="nav-menu">
-        <div class="nav-links">
-            <a href="index.html">DASHBOARD</a>
-            <a href="news.html">LATEST NEWS</a>
-            <a href="standings.html">STANDINGS</a>
-            <a href="results.html">RESULTS</a>
-            <a href="schedule.html">CALENDAR</a>
-            <a href="drivers.html" style="color:var(--primary)">ROSTER</a>
-            <a href="rules.html">REGULATIONS</a>
-        </div>
-    </nav>
-
+    <div id="nav-placeholder"></div>
 
     <header class="hero">
-        <p style="letter-spacing: 8px; color: var(--primary);">OFFICIAL CALENDAR</p>
-        <h1 class="text-gradient">SEASON SCHEDULE</h1>
+        <p>Season Calendar</p>
+        <h1>SCHEDULE</h1>
     </header>
 
+    <div class="controls">
+        <select id="series-select" onchange="loadSchedule()">
+            <option value="Cup">NASCAR Cup Series</option>
+            <option value="Xfinity">Xfinity Series</option>
+            <option value="Truck">Truck Series</option>
+            <option value="Menards">ARCA Menards</option>
+        </select>
+    </div>
+
     <main class="container">
-        
-        <div class="roadmap">
-            <div class="step">
-                <div class="dot"></div>
-                <span class="stat-label">PRACTICE</span>
-                <span style="font-size: 1.2rem;">8:00 PM EST</span>
+        <div id="schedule-container" class="schedule-list">
             </div>
-            <div class="step">
-                <div class="dot"></div>
-                <span class="stat-label">QUALIFYING</span>
-                <span style="font-size: 1.2rem;">9:00 PM EST</span>
-            </div>
-            <div class="step">
-                <div class="dot" style="background: var(--accent); box-shadow: 0 0 15px var(--accent);"></div>
-                <span class="stat-label" style="color: var(--accent);">GREEN FLAG</span>
-                <span style="font-size: 1.2rem;">9:20 PM EST</span>
-            </div>
-        </div>
-
-        <div style="text-align: center;">
-            <select id="series-select" class="custom-select">
-                <option value="">SELECT SERIES</option>
-                <option value="Cup">CUP SERIES</option>
-                <option value="Xfinity">XFINITY SERIES</option>
-                <option value="Truck">TRUCK SERIES</option>
-                <option value="Menards">MENARDS SERIES</option>
-            </select>
-        </div>
-
-        <div id="schedule-list" class="schedule-grid">
-            <p style="text-align: center; color: var(--text-muted); letter-spacing: 2px;">SELECT A SERIES TO VIEW CALENDAR</p>
-        </div>
-
     </main>
 
-    <footer>© 2025-2026 AMERICAN STOCK CAR RACING LEAGUE</footer>
+    <footer>
+        © 2025-2026 American Stock Car Racing League | Strictly Professional Fantasy Racing
+    </footer>
 
     <script>
-        function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
-
-        const currentDate = new Date();
-
-        fetch('schedule.json').then(r => r.json()).then(data => {
-            document.getElementById('series-select').addEventListener('change', function() {
-                const series = this.value;
-                const list = document.getElementById('schedule-list');
-                list.innerHTML = '';
-
-                if (!series || !data[series]) return;
-
-                data[series].forEach(race => {
-                    const raceDate = new Date(race.date);
-                    const isPast = raceDate < currentDate;
-                    
-                    const entry = document.createElement('div');
-                    entry.className = `entry ${isPast ? 'completed' : 'upcoming'}`;
-                    
-                    entry.innerHTML = `
-                        <div class="date">${race.date}</div>
-                        <div class="track">${race.track.toUpperCase()}</div>
-                        <div class="status-pill">${isPast ? 'FINAL' : 'LIVE SOON'}</div>
-                    `;
-                    list.appendChild(entry);
-                });
+        // --- 1. MODULAR NAVIGATION ---
+        fetch('nav.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+                const currentPage = window.location.pathname.split("/").pop() || "index.html";
+                const navID = "nav-" + currentPage.split(".")[0];
+                const activeLink = document.getElementById(navID);
+                if (activeLink) {
+                    activeLink.style.color = "var(--primary)";
+                    activeLink.style.borderLeft = "4px solid var(--primary)";
+                    activeLink.style.paddingLeft = "15px";
+                }
             });
-        });
+
+        function toggleMenu() {
+            const menu = document.getElementById('nav-menu');
+            if (menu) menu.classList.toggle('open');
+        }
+
+        // --- 2. SCHEDULE LOGIC ---
+        let scheduleData = {};
+
+        fetch('schedule.json')
+            .then(res => res.json())
+            .then(data => {
+                scheduleData = data;
+                loadSchedule();
+            })
+            .catch(err => {
+                document.getElementById('schedule-container').innerHTML = 
+                    `<div style="text-align:center; color:var(--primary);">
+                        ERROR: schedule.json not found.<br>Ensure the file is in the main folder.
+                    </div>`;
+            });
+
+        function loadSchedule() {
+            const selectedSeries = document.getElementById('series-select').value;
+            const container = document.getElementById('schedule-container');
+            container.innerHTML = '';
+
+            // Handle case-insensitivity (Truck vs Trucks)
+            const seriesKey = Object.keys(scheduleData).find(k => k.toLowerCase() === selectedSeries.toLowerCase());
+
+            if (!seriesKey || !scheduleData[seriesKey]) {
+                container.innerHTML = '<p style="text-align:center; color:#666;">No schedule found for this series.</p>';
+                return;
+            }
+
+            const today = new Date();
+            today.setHours(0,0,0,0);
+            let nextFound = false;
+
+            scheduleData[seriesKey].forEach(race => {
+                const raceDate = new Date(race.date + 'T12:00:00'); // Ensure time doesn't shift date back
+                const isPast = raceDate < today;
+                
+                // Format Date components
+                const month = raceDate.toLocaleString('default', { month: 'short' }).toUpperCase();
+                const day = raceDate.getDate();
+                const year = raceDate.getFullYear();
+
+                let statusClass = '';
+                let statusText = 'UPCOMING';
+
+                if (isPast) {
+                    statusClass = 'completed';
+                    statusText = 'COMPLETED';
+                } else if (!nextFound) {
+                    statusClass = 'next';
+                    statusText = 'NEXT RACE';
+                    nextFound = true; // Only highlight the immediate next one
+                }
+
+                const html = `
+                    <div class="race-item ${statusClass}">
+                        <div class="race-date">
+                            <span class="month">${month}</span>
+                            <span class="day">${day}</span>
+                        </div>
+                        <div class="race-info">
+                            <h3>${race.track}</h3>
+                            <p>${year} Season Event</p>
+                        </div>
+                        <div class="race-status">
+                            <span class="status-badge">${statusText}</span>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += html;
+            });
+        }
     </script>
 </body>
 </html>
