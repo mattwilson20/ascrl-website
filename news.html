@@ -59,6 +59,9 @@
         .date { color: #888; font-size: 0.85rem; margin-bottom: 1.5rem; }
         .article-preview-img { width: 100%; max-width: 450px; border-radius: 10px; margin-bottom: 1.5rem; transition: transform 0.3s; }
         .carousel-item:hover .article-preview-img { transform: scale(1.02); }
+        .article-teaser { 
+            max-width: 600px; margin: 1rem 0; font-size: 1rem; line-height: 1.6; color: #ddd; 
+        }
         .read-hint { color: var(--primary); font-weight: bold; text-transform: uppercase; font-size: 0.8rem; margin-top: 10px; border: 1px solid var(--primary); padding: 5px 15px; border-radius: 20px; }
         /* --- READER OVERLAY --- */
         #reader-overlay {
@@ -140,6 +143,7 @@
                 date: "Nov 11, 2025",
                 tag: "SPECIAL ISSUE",
                 preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/ASCRweeklyissue6.jpg",
+                teaser: "A heartfelt tribute to our veterans ahead of the Las Vegas weekend, plus the official announcement of Backrow Motorsports entering the ASCRL with a two-car effort.",
                 pages: [
                     "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/ASCRweeklyissue6.jpg",
                     "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/ASCRPage2.jpg"
@@ -150,6 +154,7 @@
                 date: "Nov 11, 2025",
                 tag: "RACE RECAP",
                 preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/0a91dc765fb2ed87e57acdc2ec06585197ce0f30/ASCRweeklyissue5.jpg",
+                teaser: "Eight races, eight different winners! Singular_Nacho becomes the latest first-time victor in an incredible display of parity at Nashville Superspeedway.",
                 pages: ["https://raw.githubusercontent.com/mattwilson20/ascrl-website/0a91dc765fb2ed87e57acdc2ec06585197ce0f30/ASCRweeklyissue5.jpg"]
             },
             {
@@ -157,6 +162,7 @@
                 date: "Nov 10, 2025",
                 tag: "DRIVER SPOTLIGHT",
                 preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/7654906eeda55824349300cf0fe1b8cddf32f9c0/ASCRweeklyissue4.jpg",
+                teaser: "The Tennessee native carries the hopes of the home crowd. Can Dewshine finally break through and claim victory in front of his passionate fans?",
                 pages: ["https://raw.githubusercontent.com/mattwilson20/ascrl-website/7654906eeda55824349300cf0fe1b8cddf32f9c0/ASCRweeklyissue4.jpg"]
             },
             {
@@ -164,6 +170,7 @@
                 date: "Oct 28, 2025",
                 tag: "SEASON START",
                 preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/ASCRweeklyissue3.jpg",
+                teaser: "The 2025 ASCRL season kicks off with door-to-door racing and last-lap passes that set the tone for what promises to be an unforgettable championship battle.",
                 pages: ["https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/ASCRweeklyissue3.jpg"]
             },
             {
@@ -171,6 +178,7 @@
                 date: "Oct 20, 2025",
                 tag: "RULES & TECH",
                 preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/ASCRweeklyissue2.jpg",
+                teaser: "League officials unveil the new aero package designed to promote closer racing and more passing opportunities across all tracks.",
                 pages: ["https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/ASCRweeklyissue2.jpg"]
             }
         ];
@@ -188,7 +196,8 @@
                     <h2>${art.title}</h2>
                     <div class="date">${art.date}</div>
                     <img src="${art.preview}" class="article-preview-img" alt="${art.title} Preview">
-                    <div class="read-hint">Click to Read Full Issue</div>
+                    ${art.teaser ? `<p class="article-teaser">${art.teaser}</p>` : ''}
+                    <div class="read-hint">${art.pages.length > 1 ? 'Click for Full Magazine' : 'Click to Read Full Issue'}</div>
                 </div>
             `).join('');
 
