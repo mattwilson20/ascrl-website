@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASCRL News | American Stock Car Racing League</title>
     <style>
         :root {
@@ -12,90 +12,90 @@
             --card-bg: #1a1a1a;
             --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        body { 
-            margin: 0; font-family: 'Segoe UI', Roboto, Arial, sans-serif; 
-            background: var(--bg-dark); color: #fff; overflow-x: hidden; 
+        body {
+            margin: 0; font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            background: var(--bg-dark); color: #fff; overflow-x: hidden;
         }
-
         /* --- NAVIGATION --- */
-        .hamburger { 
-            position: fixed; top: 1.5rem; left: 1.5rem; z-index: 2000; 
-            cursor: pointer; padding: 12px; background: rgba(0,0,0,0.8); 
+        .hamburger {
+            position: fixed; top: 1.5rem; left: 1.5rem; z-index: 2000;
+            cursor: pointer; padding: 12px; background: rgba(0,0,0,0.8);
             border-radius: 12px; border: 1px solid rgba(255,255,0,0.3);
             display: flex; flex-direction: column; gap: 5px;
         }
         .hamburger-line { width: 25px; height: 3px; background: var(--primary); border-radius: 2px; }
-        
-        .nav-overlay { 
-            position: fixed; top: 0; left: -100%; width: 100%; max-width: 300px; 
-            height: 100vh; background: rgba(0,0,0,0.98); transition: var(--transition); 
+       
+        .nav-overlay {
+            position: fixed; top: 0; left: -100%; width: 100%; max-width: 300px;
+            height: 100vh; background: rgba(0,0,0,0.98); transition: var(--transition);
             z-index: 1999; padding-top: 100px; border-right: 2px solid var(--secondary);
         }
         .nav-overlay.open { left: 0; }
         .nav-links a { display: block; color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1rem 2rem; border-bottom: 1px solid #222; }
-
+        .nav-links a:hover { color: var(--primary); background: rgba(204,0,0,0.1); }
         /* --- HERO --- */
-        .hero { 
-            background: linear-gradient(135deg, #c00 0%, #600 100%); 
-            padding: 7rem 1rem 4rem; text-align: center; 
+        .hero {
+            background: linear-gradient(135deg, #c00 0%, #600 100%);
+            padding: 7rem 1rem 4rem; text-align: center;
             clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
         }
         .hero h1 { font-size: clamp(2rem, 8vw, 4rem); font-weight: 900; margin: 0; text-shadow: 3px 3px 0 #000; }
         .hero p { color: var(--primary); text-transform: uppercase; letter-spacing: 2px; margin-top: 5px; }
-
         /* --- CAROUSEL --- */
         .container { max-width: 1000px; margin: -2rem auto 4rem; padding: 0 1rem; position: relative; z-index: 10; }
-        .carousel-viewport { 
-            position: relative; overflow: hidden; border-radius: 20px; 
+        .carousel-viewport {
+            position: relative; overflow: hidden; border-radius: 20px;
             background: var(--card-bg); box-shadow: 0 20px 40px rgba(0,0,0,0.6);
             touch-action: pan-y;
         }
         .carousel-container { display: flex; transition: transform var(--transition); width: 100%; }
-        .carousel-item { 
-            min-width: 100%; flex: 0 0 100%; padding: 2.5rem 1.5rem; 
-            box-sizing: border-box; display: flex; flex-direction: column; 
+        .carousel-item {
+            min-width: 100%; flex: 0 0 100%; padding: 2.5rem 1.5rem;
+            box-sizing: border-box; display: flex; flex-direction: column;
             align-items: center; text-align: center; cursor: pointer;
         }
-
         .article-tag { background: var(--secondary); padding: 4px 12px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; margin-bottom: 1rem; }
         .carousel-item h2 { color: var(--primary); font-size: 1.7rem; margin: 10px 0; }
         .date { color: #888; font-size: 0.85rem; margin-bottom: 1.5rem; }
         .article-preview-img { width: 100%; max-width: 450px; border-radius: 10px; margin-bottom: 1.5rem; transition: transform 0.3s; }
         .carousel-item:hover .article-preview-img { transform: scale(1.02); }
         .read-hint { color: var(--primary); font-weight: bold; text-transform: uppercase; font-size: 0.8rem; margin-top: 10px; border: 1px solid var(--primary); padding: 5px 15px; border-radius: 20px; }
-
         /* --- READER OVERLAY --- */
         #reader-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.98); z-index: 3000; display: none;
             flex-direction: column; align-items: center; justify-content: center;
         }
-        .close-reader { position: absolute; top: 20px; right: 20px; background: var(--secondary); color: white; padding: 12px 24px; border-radius: 5px; cursor: pointer; font-weight: bold; z-index: 3001; }
-        .flipbook-container { width: 95vw; height: 85vh; display: flex; justify-content: center; align-items: center; }
-        
+        .close-reader { 
+            position: absolute; top: 20px; right: 20px; background: var(--secondary); 
+            color: white; padding: 12px 24px; border-radius: 5px; cursor: pointer; 
+            font-weight: bold; z-index: 3001; 
+        }
+        .flipbook-container { width: 95vw; height: 88vh; max-height: 900px; display: flex; justify-content: center; align-items: center; }
+        .reader-loading { 
+            position: absolute; color: var(--primary); font-size: 1.8rem; 
+            background: rgba(0,0,0,0.7); padding: 1rem 2rem; border-radius: 10px; 
+        }
         .page { background: white; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
         .page img { width: 100%; height: 100%; object-fit: contain; }
-
         /* --- DOTS --- */
         .dots-container { display: flex; justify-content: center; gap: 8px; margin-top: 15px; }
         .dot { width: 10px; height: 10px; border-radius: 50%; background: #333; transition: 0.3s; cursor: pointer; }
         .dot.active { background: var(--primary); transform: scale(1.2); }
-
         @media (max-width: 768px) {
             .carousel-item { padding: 1.5rem 1rem; }
             .carousel-item h2 { font-size: 1.3rem; }
+            .flipbook-container { height: 85vh; }
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
 </head>
 <body>
-
     <div class="hamburger" onclick="toggleMenu()">
         <div class="hamburger-line"></div>
         <div class="hamburger-line"></div>
         <div class="hamburger-line"></div>
     </div>
-
     <nav class="nav-overlay" id="nav-menu">
         <div class="nav-links">
             <a href="index.html">Home</a>
@@ -107,26 +107,21 @@
             <a href="news.html">News</a>
         </div>
     </nav>
-
     <header class="hero">
         <h1>ASCRL NEWS</h1>
-        <p>Interactive Race Reports</p>
+        <p>Interactive Race Reports & Championship Coverage</p>
     </header>
-
     <div class="container">
         <div class="carousel-viewport" id="carousel-viewport">
             <div class="carousel-container" id="carousel-inner"></div>
         </div>
         <div class="dots-container" id="dots-container"></div>
     </div>
-
     <div id="reader-overlay">
         <div class="close-reader" onclick="closeReader()">CLOSE READER</div>
+        <div class="reader-loading" id="reader-loading">Loading Issue... 🏁</div>
         <div class="flipbook-container" id="flipbook-root"></div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
-
     <script>
         const articles = [
             {
@@ -135,7 +130,7 @@
                 tag: "SPECIAL ISSUE",
                 preview: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/ASCRweeklyissue6.jpg",
                 pages: [
-                    "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/ASCRweeklyissue6.jpg", 
+                    "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/ASCRweeklyissue6.jpg",
                     "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/ASCRPage2.jpg"
                 ]
             },
@@ -175,63 +170,90 @@
         function initCarousel() {
             const inner = document.getElementById('carousel-inner');
             const dots = document.getElementById('dots-container');
-            
+           
             inner.innerHTML = articles.map((art, i) => `
                 <div class="carousel-item" onclick="openReader(${i})">
                     <span class="article-tag">${art.tag}</span>
                     <h2>${art.title}</h2>
                     <div class="date">${art.date}</div>
-                    <img src="${art.preview}" class="article-preview-img">
-                    <div class="read-hint">Click to Read Full Article</div>
+                    <img src="${art.preview}" class="article-preview-img" alt="${art.title} Preview">
+                    <div class="read-hint">Tap to Read Full Issue</div>
                 </div>
             `).join('');
 
-            dots.innerHTML = articles.map((_, i) => `<div class="dot ${i === 0 ? 'active' : ''}" onclick="goToSlide(${i})"></div>`).join('');
+            dots.innerHTML = articles.map((_, i) => `
+                <div class="dot ${i === 0 ? 'active' : ''}" onclick="goToSlide(${i})"></div>
+            `).join('');
         }
 
         function goToSlide(i) {
             currentIndex = i;
             document.getElementById('carousel-inner').style.transform = `translateX(-${currentIndex * 100}%)`;
-            document.querySelectorAll('.dot').forEach((dot, idx) => dot.classList.toggle('active', idx === currentIndex));
+            document.querySelectorAll('.dot').forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === currentIndex);
+            });
         }
 
-        // Swipe Support
+        // Touch swipe for carousel
         let startX = 0;
         const viewport = document.getElementById('carousel-viewport');
-        viewport.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+        viewport.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
         viewport.addEventListener('touchend', e => {
-            const moveX = startX - e.changedTouches[0].clientX;
-            if (Math.abs(moveX) > 50) moveX > 0 ? goToSlide((currentIndex + 1) % articles.length) : goToSlide((currentIndex - 1 + articles.length) % articles.length);
+            const endX = e.changedTouches[0].clientX;
+            const diff = startX - endX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    goToSlide((currentIndex + 1) % articles.length);
+                } else {
+                    goToSlide((currentIndex - 1 + articles.length) % articles.length);
+                }
+            }
         });
 
         function openReader(idx) {
             const overlay = document.getElementById('reader-overlay');
             const root = document.getElementById('flipbook-root');
+            const loading = document.getElementById('reader-loading');
             overlay.style.display = 'flex';
+            loading.style.display = 'block';
             document.body.style.overflow = 'hidden';
 
-            // Generate pages for PageFlip
-            root.innerHTML = `<div id="book-el">${articles[idx].pages.map(img => `<div class="page"><img src="${img}"></div>`).join('')}</div>`;
+            root.innerHTML = `<div id="book-el">${articles[idx].pages.map(img => `<div class="page"><img src="${img}" alt="Page"></div>`).join('')}</div>`;
 
             setTimeout(() => {
                 const el = document.getElementById('book-el');
-                flipBook = new St.PageFlip(el, {
-                    width: 550, height: 800,
-                    size: "stretch",
-                    minWidth: 315, maxWidth: 1000,
-                    showCover: articles[idx].pages.length > 1
-                });
-                flipBook.loadFromHTML(document.querySelectorAll('.page'));
-            }, 200);
+                if (el) {
+                    flipBook = new St.PageFlip(el, {
+                        width: 500,
+                        height: 700,
+                        size: "stretch",
+                        minWidth: 315,
+                        maxWidth: 1000,
+                        minHeight: 420,
+                        maxHeight: 1200,
+                        showCover: articles[idx].pages.length > 1,
+                        mobileScrollSupport: false,
+                        drawShadow: true,
+                        flippingTime: 800
+                    });
+                    flipBook.loadFromHTML(el.querySelectorAll('.page'));
+                    loading.style.display = 'none';
+                }
+            }, 300);
         }
 
         function closeReader() {
             document.getElementById('reader-overlay').style.display = 'none';
             document.body.style.overflow = 'auto';
-            if (flipBook) { flipBook.destroy(); flipBook = null; }
+            if (flipBook) {
+                flipBook.destroy();
+                flipBook = null;
+            }
         }
 
-        function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
+        function toggleMenu() {
+            document.getElementById('nav-menu').classList.toggle('open');
+        }
 
         initCarousel();
     </script>
