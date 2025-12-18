@@ -5,82 +5,152 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASCRL Race Results | American Stock Car Racing League</title>
     <style>
-        body { margin: 0; font-family: 'Arial Black', sans-serif; background: #000; color: #fff; overflow-x: hidden; }
-        /* Hamburger Button */
-        .hamburger { position: fixed; top: 1rem; left: 1rem; z-index: 1002; cursor: pointer; padding: 10px; background: rgba(0,0,0,0.8); border-radius: 8px; }
-        .hamburger-line { width: 30px; height: 4px; background: #ff0; margin: 6px 0; transition: 0.4s; border-radius: 2px; }
-        /* Overlay Menu */
-        .nav-overlay { position: fixed; top: 0; left: -100%; width: 80%; max-width: 300px; height: 100vh; background: rgba(0,0,0,0.95); transition: left 0.4s ease; z-index: 1001; padding-top: 80px; box-shadow: 5px 0 15px rgba(200,0,0,0.8); overflow-y: auto; }
+        :root {
+            --primary: #c00;
+            --secondary: #ff0;
+            --bg-dark: #000;
+            --bg-alt: #0a0a0a;
+            --card-bg: #111;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--bg-dark); color: #fff; overflow-x: hidden; }
+        
+        /* --- NAVIGATION --- */
+        .hamburger { position: fixed; top: 1rem; left: 1rem; z-index: 2000; cursor: pointer; padding: 10px; background: rgba(0,0,0,0.8); border-radius: 8px; border: 1px solid rgba(255,255,0,0.2); }
+        .hamburger-line { width: 30px; height: 4px; background: var(--secondary); margin: 6px 0; transition: var(--transition); border-radius: 2px; }
+        
+        .nav-overlay { position: fixed; top: 0; left: -100%; width: 80%; max-width: 300px; height: 100vh; background: rgba(0,0,0,0.98); transition: left 0.4s ease; z-index: 1999; padding-top: 80px; border-right: 2px solid var(--primary); }
         .nav-overlay.open { left: 0; }
-        .nav-logo { font-size: 2.5rem; color: #ff0; text-shadow: 3px 3px #c00; margin: 0 0 3rem 2rem; }
+        .nav-logo { font-size: 2.5rem; color: var(--secondary); text-shadow: 3px 3px var(--primary); margin: 0 0 3rem 2rem; }
         .nav-links { display: flex; flex-direction: column; gap: 1rem; padding: 0 2rem; }
-        .nav-links a { color: #fff; text-decoration: none; font-size: 1.5rem; padding: 1rem; border-radius: 10px; transition: 0.3s; text-align: left; }
-        .nav-links a:hover { background: #c00; color: #ff0; }
-        .hero { background: linear-gradient(to bottom, #c00, #900); padding: 10rem 1rem 6rem; text-align: center; margin-top: 60px; }
-        h1 { font-size: 4rem; margin: 0; text-shadow: 4px 4px #000; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; text-align: center; }
-        select { padding: 1rem; font-size: 1.2rem; margin: 2rem 0; background: #111; color: #fff; border: 2px solid #c00; border-radius: 10px; width: 100%; max-width: 400px; }
-        .race-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin: 2rem 0; }
-        .race-card { background: #111; padding: 1.5rem; text-align: center; border-radius: 10px; cursor: pointer; border: 2px solid #333; transition: 0.3s; }
-        .race-card:hover { background: #222; border-color: #c00; transform: scale(1.05); }
-        .results-section { margin: 3rem 0; display: none; }
-        table { width: 100%; border-collapse: collapse; background: #111; border-radius: 10px; overflow: hidden; }
-        th { background: #c00; padding: 1.2rem; }
-        td { padding: 1rem; border-bottom: 1px solid #333; }
-        tr:hover { background: #222; }
-        .winner { background: #330; font-weight: bold; }
-        .pole { color: #ff0; font-weight: bold; }
-        .fl { color: #0f0; font-weight: bold; }
-        footer { background: #111; padding: 2rem; text-align: center; font-size: 0.9rem; }
+        .nav-links a { color: #fff; text-decoration: none; font-size: 1.5rem; padding: 1rem; border-radius: 10px; transition: var(--transition); text-align: left; }
+        .nav-links a:hover { background: var(--primary); color: var(--secondary); }
+
+        /* --- HERO --- */
+        .hero { background: linear-gradient(to bottom, var(--primary), #900); padding: 10rem 1rem 6rem; text-align: center; clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); }
+        h1 { font-size: clamp(2.5rem, 8vw, 4rem); margin: 0; text-shadow: 4px 4px #000; }
+        
+        /* --- LAYOUT --- */
+        section { padding: 4rem 1rem; }
+        section:nth-of-type(even) { background: var(--bg-alt); }
+        .container { max-width: 1200px; margin: 0 auto; text-align: center; }
+
+        /* --- UI ELEMENTS --- */
+        .selection-box { margin-bottom: 3rem; }
+        select { 
+            padding: 1.2rem; font-size: 1.2rem; background: var(--card-bg); color: #fff; 
+            border: 2px solid var(--primary); border-radius: 10px; width: 100%; max-width: 500px;
+            cursor: pointer; transition: var(--transition);
+        }
+        select:hover { border-color: var(--secondary); box-shadow: 0 0 15px rgba(255,255,0,0.2); }
+
+        .race-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .race-card { 
+            background: var(--card-bg); padding: 2rem; text-align: center; border-radius: 12px; 
+            cursor: pointer; border: 2px solid #222; transition: var(--transition);
+        }
+        .race-card:hover { 
+            background: #1a1a1a; border-color: var(--primary); 
+            transform: translateY(-8px); box-shadow: 0 10px 25px rgba(204,0,0,0.4); 
+        }
+
+        /* --- RESULTS TABLE --- */
+        .results-section { margin-top: 2rem; display: none; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .table-container { overflow-x: auto; border-radius: 15px; border: 2px solid #333; margin-top: 2rem; }
+        table { width: 100%; border-collapse: collapse; background: var(--card-bg); min-width: 600px; }
+        th { background: var(--primary); color: #fff; padding: 1.2rem; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
+        td { padding: 1.2rem; border-bottom: 1px solid #222; font-family: sans-serif; font-weight: bold; }
+        tr:hover { background: #1a1a1a; }
+        
+        .winner { background: rgba(255, 255, 0, 0.1); border-left: 5px solid var(--secondary); }
+        .winner td:first-child { color: var(--secondary); font-size: 1.4rem; }
+        
+        .pole-tag { color: var(--secondary); margin-right: 10px; font-size: 0.8rem; border: 1px solid var(--secondary); padding: 2px 6px; border-radius: 4px; }
+        .fl-tag { color: #0f0; font-size: 0.8rem; border: 1px solid #0f0; padding: 2px 6px; border-radius: 4px; }
+
+        .back-btn { 
+            background: #333; color: #fff; padding: 0.8rem 1.5rem; border-radius: 5px; 
+            text-decoration: none; display: inline-block; margin-bottom: 2rem; cursor: pointer;
+            transition: var(--transition);
+        }
+        .back-btn:hover { background: var(--primary); }
+
+        footer { background: #050505; padding: 3rem 1rem; text-align: center; font-size: 0.9rem; border-top: 1px solid #222; }
+
         @media (max-width: 768px) {
-            .hamburger { top: 0.5rem; left: 0.5rem; }
+            .hero { padding: 8rem 1rem 4rem; }
+            h1 { font-size: 2rem; }
+            td, th { padding: 0.8rem; font-size: 0.85rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Hamburger Button -->
-    <div class="hamburger" onclick="toggleMenu()">
+
+    <div class="hamburger" onclick="toggleMenu()" aria-label="Menu">
         <div class="hamburger-line"></div>
         <div class="hamburger-line"></div>
         <div class="hamburger-line"></div>
     </div>
 
-    <!-- Overlay Menu -->
-    <div class="nav-overlay" id="nav-menu">
+    <nav class="nav-overlay" id="nav-menu">
         <div class="nav-logo">ASCRL</div>
         <div class="nav-links">
-            <a href="news.html">News</a>
             <a href="index.html">Home</a>
+            <a href="news.html">News</a>
             <a href="standings.html">Standings</a>
             <a href="results.html">Results</a>
             <a href="schedule.html">Schedule</a>
             <a href="drivers.html">Drivers</a>
             <a href="rules.html">Rules</a>
         </div>
-    </div>
+    </nav>
 
     <header class="hero">
-        <h1>ASCRL RACE RESULTS</h1>
-        <p>2025-2026 Inaugural Season | Full Archive</p>
-    </header>
-    <div class="container">
-        <label for="series-select">Select Series:</label>
-        <select id="series-select">
-            <option value="">-- Choose Series --</option>
-        </select>
-        <div id="race-list" class="race-list"></div>
-        <div id="results-section" class="results-section">
-            <h2 id="race-title"></h2>
-            <table id="results-table">
-                <thead>
-                    <tr><th>Pos</th><th>Driver</th><th>Points</th><th>Notes</th></tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+        <div class="hero-content">
+            <h1>RACE RESULTS</h1>
+            <p>ASCRL 2025-2026 Season Archive</p>
         </div>
-    </div>
+    </header>
+
+    <main>
+        <section id="series-selector">
+            <div class="container">
+                <div class="selection-box">
+                    <label for="series-select" style="display:block; margin-bottom:1rem; color:var(--secondary);">CHOOSE A RACING SERIES</label>
+                    <select id="series-select">
+                        <option value="">-- Select Series --</option>
+                    </select>
+                </div>
+                
+                <div id="race-list" class="race-list">
+                    </div>
+
+                <div id="results-section" class="results-section">
+                    <div class="back-btn" onclick="backToRaces()">← Back to Race List</div>
+                    <h2 id="race-title" style="color:var(--secondary); text-shadow: 2px 2px #000;"></h2>
+                    <div class="table-container">
+                        <table id="results-table">
+                            <thead>
+                                <tr>
+                                    <th>Pos</th>
+                                    <th>Driver</th>
+                                    <th>Points</th>
+                                    <th>Awards</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
     <footer>
-        © 2025-2026 ASCRL | Results powered by Discord bot | NASCAR passion every week
+        © 2025-2026 ASCRL | Official Race Data Portal | Built for the Community
     </footer>
 
     <script>
@@ -88,50 +158,61 @@
             document.getElementById('nav-menu').classList.toggle('open');
         }
 
+        function backToRaces() {
+            document.getElementById('results-section').style.display = 'none';
+            document.getElementById('race-list').style.display = 'grid';
+            document.getElementById('series-selector').scrollIntoView({ behavior: 'smooth' });
+        }
+
         let resultsData = {};
 
         fetch('race_results.json')
             .then(response => {
-                if (!response.ok) throw new Error('File not found');
+                if (!response.ok) throw new Error('Data file not found');
                 return response.json();
             })
             .then(data => {
                 resultsData = data;
                 const select = document.getElementById('series-select');
-                const seriesMap = {};
+                const seriesNames = new Set();
+                
                 Object.keys(data).forEach(key => {
                     const parts = key.split(' - ');
-                    if (parts.length === 2) {
-                        const series = parts[0];
-                        if (!seriesMap[series]) seriesMap[series] = [];
-                        seriesMap[series].push(key);
-                    }
+                    if (parts.length >= 2) seriesNames.add(parts[0]);
                 });
-                Object.keys(seriesMap).sort().forEach(series => {
+
+                Array.from(seriesNames).sort().forEach(series => {
                     const option = document.createElement('option');
                     option.value = series;
-                    option.textContent = `${series} Series (${seriesMap[series].length} races)`;
+                    option.textContent = `${series} Series`;
                     select.appendChild(option);
                 });
             })
             .catch(err => {
-                document.getElementById('race-list').innerHTML = '<p>Race results loading... Upload race_results.json to repo!</p>';
+                document.getElementById('race-list').innerHTML = `<p style="color:var(--primary)">System Error: race_results.json not found in repository.</p>`;
             });
 
         document.getElementById('series-select').addEventListener('change', function() {
             const series = this.value;
             const raceList = document.getElementById('race-list');
             raceList.innerHTML = '';
+            raceList.style.display = 'grid';
             document.getElementById('results-section').style.display = 'none';
 
             if (!series) return;
 
-            const races = Object.keys(resultsData).filter(key => key.startsWith(series + ' - ')).sort((a, b) => b.localeCompare(a));
+            const races = Object.keys(resultsData)
+                .filter(key => key.startsWith(series + ' - '))
+                .sort((a, b) => b.localeCompare(a)); // Shows newest races first
+
             races.forEach(raceKey => {
-                const raceName = raceKey.replace(series + ' - ', '');
+                const raceName = raceKey.split(' - ')[1];
                 const card = document.createElement('div');
                 card.className = 'race-card';
-                card.textContent = raceName;
+                card.innerHTML = `
+                    <div style="font-size:0.8rem; color:var(--primary); margin-bottom:10px;">COMPLETED</div>
+                    <div style="font-size:1.2rem;">${raceName}</div>
+                `;
                 card.onclick = () => showResults(raceKey);
                 raceList.appendChild(card);
             });
@@ -139,22 +220,36 @@
 
         function showResults(raceKey) {
             const section = document.getElementById('results-section');
+            const raceList = document.getElementById('race-list');
+            
+            raceList.style.display = 'none';
             section.style.display = 'block';
-            const raceName = raceKey.replace(/^[^-]+ - /, '');
+
             const series = raceKey.split(' - ')[0];
-            document.getElementById('race-title').textContent = `${raceName} — ${series} Series`;
+            const raceName = raceKey.split(' - ')[1];
+            document.getElementById('race-title').textContent = `${raceName} (${series})`;
 
             const tbody = document.getElementById('results-table').querySelector('tbody');
             tbody.innerHTML = '';
+
             resultsData[raceKey].forEach((item, index) => {
                 const tr = document.createElement('tr');
                 if (index === 0) tr.className = 'winner';
-                let notes = '';
-                if (item.pole === "Yes") notes += 'Pole ';
-                if (item.fl === "FL") notes += 'Fastest Lap ';
-                tr.innerHTML = `<td>${item.position}</td><td>${item.driver}</td><td>${item.points || 'N/A'}</td><td class="${item.pole ? 'pole' : ''} ${item.fl ? 'fl' : ''}">${notes}</td>`;
+                
+                let awardsHtml = '';
+                if (item.pole === "Yes") awardsHtml += '<span class="pole-tag">POLE</span>';
+                if (item.fl === "FL" || item.fl === "Yes") awardsHtml += '<span class="fl-tag">FAST LAP</span>';
+
+                tr.innerHTML = `
+                    <td>${item.position}</td>
+                    <td style="text-align:left; padding-left:2rem;">${item.driver}</td>
+                    <td>${item.points || '0'}</td>
+                    <td>${awardsHtml}</td>
+                `;
                 tbody.appendChild(tr);
             });
+            
+            section.scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
