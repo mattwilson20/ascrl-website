@@ -4,234 +4,163 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASCRL | American Stock Car Racing League</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        :root {
-            --primary: #c00;
-            --secondary: #ff0;
-            --bg-dark: #000;
-            --bg-alt: #0a0a0a; /* Subtle contrast for alternating sections */
-            --text: #fff;
+        /* Home-specific Hero Animation */
+        .hero { position: relative; overflow: hidden; }
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: repeating-conic-gradient(rgba(255,255,255,0.03) 0% 25%, transparent 0% 50%) 50% / 80px 80px;
+            pointer-events: none;
+        }
+        
+        .timer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: -4rem; /* Overlap into Hero */
+            position: relative;
+            z-index: 10;
         }
 
-        body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--bg-dark); color: var(--text); overflow-x: hidden; }
-        
-        /* Hamburger Button */
-        .hamburger { position: fixed; top: 1rem; left: 1rem; z-index: 1002; cursor: pointer; padding: 10px; background: rgba(0,0,0,0.8); border-radius: 8px; }
-        .hamburger-line { width: 30px; height: 4px; background: var(--secondary); margin: 6px 0; transition: 0.4s; border-radius: 2px; }
-        
-        /* Overlay Menu */
-        .nav-overlay { position: fixed; top: 0; left: -100%; width: 80%; max-width: 300px; height: 100vh; background: rgba(0,0,0,0.95); transition: left 0.4s ease; z-index: 1001; padding-top: 80px; box-shadow: 5px 0 15px rgba(200,0,0,0.8); overflow-y: auto; }
-        .nav-overlay.open { left: 0; }
-        .nav-logo { font-size: 2.5rem; color: var(--secondary); text-shadow: 3px 3px var(--primary); margin: 0 0 3rem 2rem; }
-        .nav-links { display: flex; flex-direction: column; gap: 1rem; padding: 0 2rem; }
-        .nav-links a { color: #fff; text-decoration: none; font-size: 1.5rem; padding: 1rem; border-radius: 10px; transition: 0.3s; text-align: left; }
-        .nav-links a:hover { background: var(--primary); color: var(--secondary); }
-        
-        /* Hero Section */
-        .hero { background: linear-gradient(to bottom, var(--primary), #900); padding: 12rem 1rem 8rem; text-align: center; position: relative; overflow: hidden; }
-        .checkered { background: repeating-conic-gradient(#fff 0% 25%, #000 0% 50%) 50% / 60px 60px; opacity: 0.15; position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        .hero-content { position: relative; z-index: 1; }
-        h1 { font-size: clamp(4rem, 10vw, 8rem); margin: 0; text-shadow: 6px 6px #000; letter-spacing: 0.1em; }
-        .subtitle { font-size: clamp(1.5rem, 5vw, 2.5rem); margin: 1.5rem 0; }
-        
-        .btn { display: inline-block; background: #fff; color: #000; padding: clamp(1rem, 3vw, 1.5rem) clamp(2rem, 6vw, 3rem); margin: 1rem; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: clamp(1.2rem, 4vw, 1.8rem); transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: none; cursor: pointer; }
-        .btn:hover { background: var(--secondary); transform: translateY(-5px); box-shadow: 0 8px 25px rgba(255,255,0,0.4); }
-        
-        /* Layout Sections */
-        section { padding: 4rem 1rem; }
-        section:nth-of-type(even) { background-color: var(--bg-alt); }
-        .container { max-width: 1200px; margin: 0 auto; text-align: center; }
-
-        /* Countdown Cards with Refined Transition */
-        .countdowns { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 3rem 0; }
-        .countdown-card { 
-            background: #111; 
-            padding: 2rem; 
-            border-radius: 15px; 
-            border: 3px solid var(--primary); 
-            box-shadow: 0 4px 20px rgba(200,0,0,0.3);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, border-color 0.3s ease;
-        }
-        .countdown-card:hover {
-            transform: scale(1.05) translateY(-10px);
-            box-shadow: 0 15px 30px rgba(200,0,0,0.6);
-            border-color: var(--secondary);
-            z-index: 2;
+        .leader-strip {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+            background: #050505;
+            padding: 2rem;
+            border: 1px solid var(--border);
         }
 
-        .series-title { font-size: 1.8rem; color: var(--secondary); text-shadow: 2px 2px #000; margin-bottom: 1rem; }
-        .next-race { font-size: 1.4rem; margin: 1rem 0; opacity: 0.9; }
-        .timer { font-size: clamp(1.8rem, 6vw, 3rem); font-weight: bold; letter-spacing: 0.1em; color: var(--secondary); text-shadow: 3px 3px #000; }
-        
-        /* Leaders Grid */
-        .leaders { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 3rem 0; }
-        .leader-card { background: #111; padding: 2rem; border-radius: 15px; border: 3px solid var(--primary); box-shadow: 0 4px 15px rgba(200,0,0,0.5); }
-        
-        .highlight-content { max-width: 800px; margin: 0 auto; text-align: left; line-height: 1.6; }
-        .highlight-content p { margin-bottom: 1.5rem; }
-
-        footer { background: #050505; padding: 3rem 1rem; font-size: 0.9rem; text-align: center; border-top: 1px solid #333; }
+        .highlight-box {
+            background: linear-gradient(90deg, #0d0d0d 0%, #000 100%);
+            border-left: 4px solid var(--primary);
+            padding: 3rem;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="hamburger" onclick="toggleMenu()" aria-label="Toggle Menu">
-            <div class="hamburger-line"></div>
-            <div class="hamburger-line"></div>
-            <div class="hamburger-line"></div>
-        </div>
-        <div class="nav-overlay" id="nav-menu">
-            <div class="nav-logo">ASCRL</div>
-            <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="news.html">News</a>
-                <a href="standings.html">Standings</a>
-                <a href="results.html">Results</a>
-                <a href="schedule.html">Schedule</a>
-                <a href="drivers.html">Drivers</a>
-                <a href="rules.html">Rules</a>
-            </div>
+    <div class="hamburger" onclick="toggleMenu()">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </div>
+
+    <nav class="nav-overlay" id="nav-menu">
+        <div class="nav-links" style="display:flex; flex-direction:column; padding: 2rem;">
+            <a href="index.html" style="color:var(--primary); text-decoration:none; font-size:1.5rem; margin:1rem 0;">DASHBOARD</a>
+            <a href="news.html" style="color:white; text-decoration:none; font-size:1.5rem; margin:1rem 0;">LATEST NEWS</a>
+            <a href="standings.html" style="color:white; text-decoration:none; font-size:1.5rem; margin:1rem 0;">STANDINGS</a>
+            <a href="results.html" style="color:white; text-decoration:none; font-size:1.5rem; margin:1rem 0;">RESULTS</a>
+            <a href="schedule.html" style="color:white; text-decoration:none; font-size:1.5rem; margin:1rem 0;">SCHEDULE</a>
+            <a href="drivers.html" style="color:white; text-decoration:none; font-size:1.5rem; margin:1rem 0;">THE GRID</a>
         </div>
     </nav>
 
     <header class="hero">
-        <div class="checkered"></div>
-        <div class="hero-content">
-            <h1>ASCRL</h1>
-            <p class="subtitle">American Stock Car Racing League | 2025-2026 Season</p>
-            <a href="standings.html" class="btn">View Standings</a>
-            <a href="https://discord.gg/RgYEY5F3Kf" class="btn">Join the League</a>
+        <p style="letter-spacing: 8px; color: var(--primary); text-transform: uppercase; font-size: 0.8rem;">Official League Portal</p>
+        <h1 class="text-gradient">ASCRL</h1>
+        <div style="margin-top: 2rem;">
+            <a href="https://discord.gg/RgYEY5F3Kf" class="btn-primary">JOIN THE DISCORD</a>
         </div>
     </header>
 
-    <main>
-        <section id="race-countdowns">
-            <div class="container">
-                <h2 style="font-size: 3rem; margin-bottom: 3rem;">NEXT RACE COUNTDOWNS</h2>
-                <div class="countdowns">
-                    <div class="countdown-card" id="cup-countdown">
-                        <div class="series-title">Cup Series</div>
-                        <p class="next-race" id="cup-next">Loading...</p>
-                        <div class="timer" id="cup-timer">Loading...</div>
-                    </div>
-                    <div class="countdown-card" id="xfinity-countdown">
-                        <div class="series-title">Xfinity Series</div>
-                        <p class="next-race" id="xfinity-next">Loading...</p>
-                        <div class="timer" id="xfinity-timer">Loading...</div>
-                    </div>
-                    <div class="countdown-card" id="truck-countdown">
-                        <div class="series-title">Truck Series</div>
-                        <p class="next-race" id="truck-next">Loading...</p>
-                        <div class="timer" id="truck-timer">Loading...</div>
-                    </div>
-                    <div class="countdown-card" id="menards-countdown">
-                        <div class="series-title">Menards Series</div>
-                        <p class="next-race" id="menards-next">Loading...</p>
-                        <div class="timer" id="menards-timer">Loading...</div>
-                    </div>
+    <main class="container">
+        <section>
+            <h2 style="margin-bottom: 2rem; font-size: 1.2rem; color: var(--text-muted); letter-spacing: 4px;">LIVE COUNTDOWNS</h2>
+            <div class="timer-container" id="race-countdowns">
+                <div class="race-card">
+                    <span class="stat-label">CUP SERIES</span>
+                    <h3 id="cup-next" style="font-size: 1.2rem; margin: 0.5rem 0;">LOADING...</h3>
+                    <div class="stat-value" id="cup-timer" style="font-size: 1.8rem; margin-top: 1rem;">--:--:--</div>
+                </div>
+                <div class="race-card">
+                    <span class="stat-label">XFINITY SERIES</span>
+                    <h3 id="xfinity-next" style="font-size: 1.2rem; margin: 0.5rem 0;">LOADING...</h3>
+                    <div class="stat-value" id="xfinity-timer" style="font-size: 1.8rem; margin-top: 1rem;">--:--:--</div>
+                </div>
+                <div class="race-card">
+                    <span class="stat-label">TRUCK SERIES</span>
+                    <h3 id="truck-next" style="font-size: 1.2rem; margin: 0.5rem 0;">LOADING...</h3>
+                    <div class="stat-value" id="truck-timer" style="font-size: 1.8rem; margin-top: 1rem;">--:--:--</div>
+                </div>
+                <div class="race-card">
+                    <span class="stat-label">MENARDS SERIES</span>
+                    <h3 id="menards-next" style="font-size: 1.2rem; margin: 0.5rem 0;">LOADING...</h3>
+                    <div class="stat-value" id="menards-timer" style="font-size: 1.8rem; margin-top: 1rem;">--:--:--</div>
                 </div>
             </div>
         </section>
 
-        <section id="live-standings">
-            <div class="container">
-                <h2>Current Points Leaders (Live from Discord Bot)</h2>
-                <div class="leaders" id="leaders-grid">
-                    <p>Loading live standings...</p>
+        <section>
+            <h2 style="margin-bottom: 2rem; text-align: center;">CHAMPIONSHIP LEADERS</h2>
+            <div class="leader-strip" id="leaders-grid">
                 </div>
-            </div>
         </section>
 
-        <section id="highlights">
-            <div class="container">
-                <h2>Latest Race Highlight</h2>
-                <div class="highlight-content">
-                    <p><strong>Talladega Superspeedway — Cup Series</strong></p>
-                    <p>In a classic superspeedway thriller, #24 <strong>dakotathomas1994</strong> held off the field in a last-lap dash to score his first-ever Cup Series victory — a breakthrough moment in the inaugural season!</p>
-                    <p>The race was packed with drafting battles, multiple big packs, and late-race chaos. TheReaperRhino and KingG931 rounded out the podium, while DGibby17 claimed the fastest lap bonus and Orangeman96 earned pole points.</p>
-                    <p>This win shakes up the Cup championship — dakotathomas1994 leapfrogged the leaders in points with a statement performance at one of NASCAR's most unpredictable tracks. Pure pack-racing drama, ASCRL style.</p>
-                    <p>Full finishing order and reactions in Discord #race-results • <a href="results.html" style="color:var(--secondary);">View all Cup Series results →</a></p>
-                </div>
-            </div>
-        </section>
-
-        <section id="about">
-            <div class="container">
-                <h2>About ASCRL</h2>
-                <p>Discord-powered Stock Car Racing league running full seasons across Cup, Xfinity, Truck, and Menards series.</p>
-                <p>Weekly races • Power Rankings • Championships • Pure Stock Car passion</p>
-            </div>
+        <section class="highlight-box">
+            <span class="stat-label" style="color: var(--primary);">LATEST RECAP</span>
+            <h2 style="font-size: 3rem; margin: 1rem 0;">TALLADEGA THRILLER</h2>
+            <p style="color: var(--text-muted); font-family: sans-serif; max-width: 700px;">
+                In a classic superspeedway thriller, <strong>#24 dakotathomas1994</strong> held off the field in a last-lap dash to score his first-ever Cup Series victory. The race was defined by massive drafting packs and a chaotic final turn that reshaped the standings.
+            </p>
+            <a href="results.html" style="color: var(--accent); text-decoration: none; font-size: 0.8rem; letter-spacing: 2px;">VIEW FULL FINISHING ORDER →</a>
         </section>
     </main>
 
     <footer>
-        © 2025-2026 ASCRL | Built for Stock Car Racing fans, by Stock Car Racing fans
+        © 2025-2026 AMERICAN STOCK CAR RACING LEAGUE
     </footer>
 
     <script>
-        function toggleMenu() {
-            document.getElementById('nav-menu').classList.toggle('open');
-        }
+        function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
 
-        // Fetch Schedule Data
-        fetch('schedule.json')
-            .then(response => response.json())
-            .then(data => {
-                const seriesList = ['Cup', 'Xfinity', 'Truck', 'Menards'];
-                seriesList.forEach(series => {
-                    if (data[series] && data[series].length > 0) {
-                        const nextRace = data[series].find(r => new Date(r.date) > new Date());
-                        if (nextRace) {
-                            document.getElementById(`${series.toLowerCase()}-next`).textContent = `Next: ${nextRace.track} — ${nextRace.date}`;
-                            startCountdown(`${series.toLowerCase()}-timer`, new Date(nextRace.date + 'T20:00:00')); 
-                        } else {
-                            document.getElementById(`${series.toLowerCase()}-next`).textContent = 'Season Complete';
-                            document.getElementById(`${series.toLowerCase()}-timer`).textContent = 'Championship Awaits!';
-                        }
-                    } else {
-                        document.getElementById(`${series.toLowerCase()}-next`).textContent = 'No races scheduled';
-                        document.getElementById(`${series.toLowerCase()}-timer`).textContent = '';
-                    }
-                });
-            });
-
-        function startCountdown(elementId, targetDate) {
-            const timer = document.getElementById(elementId);
-            setInterval(() => {
-                const now = new Date();
-                const diff = targetDate - now;
-                if (diff <= 0) {
-                    timer.textContent = 'RACE TIME!';
-                    return;
+        // Logic for Countdowns
+        fetch('schedule.json').then(r => r.json()).then(data => {
+            ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(series => {
+                const nextRace = data[series]?.find(r => new Date(r.date) > new Date());
+                const idPrefix = series.toLowerCase();
+                if (nextRace) {
+                    document.getElementById(`${idPrefix}-next`).textContent = nextRace.track;
+                    startTimer(`${idPrefix}-timer`, new Date(nextRace.date + 'T20:00:00'));
+                } else {
+                    document.getElementById(`${idPrefix}-next`).textContent = "SEASON ENDED";
                 }
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-                timer.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            });
+        });
+
+        function startTimer(id, target) {
+            const el = document.getElementById(id);
+            setInterval(() => {
+                const diff = target - new Date();
+                if (diff <= 0) { el.textContent = "RACE DAY"; return; }
+                const d = Math.floor(diff / 86400000);
+                const h = Math.floor((diff % 86400000) / 3600000);
+                const m = Math.floor((diff % 3600000) / 60000);
+                el.textContent = `${d}D ${h}H ${m}M`;
             }, 1000);
         }
 
-        // Fetch Leaders Data
-        fetch('standings.json')
-            .then(response => response.json())
-            .then(data => {
-                const grid = document.getElementById('leaders-grid');
-                grid.innerHTML = '';
-                const seriesOrder = ['Cup', 'Xfinity', 'Truck', 'Menards'];
-                seriesOrder.forEach(series => {
-                    if (data[series] && data[series].length > 0) {
-                        const card = document.createElement('div');
-                        card.className = 'leader-card';
-                        card.innerHTML = `<h3>${series} Series</h3><p>${data[series][0].driver}<br><strong>${data[series][0].points} pts</strong></p>`;
-                        grid.appendChild(card);
-                    }
-                });
-            })
-            .catch(err => {
-                document.getElementById('leaders-grid').innerHTML = '<p>Standings loading... Check back soon!</p>';
+        // Logic for Leaders
+        fetch('standings.json').then(r => r.json()).then(data => {
+            const grid = document.getElementById('leaders-grid');
+            ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(s => {
+                if (data[s] && data[s][0]) {
+                    grid.innerHTML += `
+                        <div class="stat-box">
+                            <span class="stat-label">${s} LEADER</span>
+                            <span class="stat-value" style="color:white">${data[s][0].driver}</span>
+                            <span class="stat-label" style="margin-top:5px">${data[s][0].points} PTS</span>
+                        </div>
+                    `;
+                }
             });
+        });
     </script>
 </body>
 </html>
