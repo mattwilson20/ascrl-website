@@ -49,12 +49,12 @@
                 "manufacturer": "",
                 "driver_name": "#000 mattwilson20",
                 "stats": {
-                    "points": 45,
+                    "points": 75,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 0,
+                    "top10": 1,
                     "poles": 0,
-                    "avg": 14.5
+                    "avg": 12.0
                 }
             }
         },
@@ -237,17 +237,17 @@
                 }
             },
             "Xfinity": {
-                "number": "9",
+                "number": "60",
                 "team": "",
                 "manufacturer": "",
-                "driver_name": "#9 dakotathomas1994",
+                "driver_name": "#60 dakotathomas1994",
                 "stats": {
-                    "points": 104,
+                    "points": 133,
                     "wins": 0,
                     "top5": 1,
-                    "top10": 1,
+                    "top10": 2,
                     "poles": 0,
-                    "avg": 11.0
+                    "avg": 10.4
                 }
             }
         },
@@ -698,10 +698,10 @@
                 "manufacturer": "",
                 "driver_name": "#03 Ant_was_he",
                 "stats": {
-                    "points": 108,
+                    "points": 135,
                     "wins": 0,
                     "top5": 2,
-                    "top10": 2,
+                    "top10": 3,
                     "poles": 0,
                     "avg": 10.0
                 }
@@ -867,12 +867,12 @@
                 "manufacturer": "",
                 "driver_name": "#58 On-A-Mission618",
                 "stats": {
-                    "points": 63,
+                    "points": 97,
                     "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
+                    "top5": 1,
+                    "top10": 1,
                     "poles": 0,
-                    "avg": 16.0
+                    "avg": 12.75
                 }
             }
         },
@@ -928,12 +928,12 @@
                 "manufacturer": "",
                 "driver_name": "#59 BansihedCrayon",
                 "stats": {
-                    "points": 115,
+                    "points": 146,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 4,
+                    "top10": 5,
                     "poles": 0,
-                    "avg": 8.25
+                    "avg": 7.8
                 }
             }
         },
@@ -989,12 +989,12 @@
                 "manufacturer": "",
                 "driver_name": "#61 Singular_Nacho",
                 "stats": {
-                    "points": 118,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 3,
+                    "points": 158,
+                    "wins": 1,
+                    "top5": 2,
+                    "top10": 4,
                     "poles": 4,
-                    "avg": 8.5
+                    "avg": 7.0
                 }
             }
         },
@@ -1036,12 +1036,12 @@
                 "manufacturer": "",
                 "driver_name": "#46 Lostcozov",
                 "stats": {
-                    "points": 25,
+                    "points": 49,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "avg": 12.0
+                    "avg": 12.5
                 }
             }
         },
@@ -1149,12 +1149,12 @@
                 "manufacturer": "",
                 "driver_name": "#99 HockeyDeckout",
                 "stats": {
-                    "points": 103,
+                    "points": 128,
                     "wins": 1,
                     "top5": 2,
                     "top10": 3,
                     "poles": 0,
-                    "avg": 4.33
+                    "avg": 6.25
                 }
             },
             "Truck": {
@@ -1280,17 +1280,17 @@
                 }
             },
             "Xfinity": {
-                "number": "93",
+                "number": "7",
                 "team": "",
                 "manufacturer": "",
-                "driver_name": "#93 Orangeman96",
+                "driver_name": "#7 Orangeman96",
                 "stats": {
-                    "points": 117,
+                    "points": 145,
                     "wins": 0,
                     "top5": 1,
-                    "top10": 3,
+                    "top10": 4,
                     "poles": 0,
-                    "avg": 7.75
+                    "avg": 8.0
                 }
             }
         },
@@ -1346,12 +1346,12 @@
                 "manufacturer": "",
                 "driver_name": "#35 Dewshine_02",
                 "stats": {
-                    "points": 110,
+                    "points": 143,
                     "wins": 0,
-                    "top5": 2,
-                    "top10": 2,
+                    "top5": 3,
+                    "top10": 3,
                     "poles": 0,
-                    "avg": 9.75
+                    "avg": 8.6
                 }
             }
         },
@@ -1826,12 +1826,12 @@
                 "manufacturer": "",
                 "driver_name": "#81 K7_Dalton",
                 "stats": {
-                    "points": 0,
+                    "points": 26,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "avg": "N/A"
+                    "avg": 11.0
                 }
             },
             "Menards": {
@@ -1953,12 +1953,12 @@
                 "manufacturer": "",
                 "driver_name": "#80 ALESSI-20-11",
                 "stats": {
-                    "points": 80,
+                    "points": 112,
                     "wins": 2,
-                    "top5": 2,
-                    "top10": 2,
+                    "top5": 3,
+                    "top10": 3,
                     "poles": 0,
-                    "avg": 1.0
+                    "avg": 2.33
                 }
             },
             "Cup": {
@@ -2108,12 +2108,12 @@
                 "manufacturer": "",
                 "driver_name": "#06 ThirstTrapToby",
                 "stats": {
-                    "points": 54,
+                    "points": 77,
                     "wins": 0,
                     "top5": 0,
                     "top10": 1,
                     "poles": 0,
-                    "avg": 10.0
+                    "avg": 11.33
                 }
             }
         },
@@ -2212,12 +2212,12 @@
                 "manufacturer": "",
                 "driver_name": "#51 CallMeMillion",
                 "stats": {
-                    "points": 0,
+                    "points": 37,
                     "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
+                    "top5": 1,
+                    "top10": 1,
+                    "poles": 1,
+                    "avg": 2.0
                 }
             },
             "Menards": {
