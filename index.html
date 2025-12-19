@@ -87,15 +87,14 @@
             border: 1px solid var(--border);
         }
         
-        /* Leader name styling for mobile to prevent wrapping */
+        /* Leader name styling */
         .leader-name {
             font-size: 1.8rem;
             font-family: 'Arial Black', sans-serif;
             display: block;
             margin-top: 0.5rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            word-wrap: break-word; /* Allows breaking if absolutely necessary */
+            line-height: 1.2;
         }
 
         .highlight-box {
@@ -111,10 +110,15 @@
         
         /* Mobile adjustment */
         @media (max-width: 768px) {
-            .leader-strip div { width: 45%; margin-bottom: 1rem; }
-            /* Ensure names don't overflow their container on mobile */
-            .leader-strip div {
-                overflow: hidden;
+            /* Force 1 column on mobile so names have full width */
+            .leader-strip div { 
+                width: 100%; 
+                margin-bottom: 2rem; 
+            }
+            
+            /* Smaller font on mobile so long names fit better */
+            .leader-name {
+                font-size: 1.4rem;
             }
         }
     </style>
@@ -251,7 +255,6 @@
                     });
 
                     if (bestDriver) {
-                        // Use the new leader-name class
                         html += `
                             <div style="text-align: center;">
                                 <span class="stat-label">${seriesName}</span>
