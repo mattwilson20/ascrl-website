@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teams | American Stock Car Racing League</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary: #c00;
+            --accent: #ff0;
+            --bg-dark: #000;
+            --card-bg: #0d0d0d;
+            --border: #1a1a1a;
+            --text-muted: #a0a0a0;
+            --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--bg-dark); color: #fff; overflow-x: hidden; }
+
+        /* --- NAVIGATION --- */
+        #nav-placeholder { position: relative; z-index: 2000; }
+        .nav-overlay { 
+            position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; 
+            height: 100vh; background: #050505; transition: left 0.5s ease; 
+            z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); 
+        }
+        .nav-overlay.open { left: 0; }
+        .nav-links { display: flex; flex-direction: column; padding: 0 3rem; }
+        .nav-links a { 
+            color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; 
+            border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; 
+        }
+        .nav-links a:hover { color: var(--primary); padding-left: 10px; }
+
+        /* --- HERO --- */
+        .hero { 
+            background: radial-gradient(circle at center, #222 0%, #000 100%); 
+            padding: 12rem 1rem 8rem; 
+            text-align: center; 
+            border-bottom: 1px solid var(--border);
+        }
+        h1 { font-size: clamp(3rem, 10vw, 5rem); margin: 0; letter-spacing: -2px; line-height: 0.9; }
+        .hero p { color: var(--primary); letter-spacing: 5px; text-transform: uppercase; font-size: 0.9rem; margin-top: 1rem; }
+
+        /* --- TEAMS GRID --- */
+        .container { max-width: 1300px; margin: 0 auto; padding: 4rem 2rem; }
+        
+        .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .team-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 0;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        .team-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+
+        .team-header {
+            background: #111;
+            padding: 2rem;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+        .team-header h2 { font-size: 1.5rem; margin: 0; text-transform: uppercase; color: #fff; letter-spacing: -1px; }
+        .team-header p { margin: 0.5rem 0 0; color: var(--text-muted); font-family: sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
+
+        .team-roster {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .team-driver {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #050505;
+            border: 1px solid #222;
+            transition: 0.2s;
+        }
+        .team-driver:hover { border-color: #444; background: #0a0a0a; }
+
+        .car-number {
+            font-size: 1.5rem;
+            color: var(--accent);
+            width: 50px;
+            text-align: center;
+            font-weight: 900;
+        }
+        
+        .driver-details { flex-grow: 1; }
+        .driver-name { font-size: 1.1rem; display: block; line-height: 1; margin-bottom: 4px; }
+        .driver-series { font-family: sans-serif; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
+
+        footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
+        
+        @media (max-width: 768px) {
+            .hero { padding: 10rem 1rem 4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="nav-placeholder"></div>
+
+    <header class="hero">
+        <p>Official Team Garage</p>
+        <h1>TEAMS</h1>
+    </header>
+
+    <main class="container">
+        <div id="teams-container" class="teams-grid">
+            </div>
+    </main>
+
+    <footer>
+        © 2025-2026 American Stock Car Racing League | Strictly Professional Fantasy Racing
+    </footer>
+
+    <script>
+        // --- 1. MODULAR NAVIGATION ---
+        fetch('nav.html')
+            .then(res => res.text())
+            .then(data => { 
+                document.getElementById('nav-placeholder').innerHTML = data; 
+                
+                // Highlight logic
+                const navLink = document.getElementById('nav-teams');
+                if(navLink) {
+                    navLink.style.color = "var(--primary)";
+                    navLink.style.borderLeft = "4px solid var(--primary)";
+                    navLink.style.paddingLeft = "15px";
+                }
+            });
+
+        function toggleMenu() {
+            const m = document.getElementById('nav-menu');
+            if(m) m.classList.toggle('open');
+        }
+
+        // --- 2. TEAM GROUPING LOGIC ---
+        fetch('drivers.json')
+            .then(res => res.json())
+            .then(data => {
+                const drivers = Object.values(data);
+                const teams = {};
+
+                // Group drivers by Team Name
+                drivers.forEach(d => {
+                    // We look at Cup first, then Xfinity, etc to find their primary team
+                    // If a driver has no series, we skip or label 'Free Agent'
+                    const seriesKeys = Object.keys(d.series);
+                    if (seriesKeys.length === 0) return;
+
+                    // Prioritize finding a series where they have a team name
+                    let primarySeries = 'Cup';
+                    let teamName = "";
+                    
+                    // Search order for a team name
+                    const searchOrder = ['Cup', 'Xfinity', 'Truck', 'Menards'];
+                    
+                    for (const s of searchOrder) {
+                        if (d.series[s] && d.series[s].team && d.series[s].team !== "") {
+                            primarySeries = s;
+                            teamName = d.series[s].team;
+                            break;
+                        }
+                    }
+
+                    // If no team name found in any series, mark as Independent
+                    if (teamName === "") {
+                        teamName = "Independent / Privateer";
+                        // Default to their highest series for the car number display
+                        primarySeries = d.series['Cup'] ? 'Cup' : seriesKeys[0]; 
+                    }
+
+                    const carNum = d.series[primarySeries].number;
+
+                    if (!teams[teamName]) {
+                        teams[teamName] = [];
+                    }
+
+                    teams[teamName].push({
+                        name: d.display_name,
+                        number: carNum,
+                        series: primarySeries
+                    });
+                });
+
+                renderTeams(teams);
+            });
+
+        function renderTeams(teams) {
+            const container = document.getElementById('teams-container');
+            container.innerHTML = '';
+
+            // Sort teams alphabetically, but put "Independent" last
+            const teamNames = Object.keys(teams).sort((a, b) => {
+                if(a.includes("Independent")) return 1;
+                if(b.includes("Independent")) return -1;
+                return a.localeCompare(b);
+            });
+
+            teamNames.forEach(team => {
+                const roster = teams[team];
+                
+                // Build the HTML for the roster list
+                const rosterHtml = roster.map(d => `
+                    <div class="team-driver">
+                        <div class="car-number">#${d.number}</div>
+                        <div class="driver-details">
+                            <span class="driver-name">${d.name}</span>
+                            <span class="driver-series">${d.series} Series</span>
+                        </div>
+                    </div>
+                `).join('');
+
+                const card = `
+                    <div class="team-card">
+                        <div class="team-header">
+                            <h2>${team}</h2>
+                            <p>${roster.length} Active Driver${roster.length > 1 ? 's' : ''}</p>
+                        </div>
+                        <div class="team-roster">
+                            ${rosterHtml}
+                        </div>
+                    </div>
+                `;
+
+                container.innerHTML += card;
+            });
+        }
+    </script>
+</body>
+</html>
