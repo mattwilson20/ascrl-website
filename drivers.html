@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASCRL Drivers | American Stock Car Racing League</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
         :root {
@@ -122,7 +123,43 @@
         .stat-box small { font-size: 0.6rem; text-transform: uppercase; color: var(--text-muted); display: block; }
         .stat-box span { font-size: 1.4rem; color: var(--accent); }
 
-        footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
+        /* --- FOOTER & SOCIALS --- */
+        footer { 
+            padding: 4rem 1rem; 
+            text-align: center; 
+            border-top: 1px solid var(--border); 
+            color: #333; 
+            font-size: 0.8rem; 
+            letter-spacing: 2px; 
+            text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .social-icon {
+            color: #555;
+            font-size: 1.8rem;
+            transition: 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px);
+        }
+
+        .social-icon.facebook:hover { color: #1877F2; } /* Official FB Blue */
+        .social-icon.x-twitter:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
 
         @media (max-width: 768px) {
             .hero { padding: 10rem 1rem 4rem; }
@@ -158,7 +195,16 @@
     </div>
 
     <footer>
-        © 2025-2026 American Stock Car Racing League | Strictly Professional Fantasy Racing
+        <div>© 2025-2026 American Stock Car Racing League | Strictly Professional Fantasy Racing</div>
+        
+        <div class="social-links">
+            <a href="https://www.facebook.com/share/14PeZVCH1hL/" target="_blank" class="social-icon facebook" aria-label="Facebook">
+                <i class="fa-brands fa-facebook"></i>
+            </a>
+            <a href="https://x.com/ASCRWeekly" target="_blank" class="social-icon x-twitter" aria-label="X (Twitter)">
+                <i class="fa-brands fa-x-twitter"></i>
+            </a>
+        </div>
     </footer>
 
     <script>
