@@ -43,8 +43,37 @@
         h1 { font-size: clamp(3rem, 10vw, 5rem); margin: 0; letter-spacing: -2px; line-height: 0.9; }
         .hero p { color: var(--primary); letter-spacing: 5px; text-transform: uppercase; font-size: 0.9rem; margin-top: 1rem; }
 
+        /* --- TEAM STANDINGS SECTION --- */
+        .standings-section {
+            background: #050505;
+            padding: 3rem 2rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 4rem;
+        }
+        .standings-table {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+        .standings-table th {
+            text-align: left;
+            padding: 1rem;
+            color: var(--primary);
+            font-size: 0.8rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .standings-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #111;
+            font-family: sans-serif;
+        }
+        .rank-cell { font-family: 'Arial Black'; color: #fff; width: 50px; text-align: center; }
+        .points-cell { font-family: 'Arial Black'; color: var(--accent); text-align: right; }
+        .leader-row td { background: rgba(204,0,0,0.1); color: #fff; }
+
         /* --- TEAMS GRID --- */
-        .container { max-width: 1300px; margin: 0 auto; padding: 4rem 2rem; }
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 2rem 4rem; }
         
         .teams-grid {
             display: grid;
@@ -86,8 +115,9 @@
             background: #050505;
             border: 1px solid #222;
             transition: 0.2s;
+            cursor: pointer; /* Indicates clickable */
         }
-        .team-driver:hover { border-color: #444; background: #0a0a0a; }
+        .team-driver:hover { border-color: var(--primary); background: #111; }
 
         .car-number {
             font-size: 1.5rem;
@@ -101,10 +131,27 @@
         .driver-name { font-size: 1.1rem; display: block; line-height: 1; margin-bottom: 4px; }
         .driver-series { font-family: sans-serif; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
 
+        /* --- MODAL (Same as Drivers Page) --- */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); justify-content: center; align-items: center; z-index: 3000; }
+        .modal-content { 
+            background: #000; padding: 4rem; width: 100%; max-width: 800px; 
+            border: 1px solid var(--primary); position: relative; max-height: 90vh; overflow-y: auto;
+        }
+        .close { position: absolute; top: 2rem; right: 2rem; font-size: 1rem; cursor: pointer; color: #fff; opacity: 0.5; border: 1px solid #fff; padding: 5px 15px; }
+        .close:hover { opacity: 1; background: #fff; color: #000; }
+
+        .modal-body h4 { color: var(--primary); text-transform: uppercase; letter-spacing: 3px; border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-top: 3rem; }
+        .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 1.5rem 0; }
+        .stat-box { border-left: 2px solid #222; padding-left: 15px; }
+        .stat-box small { font-size: 0.6rem; text-transform: uppercase; color: var(--text-muted); display: block; font-family: sans-serif; }
+        .stat-box span { font-size: 1.4rem; color: var(--accent); font-family: 'Arial Black'; }
+
         footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
         
         @media (max-width: 768px) {
             .hero { padding: 10rem 1rem 4rem; }
+            .stat-row { grid-template-columns: 1fr 1fr; }
+            .modal-content { padding: 2rem; }
         }
     </style>
 </head>
@@ -113,14 +160,35 @@
     <div id="nav-placeholder"></div>
 
     <header class="hero">
-        <p>Official Team Garage</p>
+        <p>Constructors Championship</p>
         <h1>TEAMS</h1>
     </header>
 
+    <div class="standings-section">
+        <h2 style="text-align: center; margin-bottom: 2rem; font-size: 1.2rem; color: var(--text-muted);">TEAM STANDINGS</h2>
+        <table class="standings-table">
+            <thead>
+                <tr>
+                    <th style="text-align:center;">RANK</th>
+                    <th>TEAM</th>
+                    <th style="text-align:right;">TOTAL PTS</th>
+                </tr>
+            </thead>
+            <tbody id="standings-body"></tbody>
+        </table>
+    </div>
+
     <main class="container">
-        <div id="teams-container" class="teams-grid">
-            </div>
+        <h2 style="text-align: center; margin-bottom: 2rem; font-size: 1.2rem; color: var(--text-muted);">TEAM GARAGE</h2>
+        <div id="teams-container" class="teams-grid"></div>
     </main>
+
+    <div id="driver-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('driver-modal').style.display='none'">CLOSE</span>
+            <div id="modal-data" class="modal-body"></div>
+        </div>
+    </div>
 
     <footer>
         © 2025-2026 American Stock Car Racing League | Strictly Professional Fantasy Racing
@@ -132,8 +200,6 @@
             .then(res => res.text())
             .then(data => { 
                 document.getElementById('nav-placeholder').innerHTML = data; 
-                
-                // Highlight logic
                 const navLink = document.getElementById('nav-teams');
                 if(navLink) {
                     navLink.style.color = "var(--primary)";
@@ -147,25 +213,25 @@
             if(m) m.classList.toggle('open');
         }
 
-        // --- 2. TEAM GROUPING LOGIC ---
+        // --- 2. DATA PROCESSING ---
+        let driversData = {}; // Store raw data globally for the modal
+
         fetch('drivers.json')
             .then(res => res.json())
             .then(data => {
-                const drivers = Object.values(data);
+                driversData = data; // Save for modal usage
+                const drivers = Object.entries(data); // Use entries to keep ID
                 const teams = {};
+                const teamPoints = {};
 
                 // Group drivers by Team Name
-                drivers.forEach(d => {
-                    // We look at Cup first, then Xfinity, etc to find their primary team
-                    // If a driver has no series, we skip or label 'Free Agent'
+                drivers.forEach(([id, d]) => {
                     const seriesKeys = Object.keys(d.series);
                     if (seriesKeys.length === 0) return;
 
-                    // Prioritize finding a series where they have a team name
-                    let primarySeries = 'Cup';
+                    // Determine Team Name
                     let teamName = "";
-                    
-                    // Search order for a team name
+                    let primarySeries = 'Cup';
                     const searchOrder = ['Cup', 'Xfinity', 'Truck', 'Menards'];
                     
                     for (const s of searchOrder) {
@@ -175,35 +241,67 @@
                             break;
                         }
                     }
-
-                    // If no team name found in any series, mark as Independent
                     if (teamName === "") {
                         teamName = "Independent / Privateer";
-                        // Default to their highest series for the car number display
                         primarySeries = d.series['Cup'] ? 'Cup' : seriesKeys[0]; 
                     }
 
-                    const carNum = d.series[primarySeries].number;
+                    // --- CALC POINTS FOR TEAM STANDINGS ---
+                    // Sum points from ALL series for this driver
+                    let driverTotalPoints = 0;
+                    Object.values(d.series).forEach(s => {
+                        driverTotalPoints += (s.stats.points || 0);
+                    });
 
-                    if (!teams[teamName]) {
-                        teams[teamName] = [];
-                    }
+                    // Add to Team Total
+                    if (!teamPoints[teamName]) teamPoints[teamName] = 0;
+                    teamPoints[teamName] += driverTotalPoints;
+
+                    // --- ADD TO ROSTER ---
+                    const carNum = d.series[primarySeries].number;
+                    if (!teams[teamName]) teams[teamName] = [];
 
                     teams[teamName].push({
+                        id: id, // Store ID for click event
                         name: d.display_name,
                         number: carNum,
                         series: primarySeries
                     });
                 });
 
+                renderTeamStandings(teamPoints);
                 renderTeams(teams);
             });
 
+        // --- 3. RENDER TEAM STANDINGS TABLE ---
+        function renderTeamStandings(teamPoints) {
+            const tbody = document.getElementById('standings-body');
+            tbody.innerHTML = '';
+
+            // Filter out Independents from standings if desired (optional)
+            // Convert to array and sort
+            const sortedTeams = Object.keys(teamPoints)
+                .filter(t => !t.includes("Independent")) // Remove Independents from Championship view
+                .map(team => ({ name: team, points: teamPoints[team] }))
+                .sort((a, b) => b.points - a.points);
+
+            sortedTeams.forEach((team, index) => {
+                const isLeader = index === 0 ? 'class="leader-row"' : '';
+                tbody.innerHTML += `
+                    <tr ${isLeader}>
+                        <td class="rank-cell">${index + 1}</td>
+                        <td style="font-weight:bold; letter-spacing:1px; color:#fff;">${team.name}</td>
+                        <td class="points-cell">${team.points}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        // --- 4. RENDER TEAM CARDS ---
         function renderTeams(teams) {
             const container = document.getElementById('teams-container');
             container.innerHTML = '';
 
-            // Sort teams alphabetically, but put "Independent" last
             const teamNames = Object.keys(teams).sort((a, b) => {
                 if(a.includes("Independent")) return 1;
                 if(b.includes("Independent")) return -1;
@@ -213,9 +311,9 @@
             teamNames.forEach(team => {
                 const roster = teams[team];
                 
-                // Build the HTML for the roster list
+                // Build Roster HTML with ONCLICK event
                 const rosterHtml = roster.map(d => `
-                    <div class="team-driver">
+                    <div class="team-driver" onclick="openProfile('${d.id}')">
                         <div class="car-number">#${d.number}</div>
                         <div class="driver-details">
                             <span class="driver-name">${d.name}</span>
@@ -238,6 +336,44 @@
 
                 container.innerHTML += card;
             });
+        }
+
+        // --- 5. MODAL LOGIC (Exact copy from drivers/standings pages) ---
+        function openProfile(id) {
+            const driver = driversData[id];
+            const modal = document.getElementById('driver-modal');
+            const dataDiv = document.getElementById('modal-data');
+            
+            if(!driver) return;
+
+            let html = `<h2 style="font-size:3rem; margin:0; line-height:1;">${driver.display_name}</h2>`;
+            
+            Object.keys(driver.series).sort().forEach(sName => {
+                const s = driver.series[sName];
+                const st = s.stats || {wins:0, top5:0, top10:0, poles:0, avg:'N/A', points:0};
+                
+                html += `
+                    <h4>${sName} Series / #${s.number} ${s.manufacturer}</h4>
+                    <p style="font-family:sans-serif; font-size:0.9rem; color:#666;">Team: ${s.team}</p>
+                    <div class="stat-row">
+                        <div class="stat-box"><small>Points</small><span>${st.points}</span></div>
+                        <div class="stat-box"><small>Wins</small><span>${st.wins}</span></div>
+                        <div class="stat-box"><small>Top 5s</small><span>${st.top5}</span></div>
+                        <div class="stat-box"><small>Top 10s</small><span>${st.top10}</span></div>
+                        <div class="stat-box"><small>Poles</small><span>${st.poles}</span></div>
+                        <div class="stat-box"><small>Avg. Fin</small><span>${st.avg}</span></div>
+                    </div>
+                `;
+            });
+
+            dataDiv.innerHTML = html;
+            modal.style.display = 'flex';
+        }
+
+        window.onclick = function(e) {
+            if (e.target.className === 'modal') {
+                document.getElementById('driver-modal').style.display = 'none';
+            }
         }
     </script>
 </body>
