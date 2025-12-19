@@ -50,6 +50,18 @@
             border-bottom: 1px solid var(--border);
             margin-bottom: 4rem;
         }
+        .standings-controls {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .standings-controls select {
+            background: #111; color: #fff; border: 1px solid var(--border); 
+            padding: 1rem 2rem; font-family: 'Arial Black', sans-serif; 
+            text-transform: uppercase; cursor: pointer; min-width: 280px;
+            font-size: 1rem;
+        }
+        .standings-controls select:focus { border-color: var(--primary); outline: none; }
+
         .standings-table {
             width: 100%;
             max-width: 900px;
@@ -115,7 +127,7 @@
             background: #050505;
             border: 1px solid #222;
             transition: 0.2s;
-            cursor: pointer; /* Indicates clickable */
+            cursor: pointer;
         }
         .team-driver:hover { border-color: var(--primary); background: #111; }
 
@@ -131,7 +143,7 @@
         .driver-name { font-size: 1.1rem; display: block; line-height: 1; margin-bottom: 4px; }
         .driver-series { font-family: sans-serif; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
 
-        /* --- MODAL (Same as Drivers Page) --- */
+        /* --- MODAL --- */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); justify-content: center; align-items: center; z-index: 3000; }
         .modal-content { 
             background: #000; padding: 4rem; width: 100%; max-width: 800px; 
@@ -165,13 +177,20 @@
     </header>
 
     <div class="standings-section">
-        <h2 style="text-align: center; margin-bottom: 2rem; font-size: 1.2rem; color: var(--text-muted);">TEAM STANDINGS</h2>
+        <div class="standings-controls">
+            <select id="series-select" onchange="updateStandings()">
+                <option value="Cup">NASCAR Cup Series</option>
+                <option value="Xfinity">Xfinity Series</option>
+                <option value="Truck">Truck Series</option>
+                <option value="Menards">ARCA Menards</option>
+            </select>
+        </div>
         <table class="standings-table">
             <thead>
                 <tr>
                     <th style="text-align:center;">RANK</th>
                     <th>TEAM</th>
-                    <th style="text-align:right;">TOTAL PTS</th>
+                    <th style="text-align:right;">TOTAL POINTS</th>
                 </tr>
             </thead>
             <tbody id="standings-body"></tbody>
@@ -179,7 +198,7 @@
     </div>
 
     <main class="container">
-        <h2 style="text-align: center; margin-bottom: 2rem; font-size: 1.2rem; color: var(--text-muted);">TEAM GARAGE</h2>
+        <h2 style="text-align: center; margin-bottom: 2rem; font-size: 1.2rem; color: var(--text-muted);">FULL TEAM GARAGE</h2>
         <div id="teams-container" class="teams-grid"></div>
     </main>
 
@@ -214,22 +233,41 @@
         }
 
         // --- 2. DATA PROCESSING ---
-        let driversData = {}; // Store raw data globally for the modal
+        let driversData = {}; 
+        let teamPointsBySeries = {
+            'Cup': {},
+            'Xfinity': {},
+            'Truck': {},
+            'Menards': {}
+        };
 
         fetch('drivers.json')
             .then(res => res.json())
             .then(data => {
-                driversData = data; // Save for modal usage
-                const drivers = Object.entries(data); // Use entries to keep ID
-                const teams = {};
-                const teamPoints = {};
+                driversData = data;
+                const drivers = Object.entries(data);
+                const garageTeams = {}; // For the Garage section (All series mixed)
 
-                // Group drivers by Team Name
                 drivers.forEach(([id, d]) => {
                     const seriesKeys = Object.keys(d.series);
                     if (seriesKeys.length === 0) return;
 
-                    // Determine Team Name
+                    // --- A. CALCULATE POINTS PER SERIES ---
+                    seriesKeys.forEach(sName => {
+                        const sData = d.series[sName];
+                        if (sData.team && sData.team !== "") {
+                            // Ensure the series object exists in our points tracker
+                            if (!teamPointsBySeries[sName]) teamPointsBySeries[sName] = {};
+                            
+                            const tName = sData.team;
+                            const pts = sData.stats.points || 0;
+
+                            if (!teamPointsBySeries[sName][tName]) teamPointsBySeries[sName][tName] = 0;
+                            teamPointsBySeries[sName][tName] += pts;
+                        }
+                    });
+
+                    // --- B. BUILD GARAGE ROSTER (Primary Team Logic) ---
                     let teamName = "";
                     let primarySeries = 'Cup';
                     const searchOrder = ['Cup', 'Xfinity', 'Truck', 'Menards'];
@@ -246,44 +284,40 @@
                         primarySeries = d.series['Cup'] ? 'Cup' : seriesKeys[0]; 
                     }
 
-                    // --- CALC POINTS FOR TEAM STANDINGS ---
-                    // Sum points from ALL series for this driver
-                    let driverTotalPoints = 0;
-                    Object.values(d.series).forEach(s => {
-                        driverTotalPoints += (s.stats.points || 0);
-                    });
-
-                    // Add to Team Total
-                    if (!teamPoints[teamName]) teamPoints[teamName] = 0;
-                    teamPoints[teamName] += driverTotalPoints;
-
-                    // --- ADD TO ROSTER ---
                     const carNum = d.series[primarySeries].number;
-                    if (!teams[teamName]) teams[teamName] = [];
+                    if (!garageTeams[teamName]) garageTeams[teamName] = [];
 
-                    teams[teamName].push({
-                        id: id, // Store ID for click event
+                    garageTeams[teamName].push({
+                        id: id,
                         name: d.display_name,
                         number: carNum,
                         series: primarySeries
                     });
                 });
 
-                renderTeamStandings(teamPoints);
-                renderTeams(teams);
+                // Initial Render (Defaults to Cup)
+                updateStandings();
+                renderGarage(garageTeams);
             });
 
         // --- 3. RENDER TEAM STANDINGS TABLE ---
-        function renderTeamStandings(teamPoints) {
+        function updateStandings() {
+            const series = document.getElementById('series-select').value;
             const tbody = document.getElementById('standings-body');
             tbody.innerHTML = '';
 
-            // Filter out Independents from standings if desired (optional)
-            // Convert to array and sort
-            const sortedTeams = Object.keys(teamPoints)
-                .filter(t => !t.includes("Independent")) // Remove Independents from Championship view
-                .map(team => ({ name: team, points: teamPoints[team] }))
+            const currentSeriesPoints = teamPointsBySeries[series] || {};
+
+            // Convert to array, filter independents, sort
+            const sortedTeams = Object.keys(currentSeriesPoints)
+                .filter(t => !t.toLowerCase().includes("independent")) 
+                .map(team => ({ name: team, points: currentSeriesPoints[team] }))
                 .sort((a, b) => b.points - a.points);
+
+            if(sortedTeams.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding:2rem; color:#666;">No active teams found for ${series} Series.</td></tr>`;
+                return;
+            }
 
             sortedTeams.forEach((team, index) => {
                 const isLeader = index === 0 ? 'class="leader-row"' : '';
@@ -297,8 +331,8 @@
             });
         }
 
-        // --- 4. RENDER TEAM CARDS ---
-        function renderTeams(teams) {
+        // --- 4. RENDER GARAGE CARDS ---
+        function renderGarage(teams) {
             const container = document.getElementById('teams-container');
             container.innerHTML = '';
 
@@ -310,8 +344,8 @@
 
             teamNames.forEach(team => {
                 const roster = teams[team];
-                
-                // Build Roster HTML with ONCLICK event
+                roster.sort((a, b) => parseInt(a.number) - parseInt(b.number));
+
                 const rosterHtml = roster.map(d => `
                     <div class="team-driver" onclick="openProfile('${d.id}')">
                         <div class="car-number">#${d.number}</div>
@@ -338,7 +372,7 @@
             });
         }
 
-        // --- 5. MODAL LOGIC (Exact copy from drivers/standings pages) ---
+        // --- 5. MODAL LOGIC ---
         function openProfile(id) {
             const driver = driversData[id];
             const modal = document.getElementById('driver-modal');
@@ -354,7 +388,7 @@
                 
                 html += `
                     <h4>${sName} Series / #${s.number} ${s.manufacturer}</h4>
-                    <p style="font-family:sans-serif; font-size:0.9rem; color:#666;">Team: ${s.team}</p>
+                    <p style="font-family:sans-serif; font-size:0.9rem; color:#666;">Team: ${s.team || 'Independent'}</p>
                     <div class="stat-row">
                         <div class="stat-box"><small>Points</small><span>${st.points}</span></div>
                         <div class="stat-box"><small>Wins</small><span>${st.wins}</span></div>
