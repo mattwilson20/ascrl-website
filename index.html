@@ -86,6 +86,17 @@
             padding: 3rem;
             border: 1px solid var(--border);
         }
+        
+        /* Leader name styling for mobile to prevent wrapping */
+        .leader-name {
+            font-size: 1.8rem;
+            font-family: 'Arial Black', sans-serif;
+            display: block;
+            margin-top: 0.5rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
         .highlight-box {
             background: linear-gradient(90deg, #0d0d0d 0%, #000 100%);
@@ -101,6 +112,10 @@
         /* Mobile adjustment */
         @media (max-width: 768px) {
             .leader-strip div { width: 45%; margin-bottom: 1rem; }
+            /* Ensure names don't overflow their container on mobile */
+            .leader-strip div {
+                overflow: hidden;
+            }
         }
     </style>
 </head>
@@ -236,10 +251,11 @@
                     });
 
                     if (bestDriver) {
+                        // Use the new leader-name class
                         html += `
                             <div style="text-align: center;">
                                 <span class="stat-label">${seriesName}</span>
-                                <span class="stat-value">${bestDriver.name}</span>
+                                <span class="leader-name">${bestDriver.name}</span>
                                 <span style="font-size: 0.7rem; color: var(--text-muted);">${bestDriver.points} PTS</span>
                             </div>`;
                     }
