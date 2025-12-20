@@ -122,6 +122,29 @@
         .page { background: #fff; box-shadow: 0 0 50px rgba(0,0,0,0.8); }
         .page img { width: 100%; height: 100%; object-fit: contain; }
 
+        /* NEW: Responsive Article Page Styling */
+        .article-text-page {
+            padding: 60px 50px;
+            background: #fafafa;
+            color: #111;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: left;
+        }
+        .article-content {
+            font-family: 'Georgia', serif;
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: #222;
+        }
+
+        /* Close Button Default (Desktop) */
+        #close-btn {
+            position: fixed; top: 2rem; right: 2rem; z-index: 3005;
+        }
+
         /* --- FOOTER & SOCIALS --- */
         footer { 
             padding: 4rem 1rem; 
@@ -153,18 +176,36 @@
             text-decoration: none;
         }
 
-        .social-icon:hover {
-            transform: translateY(-3px);
-        }
-
-        .social-icon.facebook:hover { color: #1877F2; } /* Official FB Blue */
+        .social-icon:hover { transform: translateY(-3px); }
+        .social-icon.facebook:hover { color: #1877F2; } 
         .social-icon.x-twitter:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
 
+        /* --- MOBILE ADJUSTMENTS --- */
         @media (max-width: 768px) {
             .featured-issue { flex-direction: column; }
             .issue-cover { width: 100%; height: 300px; }
             .magazine-rack { margin-top: 2rem; }
             .issue-info { padding: 2rem; }
+
+            /* Mobile Reader Fixes */
+            #close-btn {
+                top: auto; 
+                bottom: 2rem; /* Move to bottom */
+                right: 50%; 
+                transform: translateX(50%); /* Center horizontally */
+                width: 80%; /* Easy to tap */
+                text-align: center;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            }
+            .article-text-page {
+                padding: 30px 20px; /* Reduce padding significantly */
+                align-items: flex-start; /* Start text from top */
+                overflow-y: auto; /* Allow scrolling if text is long */
+            }
+            .article-content {
+                font-size: 1rem; /* Smaller font for phones */
+                line-height: 1.5;
+            }
         }
     </style>
 </head>
@@ -187,7 +228,7 @@
     </main>
 
     <div id="reader-overlay">
-        <button class="btn-primary" style="position:fixed; top:2rem; right:2rem; z-index:3005;" onclick="closeReader()">CLOSE ISSUE ✕</button>
+        <button id="close-btn" class="btn-primary" onclick="closeReader()">CLOSE ISSUE ✕</button>
         <div id="reader-loading" style="color:var(--primary); font-family:'Arial Black'; margin-bottom: 1rem;">LOADING TELEMETRY...</div>
         <div class="flipbook-container" id="flipbook-root"></div>
     </div>
@@ -232,7 +273,7 @@
 
        // --- 2. ARTICLE DATABASE ---
         const articles = [
-          {
+            {
                 title: "REMEMBERING THE BIFF",
                 date: "DEC 20, 2025",
                 tag: "WEEKLY UPDATE",
@@ -478,7 +519,7 @@
             }).join('');
         }
 
-        // --- 4. FLIPBOOK LOGIC (WITH MAGAZINE STYLE TEXT) ---
+        // --- 4. FLIPBOOK LOGIC (WITH MOBILE STYLES) ---
         let flipBook = null;
 
         function openReader(idx) {
@@ -488,21 +529,19 @@
             overlay.style.display = 'flex';
             document.body.style.overflow = 'hidden'; // Stop background scrolling
 
-            // Setup HTML structure for pages
+            // Setup HTML structure for pages using the NEW CLASS
             root.innerHTML = `<div id="book-el">
                 ${articles[idx].pages.map(content => {
-                    // 1. CHECK FOR IMAGE (Links ending in jpg, png, etc, or starting with http)
+                    // 1. CHECK FOR IMAGE
                     if (content.startsWith('http')) {
                         return `<div class="page"><img src="${content}"></div>`;
                     } 
-                    // 2. TEXT CONTENT (Magazine Style)
+                    // 2. TEXT CONTENT (Using CSS Class for responsiveness)
                     else {
-                        // This line ensures both <br> tags AND regular "Enter" key breaks work
                         const formattedText = content.replace(/\n/g, '<br>');
-
-                        return `<div class="page" style="padding:60px 50px; background:#fafafa; color:#111;">
-                                    <div style="height:100%; display:flex; align-items:center; justify-content:center; text-align:left;">
-                                        <div style="font-family:'Georgia', serif; font-size:1.25rem; line-height:1.8; color:#222;">
+                        return `<div class="page">
+                                    <div class="article-text-page">
+                                        <div class="article-content">
                                             ${formattedText}
                                         </div>
                                     </div>
