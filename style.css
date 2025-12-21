@@ -1,3 +1,4 @@
+Here is the complete, updated style.css. I have added the Social Icons section (including your specific email hover effect) to the bottom under the Footer section, so all your footer styles are in one place.
 /* --- ASCRL DESIGN SYSTEM --- */
 :root {
     /* Color Palette */
@@ -140,7 +141,7 @@ h1, h2, h3 {
     color: #000;
 }
 
-/* --- FOOTER --- */
+/* --- FOOTER & SOCIALS --- */
 footer {
     padding: 6rem 1rem;
     text-align: center;
@@ -149,5 +150,33 @@ footer {
     font-size: 0.7rem;
     letter-spacing: 3px;
     text-transform: uppercase;
+}
+
+/* Social Icon Styles */
+.social-links {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.social-icon {
+    color: #555;
+    font-size: 1.8rem;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.social-icon:hover { transform: translateY(-3px); }
+.social-icon.facebook:hover { color: #1877F2; }
+.social-icon.x-twitter:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+
+/* Specific Email Icon Hover Effect */
+.social-icon.email:hover { 
+    color: var(--primary); /* Turns Red on Hover */
+    transform: scale(1.1);
 }
 
