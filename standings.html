@@ -48,10 +48,12 @@
         /* --- FILTERS --- */
         .controls { background: #050505; padding: 2rem 1rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; text-align: center; }
         
+        .filter-group { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+
         select { 
             background: #000; color: #fff; border: 1px solid var(--border); 
             padding: 1.2rem 2rem; font-family: 'Arial Black', sans-serif; 
-            text-transform: uppercase; cursor: pointer; min-width: 300px;
+            text-transform: uppercase; cursor: pointer; min-width: 250px;
             font-size: 1rem;
         }
         select:focus { border-color: var(--primary); outline: none; background: #0a0a0a; }
@@ -107,11 +109,11 @@
             color: #333; 
             font-size: 0.8rem; 
             letter-spacing: 2px; 
-            text-transform: uppercase;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
+            text-transform: uppercase; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 1.5rem; 
         }
 
         .social-links {
@@ -154,12 +156,19 @@
     </header>
 
     <div class="controls">
-        <select id="series-select" onchange="loadSeries()">
-            <option value="Cup">NASCAR Cup Series</option>
-            <option value="Xfinity">Xfinity Series</option>
-            <option value="Truck">Truck Series</option>
-            <option value="Menards">ARCA Menards</option>
-        </select>
+        <div class="filter-group">
+            <select id="season-select" onchange="loadSeasonData(this.value)">
+                <option value="2025-26" selected>2025-26 Season</option>
+                <option value="2026">2026 Season</option>
+            </select>
+
+            <select id="series-select" onchange="loadSeries()">
+                <option value="Cup">NASCAR Cup Series</option>
+                <option value="Xfinity">Xfinity Series</option>
+                <option value="Truck">Truck Series</option>
+                <option value="Menards">ARCA Menards</option>
+            </select>
+        </div>
     </div>
 
     <main class="container">
@@ -176,6 +185,7 @@
                 </tr>
             </thead>
             <tbody id="standings-body">
+                <tr><td colspan="7" style="text-align:center; padding:2rem; color:#666;">Loading Data...</td></tr>
             </tbody>
         </table>
     </main>
@@ -234,24 +244,38 @@
             if (menu) menu.classList.toggle('open');
         }
 
-        // --- 2. STANDINGS DATA LOGIC ---
+        // --- 2. STANDINGS DATA LOGIC (MULTI-SEASON) ---
         let driversData = {};
 
-        fetch('drivers.json')
-            .then(res => {
-                if (!res.ok) throw new Error('drivers.json not found');
-                return res.json();
-            })
-            .then(data => {
-                driversData = data;
-                loadSeries(); 
-            })
-            .catch(err => {
-                document.getElementById('standings-body').innerHTML = 
-                    `<tr><td colspan="7" style="text-align:center; padding:2rem; color:var(--primary);">
-                        ERROR: ${err.message}<br>Check file name (drivers.json) and location.
-                    </td></tr>`;
-            });
+        // Load default season on startup
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSeasonData("2025-26");
+        });
+
+        function loadSeasonData(season) {
+            const body = document.getElementById('standings-body');
+            body.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:2rem; color:#666;">Accessing Data Feed...</td></tr>';
+
+            const fileName = `drivers_${season}.json`; // Using the drivers JSON because it has full stats
+
+            fetch(fileName)
+                .then(res => {
+                    if (!res.ok) throw new Error("Season data not found");
+                    return res.json();
+                })
+                .then(data => {
+                    driversData = data;
+                    loadSeries(); // Refresh table with new data
+                })
+                .catch(err => {
+                    console.error(err);
+                    body.innerHTML = 
+                        `<tr><td colspan="7" style="text-align:center; padding:2rem; color:var(--primary);">
+                            No standings available for ${season} yet.
+                        </td></tr>`;
+                    driversData = {}; // Clear data so old stats don't linger
+                });
+        }
 
         function loadSeries() {
             const selectedSeries = document.getElementById('series-select').value;
@@ -260,6 +284,7 @@
 
             let seriesDrivers = [];
 
+            // Parse the Drivers JSON to build a standings array
             Object.entries(driversData).forEach(([id, driver]) => {
                 const seriesKey = Object.keys(driver.series).find(k => k.toLowerCase() === selectedSeries.toLowerCase());
                 
@@ -277,10 +302,11 @@
                 }
             });
 
+            // Sort by Points (Highest first)
             seriesDrivers.sort((a, b) => b.points - a.points);
 
             if (seriesDrivers.length === 0) {
-                body.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:2rem;">No standings found for this series.</td></tr>';
+                body.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:2rem;">No drivers found for this series.</td></tr>';
                 return;
             }
 
@@ -311,7 +337,18 @@
 
             let html = `<h2 style="font-size:3rem; margin:0; line-height:1;">${driver.display_name}</h2>`;
             
-            Object.keys(driver.series).sort().forEach(sName => {
+            // Define custom order for profile display
+            const seriesOrder = ["Cup", "Xfinity", "Truck", "Menards"];
+            
+            const sortedSeries = Object.keys(driver.series).sort((a, b) => {
+                let ia = seriesOrder.indexOf(a);
+                let ib = seriesOrder.indexOf(b);
+                if (ia === -1) ia = 99;
+                if (ib === -1) ib = 99;
+                return ia - ib;
+            });
+
+            sortedSeries.forEach(sName => {
                 const s = driver.series[sName];
                 const st = s.stats || {wins:0, top5:0, top10:0, poles:0, avg:'N/A', points:0};
                 
