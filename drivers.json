@@ -110,10 +110,10 @@
     "1386395396443471873": {
         "series": {
             "Cup": {
-                "number": "2",
+                "number": "006",
                 "team": "",
                 "manufacturer": "",
-                "driver_name": "#2 DeepPulchrify",
+                "driver_name": "#006 DeepPulchrify",
                 "stats": {
                     "points": 40,
                     "wins": 1,
@@ -2640,7 +2640,7 @@
         "series": {
             "Cup": {
                 "number": "44",
-                "team": "",
+                "team": "GREAT LAKES RACING",
                 "manufacturer": "",
                 "driver_name": "#44 OprahsKooter69",
                 "stats": {
@@ -2692,7 +2692,7 @@
         "series": {
             "Cup": {
                 "number": "08",
-                "team": "",
+                "team": "GREAT LAKES RACING",
                 "manufacturer": "",
                 "driver_name": "#08 Katlitterous",
                 "stats": {
@@ -2725,7 +2725,7 @@
         "series": {
             "Cup": {
                 "number": "72",
-                "team": "",
+                "team": "GREAT LAKES RACING",
                 "manufacturer": "",
                 "driver_name": "#72 tonythetiger2014",
                 "stats": {
@@ -2805,7 +2805,7 @@
             },
             "Cup": {
                 "number": "43",
-                "team": "",
+                "team": "GREAT LAKES RACING",
                 "manufacturer": "",
                 "driver_name": "#43 littlerock1214",
                 "stats": {
@@ -2918,5 +2918,24 @@
             }
         },
         "display_name": "American-Hero216"
+    },
+    "1148411791026692197": {
+        "series": {
+            "Menards": {
+                "number": "40",
+                "team": "",
+                "manufacturer": "",
+                "driver_name": "#40 ItsCTippMF",
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": "N/A"
+                }
+            }
+        },
+        "display_name": "ItsCTippMF"
     }
 }
