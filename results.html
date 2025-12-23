@@ -92,11 +92,11 @@
             color: #333; 
             font-size: 0.8rem; 
             letter-spacing: 2px; 
-            text-transform: uppercase;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
+            text-transform: uppercase; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 1.5rem; 
         }
 
         .social-links {
@@ -123,6 +123,7 @@
         @media (max-width: 768px) {
             .hero { padding: 10rem 1rem 4rem; }
             td, th { padding: 1rem; font-size: 0.9rem; }
+            .filter-group { flex-direction: column; }
         }
     </style>
 </head>
@@ -137,13 +138,20 @@
 
     <div class="controls">
         <div class="filter-group">
+            <select id="season-select" onchange="loadRaceData(this.value)">
+                <option value="2025-26" selected>2025-26 Season</option>
+                <option value="2026">2026 Season</option>
+            </select>
+
             <select id="series-select" onchange="populateTracks()">
                 <option value="Cup">NASCAR Cup Series</option>
                 <option value="Xfinity">Xfinity Series</option>
                 <option value="Truck">Truck Series</option>
                 <option value="Menards">ARCA Menards</option>
             </select>
+
             <select id="track-select" onchange="displayResults()">
+                <option value="">Select a Track...</option>
             </select>
         </div>
     </div>
@@ -159,6 +167,7 @@
                 </tr>
             </thead>
             <tbody id="results-body">
+                <tr><td colspan="4" style="text-align:center; padding:2rem; color:#666;">Select a track to view results.</td></tr>
             </tbody>
         </table>
     </main>
@@ -210,45 +219,68 @@
             if (menu) menu.classList.toggle('open');
         }
 
-        // --- 2. RESULTS DATA LOGIC ---
+        // --- 2. RESULTS DATA LOGIC (MULTI-SEASON) ---
         let raceData = {};
 
-        fetch('race_results.json')
-            .then(res => {
-                if (!res.ok) throw new Error('race_results.json not found');
-                return res.json();
-            })
-            .then(data => {
-                raceData = data;
-                populateTracks();
-            })
-            .catch(err => {
-                document.getElementById('results-body').innerHTML = 
-                    `<tr><td colspan="4" style="text-align:center; padding:2rem; color:var(--primary);">
-                        ERROR: ${err.message}<br>Check file name and folder location.
-                    </td></tr>`;
-            });
+        // Load default season on startup
+        document.addEventListener('DOMContentLoaded', () => {
+            loadRaceData("2025-26"); 
+        });
+
+        function loadRaceData(season) {
+            // Reset UI feedback
+            document.getElementById('results-body').innerHTML = '<tr><td colspan="4" style="text-align:center; padding:2rem; color:#666;">Loading Season Data...</td></tr>';
+            
+            // Build filename based on season selection
+            const fileName = `race_results_${season}.json`;
+
+            fetch(fileName)
+                .then(res => {
+                    if (!res.ok) throw new Error("Season data not found");
+                    return res.json();
+                })
+                .then(data => {
+                    raceData = data;
+                    populateTracks(); // Refresh tracks for the new season
+                })
+                .catch(err => {
+                    console.error(err);
+                    raceData = {}; // Clear old data
+                    document.getElementById('track-select').innerHTML = '<option>NO DATA</option>';
+                    document.getElementById('results-body').innerHTML = 
+                        `<tr><td colspan="4" style="text-align:center; padding:2rem; color:var(--primary);">
+                            No results available for ${season} yet.
+                        </td></tr>`;
+                });
+        }
 
         function populateTracks() {
             const series = document.getElementById('series-select').value;
             const trackSelect = document.getElementById('track-select');
-            trackSelect.innerHTML = '';
+            trackSelect.innerHTML = '<option value="">Select a Track...</option>';
 
+            // Filter keys in JSON (keys look like "Cup - Daytona")
             const availableTracks = Object.keys(raceData).filter(key => 
-                key.toLowerCase().startsWith(series.toLowerCase())
+                key.toLowerCase().startsWith(series.toLowerCase() + " -")
             );
 
             if (availableTracks.length === 0) {
-                trackSelect.innerHTML = '<option>NO DATA FOUND</option>';
-                document.getElementById('results-body').innerHTML = '';
+                // Keep the "Select a Track" placeholder if no data, or show "No Races"
+                if (Object.keys(raceData).length > 0) {
+                    trackSelect.innerHTML = '<option>NO RACES YET</option>';
+                }
+                document.getElementById('results-body').innerHTML = '<tr><td colspan="4" style="text-align:center; padding:2rem; color:#666;">Select a track to view results.</td></tr>';
             } else {
                 availableTracks.forEach(trackKey => {
                     const option = document.createElement('option');
                     option.value = trackKey;
-                    option.textContent = trackKey.includes(' - ') ? trackKey.split(' - ')[1] : trackKey;
+                    // Extract just the track name for display (remove "Cup - ")
+                    option.textContent = trackKey.split(' - ')[1] || trackKey;
                     trackSelect.appendChild(option);
                 });
-                displayResults();
+                
+                // Auto-select first track if desired, or clear table
+                document.getElementById('results-body').innerHTML = '<tr><td colspan="4" style="text-align:center; padding:2rem; color:#666;">Select a track above.</td></tr>';
             }
         }
 
