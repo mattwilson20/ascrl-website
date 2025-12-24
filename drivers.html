@@ -130,19 +130,18 @@
         .truck-hover:hover { border-color: var(--truck-red) !important; box-shadow: 0 10px 30px rgba(204, 0, 0, 0.2); }
         .menards-hover:hover { border-color: var(--menards-yellow) !important; box-shadow: 0 10px 30px rgba(255, 242, 0, 0.2); }
 
-        /* --- NUMBER WATERMARK FIX --- */
+        /* --- NUMBER WATERMARK FIX (Smaller Size) --- */
         .bg-number {
             position: absolute;
-            top: -20px;
-            right: -10px;
-            font-size: 7rem;
+            top: -10px; /* Adjusted positioning */
+            right: -5px; /* Adjusted positioning */
+            font-size: 5rem; /* Reduced size from 7rem */
             font-weight: 900;
             /* Explicit White with Transparency so it pops against photos */
             color: rgba(255, 255, 255, 0.25); 
             z-index: 1; /* Sits ON TOP of the background image/ghost */
             line-height: 1;
             pointer-events: none;
-            /* Removed mix-blend-mode so it doesn't disappear on gray backgrounds */
         }
 
         .card-content {
@@ -172,7 +171,7 @@
         .flag-menards { color: var(--menards-yellow); }
 
         .driver-name {
-            font-size: 1.5rem; /* Sized for PC */
+            font-size: 1.5rem; 
             margin: 0 0 0.5rem;
             line-height: 1.1;
             word-wrap: break-word;
