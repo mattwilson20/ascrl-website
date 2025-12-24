@@ -130,16 +130,15 @@
         .truck-hover:hover { border-color: var(--truck-red) !important; box-shadow: 0 10px 30px rgba(204, 0, 0, 0.2); }
         .menards-hover:hover { border-color: var(--menards-yellow) !important; box-shadow: 0 10px 30px rgba(255, 242, 0, 0.2); }
 
-        /* --- NUMBER WATERMARK FIX (Smaller Size) --- */
+        /* --- NUMBER WATERMARK FIX (Tucked Inside) --- */
         .bg-number {
             position: absolute;
-            top: -10px; /* Adjusted positioning */
-            right: -5px; /* Adjusted positioning */
-            font-size: 5rem; /* Reduced size from 7rem */
+            top: 10px;       /* Moved down inside the card */
+            right: 15px;     /* Moved left inside the card */
+            font-size: 3.5rem; /* Clean, contained size */
             font-weight: 900;
-            /* Explicit White with Transparency so it pops against photos */
             color: rgba(255, 255, 255, 0.25); 
-            z-index: 1; /* Sits ON TOP of the background image/ghost */
+            z-index: 1; 
             line-height: 1;
             pointer-events: none;
         }
@@ -407,7 +406,7 @@
                 }
 
                 // --- IMAGE LOGIC ---
-                // Default Ghost Image (Updated to your link)
+                // Default Ghost Image
                 let driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg"; 
 
                 // Exception for Dakota
