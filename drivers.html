@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASCRL Drivers | American Stock Car Racing League</title>
+    <title>ASCRL Roster | American Stock Car Racing League</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
@@ -15,6 +15,12 @@
             --border: #1a1a1a;
             --text-muted: #a0a0a0;
             --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+            /* Series Colors */
+            --cup-blue: #0077ff;
+            --xfinity-purple: #8000b0;
+            --truck-red: #c00;
+            --menards-yellow: #fff200;
         }
 
         body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--bg-dark); color: #fff; overflow-x: hidden; }
@@ -45,74 +51,145 @@
         h1 { font-size: clamp(3rem, 10vw, 5rem); margin: 0; letter-spacing: -2px; line-height: 0.9; }
         .hero p { color: var(--primary); letter-spacing: 5px; text-transform: uppercase; font-size: 0.9rem; margin-top: 1rem; }
 
-        /* --- SEARCH & FILTERS --- */
+        /* --- SERIES TABS --- */
         .controls { background: #050505; padding: 2rem 1rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
-        .search-container { 
-            max-width: 800px; margin: 0 auto; position: relative; 
-            display: flex; gap: 10px; flex-wrap: wrap; 
-        }
-        .search-bar, .season-select { 
-            padding: 1.2rem 2rem; border-radius: 0; 
-            border: 1px solid var(--border); background: #000; color: #fff; 
-            font-size: 1rem; font-family: sans-serif; transition: var(--transition);
-        }
-        .search-bar { flex: 2; min-width: 200px; }
-        .season-select { flex: 1; min-width: 150px; cursor: pointer; }
         
-        .search-bar:focus, .season-select:focus { border-color: var(--primary); outline: none; background: #0a0a0a; }
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
 
-        /* --- GRID --- */
-        .container { max-width: 1300px; margin: 0 auto; padding: 4rem 2rem; }
-        .roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+        .series-btn {
+            background: #111;
+            border: 1px solid #333;
+            color: #fff;
+            padding: 15px 30px;
+            font-family: 'Arial Black', sans-serif;
+            text-transform: uppercase;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition);
+            min-width: 150px;
+            position: relative;
+            overflow: hidden;
+        }
 
-        /* --- DRIVER CARD --- */
-        .driver-card { 
-            background: var(--card-bg); 
-            border: 1px solid var(--border); 
-            padding: 3rem 2rem; 
-            transition: var(--transition); 
-            text-align: left;
+        .series-btn:hover { transform: translateY(-3px); }
+        .series-btn.active { border-color: #fff; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+
+        /* Series specific active states */
+        .series-btn[data-series="Cup"].active { background: var(--cup-blue); border-color: var(--cup-blue); }
+        .series-btn[data-series="Xfinity"].active { background: var(--xfinity-purple); border-color: var(--xfinity-purple); }
+        .series-btn[data-series="Truck"].active { background: var(--truck-red); border-color: var(--truck-red); }
+        .series-btn[data-series="Menards"].active { background: var(--menards-yellow); border-color: var(--menards-yellow); color: #000; }
+
+        /* --- ROSTER GRID --- */
+        .container { max-width: 1400px; margin: 0 auto; padding: 4rem 2rem; }
+        .roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
+
+        .driver-card {
+            background: linear-gradient(145deg, #111, #0a0a0a);
+            border: 1px solid #222;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            min-height: 200px;
+            align-items: center;
+            justify-content: center;
+            min-height: 340px;
             cursor: pointer;
         }
-        .driver-card:hover { 
-            background: #111; 
-            border-color: #444; 
-            transform: translateY(-5px);
-        }
-        
-        .driver-info h3 { 
-            font-size: 1.8rem; 
-            margin: 0; 
-            line-height: 1.1; 
-            text-transform: uppercase;
-            letter-spacing: -1px;
-        }
-        .team-label { 
-            color: var(--text-muted); 
-            font-family: sans-serif; 
-            font-size: 0.85rem; 
-            margin-top: 0.5rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+
+        .driver-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(204, 0, 0, 0.2);
         }
 
-        .series-badge { 
-            margin-top: 2rem; 
-            display: inline-flex; 
-            align-items: center; 
-            gap: 10px; 
-            background: #000; 
-            border: 1px solid var(--primary); 
-            padding: 8px 15px; 
-            font-size: 0.75rem; 
-            color: #fff; 
-            letter-spacing: 1px; 
+        /* Dynamic Border Color on Hover */
+        .cup-hover:hover { border-color: var(--cup-blue) !important; box-shadow: 0 10px 30px rgba(0, 119, 255, 0.2); }
+        .xfinity-hover:hover { border-color: var(--xfinity-purple) !important; box-shadow: 0 10px 30px rgba(128, 0, 176, 0.2); }
+        .truck-hover:hover { border-color: var(--truck-red) !important; box-shadow: 0 10px 30px rgba(204, 0, 0, 0.2); }
+        .menards-hover:hover { border-color: var(--menards-yellow) !important; box-shadow: 0 10px 30px rgba(255, 242, 0, 0.2); }
+
+        .bg-number {
+            position: absolute;
+            top: -20px;
+            right: -15px;
+            font-size: 8rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.03);
+            z-index: 0;
+            line-height: 1;
+            pointer-events: none;
         }
-        .series-count { color: var(--primary); font-weight: 900; }
+
+        .card-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+        }
+
+        /* Win Stickers Container */
+        .win-flags-container {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+            min-height: 24px; /* Keeps layout consistent even if empty */
+        }
+
+        .flag-icon { font-size: 1.2rem; filter: drop-shadow(0 0 5px rgba(0,0,0,0.8)); }
+        
+        /* Flag Colors */
+        .flag-cup { color: var(--cup-blue); }
+        .flag-xfinity { color: var(--xfinity-purple); }
+        .flag-truck { color: var(--truck-red); }
+        .flag-menards { color: var(--menards-yellow); }
+
+        .driver-name {
+            font-size: 1.8rem;
+            margin: 0 0 0.5rem;
+            line-height: 1;
+            word-wrap: break-word;
+        }
+
+        .team-name {
+            font-family: sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid #333;
+            background: rgba(0,0,0,0.5);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #fff;
+            margin-top: auto;
+        }
+        
+        .stat-divider { width: 1px; height: 12px; background: #444; }
 
         /* --- MODAL --- */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); justify-content: center; align-items: center; z-index: 3000; }
@@ -144,26 +221,9 @@
             gap: 1.5rem; 
         }
 
-        .social-links {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-        }
-
-        .social-icon {
-            color: #555;
-            font-size: 1.8rem;
-            transition: 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-        }
-
-        .social-icon:hover {
-            transform: translateY(-3px);
-        }
-
+        .social-links { display: flex; gap: 2rem; justify-content: center; }
+        .social-icon { color: #555; font-size: 1.8rem; transition: 0.3s ease; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+        .social-icon:hover { transform: translateY(-3px); }
         .social-icon.facebook:hover { color: #1877F2; } 
         .social-icon.x-twitter:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
 
@@ -171,7 +231,7 @@
             .hero { padding: 10rem 1rem 4rem; }
             .modal-content { padding: 2rem; }
             .stat-row { grid-template-columns: 1fr 1fr; }
-            .search-container { flex-direction: column; }
+            .series-btn { width: 45%; padding: 10px; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -185,13 +245,14 @@
     </header>
 
     <div class="controls">
-        <div class="search-container">
-            <select id="seasonSelect" class="season-select" onchange="loadDrivers(this.value)">
-                <option value="2025-26" selected>2025-26 Season</option>
-                <option value="2026">2026 Season</option>
-            </select>
-            <input type="text" id="driverSearch" class="search-bar" placeholder="SEARCH ATHLETE NAME...">
+        <div class="tabs-container">
+            <button class="series-btn active" data-series="Cup" onclick="filterSeries('Cup')">Cup Series</button>
+            <button class="series-btn" data-series="Xfinity" onclick="filterSeries('Xfinity')">Xfinity</button>
+            <button class="series-btn" data-series="Truck" onclick="filterSeries('Truck')">Trucks</button>
+            <button class="series-btn" data-series="Menards" onclick="filterSeries('Menards')">Menards</button>
         </div>
+        
+        <input type="hidden" id="seasonValue" value="2025-26">
     </div>
 
     <main class="container">
@@ -224,7 +285,6 @@
             .then(response => response.text())
             .then(data => {
                 document.getElementById('nav-placeholder').innerHTML = data;
-                
                 const currentPage = window.location.pathname.split("/").pop() || "index.html";
                 const navID = "nav-" + currentPage.split(".")[0];
                 const activeLink = document.getElementById(navID);
@@ -241,8 +301,9 @@
             if (menu) menu.classList.toggle('open');
         }
 
-        // --- 2. DRIVER ROSTER LOGIC (SMART MERGE & ROUNDING) ---
-        let allDrivers = [];
+        // --- 2. ROSTER LOGIC ---
+        let allDrivers = {}; 
+        let currentSeries = 'Cup';
 
         document.addEventListener('DOMContentLoaded', () => {
             loadDrivers("2025-26"); 
@@ -256,87 +317,126 @@
             const fallbackFile = `drivers.json`;
 
             fetch(fileName)
-                .then(r => {
-                    if (!r.ok) {
-                        console.warn(`${fileName} not found, trying fallback...`);
-                        return fetch(fallbackFile);
-                    }
-                    return r;
-                })
-                .then(r => {
-                    if (!r.ok) throw new Error("Data source not found");
-                    return r.json();
-                })
+                .then(r => r.ok ? r : fetch(fallbackFile))
+                .then(r => r.json())
                 .then(data => {
-                    const mergedMap = {};
-
-                    Object.keys(data).forEach(key => {
-                        const entry = data[key];
-                        let name = entry.display_name;
-                        
-                        if (!name) {
-                            name = key.replace(/^#\d+\s+/, '').trim();
-                        }
-                        
-                        if (!name) name = key;
-
-                        if (!mergedMap[name]) {
-                            mergedMap[name] = {
-                                id: key,
-                                display_name: name,
-                                series: { ...entry.series } 
-                            };
-                        } else {
-                            Object.assign(mergedMap[name].series, entry.series);
-                        }
-                    });
-
-                    allDrivers = Object.values(mergedMap);
-                    allDrivers.sort((a, b) => a.display_name.localeCompare(b.display_name));
-                    
-                    render(allDrivers);
+                    allDrivers = data;
+                    filterSeries('Cup'); // Initial Render
                 })
                 .catch(err => {
                     console.error(err);
-                    grid.innerHTML = `<p style="text-align:center; padding:2rem; color:#c00;">
-                        Unable to load roster data.<br>
-                        <small style="color:#666">Check console for details.</small>
-                    </p>`;
-                    allDrivers = [];
+                    grid.innerHTML = `<p style="text-align:center; padding:2rem; color:#c00;">Unable to load roster.</p>`;
                 });
         }
 
-        function render(drivers) {
+        function filterSeries(seriesName) {
+            currentSeries = seriesName;
+            
+            // Update Buttons UI
+            document.querySelectorAll('.series-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.dataset.series === seriesName) btn.classList.add('active');
+            });
+
             const grid = document.getElementById('roster-grid');
             grid.innerHTML = '';
 
-            if (!drivers || drivers.length === 0) {
-                grid.innerHTML = '<p style="text-align:center; padding:2rem; color:#666;">No drivers found matching criteria.</p>';
+            const filteredList = [];
+
+            // Process Data: Find drivers active in this series
+            Object.keys(allDrivers).forEach(key => {
+                const driver = allDrivers[key];
+                
+                // Name Normalization
+                let dName = driver.display_name;
+                if (!dName) dName = key.replace(/^#\d+\s+/, '').trim();
+                if (!dName) dName = key;
+
+                // Check if driver has this series
+                const sKey = Object.keys(driver.series).find(k => k.toLowerCase() === seriesName.toLowerCase());
+
+                if (sKey) {
+                    const sData = driver.series[sKey];
+                    filteredList.push({
+                        id: key,
+                        name: dName,
+                        fullData: driver,
+                        seriesData: sData, 
+                        seriesName: sKey
+                    });
+                }
+            });
+
+            // Sort by Points
+            filteredList.sort((a, b) => {
+                const ptsA = a.seriesData.stats ? a.seriesData.stats.points || 0 : 0;
+                const ptsB = b.seriesData.stats ? b.seriesData.stats.points || 0 : 0;
+                if(ptsA !== ptsB) return ptsB - ptsA;
+                return a.name.localeCompare(b.name);
+            });
+
+            if (filteredList.length === 0) {
+                grid.innerHTML = '<p style="text-align:center; padding:2rem; width:100%; grid-column: 1/-1;">No drivers registered for this series yet.</p>';
                 return;
             }
 
-            drivers.forEach(driver => {
-                const seriesNames = driver.series ? Object.keys(driver.series) : [];
-                if (seriesNames.length === 0) return;
+            // Find Maximum points to determine Points Leader (for Crown)
+            const maxPoints = Math.max(...filteredList.map(i => i.seriesData.stats ? i.seriesData.stats.points : 0));
+
+            // Render Cards
+            filteredList.forEach(item => {
+                const sData = item.seriesData;
+                const stats = sData.stats || {points:0, wins:0};
+                const points = stats.points || 0;
+                const wins = stats.wins || 0;
                 
-                const primarySeries = driver.series['Cup'] ? 'Cup' : 
-                                      driver.series['Xfinity'] ? 'Xfinity' : 
-                                      driver.series['Truck'] ? 'Truck' : seriesNames[0];
-                
-                const primaryData = driver.series[primarySeries] || {};
-                const teamName = primaryData.team || 'Unattached Independent';
+                let carNum = sData.number;
+                if (!carNum || carNum === "N/A") {
+                     const match = (sData.driver_name || item.id).match(/^#(\d+)/);
+                     carNum = match ? match[1] : '';
+                }
+
+                // --- NEW: Generate Checkered Flags based on Wins ---
+                let flagsHtml = '';
+                // Determine CSS Class for Flag Color
+                let flagClass = 'flag-truck'; // fallback
+                if(seriesName.toLowerCase() === 'cup') flagClass = 'flag-cup';
+                if(seriesName.toLowerCase() === 'xfinity') flagClass = 'flag-xfinity';
+                if(seriesName.toLowerCase() === 'menards') flagClass = 'flag-menards';
+
+                for(let i=0; i<wins; i++) {
+                    flagsHtml += `<i class="fa-solid fa-flag-checkered flag-icon ${flagClass}"></i>`;
+                }
+                // --------------------------------------------------
+
+                // Is this driver the Points Leader? (Display Crown)
+                const isLeader = (points > 0 && points === maxPoints);
+
+                const hoverClass = seriesName.toLowerCase() + '-hover';
 
                 const card = document.createElement('div');
-                card.className = 'driver-card';
-                card.onclick = () => openProfile(driver); 
+                card.className = `driver-card ${hoverClass}`;
+                card.onclick = () => openProfile(item.id, item.fullData);
+                
                 card.innerHTML = `
-                    <div class="driver-info">
-                        <h3>${driver.display_name}</h3>
-                        <div class="team-label">${teamName}</div>
-                    </div>
-                    <div>
-                        <div class="series-badge">
-                            <span class="series-count">${seriesNames.length}</span> SERIES LICENSE
+                    <div class="bg-number">${carNum}</div>
+                    <div class="card-content">
+                        
+                        <div class="win-flags-container">
+                            ${flagsHtml}
+                        </div>
+
+                        ${isLeader ? '<i class="fa-solid fa-crown" style="color:#ffd700; font-size:1.5rem; margin-bottom:0.5rem; display:block;"></i>' : ''}
+                        
+                        <h3 class="driver-name">${item.name}</h3>
+                        <div class="team-name">${sData.team || 'Independent'}</div>
+                        
+                        <div class="stats-pill">
+                            <span>#${carNum}</span>
+                            <div class="stat-divider"></div>
+                            <span>${points} PTS</span>
+                            <div class="stat-divider"></div>
+                            <span>${wins} WINS</span>
                         </div>
                     </div>
                 `;
@@ -344,48 +444,35 @@
             });
         }
 
-        document.getElementById('driverSearch').addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase();
-            const filtered = allDrivers.filter(d => d.display_name.toLowerCase().includes(term));
-            render(filtered);
-        });
-
-        function openProfile(driver) {
+        // --- MODAL ---
+        function openProfile(id, driverData) {
             const modal = document.getElementById('driver-modal');
             const dataDiv = document.getElementById('modal-data');
             
-            let html = `<h2 style="font-size:3rem; margin:0; line-height:1;">${driver.display_name}</h2>`;
+            let dName = driverData.display_name;
+            if (!dName) dName = id.replace(/^#\d+\s+/, '').trim();
+
+            let html = `<h2 style="font-size:3rem; margin:0; line-height:1;">${dName}</h2>`;
             
             const seriesOrder = ["Cup", "Xfinity", "Truck", "Menards"];
-            
-            const sortedSeries = Object.keys(driver.series).sort((a, b) => {
+            const sortedSeries = Object.keys(driverData.series).sort((a, b) => {
                 let ia = seriesOrder.indexOf(a);
                 let ib = seriesOrder.indexOf(b);
-                if (ia === -1) ia = 99;
-                if (ib === -1) ib = 99;
+                if (ia === -1) ia = 99; if (ib === -1) ib = 99;
                 return ia - ib;
             });
 
             sortedSeries.forEach(sName => {
-                const s = driver.series[sName];
-                const st = s.stats || {wins:0, top5:0, top10:0, poles:0, avg:'N/A', points:0};
+                const s = driverData.series[sName];
+                const st = s.stats || {wins:0, top5:0, top10:0, poles:0, avg:0, points:0};
                 
-                let number = s.number; 
-                if (!number) number = "N/A";
-
-                const manuf = s.manufacturer || '';
-
-                // --- ROUNDING FIX ---
                 let avgFin = st.avg;
-                if (typeof avgFin === 'number') {
-                    avgFin = avgFin.toFixed(1);
-                } else if (!isNaN(parseFloat(avgFin))) {
-                    avgFin = parseFloat(avgFin).toFixed(1);
-                }
-                // --------------------
+                if (typeof avgFin === 'number') avgFin = avgFin.toFixed(1);
+                else if (!isNaN(parseFloat(avgFin))) avgFin = parseFloat(avgFin).toFixed(1);
+                else avgFin = "N/A";
 
                 html += `
-                    <h4>${sName} Series / #${number} ${manuf}</h4>
+                    <h4>${sName} Series / #${s.number || ''} ${s.manufacturer || ''}</h4>
                     <p style="font-family:sans-serif; font-size:0.9rem; color:#666;">Team: ${s.team || 'Independent'}</p>
                     <div class="stat-row">
                         <div class="stat-box"><small>Points</small><span>${st.points}</span></div>
