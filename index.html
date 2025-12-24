@@ -78,26 +78,99 @@
         }
         .race-card:hover { border-color: var(--primary); transform: translateY(-5px); }
 
+        /* --- NEW CHAMPIONSHIP LEADER CARDS --- */
         .leader-strip {
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
             gap: 2rem;
-            background: #050505;
-            padding: 3rem;
-            border: 1px solid var(--border);
+            padding: 3rem 0;
         }
-        
-        /* Leader name styling */
+
+        .leader-card {
+            background: linear-gradient(145deg, #111, #0a0a0a);
+            border: 1px solid #222;
+            padding: 2rem;
+            width: 240px; /* Fixed width for consistent look */
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .leader-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(204, 0, 0, 0.2);
+        }
+
+        /* Background Number Watermark */
+        .leader-bg-number {
+            position: absolute;
+            top: -15px;
+            right: -10px;
+            font-size: 6rem;
+            font-weight: 900;
+            font-family: 'Arial Black', sans-serif;
+            color: rgba(255, 255, 255, 0.03);
+            z-index: 0;
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        /* Slanted Series Badge */
+        .leader-series-badge {
+            background: var(--primary);
+            color: #fff;
+            font-size: 0.65rem;
+            padding: 5px 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+            font-weight: bold;
+        }
+
+        .leader-info-container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .leader-crown {
+            color: #ffd700; /* Gold */
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
+        }
+
         .leader-name {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-family: 'Arial Black', sans-serif;
             display: block;
             margin-top: 0.5rem;
-            word-wrap: break-word; 
-            line-height: 1.2;
+            word-wrap: break-word;
+            line-height: 1.1;
         }
 
+        .leader-points-pill {
+            margin-top: 1rem;
+            display: inline-block;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 5px 15px;
+            font-family: sans-serif;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 20px;
+        }
+
+        /* --- OTHER SECTIONS --- */
         .highlight-box {
             background: linear-gradient(90deg, #0d0d0d 0%, #000 100%);
             border-left: 4px solid var(--primary);
@@ -142,21 +215,13 @@
             text-decoration: none;
         }
 
-        .social-icon:hover {
-            transform: translateY(-3px);
-        }
-
+        .social-icon:hover { transform: translateY(-3px); }
         .social-icon.facebook:hover { color: #1877F2; } 
         .social-icon.x-twitter:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
 
         @media (max-width: 768px) {
-            .leader-strip div { 
-                width: 100%; 
-                margin-bottom: 2rem; 
-            }
-            .leader-name {
-                font-size: 1.4rem;
-            }
+            .leader-strip { flex-direction: column; align-items: center; }
+            .leader-card { width: 100%; max-width: 320px; margin-bottom: 1.5rem; }
         }
     </style>
 </head>
@@ -222,7 +287,7 @@
             <span class="stat-label" style="color: var(--primary);">A&M PRODUCTIONS LLC</span>
             <h2 style="font-size: 2rem; margin: 1rem 0;">BUSINESS INQUIRIES</h2>
             <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 2rem; font-family: sans-serif; line-height: 1.6;">
-                For sponsorship opportunities, league disputes, or website feedback, please contact the league office directly.
+                For advertisement opportunities, league disputes, or website feedback, please contact the league office directly.
             </p>
             
             <a href="mailto:contact.ascrl@gmail.com" style="text-decoration: none; display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--primary); padding: 15px 30px; color: #fff; transition: 0.3s;">
@@ -265,7 +330,6 @@
             .then(data => { 
                 document.getElementById('nav-placeholder').innerHTML = data; 
                 
-                // Highlight current page
                 const currentPage = window.location.pathname.split("/").pop() || "index.html";
                 const navID = "nav-" + currentPage.split(".")[0];
                 const activeLink = document.getElementById(navID);
@@ -306,7 +370,7 @@
             })
             .catch(err => console.log("Schedule error", err));
 
-        // 3. LEADERS DATA (Fixed Data Loading Logic)
+        // 3. LEADERS DATA (Hero Card Update)
         const driversFile = `drivers_${season}.json`;
         const driversFallback = `drivers.json`;
 
@@ -317,7 +381,7 @@
                 let html = '';
                 const seriesList = ['Cup', 'Xfinity', 'Truck', 'Menards'];
 
-                // --- DATA NORMALIZATION (Safe handling of keys/names) ---
+                // --- DATA NORMALIZATION ---
                 const allDrivers = Object.keys(data).map(key => {
                     const entry = data[key];
                     let name = entry.display_name;
@@ -341,27 +405,43 @@
                             if (points > maxPoints) {
                                 maxPoints = points;
                                 bestDriver = {
-                                    name: sData.driver_name || driver.display_name,
-                                    points: points
+                                    // Raw string needed to extract number if not provided separately
+                                    rawString: sData.driver_name || ("#" + sData.number + " " + driver.display_name),
+                                    name: driver.display_name,
+                                    points: points,
+                                    // Use explicit number if available, else will parse later
+                                    explicitNumber: sData.number
                                 };
                             }
                         }
                     });
 
                     if (bestDriver) {
+                        // Extract number logic: use explicit or regex from string
+                        let carNum = bestDriver.explicitNumber;
+                        if (!carNum || carNum === "N/A") {
+                             const match = bestDriver.rawString.match(/^#(\d+)/);
+                             carNum = match ? match[1] : '';
+                        }
+
                         html += `
-                            <div style="text-align: center;">
-                                <span class="stat-label">${seriesName}</span>
-                                <span class="leader-name">${bestDriver.name}</span>
-                                <span style="font-size: 0.7rem; color: var(--text-muted);">${bestDriver.points} PTS</span>
+                            <div class="leader-card">
+                                <div class="leader-bg-number">${carNum}</div>
+                                <div class="leader-series-badge">${seriesName}</div>
+                                
+                                <div class="leader-info-container">
+                                    <i class="fa-solid fa-crown leader-crown"></i>
+                                    <span class="leader-name">${bestDriver.name}</span>
+                                    <div class="leader-points-pill">${bestDriver.points} PTS</div>
+                                </div>
                             </div>`;
                     } else {
-                        // Placeholder if no data for series
+                        // Placeholder
                         html += `
-                            <div style="text-align: center;">
-                                <span class="stat-label">${seriesName}</span>
-                                <span class="leader-name" style="color:#444;">TBD</span>
-                                <span style="font-size: 0.7rem; color: var(--text-muted);">0 PTS</span>
+                            <div class="leader-card" style="opacity:0.5;">
+                                <div class="leader-series-badge">${seriesName}</div>
+                                <span class="leader-name" style="font-size:1rem;">TBD</span>
+                                <div class="leader-points-pill">0 PTS</div>
                             </div>`;
                     }
                 });
