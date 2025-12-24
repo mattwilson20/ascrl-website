@@ -299,29 +299,33 @@
             if(m) m.classList.toggle('open');
         }
 
-        // --- 2. DATA PROCESSING (MULTI-SEASON) ---
+        // --- 2. DATA PROCESSING (ROBUST & MULTI-SEASON) ---
         let driversData = {}; 
         let teamPointsBySeries = {
-            'Cup': {},
-            'Xfinity': {},
-            'Truck': {},
-            'Menards': {}
+            'Cup': {}, 'Xfinity': {}, 'Truck': {}, 'Menards': {}
         };
 
-        // Load default season on startup
         document.addEventListener('DOMContentLoaded', () => {
             loadSeasonData("2025-26");
         });
 
         function loadSeasonData(season) {
-            // Reset Data
+            // Reset UI
             teamPointsBySeries = { 'Cup': {}, 'Xfinity': {}, 'Truck': {}, 'Menards': {} };
             document.getElementById('standings-body').innerHTML = '<tr><td colspan="3" style="text-align:center; padding:2rem; color:#666;">Accessing Data Feed...</td></tr>';
             document.getElementById('teams-container').innerHTML = '';
 
             const fileName = `drivers_${season}.json`;
+            const fallbackFile = `drivers.json`;
 
             fetch(fileName)
+                .then(r => {
+                    if (!r.ok) {
+                        console.warn(`${fileName} not found, trying fallback...`);
+                        return fetch(fallbackFile);
+                    }
+                    return r;
+                })
                 .then(res => {
                     if (!res.ok) throw new Error("Season data not found");
                     return res.json();
@@ -337,30 +341,48 @@
         }
 
         function processData(data) {
-            const drivers = Object.entries(data);
             const garageTeams = {}; 
 
-            drivers.forEach(([id, d]) => {
-                const seriesKeys = Object.keys(d.series);
+            // Iterate over all entries in the JSON
+            Object.keys(data).forEach(key => {
+                const d = data[key];
+                
+                // --- FIX: Normalize Driver Name & Series ---
+                // If display_name is missing (new format), derive it from key
+                let cleanName = d.display_name;
+                if (!cleanName) {
+                    cleanName = key.replace(/^#\d+\s+/, '').trim();
+                }
+                if (!cleanName) cleanName = key; // Fallback
+
+                // Ensure ID is set for modal lookup
+                if (!d.id) d.id = key;
+                d.display_name = cleanName; // Store normalized name in object for modal usage
+
+                const seriesKeys = d.series ? Object.keys(d.series) : [];
                 if (seriesKeys.length === 0) return;
 
+                // 1. Calculate Team Points
                 seriesKeys.forEach(sName => {
                     const sData = d.series[sName];
-                    if (sData.team && sData.team !== "") {
+                    const tName = sData.team || "";
+                    
+                    if (tName !== "" && tName.toLowerCase() !== "independent" && tName.toLowerCase() !== "privateer") {
                         if (!teamPointsBySeries[sName]) teamPointsBySeries[sName] = {};
                         
-                        const tName = sData.team;
-                        const pts = sData.stats.points || 0;
+                        const pts = sData.stats ? (sData.stats.points || 0) : 0;
 
                         if (!teamPointsBySeries[sName][tName]) teamPointsBySeries[sName][tName] = 0;
                         teamPointsBySeries[sName][tName] += pts;
                     }
                 });
 
+                // 2. Assign Driver to Garage Team
                 let teamName = "";
                 let primarySeries = 'Cup';
                 const searchOrder = ['Cup', 'Xfinity', 'Truck', 'Menards'];
                 
+                // Find first valid team name
                 for (const s of searchOrder) {
                     if (d.series[s] && d.series[s].team && d.series[s].team !== "") {
                         primarySeries = s;
@@ -368,17 +390,28 @@
                         break;
                     }
                 }
-                if (teamName === "") {
+                
+                // Default to Independent if no team found
+                if (teamName === "" || teamName.toLowerCase() === "independent") {
                     teamName = "Independent / Privateer";
                     primarySeries = d.series['Cup'] ? 'Cup' : seriesKeys[0]; 
                 }
 
-                const carNum = d.series[primarySeries].number;
+                // Get Car Number (Normalize from series data or Key)
+                let carNum = d.series[primarySeries] ? d.series[primarySeries].number : "";
+                if (!carNum || carNum === "N/A") {
+                    // Try parsing from key: "#99 Name" -> "99"
+                    const match = key.match(/^#(\d+)/);
+                    if (match) carNum = match[1];
+                    else carNum = "??";
+                }
+
+                // Add to Garage List
                 if (!garageTeams[teamName]) garageTeams[teamName] = [];
 
                 garageTeams[teamName].push({
-                    id: id,
-                    name: d.display_name,
+                    id: key,
+                    name: cleanName,
                     number: carNum,
                     series: primarySeries
                 });
@@ -396,12 +429,11 @@
             const currentSeriesPoints = teamPointsBySeries[series] || {};
 
             const sortedTeams = Object.keys(currentSeriesPoints)
-                .filter(t => !t.toLowerCase().includes("independent")) 
                 .map(team => ({ name: team, points: currentSeriesPoints[team] }))
                 .sort((a, b) => b.points - a.points);
 
             if(sortedTeams.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding:2rem; color:#666;">No active teams found for ${series} Series.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding:2rem; color:#666;">No active multi-car teams found for ${series} Series.</td></tr>`;
                 return;
             }
 
@@ -422,6 +454,7 @@
             container.innerHTML = '';
 
             const teamNames = Object.keys(teams).sort((a, b) => {
+                // Force Independent to bottom
                 if(a.includes("Independent")) return 1;
                 if(b.includes("Independent")) return -1;
                 return a.localeCompare(b);
@@ -429,6 +462,7 @@
 
             teamNames.forEach(team => {
                 const roster = teams[team];
+                // Sort drivers by number
                 roster.sort((a, b) => parseInt(a.number) - parseInt(b.number));
 
                 const rosterHtml = roster.map(d => `
@@ -458,20 +492,51 @@
         }
 
         function openProfile(id) {
-            const driver = driversData[id];
+            // Need to handle missing ID lookup gracefully
+            const driver = driversData[id]; 
             const modal = document.getElementById('driver-modal');
             const dataDiv = document.getElementById('modal-data');
             
             if(!driver) return;
 
-            let html = `<h2 style="font-size:3rem; margin:0; line-height:1;">${driver.display_name}</h2>`;
+            // Recalculate display name if needed for modal
+            let displayName = driver.display_name;
+            if (!displayName) {
+                displayName = id.replace(/^#\d+\s+/, '').trim();
+            }
+
+            let html = `<h2 style="font-size:3rem; margin:0; line-height:1;">${displayName}</h2>`;
             
-            Object.keys(driver.series).sort().forEach(sName => {
+            const seriesKeys = driver.series ? Object.keys(driver.series) : [];
+            const seriesOrder = ["Cup", "Xfinity", "Truck", "Menards"];
+            
+            const sortedSeries = seriesKeys.sort((a, b) => {
+                let ia = seriesOrder.indexOf(a);
+                let ib = seriesOrder.indexOf(b);
+                if (ia === -1) ia = 99;
+                if (ib === -1) ib = 99;
+                return ia - ib;
+            });
+
+            sortedSeries.forEach(sName => {
                 const s = driver.series[sName];
-                const st = s.stats || {wins:0, top5:0, top10:0, poles:0, avg:'N/A', points:0};
+                const st = s.stats || {wins:0, top5:0, top10:0, poles:0, avg:0, points:0};
                 
+                // Safe rounding
+                let avgFin = st.avg;
+                if (typeof avgFin === 'number') avgFin = avgFin.toFixed(1);
+                else if (!isNaN(parseFloat(avgFin))) avgFin = parseFloat(avgFin).toFixed(1);
+                else avgFin = "N/A";
+
+                let number = s.number;
+                if (!number && id.startsWith('#')) {
+                     const match = id.match(/^#(\d+)/);
+                     if (match) number = match[1];
+                }
+                if (!number) number = "N/A";
+
                 html += `
-                    <h4>${sName} Series / #${s.number} ${s.manufacturer}</h4>
+                    <h4>${sName} Series / #${number} ${s.manufacturer || ''}</h4>
                     <p style="font-family:sans-serif; font-size:0.9rem; color:#666;">Team: ${s.team || 'Independent'}</p>
                     <div class="stat-row">
                         <div class="stat-box"><small>Points</small><span>${st.points}</span></div>
@@ -479,7 +544,7 @@
                         <div class="stat-box"><small>Top 5s</small><span>${st.top5}</span></div>
                         <div class="stat-box"><small>Top 10s</small><span>${st.top10}</span></div>
                         <div class="stat-box"><small>Poles</small><span>${st.poles}</span></div>
-                        <div class="stat-box"><small>Avg. Fin</small><span>${st.avg}</span></div>
+                        <div class="stat-box"><small>Avg. Fin</small><span>${avgFin}</span></div>
                     </div>
                 `;
             });
