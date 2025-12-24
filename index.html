@@ -94,7 +94,7 @@
             font-family: 'Arial Black', sans-serif;
             display: block;
             margin-top: 0.5rem;
-            word-wrap: break-word; /* Allows breaking if absolutely necessary */
+            word-wrap: break-word; 
             line-height: 1.2;
         }
 
@@ -109,7 +109,6 @@
         .stat-label { color: var(--primary); font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; display: block; }
         .stat-value { font-size: 1.8rem; font-family: 'Arial Black', sans-serif; display: block; margin-top: 0.5rem; }
         
-        /* Specific Email Icon Hover Effect */
         .social-icon.email:hover { color: var(--primary); transform: scale(1.1); }
 
         /* --- FOOTER & SOCIALS --- */
@@ -120,11 +119,11 @@
             color: #333; 
             font-size: 0.8rem; 
             letter-spacing: 2px; 
-            text-transform: uppercase;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
+            text-transform: uppercase; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 1.5rem; 
         }
 
         .social-links {
@@ -147,18 +146,14 @@
             transform: translateY(-3px);
         }
 
-        .social-icon.facebook:hover { color: #1877F2; } /* Official FB Blue */
+        .social-icon.facebook:hover { color: #1877F2; } 
         .social-icon.x-twitter:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
 
-        /* Mobile adjustment */
         @media (max-width: 768px) {
-            /* Force 1 column on mobile so names have full width */
             .leader-strip div { 
                 width: 100%; 
                 margin-bottom: 2rem; 
             }
-            
-            /* Smaller font on mobile so long names fit better */
             .leader-name {
                 font-size: 1.4rem;
             }
@@ -207,6 +202,7 @@
         <section style="margin-top: 6rem;">
             <h2 style="margin-bottom: 2rem; text-align: center; color: var(--text-muted); font-size: 1.2rem; letter-spacing: 4px;">CHAMPIONSHIP LEADERS</h2>
             <div class="leader-strip" id="leaders-grid">
+                <p style="color:#666; width:100%; text-align:center;">Loading Leaders...</p>
             </div>
         </section>
 
@@ -286,8 +282,13 @@
             if(m) m.classList.toggle('open');
         }
 
-        // 2. SCHEDULE DATA (Countdowns)
-        fetch('schedule.json')
+        // 2. SCHEDULE DATA (Multi-Season aware)
+        const season = "2025-26";
+        const scheduleFile = `schedule_${season}.json`;
+        const scheduleFallback = `schedule.json`;
+
+        fetch(scheduleFile)
+            .then(r => r.ok ? r : fetch(scheduleFallback))
             .then(res => res.json())
             .then(data => {
                 ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(s => {
@@ -305,25 +306,42 @@
             })
             .catch(err => console.log("Schedule error", err));
 
-        // 3. LEADERS DATA (Pulls from drivers.json)
-        fetch('drivers.json')
+        // 3. LEADERS DATA (Fixed Data Loading Logic)
+        const driversFile = `drivers_${season}.json`;
+        const driversFallback = `drivers.json`;
+
+        fetch(driversFile)
+            .then(r => r.ok ? r : fetch(driversFallback))
             .then(res => res.json())
             .then(data => {
                 let html = '';
                 const seriesList = ['Cup', 'Xfinity', 'Truck', 'Menards'];
 
+                // --- DATA NORMALIZATION (Safe handling of keys/names) ---
+                const allDrivers = Object.keys(data).map(key => {
+                    const entry = data[key];
+                    let name = entry.display_name;
+                    if (!name) name = key.replace(/^#\d+\s+/, '').trim();
+                    if (!name) name = key;
+                    return { id: key, display_name: name, ...entry };
+                });
+
                 seriesList.forEach(seriesName => {
                     let bestDriver = null;
                     let maxPoints = -1;
 
-                    Object.values(data).forEach(driver => {
-                        const sKey = Object.keys(driver.series).find(k => k.toLowerCase() === seriesName.toLowerCase());
+                    allDrivers.forEach(driver => {
+                        const seriesNames = driver.series ? Object.keys(driver.series) : [];
+                        const sKey = seriesNames.find(k => k.toLowerCase() === seriesName.toLowerCase());
+                        
                         if (sKey) {
-                            const points = driver.series[sKey].stats.points || 0;
+                            const sData = driver.series[sKey];
+                            const points = sData.stats ? (sData.stats.points || 0) : 0;
+                            
                             if (points > maxPoints) {
                                 maxPoints = points;
                                 bestDriver = {
-                                    name: driver.series[sKey].driver_name || driver.display_name,
+                                    name: sData.driver_name || driver.display_name,
                                     points: points
                                 };
                             }
@@ -337,13 +355,23 @@
                                 <span class="leader-name">${bestDriver.name}</span>
                                 <span style="font-size: 0.7rem; color: var(--text-muted);">${bestDriver.points} PTS</span>
                             </div>`;
+                    } else {
+                        // Placeholder if no data for series
+                        html += `
+                            <div style="text-align: center;">
+                                <span class="stat-label">${seriesName}</span>
+                                <span class="leader-name" style="color:#444;">TBD</span>
+                                <span style="font-size: 0.7rem; color: var(--text-muted);">0 PTS</span>
+                            </div>`;
                     }
                 });
                 
                 document.getElementById('leaders-grid').innerHTML = html;
             })
-            .catch(err => console.log("Drivers data error", err));
+            .catch(err => {
+                console.log("Drivers data error", err);
+                document.getElementById('leaders-grid').innerHTML = '<p style="color:#666;">Unable to load leaders.</p>';
+            });
     </script>
 </body>
 </html>
-
