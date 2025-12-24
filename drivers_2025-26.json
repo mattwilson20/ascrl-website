@@ -1,655 +1,23 @@
 {
-    "196864998251692032": {
+    "#01 Duramax18gg": {
         "series": {
-            "Cup": {
-                "number": "1",
-                "team": "Too Broke Racing",
-                "manufacturer": "",
-                "driver_name": "#1 mattwilson20",
+            "Truck": {
                 "stats": {
-                    "points": 229,
+                    "points": 99,
                     "wins": 1,
                     "top5": 2,
-                    "top10": 4,
-                    "poles": 0,
-                    "avg": 8.88
-                }
-            },
-            "Truck": {
-                "number": "44",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#44 mattwilson20",
-                "stats": {
-                    "points": 226,
-                    "wins": 1,
-                    "top5": 2,
-                    "top10": 4,
-                    "poles": 0,
-                    "avg": 9.25
-                }
-            },
-            "Menards": {
-                "number": "82",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#82 mattwilson20",
-                "stats": {
-                    "points": 121,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 12.8
-                }
-            },
-            "Xfinity": {
-                "number": "000",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#000 mattwilson20",
-                "stats": {
-                    "points": 75,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 12.0
-                }
-            }
-        },
-        "display_name": "mattwilson20"
-    },
-    "1182092697310339092": {
-        "series": {
-            "Cup": {
-                "number": "04",
-                "team": "SR Motorsports",
-                "manufacturer": "",
-                "driver_name": "#04 TrumpTrain06",
-                "stats": {
-                    "points": 11,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 26.0
-                }
-            },
-            "Truck": {
-                "number": "54",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#54 TrumpTrain06",
-                "stats": {
-                    "points": 49,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 12.5
-                }
-            },
-            "Menards": {
-                "number": "54",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#54 TrumpTrain06",
-                "stats": {
-                    "points": 18,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 19.0
-                }
-            }
-        },
-        "display_name": "TrumpTrain06"
-    },
-    "1386395396443471873": {
-        "series": {
-            "Cup": {
-                "number": "006",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#006 DeepPulchrify",
-                "stats": {
-                    "points": 40,
-                    "wins": 1,
-                    "top5": 1,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 1.0
-                }
-            },
-            "Truck": {
-                "number": "2",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#2 DeepPulchrify",
-                "stats": {
-                    "points": 35,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 2.0
-                }
-            }
-        },
-        "display_name": "DeepPulchrify"
-    },
-    "414571457373405185": {
-        "series": {
-            "Cup": {
-                "number": "3",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#3 BIG_FELLAx2220",
-                "stats": {
-                    "points": 107,
-                    "wins": 1,
-                    "top5": 3,
-                    "top10": 3,
-                    "poles": 0,
-                    "avg": 3.0
-                }
-            },
-            "Truck": {
-                "number": "81",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#81 BIG_FELLAx2220",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            }
-        },
-        "display_name": "BIG_FELLAx2220"
-    },
-    "1308829427769016331": {
-        "series": {
-            "Cup": {
-                "number": "24",
-                "team": "Apex Racing",
-                "manufacturer": "",
-                "driver_name": "#24 dakotathomas1994",
-                "stats": {
-                    "points": 246,
-                    "wins": 1,
-                    "top5": 5,
-                    "top10": 5,
-                    "poles": 1,
-                    "avg": 6.88
-                }
-            },
-            "Truck": {
-                "number": "9",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#9 dakotathomas1994",
-                "stats": {
-                    "points": 250,
-                    "wins": 0,
-                    "top5": 5,
-                    "top10": 7,
-                    "poles": 0,
-                    "avg": 5.75
-                }
-            },
-            "Menards": {
-                "number": "77",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#77 dakotathomas1994",
-                "stats": {
-                    "points": 148,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 5,
-                    "poles": 0,
-                    "avg": 7.4
-                }
-            },
-            "Xfinity": {
-                "number": "9",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#9 dakotathomas1994",
-                "stats": {
-                    "points": 133,
-                    "wins": 0,
-                    "top5": 1,
                     "top10": 2,
-                    "poles": 0,
-                    "avg": 10.4
-                }
+                    "poles": 2,
+                    "avg": 6.333333333333333
+                },
+                "team": null,
+                "manufacturer": null
             }
-        },
-        "display_name": "dakotathomas1994"
+        }
     },
-    "653629377376026634": {
+    "#03 Ant_was_he": {
         "series": {
-            "Cup": {
-                "number": "6",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#6 rickyspanish1500",
-                "stats": {
-                    "points": 105,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 2,
-                    "poles": 0,
-                    "avg": 10.75
-                }
-            },
             "Truck": {
-                "number": "6",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#6 rickyspanish1500",
-                "stats": {
-                    "points": 94,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 3,
-                    "poles": 1,
-                    "avg": 6.0
-                }
-            }
-        },
-        "display_name": "rickyspanish1500"
-    },
-    "1237419084535173122": {
-        "series": {
-            "Cup": {
-                "number": "005",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#005 Modracer0p",
-                "stats": {
-                    "points": 30,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 22.0
-                }
-            },
-            "Truck": {
-                "number": "15",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#15 Modracer0p",
-                "stats": {
-                    "points": 33,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 4.0
-                }
-            }
-        },
-        "display_name": "Modracer0p"
-    },
-    "1264384107383750801": {
-        "series": {
-            "Cup": {
-                "number": "20",
-                "team": "Gazoo Motorsports",
-                "manufacturer": "",
-                "driver_name": "#20 Fordemgators",
-                "stats": {
-                    "points": 161,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 14.0
-                }
-            },
-            "Truck": {
-                "number": "29",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#29 Fordemgators",
-                "stats": {
-                    "points": 130,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 2,
-                    "poles": 1,
-                    "avg": 11.2
-                }
-            },
-            "Menards": {
-                "number": "16",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#16 Fordemgators",
-                "stats": {
-                    "points": 83,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 2,
-                    "poles": 0,
-                    "avg": 9.33
-                }
-            },
-            "Xfinity": {
-                "number": "82",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#82 Fordemgators",
-                "stats": {
-                    "points": 45,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 14.5
-                }
-            }
-        },
-        "display_name": "Fordemgators"
-    },
-    "1092835109067034735": {
-        "series": {
-            "Cup": {
-                "number": "5",
-                "team": "SR Motorsports",
-                "manufacturer": "",
-                "driver_name": "#5 The_Stone07",
-                "stats": {
-                    "points": 15,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 22.0
-                }
-            },
-            "Truck": {
-                "number": "08",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#08 The_Stone07",
-                "stats": {
-                    "points": 123,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 12.4
-                }
-            },
-            "Menards": {
-                "number": "04",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#04 The_Stone07",
-                "stats": {
-                    "points": 23,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 14.0
-                }
-            },
-            "Xfinity": {
-                "number": "40",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#40 The_Stone07",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            }
-        },
-        "display_name": "The_Stone07"
-    },
-    "728364065096859718": {
-        "series": {
-            "Cup": {
-                "number": "23",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#23 KingG931",
-                "stats": {
-                    "points": 129,
-                    "wins": 0,
-                    "top5": 2,
-                    "top10": 2,
-                    "poles": 0,
-                    "avg": 11.2
-                }
-            }
-        },
-        "display_name": "KingG931"
-    },
-    "1099189840840491068": {
-        "series": {
-            "Cup": {
-                "number": "26",
-                "team": "Apex Racing",
-                "manufacturer": "",
-                "driver_name": "#26 MajorBlaz33",
-                "stats": {
-                    "points": 229,
-                    "wins": 0,
-                    "top5": 2,
-                    "top10": 6,
-                    "poles": 0,
-                    "avg": 8.38
-                }
-            },
-            "Truck": {
-                "number": "10",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#10 MajorBlaz33",
-                "stats": {
-                    "points": 227,
-                    "wins": 1,
-                    "top5": 2,
-                    "top10": 5,
-                    "poles": 0,
-                    "avg": 9.12
-                }
-            },
-            "Menards": {
-                "number": "14",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#14 MajorBlaz33",
-                "stats": {
-                    "points": 65,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 2,
-                    "poles": 0,
-                    "avg": 4.5
-                }
-            },
-            "Xfinity": {
-                "number": "09",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#09 MajorBlaz33",
-                "stats": {
-                    "points": 108,
-                    "wins": 0,
-                    "top5": 2,
-                    "top10": 3,
-                    "poles": 0,
-                    "avg": 10.0
-                }
-            }
-        },
-        "display_name": "MajorBlaz33"
-    },
-    "1353299434104029237": {
-        "series": {
-            "Cup": {
-                "number": "001",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#001 Tacob1990",
-                "stats": {
-                    "points": 45,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 14.5
-                }
-            }
-        },
-        "display_name": "Tacob1990"
-    },
-    "646148654465548290": {
-        "series": {
-            "Cup": {
-                "number": "41",
-                "team": "Backrow Motorsports",
-                "manufacturer": "",
-                "driver_name": "#41 SithWarriorUno",
-                "stats": {
-                    "points": 157,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 3,
-                    "poles": 0,
-                    "avg": 10.83
-                }
-            },
-            "Truck": {
-                "number": "80",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#80 SithWarriorUno",
-                "stats": {
-                    "points": 125,
-                    "wins": 0,
-                    "top5": 2,
-                    "top10": 4,
-                    "poles": 0,
-                    "avg": 6.0
-                }
-            },
-            "Menards": {
-                "number": "41",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#41 SithWarriorUno",
-                "stats": {
-                    "points": 71,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 13.33
-                }
-            },
-            "Xfinity": {
-                "number": "4",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#4 SithWarriorUno",
-                "stats": {
-                    "points": 83,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 2,
-                    "poles": 0,
-                    "avg": 9.33
-                }
-            }
-        },
-        "display_name": "SithWarriorUno"
-    },
-    "209715669120319488": {
-        "series": {
-            "Cup": {
-                "number": "42",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#42 Dezzy_Wezzy_01",
-                "stats": {
-                    "points": 98,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 2,
-                    "poles": 0,
-                    "avg": 12.5
-                }
-            },
-            "Truck": {
-                "number": "34",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#34 Dezzy_Wezzy_01",
-                "stats": {
-                    "points": 121,
-                    "wins": 0,
-                    "top5": 2,
-                    "top10": 3,
-                    "poles": 0,
-                    "avg": 6.75
-                }
-            },
-            "Xfinity": {
-                "number": "20",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#20 Dezzy_Wezzy_01",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            }
-        },
-        "display_name": "Dezzy_Wezzy_01"
-    },
-    "719704149339537509": {
-        "series": {
-            "Cup": {
-                "number": "45",
-                "team": "Gazoo Motorsports",
-                "manufacturer": "",
-                "driver_name": "#45 Ant_was_he",
-                "stats": {
-                    "points": 150,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 3,
-                    "poles": 0,
-                    "avg": 12.0
-                }
-            },
-            "Truck": {
-                "number": "03",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#03 Ant_was_he",
                 "stats": {
                     "points": 106,
                     "wins": 0,
@@ -657,27 +25,11 @@
                     "top10": 2,
                     "poles": 0,
                     "avg": 10.5
-                }
-            },
-            "Menards": {
-                "number": "45",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#45 Ant_was_he",
-                "stats": {
-                    "points": 70,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 13.67
-                }
+                },
+                "team": null,
+                "manufacturer": null
             },
             "Xfinity": {
-                "number": "03",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#03 Ant_was_he",
                 "stats": {
                     "points": 135,
                     "wins": 0,
@@ -685,1376 +37,47 @@
                     "top10": 3,
                     "poles": 0,
                     "avg": 10.0
-                }
+                },
+                "team": null,
+                "manufacturer": null
             }
-        },
-        "display_name": "Ant_was_he"
+        }
     },
-    "1110268909745090560": {
-        "series": {
-            "Cup": {
-                "number": "46",
-                "team": "Backrow Motorsports",
-                "manufacturer": "",
-                "driver_name": "#46 DaltonGregson",
-                "stats": {
-                    "points": 143,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 13.17
-                }
-            },
-            "Truck": {
-                "number": "36",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#36 DaltonGregson",
-                "stats": {
-                    "points": 161,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 3,
-                    "poles": 0,
-                    "avg": 10.17
-                }
-            },
-            "Menards": {
-                "number": "21",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#21 DaltonGregson",
-                "stats": {
-                    "points": 130,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 3,
-                    "poles": 0,
-                    "avg": 11.0
-                }
-            },
-            "Xfinity": {
-                "number": "70",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#70 DaltonGregson",
-                "stats": {
-                    "points": 30,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 7.0
-                }
-            }
-        },
-        "display_name": "DaltonGregson"
-    },
-    "1255555811204272148": {
-        "series": {
-            "Cup": {
-                "number": "57",
-                "team": "SR Motorsports",
-                "manufacturer": "",
-                "driver_name": "#57 The_MadReaper53",
-                "stats": {
-                    "points": 13,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 24.0
-                }
-            },
-            "Truck": {
-                "number": "53",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#53 The_MadReaper53",
-                "stats": {
-                    "points": 35,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 2.0
-                }
-            },
-            "Menards": {
-                "number": "53",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#53 The_MadReaper53",
-                "stats": {
-                    "points": 28,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 9.0
-                }
-            },
-            "Xfinity": {
-                "number": "57",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#57 The_MadReaper53",
-                "stats": {
-                    "points": 45,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 14.5
-                }
-            }
-        },
-        "display_name": "The_MadReaper53"
-    },
-    "749789634476900513": {
-        "series": {
-            "Cup": {
-                "number": "58",
-                "team": "Backrow Motorsports",
-                "manufacturer": "",
-                "driver_name": "#58 On-A-Mission618",
-                "stats": {
-                    "points": 134,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 3,
-                    "poles": 1,
-                    "avg": 14.83
-                }
-            },
-            "Truck": {
-                "number": "58",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#58 On-A-Mission618",
-                "stats": {
-                    "points": 209,
-                    "wins": 1,
-                    "top5": 4,
-                    "top10": 4,
-                    "poles": 0,
-                    "avg": 7.71
-                }
-            },
-            "Xfinity": {
-                "number": "58",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#58 On-A-Mission618",
-                "stats": {
-                    "points": 97,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 12.75
-                }
-            },
-            "Menards": {
-                "number": "58",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#58 On-A-Mission618",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            }
-        },
-        "display_name": "On-A-Mission618"
-    },
-    "881698810210963486": {
-        "series": {
-            "Cup": {
-                "number": "59",
-                "team": "Fast And Loose Racing",
-                "manufacturer": "",
-                "driver_name": "#59 BansihedCrayon",
-                "stats": {
-                    "points": 138,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 14.0
-                }
-            },
-            "Truck": {
-                "number": "59",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#59 BansihedCrayon",
-                "stats": {
-                    "points": 170,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 5,
-                    "poles": 0,
-                    "avg": 8.67
-                }
-            },
-            "Menards": {
-                "number": "59",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#59 BansihedCrayon",
-                "stats": {
-                    "points": 121,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 12.8
-                }
-            },
-            "Xfinity": {
-                "number": "59",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#59 BansihedCrayon",
-                "stats": {
-                    "points": 146,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 5,
-                    "poles": 0,
-                    "avg": 7.8
-                }
-            }
-        },
-        "display_name": "BansihedCrayon"
-    },
-    "926723497546367016": {
-        "series": {
-            "Cup": {
-                "number": "61",
-                "team": "Backrow Motorsports",
-                "manufacturer": "",
-                "driver_name": "#61 Singular_Nacho",
-                "stats": {
-                    "points": 158,
-                    "wins": 0,
-                    "top5": 3,
-                    "top10": 5,
-                    "poles": 0,
-                    "avg": 5.4
-                }
-            },
-            "Menards": {
-                "number": "61",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#61 Singular_Nacho",
-                "stats": {
-                    "points": 188,
-                    "wins": 3,
-                    "top5": 4,
-                    "top10": 5,
-                    "poles": 3,
-                    "avg": 2.6
-                }
-            },
-            "Truck": {
-                "number": "61",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#61 Singular_Nacho",
-                "stats": {
-                    "points": 185,
-                    "wins": 2,
-                    "top5": 5,
-                    "top10": 5,
-                    "poles": 2,
-                    "avg": 2.2
-                }
-            },
-            "Xfinity": {
-                "number": "61",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#61 Singular_Nacho",
-                "stats": {
-                    "points": 158,
-                    "wins": 1,
-                    "top5": 2,
-                    "top10": 4,
-                    "poles": 4,
-                    "avg": 7.0
-                }
-            }
-        },
-        "display_name": "Singular_Nacho"
-    },
-    "1432485477834817607": {
-        "series": {
-            "Cup": {
-                "number": "63",
-                "team": "WHY IS IT SMOKING? MOTORSPORTS",
-                "manufacturer": "",
-                "driver_name": "#63 Lostcozov",
-                "stats": {
-                    "points": 41,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 16.5
-                }
-            },
-            "Truck": {
-                "number": "49",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#49 Lostcozov",
-                "stats": {
-                    "points": 95,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 13.25
-                }
-            },
-            "Xfinity": {
-                "number": "46",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#46 Lostcozov",
-                "stats": {
-                    "points": 49,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 12.5
-                }
-            }
-        },
-        "display_name": "Lostcozov"
-    },
-    "1323671887590592543": {
-        "series": {
-            "Cup": {
-                "number": "64",
-                "team": "Fast And Loose Racing",
-                "manufacturer": "",
-                "driver_name": "#64 SOLID1915ONE",
-                "stats": {
-                    "points": 87,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 15.25
-                }
-            },
-            "Truck": {
-                "number": "7",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#7 SOLID1915ONE",
-                "stats": {
-                    "points": 76,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 11.67
-                }
-            },
-            "Xfinity": {
-                "number": "17",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#17 SOLID1915ONE",
-                "stats": {
-                    "points": 83,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 2,
-                    "poles": 0,
-                    "avg": 9.33
-                }
-            }
-        },
-        "display_name": "SOLID1915ONE"
-    },
-    "630813728236896271": {
-        "series": {
-            "Cup": {
-                "number": "68",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#68 JakeBrannon24",
-                "stats": {
-                    "points": 52,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 11.0
-                }
-            }
-        },
-        "display_name": "JakeBrannon24"
-    },
-    "766025588217085952": {
-        "series": {
-            "Cup": {
-                "number": "71",
-                "team": "Too Broke Racing",
-                "manufacturer": "",
-                "driver_name": "#71 HockeyDeckout",
-                "stats": {
-                    "points": 196,
-                    "wins": 4,
-                    "top5": 4,
-                    "top10": 5,
-                    "poles": 2,
-                    "avg": 2.2
-                }
-            },
-            "Menards": {
-                "number": "5",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#5 HockeyDeckout",
-                "stats": {
-                    "points": 124,
-                    "wins": 0,
-                    "top5": 3,
-                    "top10": 3,
-                    "poles": 2,
-                    "avg": 6.75
-                }
-            },
-            "Xfinity": {
-                "number": "99",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#99 HockeyDeckout",
-                "stats": {
-                    "points": 128,
-                    "wins": 1,
-                    "top5": 2,
-                    "top10": 3,
-                    "poles": 0,
-                    "avg": 6.25
-                }
-            },
-            "Truck": {
-                "number": "22",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#22 HockeyDeckout",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            }
-        },
-        "display_name": "HockeyDeckout"
-    },
-    "336189571991732226": {
-        "series": {
-            "Cup": {
-                "number": "73",
-                "team": "Gazoo Motorsports",
-                "manufacturer": "",
-                "driver_name": "#73 HatterMAD218",
-                "stats": {
-                    "points": 22,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 15.0
-                }
-            },
-            "Truck": {
-                "number": "31",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#31 HatterMAD218",
-                "stats": {
-                    "points": 58,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 8.0
-                }
-            },
-            "Menards": {
-                "number": "64",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#64 HatterMAD218",
-                "stats": {
-                    "points": 46,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 14.0
-                }
-            },
-            "Xfinity": {
-                "number": "64",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#64 HatterMAD218",
-                "stats": {
-                    "points": 25,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 12.0
-                }
-            }
-        },
-        "display_name": "HatterMAD218"
-    },
-    "1324901158971637825": {
-        "series": {
-            "Cup": {
-                "number": "48",
-                "team": "Fast And Loose Racing",
-                "manufacturer": "",
-                "driver_name": "#48 Orangeman96",
-                "stats": {
-                    "points": 171,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 5,
-                    "poles": 1,
-                    "avg": 8.67
-                }
-            },
-            "Truck": {
-                "number": "96",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#96 Orangeman96",
-                "stats": {
-                    "points": 165,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 4,
-                    "poles": 0,
-                    "avg": 9.5
-                }
-            },
-            "Menards": {
-                "number": "74",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#74 Orangeman96",
-                "stats": {
-                    "points": 124,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 2,
-                    "poles": 0,
-                    "avg": 12.2
-                }
-            },
-            "Xfinity": {
-                "number": "7",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#7 Orangeman96",
-                "stats": {
-                    "points": 145,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 4,
-                    "poles": 0,
-                    "avg": 8.0
-                }
-            }
-        },
-        "display_name": "Orangeman96"
-    },
-    "690068671980371992": {
-        "series": {
-            "Cup": {
-                "number": "77",
-                "team": "Apex Racing",
-                "manufacturer": "",
-                "driver_name": "#77 Dewshine_02",
-                "stats": {
-                    "points": 184,
-                    "wins": 0,
-                    "top5": 3,
-                    "top10": 5,
-                    "poles": 2,
-                    "avg": 6.67
-                }
-            },
-            "Truck": {
-                "number": "71",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#71 Dewshine_02",
-                "stats": {
-                    "points": 159,
-                    "wins": 1,
-                    "top5": 2,
-                    "top10": 4,
-                    "poles": 2,
-                    "avg": 6.6
-                }
-            },
-            "Menards": {
-                "number": "35",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#35 Dewshine_02",
-                "stats": {
-                    "points": 78,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 11.0
-                }
-            },
-            "Xfinity": {
-                "number": "35",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#35 Dewshine_02",
-                "stats": {
-                    "points": 143,
-                    "wins": 0,
-                    "top5": 3,
-                    "top10": 3,
-                    "poles": 0,
-                    "avg": 8.6
-                }
-            }
-        },
-        "display_name": "Dewshine_02"
-    },
-    "774425608293318666": {
-        "series": {
-            "Cup": {
-                "number": "9",
-                "team": "Apex Racing",
-                "manufacturer": "",
-                "driver_name": "#9 lnfvmous_-",
-                "stats": {
-                    "points": 85,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 15.75
-                }
-            },
-            "Menards": {
-                "number": "9",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#9 lnfvmous_-",
-                "stats": {
-                    "points": 107,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 2,
-                    "poles": 0,
-                    "avg": 10.25
-                }
-            },
-            "Truck": {
-                "number": "11",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#11 lnfvmous_-",
-                "stats": {
-                    "points": 20,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 17.0
-                }
-            }
-        },
-        "display_name": "lnfvmous_-"
-    },
-    "177174953014067200": {
-        "series": {
-            "Cup": {
-                "number": "003",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#003 zaptear",
-                "stats": {
-                    "points": 27,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 23.5
-                }
-            },
-            "Truck": {
-                "number": "85",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#85 zaptear",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            },
-            "Menards": {
-                "number": "78",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#78 zaptear",
-                "stats": {
-                    "points": 24,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 13.0
-                }
-            }
-        },
-        "display_name": "zaptear"
-    },
-    "307342633704095745": {
-        "series": {
-            "Cup": {
-                "number": "88",
-                "team": "Fast And Loose Racing",
-                "manufacturer": "",
-                "driver_name": "#88 xX8LRACINGXx",
-                "stats": {
-                    "points": 111,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 3,
-                    "poles": 0,
-                    "avg": 9.25
-                }
-            },
-            "Truck": {
-                "number": "88",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#88 xX8LRACINGXx",
-                "stats": {
-                    "points": 84,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 3,
-                    "poles": 0,
-                    "avg": 9.0
-                }
-            },
-            "Menards": {
-                "number": "88",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#88 xX8LRACINGXx",
-                "stats": {
-                    "points": 56,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 9.0
-                }
-            },
-            "Xfinity": {
-                "number": "88",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#88 xX8LRACINGXx",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            }
-        },
-        "display_name": "xX8LRACINGXx"
-    },
-    "1156655071451414601": {
-        "series": {
-            "Cup": {
-                "number": "94",
-                "team": "Too Broke Racing",
-                "manufacturer": "",
-                "driver_name": "#94 DGibby17",
-                "stats": {
-                    "points": 188,
-                    "wins": 0,
-                    "top5": 3,
-                    "top10": 6,
-                    "poles": 0,
-                    "avg": 5.83
-                }
-            },
-            "Menards": {
-                "number": "94",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#94 DGibby17",
-                "stats": {
-                    "points": 63,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 2,
-                    "poles": 0,
-                    "avg": 5.5
-                }
-            },
-            "Xfinity": {
-                "number": "94",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#94 DGibby17",
-                "stats": {
-                    "points": 69,
-                    "wins": 0,
-                    "top5": 2,
-                    "top10": 2,
-                    "poles": 0,
-                    "avg": 2.5
-                }
-            },
-            "Truck": {
-                "number": "92",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#92 DGibby17",
-                "stats": {
-                    "points": 76,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 2,
-                    "poles": 0,
-                    "avg": 11.67
-                }
-            }
-        },
-        "display_name": "DGibby17"
-    },
-    "978373683599007815": {
+    "#08 The_Stone07": {
         "series": {
             "Truck": {
-                "number": "1",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#1 Leascardigan",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            }
-        },
-        "display_name": "Leascardigan"
-    },
-    "750570435380248678": {
-        "series": {
-            "Truck": {
-                "number": "5",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#5 kevwood87",
-                "stats": {
-                    "points": 96,
-                    "wins": 0,
-                    "top5": 2,
-                    "top10": 3,
-                    "poles": 0,
-                    "avg": 5.0
-                }
-            },
-            "Menards": {
-                "number": "6",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#6 kevwood87",
-                "stats": {
-                    "points": 141,
-                    "wins": 1,
-                    "top5": 4,
-                    "top10": 4,
-                    "poles": 0,
-                    "avg": 3.0
-                }
-            },
-            "Xfinity": {
-                "number": "91",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#91 kevwood87",
-                "stats": {
-                    "points": 97,
-                    "wins": 1,
-                    "top5": 2,
-                    "top10": 2,
-                    "poles": 0,
-                    "avg": 6.33
-                }
-            }
-        },
-        "display_name": "kevwood87"
-    },
-    "933470832993378344": {
-        "series": {
-            "Truck": {
-                "number": "52",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#52 Brentski",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            }
-        },
-        "display_name": "Brentski"
-    },
-    "1219866294854221937": {
-        "series": {
-            "Truck": {
-                "number": "64",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#64 wavy_delta41",
-                "stats": {
-                    "points": 34,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 3.0
-                }
-            }
-        },
-        "display_name": "wavy_delta41"
-    },
-    "223913114851213312": {
-        "series": {
-            "Truck": {
-                "number": "73",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#73 TheReaperRhino",
-                "stats": {
-                    "points": 178,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 3,
-                    "poles": 0,
-                    "avg": 11.71
-                }
-            },
-            "Cup": {
-                "number": "74",
-                "team": "WHY IS IT SMOKING? MOTORSPORTS",
-                "manufacturer": "",
-                "driver_name": "#74 TheReaperRhino",
-                "stats": {
-                    "points": 213,
-                    "wins": 0,
-                    "top5": 5,
-                    "top10": 5,
-                    "poles": 0,
-                    "avg": 6.71
-                }
-            },
-            "Xfinity": {
-                "number": "73",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#73 TheReaperRhino",
-                "stats": {
-                    "points": 21,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 16.0
-                }
-            }
-        },
-        "display_name": "TheReaperRhino"
-    },
-    "931362210465325106": {
-        "series": {
-            "Cup": {
-                "number": "002",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#002 shenanigas69",
-                "stats": {
-                    "points": 31,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 6.0
-                }
-            },
-            "Truck": {
-                "number": "68",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#68 shenanigas69",
-                "stats": {
-                    "points": 28,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 9.0
-                }
-            }
-        },
-        "display_name": "shenanigas69"
-    },
-    "978830414980481024": {
-        "series": {
-            "Menards": {
-                "number": "33",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#33 xxspecxx23",
-                "stats": {
-                    "points": 47,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 13.5
-                }
-            },
-            "Xfinity": {
-                "number": "05",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#05 xxspecxx23",
-                "stats": {
-                    "points": 29,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 8.0
-                }
-            },
-            "Truck": {
-                "number": "33",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#33 xxspecxx23",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            },
-            "Cup": {
-                "number": "33",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#33 xxspecxx23",
-                "stats": {
-                    "points": 26,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 11.0
-                }
-            }
-        },
-        "display_name": "xxspecxx23"
-    },
-    "1169781983036055564": {
-        "series": {
-            "Xfinity": {
-                "number": "81",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#81 K7_Dalton",
-                "stats": {
-                    "points": 26,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 11.0
-                }
-            },
-            "Menards": {
-                "number": "09",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#09 K7_Dalton",
                 "stats": {
                     "points": 123,
                     "wins": 0,
-                    "top5": 2,
-                    "top10": 3,
-                    "poles": 0,
-                    "avg": 6.25
-                }
-            },
-            "Cup": {
-                "number": "39",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#39 K7_Dalton",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            }
-        },
-        "display_name": "K7_Dalton"
-    },
-    "1432129684081999957": {
-        "series": {
-            "Xfinity": {
-                "number": "21",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#21 Unknown Driver",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            }
-        },
-        "display_name": "Unknown Driver"
-    },
-    "1187254765667762281": {
-        "series": {
-            "Xfinity": {
-                "number": "1",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#1 Duramax18gg",
-                "stats": {
-                    "points": 67,
-                    "wins": 0,
                     "top5": 1,
-                    "top10": 2,
+                    "top10": 1,
                     "poles": 0,
-                    "avg": 4.0
-                }
-            },
+                    "avg": 12.4
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#10 MajorBlaz33": {
+        "series": {
             "Truck": {
-                "number": "01",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#01 Duramax18gg",
                 "stats": {
-                    "points": 99,
+                    "points": 227,
                     "wins": 1,
                     "top5": 2,
-                    "top10": 2,
-                    "poles": 2,
-                    "avg": 6.33
-                }
+                    "top10": 5,
+                    "poles": 0,
+                    "avg": 9.125
+                },
+                "team": null,
+                "manufacturer": null
             }
-        },
-        "display_name": "Duramax18gg"
+        }
     },
-    "271508381506732032": {
-        "series": {
-            "Menards": {
-                "number": "44",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#44 ALESSI-20-11",
-                "stats": {
-                    "points": 109,
-                    "wins": 1,
-                    "top5": 3,
-                    "top10": 3,
-                    "poles": 0,
-                    "avg": 2.67
-                }
-            },
-            "Truck": {
-                "number": "30",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#30 ALESSI-20-11",
-                "stats": {
-                    "points": 17,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 20.0
-                }
-            },
-            "Xfinity": {
-                "number": "60",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#60 ALESSI-20-11",
-                "stats": {
-                    "points": 112,
-                    "wins": 2,
-                    "top5": 3,
-                    "top10": 3,
-                    "poles": 0,
-                    "avg": 2.33
-                }
-            },
-            "Cup": {
-                "number": "32",
-                "team": "Too Broke Racing",
-                "manufacturer": "",
-                "driver_name": "#32 ALESSI-20-11",
-                "stats": {
-                    "points": 69,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 14.0
-                }
-            }
-        },
-        "display_name": "ALESSI-20-11"
-    },
-    "1343100447703040000": {
-        "series": {
-            "Menards": {
-                "number": "06",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#06 A54buickbandit",
-                "stats": {
-                    "points": 63,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 2,
-                    "poles": 0,
-                    "avg": 5.5
-                }
-            },
-            "Xfinity": {
-                "number": "53",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#53 A54buickbandit",
-                "stats": {
-                    "points": 58,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 8.0
-                }
-            },
-            "Cup": {
-                "number": "60",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#60 A54buickbandit",
-                "stats": {
-                    "points": 29,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 8.0
-                }
-            },
-            "Truck": {
-                "number": "28",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#28 A54buickbandit",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            }
-        },
-        "display_name": "A54buickbandit"
-    },
-    "613170561333592144": {
+    "#11 lnfvmous_-": {
         "series": {
             "Truck": {
-                "number": "65",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#65 MrSmooth-21",
-                "stats": {
-                    "points": 40,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 17.0
-                }
-            },
-            "Xfinity": {
-                "number": "52",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#52 MrSmooth-21",
                 "stats": {
                     "points": 20,
                     "wins": 0,
@@ -2062,192 +85,15 @@
                     "top10": 0,
                     "poles": 0,
                     "avg": 17.0
-                }
+                },
+                "team": null,
+                "manufacturer": null
             }
-        },
-        "display_name": "MrSmooth-21"
+        }
     },
-    "1324218531788754998": {
-        "series": {
-            "Cup": {
-                "number": "05",
-                "team": "WHY IS IT SMOKING? MOTORSPORTS",
-                "manufacturer": "",
-                "driver_name": "#05 ThirstTrapToby",
-                "stats": {
-                    "points": 43,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 15.5
-                }
-            },
-            "Truck": {
-                "number": "87",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#87 ThirstTrapToby",
-                "stats": {
-                    "points": 23,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 14.0
-                }
-            },
-            "Xfinity": {
-                "number": "06",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#06 ThirstTrapToby",
-                "stats": {
-                    "points": 77,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 11.33
-                }
-            }
-        },
-        "display_name": "ThirstTrapToby"
-    },
-    "1086668455861833769": {
+    "#15 Modracer0p": {
         "series": {
             "Truck": {
-                "number": "94",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#94 LBR_notjayce421",
-                "stats": {
-                    "points": 25,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 12.0
-                }
-            },
-            "Xfinity": {
-                "number": "67",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#67 LBR_notjayce421",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            }
-        },
-        "display_name": "LBR_notjayce421"
-    },
-    "637805378913959959": {
-        "series": {
-            "Xfinity": {
-                "number": "25",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#25 J_Frosty89",
-                "stats": {
-                    "points": 30,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 7.0
-                }
-            }
-        },
-        "display_name": "J_Frosty89"
-    },
-    "553574051168256012": {
-        "series": {
-            "Xfinity": {
-                "number": "14",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#14 GoBlue_Tater",
-                "stats": {
-                    "points": 35,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 2.0
-                }
-            },
-            "Menards": {
-                "number": "55",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#55 GoBlue_Tater",
-                "stats": {
-                    "points": 28,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 9.0
-                }
-            }
-        },
-        "display_name": "GoBlue_Tater"
-    },
-    "602755842827354134": {
-        "series": {
-            "Xfinity": {
-                "number": "51",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#51 CallMeMillion",
-                "stats": {
-                    "points": 37,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 1,
-                    "poles": 1,
-                    "avg": 2.0
-                }
-            },
-            "Menards": {
-                "number": "30",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#30 CallMeMillion",
-                "stats": {
-                    "points": 30,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 7.0
-                }
-            },
-            "Truck": {
-                "number": "19",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#19 CallMeMillion",
-                "stats": {
-                    "points": 26,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 11.0
-                }
-            },
-            "Cup": {
-                "number": "12",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#12 CallMeMillion",
                 "stats": {
                     "points": 33,
                     "wins": 0,
@@ -2255,687 +101,2058 @@
                     "top10": 1,
                     "poles": 0,
                     "avg": 4.0
-                }
+                },
+                "team": null,
+                "manufacturer": null
             }
-        },
-        "display_name": "CallMeMillion"
+        }
     },
-    "1449620413045932042": {
+    "#19 CallMeMillion": {
         "series": {
             "Truck": {
-                "number": "05",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#05 nascar_kam",
                 "stats": {
-                    "points": 0,
+                    "points": 26,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "avg": "N/A"
-                }
-            },
-            "Xfinity": {
-                "number": "04",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#04 nascar_kam",
+                    "avg": 11.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#2 DeepPulchrify": {
+        "series": {
+            "Truck": {
                 "stats": {
-                    "points": 0,
+                    "points": 35,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 2.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#29 Fordemgators": {
+        "series": {
+            "Truck": {
+                "stats": {
+                    "points": 130,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 2,
+                    "poles": 1,
+                    "avg": 11.2
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#30 ALESSI-20-11": {
+        "series": {
+            "Truck": {
+                "stats": {
+                    "points": 17,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "avg": "N/A"
-                }
-            },
-            "Cup": {
-                "number": "81",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#81 nascar_kam",
+                    "avg": 20.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#31 HatterMAD218": {
+        "series": {
+            "Truck": {
                 "stats": {
-                    "points": 0,
+                    "points": 58,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 8.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#34 Dezzy_Wezzy_01": {
+        "series": {
+            "Truck": {
+                "stats": {
+                    "points": 121,
+                    "wins": 0,
+                    "top5": 2,
+                    "top10": 3,
+                    "poles": 0,
+                    "avg": 6.75
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#36 DaltonGregson": {
+        "series": {
+            "Truck": {
+                "stats": {
+                    "points": 161,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 3,
+                    "poles": 0,
+                    "avg": 10.166666666666666
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#44 mattwilson20": {
+        "series": {
+            "Truck": {
+                "stats": {
+                    "points": 226,
+                    "wins": 1,
+                    "top5": 2,
+                    "top10": 4,
+                    "poles": 0,
+                    "avg": 9.25
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#49 Lostcozov": {
+        "series": {
+            "Truck": {
+                "stats": {
+                    "points": 95,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 0,
+                    "top10": 1,
                     "poles": 0,
-                    "avg": "N/A"
-                }
+                    "avg": 13.25
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#5 kevwood87": {
+        "series": {
+            "Truck": {
+                "stats": {
+                    "points": 96,
+                    "wins": 0,
+                    "top5": 2,
+                    "top10": 3,
+                    "poles": 0,
+                    "avg": 5.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#53 The_MadReaper53": {
+        "series": {
+            "Truck": {
+                "stats": {
+                    "points": 35,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 2.0
+                },
+                "team": null,
+                "manufacturer": null
             },
             "Menards": {
-                "number": "08",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#08 nascar_kam",
                 "stats": {
-                    "points": 0,
+                    "points": 28,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 0,
+                    "top10": 1,
                     "poles": 0,
-                    "avg": "N/A"
-                }
+                    "avg": 9.0
+                },
+                "team": null,
+                "manufacturer": null
             }
-        },
-        "display_name": "nascar_kam"
+        }
     },
-    "980098999631618048": {
+    "#54 TrumpTrain06": {
         "series": {
-            "Cup": {
-                "number": "16",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#16 LaKilleBryant",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            },
-            "Xfinity": {
-                "number": "16",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#16 LaKilleBryant",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            },
             "Truck": {
-                "number": "50",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#50 LaKilleBryant",
                 "stats": {
-                    "points": 0,
+                    "points": 49,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 0,
+                    "top10": 1,
                     "poles": 0,
-                    "avg": "N/A"
-                }
-            }
-        },
-        "display_name": "LaKilleBryant"
-    },
-    "654089357115916305": {
-        "series": {
-            "Cup": {
-                "number": "22",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#22 Jdgang32",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            },
-            "Xfinity": {
-                "number": "44",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#44 Jdgang32",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            },
-            "Truck": {
-                "number": "45",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#45 Jdgang32",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
+                    "avg": 12.5
+                },
+                "team": null,
+                "manufacturer": null
             },
             "Menards": {
-                "number": "19",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#19 Jdgang32",
                 "stats": {
-                    "points": 0,
+                    "points": 18,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "avg": "N/A"
-                }
+                    "avg": 19.0
+                },
+                "team": null,
+                "manufacturer": null
             }
-        },
-        "display_name": "Jdgang32"
+        }
     },
-    "725157771187716136": {
+    "#58 On-A-Mission618": {
         "series": {
-            "Xfinity": {
-                "number": "83",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#83 C0mpl1c8ed",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            },
             "Truck": {
-                "number": "83",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#83 C0mpl1c8ed",
                 "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
+                    "points": 209,
+                    "wins": 1,
+                    "top5": 4,
+                    "top10": 4,
                     "poles": 0,
-                    "avg": "N/A"
-                }
-            },
-            "Cup": {
-                "number": "83",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#83 C0mpl1c8ed",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            }
-        },
-        "display_name": "C0mpl1c8ed"
-    },
-    "1395112541633642531": {
-        "series": {
-            "Cup": {
-                "number": "65",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#65 RCR3LEGEND-",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            }
-        },
-        "display_name": "RCR3LEGEND-"
-    },
-    "801507457738342450": {
-        "series": {
-            "Cup": {
-                "number": "19",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#19 johnrymer86",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            },
-            "Truck": {
-                "number": "18",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#18 johnrymer86",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
+                    "avg": 7.714285714285714
+                },
+                "team": null,
+                "manufacturer": null
             },
             "Xfinity": {
-                "number": "54",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#54 johnrymer86",
                 "stats": {
-                    "points": 0,
+                    "points": 97,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 12.75
+                },
+                "team": null,
+                "manufacturer": null
+            },
+            "Cup": {
+                "stats": {
+                    "points": 134,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 3,
+                    "poles": 1,
+                    "avg": 14.833333333333334
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#59 BansihedCrayon": {
+        "series": {
+            "Truck": {
+                "stats": {
+                    "points": 170,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 0,
+                    "top10": 5,
                     "poles": 0,
-                    "avg": "N/A"
-                }
+                    "avg": 8.666666666666666
+                },
+                "team": null,
+                "manufacturer": null
             },
             "Menards": {
-                "number": "18",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#18 johnrymer86",
                 "stats": {
-                    "points": 0,
+                    "points": 121,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 0,
+                    "top10": 1,
                     "poles": 0,
-                    "avg": "N/A"
-                }
-            }
-        },
-        "display_name": "johnrymer86"
-    },
-    "1052353728725921903": {
-        "series": {
+                    "avg": 12.8
+                },
+                "team": null,
+                "manufacturer": null
+            },
             "Xfinity": {
-                "number": "2",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#2 OP123PLAYZ",
                 "stats": {
-                    "points": 0,
+                    "points": 146,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 0,
+                    "top10": 5,
                     "poles": 0,
-                    "avg": "N/A"
-                }
-            }
-        },
-        "display_name": "OP123PLAYZ"
-    },
-    "808878779615150120": {
-        "series": {
+                    "avg": 7.8
+                },
+                "team": null,
+                "manufacturer": null
+            },
             "Cup": {
-                "number": "51",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#51 punish_r22",
                 "stats": {
-                    "points": 0,
+                    "points": 138,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 0,
+                    "top10": 1,
                     "poles": 0,
-                    "avg": "N/A"
-                }
-            },
-            "Xfinity": {
-                "number": "39",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#39 punish_r22",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            },
-            "Menards": {
-                "number": "67",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#67 punish_r22",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            },
+                    "avg": 14.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#6 rickyspanish1500": {
+        "series": {
             "Truck": {
-                "number": "66",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#66 punish_r22",
                 "stats": {
-                    "points": 0,
+                    "points": 94,
                     "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            }
-        },
-        "display_name": "punish_r22"
-    },
-    "970799999912935434": {
-        "series": {
-            "Cup": {
-                "number": "44",
-                "team": "GREAT LAKES RACING",
-                "manufacturer": "",
-                "driver_name": "#44 OprahsKooter69",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
+                    "top5": 1,
+                    "top10": 3,
+                    "poles": 1,
+                    "avg": 6.0
+                },
+                "team": null,
+                "manufacturer": null
             },
-            "Xfinity": {
-                "number": "8",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#8 OprahsKooter69",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            }
-        },
-        "display_name": "OprahsKooter69"
-    },
-    "1313765402484015115": {
-        "series": {
             "Cup": {
-                "number": "86",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#86 crowndeshon",
                 "stats": {
-                    "points": 0,
+                    "points": 105,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 0,
+                    "top10": 2,
                     "poles": 0,
-                    "avg": "N/A"
-                }
+                    "avg": 10.75
+                },
+                "team": null,
+                "manufacturer": null
             }
-        },
-        "display_name": "crowndeshon"
+        }
     },
-    "939164674669309985": {
+    "#61 Singular_Nacho": {
         "series": {
-            "Cup": {
-                "number": "08",
-                "team": "GREAT LAKES RACING",
-                "manufacturer": "",
-                "driver_name": "#08 Katlitterous",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            },
-            "Xfinity": {
-                "number": "37",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#37 Katlitterous",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            }
-        },
-        "display_name": "Katlitterous"
-    },
-    "1252724674442563717": {
-        "series": {
-            "Cup": {
-                "number": "72",
-                "team": "GREAT LAKES RACING",
-                "manufacturer": "",
-                "driver_name": "#72 tonythetiger2014",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            },
-            "Xfinity": {
-                "number": "55",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#55 tonythetiger2014",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            }
-        },
-        "display_name": "tonythetiger2014"
-    },
-    "1273121113890619503": {
-        "series": {
-            "Cup": {
-                "number": "82",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#82 Avelo5801",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            },
             "Truck": {
-                "number": "82",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#82 Avelo5801",
                 "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            }
-        },
-        "display_name": "Avelo5801"
-    },
-    "1217977701500194866": {
-        "series": {
+                    "points": 185,
+                    "wins": 2,
+                    "top5": 5,
+                    "top10": 5,
+                    "poles": 2,
+                    "avg": 2.2
+                },
+                "team": null,
+                "manufacturer": null
+            },
+            "Menards": {
+                "stats": {
+                    "points": 188,
+                    "wins": 3,
+                    "top5": 4,
+                    "top10": 5,
+                    "poles": 3,
+                    "avg": 2.6
+                },
+                "team": null,
+                "manufacturer": null
+            },
             "Xfinity": {
-                "number": "10",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#10 littlerock1214",
                 "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
+                    "points": 158,
+                    "wins": 1,
+                    "top5": 2,
+                    "top10": 4,
+                    "poles": 4,
+                    "avg": 7.0
+                },
+                "team": null,
+                "manufacturer": null
             },
             "Cup": {
-                "number": "43",
-                "team": "GREAT LAKES RACING",
-                "manufacturer": "",
-                "driver_name": "#43 littlerock1214",
                 "stats": {
-                    "points": 0,
+                    "points": 158,
                     "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
+                    "top5": 3,
+                    "top10": 5,
                     "poles": 0,
-                    "avg": "N/A"
-                }
+                    "avg": 5.4
+                },
+                "team": null,
+                "manufacturer": null
             }
-        },
-        "display_name": "littlerock1214"
+        }
     },
-    "1452703742704222455": {
+    "#64 wavy_delta41": {
         "series": {
-            "Cup": {
-                "number": "85",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#85 Z71chevymanz71",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": "N/A"
-                }
-            },
             "Truck": {
-                "number": "86",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#86 Z71chevymanz71",
                 "stats": {
-                    "points": 0,
+                    "points": 34,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 3.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#65 MrSmooth-21": {
+        "series": {
+            "Truck": {
+                "stats": {
+                    "points": 40,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "avg": "N/A"
-                }
+                    "avg": 17.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#68 shenanigas69": {
+        "series": {
+            "Truck": {
+                "stats": {
+                    "points": 28,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 9.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#7 SOLID1915ONE": {
+        "series": {
+            "Truck": {
+                "stats": {
+                    "points": 76,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 11.666666666666666
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#71 Dewshine_02": {
+        "series": {
+            "Truck": {
+                "stats": {
+                    "points": 159,
+                    "wins": 1,
+                    "top5": 2,
+                    "top10": 4,
+                    "poles": 2,
+                    "avg": 6.6
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#73 TheReaperRhino": {
+        "series": {
+            "Truck": {
+                "stats": {
+                    "points": 178,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 3,
+                    "poles": 0,
+                    "avg": 11.714285714285714
+                },
+                "team": null,
+                "manufacturer": null
             },
             "Xfinity": {
-                "number": "85",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#85 Z71chevymanz71",
                 "stats": {
-                    "points": 0,
+                    "points": 21,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "avg": "N/A"
-                }
+                    "avg": 16.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#80 SithWarriorUno": {
+        "series": {
+            "Truck": {
+                "stats": {
+                    "points": 125,
+                    "wins": 0,
+                    "top5": 2,
+                    "top10": 4,
+                    "poles": 0,
+                    "avg": 6.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#87 ThirstTrapToby": {
+        "series": {
+            "Truck": {
+                "stats": {
+                    "points": 23,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 14.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#88 xX8LRACINGXx": {
+        "series": {
+            "Truck": {
+                "stats": {
+                    "points": 84,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 3,
+                    "poles": 0,
+                    "avg": 9.0
+                },
+                "team": null,
+                "manufacturer": null
             },
             "Menards": {
-                "number": "84",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#84 Z71chevymanz71",
                 "stats": {
-                    "points": 0,
+                    "points": 56,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 9.0
+                },
+                "team": null,
+                "manufacturer": null
+            },
+            "Cup": {
+                "stats": {
+                    "points": 111,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 3,
+                    "poles": 0,
+                    "avg": 9.25
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#9 dakotathomas1994": {
+        "series": {
+            "Truck": {
+                "stats": {
+                    "points": 250,
+                    "wins": 0,
+                    "top5": 5,
+                    "top10": 7,
+                    "poles": 0,
+                    "avg": 5.75
+                },
+                "team": null,
+                "manufacturer": null
+            },
+            "Xfinity": {
+                "stats": {
+                    "points": 133,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 2,
+                    "poles": 0,
+                    "avg": 10.4
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#92 DGibby17": {
+        "series": {
+            "Truck": {
+                "stats": {
+                    "points": 76,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 2,
+                    "poles": 0,
+                    "avg": 11.666666666666666
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#94 LBR_notjayce421": {
+        "series": {
+            "Truck": {
+                "stats": {
+                    "points": 25,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "avg": "N/A"
-                }
+                    "avg": 12.0
+                },
+                "team": null,
+                "manufacturer": null
             }
-        },
-        "display_name": "Z71chevymanz71"
+        }
     },
-    "1441870473641332863": {
+    "#96 Orangeman96": {
+        "series": {
+            "Truck": {
+                "stats": {
+                    "points": 165,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 4,
+                    "poles": 0,
+                    "avg": 9.5
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "A54buickbandit": {
+        "series": {
+            "Truck": {
+                "stats": {
+                    "points": 31,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 6.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "HockeyDeckout": {
+        "series": {
+            "Truck": {
+                "stats": {
+                    "points": 41,
+                    "wins": 1,
+                    "top5": 1,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 1.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "ThirstTrapToby": {
+        "series": {
+            "Truck": {
+                "stats": {
+                    "points": 18,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 19.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#04 The_Stone07": {
         "series": {
             "Menards": {
-                "number": "20",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#20 SpeedyDangorus",
                 "stats": {
-                    "points": 0,
+                    "points": 23,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "avg": "N/A"
-                }
+                    "avg": 14.0
+                },
+                "team": null,
+                "manufacturer": null
             }
-        },
-        "display_name": "SpeedyDangorus"
+        }
     },
-    "1066200983442554940": {
+    "#06 A54buickbandit": {
+        "series": {
+            "Menards": {
+                "stats": {
+                    "points": 63,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 2,
+                    "poles": 0,
+                    "avg": 5.5
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#09 K7_Dalton": {
+        "series": {
+            "Menards": {
+                "stats": {
+                    "points": 123,
+                    "wins": 0,
+                    "top5": 2,
+                    "top10": 3,
+                    "poles": 0,
+                    "avg": 6.25
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#14 MajorBlaz33": {
+        "series": {
+            "Menards": {
+                "stats": {
+                    "points": 65,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 2,
+                    "poles": 0,
+                    "avg": 4.5
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#16 Fordemgators": {
+        "series": {
+            "Menards": {
+                "stats": {
+                    "points": 83,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 2,
+                    "poles": 0,
+                    "avg": 9.333333333333334
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#21 DaltonGregson": {
+        "series": {
+            "Menards": {
+                "stats": {
+                    "points": 130,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 3,
+                    "poles": 0,
+                    "avg": 11.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#30 CallMeMillion": {
+        "series": {
+            "Menards": {
+                "stats": {
+                    "points": 30,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 7.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#33 xxspecxx23": {
+        "series": {
+            "Menards": {
+                "stats": {
+                    "points": 47,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 13.5
+                },
+                "team": null,
+                "manufacturer": null
+            },
+            "Cup": {
+                "stats": {
+                    "points": 26,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 11.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#35 Dewshine_02": {
+        "series": {
+            "Menards": {
+                "stats": {
+                    "points": 78,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 11.0
+                },
+                "team": null,
+                "manufacturer": null
+            },
+            "Xfinity": {
+                "stats": {
+                    "points": 143,
+                    "wins": 0,
+                    "top5": 3,
+                    "top10": 3,
+                    "poles": 0,
+                    "avg": 8.6
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#41 SithWarriorUno": {
+        "series": {
+            "Menards": {
+                "stats": {
+                    "points": 71,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 13.333333333333334
+                },
+                "team": null,
+                "manufacturer": null
+            },
+            "Cup": {
+                "stats": {
+                    "points": 157,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 3,
+                    "poles": 0,
+                    "avg": 10.833333333333334
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#44 ALESSI-20-11": {
+        "series": {
+            "Menards": {
+                "stats": {
+                    "points": 109,
+                    "wins": 1,
+                    "top5": 3,
+                    "top10": 3,
+                    "poles": 0,
+                    "avg": 2.6666666666666665
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#45 Ant_was_he": {
+        "series": {
+            "Menards": {
+                "stats": {
+                    "points": 70,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 13.666666666666666
+                },
+                "team": null,
+                "manufacturer": null
+            },
+            "Cup": {
+                "stats": {
+                    "points": 150,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 3,
+                    "poles": 0,
+                    "avg": 12.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#5 HockeyDeckout": {
+        "series": {
+            "Menards": {
+                "stats": {
+                    "points": 124,
+                    "wins": 0,
+                    "top5": 3,
+                    "top10": 3,
+                    "poles": 2,
+                    "avg": 6.75
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#55 GoBlue_Tater": {
+        "series": {
+            "Menards": {
+                "stats": {
+                    "points": 28,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 9.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#6 kevwood87": {
+        "series": {
+            "Menards": {
+                "stats": {
+                    "points": 141,
+                    "wins": 1,
+                    "top5": 4,
+                    "top10": 4,
+                    "poles": 0,
+                    "avg": 3.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#64 HatterMAD218": {
+        "series": {
+            "Menards": {
+                "stats": {
+                    "points": 46,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 14.0
+                },
+                "team": null,
+                "manufacturer": null
+            },
+            "Xfinity": {
+                "stats": {
+                    "points": 25,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 12.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#74 Orangeman96": {
+        "series": {
+            "Menards": {
+                "stats": {
+                    "points": 124,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 2,
+                    "poles": 0,
+                    "avg": 12.2
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#77 dakotathomas1994": {
+        "series": {
+            "Menards": {
+                "stats": {
+                    "points": 148,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 5,
+                    "poles": 0,
+                    "avg": 7.4
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#78 zaptear": {
+        "series": {
+            "Menards": {
+                "stats": {
+                    "points": 24,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 13.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#82 mattwilson20": {
+        "series": {
+            "Menards": {
+                "stats": {
+                    "points": 121,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 12.8
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#9 lnfvmous_-": {
+        "series": {
+            "Menards": {
+                "stats": {
+                    "points": 107,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 2,
+                    "poles": 0,
+                    "avg": 10.25
+                },
+                "team": null,
+                "manufacturer": null
+            },
+            "Cup": {
+                "stats": {
+                    "points": 85,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 15.75
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#94 DGibby17": {
+        "series": {
+            "Menards": {
+                "stats": {
+                    "points": 63,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 2,
+                    "poles": 0,
+                    "avg": 5.5
+                },
+                "team": null,
+                "manufacturer": null
+            },
+            "Xfinity": {
+                "stats": {
+                    "points": 69,
+                    "wins": 0,
+                    "top5": 2,
+                    "top10": 2,
+                    "poles": 0,
+                    "avg": 2.5
+                },
+                "team": null,
+                "manufacturer": null
+            },
+            "Cup": {
+                "stats": {
+                    "points": 188,
+                    "wins": 0,
+                    "top5": 3,
+                    "top10": 6,
+                    "poles": 0,
+                    "avg": 5.833333333333333
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "BIG_FELLAx2220": {
+        "series": {
+            "Menards": {
+                "stats": {
+                    "points": 34,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 3.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "Lostcozov": {
+        "series": {
+            "Menards": {
+                "stats": {
+                    "points": 49,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 12.5
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#000 mattwilson20": {
+        "series": {
+            "Xfinity": {
+                "stats": {
+                    "points": 75,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 12.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#05 xxspecxx23": {
+        "series": {
+            "Xfinity": {
+                "stats": {
+                    "points": 29,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 8.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#06 ThirstTrapToby": {
+        "series": {
+            "Xfinity": {
+                "stats": {
+                    "points": 77,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 11.333333333333334
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#09 MajorBlaz33": {
+        "series": {
+            "Xfinity": {
+                "stats": {
+                    "points": 108,
+                    "wins": 0,
+                    "top5": 2,
+                    "top10": 3,
+                    "poles": 0,
+                    "avg": 10.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#1 Duramax18gg": {
+        "series": {
+            "Xfinity": {
+                "stats": {
+                    "points": 67,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 2,
+                    "poles": 0,
+                    "avg": 4.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#14 GoBlue_Tater": {
+        "series": {
+            "Xfinity": {
+                "stats": {
+                    "points": 35,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 2.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#17 SOLID1915ONE": {
+        "series": {
+            "Xfinity": {
+                "stats": {
+                    "points": 83,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 2,
+                    "poles": 0,
+                    "avg": 9.333333333333334
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#25 J_Frosty89": {
+        "series": {
+            "Xfinity": {
+                "stats": {
+                    "points": 30,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 7.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#4 SithWarriorUno": {
+        "series": {
+            "Xfinity": {
+                "stats": {
+                    "points": 83,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 2,
+                    "poles": 0,
+                    "avg": 9.333333333333334
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#46 Lostcozov": {
+        "series": {
+            "Xfinity": {
+                "stats": {
+                    "points": 49,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 12.5
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#51 CallMeMillion": {
+        "series": {
+            "Xfinity": {
+                "stats": {
+                    "points": 37,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 1,
+                    "poles": 1,
+                    "avg": 2.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#52 MrSmooth-21": {
+        "series": {
+            "Xfinity": {
+                "stats": {
+                    "points": 20,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 17.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#53 A54buickbandit": {
+        "series": {
+            "Xfinity": {
+                "stats": {
+                    "points": 58,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 8.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#57 The_MadReaper53": {
+        "series": {
+            "Xfinity": {
+                "stats": {
+                    "points": 45,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 14.5
+                },
+                "team": null,
+                "manufacturer": null
+            },
+            "Cup": {
+                "stats": {
+                    "points": 13,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 24.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#60 ALESSI-20-11": {
+        "series": {
+            "Xfinity": {
+                "stats": {
+                    "points": 112,
+                    "wins": 2,
+                    "top5": 3,
+                    "top10": 3,
+                    "poles": 0,
+                    "avg": 2.3333333333333335
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#7 Orangeman96": {
+        "series": {
+            "Xfinity": {
+                "stats": {
+                    "points": 145,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 4,
+                    "poles": 0,
+                    "avg": 8.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#70 DaltonGregson": {
+        "series": {
+            "Xfinity": {
+                "stats": {
+                    "points": 30,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 7.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#81 K7_Dalton": {
+        "series": {
+            "Xfinity": {
+                "stats": {
+                    "points": 26,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 11.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#82 Fordemgators": {
+        "series": {
+            "Xfinity": {
+                "stats": {
+                    "points": 45,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 14.5
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#85 Izmat3k": {
+        "series": {
+            "Xfinity": {
+                "stats": {
+                    "points": 30,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 7.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#91 kevwood87": {
+        "series": {
+            "Xfinity": {
+                "stats": {
+                    "points": 97,
+                    "wins": 1,
+                    "top5": 2,
+                    "top10": 2,
+                    "poles": 0,
+                    "avg": 6.333333333333333
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#99 HockeyDeckout": {
+        "series": {
+            "Xfinity": {
+                "stats": {
+                    "points": 128,
+                    "wins": 1,
+                    "top5": 2,
+                    "top10": 3,
+                    "poles": 0,
+                    "avg": 6.25
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#001 Tacob1990": {
         "series": {
             "Cup": {
-                "number": "11",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#11 American-Hero216",
                 "stats": {
-                    "points": 0,
+                    "points": 45,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "avg": "N/A"
-                }
+                    "avg": 14.5
+                },
+                "team": null,
+                "manufacturer": null
             }
-        },
-        "display_name": "American-Hero216"
+        }
     },
-    "1148411791026692197": {
+    "#002 shenanigas69": {
         "series": {
-            "Menards": {
-                "number": "40",
-                "team": "",
-                "manufacturer": "",
-                "driver_name": "#40 ItsCTippMF",
+            "Cup": {
                 "stats": {
-                    "points": 0,
+                    "points": 31,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 6.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#003 zaptear": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 27,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "avg": "N/A"
-                }
+                    "avg": 23.5
+                },
+                "team": null,
+                "manufacturer": null
             }
-        },
-        "display_name": "ItsCTippMF"
+        }
+    },
+    "#005 Modracer0p": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 30,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 22.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#006 DeepPulchrify": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 40,
+                    "wins": 1,
+                    "top5": 1,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 1.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#04 TrumpTrain06": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 11,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 26.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#05 ThirstTrapToby": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 43,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 15.5
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#1 mattwilson20": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 229,
+                    "wins": 1,
+                    "top5": 2,
+                    "top10": 4,
+                    "poles": 0,
+                    "avg": 8.875
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#12 CallMeMillion": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 33,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 4.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#20 Fordemgators": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 161,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 14.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#23 KingG931": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 129,
+                    "wins": 0,
+                    "top5": 2,
+                    "top10": 2,
+                    "poles": 0,
+                    "avg": 11.2
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#24 dakotathomas1994": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 246,
+                    "wins": 1,
+                    "top5": 5,
+                    "top10": 5,
+                    "poles": 1,
+                    "avg": 6.875
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#26 MajorBlaz33": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 229,
+                    "wins": 0,
+                    "top5": 2,
+                    "top10": 6,
+                    "poles": 0,
+                    "avg": 8.375
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#3 BIG_FELLAx2220": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 107,
+                    "wins": 1,
+                    "top5": 3,
+                    "top10": 3,
+                    "poles": 0,
+                    "avg": 3.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#32 ALESSI-20-11": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 69,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 14.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#42 Dezzy_Wezzy_01": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 98,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 2,
+                    "poles": 0,
+                    "avg": 12.5
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#46 DaltonGregson": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 143,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 13.166666666666666
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#48 Orangeman96": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 171,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 5,
+                    "poles": 1,
+                    "avg": 8.666666666666666
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#48 Speedhunter_20B": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 27,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 10.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#5 The_Stone07": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 15,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 22.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#60 A54buickbandit": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 29,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 8.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#63 Lostcozov": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 41,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 16.5
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#64 SOLID1915ONE": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 87,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 15.25
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#68 JakeBrannon24": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 52,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 11.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#71 HockeyDeckout": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 196,
+                    "wins": 4,
+                    "top5": 4,
+                    "top10": 5,
+                    "poles": 2,
+                    "avg": 2.2
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#73 HatterMAD218": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 22,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 15.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#74 TheReaperRhino": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 213,
+                    "wins": 0,
+                    "top5": 5,
+                    "top10": 5,
+                    "poles": 0,
+                    "avg": 6.714285714285714
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#77 Dewshine_02": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 184,
+                    "wins": 0,
+                    "top5": 3,
+                    "top10": 5,
+                    "poles": 2,
+                    "avg": 6.666666666666667
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "#83 Izmat3k": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 19,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 18.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "Duramax18gg": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 34,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 3.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "MrSmooth-21": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 17,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 20.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
+    },
+    "kevwood87": {
+        "series": {
+            "Cup": {
+                "stats": {
+                    "points": 18,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 19.0
+                },
+                "team": null,
+                "manufacturer": null
+            }
+        }
     }
 }
