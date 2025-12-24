@@ -130,22 +130,24 @@
         .truck-hover:hover { border-color: var(--truck-red) !important; box-shadow: 0 10px 30px rgba(204, 0, 0, 0.2); }
         .menards-hover:hover { border-color: var(--menards-yellow) !important; box-shadow: 0 10px 30px rgba(255, 242, 0, 0.2); }
 
+        /* --- NUMBER WATERMARK FIX --- */
         .bg-number {
             position: absolute;
             top: -20px;
-            right: -15px;
-            font-size: 8rem;
+            right: -10px;
+            font-size: 7rem;
             font-weight: 900;
-            color: rgba(255, 255, 255, 0.1);
-            z-index: 1;
+            /* Explicit White with Transparency so it pops against photos */
+            color: rgba(255, 255, 255, 0.25); 
+            z-index: 1; /* Sits ON TOP of the background image/ghost */
             line-height: 1;
             pointer-events: none;
-            mix-blend-mode: overlay;
+            /* Removed mix-blend-mode so it doesn't disappear on gray backgrounds */
         }
 
         .card-content {
             position: relative;
-            z-index: 2;
+            z-index: 2; /* Sits above everything including number */
             text-align: center;
             width: 100%;
             display: flex;
@@ -169,14 +171,13 @@
         .flag-truck { color: var(--truck-red); }
         .flag-menards { color: var(--menards-yellow); }
 
-        /* FIX: Adjusted font size to fit PC screens better */
         .driver-name {
-            font-size: 1.5rem; /* Reduced from 1.8rem to fit longer names */
+            font-size: 1.5rem; /* Sized for PC */
             margin: 0 0 0.5rem;
             line-height: 1.1;
             word-wrap: break-word;
             text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-            width: 100%; /* Ensures it respects container width */
+            width: 100%;
         }
 
         .team-name {
@@ -406,7 +407,7 @@
                      carNum = match ? match[1] : '';
                 }
 
-                // --- IMAGE LOGIC (FIXED) ---
+                // --- IMAGE LOGIC ---
                 // Default Ghost Image (Updated to your link)
                 let driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg"; 
 
