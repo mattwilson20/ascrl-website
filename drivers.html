@@ -82,18 +82,23 @@
         .series-btn:hover { transform: translateY(-3px); }
         .series-btn.active { border-color: #fff; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
 
-        /* Series specific active states */
         .series-btn[data-series="Cup"].active { background: var(--cup-blue); border-color: var(--cup-blue); }
         .series-btn[data-series="Xfinity"].active { background: var(--xfinity-purple); border-color: var(--xfinity-purple); }
         .series-btn[data-series="Truck"].active { background: var(--truck-red); border-color: var(--truck-red); }
         .series-btn[data-series="Menards"].active { background: var(--menards-yellow); border-color: var(--menards-yellow); color: #000; }
 
-        /* --- ROSTER GRID --- */
+        /* --- ROSTER GRID (PHOTO CARDS) --- */
         .container { max-width: 1400px; margin: 0 auto; padding: 4rem 2rem; }
         .roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
 
         .driver-card {
-            background: linear-gradient(145deg, #111, #0a0a0a);
+            /* Fallback dark gray */
+            background-color: #111;
+            /* Image styling handles here via JS */
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+            
             border: 1px solid #222;
             padding: 2rem;
             position: relative;
@@ -102,9 +107,19 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            min-height: 340px;
+            justify-content: flex-end; /* Pushes text to bottom */
+            min-height: 450px; /* Taller to show off photo */
             cursor: pointer;
+        }
+
+        /* The Shadow Gradient Overlay - Makes Text Pop */
+        .driver-card::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            /* Fades from transparent at top to black at bottom */
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.95) 90%);
+            z-index: 0;
         }
 
         .driver-card:hover {
@@ -113,83 +128,84 @@
             box-shadow: 0 10px 30px rgba(204, 0, 0, 0.2);
         }
 
-        /* Dynamic Border Color on Hover */
         .cup-hover:hover { border-color: var(--cup-blue) !important; box-shadow: 0 10px 30px rgba(0, 119, 255, 0.2); }
         .xfinity-hover:hover { border-color: var(--xfinity-purple) !important; box-shadow: 0 10px 30px rgba(128, 0, 176, 0.2); }
         .truck-hover:hover { border-color: var(--truck-red) !important; box-shadow: 0 10px 30px rgba(204, 0, 0, 0.2); }
         .menards-hover:hover { border-color: var(--menards-yellow) !important; box-shadow: 0 10px 30px rgba(255, 242, 0, 0.2); }
 
+        /* Background Number (Subtler now due to photo) */
         .bg-number {
             position: absolute;
             top: -20px;
             right: -15px;
             font-size: 8rem;
             font-weight: 900;
-            color: rgba(255, 255, 255, 0.03);
-            z-index: 0;
+            color: rgba(255, 255, 255, 0.1); /* Slightly more visible against photos */
+            z-index: 1; /* Above gradient, below text */
             line-height: 1;
             pointer-events: none;
+            mix-blend-mode: overlay;
         }
 
         .card-content {
             position: relative;
-            z-index: 1;
+            z-index: 2; /* Sits above everything */
             text-align: center;
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            height: 100%;
         }
 
-        /* Win Stickers Container */
         .win-flags-container {
             display: flex;
             gap: 5px;
             justify-content: center;
             flex-wrap: wrap;
             margin-bottom: 0.5rem;
-            min-height: 24px; /* Keeps layout consistent even if empty */
+            min-height: 24px;
         }
 
-        .flag-icon { font-size: 1.2rem; filter: drop-shadow(0 0 5px rgba(0,0,0,0.8)); }
+        .flag-icon { font-size: 1.2rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,1)); }
         
-        /* Flag Colors */
         .flag-cup { color: var(--cup-blue); }
         .flag-xfinity { color: var(--xfinity-purple); }
         .flag-truck { color: var(--truck-red); }
         .flag-menards { color: var(--menards-yellow); }
 
         .driver-name {
-            font-size: 1.8rem;
+            font-size: 2rem;
             margin: 0 0 0.5rem;
             line-height: 1;
             word-wrap: break-word;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8); /* Maximum readability */
         }
 
         .team-name {
             font-family: sans-serif;
             font-size: 0.85rem;
-            color: var(--text-muted);
+            color: #ddd; /* Lighter for readability on dark overlay */
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 1.5rem;
+            text-shadow: 0 2px 5px rgba(0,0,0,1);
         }
 
         .stats-pill {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            border: 1px solid #333;
-            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(0,0,0,0.8); /* Darker background for contrast */
             padding: 8px 15px;
             border-radius: 20px;
             font-size: 0.8rem;
             color: #fff;
             margin-top: auto;
+            backdrop-filter: blur(5px);
         }
         
-        .stat-divider { width: 1px; height: 12px; background: #444; }
+        .stat-divider { width: 1px; height: 12px; background: #666; }
 
         /* --- MODAL --- */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); justify-content: center; align-items: center; z-index: 3000; }
@@ -251,7 +267,6 @@
             <button class="series-btn" data-series="Truck" onclick="filterSeries('Truck')">Trucks</button>
             <button class="series-btn" data-series="Menards" onclick="filterSeries('Menards')">Menards</button>
         </div>
-        
         <input type="hidden" id="seasonValue" value="2025-26">
     </div>
 
@@ -343,16 +358,14 @@
 
             const filteredList = [];
 
-            // Process Data: Find drivers active in this series
+            // Process Data
             Object.keys(allDrivers).forEach(key => {
                 const driver = allDrivers[key];
                 
-                // Name Normalization
                 let dName = driver.display_name;
                 if (!dName) dName = key.replace(/^#\d+\s+/, '').trim();
                 if (!dName) dName = key;
 
-                // Check if driver has this series
                 const sKey = Object.keys(driver.series).find(k => k.toLowerCase() === seriesName.toLowerCase());
 
                 if (sKey) {
@@ -380,7 +393,6 @@
                 return;
             }
 
-            // Find Maximum points to determine Points Leader (for Crown)
             const maxPoints = Math.max(...filteredList.map(i => i.seriesData.stats ? i.seriesData.stats.points : 0));
 
             // Render Cards
@@ -396,10 +408,21 @@
                      carNum = match ? match[1] : '';
                 }
 
-                // --- NEW: Generate Checkered Flags based on Wins ---
+                // --- IMAGE LOGIC (GHOST & EXCEPTION) ---
+                // 1. Default Ghost Image (Generic Silhouette)
+                // You can change this URL to a local 'ghost.png' if you make the folder later.
+                let driverImage = "https://t4.ftcdn.net/jpg/00/64/67/27/360_F_64672736_U5kpdGs9keUll8CRQ3p3YaEv2M6qkVY5.jpg"; 
+
+                // 2. Exception for Dakota
+                // Case-insensitive check just to be safe
+                if (seriesName === 'Cup' && item.name.toLowerCase().includes('dakotathomas1994')) {
+                    driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg";
+                }
+                // ----------------------------------------
+
+                // Checkered Flags Logic
                 let flagsHtml = '';
-                // Determine CSS Class for Flag Color
-                let flagClass = 'flag-truck'; // fallback
+                let flagClass = 'flag-truck'; 
                 if(seriesName.toLowerCase() === 'cup') flagClass = 'flag-cup';
                 if(seriesName.toLowerCase() === 'xfinity') flagClass = 'flag-xfinity';
                 if(seriesName.toLowerCase() === 'menards') flagClass = 'flag-menards';
@@ -407,26 +430,26 @@
                 for(let i=0; i<wins; i++) {
                     flagsHtml += `<i class="fa-solid fa-flag-checkered flag-icon ${flagClass}"></i>`;
                 }
-                // --------------------------------------------------
 
-                // Is this driver the Points Leader? (Display Crown)
                 const isLeader = (points > 0 && points === maxPoints);
-
                 const hoverClass = seriesName.toLowerCase() + '-hover';
 
                 const card = document.createElement('div');
                 card.className = `driver-card ${hoverClass}`;
                 card.onclick = () => openProfile(item.id, item.fullData);
                 
+                // Apply Image as Background
+                card.style.backgroundImage = `url('${driverImage}')`;
+                
                 card.innerHTML = `
                     <div class="bg-number">${carNum}</div>
+                    
                     <div class="card-content">
-                        
                         <div class="win-flags-container">
                             ${flagsHtml}
                         </div>
 
-                        ${isLeader ? '<i class="fa-solid fa-crown" style="color:#ffd700; font-size:1.5rem; margin-bottom:0.5rem; display:block;"></i>' : ''}
+                        ${isLeader ? '<i class="fa-solid fa-crown" style="color:#ffd700; font-size:1.5rem; margin-bottom:0.5rem; display:block; filter: drop-shadow(0 2px 4px #000);"></i>' : ''}
                         
                         <h3 class="driver-name">${item.name}</h3>
                         <div class="team-name">${sData.team || 'Independent'}</div>
