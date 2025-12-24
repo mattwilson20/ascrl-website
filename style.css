@@ -1,4 +1,3 @@
-Here is the complete, updated style.css. I have added the Social Icons section (including your specific email hover effect) to the bottom under the Footer section, so all your footer styles are in one place.
 /* --- ASCRL DESIGN SYSTEM --- */
 :root {
     /* Color Palette */
@@ -30,7 +29,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Custom Scrollbar (The Detail that makes it "World Class") */
+/* Custom Scrollbar */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--bg-dark); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
@@ -61,7 +60,7 @@ h1, h2, h3 {
 
 /* --- REUSABLE COMPONENTS --- */
 
-/* 1. The Navigation & Glass Hamburger */
+/* 1. The Navigation */
 .hamburger {
     position: fixed; top: 1.5rem; left: 1.5rem; z-index: 2000;
     cursor: pointer; padding: 12px;
@@ -89,7 +88,7 @@ h1, h2, h3 {
     border-bottom: 1px solid var(--border);
 }
 
-/* 3. The "Glass" Card (Used for Drivers, Results, Schedule) */
+/* 3. The "Glass" Card (Drivers, Results, Schedule) */
 .race-card {
     background: var(--card-bg);
     border: 1px solid var(--border);
@@ -110,7 +109,7 @@ h1, h2, h3 {
 }
 .race-card:hover::before { height: 100%; }
 
-/* 4. Stats Grid (For Modal or Results) */
+/* 4. Stats Grid */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -141,6 +140,96 @@ h1, h2, h3 {
     color: #000;
 }
 
+/* --- NEW CHAMPIONSHIP LEADER CARDS (The "Pop") --- */
+.leader-strip {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 3rem 0;
+}
+
+.leader-card {
+    background: linear-gradient(145deg, #111, #0a0a0a);
+    border: 1px solid #222;
+    padding: 2rem;
+    width: 240px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.leader-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary);
+    box-shadow: 0 10px 30px rgba(204, 0, 0, 0.2);
+}
+
+.leader-bg-number {
+    position: absolute;
+    top: -15px;
+    right: -10px;
+    font-size: 6rem;
+    font-weight: 900;
+    font-family: 'Arial Black', sans-serif;
+    color: rgba(255, 255, 255, 0.03);
+    z-index: 0;
+    line-height: 1;
+    pointer-events: none;
+}
+
+.leader-series-badge {
+    background: var(--primary);
+    color: #fff;
+    font-size: 0.65rem;
+    padding: 5px 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+    font-weight: bold;
+}
+
+.leader-info-container {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.leader-crown {
+    color: #ffd700; /* Gold */
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
+}
+
+.leader-name {
+    font-size: 1.5rem;
+    font-family: 'Arial Black', sans-serif;
+    display: block;
+    margin-top: 0.5rem;
+    word-wrap: break-word;
+    line-height: 1.1;
+}
+
+.leader-points-pill {
+    margin-top: 1rem;
+    display: inline-block;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 5px 15px;
+    font-family: sans-serif;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 20px;
+}
+
 /* --- FOOTER & SOCIALS --- */
 footer {
     padding: 6rem 1rem;
@@ -152,7 +241,6 @@ footer {
     text-transform: uppercase;
 }
 
-/* Social Icon Styles */
 .social-links {
     display: flex;
     gap: 2rem;
@@ -174,9 +262,19 @@ footer {
 .social-icon.facebook:hover { color: #1877F2; }
 .social-icon.x-twitter:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
 
-/* Specific Email Icon Hover Effect */
 .social-icon.email:hover { 
-    color: var(--primary); /* Turns Red on Hover */
+    color: var(--primary);
     transform: scale(1.1);
 }
 
+/* --- MOBILE ADJUSTMENTS --- */
+@media (max-width: 768px) {
+    .leader-strip {
+        flex-direction: column;
+        align-items: center;
+    }
+    .leader-card {
+        width: 100%;
+        max-width: 320px;
+    }
+}
