@@ -87,14 +87,12 @@
         .series-btn[data-series="Truck"].active { background: var(--truck-red); border-color: var(--truck-red); }
         .series-btn[data-series="Menards"].active { background: var(--menards-yellow); border-color: var(--menards-yellow); color: #000; }
 
-        /* --- ROSTER GRID (PHOTO CARDS) --- */
+        /* --- ROSTER GRID --- */
         .container { max-width: 1400px; margin: 0 auto; padding: 4rem 2rem; }
         .roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
 
         .driver-card {
-            /* Fallback dark gray */
             background-color: #111;
-            /* Image styling handles here via JS */
             background-size: cover;
             background-position: center top;
             background-repeat: no-repeat;
@@ -108,16 +106,15 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-end; /* Pushes text to bottom */
-            min-height: 450px; /* Taller to show off photo */
+            min-height: 450px; 
             cursor: pointer;
         }
 
-        /* The Shadow Gradient Overlay - Makes Text Pop */
+        /* Gradient Overlay for Readability */
         .driver-card::after {
             content: "";
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            /* Fades from transparent at top to black at bottom */
             background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.95) 90%);
             z-index: 0;
         }
@@ -133,15 +130,14 @@
         .truck-hover:hover { border-color: var(--truck-red) !important; box-shadow: 0 10px 30px rgba(204, 0, 0, 0.2); }
         .menards-hover:hover { border-color: var(--menards-yellow) !important; box-shadow: 0 10px 30px rgba(255, 242, 0, 0.2); }
 
-        /* Background Number (Subtler now due to photo) */
         .bg-number {
             position: absolute;
             top: -20px;
             right: -15px;
             font-size: 8rem;
             font-weight: 900;
-            color: rgba(255, 255, 255, 0.1); /* Slightly more visible against photos */
-            z-index: 1; /* Above gradient, below text */
+            color: rgba(255, 255, 255, 0.1);
+            z-index: 1;
             line-height: 1;
             pointer-events: none;
             mix-blend-mode: overlay;
@@ -149,7 +145,7 @@
 
         .card-content {
             position: relative;
-            z-index: 2; /* Sits above everything */
+            z-index: 2;
             text-align: center;
             width: 100%;
             display: flex;
@@ -173,18 +169,20 @@
         .flag-truck { color: var(--truck-red); }
         .flag-menards { color: var(--menards-yellow); }
 
+        /* FIX: Adjusted font size to fit PC screens better */
         .driver-name {
-            font-size: 2rem;
+            font-size: 1.5rem; /* Reduced from 1.8rem to fit longer names */
             margin: 0 0 0.5rem;
-            line-height: 1;
+            line-height: 1.1;
             word-wrap: break-word;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8); /* Maximum readability */
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            width: 100%; /* Ensures it respects container width */
         }
 
         .team-name {
             font-family: sans-serif;
             font-size: 0.85rem;
-            color: #ddd; /* Lighter for readability on dark overlay */
+            color: #ddd;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 1.5rem;
@@ -196,7 +194,7 @@
             align-items: center;
             gap: 10px;
             border: 1px solid rgba(255,255,255,0.3);
-            background: rgba(0,0,0,0.8); /* Darker background for contrast */
+            background: rgba(0,0,0,0.8);
             padding: 8px 15px;
             border-radius: 20px;
             font-size: 0.8rem;
@@ -408,17 +406,15 @@
                      carNum = match ? match[1] : '';
                 }
 
-                // --- IMAGE LOGIC (GHOST & EXCEPTION) ---
-                // 1. Default Ghost Image (Generic Silhouette)
-                // You can change this URL to a local 'ghost.png' if you make the folder later.
-                let driverImage = "https://t4.ftcdn.net/jpg/00/64/67/27/360_F_64672736_U5kpdGs9keUll8CRQ3p3YaEv2M6qkVY5.jpg"; 
+                // --- IMAGE LOGIC (FIXED) ---
+                // Default Ghost Image (Updated to your link)
+                let driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg"; 
 
-                // 2. Exception for Dakota
-                // Case-insensitive check just to be safe
+                // Exception for Dakota
                 if (seriesName === 'Cup' && item.name.toLowerCase().includes('dakotathomas1994')) {
                     driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg";
                 }
-                // ----------------------------------------
+                // ---------------------------
 
                 // Checkered Flags Logic
                 let flagsHtml = '';
