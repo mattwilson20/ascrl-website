@@ -15,6 +15,11 @@
             --border: #1a1a1a;
             --text-muted: #a0a0a0;
             --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            
+            /* Series Colors */
+            --cup-blue: #0077ff;
+            --xfinity-purple: #8000b0;
+            --menards-yellow: #fff200;
         }
 
         body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--bg-dark); color: #fff; overflow-x: hidden; }
@@ -91,7 +96,8 @@
             background: linear-gradient(145deg, #111, #0a0a0a);
             border: 1px solid #222;
             padding: 2rem;
-            width: 240px; /* Fixed width for consistent look */
+            /* WIDTH FIX: Increased to 300px for desktop to fit names */
+            width: 300px; 
             position: relative;
             overflow: hidden;
             transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
@@ -121,7 +127,7 @@
             pointer-events: none;
         }
 
-        /* Slanted Series Badge */
+        /* Slanted Series Badge - Base Styles */
         .leader-series-badge {
             background: var(--primary);
             color: #fff;
@@ -135,6 +141,12 @@
             clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
             font-weight: bold;
         }
+
+        /* Specific Colors for Series */
+        .badge-cup { background: var(--cup-blue); }
+        .badge-xfinity { background: var(--xfinity-purple); }
+        .badge-truck { background: var(--primary); }
+        .badge-menards { background: var(--menards-yellow); color: #000; /* Black text for yellow bg */ }
 
         .leader-info-container {
             position: relative;
@@ -154,7 +166,7 @@
             font-family: 'Arial Black', sans-serif;
             display: block;
             margin-top: 0.5rem;
-            word-wrap: break-word;
+            word-wrap: break-word; /* Ensure long names wrap if needed */
             line-height: 1.1;
         }
 
@@ -287,7 +299,7 @@
             <span class="stat-label" style="color: var(--primary);">A&M PRODUCTIONS LLC</span>
             <h2 style="font-size: 2rem; margin: 1rem 0;">BUSINESS INQUIRIES</h2>
             <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 2rem; font-family: sans-serif; line-height: 1.6;">
-                For advertisement opportunities, league disputes, or website feedback, please contact the league office directly.
+                For sponsorship opportunities, league disputes, or website feedback, please contact the league office directly.
             </p>
             
             <a href="mailto:contact.ascrl@gmail.com" style="text-decoration: none; display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--primary); padding: 15px 30px; color: #fff; transition: 0.3s;">
@@ -346,7 +358,7 @@
             if(m) m.classList.toggle('open');
         }
 
-        // 2. SCHEDULE DATA (Multi-Season aware)
+        // 2. SCHEDULE DATA
         const season = "2025-26";
         const scheduleFile = `schedule_${season}.json`;
         const scheduleFallback = `schedule.json`;
@@ -370,7 +382,7 @@
             })
             .catch(err => console.log("Schedule error", err));
 
-        // 3. LEADERS DATA (Hero Card Update)
+        // 3. LEADERS DATA (Updated for Colors & Width)
         const driversFile = `drivers_${season}.json`;
         const driversFallback = `drivers.json`;
 
@@ -405,11 +417,9 @@
                             if (points > maxPoints) {
                                 maxPoints = points;
                                 bestDriver = {
-                                    // Raw string needed to extract number if not provided separately
                                     rawString: sData.driver_name || ("#" + sData.number + " " + driver.display_name),
                                     name: driver.display_name,
                                     points: points,
-                                    // Use explicit number if available, else will parse later
                                     explicitNumber: sData.number
                                 };
                             }
@@ -417,17 +427,23 @@
                     });
 
                     if (bestDriver) {
-                        // Extract number logic: use explicit or regex from string
+                        // Extract number
                         let carNum = bestDriver.explicitNumber;
                         if (!carNum || carNum === "N/A") {
                              const match = bestDriver.rawString.match(/^#(\d+)/);
                              carNum = match ? match[1] : '';
                         }
 
+                        // Determine Badge Color Class
+                        let badgeClass = 'badge-truck'; // Default Red
+                        if (seriesName.toLowerCase() === 'cup') badgeClass = 'badge-cup';
+                        if (seriesName.toLowerCase() === 'xfinity') badgeClass = 'badge-xfinity';
+                        if (seriesName.toLowerCase() === 'menards') badgeClass = 'badge-menards';
+
                         html += `
                             <div class="leader-card">
                                 <div class="leader-bg-number">${carNum}</div>
-                                <div class="leader-series-badge">${seriesName}</div>
+                                <div class="leader-series-badge ${badgeClass}">${seriesName}</div>
                                 
                                 <div class="leader-info-container">
                                     <i class="fa-solid fa-crown leader-crown"></i>
@@ -437,9 +453,14 @@
                             </div>`;
                     } else {
                         // Placeholder
+                        let badgeClass = 'badge-truck';
+                        if (seriesName.toLowerCase() === 'cup') badgeClass = 'badge-cup';
+                        if (seriesName.toLowerCase() === 'xfinity') badgeClass = 'badge-xfinity';
+                        if (seriesName.toLowerCase() === 'menards') badgeClass = 'badge-menards';
+
                         html += `
                             <div class="leader-card" style="opacity:0.5;">
-                                <div class="leader-series-badge">${seriesName}</div>
+                                <div class="leader-series-badge ${badgeClass}">${seriesName}</div>
                                 <span class="leader-name" style="font-size:1rem;">TBD</span>
                                 <div class="leader-points-pill">0 PTS</div>
                             </div>`;
