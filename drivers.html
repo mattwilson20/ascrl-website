@@ -164,7 +164,7 @@
             transform: translateY(-3px);
         }
 
-        .social-icon.facebook:hover { color: #1877F2; } /* Official FB Blue */
+        .social-icon.facebook:hover { color: #1877F2; } 
         .social-icon.x-twitter:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
 
         @media (max-width: 768px) {
@@ -241,7 +241,7 @@
             if (menu) menu.classList.toggle('open');
         }
 
-        // --- 2. DRIVER ROSTER LOGIC (MULTI-SEASON) ---
+        // --- 2. DRIVER ROSTER LOGIC (ROBUST MULTI-SEASON) ---
         let allDrivers = [];
 
         // Load default season on startup
@@ -253,16 +253,47 @@
             const grid = document.getElementById('roster-grid');
             grid.innerHTML = '<p style="text-align:center; padding:2rem; color:#666;">Accessing Data Feed...</p>';
             
-            const fileName = `drivers_${season}.json`; // Matches your new bot export format
+            // Try loading the season file first
+            const seasonFile = `drivers_${season}.json`;
+            const fallbackFile = `drivers.json`; // Backup for old structure
 
-            fetch(fileName)
+            fetch(seasonFile)
                 .then(r => {
-                    if (!r.ok) throw new Error("Season data not found");
+                    if (!r.ok) {
+                        // If season file fails (404), try the fallback "drivers.json"
+                        console.warn(`${seasonFile} not found, trying fallback...`);
+                        return fetch(fallbackFile);
+                    }
+                    return r;
+                })
+                .then(r => {
+                    if (!r.ok) throw new Error("Data source not found");
                     return r.json();
                 })
                 .then(data => {
-                    // Convert object {id: data} to array [{id, ...data}]
-                    allDrivers = Object.keys(data).map(id => ({ id, ...data[id] }));
+                    // --- UNIVERSAL DATA PROCESSOR ---
+                    // Handles both {ID: {display_name:...}} AND {Name: {series:...}} formats
+                    
+                    allDrivers = Object.keys(data).map(key => {
+                        const entry = data[key];
+                        
+                        // 1. Check if display_name exists (Old/Standard Format)
+                        let name = entry.display_name;
+                        
+                        // 2. If missing, derive from Key (New Bot Format: "#99 DriverName")
+                        if (!name) {
+                            name = key.replace(/^#\d+\s+/, ''); // Remove leading "#99 "
+                        }
+
+                        // 3. Fallback if still empty
+                        if (!name) name = "Unknown Driver";
+
+                        return { 
+                            id: key, 
+                            display_name: name, 
+                            ...entry 
+                        };
+                    });
                     
                     // Sort drivers alphabetically by name
                     allDrivers.sort((a, b) => a.display_name.localeCompare(b.display_name));
@@ -271,8 +302,11 @@
                 })
                 .catch(err => {
                     console.error(err);
-                    grid.innerHTML = `<p style="text-align:center; padding:2rem;">No roster data available for ${season}.</p>`;
-                    allDrivers = []; // Clear current data
+                    grid.innerHTML = `<p style="text-align:center; padding:2rem; color:#c00;">
+                        Unable to load roster data.<br>
+                        <small style="color:#666">Check console for details.</small>
+                    </p>`;
+                    allDrivers = [];
                 });
         }
 
@@ -280,16 +314,22 @@
             const grid = document.getElementById('roster-grid');
             grid.innerHTML = '';
 
-            if (drivers.length === 0) {
+            if (!drivers || drivers.length === 0) {
                 grid.innerHTML = '<p style="text-align:center; padding:2rem; color:#666;">No drivers found matching criteria.</p>';
                 return;
             }
 
             drivers.forEach(driver => {
-                const seriesNames = Object.keys(driver.series);
+                const seriesNames = driver.series ? Object.keys(driver.series) : [];
                 if (seriesNames.length === 0) return;
                 
-                const primary = driver.series['Cup'] || driver.series[seriesNames[0]];
+                // Find primary series (Cup -> Xfinity -> Truck -> First Available)
+                const primarySeries = driver.series['Cup'] ? 'Cup' : 
+                                      driver.series['Xfinity'] ? 'Xfinity' : 
+                                      driver.series['Truck'] ? 'Truck' : seriesNames[0];
+                
+                const primaryData = driver.series[primarySeries] || {};
+                const teamName = primaryData.team || 'Unattached Independent';
 
                 const card = document.createElement('div');
                 card.className = 'driver-card';
@@ -297,7 +337,7 @@
                 card.innerHTML = `
                     <div class="driver-info">
                         <h3>${driver.display_name}</h3>
-                        <div class="team-label">${primary.team || 'Unattached Independent'}</div>
+                        <div class="team-label">${teamName}</div>
                     </div>
                     <div>
                         <div class="series-badge">
@@ -319,7 +359,7 @@
             const modal = document.getElementById('driver-modal');
             const dataDiv = document.getElementById('modal-data');
             
-            let html = `<h2 style="font-size:3rem; margin:0;">${driver.display_name}</h2>`;
+            let html = `<h2 style="font-size:3rem; margin:0; line-height:1;">${driver.display_name}</h2>`;
             
             // Define custom order: Cup -> Xfinity -> Truck -> Menards
             const seriesOrder = ["Cup", "Xfinity", "Truck", "Menards"];
@@ -334,10 +374,23 @@
 
             sortedSeries.forEach(sName => {
                 const s = driver.series[sName];
+                // Stats might be missing or null in some exports, handle safely
                 const st = s.stats || {wins:0, top5:0, top10:0, poles:0, avg:'N/A', points:0};
+                
+                // Fallback for number/manufacturer if missing
+                // Try getting number from ID key if it looks like "#99 Name"
+                let number = s.number;
+                if (!number && driver.id.startsWith('#')) {
+                    const parts = driver.id.split(' ');
+                    if (parts.length > 1) number = parts[0];
+                }
+                if (!number) number = "N/A";
+
+                const manuf = s.manufacturer || '';
+
                 html += `
-                    <h4>${sName} Series / #${s.number} ${s.manufacturer}</h4>
-                    <p style="font-family:sans-serif; font-size:0.9rem; color:#666;">Team: ${s.team}</p>
+                    <h4>${sName} Series / ${number} ${manuf}</h4>
+                    <p style="font-family:sans-serif; font-size:0.9rem; color:#666;">Team: ${s.team || 'Independent'}</p>
                     <div class="stat-row">
                         <div class="stat-box"><small>Points</small><span>${st.points}</span></div>
                         <div class="stat-box"><small>Wins</small><span>${st.wins}</span></div>
