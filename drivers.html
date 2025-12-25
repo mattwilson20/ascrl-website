@@ -405,12 +405,12 @@
                      carNum = match ? match[1] : '';
                 }
 
-                // --- IMAGE LOGIC ---
+                // --- IMAGE LOGIC (FIXED) ---
                 // Default Ghost Image
                 let driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg"; 
 
-                // Exception for Dakota
-                if (seriesName === 'Cup' && item.name.toLowerCase().includes('dakotathomas1994')) {
+                // Exception for Dakota (Apply to ALL series)
+                if (item.name.toLowerCase().includes('dakotathomas1994')) {
                     driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg";
                 }
                 // ---------------------------
