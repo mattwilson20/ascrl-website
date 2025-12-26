@@ -405,68 +405,60 @@
                      carNum = match ? match[1] : '';
                 }
 
-                // --- IMAGE LOGIC (UPDATED) ---
+                // --- IMAGE LOGIC (FIXED FOR TYPOS) ---
                 // Default Ghost Image
                 let driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg"; 
 
-                // Exception for Dakota
-                if (item.name.toLowerCase().includes('dakotathomas1994')) {
+                // Convert name to lowercase once for easy checking
+                const lowerName = item.name.toLowerCase();
+
+                // Specific checks based on partial matches to catch database typos
+                if (lowerName.includes('dakotathomas')) {
                     driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg";
                 }
-                // Exception for Orangeman96
-                else if (item.name.toLowerCase().includes('orangeman96')) {
+                else if (lowerName.includes('orangeman')) {
                     driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/70b5243e68e9c7f7a596f6695677d8d3520e89e1/IMG_7160.jpg";
                 }
-                // Exception for ant_was_he
-                else if (item.name.toLowerCase().includes('ant_was_he')) {
+                else if (lowerName.includes('ant_was_he')) {
                     driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/602e91f22a89c294308d1e79473121daa8e777e7/ant_was_he_hero_card.jpg";
                 }
-                // Exception for C0mpl1c8ted
-                else if (item.name.toLowerCase().includes('c0mpl1c8ted')) {
+                // Catches C0mpl1c8ed OR C0mpl1c8ted
+                else if (lowerName.includes('c0mpl1c8')) {
                     driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/099805ff88fcc2ba2a1cc2e8b5aba8f515a716a6/C0mpl1c8ted_hero_card.jpg";
                 }
-                // Exception for on-a-mission618
-                else if (item.name.toLowerCase().includes('on-a-mission')) {
+                else if (lowerName.includes('on-a-mission')) {
                     driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/446d56688b6fdf55420d2c5e52b6a764e873fab6/Mission_Hero_card.jpg";
                 }
-                // Exception for BanishedCrayon
-                else if (item.name.toLowerCase().includes('banishedcrayon')) {
+                // Catches Banished OR Bansihed (Typo)
+                else if (lowerName.includes('crayon')) {
                     driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/d42bcd32df90441f1b5f24da75a77074ea2186fe/Banished_Crayon_hero_Card.jpg";
                 }
-                // Exception for SithWarriorUno
-                else if (item.name.toLowerCase().includes('sithwarrioruno')) {
+                else if (lowerName.includes('sithwarrior')) {
                     driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/3e992547a13fe5d73940648e83df80d97df41f90/SithWarriorUno_Hero_Card.jpg";
                 }
-                // Exception for MajorBlaze33
-                else if (item.name.toLowerCase().includes('majorblaze33')) {
+                // Catches MajorBlaze OR MajorBlaz (Typo)
+                else if (lowerName.includes('majorblaz')) {
                     driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/77807b78b078188862cb490d2b95d2f846d237bf/Blaze_Hero_Card.jpg";
                 }
-                // Exception for thereaperrhino
-                else if (item.name.toLowerCase().includes('thereaperrhino')) {
+                else if (lowerName.includes('thereaperrhino')) {
                     driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6ba07383a20109b63eec703c34fedc30f7a191bf/Rhino_Hero_Card.jpg";
                 }
-                // Exception for DaltonGregson
-                else if (item.name.toLowerCase().includes('daltongregson')) {
+                else if (lowerName.includes('daltongregson')) {
                     driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ec988478a8132f49d9d6b596e7ed258e2c2dd482/DaltonGregson_Hero_Card.jpg";
                 }
-                // Exception for singular_nacho
-                else if (item.name.toLowerCase().includes('singular_nacho')) {
+                else if (lowerName.includes('singular_nacho')) {
                     driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/f311b21127533ca6128a4408f36edaf9612d59b1/Singular_Nacho_Hero_Card.jpg";
                 }
-                // Exception for CallMeMillion
-                else if (item.name.toLowerCase().includes('callmemillion')) {
+                else if (lowerName.includes('callmemillion')) {
                     driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/e86926900f4957c57588db9a14beae7d6329a794/CallMeMillion_Hero_Card.jpg";
                 }
-                // Exception for mattwilson20
-                else if (item.name.toLowerCase().includes('mattwilson20')) {
+                else if (lowerName.includes('mattwilson20')) {
                     driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6686ee35c988cd1b0ae305d099ff4e31c652a49f/mattwilson20_Hero_Card.jpg";
                 }
-                // Exception for HockeyDeckOut
-                else if (item.name.toLowerCase().includes('hockeydeckout')) {
+                else if (lowerName.includes('hockeydeckout')) {
                     driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/81df81de5161ea2f590ee32c370d3e99675cdbaa/Hockey_Hero_Card.png";
                 }
-                // Exception for Dewshine (Added)
-                else if (item.name.toLowerCase().includes('dewshine')) {
+                else if (lowerName.includes('dewshine')) {
                     driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/c192fba35d849decff7a7f32df0b63d297bd5536/Dewshine_Hero_Card.jpg";
                 }
                 // ---------------------------
