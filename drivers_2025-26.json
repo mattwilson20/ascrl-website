@@ -61,7 +61,7 @@
         "series": {
             "Cup": {
                 "number": "04",
-                "team": "SR Motorsports",
+                "team": null,
                 "manufacturer": null,
                 "stats": {
                     "points": 10,
@@ -664,7 +664,7 @@
         "series": {
             "Cup": {
                 "number": "57",
-                "team": "SR Motorsports",
+                "team": null,
                 "manufacturer": null,
                 "stats": {
                     "points": 12,
@@ -762,6 +762,63 @@
                 "number": "58",
                 "team": "",
                 "manufacturer": "",
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 0
+                }
+            }
+        }
+    },
+    "881698810210963486": {
+        "display_name": "BansihedCrayon",
+        "series": {
+            "Cup": {
+                "number": "59",
+                "team": "Fast And Loose Racing",
+                "manufacturer": null,
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 0
+                }
+            },
+            "Truck": {
+                "number": "59",
+                "team": null,
+                "manufacturer": null,
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 0
+                }
+            },
+            "Menards": {
+                "number": "59",
+                "team": null,
+                "manufacturer": null,
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 0
+                }
+            },
+            "Xfinity": {
+                "number": "59",
+                "team": null,
+                "manufacturer": null,
                 "stats": {
                     "points": 0,
                     "wins": 0,
@@ -2643,6 +2700,24 @@
             }
         }
     },
+    "877174730854113320": {
+        "display_name": "tophert422",
+        "series": {
+            "Cup": {
+                "number": "87",
+                "team": "",
+                "manufacturer": "",
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 0
+                }
+            }
+        }
+    },
     "guest_#14_MajorBlaze33": {
         "display_name": "MajorBlaze33",
         "series": {
@@ -2793,24 +2868,6 @@
             }
         }
     },
-    "guest_#85_Izmat3k": {
-        "display_name": "Izmat3k",
-        "series": {
-            "Xfinity": {
-                "number": "85",
-                "team": "Independent",
-                "manufacturer": "N/A",
-                "stats": {
-                    "points": 29,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 7.0
-                }
-            }
-        }
-    },
     "guest_#09_MajorBlaze33": {
         "display_name": "MajorBlaze33",
         "series": {
@@ -2843,24 +2900,6 @@
                     "top10": 6,
                     "poles": 0,
                     "avg": 8.38
-                }
-            }
-        }
-    },
-    "guest_#83_Izmat3k": {
-        "display_name": "Izmat3k",
-        "series": {
-            "Cup": {
-                "number": "83",
-                "team": "Independent",
-                "manufacturer": "N/A",
-                "stats": {
-                    "points": 18,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 18.0
                 }
             }
         }
