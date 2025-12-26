@@ -426,63 +426,6 @@
             }
         }
     },
-    "1099189840840491068": {
-        "display_name": "MajorBlaz33",
-        "series": {
-            "Cup": {
-                "number": "26",
-                "team": "Apex Racing",
-                "manufacturer": null,
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 0
-                }
-            },
-            "Truck": {
-                "number": "10",
-                "team": null,
-                "manufacturer": null,
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 0
-                }
-            },
-            "Menards": {
-                "number": "14",
-                "team": null,
-                "manufacturer": null,
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 0
-                }
-            },
-            "Xfinity": {
-                "number": "09",
-                "team": null,
-                "manufacturer": null,
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 0
-                }
-            }
-        }
-    },
     "1353299434104029237": {
         "display_name": "Tacob1990",
         "series": {
@@ -1173,63 +1116,6 @@
                     "top10": 0,
                     "poles": 0,
                     "avg": 12.0
-                }
-            }
-        }
-    },
-    "1324901158971637825": {
-        "display_name": "Orangeman96",
-        "series": {
-            "Cup": {
-                "number": "48",
-                "team": "Fast And Loose Racing",
-                "manufacturer": null,
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 0
-                }
-            },
-            "Truck": {
-                "number": "96",
-                "team": null,
-                "manufacturer": null,
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 0
-                }
-            },
-            "Menards": {
-                "number": "74",
-                "team": null,
-                "manufacturer": null,
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 0
-                }
-            },
-            "Xfinity": {
-                "number": "7",
-                "team": "",
-                "manufacturer": "",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "avg": 0
                 }
             }
         }
@@ -3014,24 +2900,6 @@
                     "top10": 6,
                     "poles": 0,
                     "avg": 8.38
-                }
-            }
-        }
-    },
-    "guest_#48_Speedhunter_20B": {
-        "display_name": "Speedhunter_20B",
-        "series": {
-            "Cup": {
-                "number": "48",
-                "team": "Fast And Loose Racing",
-                "manufacturer": "N/A",
-                "stats": {
-                    "points": 26,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 10.0
                 }
             }
         }
