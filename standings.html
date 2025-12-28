@@ -37,13 +37,13 @@
         .nav-links a { color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; }
         .nav-links a:hover { color: var(--primary); padding-left: 10px; }
 
-        /* --- HAMBURGER MENU --- */
+        /* --- HAMBURGER MENU (REVERTED TO LARGER SIZE) --- */
         .hamburger {
             position: fixed; top: 2rem; left: 2rem; z-index: 2001; cursor: pointer;
-            display: flex; flex-direction: column; gap: 4px; padding: 10px;
+            display: flex; flex-direction: column; gap: 6px; padding: 10px;
             background: rgba(0,0,0,0.5); border-radius: 4px;
         }
-        .hamburger-line { width: 20px; height: 2px; background-color: #fff; transition: 0.3s; }
+        .hamburger-line { width: 35px; height: 4px; background-color: #fff; transition: 0.3s; }
         .hamburger:hover .hamburger-line { background-color: var(--primary); }
 
         /* --- LOADING SPINNER --- */
@@ -75,6 +75,7 @@
         }
         .tabs-container { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; max-width: 1000px; margin: 0 auto; }
 
+        /* SERIES BUTTONS */
         .series-btn {
             background: #111; border: 1px solid #333; color: #fff; 
             padding: 15px 30px; font-family: 'Arial Black', sans-serif; 
@@ -100,18 +101,17 @@
         @keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
         /* --- TABLE --- */
-        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 1rem; overflow-x: auto; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; overflow-x: auto; }
 
-        .standings-table { width: 100%; border-collapse: collapse; min-width: 800px; /* Forces scroll on mobile */ }
+        .standings-table { width: 100%; border-collapse: collapse; min-width: 700px; }
         .standings-table th { 
             text-align: left; padding: 1.5rem; color: var(--primary); 
             border-bottom: 1px solid var(--border); font-size: 0.8rem; letter-spacing: 2px;
-            text-transform: uppercase; white-space: nowrap;
+            text-transform: uppercase;
         }
         .standings-table td { 
             padding: 1.5rem; border-bottom: 1px solid var(--border); 
             font-family: sans-serif; font-size: 1rem; color: #ccc;
-            white-space: nowrap;
         }
         .standings-table tr:hover td { background: #0a0a0a; color: #fff; }
 
@@ -325,17 +325,14 @@
             rows.sort((a, b) => b.points - a.points);
 
             // --- RANK CHANGE CALCULATION ---
-            // We calculate "Previous Rank" using the trends data (Total points - Last race points)
             let prevRanks = [];
             if (trendsData && trendsData[currentSeries]) {
                 const tData = trendsData[currentSeries].drivers;
                 const raceCount = trendsData[currentSeries].labels.length;
 
-                // Only calc if we have at least 1 race
                 if (raceCount > 0) {
                     rows.forEach(r => {
                         let hist = null;
-                        // Try to find history by ID or Name
                         if (tData[r.id]) hist = tData[r.id];
                         else {
                             const fuzzy = Object.keys(tData).find(k => k.includes(r.driver.split(' ').pop()));
@@ -344,15 +341,14 @@
 
                         let prevPoints = 0;
                         if (hist && hist.length >= 2) {
-                            prevPoints = hist[hist.length - 2]; // Points BEFORE the last race
+                            prevPoints = hist[hist.length - 2]; 
                         } else if (hist && hist.length === 1) {
-                            prevPoints = 0; // First race
+                            prevPoints = 0;
                         }
                         
                         prevRanks.push({ id: r.id, pts: prevPoints });
                     });
                     
-                    // Sort previous standings
                     prevRanks.sort((a, b) => b.pts - a.pts);
                 }
             }
@@ -434,7 +430,6 @@
 
             selectedDrivers.forEach(driverKey => {
                 let dataPoints = sData.drivers[driverKey];
-                // Fuzzy Match for Trends Key
                 if (!dataPoints && driversData[driverKey]) {
                     const dispName = driversData[driverKey].display_name;
                     const match = Object.keys(sData.drivers).find(k => k.includes(dispName));
@@ -445,7 +440,6 @@
                     const hue = (i * 360) / selectedDrivers.size;
                     const color = `hsl(${hue}, 70%, 50%)`;
                     
-                    // Legend Name Construction
                     let legendName = driverKey;
                     if(driversData[driverKey]) {
                         let name = driversData[driverKey].display_name;
