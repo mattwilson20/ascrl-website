@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Championship Standings | ASCRL</title>
+    <title>Championship Standings | American Stock Car Racing League</title>
     
     <link rel="icon" href="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -18,7 +18,7 @@
             --card-bg: #0d0d0d;
             --border: #1a1a1a;
             --text-muted: #a0a0a0;
-            --transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             
             /* Series Colors */
             --cup-blue: #0077ff;
@@ -31,33 +31,41 @@
 
         /* --- NAVIGATION --- */
         #nav-placeholder { position: relative; z-index: 2000; }
-        .nav-overlay { position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; height: 100vh; background: #050505; transition: left 0.5s ease; z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); }
+        
+        .nav-overlay { 
+            position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; 
+            height: 100vh; background: #050505; transition: left 0.5s ease; 
+            z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); 
+        }
         .nav-overlay.open { left: 0; }
         .nav-links { display: flex; flex-direction: column; padding: 0 3rem; }
-        .nav-links a { color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; }
+        .nav-links a { 
+            color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; 
+            border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; 
+        }
         .nav-links a:hover { color: var(--primary); padding-left: 10px; }
 
-        /* --- HAMBURGER MENU (REVERTED TO LARGER SIZE) --- */
+        /* --- HAMBURGER MENU (Reverted to Standard Style) --- */
         .hamburger {
-            position: fixed; top: 2rem; left: 2rem; z-index: 2001; cursor: pointer;
-            display: flex; flex-direction: column; gap: 6px; padding: 10px;
-            background: rgba(0,0,0,0.5); border-radius: 4px;
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 2001;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 10px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 5px;
         }
-        .hamburger-line { width: 35px; height: 4px; background-color: #fff; transition: 0.3s; }
+        .hamburger-line {
+            width: 35px;
+            height: 4px;
+            background-color: #fff;
+            transition: var(--transition);
+        }
         .hamburger:hover .hamburger-line { background-color: var(--primary); }
-
-        /* --- LOADING SPINNER --- */
-        #loading-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 5000; display: flex; justify-content: center; align-items: center;
-            transition: opacity 0.5s ease;
-        }
-        .spinner {
-            width: 50px; height: 50px; border: 5px solid #333;
-            border-top: 5px solid var(--primary); border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         /* --- HERO --- */
         .hero { 
@@ -70,10 +78,10 @@
         /* --- CONTROLS --- */
         .controls { 
             background: #050505; padding: 2rem 1rem; border-bottom: 1px solid var(--border); 
-            position: sticky; top: 0; z-index: 100; 
+            position: sticky; top: 0; z-index: 100; text-align: center;
             display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
         }
-        .tabs-container { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; max-width: 1000px; margin: 0 auto; }
+        .tabs-container { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
 
         /* SERIES BUTTONS */
         .series-btn {
@@ -94,20 +102,19 @@
         /* COMPARE BUTTON */
         #compareBtn {
             display: none; padding: 12px 30px; background-color: #fff; color: #000;
-            border: 1px solid #fff; font-family: 'Arial Black'; text-transform: uppercase; letter-spacing: 1px;
+            border: none; font-family: 'Arial Black'; text-transform: uppercase; letter-spacing: 1px;
             cursor: pointer; transition: 0.3s; animation: popIn 0.3s ease;
         }
-        #compareBtn:hover { background-color: var(--primary); color: #fff; border-color: var(--primary); }
+        #compareBtn:hover { background-color: var(--primary); color: #fff; }
         @keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
         /* --- TABLE --- */
-        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; overflow-x: auto; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 4rem 2rem; overflow-x: auto; }
 
         .standings-table { width: 100%; border-collapse: collapse; min-width: 700px; }
         .standings-table th { 
             text-align: left; padding: 1.5rem; color: var(--primary); 
             border-bottom: 1px solid var(--border); font-size: 0.8rem; letter-spacing: 2px;
-            text-transform: uppercase;
         }
         .standings-table td { 
             padding: 1.5rem; border-bottom: 1px solid var(--border); 
@@ -119,9 +126,10 @@
         .driver-cell { font-family: 'Arial Black'; color: #fff; font-size: 1.1rem; letter-spacing: 1px; }
         .points-cell { font-family: 'Arial Black'; color: var(--accent); font-size: 1.1rem; }
         .checkbox-cell { text-align: center; width: 50px; }
+        
         .select-box { width: 20px; height: 20px; cursor: pointer; accent-color: var(--primary); }
 
-        /* MOVEMENT ARROWS */
+        /* --- RANK ARROWS --- */
         .move-up { color: #0f0; font-size: 0.8rem; margin-left: 5px; }
         .move-down { color: #f00; font-size: 0.8rem; margin-left: 5px; }
         .move-same { color: #555; font-size: 0.8rem; margin-left: 5px; }
@@ -129,11 +137,10 @@
         /* --- GRAPH MODAL --- */
         .modal { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.95); z-index: 3000; justify-content: center; align-items: center; 
-            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.98); z-index: 3000; justify-content: center; align-items: center; 
         }
         .modal-content { 
-            background: #000; border: 1px solid var(--primary); padding: 3rem; width: 90%; max-width: 1100px; 
+            background: #000; border: 1px solid var(--primary); padding: 4rem; width: 90%; max-width: 1000px; 
             position: relative; 
         }
         .close { 
@@ -146,10 +153,16 @@
         /* --- FOOTER --- */
         footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
         .social-links { display: flex; gap: 2rem; justify-content: center; }
-        .social-icon { color: #555; font-size: 1.8rem; transition: 0.3s; }
+        .social-icon { color: #555; font-size: 1.8rem; transition: 0.3s ease; }
         .social-icon:hover { color: #fff; transform: translateY(-3px); }
 
+        /* Error Log */
         #error-log { display:none; background:#300; color:#f88; padding:15px; margin: 20px auto; max-width:800px; border:1px solid red; text-align:center; font-family: sans-serif; }
+        
+        /* Spinner */
+        #loading-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 5000; display: flex; justify-content: center; align-items: center; transition: opacity 0.5s ease; }
+        .spinner { width: 50px; height: 50px; border: 5px solid #333; border-top: 5px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -213,16 +226,22 @@
     </div>
 
     <footer>
-        <div>© 2025-2026 AMERICAN STOCK CAR RACING LEAGUE</div>
-        <div style="font-size: 0.65rem; color: var(--text-muted);">OWNED AND OPERATED BY <span style="color: #fff; font-weight: bold;">A&M PRODUCTIONS LLC</span></div>
+        <div style="margin-bottom: 0.5rem; letter-spacing: 2px;">
+            © 2025-2026 AMERICAN STOCK CAR RACING LEAGUE
+        </div>
+        <div style="font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 2rem; text-transform: uppercase;">
+            OWNED AND OPERATED BY <span style="color: #fff; font-weight: bold;">A&M PRODUCTIONS LLC</span>
+        </div>
         <div class="social-links">
             <a href="#" class="social-icon"><i class="fa-brands fa-facebook"></i></a>
             <a href="#" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a>
             <a href="mailto:contact.ascrl@gmail.com" class="social-icon"><i class="fa-solid fa-envelope"></i></a>
         </div>
+        <div style="font-size: 0.6rem; color: #444; margin-top: 20px; font-style: italic;">*ai generated images may be used</div>
     </footer>
 
     <script>
+        // CONFIG
         const DRIVERS_FILE = 'drivers_2025-26.json';
         const TRENDS_FILE = 'trends_2025-26.json';
 
@@ -232,7 +251,7 @@
         let selectedDrivers = new Set();
         let myChart = null;
 
-        // 1. NAVIGATION LOADER
+        // 1. NAV LOADER
         fetch('nav.html')
             .then(res => res.text())
             .then(data => {
@@ -268,7 +287,7 @@
 
                 renderTable();
                 
-                // Hide spinner once data is loaded
+                // Remove Spinner
                 document.getElementById('loading-screen').style.opacity = 0;
                 setTimeout(() => document.getElementById('loading-screen').style.display = 'none', 500);
 
@@ -292,7 +311,7 @@
             renderTable();
         }
 
-        // 4. RENDER TABLE WITH RANK LOGIC
+        // 4. RENDER TABLE (Processing Logic from your drivers.json format)
         function renderTable() {
             const tbody = document.getElementById('tableBody');
             tbody.innerHTML = '';
@@ -300,11 +319,18 @@
             let rows = [];
             Object.keys(driversData).forEach(key => {
                 const d = driversData[key];
+                // Case-insensitive series search
                 const sKey = Object.keys(d.series).find(k => k.toLowerCase() === currentSeries.toLowerCase());
                 
                 if (sKey) {
                     const stats = d.series[sKey].stats || {};
-                    let name = d.display_name || key.replace(/^#\d+\s+/, '').trim() || key;
+                    
+                    // Name cleanup
+                    let name = d.display_name;
+                    if (!name) name = key.replace(/^#\d+\s+/, '').trim();
+                    if (!name) name = key;
+
+                    // Number cleanup
                     let num = d.series[sKey].number || "";
                     if (key.includes("#") && !num) { const match = key.match(/#(\d+)/); if (match) num = match[1]; }
                     if (num && num !== "N/A") name = `#${num} ${name}`;
@@ -321,10 +347,9 @@
                 }
             });
 
-            // Sort Current Standings
             rows.sort((a, b) => b.points - a.points);
 
-            // --- RANK CHANGE CALCULATION ---
+            // Calculate Rank Changes
             let prevRanks = [];
             if (trendsData && trendsData[currentSeries]) {
                 const tData = trendsData[currentSeries].drivers;
@@ -340,24 +365,24 @@
                         }
 
                         let prevPoints = 0;
-                        if (hist && hist.length >= 2) {
-                            prevPoints = hist[hist.length - 2]; 
-                        } else if (hist && hist.length === 1) {
-                            prevPoints = 0;
-                        }
+                        if (hist && hist.length >= 2) prevPoints = hist[hist.length - 2];
+                        else if (hist && hist.length === 1) prevPoints = 0;
                         
                         prevRanks.push({ id: r.id, pts: prevPoints });
                     });
-                    
                     prevRanks.sort((a, b) => b.pts - a.pts);
                 }
+            }
+
+            if (rows.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:4rem; color:#666;">No data found.</td></tr>';
+                return;
             }
 
             rows.forEach((r, index) => {
                 const tr = document.createElement('tr');
                 const currentRank = index + 1;
                 
-                // Determine Arrow
                 let arrowHtml = '<span class="move-same">-</span>';
                 if (prevRanks.length > 0) {
                     const prevIndex = prevRanks.findIndex(p => p.id === r.id);
@@ -365,9 +390,7 @@
                         const prevRank = prevIndex + 1;
                         if (prevRank > currentRank) arrowHtml = `<span class="move-up">▲${prevRank - currentRank}</span>`;
                         else if (prevRank < currentRank) arrowHtml = `<span class="move-down">▼${currentRank - prevRank}</span>`;
-                    } else {
-                        arrowHtml = '<span class="move-up">NEW</span>';
-                    }
+                    } else arrowHtml = '<span class="move-up">NEW</span>';
                 }
 
                 tr.innerHTML = `
@@ -386,8 +409,6 @@
                 `;
                 tbody.appendChild(tr);
             });
-
-            if (rows.length === 0) tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:4rem;">No data found.</td></tr>';
         }
 
         // 5. CHECKBOX LOGIC
