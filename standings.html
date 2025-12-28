@@ -3,419 +3,301 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Standings | American Stock Car Racing League</title>
-    <link rel="icon" href="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <title>ASCRL Standings & Trends</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        :root {
-            --primary: #c00;
-            --accent: #ff0;
-            --bg-dark: #000;
-            --card-bg: #0d0d0d;
-            --border: #1a1a1a;
-            --text-muted: #a0a0a0;
-            --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-
-        body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--bg-dark); color: #fff; overflow-x: hidden; }
-
-        /* --- MODULAR NAVIGATION STYLES --- */
-        #nav-placeholder { position: relative; z-index: 2000; }
+        /* --- DARK THEME STYLING --- */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #121212; color: #e0e0e0; margin: 0; padding: 20px; }
+        h1 { text-align: center; color: #fff; text-transform: uppercase; letter-spacing: 2px; }
         
-        .nav-overlay { 
-            position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; 
-            height: 100vh; background: #050505; transition: left 0.5s ease; 
-            z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); 
-        }
-        .nav-overlay.open { left: 0; }
-        .nav-links { display: flex; flex-direction: column; padding: 0 3rem; }
-        .nav-links a { 
-            color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; 
-            border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; 
-        }
-        .nav-links a:hover { color: var(--primary); padding-left: 10px; }
-
-        /* --- HERO --- */
-        .hero { 
-            background: radial-gradient(circle at center, #222 0%, #000 100%); 
-            padding: 12rem 1rem 8rem; 
-            text-align: center; 
-            border-bottom: 1px solid var(--border);
-        }
-        h1 { font-size: clamp(3rem, 10vw, 5rem); margin: 0; letter-spacing: -2px; line-height: 0.9; }
-        .hero p { color: var(--primary); letter-spacing: 5px; text-transform: uppercase; font-size: 0.9rem; margin-top: 1rem; }
-
-        /* --- FILTERS --- */
-        .controls { background: #050505; padding: 2rem 1rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; text-align: center; }
+        /* CONTROLS */
+        .controls { max-width: 1000px; margin: 0 auto 20px; display: flex; justify-content: space-between; align-items: center; }
+        select { padding: 10px; background: #333; color: white; border: 1px solid #555; border-radius: 5px; font-size: 16px; }
         
-        .filter-group { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
-
-        select { 
-            background: #000; color: #fff; border: 1px solid var(--border); 
-            padding: 1.2rem 2rem; font-family: 'Arial Black', sans-serif; 
-            text-transform: uppercase; cursor: pointer; min-width: 250px;
-            font-size: 1rem;
+        /* FLOATING COMPARE BUTTON */
+        #compareBtn {
+            display: none; /* Hidden until drivers selected */
+            padding: 10px 20px;
+            background-color: #C00000; /* NASCAR Red */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
         }
-        select:focus { border-color: var(--primary); outline: none; background: #0a0a0a; }
+        #compareBtn:hover { transform: scale(1.05); background-color: #e60000; }
 
-        /* --- TABLE --- */
-        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; overflow-x: auto; }
+        /* TABLE STYLES */
+        .standings-table { width: 100%; max-width: 1000px; margin: 0 auto; border-collapse: collapse; background: #1e1e1e; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
+        .standings-table th, .standings-table td { padding: 12px; text-align: left; border-bottom: 1px solid #333; }
+        .standings-table th { background-color: #2c2c2c; color: #aaa; font-size: 0.9em; text-transform: uppercase; }
+        .standings-table tr:hover { background-color: #252525; }
         
-        table { width: 100%; border-collapse: collapse; margin-top: 1rem; min-width: 800px; }
-        th { 
-            text-align: center; padding: 1.5rem; color: var(--primary); 
-            border-bottom: 1px solid var(--border); font-size: 0.8rem; letter-spacing: 2px; 
+        /* CHECKBOX STYLES */
+        .select-box { transform: scale(1.2); cursor: pointer; accent-color: #C00000; }
+
+        /* --- MODAL (THE POPUP GRAPH) --- */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.85); /* Dark transparent background */
+            backdrop-filter: blur(5px);
         }
-        th:nth-child(2) { text-align: left; } 
         
-        td { 
-            padding: 1.5rem; border-bottom: 1px solid var(--border); 
-            font-family: sans-serif; font-size: 1rem; color: #ccc; text-align: center;
-        }
-        td:nth-child(2) { text-align: left; } 
-        
-        tr:hover td { background: #0a0a0a; color: #fff; }
-        
-        .pos-cell { font-family: 'Arial Black', sans-serif; color: #fff; width: 50px; }
-        .points-cell { font-family: 'Arial Black', sans-serif; color: var(--accent); font-size: 1.2rem; }
-        .leader-row td { background: rgba(204, 0, 0, 0.1); color: #fff; }
-        
-        .driver-name { 
-            font-weight: bold; letter-spacing: 1px; color: #fff; text-transform: uppercase; 
-            cursor: pointer; transition: 0.2s;
-        }
-        .driver-name:hover { color: var(--primary); text-decoration: underline; }
-
-        /* --- MODAL --- */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); justify-content: center; align-items: center; z-index: 3000; }
-        .modal-content { 
-            background: #000; padding: 4rem; width: 100%; max-width: 800px; 
-            border: 1px solid var(--primary); position: relative; max-height: 90vh; overflow-y: auto;
-        }
-        .close { position: absolute; top: 2rem; right: 2rem; font-size: 1rem; cursor: pointer; color: #fff; opacity: 0.5; border: 1px solid #fff; padding: 5px 15px; }
-        .close:hover { opacity: 1; background: #fff; color: #000; }
-
-        .modal-body h4 { color: var(--primary); text-transform: uppercase; letter-spacing: 3px; border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-top: 3rem; }
-        .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 1.5rem 0; }
-        .stat-box { border-left: 2px solid #222; padding-left: 15px; }
-        .stat-box small { font-size: 0.6rem; text-transform: uppercase; color: var(--text-muted); display: block; font-family: sans-serif; }
-        .stat-box span { font-size: 1.4rem; color: var(--accent); font-family: 'Arial Black'; }
-
-        /* --- FOOTER & SOCIALS --- */
-        footer { 
-            padding: 4rem 1rem; 
-            text-align: center; 
-            border-top: 1px solid var(--border); 
-            color: #333; 
-            font-size: 0.8rem; 
-            letter-spacing: 2px; 
-            text-transform: uppercase; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            gap: 1.5rem; 
+        .modal-content {
+            background-color: #1e1e1e;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #444;
+            width: 90%;
+            max-width: 1100px;
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
         }
 
-        .social-links {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
+        .close-btn {
+            position: absolute;
+            top: 10px; right: 20px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
         }
+        .close-btn:hover { color: white; }
 
-        .social-icon {
-            color: #555;
-            font-size: 1.8rem;
-            transition: 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-        }
-
-        .social-icon:hover { transform: translateY(-3px); }
-        .social-icon.facebook:hover { color: #1877F2; } 
-        .social-icon.x-twitter:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
-        .social-icon.email:hover { color: var(--primary); }
-
-        @media (max-width: 768px) {
-            .hero { padding: 10rem 1rem 4rem; }
-            td, th { padding: 1rem 0.5rem; font-size: 0.8rem; }
-            .container { padding: 2rem 1rem; }
-            .modal-content { padding: 2rem; }
-            .stat-row { grid-template-columns: 1fr 1fr; }
-        }
+        /* GRAPH SIZE */
+        .chart-wrapper { position: relative; height: 60vh; width: 100%; }
     </style>
 </head>
 <body>
 
-    <div id="nav-placeholder"></div>
-
-    <header class="hero">
-        <p>Season Championship</p>
-        <h1>STANDINGS</h1>
-    </header>
+    <h1>Championship Standings</h1>
 
     <div class="controls">
-        <div class="filter-group">
-            <select id="season-select" onchange="loadSeasonData(this.value)">
-                <option value="2025-26" selected>2025-26 Season</option>
-                <option value="2026">2026 Season</option>
-            </select>
-
-            <select id="series-select" onchange="loadSeries()">
-                <option value="Cup">NASCAR Cup Series</option>
-                <option value="Xfinity">Xfinity Series</option>
-                <option value="Truck">Truck Series</option>
-                <option value="Menards">ARCA Menards</option>
-            </select>
-        </div>
+        <select id="seriesSelect" onchange="renderTable()">
+            <option value="Cup">Cup Series</option>
+            <option value="Xfinity">Xfinity Series</option>
+            <option value="Truck">Truck Series</option>
+            <option value="Menards">Menards Series</option>
+        </select>
+        
+        <button id="compareBtn" onclick="openModal()">
+            Compare Drivers (<span id="count">0</span>/10)
+        </button>
     </div>
 
-    <main class="container">
-        <table id="standings-table">
-            <thead>
-                <tr>
-                    <th>POS</th>
-                    <th>DRIVER</th>
-                    <th>WINS</th>
-                    <th>TOP 5</th>
-                    <th>TOP 10</th>
-                    <th>AVG FIN</th>
-                    <th>PTS</th>
-                </tr>
-            </thead>
-            <tbody id="standings-body">
-                <tr><td colspan="7" style="text-align:center; padding:2rem; color:#666;">Loading Data...</td></tr>
+    <table class="standings-table">
+        <thead>
+            <tr>
+                <th style="width: 40px;">Select</th>
+                <th style="width: 50px;">Pos</th>
+                <th>Driver</th>
+                <th>Points</th>
+                <th>Wins</th>
+                <th>Top 5</th>
+                <th>Top 10</th>
+                <th>Avg Fin</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
             </tbody>
-        </table>
-    </main>
+    </table>
 
-    <div id="driver-modal" class="modal">
+    <div id="graphModal" class="modal" onclick="closeModal(event)">
         <div class="modal-content">
-            <span class="close" onclick="document.getElementById('driver-modal').style.display='none'">CLOSE</span>
-            <div id="modal-data" class="modal-body"></div>
+            <span class="close-btn" onclick="document.getElementById('graphModal').style.display='none'">&times;</span>
+            <h2 style="text-align:center; margin-top:0;">Season Progression Comparison</h2>
+            <div class="chart-wrapper">
+                <canvas id="trendChart"></canvas>
+            </div>
+            <p style="text-align: center; color: #777; font-size: 0.9em;">Click anywhere outside this box to close.</p>
         </div>
     </div>
-
-    <footer>
-        <div style="margin-bottom: 0.5rem; letter-spacing: 2px;">
-            © 2025-2026 AMERICAN STOCK CAR RACING LEAGUE
-        </div>
-        
-        <div style="font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 2rem; text-transform: uppercase;">
-            OWNED AND OPERATED BY <span style="color: #fff; font-weight: bold;">A&M PRODUCTIONS LLC</span>
-        </div>
-
-        <div class="social-links">
-            <a href="https://www.facebook.com/share/14PeZVCH1hL/" target="_blank" class="social-icon facebook" aria-label="Facebook">
-                <i class="fa-brands fa-facebook"></i>
-            </a>
-            <a href="https://x.com/ASCRWeekly" target="_blank" class="social-icon x-twitter" aria-label="X (Twitter)">
-                <i class="fa-brands fa-x-twitter"></i>
-            </a>
-            <a href="mailto:contact.ascrl@gmail.com" class="social-icon email" aria-label="Email A&M Productions">
-                <i class="fa-solid fa-envelope"></i>
-            </a>
-        </div>
-        
-        <div style="font-size: 0.6rem; color: #444; margin-top: 20px; font-style: italic;">*ai generated images may be used</div>
-    </footer>
 
     <script>
-        // --- 1. MODULAR NAVIGATION LOGIC ---
-        fetch('nav.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('nav-placeholder').innerHTML = data;
-                
-                const currentPage = window.location.pathname.split("/").pop() || "index.html";
-                const navID = "nav-" + currentPage.split(".")[0];
-                const activeLink = document.getElementById(navID);
-                if (activeLink) {
-                    activeLink.style.color = "var(--primary)";
-                    activeLink.style.borderLeft = "4px solid var(--primary)";
-                    activeLink.style.paddingLeft = "15px";
-                }
-            })
-            .catch(err => console.error("Nav load error:", err));
+        // CONFIG: MATCH THESE TO YOUR FILENAMES
+        const STANDINGS_FILE = 'team_standings_2025-26.json'; // Or 'drivers_2025-26.json' if you prefer raw
+        // ACTUALLY: Let's use the standard "export_standings" JSON format for the table
+        const DATA_FILE = 'standings_2025-26.json'; 
+        const TRENDS_FILE = 'trends_2025-26.json';
 
-        function toggleMenu() {
-            const menu = document.getElementById('nav-menu');
-            if (menu) menu.classList.toggle('open');
+        let standingsData = {};
+        let trendsData = {};
+        let myChart = null;
+        let selectedDrivers = new Set();
+
+        // 1. INITIALIZE
+        async function init() {
+            try {
+                // Load both files in parallel
+                const [sRes, tRes] = await Promise.all([
+                    fetch(DATA_FILE),
+                    fetch(TRENDS_FILE)
+                ]);
+
+                if (!sRes.ok || !tRes.ok) throw new Error("File not found");
+
+                standingsData = await sRes.json();
+                trendsData = await tRes.json();
+                
+                renderTable(); // Draw the table
+            } catch (err) {
+                console.error(err);
+                document.querySelector('h1').innerText = "Error loading data files. Check console.";
+            }
         }
 
-        // --- 2. STANDINGS DATA LOGIC (MULTI-SEASON) ---
-        let driversData = {};
+        // 2. RENDER TABLE
+        function renderTable() {
+            const series = document.getElementById('seriesSelect').value;
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+            selectedDrivers.clear();
+            updateButton();
 
-        // Load default season on startup
-        document.addEventListener('DOMContentLoaded', () => {
-            loadSeasonData("2025-26");
-        });
-
-        function loadSeasonData(season) {
-            const body = document.getElementById('standings-body');
-            body.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:2rem; color:#666;">Accessing Data Feed...</td></tr>';
-
-            const fileName = `drivers_${season}.json`; 
-            const fallbackFile = `drivers.json`;
-
-            fetch(fileName)
-                .then(r => {
-                    if (!r.ok) {
-                        console.warn(`${fileName} not found, trying fallback...`);
-                        return fetch(fallbackFile);
-                    }
-                    return r;
-                })
-                .then(res => {
-                    if (!res.ok) throw new Error("Season data not found");
-                    return res.json();
-                })
-                .then(data => {
-                    driversData = data;
-                    loadSeries(); 
-                })
-                .catch(err => {
-                    console.error(err);
-                    body.innerHTML = 
-                        `<tr><td colspan="7" style="text-align:center; padding:2rem; color:var(--primary);">
-                            No standings available for ${season} yet.
-                        </td></tr>`;
-                    driversData = {}; 
-                });
-        }
-
-        function loadSeries() {
-            const selectedSeries = document.getElementById('series-select').value;
-            const body = document.getElementById('standings-body');
-            body.innerHTML = '';
-
-            let seriesDrivers = [];
-
-            // Parse the Drivers JSON to build a standings array
-            Object.entries(driversData).forEach(([id, driver]) => {
-                // Handle missing display_name property (if using new short JSON format)
-                let dName = driver.display_name;
-                if (!dName) dName = id.replace(/^#\d+\s+/, '').trim(); // Remove leading number if key is name
-                if (!dName) dName = "Unknown";
-
-                // Ensure the driver object has ID and name set for modal use
-                driver.id = id;
-                driver.display_name = dName;
-
-                const seriesKey = Object.keys(driver.series).find(k => k.toLowerCase() === selectedSeries.toLowerCase());
-                
-                if (seriesKey) {
-                    const sData = driver.series[seriesKey];
-                    const rawName = sData.driver_name || dName;
-                    
-                    // --- ROUNDING FIX FOR TABLE ---
-                    let avg = sData.stats.avg;
-                    if (typeof avg === 'number') {
-                        avg = avg.toFixed(1);
-                    } else if (avg && !isNaN(parseFloat(avg))) {
-                        avg = parseFloat(avg).toFixed(1);
-                    } else {
-                        avg = '-';
-                    }
-                    // ------------------------------
-
-                    seriesDrivers.push({
-                        id: id, 
-                        name: rawName,
-                        points: sData.stats.points || 0,
-                        wins: sData.stats.wins || 0,
-                        top5: sData.stats.top5 || 0,
-                        top10: sData.stats.top10 || 0,
-                        avg: avg
-                    });
-                }
-            });
-
-            // Sort by Points (Highest first)
-            seriesDrivers.sort((a, b) => b.points - a.points);
-
-            if (seriesDrivers.length === 0) {
-                body.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:2rem;">No drivers found for this series.</td></tr>';
+            // Handle casing differences (Cup vs CUP)
+            // The JSON keys might be Title Case or Upper Case depending on Python script version
+            // We search for a matching key
+            let seriesKey = Object.keys(standingsData).find(k => k.toLowerCase() === series.toLowerCase());
+            
+            if (!seriesKey || !standingsData[seriesKey]) {
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">No data for this series.</td></tr>';
                 return;
             }
 
-            seriesDrivers.forEach((entry, index) => {
-                const isLeader = index === 0 ? 'class="leader-row"' : '';
-                
-                body.innerHTML += `
-                    <tr ${isLeader}>
-                        <td class="pos-cell">${index + 1}</td>
-                        <td class="driver-name" onclick="openProfile('${entry.id}')">${entry.name}</td>
-                        <td>${entry.wins}</td>
-                        <td>${entry.top5}</td>
-                        <td>${entry.top10}</td>
-                        <td>${entry.avg}</td>
-                        <td class="points-cell">${entry.points}</td>
-                    </tr>
+            const drivers = standingsData[seriesKey];
+
+            drivers.forEach((d, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="text-align:center;">
+                        <input type="checkbox" class="select-box" value="${d.driver}" onchange="toggleDriver(this)">
+                    </td>
+                    <td style="text-align:center; font-weight:bold;">${index + 1}</td>
+                    <td>${d.driver}</td>
+                    <td>${d.points}</td>
+                    <td>${d.wins}</td>
+                    <td>${d.top5}</td>
+                    <td>${d.top10}</td>
+                    <td>${d.avg}</td>
                 `;
+                tbody.appendChild(tr);
             });
         }
 
-        // --- 3. MODAL LOGIC ---
-        function openProfile(id) {
-            const driver = driversData[id];
-            const modal = document.getElementById('driver-modal');
-            const dataDiv = document.getElementById('modal-data');
-            
-            if(!driver) return;
-
-            let html = `<h2 style="font-size:3rem; margin:0; line-height:1;">${driver.display_name}</h2>`;
-            
-            const seriesOrder = ["Cup", "Xfinity", "Truck", "Menards"];
-            
-            const sortedSeries = Object.keys(driver.series).sort((a, b) => {
-                let ia = seriesOrder.indexOf(a);
-                let ib = seriesOrder.indexOf(b);
-                if (ia === -1) ia = 99;
-                if (ib === -1) ib = 99;
-                return ia - ib;
-            });
-
-            sortedSeries.forEach(sName => {
-                const s = driver.series[sName];
-                const st = s.stats || {wins:0, top5:0, top10:0, poles:0, avg:0, points:0};
-                
-                // --- ROUNDING FIX FOR MODAL ---
-                let avg = st.avg;
-                if (typeof avg === 'number') {
-                    avg = avg.toFixed(1);
-                } else if (avg && !isNaN(parseFloat(avg))) {
-                    avg = parseFloat(avg).toFixed(1);
-                } else {
-                    avg = 'N/A';
+        // 3. HANDLE CHECKBOXES
+        function toggleDriver(checkbox) {
+            if (checkbox.checked) {
+                if (selectedDrivers.size >= 10) {
+                    alert("Maximum 10 drivers allowed.");
+                    checkbox.checked = false;
+                    return;
                 }
-                // ------------------------------
-
-                html += `
-                    <h4>${sName} Series / #${s.number || 'N/A'} ${s.manufacturer || ''}</h4>
-                    <p style="font-family:sans-serif; font-size:0.9rem; color:#666;">Team: ${s.team || 'Independent'}</p>
-                    <div class="stat-row">
-                        <div class="stat-box"><small>Points</small><span>${st.points}</span></div>
-                        <div class="stat-box"><small>Wins</small><span>${st.wins}</span></div>
-                        <div class="stat-box"><small>Top 5s</small><span>${st.top5}</span></div>
-                        <div class="stat-box"><small>Top 10s</small><span>${st.top10}</span></div>
-                        <div class="stat-box"><small>Poles</small><span>${st.poles}</span></div>
-                        <div class="stat-box"><small>Avg. Fin</small><span>${avg}</span></div>
-                    </div>
-                `;
-            });
-
-            dataDiv.innerHTML = html;
-            modal.style.display = 'flex';
+                selectedDrivers.add(checkbox.value);
+            } else {
+                selectedDrivers.delete(checkbox.value);
+            }
+            updateButton();
         }
 
-        window.onclick = function(e) {
-            if (e.target.className === 'modal') {
-                document.getElementById('driver-modal').style.display = 'none';
+        function updateButton() {
+            const btn = document.getElementById('compareBtn');
+            const countSpan = document.getElementById('count');
+            countSpan.innerText = selectedDrivers.size;
+            
+            if (selectedDrivers.size >= 2) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
             }
         }
-    </script> 
+
+        // 4. OPEN GRAPH MODAL
+        function openModal() {
+            document.getElementById('graphModal').style.display = "block";
+            drawGraph();
+        }
+
+        // 5. CLOSE MODAL (Clicking background)
+        function closeModal(e) {
+            if (e.target.id === 'graphModal') {
+                document.getElementById('graphModal').style.display = "none";
+            }
+        }
+
+        // 6. DRAW GRAPH
+        function drawGraph() {
+            const series = document.getElementById('seriesSelect').value;
+            
+            // Find correct key in Trends Data
+            let tKey = Object.keys(trendsData).find(k => k.toLowerCase() === series.toLowerCase());
+            if (!tKey) { alert("No trend data found for this series."); return; }
+
+            const sData = trendsData[tKey];
+            const ctx = document.getElementById('trendChart').getContext('2d');
+
+            // Build Datasets
+            const datasets = [];
+            let colorIndex = 0;
+            const totalColors = selectedDrivers.size;
+
+            selectedDrivers.forEach(driverName => {
+                if (sData.drivers[driverName]) {
+                    const color = `hsl(${(colorIndex * 360) / totalColors}, 70%, 50%)`;
+                    datasets.push({
+                        label: driverName,
+                        data: sData.drivers[driverName],
+                        borderColor: color,
+                        backgroundColor: color,
+                        tension: 0.2,
+                        pointRadius: 4,
+                        pointHoverRadius: 7
+                    });
+                    colorIndex++;
+                }
+            });
+
+            if (myChart) myChart.destroy();
+
+            myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: sData.labels, // Race Names
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { labels: { color: 'white' } },
+                        tooltip: { 
+                            titleColor: '#C00000',
+                            bodyFont: { size: 14 }
+                        }
+                    },
+                    scales: {
+                        x: { ticks: { color: '#aaa' }, grid: { color: '#333' } },
+                        y: { 
+                            beginAtZero: true, 
+                            ticks: { color: '#aaa' }, 
+                            grid: { color: '#333' },
+                            title: { display: true, text: 'Cumulative Points', color: 'white' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Start App
+        init();
+    </script>
 </body>
 </html>
