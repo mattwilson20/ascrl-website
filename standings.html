@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Championship Standings | ASCRL</title>
+    <title>ASCRL Standings | American Stock Car Racing League</title>
     
     <link rel="icon" href="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* --- INTERNAL STYLES TO MATCH YOUR THEME --- */
         :root {
             --primary: #c00;
             --accent: #ff0;
@@ -20,7 +19,7 @@
             --card-bg: #0d0d0d;
             --border: #1a1a1a;
             --text-muted: #a0a0a0;
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 
             /* Series Colors */
             --cup-blue: #0077ff;
@@ -31,11 +30,27 @@
 
         body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--bg-dark); color: #fff; overflow-x: hidden; }
 
-        /* --- NAVIGATION --- */
-        #nav-placeholder { position: relative; z-index: 2000; }
-        /* (The rest of nav styles come from style.css, but critical ones are here just in case) */
-        .nav-overlay { position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; height: 100vh; background: #050505; transition: left 0.5s ease; z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); }
-        .nav-overlay.open { left: 0; }
+        /* --- HAMBURGER MENU STYLES --- */
+        .hamburger {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 2001; /* Above nav overlay */
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 10px;
+            background: rgba(0,0,0,0.5); /* Optional backing for visibility */
+            border-radius: 5px;
+        }
+        .hamburger-line {
+            width: 35px;
+            height: 4px;
+            background-color: #fff;
+            transition: var(--transition);
+        }
+        .hamburger:hover .hamburger-line { background-color: var(--primary); }
 
         /* --- HERO --- */
         .hero { 
@@ -47,7 +62,7 @@
         h1 { font-size: clamp(3rem, 10vw, 5rem); margin: 0; letter-spacing: -2px; line-height: 0.9; }
         .hero p { color: var(--primary); letter-spacing: 5px; text-transform: uppercase; font-size: 0.9rem; margin-top: 1rem; }
 
-        /* --- CONTROLS SECTION --- */
+        /* --- CONTROLS --- */
         .controls { 
             background: #050505; padding: 2rem 1rem; border-bottom: 1px solid var(--border); 
             position: sticky; top: 0; z-index: 100; 
@@ -58,7 +73,7 @@
             display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; max-width: 1000px; margin: 0 auto; 
         }
 
-        /* SERIES BUTTONS (Copied from Drivers Page) */
+        /* SERIES BUTTONS */
         .series-btn {
             background: #111; border: 1px solid #333; color: #fff; 
             padding: 15px 30px; font-family: 'Arial Black', sans-serif; 
@@ -69,7 +84,7 @@
         .series-btn:hover { transform: translateY(-3px); }
         .series-btn.active { border-color: #fff; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
 
-        /* Specific Colors */
+        /* Specific Colors for Active State */
         .series-btn[data-series="Cup"].active { background: var(--cup-blue); border-color: var(--cup-blue); }
         .series-btn[data-series="Xfinity"].active { background: var(--xfinity-purple); border-color: var(--xfinity-purple); }
         .series-btn[data-series="Truck"].active { background: var(--truck-red); border-color: var(--truck-red); }
@@ -77,12 +92,11 @@
 
         /* COMPARE BUTTON */
         #compareBtn {
-            display: none; /* Hidden until needed */
-            padding: 12px 30px; background-color: #fff; color: #000;
-            border: 1px solid #fff; font-family: 'Arial Black'; text-transform: uppercase;
+            display: none; padding: 12px 30px; background-color: #fff; color: #000;
+            border: none; font-family: 'Arial Black'; text-transform: uppercase; letter-spacing: 1px;
             cursor: pointer; transition: 0.3s; animation: popIn 0.3s ease;
         }
-        #compareBtn:hover { background-color: var(--primary); color: #fff; border-color: var(--primary); }
+        #compareBtn:hover { background-color: var(--primary); color: #fff; }
         @keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
         /* --- TABLE STYLES --- */
@@ -107,9 +121,7 @@
         .checkbox-cell { text-align: center; width: 50px; }
 
         /* Custom Checkbox */
-        .select-box { 
-            width: 20px; height: 20px; cursor: pointer; accent-color: var(--primary); 
-        }
+        .select-box { width: 20px; height: 20px; cursor: pointer; accent-color: var(--primary); }
 
         /* --- GRAPH MODAL --- */
         .modal { 
@@ -139,6 +151,12 @@
     </style>
 </head>
 <body>
+
+    <div class="hamburger" onclick="toggleMenu()">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </div>
 
     <div id="nav-placeholder"></div>
 
@@ -213,13 +231,13 @@
         let selectedDrivers = new Set();
         let myChart = null;
 
-        // --- 1. NAVIGATION LOADER (Copied from your other pages) ---
+        // --- 1. NAVIGATION LOADER ---
         fetch('nav.html')
             .then(res => res.text())
             .then(data => {
                 document.getElementById('nav-placeholder').innerHTML = data;
                 const currentPage = window.location.pathname.split("/").pop() || "index.html";
-                const navID = "nav-" + currentPage.split(".")[0]; // e.g. nav-standings
+                const navID = "nav-" + currentPage.split(".")[0];
                 const activeLink = document.getElementById(navID);
                 if (activeLink) {
                     activeLink.style.color = "var(--primary)";
@@ -229,7 +247,7 @@
             })
             .catch(err => console.error("Nav load failed"));
 
-        // Add the toggle function global scope so hamburger works
+        // HAMBURGER TOGGLE FUNCTION
         function toggleMenu() {
             const menu = document.getElementById('nav-menu');
             if (menu) menu.classList.toggle('open');
