@@ -632,7 +632,7 @@
                 }
             },
             "Menards": {
-                "number": "21",
+                "number": "28",
                 "team": null,
                 "manufacturer": null,
                 "stats": {
@@ -904,7 +904,7 @@
                 }
             },
             "Truck": {
-                "number": "7",
+                "number": "52",
                 "team": null,
                 "manufacturer": null,
                 "stats": {
@@ -965,19 +965,6 @@
                     "avg": 2.2
                 }
             },
-            "Menards": {
-                "number": "5",
-                "team": null,
-                "manufacturer": null,
-                "stats": {
-                    "points": 117,
-                    "wins": 0,
-                    "top5": 3,
-                    "top10": 3,
-                    "poles": 2,
-                    "avg": 6.75
-                }
-            },
             "Xfinity": {
                 "number": "99",
                 "team": null,
@@ -1002,6 +989,19 @@
                     "top10": 1,
                     "poles": 0,
                     "avg": 1.0
+                }
+            },
+            "Menards": {
+                "number": "2",
+                "team": "",
+                "manufacturer": "",
+                "stats": {
+                    "points": 117,
+                    "wins": 0,
+                    "top5": 3,
+                    "top10": 3,
+                    "poles": 2,
+                    "avg": 6.75
                 }
             }
         }
@@ -1401,7 +1401,7 @@
         "display_name": "Brentski",
         "series": {
             "Truck": {
-                "number": "52",
+                "number": "101",
                 "team": null,
                 "manufacturer": null,
                 "stats": {
@@ -2260,7 +2260,7 @@
                 }
             },
             "Xfinity": {
-                "number": "8",
+                "number": "93",
                 "team": "",
                 "manufacturer": "",
                 "stats": {
@@ -2474,7 +2474,7 @@
         }
     },
     "1441870473641332863": {
-        "display_name": "SpeedyDangorus",
+        "display_name": "Driver 1441870473641332863",
         "series": {
             "Menards": {
                 "number": "20",
@@ -2658,12 +2658,113 @@
                     "poles": 0,
                     "avg": 0
                 }
+            },
+            "Menards": {
+                "number": "87",
+                "team": "",
+                "manufacturer": "",
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 0
+                }
             }
         }
     },
-    "guest_#14_MajorBlaze33": {
-        "display_name": "MajorBlaze33",
+    "726202078162190366": {
+        "display_name": "TendiSaves",
         "series": {
+            "Xfinity": {
+                "number": "13",
+                "team": "",
+                "manufacturer": "",
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 0
+                }
+            },
+            "Cup": {
+                "number": "32",
+                "team": "",
+                "manufacturer": "",
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 0
+                }
+            }
+        }
+    },
+    "1391633715360305242": {
+        "display_name": "Isaac-_-34",
+        "series": {
+            "Truck": {
+                "number": "35",
+                "team": "",
+                "manufacturer": "",
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 0
+                }
+            },
+            "Cup": {
+                "number": "99",
+                "team": "",
+                "manufacturer": "",
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 0
+                }
+            },
+            "Xfinity": {
+                "number": "54",
+                "team": "",
+                "manufacturer": "",
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "avg": 0
+                }
+            }
+        }
+    },
+    "1099189840840491068": {
+        "display_name": "MajorBlaz33",
+        "series": {
+            "Cup": {
+                "number": "26",
+                "team": "APEX RACING",
+                "manufacturer": "",
+                "stats": {
+                    "points": 221,
+                    "wins": 0,
+                    "top5": 2,
+                    "top10": 6,
+                    "poles": 0,
+                    "avg": 8.38
+                }
+            },
             "Menards": {
                 "number": "14",
                 "team": "Independent",
@@ -2676,12 +2777,51 @@
                     "poles": 0,
                     "avg": 4.5
                 }
+            },
+            "Truck": {
+                "number": "10",
+                "team": "Independent",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 220,
+                    "wins": 1,
+                    "top5": 2,
+                    "top10": 5,
+                    "poles": 0,
+                    "avg": 9.12
+                }
+            },
+            "Xfinity": {
+                "number": "09",
+                "team": "Independent",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 104,
+                    "wins": 0,
+                    "top5": 2,
+                    "top10": 3,
+                    "poles": 0,
+                    "avg": 10.0
+                }
             }
         }
     },
-    "guest_#59_BanishedCrayon": {
+    "881698810210963486": {
         "display_name": "BanishedCrayon",
         "series": {
+            "Cup": {
+                "number": "59",
+                "team": "FAST AND LOOSE RACING",
+                "manufacturer": "",
+                "stats": {
+                    "points": 132,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "avg": 14.0
+                }
+            },
             "Menards": {
                 "number": "59",
                 "team": "Independent",
@@ -2720,25 +2860,25 @@
                     "poles": 0,
                     "avg": 7.8
                 }
-            },
-            "Cup": {
-                "number": "59",
-                "team": "Fast And Loose Racing",
-                "manufacturer": "N/A",
-                "stats": {
-                    "points": 132,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "avg": 14.0
-                }
             }
         }
     },
     "485174005104640011": {
-        "display_name": "Orangeman96",
+        "display_name": "Orangeman_96",
         "series": {
+            "Cup": {
+                "number": "48",
+                "team": "FAST AND LOOSE RACING",
+                "manufacturer": "",
+                "stats": {
+                    "points": 164,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 5,
+                    "poles": 1,
+                    "avg": 8.67
+                }
+            },
             "Menards": {
                 "number": "74",
                 "team": "Independent",
@@ -2777,72 +2917,23 @@
                     "poles": 0,
                     "avg": 8.0
                 }
-            },
-            "Cup": {
-                "number": "48",
-                "team": "Fast And Loose Racing",
-                "manufacturer": "N/A",
-                "stats": {
-                    "points": 164,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 5,
-                    "poles": 1,
-                    "avg": 8.67
-                }
             }
         }
     },
-    "guest_#10_MajorBlaze33": {
-        "display_name": "MajorBlaze33",
+    "184477940979990528": {
+        "display_name": "thelastofdavid",
         "series": {
-            "Truck": {
-                "number": "10",
-                "team": "Independent",
-                "manufacturer": "N/A",
+            "Menards": {
+                "number": "65",
+                "team": "",
+                "manufacturer": "",
                 "stats": {
-                    "points": 220,
-                    "wins": 1,
-                    "top5": 2,
-                    "top10": 5,
-                    "poles": 0,
-                    "avg": 9.12
-                }
-            }
-        }
-    },
-    "guest_#09_MajorBlaze33": {
-        "display_name": "MajorBlaze33",
-        "series": {
-            "Xfinity": {
-                "number": "09",
-                "team": "Independent",
-                "manufacturer": "N/A",
-                "stats": {
-                    "points": 104,
+                    "points": 0,
                     "wins": 0,
-                    "top5": 2,
-                    "top10": 3,
+                    "top5": 0,
+                    "top10": 0,
                     "poles": 0,
-                    "avg": 10.0
-                }
-            }
-        }
-    },
-    "guest_#26_MajorBlaze33": {
-        "display_name": "MajorBlaze33",
-        "series": {
-            "Cup": {
-                "number": "26",
-                "team": "Apex Racing",
-                "manufacturer": "N/A",
-                "stats": {
-                    "points": 221,
-                    "wins": 0,
-                    "top5": 2,
-                    "top10": 6,
-                    "poles": 0,
-                    "avg": 8.38
+                    "avg": 0
                 }
             }
         }
