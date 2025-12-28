@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Championship Standings | ASCRL</title>
+    <title>Championship Standings | American Stock Car Racing League</title>
     
     <link rel="icon" href="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -18,7 +18,7 @@
             --card-bg: #0d0d0d;
             --border: #1a1a1a;
             --text-muted: #a0a0a0;
-            --transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             
             /* Series Colors */
             --cup-blue: #0077ff;
@@ -31,29 +31,13 @@
 
         /* --- NAVIGATION --- */
         #nav-placeholder { position: relative; z-index: 2000; }
+        
+        /* Ensure overlay styles match your site if nav.html doesn't load css */
         .nav-overlay { position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; height: 100vh; background: #050505; transition: left 0.5s ease; z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); }
         .nav-overlay.open { left: 0; }
         .nav-links { display: flex; flex-direction: column; padding: 0 3rem; }
         .nav-links a { color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; }
         .nav-links a:hover { color: var(--primary); padding-left: 10px; }
-
-        /* --- HAMBURGER MENU (UPDATED FOR CLEANER LOOK) --- */
-        .hamburger {
-            position: fixed; top: 2rem; left: 2rem; z-index: 2001; cursor: pointer;
-            display: flex; flex-direction: column;
-            /* Gap reduced from 6px to 4px */
-            gap: 4px; 
-            padding: 10px;
-            background: rgba(0,0,0,0.5); border-radius: 4px;
-        }
-        .hamburger-line { 
-            /* Width reduced from 35px to 20px */
-            width: 20px; 
-            /* Height reduced from 4px to 2px */
-            height: 2px; 
-            background-color: #fff; transition: 0.3s; 
-        }
-        .hamburger:hover .hamburger-line { background-color: var(--primary); }
 
         /* --- HERO --- */
         .hero { 
@@ -77,6 +61,7 @@
             padding: 15px 30px; font-family: 'Arial Black', sans-serif; 
             text-transform: uppercase; font-size: 1rem; letter-spacing: 1px;
             cursor: pointer; transition: var(--transition); min-width: 150px;
+            position: relative; overflow: hidden;
         }
         .series-btn:hover { transform: translateY(-3px); }
         .series-btn.active { border-color: #fff; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
@@ -96,7 +81,7 @@
         @keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
         /* --- TABLE --- */
-        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; overflow-x: auto; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 4rem 2rem; overflow-x: auto; }
 
         .standings-table { width: 100%; border-collapse: collapse; min-width: 700px; }
         .standings-table th { 
@@ -143,12 +128,6 @@
     </style>
 </head>
 <body>
-
-    <div class="hamburger" onclick="toggleMenu()">
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-    </div>
 
     <div id="nav-placeholder"></div>
 
@@ -199,21 +178,26 @@
     </div>
 
     <footer>
-        <div>© 2025-2026 AMERICAN STOCK CAR RACING LEAGUE</div>
-        <div style="font-size: 0.65rem; color: var(--text-muted);">OWNED AND OPERATED BY <span style="color: #fff; font-weight: bold;">A&M PRODUCTIONS LLC</span></div>
+        <div style="margin-bottom: 0.5rem; letter-spacing: 2px;">
+            © 2025-2026 AMERICAN STOCK CAR RACING LEAGUE
+        </div>
+        <div style="font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 2rem; text-transform: uppercase;">
+            OWNED AND OPERATED BY <span style="color: #fff; font-weight: bold;">A&M PRODUCTIONS LLC</span>
+        </div>
         <div class="social-links">
             <a href="#" class="social-icon"><i class="fa-brands fa-facebook"></i></a>
             <a href="#" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a>
             <a href="mailto:contact.ascrl@gmail.com" class="social-icon"><i class="fa-solid fa-envelope"></i></a>
         </div>
+        <div style="font-size: 0.6rem; color: #444; margin-top: 20px; font-style: italic;">*ai generated images may be used</div>
     </footer>
 
     <script>
-        // CONFIG: Using drivers.json because it contains stats (wins/top5) that the flat standings file might be missing
+        // CONFIG: Match these to your actual filenames
         const DRIVERS_FILE = 'drivers_2025-26.json';
         const TRENDS_FILE = 'trends_2025-26.json';
 
-        let driversData = {}; // Contains { ID: { series: { Cup: { stats: ... } } } }
+        let driversData = {}; 
         let trendsData = {};
         let currentSeries = 'Cup';
         let selectedDrivers = new Set();
@@ -224,7 +208,9 @@
             .then(res => res.text())
             .then(data => {
                 document.getElementById('nav-placeholder').innerHTML = data;
-                const activeLink = document.getElementById('nav-standings');
+                const currentPage = window.location.pathname.split("/").pop() || "index.html";
+                const navID = "nav-" + currentPage.split(".")[0];
+                const activeLink = document.getElementById(navID);
                 if (activeLink) {
                     activeLink.style.color = "var(--primary)";
                     activeLink.style.borderLeft = "4px solid var(--primary)";
@@ -233,6 +219,7 @@
             })
             .catch(err => console.error("Nav load failed"));
 
+        // Global toggle function for the hamburger (which is loaded via nav.html)
         function toggleMenu() {
             const menu = document.getElementById('nav-menu');
             if (menu) menu.classList.toggle('open');
@@ -241,13 +228,13 @@
         // 2. DATA LOADER
         async function init() {
             try {
-                // We load drivers_2025-26.json to resolve the "undefined" errors
+                // Fetch drivers.json (for table) and trends.json (for graph)
                 const [dRes, tRes] = await Promise.all([
                     fetch(DRIVERS_FILE),
                     fetch(TRENDS_FILE)
                 ]);
 
-                if (!dRes.ok) throw new Error("Drivers file not found. Ensure 'drivers_2025-26.json' is uploaded.");
+                if (!dRes.ok) throw new Error("Drivers file not found.");
                 
                 driversData = await dRes.json();
                 
@@ -258,7 +245,7 @@
             } catch (err) {
                 const el = document.getElementById('error-log');
                 el.style.display = 'block';
-                el.innerText = `ERROR: ${err.message}`;
+                el.innerText = `ERROR: ${err.message}. Make sure ${DRIVERS_FILE} is in the folder.`;
             }
         }
 
@@ -274,12 +261,11 @@
             renderTable();
         }
 
-        // 4. RENDER TABLE (Logic adapted to parse drivers.json structure)
+        // 4. RENDER TABLE
         function renderTable() {
             const tbody = document.getElementById('tableBody');
             tbody.innerHTML = '';
 
-            // Step 1: Flatten Data for the selected series
             let rows = [];
             Object.keys(driversData).forEach(key => {
                 const d = driversData[key];
@@ -290,21 +276,21 @@
                 if (sKey) {
                     const stats = d.series[sKey].stats || {};
                     
-                    // Fix Name
+                    // Display Name
                     let name = d.display_name;
                     if (!name) name = key.replace(/^#\d+\s+/, '').trim();
                     if (!name) name = key;
 
-                    // Fix Number formatting
+                    // Number logic
                     let num = d.series[sKey].number || "";
                     if (key.includes("#") && !num) {
                         const match = key.match(/#(\d+)/);
                         if (match) num = match[1];
                     }
-                    if (num) name = `#${num} ${name}`;
+                    if (num && num !== "N/A") name = `#${num} ${name}`;
 
                     rows.push({
-                        id: key, // Use the key (e.g. guest_#10...) for tracking
+                        id: key, 
                         driver: name,
                         points: stats.points || 0,
                         wins: stats.wins || 0,
@@ -315,7 +301,7 @@
                 }
             });
 
-            // Step 2: Sort by Points
+            // Sort Descending by Points
             rows.sort((a, b) => b.points - a.points);
 
             if (rows.length === 0) {
@@ -323,10 +309,8 @@
                 return;
             }
 
-            // Step 3: Render
             rows.forEach((r, index) => {
                 const tr = document.createElement('tr');
-                // Use r.id (the key) for checkbox value to match trends data keys
                 tr.innerHTML = `
                     <td class="checkbox-cell">
                         <input type="checkbox" class="select-box" value="${r.id}" onchange="toggleDriver(this)">
@@ -362,7 +346,6 @@
             const btn = document.getElementById('compareBtn');
             document.getElementById('selCount').innerText = selectedDrivers.size;
             
-            // Need trends data + >=2 selections
             const hasData = Object.keys(trendsData).length > 0;
             if (selectedDrivers.size >= 2 && hasData) {
                 btn.style.display = 'block';
@@ -392,18 +375,11 @@
             let i = 0;
 
             selectedDrivers.forEach(driverKey => {
-                // Important: Trends keys often match Drivers keys. 
-                // We check if the KEY exists in trends, or if we need to resolve the name.
-                // Usually your trends file uses keys like "#10 MajorBlaze33".
-                
-                // Let's try direct key match first
                 let dataPoints = sData.drivers[driverKey];
 
-                // If not found, try to match by Display Name from driversData
+                // If direct key match fails, try fuzzy name match
                 if (!dataPoints && driversData[driverKey]) {
                     const dispName = driversData[driverKey].display_name;
-                    // Trends might rely on "Name" or "#Num Name"
-                    // We try to find a key in trends that includes the name
                     const match = Object.keys(sData.drivers).find(k => k.includes(dispName));
                     if (match) dataPoints = sData.drivers[match];
                 }
@@ -412,9 +388,17 @@
                     const hue = (i * 360) / selectedDrivers.size;
                     const color = `hsl(${hue}, 70%, 50%)`;
                     
-                    // Get clean name for legend
                     let legendName = driverKey;
-                    if(driversData[driverKey]) legendName = driversData[driverKey].display_name || driverKey;
+                    if(driversData[driverKey]) {
+                        // Reconstruct pretty name for legend
+                        let name = driversData[driverKey].display_name;
+                        const sKey = Object.keys(driversData[driverKey].series).find(k => k.toLowerCase() === currentSeries.toLowerCase());
+                        if (sKey) {
+                            let num = driversData[driverKey].series[sKey].number;
+                            if (num && num !== "N/A") legendName = `#${num} ${name}`;
+                            else legendName = name;
+                        }
+                    }
 
                     datasets.push({
                         label: legendName,
