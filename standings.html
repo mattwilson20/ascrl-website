@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Championship Standings | ASCRL</title>
+    <title>Championship Standings | American Stock Car Racing League</title>
     
     <link rel="icon" href="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
     <link rel="stylesheet" href="style.css">
 
     <style>
@@ -19,7 +18,7 @@
             --card-bg: #0d0d0d;
             --border: #1a1a1a;
             --text-muted: #a0a0a0;
-            --transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             
             /* Series Colors */
             --cup-blue: #0077ff;
@@ -30,42 +29,28 @@
 
         body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--bg-dark); color: #fff; overflow-x: hidden; }
 
-        /* --- NAVIGATION --- */
+        /* --- MODULAR NAVIGATION STYLES --- */
         #nav-placeholder { position: relative; z-index: 2000; }
         
-        /* Nav Overlay Styles (Matches your site structure) */
-        .nav-overlay { position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; height: 100vh; background: #050505; transition: left 0.5s ease; z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); }
+        .nav-overlay { 
+            position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; 
+            height: 100vh; background: #050505; transition: left 0.5s ease; 
+            z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); 
+        }
         .nav-overlay.open { left: 0; }
         .nav-links { display: flex; flex-direction: column; padding: 0 3rem; }
-        .nav-links a { color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; }
+        .nav-links a { 
+            color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; 
+            border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; 
+        }
         .nav-links a:hover { color: var(--primary); padding-left: 10px; }
-
-        /* --- HAMBURGER MENU (Large/Standard Style) --- */
-        .hamburger {
-            position: fixed;
-            top: 2rem;
-            left: 2rem;
-            z-index: 2001;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            padding: 10px;
-            background: rgba(0,0,0,0.5);
-            border-radius: 5px;
-        }
-        .hamburger-line {
-            width: 35px;
-            height: 4px;
-            background-color: #fff;
-            transition: var(--transition);
-        }
-        .hamburger:hover .hamburger-line { background-color: var(--primary); }
 
         /* --- HERO --- */
         .hero { 
             background: radial-gradient(circle at center, #222 0%, #000 100%); 
-            padding: 12rem 1rem 8rem; text-align: center; border-bottom: 1px solid var(--border);
+            padding: 12rem 1rem 8rem; 
+            text-align: center; 
+            border-bottom: 1px solid var(--border);
         }
         h1 { font-size: clamp(3rem, 10vw, 5rem); margin: 0; letter-spacing: -2px; line-height: 0.9; }
         .hero p { color: var(--primary); letter-spacing: 5px; text-transform: uppercase; font-size: 0.9rem; margin-top: 1rem; }
@@ -73,10 +58,10 @@
         /* --- CONTROLS --- */
         .controls { 
             background: #050505; padding: 2rem 1rem; border-bottom: 1px solid var(--border); 
-            position: sticky; top: 0; z-index: 100; 
+            position: sticky; top: 0; z-index: 100; text-align: center;
             display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
         }
-        .tabs-container { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; max-width: 1000px; margin: 0 auto; }
+        .tabs-container { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
 
         /* SERIES BUTTONS */
         .series-btn {
@@ -97,7 +82,7 @@
         /* COMPARE BUTTON */
         #compareBtn {
             display: none; padding: 12px 30px; background-color: #fff; color: #000;
-            border: none; font-family: 'Arial Black'; text-transform: uppercase; letter-spacing: 1px;
+            border: 1px solid #fff; font-family: 'Arial Black'; text-transform: uppercase; letter-spacing: 1px;
             cursor: pointer; transition: 0.3s; animation: popIn 0.3s ease;
         }
         #compareBtn:hover { background-color: var(--primary); color: #fff; }
@@ -124,6 +109,11 @@
         
         .select-box { width: 20px; height: 20px; cursor: pointer; accent-color: var(--primary); }
 
+        /* --- RANK ARROWS --- */
+        .move-up { color: #0f0; font-size: 0.8rem; margin-left: 5px; }
+        .move-down { color: #f00; font-size: 0.8rem; margin-left: 5px; }
+        .move-same { color: #555; font-size: 0.8rem; margin-left: 5px; }
+
         /* --- GRAPH MODAL --- */
         .modal { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
@@ -140,30 +130,41 @@
         .close:hover { opacity: 1; background: #fff; color: #000; }
         .chart-container { position: relative; height: 60vh; width: 100%; margin-top: 20px; }
 
-        /* --- FOOTER --- */
-        footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+        /* --- FOOTER & SOCIALS --- */
+        footer { 
+            padding: 4rem 1rem; 
+            text-align: center; 
+            border-top: 1px solid var(--border); 
+            color: #333; 
+            font-size: 0.8rem; 
+            letter-spacing: 2px; 
+            text-transform: uppercase; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 1.5rem; 
+        }
+
         .social-links { display: flex; gap: 2rem; justify-content: center; }
-        .social-icon { color: #555; font-size: 1.8rem; transition: 0.3s ease; }
-        .social-icon:hover { color: #fff; transform: translateY(-3px); }
+
+        .social-icon { 
+            color: #555; font-size: 1.8rem; transition: 0.3s ease; 
+            display: flex; align-items: center; justify-content: center; text-decoration: none;
+        }
+        .social-icon:hover { transform: translateY(-3px); }
+        .social-icon.facebook:hover { color: #1877F2; } 
+        .social-icon.x-twitter:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+        .social-icon.email:hover { color: var(--primary); }
 
         /* Error Log */
         #error-log { display:none; background:#300; color:#f88; padding:15px; margin: 20px auto; max-width:800px; border:1px solid red; text-align:center; font-family: sans-serif; }
         
-        /* Spinner */
-        #loading-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 5000; display: flex; justify-content: center; align-items: center; transition: opacity 0.5s ease; }
-        .spinner { width: 50px; height: 50px; border: 5px solid #333; border-top: 5px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @media (max-width: 768px) {
+            .hero { padding: 10rem 1rem 4rem; }
+        }
     </style>
 </head>
 <body>
-
-    <div id="loading-screen"><div class="spinner"></div></div>
-
-    <div class="hamburger" onclick="toggleMenu()">
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-    </div>
 
     <div id="nav-placeholder"></div>
 
@@ -219,14 +220,25 @@
         <div style="margin-bottom: 0.5rem; letter-spacing: 2px;">
             © 2025-2026 AMERICAN STOCK CAR RACING LEAGUE
         </div>
+        
         <div style="font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 2rem; text-transform: uppercase;">
             OWNED AND OPERATED BY <span style="color: #fff; font-weight: bold;">A&M PRODUCTIONS LLC</span>
         </div>
+
         <div class="social-links">
-            <a href="#" class="social-icon"><i class="fa-brands fa-facebook"></i></a>
-            <a href="#" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a>
-            <a href="mailto:contact.ascrl@gmail.com" class="social-icon"><i class="fa-solid fa-envelope"></i></a>
+            <a href="https://www.facebook.com/share/14PeZVCH1hL/" target="_blank" class="social-icon facebook" aria-label="Facebook">
+                <i class="fa-brands fa-facebook"></i>
+            </a>
+            <a href="https://x.com/ASCRWeekly" target="_blank" class="social-icon x-twitter" aria-label="X (Twitter)">
+                <i class="fa-brands fa-x-twitter"></i>
+            </a>
+            
+            <a href="mailto:contact.ascrl@gmail.com" class="social-icon email" aria-label="Email A&M Productions">
+                <i class="fa-solid fa-envelope"></i>
+            </a>
         </div>
+        
+        <div style="font-size: 0.6rem; color: #444; margin-top: 20px; font-style: italic;">*ai generated images may be used</div>
     </footer>
 
     <script>
@@ -239,7 +251,6 @@
         let currentSeries = 'Cup';
         let selectedDrivers = new Set();
         let myChart = null;
-        let delayed; // For animation tracking
 
         // 1. NAVIGATION LOADER
         fetch('nav.html')
@@ -276,13 +287,8 @@
                 else console.warn("Trends file missing - comparison disabled.");
 
                 renderTable();
-                
-                // Remove Spinner
-                document.getElementById('loading-screen').style.opacity = 0;
-                setTimeout(() => document.getElementById('loading-screen').style.display = 'none', 500);
 
             } catch (err) {
-                document.getElementById('loading-screen').style.display = 'none';
                 const el = document.getElementById('error-log');
                 el.style.display = 'block';
                 el.innerText = `ERROR: ${err.message}`;
@@ -332,6 +338,31 @@
 
             rows.sort((a, b) => b.points - a.points);
 
+            // Calculate Rank Changes
+            let prevRanks = [];
+            if (trendsData && trendsData[currentSeries]) {
+                const tData = trendsData[currentSeries].drivers;
+                const raceCount = trendsData[currentSeries].labels.length;
+
+                if (raceCount > 0) {
+                    rows.forEach(r => {
+                        let hist = null;
+                        if (tData[r.id]) hist = tData[r.id];
+                        else {
+                            const fuzzy = Object.keys(tData).find(k => k.includes(r.driver.split(' ').pop()));
+                            if (fuzzy) hist = tData[fuzzy];
+                        }
+
+                        let prevPoints = 0;
+                        if (hist && hist.length >= 2) prevPoints = hist[hist.length - 2];
+                        else if (hist && hist.length === 1) prevPoints = 0;
+                        
+                        prevRanks.push({ id: r.id, pts: prevPoints });
+                    });
+                    prevRanks.sort((a, b) => b.pts - a.pts);
+                }
+            }
+
             if (rows.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:4rem; color:#666;">No data found.</td></tr>';
                 return;
@@ -339,11 +370,25 @@
 
             rows.forEach((r, index) => {
                 const tr = document.createElement('tr');
+                const currentRank = index + 1;
+                
+                let arrowHtml = '<span class="move-same">-</span>';
+                if (prevRanks.length > 0) {
+                    const prevIndex = prevRanks.findIndex(p => p.id === r.id);
+                    if (prevIndex !== -1) {
+                        const prevRank = prevIndex + 1;
+                        if (prevRank > currentRank) arrowHtml = `<span class="move-up">▲${prevRank - currentRank}</span>`;
+                        else if (prevRank < currentRank) arrowHtml = `<span class="move-down">▼${currentRank - prevRank}</span>`;
+                    } else arrowHtml = '<span class="move-up">NEW</span>';
+                }
+
                 tr.innerHTML = `
                     <td class="checkbox-cell">
                         <input type="checkbox" class="select-box" value="${r.id}" onchange="toggleDriver(this)">
                     </td>
-                    <td class="rank-cell">${index + 1}</td>
+                    <td class="rank-cell">
+                        ${currentRank} ${arrowHtml}
+                    </td>
                     <td class="driver-cell">${r.driver}</td>
                     <td class="points-cell">${r.points}</td>
                     <td>${r.wins}</td>
@@ -374,7 +419,7 @@
             else btn.style.display = 'none';
         }
 
-        // 6. GRAPH LOGIC (WITH ANIMATION)
+        // 6. GRAPH LOGIC
         function openGraph() {
             document.getElementById('graphModal').style.display = 'flex';
             drawChart();
@@ -429,8 +474,8 @@
 
             if (myChart) myChart.destroy();
             
-            // --- THE ANIMATION CONFIG ---
-            delayed = false; // Reset delay flag for new chart
+            // ANIMATION CONFIG
+            let delayed = false;
             myChart = new Chart(ctx, {
                 type: 'line',
                 data: { labels: sData.labels, datasets: datasets },
@@ -438,14 +483,10 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     animation: {
-                        onComplete: () => {
-                            delayed = true;
-                        },
+                        onComplete: () => { delayed = true; },
                         delay: (context) => {
                             let delay = 0;
                             if (context.type === 'data' && context.mode === 'default' && !delayed) {
-                                // Delay each point by 150ms as you move right
-                                // This creates the "racing" left-to-right effect
                                 delay = context.dataIndex * 150; 
                             }
                             return delay;
