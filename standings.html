@@ -156,15 +156,50 @@
         .social-icon.x-twitter:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
         .social-icon.email:hover { color: var(--primary); }
 
+        /* --- HAMBURGER MENU (MATCHING ROSTER PAGE) --- */
+        .hamburger {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 2001; /* Above nav overlay */
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 10px;
+            background: rgba(0,0,0,0.5); /* Optional backing for visibility */
+            border-radius: 5px;
+        }
+        .hamburger-line {
+            width: 35px;
+            height: 4px;
+            background-color: #fff;
+            transition: var(--transition);
+        }
+        .hamburger:hover .hamburger-line { background-color: var(--primary); }
+
         /* Error Log */
         #error-log { display:none; background:#300; color:#f88; padding:15px; margin: 20px auto; max-width:800px; border:1px solid red; text-align:center; font-family: sans-serif; }
         
+        /* Spinner */
+        #loading-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 5000; display: flex; justify-content: center; align-items: center; transition: opacity 0.5s ease; }
+        .spinner { width: 50px; height: 50px; border: 5px solid #333; border-top: 5px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
         @media (max-width: 768px) {
             .hero { padding: 10rem 1rem 4rem; }
         }
     </style>
 </head>
 <body>
+
+    <div id="loading-screen"><div class="spinner"></div></div>
+
+    <div class="hamburger" onclick="toggleMenu()">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </div>
 
     <div id="nav-placeholder"></div>
 
@@ -287,8 +322,13 @@
                 else console.warn("Trends file missing - comparison disabled.");
 
                 renderTable();
+                
+                // Remove Spinner
+                document.getElementById('loading-screen').style.opacity = 0;
+                setTimeout(() => document.getElementById('loading-screen').style.display = 'none', 500);
 
             } catch (err) {
+                document.getElementById('loading-screen').style.display = 'none';
                 const el = document.getElementById('error-log');
                 el.style.display = 'block';
                 el.innerText = `ERROR: ${err.message}`;
