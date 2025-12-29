@@ -96,10 +96,7 @@
 
         .driver-card {
             background-color: #111;
-            background-size: cover;
-            background-position: center top;
-            background-repeat: no-repeat;
-            
+            /* Removed background-image properties to use <img> tag for lazy loading */
             border: 1px solid #222;
             padding: 2rem;
             position: relative;
@@ -113,13 +110,26 @@
             cursor: pointer;
         }
 
+        /* NEW: Class for the lazy loaded image */
+        .card-bg-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            z-index: 0; /* Lowest layer */
+            transition: transform 0.3s ease;
+        }
+
         /* Gradient Overlay for Readability */
         .driver-card::after {
             content: "";
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.95) 90%);
-            z-index: 0;
+            z-index: 1; /* Sits ON TOP of the image */
         }
 
         .driver-card:hover {
@@ -141,14 +151,14 @@
             font-size: 3.5rem; /* Clean, contained size */
             font-weight: 900;
             color: rgba(255, 255, 255, 0.25); 
-            z-index: 1; 
+            z-index: 2; /* Sits above gradient */
             line-height: 1;
             pointer-events: none;
         }
 
         .card-content {
             position: relative;
-            z-index: 2; /* Sits above everything including number */
+            z-index: 3; /* Sits above everything */
             text-align: center;
             width: 100%;
             display: flex;
@@ -404,8 +414,8 @@
                 
                 let carNum = sData.number;
                 if (!carNum || carNum === "N/A") {
-                     const match = (sData.driver_name || item.id).match(/^#(\d+)/);
-                     carNum = match ? match[1] : '';
+                      const match = (sData.driver_name || item.id).match(/^#(\d+)/);
+                      carNum = match ? match[1] : '';
                 }
 
                 // --- IMAGE LOGIC (FIXED FOR TYPOS) ---
@@ -425,21 +435,18 @@
                 else if (lowerName.includes('ant_was_he')) {
                     driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/602e91f22a89c294308d1e79473121daa8e777e7/ant_was_he_hero_card.jpg";
                 }
-                // Catches C0mpl1c8ed OR C0mpl1c8ted
                 else if (lowerName.includes('c0mpl1c8')) {
                     driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/099805ff88fcc2ba2a1cc2e8b5aba8f515a716a6/C0mpl1c8ted_hero_card.jpg";
                 }
                 else if (lowerName.includes('on-a-mission')) {
                     driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/446d56688b6fdf55420d2c5e52b6a764e873fab6/Mission_Hero_card.jpg";
                 }
-                // Catches Banished OR Bansihed (Typo)
                 else if (lowerName.includes('crayon')) {
                     driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/d42bcd32df90441f1b5f24da75a77074ea2186fe/Banished_Crayon_hero_Card.jpg";
                 }
                 else if (lowerName.includes('sithwarrior')) {
                     driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/3e992547a13fe5d73940648e83df80d97df41f90/SithWarriorUno_Hero_Card.jpg";
                 }
-                // Catches MajorBlaze OR MajorBlaz (Typo)
                 else if (lowerName.includes('majorblaz')) {
                     driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/77807b78b078188862cb490d2b95d2f846d237bf/Blaze_Hero_Card.jpg";
                 }
@@ -485,11 +492,9 @@
                 else if (lowerName.includes('hatter')) {
                     driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/34425dadb737bc4bc27aa9271be62909dc9a3e99/Hatter.Hero.Card.jpg";
                 }
-                // NEW: Added BIG_FELLAx2220
                 else if (lowerName.includes('big_fella')) {
                     driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ced27a5d96e0d211f038b36e34a55bccf4a7e4de/BigFella.Hero.Card.jpg";
                 }
-                // ---------------------------
 
                 // Checkered Flags Logic
                 let flagsHtml = '';
@@ -509,10 +514,9 @@
                 card.className = `driver-card ${hoverClass}`;
                 card.onclick = () => openProfile(item.id, item.fullData);
                 
-                // Apply Image as Background
-                card.style.backgroundImage = `url('${driverImage}')`;
-                
+                // UPDATED: Replaced background-image with <img> tag + loading="lazy"
                 card.innerHTML = `
+                    <img src="${driverImage}" alt="${item.name} Driver Card" class="card-bg-img" loading="lazy">
                     <div class="bg-number">${carNum}</div>
                     
                     <div class="card-content">
