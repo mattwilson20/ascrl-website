@@ -496,7 +496,7 @@
                 if(i === 0) {
                     return `
                         <div class="featured-issue" onclick="openReader(${i})">
-                            <img src="${art.preview}" class="issue-cover">
+                            <img src="${art.preview}" class="issue-cover" loading="lazy">
                             <div class="issue-info">
                                 <span class="stat-label" style="color:var(--primary)">LATEST EDITION // ${art.date}</span>
                                 <h2 style="font-size:2.5rem; margin:1rem 0; line-height:1;">${art.title}</h2>
@@ -510,7 +510,7 @@
                     <div class="race-card" onclick="openReader(${i})" style="cursor:pointer">
                         <span class="stat-label">${art.tag}</span>
                         <h3 style="margin:1rem 0; font-size:1.2rem;">${art.title}</h3>
-                        <img src="${art.preview}" style="width:100%; border-radius:4px; margin-bottom:1rem; border:1px solid #333;">
+                        <img src="${art.preview}" style="width:100%; border-radius:4px; margin-bottom:1rem; border:1px solid #333;" loading="lazy">
                         <span class="stat-label" style="color:var(--primary); cursor:pointer;">OPEN ISSUE →</span>
                     </div>
                 `;
@@ -530,7 +530,7 @@
             root.innerHTML = `<div id="book-el">
                 ${articles[idx].pages.map(content => {
                     if (content.startsWith('http')) {
-                        return `<div class="page"><img src="${content}"></div>`;
+                        return `<div class="page"><img src="${content}" loading="lazy"></div>`;
                     } 
                     else {
                         const formattedText = content.replace(/\n/g, '<br>');
@@ -570,4 +570,3 @@
     </script>
 </body>
 </html>
-
