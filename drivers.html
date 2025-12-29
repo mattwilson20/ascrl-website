@@ -26,8 +26,28 @@
             --menards-yellow: #fff200;
         }
 
-        body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--bg-dark); color: #fff; overflow-x: hidden; }
-        
+        body { 
+            margin: 0; 
+            font-family: 'Arial Black', sans-serif; 
+            
+            /* --- NASHVILLE (CONCRETE) TEXTURE --- */
+            /* We use a medium grey (#333) instead of black to mimic concrete */
+            background-color: #333333; 
+            
+            background-image: 
+                /* Strong Vignette to keep edges dark/cool */
+                radial-gradient(transparent 0%, #000 100%),
+                
+                /* Tighter, heavier noise to mimic concrete aggregate */
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.35'/%3E%3C/svg%3E");
+            
+            background-attachment: fixed;
+            /* ------------------------------------ */
+
+            color: #fff; 
+            overflow-x: hidden; 
+        }
+
         /* --- MODULAR NAVIGATION STYLES --- */
         #nav-placeholder { position: relative; z-index: 2000; }
         
