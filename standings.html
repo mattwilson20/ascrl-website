@@ -156,28 +156,6 @@
         .social-icon.x-twitter:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
         .social-icon.email:hover { color: var(--primary); }
 
-        /* --- HAMBURGER MENU (MATCHING ROSTER PAGE) --- */
-        .hamburger {
-            position: fixed;
-            top: 2rem;
-            left: 2rem;
-            z-index: 2001; /* Above nav overlay */
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            padding: 10px;
-            background: rgba(0,0,0,0.5); /* Optional backing for visibility */
-            border-radius: 5px;
-        }
-        .hamburger-line {
-            width: 35px;
-            height: 4px;
-            background-color: #fff;
-            transition: var(--transition);
-        }
-        .hamburger:hover .hamburger-line { background-color: var(--primary); }
-
         /* Error Log */
         #error-log { display:none; background:#300; color:#f88; padding:15px; margin: 20px auto; max-width:800px; border:1px solid red; text-align:center; font-family: sans-serif; }
         
@@ -194,12 +172,6 @@
 <body>
 
     <div id="loading-screen"><div class="spinner"></div></div>
-
-    <div class="hamburger" onclick="toggleMenu()">
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-    </div>
 
     <div id="nav-placeholder"></div>
 
@@ -301,6 +273,7 @@
             })
             .catch(err => console.error("Nav load failed"));
 
+        // Global toggle for the menu loaded from nav.html
         function toggleMenu() {
             const menu = document.getElementById('nav-menu');
             if (menu) menu.classList.toggle('open');
@@ -514,7 +487,6 @@
 
             if (myChart) myChart.destroy();
             
-            // ANIMATION CONFIG
             let delayed = false;
             myChart = new Chart(ctx, {
                 type: 'line',
