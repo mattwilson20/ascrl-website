@@ -1,3 +1,6 @@
+Here is the updated HTML code.
+I have modified the JavaScript within the updateStandingsTable function. It now checks if the team name is "TOO BROKE RACING" and, if so, injects the Discord image to the left of the name with proper sizing and alignment.
+You can copy and paste this entire code block to replace your current file.
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -118,6 +121,7 @@
             padding: 1rem;
             border-bottom: 1px solid #111;
             font-family: sans-serif;
+            vertical-align: middle; /* Added for image alignment */
         }
         .rank-cell { font-family: 'Arial Black'; color: #fff; width: 50px; text-align: center; }
         .points-cell { font-family: 'Arial Black'; color: var(--accent); text-align: right; }
@@ -404,10 +408,19 @@
 
             rows.forEach((team, index) => {
                 const isLeader = index === 0 ? 'class="leader-row"' : '';
+
+                // --- START MODIFICATION ---
+                // Check for TOO BROKE RACING and add the image
+                let displayTeamName = team.team;
+                if(displayTeamName.toUpperCase().trim() === "TOO BROKE RACING") {
+                    displayTeamName = `<img src="https://cdn.discordapp.com/emojis/1438415391943692338.png" style="height: 1.5em; vertical-align: middle; margin-right: 8px;"> ${displayTeamName}`;
+                }
+                // --- END MODIFICATION ---
+
                 tbody.innerHTML += `
                     <tr ${isLeader}>
                         <td class="rank-cell">${index + 1}</td>
-                        <td style="font-weight:bold; letter-spacing:1px; color:#fff;">${team.team}</td>
+                        <td style="font-weight:bold; letter-spacing:1px; color:#fff;">${displayTeamName}</td>
                         <td class="points-cell">${team.points}</td>
                     </tr>
                 `;
@@ -572,3 +585,4 @@
     </script>
 </body>
 </html>
+
