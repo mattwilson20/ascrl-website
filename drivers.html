@@ -38,7 +38,8 @@
             overflow-x: hidden; 
         }
 
-        /* --- NAV STYLES (REQUIRED FOR NAV.HTML TO BE VISIBLE) --- */
+        /* --- NAV CSS --- 
+           Kept here so the injected nav.html renders correctly */
         #nav-placeholder { position: relative; z-index: 2000; }
 
         .hamburger {
@@ -201,18 +202,16 @@
     </footer>
 
     <script>
-        // --- 1. MODULAR NAVIGATION LOGIC ---
-        // Fetch nav.html and inject it into the placeholder
+        // --- 1. MODULAR NAVIGATION ---
+        // Loads nav.html into the placeholder
         fetch('nav.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('nav-placeholder').innerHTML = data;
                 
-                // Highlight the correct link
                 const currentPage = window.location.pathname.split("/").pop() || "index.html";
                 const navID = "nav-" + currentPage.split(".")[0];
                 
-                // Wait briefly for injection
                 setTimeout(() => {
                     const activeLink = document.getElementById(navID);
                     if (activeLink) {
@@ -224,13 +223,13 @@
             })
             .catch(err => console.error("Nav load error:", err));
 
-        // This function must exist globally so the injected hamburger button can call it
+        // Global toggle function for the hamburger inside nav.html
         function toggleMenu() {
             const menu = document.getElementById('nav-menu');
             if (menu) menu.classList.toggle('open');
         }
 
-        // --- 2. ROSTER LOGIC (FIXED STATS) ---
+        // --- 2. ROSTER LOGIC ---
         let allDriversData = {}; 
         let currentSeries = 'Cup';
 
@@ -238,19 +237,15 @@
             loadDrivers();
         });
 
-        // Helper to fetch with GitHub fallback
         async function fetchWithFallback(filename) {
             const local = filename;
             const github = `https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/${filename}`;
-            
             try {
                 let response = await fetch(local);
                 if (response.ok) return await response.json();
-                
                 console.warn(`Local fetch failed for ${local}, trying GitHub...`);
                 response = await fetch(github);
                 if (response.ok) return await response.json();
-                
                 throw new Error("404 Not Found");
             } catch (err) {
                 throw err;
@@ -261,6 +256,7 @@
             const grid = document.getElementById('roster-grid');
             grid.innerHTML = '<p style="text-align:center; padding:2rem; color:#666;">Accessing Data Feed...</p>';
             
+            // EXACT FILENAME MATCHING YOUR JSON
             const filename = `drivers_Season_1.json`; 
             
             fetchWithFallback(filename)
@@ -312,15 +308,13 @@
                 }
             }
 
-            // ROBUST SORTING
+            // SORT BY POINTS (Handling 0s correctly)
             filteredList.sort((a, b) => {
                 const getPoints = (obj) => {
                     if (!obj || !obj.seriesData) return 0;
-                    // Check 'stats' OR 'Stats'
-                    const st = obj.seriesData.stats || obj.seriesData.Stats || {};
-                    // Check 'points' OR 'Points' OR 'pts'
-                    const rawPts = st.points || st.Points || st.pts || 0;
-                    return parseInt(rawPts) || 0; 
+                    const st = obj.seriesData.stats || {};
+                    // Directly check if points exists, otherwise 0
+                    return (st.points !== undefined) ? parseInt(st.points) : 0;
                 };
 
                 const ptsA = getPoints(a);
@@ -335,22 +329,19 @@
                 return;
             }
 
-            // MAX POINTS FOR CROWN
-            const getPointsForMax = (obj) => {
-                if (!obj.seriesData) return 0;
-                const st = obj.seriesData.stats || obj.seriesData.Stats || {};
-                const rawPts = st.points || st.Points || st.pts || 0;
-                return parseInt(rawPts) || 0;
-            };
-            const maxPoints = Math.max(...filteredList.map(i => getPointsForMax(i)));
+            // Calc Max Points for Crown logic
+            const maxPoints = Math.max(...filteredList.map(i => {
+                const st = i.seriesData.stats || {};
+                return (st.points !== undefined) ? parseInt(st.points) : 0;
+            }));
 
             filteredList.forEach(item => {
                 const sData = item.seriesData;
                 
-                // ROBUST STATS ACCESS
-                const stats = sData.stats || sData.Stats || {};
-                const points = parseInt(stats.points || stats.Points || stats.pts || 0);
-                const wins = parseInt(stats.wins || stats.Wins || 0);
+                // STATS MAPPING MATCHING YOUR JSON STRUCTURE EXACTLY
+                const stats = sData.stats || {}; 
+                const points = (stats.points !== undefined) ? stats.points : 0;
+                const wins = (stats.wins !== undefined) ? stats.wins : 0;
                 
                 let carNum = sData.number;
                 if (!carNum || carNum === "N/A") {
@@ -358,7 +349,7 @@
                       carNum = match ? match[1] : '';
                 }
 
-                // --- IMAGE LOGIC ---
+                // --- IMAGE LOGIC (Preserved) ---
                 let driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg"; 
                 const lowerName = item.name.toLowerCase();
 
@@ -441,19 +432,19 @@
 
             sortedSeriesKeys.forEach(sName => {
                 const s = driverData.series[sName];
-                const st = s.stats || s.Stats || {wins:0, top5:0, top10:0, poles:0, avg:0, points:0};
+                const st = s.stats || {};
                 
-                let avgFin = st.avg || st.Avg || 0;
+                let avgFin = st.avg;
                 if (typeof avgFin === 'number') avgFin = avgFin.toFixed(1);
                 else if (!isNaN(parseFloat(avgFin))) avgFin = parseFloat(avgFin).toFixed(1);
                 else avgFin = "N/A";
                 
-                // ROBUST MODAL POINTS
-                const pts = parseInt(st.points || st.Points || st.pts || 0);
-                const wins = parseInt(st.wins || st.Wins || 0);
-                const t5 = parseInt(st.top5 || st.Top5 || 0);
-                const t10 = parseInt(st.top10 || st.Top10 || 0);
-                const poles = parseInt(st.poles || st.Poles || 0);
+                // MAPPING STATS FROM JSON
+                const pts = (st.points !== undefined) ? st.points : 0;
+                const wins = (st.wins !== undefined) ? st.wins : 0;
+                const t5 = (st.top5 !== undefined) ? st.top5 : 0;
+                const t10 = (st.top10 !== undefined) ? st.top10 : 0;
+                const poles = (st.poles !== undefined) ? st.poles : 0;
 
                 html += `
                     <h4>${sName} Series / #${s.number || ''} ${s.manufacturer || ''}</h4>
