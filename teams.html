@@ -36,7 +36,7 @@
             overflow-x: hidden; 
         }
 
-        /* --- YOUR NAV STYLES --- */
+        /* --- NAV STYLES --- */
         .hamburger {
             position: fixed; top: 25px; left: 25px; z-index: 2001;
             cursor: pointer; padding: 10px; background: rgba(0,0,0,0.4);
@@ -206,7 +206,7 @@
         .stat-box small { font-size: 0.6rem; text-transform: uppercase; color: var(--text-muted); display: block; font-family: sans-serif; }
         .stat-box span { font-size: 1.4rem; color: var(--accent); font-family: 'Arial Black'; }
 
-        /* --- FOOTER & SOCIALS --- */
+        /* --- FOOTER --- */
         footer { 
             padding: 4rem 1rem; 
             text-align: center; 
@@ -259,6 +259,7 @@
             <a href="rules.html" id="nav-rules">REGULATIONS</a>
         </div>
     </nav>
+
     <header class="hero">
         <p>Constructors Championship</p>
         <h1>TEAMS</h1>
@@ -321,8 +322,7 @@
     </footer>
 
     <script>
-        // --- 1. NAVIGATION LOGIC ---
-        // Highlight active link manually since we aren't fetching the nav anymore
+        // --- 1. NAV HIGHLIGHT ---
         const navLink = document.getElementById('nav-teams');
         if(navLink) {
             navLink.style.color = "var(--primary)";
@@ -335,9 +335,9 @@
             if(m) m.classList.toggle('open');
         }
 
-        // --- 2. DATA LOADING (UPDATED FOR FALLBACK) ---
-        let driversData = {}; // Contains Manufacturers & Numbers
-        let teamStandings = {}; // Contains Official Points Rank
+        // --- 2. DATA LOADING ---
+        let driversData = {}; 
+        let teamStandings = {}; 
         let currentSeries = 'Cup';
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -353,7 +353,6 @@
                 let response = await fetch(local);
                 if (response.ok) return await response.json();
                 
-                // Fallback
                 console.warn(`Local fetch failed for ${local}, trying GitHub...`);
                 response = await fetch(github);
                 if (response.ok) return await response.json();
@@ -368,7 +367,7 @@
             document.getElementById('standings-body').innerHTML = '<tr><td colspan="3" style="text-align:center; padding:2rem; color:#666;">Accessing Data Feed...</td></tr>';
             
             try {
-                // Load BOTH files in parallel using the fallback logic
+                // Ensure we load the driver file AND the team standings file
                 const [dData, tData] = await Promise.all([
                     fetchWithFallback(`drivers_${season}.json`),
                     fetchWithFallback(`ASCRL_Team_Standings_${season}.json`)
@@ -432,10 +431,17 @@
             const container = document.getElementById('teams-container');
             container.innerHTML = '';
 
+            // Guard Clause if data isn't ready
+            if (!driversData || Object.keys(driversData).length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#666;">Loading garage...</p>';
+                return;
+            }
+
             const garageTeams = {};
 
             Object.entries(driversData).forEach(([id, driver]) => {
                 if(!driver.series) return;
+                
                 const sKey = Object.keys(driver.series).find(k => k.toLowerCase() === currentSeries.toLowerCase());
                 if (!sKey) return;
 
@@ -493,7 +499,7 @@
             });
         }
 
-        // --- 5. MODAL LOGIC ---
+        // --- 5. MODAL LOGIC (Stats Mapping) ---
         function openProfile(id) {
             const driver = driversData[id]; 
             const modal = document.getElementById('driver-modal');
@@ -514,9 +520,16 @@
 
             seriesKeys.forEach(sName => {
                 const s = driver.series[sName];
-                const st = s.stats || {wins:0, top5:0, top10:0, poles:0, avg:0, points:0};
+                const st = s.stats || {};
                 
-                let avgFin = st.avg;
+                // MAPPING FROM DRIVERS JSON
+                const pts = st.points || 0;
+                const wins = st.wins || 0;
+                const t5 = st.top5 || 0;
+                const t10 = st.top10 || 0;
+                const poles = st.poles || 0;
+                let avgFin = st.avg || 0;
+
                 if (typeof avgFin === 'number') avgFin = avgFin.toFixed(1);
                 else if (!isNaN(parseFloat(avgFin))) avgFin = parseFloat(avgFin).toFixed(1);
                 else avgFin = "N/A";
@@ -525,11 +538,11 @@
                     <h4>${sName} Series / #${s.number} ${s.manufacturer}</h4>
                     <p style="font-family:sans-serif; font-size:0.9rem; color:#666;">Team: ${s.team || 'Independent'}</p>
                     <div class="stat-row">
-                        <div class="stat-box"><small>Points</small><span>${st.points}</span></div>
-                        <div class="stat-box"><small>Wins</small><span>${st.wins}</span></div>
-                        <div class="stat-box"><small>Top 5s</small><span>${st.top5}</span></div>
-                        <div class="stat-box"><small>Top 10s</small><span>${st.top10}</span></div>
-                        <div class="stat-box"><small>Poles</small><span>${st.poles}</span></div>
+                        <div class="stat-box"><small>Points</small><span>${pts}</span></div>
+                        <div class="stat-box"><small>Wins</small><span>${wins}</span></div>
+                        <div class="stat-box"><small>Top 5s</small><span>${t5}</span></div>
+                        <div class="stat-box"><small>Top 10s</small><span>${t10}</span></div>
+                        <div class="stat-box"><small>Poles</small><span>${poles}</span></div>
                         <div class="stat-box"><small>Avg. Fin</small><span>${avgFin}</span></div>
                     </div>
                 `;
