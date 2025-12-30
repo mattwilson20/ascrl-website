@@ -231,6 +231,13 @@
         .social-icon.x-twitter:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
         .social-icon.email:hover { color: var(--primary); }
 
+        #debug-log {
+            display: none; /* Hidden by default, script shows it on error */
+            background: #220000; color: #ffaaaa; 
+            padding: 20px; margin: 20px auto; 
+            max-width: 800px; border: 1px solid red; font-family: monospace;
+        }
+
         @media (max-width: 768px) {
             .hero { padding: 10rem 1rem 4rem; }
             .stat-row { grid-template-columns: 1fr 1fr; }
@@ -259,6 +266,8 @@
             <a href="rules.html" id="nav-rules">REGULATIONS</a>
         </div>
     </nav>
+
+    <div id="debug-log"></div>
 
     <header class="hero">
         <p>Constructors Championship</p>
@@ -322,7 +331,7 @@
     </footer>
 
     <script>
-        // --- 1. NAV HIGHLIGHT ---
+        // --- 1. NAV LOGIC ---
         const navLink = document.getElementById('nav-teams');
         if(navLink) {
             navLink.style.color = "var(--primary)";
@@ -344,46 +353,67 @@
             loadSeasonData("Season_1");
         });
 
-        // Helper to fetch with GitHub fallback
-        async function fetchWithFallback(filename) {
+        // Safe fetch with fallback and logging
+        async function fetchFile(filename) {
             const local = filename;
             const github = `https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/${filename}`;
             
             try {
-                let response = await fetch(local);
-                if (response.ok) return await response.json();
+                // Try Local
+                let r = await fetch(local);
+                if(r.ok) return await r.json();
                 
-                console.warn(`Local fetch failed for ${local}, trying GitHub...`);
-                response = await fetch(github);
-                if (response.ok) return await response.json();
+                // Try GitHub
+                console.log(`Local failed for ${filename}, trying GitHub...`);
+                r = await fetch(github);
+                if(r.ok) return await r.json();
                 
                 throw new Error("404 Not Found");
-            } catch (err) {
-                throw err;
+            } catch (e) {
+                logError(`Failed to load ${filename}: ${e.message}`);
+                throw e;
             }
+        }
+
+        function logError(msg) {
+            const box = document.getElementById('debug-log');
+            box.style.display = 'block';
+            box.innerHTML += `<div>${msg}</div>`;
         }
 
         async function loadSeasonData(season) {
             document.getElementById('standings-body').innerHTML = '<tr><td colspan="3" style="text-align:center; padding:2rem; color:#666;">Accessing Data Feed...</td></tr>';
-            
+            const garage = document.getElementById('teams-container');
+            garage.innerHTML = '<p style="text-align:center;">Loading garage...</p>';
+
             try {
-                // Ensure we load the driver file AND the team standings file
-                const [dData, tData] = await Promise.all([
-                    fetchWithFallback(`drivers_${season}.json`),
-                    fetchWithFallback(`ASCRL_Team_Standings_${season}.json`)
+                // Filenames MUST match what the python bot generates
+                // We use Promise.allSettled so if one fails, the other can still load
+                const results = await Promise.allSettled([
+                    fetchFile(`drivers_${season}.json`),
+                    fetchFile(`ASCRL_Team_Standings_${season}.json`)
                 ]);
 
-                driversData = dData;
-                teamStandings = tData;
+                // Handle Drivers Data
+                if (results[0].status === 'fulfilled') {
+                    driversData = results[0].value;
+                } else {
+                    driversData = {}; // Empty fallback
+                    garage.innerHTML = '<p style="text-align:center; color:#c00;">Garage Unavailable (Drivers File Missing)</p>';
+                }
+
+                // Handle Team Standings
+                if (results[1].status === 'fulfilled') {
+                    teamStandings = results[1].value;
+                } else {
+                    teamStandings = {};
+                    document.getElementById('standings-body').innerHTML = '<tr><td colspan="3" style="text-align:center; color:#c00;">Standings Unavailable (Teams File Missing)</td></tr>';
+                }
 
                 updateUI();
 
             } catch (err) {
                 console.error(err);
-                document.getElementById('standings-body').innerHTML = `
-                    <tr><td colspan="3" style="text-align:center; padding:2rem; color:var(--primary);">
-                        Error loading data.<br><span style="font-size:0.7rem; color:#666;">${err.message}</span>
-                    </td></tr>`;
             }
         }
 
@@ -406,6 +436,7 @@
             const tbody = document.getElementById('standings-body');
             tbody.innerHTML = '';
 
+            // Check case-insensitive key
             const seriesKey = Object.keys(teamStandings).find(k => k.toLowerCase() === currentSeries.toLowerCase());
             const rows = seriesKey ? teamStandings[seriesKey] : [];
 
@@ -431,11 +462,7 @@
             const container = document.getElementById('teams-container');
             container.innerHTML = '';
 
-            // Guard Clause if data isn't ready
-            if (!driversData || Object.keys(driversData).length === 0) {
-                container.innerHTML = '<p style="text-align:center; color:#666;">Loading garage...</p>';
-                return;
-            }
+            if (Object.keys(driversData).length === 0) return; // Already handled error above
 
             const garageTeams = {};
 
@@ -466,7 +493,7 @@
             });
 
             if (sortedTeamNames.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color:#666;">No teams found in garage.</p>';
+                container.innerHTML = '<p style="text-align:center; color:#666;">No teams found in garage for this series.</p>';
                 return;
             }
 
@@ -499,7 +526,7 @@
             });
         }
 
-        // --- 5. MODAL LOGIC (Stats Mapping) ---
+        // --- 5. MODAL LOGIC ---
         function openProfile(id) {
             const driver = driversData[id]; 
             const modal = document.getElementById('driver-modal');
@@ -522,7 +549,7 @@
                 const s = driver.series[sName];
                 const st = s.stats || {};
                 
-                // MAPPING FROM DRIVERS JSON
+                // MAPPING
                 const pts = st.points || 0;
                 const wins = st.wins || 0;
                 const t5 = st.top5 || 0;
