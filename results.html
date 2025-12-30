@@ -25,19 +25,13 @@
             font-family: 'Arial Black', sans-serif; 
             
             /* --- NASHVILLE (CONCRETE) TEXTURE --- */
-            /* We use a medium grey (#333) instead of black to mimic concrete */
             background-color: #333333; 
             
             background-image: 
-                /* Strong Vignette to keep edges dark/cool */
                 radial-gradient(transparent 0%, #000 100%),
-                
-                /* Tighter, heavier noise to mimic concrete aggregate */
                 url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.35'/%3E%3C/svg%3E");
             
             background-attachment: fixed;
-            /* ------------------------------------ */
-
             color: #fff; 
             overflow-x: hidden; 
         }
@@ -122,22 +116,12 @@
             gap: 1.5rem; 
         }
 
-        .social-links {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-        }
+        .social-links { display: flex; gap: 2rem; justify-content: center; }
 
-        .social-icon {
-            color: #555;
-            font-size: 1.8rem;
-            transition: 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
+        .social-icon { 
+            color: #555; font-size: 1.8rem; transition: 0.3s ease; 
+            display: flex; align-items: center; justify-content: center; text-decoration: none;
         }
-
         .social-icon:hover { transform: translateY(-3px); }
         .social-icon.facebook:hover { color: #1877F2; } 
         .social-icon.x-twitter:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
@@ -162,8 +146,8 @@
     <div class="controls">
         <div class="filter-group">
             <select id="season-select" onchange="loadRaceData(this.value)">
-                <option value="2025-26" selected>2025-26 Season</option>
-                <option value="2026">2026 Season</option>
+                <option value="Season_1" selected>Season 1 (2025-26)</option>
+                <option value="Season_2">Season 2</option>
             </select>
 
             <select id="series-select" onchange="populateTracks()">
@@ -245,17 +229,17 @@
         // --- 2. RESULTS DATA LOGIC (MULTI-SEASON) ---
         let raceData = {};
 
-        // Load default season on startup
+        // Load default season on startup (Matches the selected option value)
         document.addEventListener('DOMContentLoaded', () => {
-            loadRaceData("2025-26"); 
+            loadRaceData("Season_1"); 
         });
 
         function loadRaceData(season) {
             // Reset UI feedback
             document.getElementById('results-body').innerHTML = '<tr><td colspan="4" style="text-align:center; padding:2rem; color:#666;">Loading Season Data...</td></tr>';
             
-            // Build filename based on season selection
-            const fileName = `race_results_${season}.json`;
+            // NEW: Updated filename format to match your export
+            const fileName = `ASCRL_Results_${season}.json`;
 
             fetch(fileName)
                 .then(res => {
@@ -283,12 +267,12 @@
             trackSelect.innerHTML = '<option value="">Select a Track...</option>';
 
             // Filter keys in JSON (keys look like "Cup - Daytona")
+            // We use toLowerCase() to ensure "Truck" matches "Truck"
             const availableTracks = Object.keys(raceData).filter(key => 
                 key.toLowerCase().startsWith(series.toLowerCase() + " -")
             );
 
             if (availableTracks.length === 0) {
-                // Keep the "Select a Track" placeholder if no data, or show "No Races"
                 if (Object.keys(raceData).length > 0) {
                     trackSelect.innerHTML = '<option>NO RACES YET</option>';
                 }
@@ -302,7 +286,6 @@
                     trackSelect.appendChild(option);
                 });
                 
-                // Auto-select first track if desired, or clear table
                 document.getElementById('results-body').innerHTML = '<tr><td colspan="4" style="text-align:center; padding:2rem; color:#666;">Select a track above.</td></tr>';
             }
         }
@@ -318,8 +301,9 @@
                 const isWinner = (row.position == 1) ? 'class="win-row"' : '';
                 
                 let bonusHtml = '';
-                if(row.pole === "Yes") bonusHtml += '<span class="bonus-pill pole-pill">POLE</span>';
-                if(row.fl === "FL") bonusHtml += '<span class="bonus-pill fl-pill">FASTEST LAP</span>';
+                // Check string or boolean variants for Pole/FL
+                if(row.pole === "Yes" || row.pole === "Pole") bonusHtml += '<span class="bonus-pill pole-pill">POLE</span>';
+                if(row.fl === "FL" || row.fl === "Yes") bonusHtml += '<span class="bonus-pill fl-pill">FASTEST LAP</span>';
 
                 body.innerHTML += `
                     <tr ${isWinner}>
