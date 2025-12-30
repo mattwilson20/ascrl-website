@@ -106,7 +106,7 @@
         }
         .race-card:hover { border-color: var(--primary); transform: translateY(-5px); }
 
-        /* --- HERO CARD STYLES (Ported from Drivers Page) --- */
+        /* --- HERO CARD STYLES --- */
         .leader-strip {
             display: flex;
             justify-content: center;
@@ -227,7 +227,7 @@
         
         .social-icon.email:hover { color: var(--primary); transform: scale(1.1); }
 
-        /* --- NEW CONTACT BUTTON CLASS (FIXES MOBILE OVERFLOW) --- */
+        /* --- CONTACT BUTTON --- */
         .contact-btn {
             text-decoration: none;
             display: inline-flex;
@@ -265,17 +265,16 @@
             .leader-strip { flex-direction: column; align-items: center; }
             .driver-card { width: 100%; max-width: 320px; margin-bottom: 1.5rem; }
             
-            /* CONTACT BUTTON MOBILE FIX */
             .contact-btn {
-                width: 100%; /* Force full width within padding */
-                justify-content: center; /* Center content */
-                padding: 15px; /* Reduce padding to fit */
-                box-sizing: border-box; /* Include padding in width calculation */
+                width: 100%; 
+                justify-content: center; 
+                padding: 15px; 
+                box-sizing: border-box; 
             }
             .contact-btn span {
-                font-size: 0.7rem !important; /* Shrink text */
-                letter-spacing: 1px !important; /* Reduce spacing */
-                word-break: break-all; /* Break word if absolutely necessary */
+                font-size: 0.7rem !important; 
+                letter-spacing: 1px !important; 
+                word-break: break-all; 
             }
         }
     </style>
@@ -401,9 +400,9 @@
             if(m) m.classList.toggle('open');
         }
 
-        // 2. SCHEDULE DATA
-        const season = "2025-26";
-        const scheduleFile = `schedule_${season}.json`;
+        // 2. SCHEDULE DATA (NEW FILENAME)
+        const season = "Season_1"; 
+        const scheduleFile = `ASCRL_Schedule_${season}.json`; // Matches new export
         const scheduleFallback = `schedule.json`;
 
         fetch(scheduleFile)
@@ -411,6 +410,7 @@
             .then(res => res.json())
             .then(data => {
                 ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(s => {
+                    // Try to match "Cup" or "Truck" key in the schedule object
                     const seriesKey = Object.keys(data).find(k => k.toLowerCase() === s.toLowerCase());
                     if (seriesKey && data[seriesKey]) {
                         const next = data[seriesKey].find(r => new Date(r.date) >= new Date().setHours(0,0,0,0));
@@ -425,8 +425,8 @@
             })
             .catch(err => console.log("Schedule error", err));
 
-        // 3. LEADERS DATA (HERO CARD STYLE)
-        const driversFile = `drivers_${season}.json`;
+        // 3. LEADERS DATA (NEW STRUCTURE)
+        const driversFile = `drivers_${season}.json`; // e.g. drivers_Season_1.json
         const driversFallback = `drivers.json`;
 
         fetch(driversFile)
@@ -436,11 +436,10 @@
                 let html = '';
                 const seriesList = ['Cup', 'Xfinity', 'Truck', 'Menards'];
 
-                // --- DATA NORMALIZATION ---
+                // Flatten dictionary into an array for easier sorting
                 const allDrivers = Object.keys(data).map(key => {
                     const entry = data[key];
-                    let name = entry.display_name;
-                    if (!name) name = key.replace(/^#\d+\s+/, '').trim();
+                    let name = entry.display_name || key.replace(/^#\d+\s+/, '').trim();
                     if (!name) name = key;
                     return { id: key, display_name: name, ...entry };
                 });
@@ -451,7 +450,10 @@
                     let bestData = null;
 
                     allDrivers.forEach(driver => {
-                        const seriesNames = driver.series ? Object.keys(driver.series) : [];
+                        // Driver.series is an object: { "Cup": {...}, "Truck": {...} }
+                        if (!driver.series) return;
+                        
+                        const seriesNames = Object.keys(driver.series);
                         const sKey = seriesNames.find(k => k.toLowerCase() === seriesName.toLowerCase());
                         
                         if (sKey) {
@@ -484,6 +486,7 @@
                         let driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg"; 
                         const nameLower = bestDriver.display_name.toLowerCase();
 
+                        // Robust Checks
                         if (nameLower.includes('dakotathomas1994')) driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg";
                         else if (nameLower.includes('orangeman96')) driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/70b5243e68e9c7f7a596f6695677d8d3520e89e1/IMG_7160.jpg";
                         else if (nameLower.includes('ant_was_he')) driverImage = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/602e91f22a89c294308d1e79473121daa8e777e7/ant_was_he_hero_card.jpg";
