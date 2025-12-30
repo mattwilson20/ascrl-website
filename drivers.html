@@ -346,12 +346,12 @@
             if (menu) menu.classList.toggle('open');
         }
 
-        // --- 2. ROSTER LOGIC ---
-        let allDrivers = {}; 
+        // --- 2. ROSTER LOGIC (UPDATED FOR NEW JSON STRUCTURE) ---
+        let allDriversData = {}; // Store raw dictionary
         let currentSeries = 'Cup';
 
         document.addEventListener('DOMContentLoaded', () => {
-            loadDrivers("2025-26"); 
+            loadDrivers("Season_1"); // Match the filename format from your bot export
         });
 
         function loadDrivers(season) {
@@ -365,7 +365,7 @@
                 .then(r => r.ok ? r : fetch(fallbackFile))
                 .then(r => r.json())
                 .then(data => {
-                    allDrivers = data;
+                    allDriversData = data; // Store the Dictionary
                     filterSeries('Cup'); // Initial Render
                 })
                 .catch(err => {
@@ -388,29 +388,36 @@
 
             const filteredList = [];
 
-            // Process Data
-            Object.keys(allDrivers).forEach(key => {
-                const driver = allDrivers[key];
+            // Process Data - Iterate through the Dictionary { ID: { display_name, series: {} } }
+            for (const [id, driverInfo] of Object.entries(allDriversData)) {
                 
-                let dName = driver.display_name;
-                if (!dName) dName = key.replace(/^#\d+\s+/, '').trim();
-                if (!dName) dName = key;
+                // Get display name, fallback to ID if missing
+                let dName = driverInfo.display_name || id;
 
-                const sKey = Object.keys(driver.series).find(k => k.toLowerCase() === seriesName.toLowerCase());
+                // Check if this driver has an entry for the selected series
+                // Note: The JSON keys might be case-sensitive ("Cup" vs "cup"), so we check carefully
+                if (driverInfo.series) {
+                    const sKey = Object.keys(driverInfo.series).find(k => k.toLowerCase() === seriesName.toLowerCase());
+                    
+                    if (sKey) {
+                        const sData = driverInfo.series[sKey];
+                        
+                        // Optional: Only show drivers who have actually started a race?
+                        // if (sData.stats && sData.stats.starts > 0) { ... }
+                        // For now, we show everyone assigned to the series.
 
-                if (sKey) {
-                    const sData = driver.series[sKey];
-                    filteredList.push({
-                        id: key,
-                        name: dName,
-                        fullData: driver,
-                        seriesData: sData, 
-                        seriesName: sKey
-                    });
+                        filteredList.push({
+                            id: id,
+                            name: dName,
+                            fullData: driverInfo,
+                            seriesData: sData, 
+                            seriesName: sKey
+                        });
+                    }
                 }
-            });
+            }
 
-            // Sort by Points
+            // Sort by Points (Highest First)
             filteredList.sort((a, b) => {
                 const ptsA = a.seriesData.stats ? a.seriesData.stats.points || 0 : 0;
                 const ptsB = b.seriesData.stats ? b.seriesData.stats.points || 0 : 0;
@@ -434,7 +441,8 @@
                 
                 let carNum = sData.number;
                 if (!carNum || carNum === "N/A") {
-                      const match = (sData.driver_name || item.id).match(/^#(\d+)/);
+                      // Try to parse from name if missing in number field
+                      const match = (item.name).match(/^#(\d+)/);
                       carNum = match ? match[1] : '';
                 }
 
@@ -532,9 +540,9 @@
 
                 const card = document.createElement('div');
                 card.className = `driver-card ${hoverClass}`;
+                // Pass full object including 'display_name' to modal
                 card.onclick = () => openProfile(item.id, item.fullData);
                 
-                // UPDATED: Replaced background-image with <img> tag + loading="lazy"
                 card.innerHTML = `
                     <img src="${driverImage}" alt="${item.name} Driver Card" class="card-bg-img" loading="lazy">
                     <div class="bg-number">${carNum}</div>
@@ -567,20 +575,22 @@
             const modal = document.getElementById('driver-modal');
             const dataDiv = document.getElementById('modal-data');
             
+            // Use display_name from JSON, or fallback to cleaned ID
             let dName = driverData.display_name;
             if (!dName) dName = id.replace(/^#\d+\s+/, '').trim();
 
             let html = `<h2 style="font-size:3rem; margin:0; line-height:1;">${dName}</h2>`;
             
             const seriesOrder = ["Cup", "Xfinity", "Truck", "Menards"];
-            const sortedSeries = Object.keys(driverData.series).sort((a, b) => {
+            // driverData.series is an Object, grab keys
+            const sortedSeriesKeys = Object.keys(driverData.series).sort((a, b) => {
                 let ia = seriesOrder.indexOf(a);
                 let ib = seriesOrder.indexOf(b);
                 if (ia === -1) ia = 99; if (ib === -1) ib = 99;
                 return ia - ib;
             });
 
-            sortedSeries.forEach(sName => {
+            sortedSeriesKeys.forEach(sName => {
                 const s = driverData.series[sName];
                 const st = s.stats || {wins:0, top5:0, top10:0, poles:0, avg:0, points:0};
                 
