@@ -1,53 +1,71 @@
 {
-    "Cup": [
-        {
-            "rank": 1,
-            "team": "APEX RACING",
-            "points": 744,
-            "drivers_count": 4,
-            "roster": "#24 dakotathomas1994 | #26 MajorBlaz33 | #77 Dewshine_02 | #9 lnfvmous_-"
-        },
-        {
-            "rank": 2,
-            "team": "TOO BROKE RACING",
-            "points": 682,
-            "drivers_count": 4,
-            "roster": "#1 mattwilson20 | #71 HockeyDeckout | #8 ALESSI-20-11 | #94 DGibby17"
-        },
-        {
-            "rank": 3,
-            "team": "BACKROW MOTORSPORTS",
-            "points": 592,
-            "drivers_count": 4,
-            "roster": "#28 DaltonGregson | #41 SithWarriorUno | #58 On-A-Mission618 | #61 Singular_Nacho"
-        },
-        {
-            "rank": 4,
-            "team": "FAST AND LOOSE RACING",
-            "points": 507,
-            "drivers_count": 4,
-            "roster": "#48 Orangeman96 | #59 BanishedCrayon | #64 SOLID1915ONE | #88 xX8LRACINGXx"
-        },
-        {
-            "rank": 5,
-            "team": "GAZOO MOTORSPORTS",
-            "points": 333,
-            "drivers_count": 3,
-            "roster": "#20 Fordemgators | #45 Ant_was_he | #73 HatterMAD218"
-        },
-        {
-            "rank": 6,
-            "team": "WHY IS IT SMOKING? MOTORSPORTS",
-            "points": 297,
-            "drivers_count": 3,
-            "roster": "#0 ThirstTrapToby | #63 Lostcozov | #74 TheReaperRhino"
-        },
-        {
-            "rank": 7,
-            "team": "SR MOTORSPORTS",
-            "points": 15,
-            "drivers_count": 1,
-            "roster": "#2 The_Stone07"
-        }
-    ]
+  "Cup": [
+    {
+      "rank": 1,
+      "team": "APEX RACING",
+      "points": 744,
+      "drivers_count": 4,
+      "roster": "#24 dakotathomas1994 | #26 MajorBlaz33 | #77 Dewshine_02 | #9 lnfvmous_-"
+    },
+    {
+      "rank": 2,
+      "team": "TOO BROKE RACING",
+      "points": 682,
+      "drivers_count": 4,
+      "roster": "#1 mattwilson20 | #71 HockeyDeckout | #8 ALESSI-20-11 | #94 DGibby17"
+    },
+    {
+      "rank": 3,
+      "team": "BACKROW MOTORSPORTS",
+      "points": 592,
+      "drivers_count": 4,
+      "roster": "#28 DaltonGregson | #41 SithWarriorUno | #58 On-A-Mission618 | #61 Singular_Nacho"
+    },
+    {
+      "rank": 4,
+      "team": "FAST AND LOOSE RACING",
+      "points": 507,
+      "drivers_count": 4,
+      "roster": "#48 Orangeman96 | #59 BanishedCrayon | #64 SOLID1915ONE | #88 xX8LRACINGXx"
+    },
+    {
+      "rank": 5,
+      "team": "GAZOO MOTORSPORTS",
+      "points": 333,
+      "drivers_count": 3,
+      "roster": "#20 Fordemgators | #45 Ant_was_he | #73 HatterMAD218"
+    },
+    {
+      "rank": 6,
+      "team": "WHY IS IT SMOKING? MOTORSPORTS",
+      "points": 297,
+      "drivers_count": 3,
+      "roster": "#0 ThirstTrapToby | #63 Lostcozov | #74 TheReaperRhino"
+    },
+    {
+      "rank": 7,
+      "team": "SR MOTORSPORTS",
+      "points": 15,
+      "drivers_count": 1,
+      "roster": "#2 The_Stone07"
+    }
+  ],
+  "Xfinity": [
+    {
+      "rank": 1,
+      "team": "INDEPENDENT",
+      "points": 399,
+      "drivers_count": 3,
+      "roster": "#09 MajorBlaz33 | #59 BanishedCrayon | #7 Orangeman96"
+    }
+  ],
+  "Menards": [
+    {
+      "rank": 1,
+      "team": "INDEPENDENT",
+      "points": 354,
+      "drivers_count": 3,
+      "roster": "#14 MajorBlaz33 | #59 BanishedCrayon | #74 Orangeman_96"
+    }
+  ]
 }
