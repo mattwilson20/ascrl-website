@@ -231,13 +231,6 @@
         .social-icon.x-twitter:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
         .social-icon.email:hover { color: var(--primary); }
 
-        #debug-log {
-            display: none; /* Hidden by default, script shows it on error */
-            background: #220000; color: #ffaaaa; 
-            padding: 20px; margin: 20px auto; 
-            max-width: 800px; border: 1px solid red; font-family: monospace;
-        }
-
         @media (max-width: 768px) {
             .hero { padding: 10rem 1rem 4rem; }
             .stat-row { grid-template-columns: 1fr 1fr; }
@@ -266,8 +259,6 @@
             <a href="rules.html" id="nav-rules">REGULATIONS</a>
         </div>
     </nav>
-
-    <div id="debug-log"></div>
 
     <header class="hero">
         <p>Constructors Championship</p>
@@ -353,68 +344,34 @@
             loadSeasonData("Season_1");
         });
 
-        // Safe fetch with fallback and logging
-        async function fetchFile(filename) {
+        async function fetchWithFallback(filename) {
             const local = filename;
             const github = `https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/${filename}`;
-            
             try {
-                // Try Local
-                let r = await fetch(local);
-                if(r.ok) return await r.json();
-                
-                // Try GitHub
-                console.log(`Local failed for ${filename}, trying GitHub...`);
-                r = await fetch(github);
-                if(r.ok) return await r.json();
-                
+                let response = await fetch(local);
+                if (response.ok) return await response.json();
+                console.warn(`Local fetch failed for ${local}, trying GitHub...`);
+                response = await fetch(github);
+                if (response.ok) return await response.json();
                 throw new Error("404 Not Found");
-            } catch (e) {
-                logError(`Failed to load ${filename}: ${e.message}`);
-                throw e;
+            } catch (err) {
+                return null; // Return null if fail so Promise.all doesn't crash
             }
-        }
-
-        function logError(msg) {
-            const box = document.getElementById('debug-log');
-            box.style.display = 'block';
-            box.innerHTML += `<div>${msg}</div>`;
         }
 
         async function loadSeasonData(season) {
             document.getElementById('standings-body').innerHTML = '<tr><td colspan="3" style="text-align:center; padding:2rem; color:#666;">Accessing Data Feed...</td></tr>';
-            const garage = document.getElementById('teams-container');
-            garage.innerHTML = '<p style="text-align:center;">Loading garage...</p>';
+            
+            // Load both files safely
+            const [dData, tData] = await Promise.all([
+                fetchWithFallback(`drivers_${season}.json`),
+                fetchWithFallback(`ASCRL_Team_Standings_${season}.json`)
+            ]);
 
-            try {
-                // Filenames MUST match what the python bot generates
-                // We use Promise.allSettled so if one fails, the other can still load
-                const results = await Promise.allSettled([
-                    fetchFile(`drivers_${season}.json`),
-                    fetchFile(`ASCRL_Team_Standings_${season}.json`)
-                ]);
+            driversData = dData || {};
+            teamStandings = tData || {};
 
-                // Handle Drivers Data
-                if (results[0].status === 'fulfilled') {
-                    driversData = results[0].value;
-                } else {
-                    driversData = {}; // Empty fallback
-                    garage.innerHTML = '<p style="text-align:center; color:#c00;">Garage Unavailable (Drivers File Missing)</p>';
-                }
-
-                // Handle Team Standings
-                if (results[1].status === 'fulfilled') {
-                    teamStandings = results[1].value;
-                } else {
-                    teamStandings = {};
-                    document.getElementById('standings-body').innerHTML = '<tr><td colspan="3" style="text-align:center; color:#c00;">Standings Unavailable (Teams File Missing)</td></tr>';
-                }
-
-                updateUI();
-
-            } catch (err) {
-                console.error(err);
-            }
+            updateUI();
         }
 
         function switchSeries(seriesName) {
@@ -431,16 +388,25 @@
             renderGarage();
         }
 
-        // --- 3. STANDINGS TABLE ---
+        // --- 3. STANDINGS TABLE (WITH CALCULATION FALLBACK) ---
         function updateStandingsTable() {
             const tbody = document.getElementById('standings-body');
             tbody.innerHTML = '';
 
-            // Check case-insensitive key
-            const seriesKey = Object.keys(teamStandings).find(k => k.toLowerCase() === currentSeries.toLowerCase());
-            const rows = seriesKey ? teamStandings[seriesKey] : [];
+            let rows = [];
 
-            if(!rows || rows.length === 0) {
+            // 1. Try Official Team Standings File first
+            const seriesKey = Object.keys(teamStandings).find(k => k.toLowerCase() === currentSeries.toLowerCase());
+            if (seriesKey && teamStandings[seriesKey]) {
+                rows = teamStandings[seriesKey];
+            } 
+            
+            // 2. If file is missing/empty, CALCULATE FROM DRIVERS DATA (The Fix)
+            if (rows.length === 0 && Object.keys(driversData).length > 0) {
+                rows = calculateTeamsFromDrivers(currentSeries);
+            }
+
+            if(rows.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding:2rem; color:#666;">No active teams for ${currentSeries}.</td></tr>`;
                 return;
             }
@@ -449,7 +415,7 @@
                 const isLeader = index === 0 ? 'class="leader-row"' : '';
                 tbody.innerHTML += `
                     <tr ${isLeader}>
-                        <td class="rank-cell">${team.rank}</td>
+                        <td class="rank-cell">${index + 1}</td>
                         <td style="font-weight:bold; letter-spacing:1px; color:#fff;">${team.team}</td>
                         <td class="points-cell">${team.points}</td>
                     </tr>
@@ -457,18 +423,48 @@
             });
         }
 
+        // --- HELPER: CALCULATE TEAMS FROM DRIVER DATA ---
+        function calculateTeamsFromDrivers(seriesName) {
+            const teamsMap = {};
+
+            for (const [id, driver] of Object.entries(driversData)) {
+                const sKey = Object.keys(driver.series || {}).find(k => k.toLowerCase() === seriesName.toLowerCase());
+                if (!sKey) continue;
+
+                const sData = driver.series[sKey];
+                const teamName = sData.team || "Independent";
+                
+                // Skip independents for the points table? Usually yes.
+                if (teamName.toLowerCase().includes("independent") || !teamName) continue;
+
+                // Sum Points
+                const stats = sData.stats || {};
+                const pts = parseInt(stats.points || stats.Points || stats.pts || 0);
+
+                if (!teamsMap[teamName]) teamsMap[teamName] = 0;
+                teamsMap[teamName] += pts;
+            }
+
+            // Convert to array and sort
+            return Object.entries(teamsMap)
+                .map(([name, points]) => ({ team: name, points: points }))
+                .sort((a, b) => b.points - a.points);
+        }
+
         // --- 4. GARAGE GRID ---
         function renderGarage() {
             const container = document.getElementById('teams-container');
             container.innerHTML = '';
 
-            if (Object.keys(driversData).length === 0) return; // Already handled error above
+            if (Object.keys(driversData).length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#666;">Loading garage...</p>';
+                return;
+            }
 
             const garageTeams = {};
 
             Object.entries(driversData).forEach(([id, driver]) => {
                 if(!driver.series) return;
-                
                 const sKey = Object.keys(driver.series).find(k => k.toLowerCase() === currentSeries.toLowerCase());
                 if (!sKey) return;
 
@@ -493,7 +489,7 @@
             });
 
             if (sortedTeamNames.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color:#666;">No teams found in garage for this series.</p>';
+                container.innerHTML = '<p style="text-align:center; color:#666;">No teams found in garage.</p>';
                 return;
             }
 
@@ -539,8 +535,7 @@
             
             const seriesOrder = ["Cup", "Xfinity", "Truck", "Menards"];
             const seriesKeys = Object.keys(driver.series).sort((a, b) => {
-                let ia = seriesOrder.indexOf(a);
-                let ib = seriesOrder.indexOf(b);
+                let ia = seriesOrder.indexOf(a); let ib = seriesOrder.indexOf(b);
                 if (ia === -1) ia = 99; if (ib === -1) ib = 99;
                 return ia - ib;
             });
@@ -549,17 +544,16 @@
                 const s = driver.series[sName];
                 const st = s.stats || {};
                 
-                // MAPPING
-                const pts = st.points || 0;
-                const wins = st.wins || 0;
-                const t5 = st.top5 || 0;
-                const t10 = st.top10 || 0;
-                const poles = st.poles || 0;
-                let avgFin = st.avg || 0;
-
+                let avgFin = st.avg;
                 if (typeof avgFin === 'number') avgFin = avgFin.toFixed(1);
                 else if (!isNaN(parseFloat(avgFin))) avgFin = parseFloat(avgFin).toFixed(1);
                 else avgFin = "N/A";
+                
+                const pts = parseInt(st.points || st.Points || st.pts || 0);
+                const wins = parseInt(st.wins || st.Wins || 0);
+                const t5 = parseInt(st.top5 || st.Top5 || 0);
+                const t10 = parseInt(st.top10 || st.Top10 || 0);
+                const poles = parseInt(st.poles || st.Poles || 0);
 
                 html += `
                     <h4>${sName} Series / #${s.number} ${s.manufacturer}</h4>
