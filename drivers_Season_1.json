@@ -379,8 +379,8 @@
         "display_name": "The_Stone07",
         "series": {
             "Cup": {
-                "number": "2",
-                "team": "SR MOTORSPORTS",
+                "number": "5",
+                "team": "BHG MOTORSPORTS",
                 "manufacturer": null,
                 "stats": {
                     "points": 14,
@@ -954,7 +954,7 @@
             "Cup": {
                 "number": "64",
                 "team": "FAST AND LOOSE RACING",
-                "manufacturer": null,
+                "manufacturer": "Chevy",
                 "stats": {
                     "points": 83,
                     "wins": 0,
@@ -1261,20 +1261,6 @@
                     "avg": 23.5
                 }
             },
-            "Truck": {
-                "number": "85",
-                "team": null,
-                "manufacturer": null,
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "starts": 0,
-                    "avg": 0
-                }
-            },
             "Menards": {
                 "number": "78",
                 "team": "",
@@ -1358,7 +1344,7 @@
             "Cup": {
                 "number": "94",
                 "team": "TOO BROKE RACING",
-                "manufacturer": null,
+                "manufacturer": "Chevy",
                 "stats": {
                     "points": 181,
                     "wins": 0,
@@ -2359,7 +2345,7 @@
         }
     },
     "1052353728725921903": {
-        "display_name": "OP123PLAYZ",
+        "display_name": "Driver 1052353728725921903",
         "series": {
             "Xfinity": {
                 "number": "2",
@@ -2621,7 +2607,7 @@
                 }
             },
             "Truck": {
-                "number": "86",
+                "number": "85",
                 "team": "",
                 "manufacturer": "",
                 "stats": {
@@ -2649,7 +2635,7 @@
                 }
             },
             "Menards": {
-                "number": "84",
+                "number": "85",
                 "team": "",
                 "manufacturer": "",
                 "stats": {
@@ -2751,44 +2737,6 @@
                 "number": "60",
                 "team": "",
                 "manufacturer": "",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "starts": 0,
-                    "avg": 0
-                }
-            }
-        }
-    },
-    "1385302328852353146": {
-        "display_name": "TheCruiser54",
-        "series": {
-            "Cup": {
-                "number": "54",
-                "team": "BHG MOTORSPORTS",
-                "manufacturer": "Chevy",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "starts": 0,
-                    "avg": 0
-                }
-            }
-        }
-    },
-    "1420833154444296214": {
-        "display_name": "Destroyerxx8",
-        "series": {
-            "Cup": {
-                "number": "19",
-                "team": "BHG MOTORSPORTS",
-                "manufacturer": "Chevy",
                 "stats": {
                     "points": 0,
                     "wins": 0,
