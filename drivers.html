@@ -38,21 +38,9 @@
             overflow-x: hidden; 
         }
 
-        /* --- NAV CSS --- 
-           Kept here so the injected nav.html renders correctly */
+        /* --- MODULAR NAVIGATION STYLES --- */
         #nav-placeholder { position: relative; z-index: 2000; }
-
-        .hamburger {
-            position: fixed; top: 25px; left: 25px; z-index: 2001;
-            cursor: pointer; padding: 10px; background: rgba(0,0,0,0.4);
-            border-radius: 5px; border: 1px solid var(--border);
-        }
-        .hamburger-line {
-            width: 35px; height: 4px; background-color: var(--primary);
-            margin: 6px 0; transition: 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.8);
-        }
-        .hamburger:hover .hamburger-line { background-color: #fff; box-shadow: 0 0 10px var(--primary); }
-
+        
         .nav-overlay { 
             position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; 
             height: 100vh; background: #050505; transition: left 0.5s ease; 
