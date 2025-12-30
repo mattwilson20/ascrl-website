@@ -38,7 +38,9 @@
             overflow-x: hidden; 
         }
 
-        /* --- YOUR NAV HTML STYLES --- */
+        /* --- NAV STYLES (REQUIRED FOR NAV.HTML TO BE VISIBLE) --- */
+        #nav-placeholder { position: relative; z-index: 2000; }
+
         .hamburger {
             position: fixed; top: 25px; left: 25px; z-index: 2001;
             cursor: pointer; padding: 10px; background: rgba(0,0,0,0.4);
@@ -63,7 +65,7 @@
         }
         .nav-links a:hover { color: var(--primary); padding-left: 10px; }
 
-        /* --- PAGE LAYOUT --- */
+        /* --- HERO --- */
         .hero { 
             background: radial-gradient(circle at center, #222 0%, #000 100%); 
             padding: 12rem 1rem 8rem; text-align: center; border-bottom: 1px solid var(--border);
@@ -157,24 +159,8 @@
 </head>
 <body>
 
-    <div class="hamburger" onclick="toggleMenu()">
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-    </div>
+    <div id="nav-placeholder"></div>
 
-    <nav class="nav-overlay" id="nav-menu">
-        <div class="nav-links">
-            <a href="index.html" id="nav-index">DASHBOARD</a>
-            <a href="news.html" id="nav-news">LATEST NEWS</a>
-            <a href="standings.html" id="nav-standings">STANDINGS</a>
-            <a href="results.html" id="nav-results">RESULTS</a>
-            <a href="schedule.html" id="nav-schedule">CALENDAR</a>
-            <a href="teams.html" id="nav-teams">TEAMS</a>
-            <a href="drivers.html" id="nav-drivers">ROSTER</a>
-            <a href="rules.html" id="nav-rules">REGULATIONS</a>
-        </div>
-    </nav>
     <header class="hero">
         <p>Official League Roster</p>
         <h1>THE GRID</h1>
@@ -215,13 +201,36 @@
     </footer>
 
     <script>
-        // --- NAV LOGIC ---
+        // --- 1. MODULAR NAVIGATION LOGIC ---
+        // Fetch nav.html and inject it into the placeholder
+        fetch('nav.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+                
+                // Highlight the correct link
+                const currentPage = window.location.pathname.split("/").pop() || "index.html";
+                const navID = "nav-" + currentPage.split(".")[0];
+                
+                // Wait briefly for injection
+                setTimeout(() => {
+                    const activeLink = document.getElementById(navID);
+                    if (activeLink) {
+                        activeLink.style.color = "var(--primary)";
+                        activeLink.style.borderLeft = "4px solid var(--primary)";
+                        activeLink.style.paddingLeft = "15px";
+                    }
+                }, 50);
+            })
+            .catch(err => console.error("Nav load error:", err));
+
+        // This function must exist globally so the injected hamburger button can call it
         function toggleMenu() {
             const menu = document.getElementById('nav-menu');
             if (menu) menu.classList.toggle('open');
         }
 
-        // --- ROSTER LOGIC ---
+        // --- 2. ROSTER LOGIC (FIXED STATS) ---
         let allDriversData = {}; 
         let currentSeries = 'Cup';
 
@@ -229,18 +238,32 @@
             loadDrivers();
         });
 
+        // Helper to fetch with GitHub fallback
+        async function fetchWithFallback(filename) {
+            const local = filename;
+            const github = `https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/${filename}`;
+            
+            try {
+                let response = await fetch(local);
+                if (response.ok) return await response.json();
+                
+                console.warn(`Local fetch failed for ${local}, trying GitHub...`);
+                response = await fetch(github);
+                if (response.ok) return await response.json();
+                
+                throw new Error("404 Not Found");
+            } catch (err) {
+                throw err;
+            }
+        }
+
         function loadDrivers() {
             const grid = document.getElementById('roster-grid');
             grid.innerHTML = '<p style="text-align:center; padding:2rem; color:#666;">Accessing Data Feed...</p>';
             
-            // EXACT FILENAME YOU PROVIDED:
             const filename = `drivers_Season_1.json`; 
             
-            fetch(filename)
-                .then(r => {
-                    if(!r.ok) throw new Error(`Fetch failed: ${r.status} ${r.statusText}`);
-                    return r.json();
-                })
+            fetchWithFallback(filename)
                 .then(data => {
                     allDriversData = data;
                     filterSeries('Cup');
@@ -252,9 +275,6 @@
                             <h3>Unable to load roster.</h3>
                             <p style="color:#fff; font-size:0.8rem; font-family:monospace; background:#222; padding:10px; display:inline-block; margin-top:10px;">
                                 ERROR: ${err.message}
-                            </p>
-                            <p style="color:#aaa; font-size:0.8rem; margin-top:10px;">
-                                Attempted to load: <b>${filename}</b>
                             </p>
                         </div>`;
                 });
@@ -292,9 +312,20 @@
                 }
             }
 
+            // ROBUST SORTING
             filteredList.sort((a, b) => {
-                const ptsA = a.seriesData.stats ? a.seriesData.stats.points || 0 : 0;
-                const ptsB = b.seriesData.stats ? b.seriesData.stats.points || 0 : 0;
+                const getPoints = (obj) => {
+                    if (!obj || !obj.seriesData) return 0;
+                    // Check 'stats' OR 'Stats'
+                    const st = obj.seriesData.stats || obj.seriesData.Stats || {};
+                    // Check 'points' OR 'Points' OR 'pts'
+                    const rawPts = st.points || st.Points || st.pts || 0;
+                    return parseInt(rawPts) || 0; 
+                };
+
+                const ptsA = getPoints(a);
+                const ptsB = getPoints(b);
+                
                 if(ptsA !== ptsB) return ptsB - ptsA;
                 return a.name.localeCompare(b.name);
             });
@@ -304,13 +335,22 @@
                 return;
             }
 
-            const maxPoints = Math.max(...filteredList.map(i => i.seriesData.stats ? i.seriesData.stats.points : 0));
+            // MAX POINTS FOR CROWN
+            const getPointsForMax = (obj) => {
+                if (!obj.seriesData) return 0;
+                const st = obj.seriesData.stats || obj.seriesData.Stats || {};
+                const rawPts = st.points || st.Points || st.pts || 0;
+                return parseInt(rawPts) || 0;
+            };
+            const maxPoints = Math.max(...filteredList.map(i => getPointsForMax(i)));
 
             filteredList.forEach(item => {
                 const sData = item.seriesData;
-                const stats = sData.stats || {points:0, wins:0};
-                const points = stats.points || 0;
-                const wins = stats.wins || 0;
+                
+                // ROBUST STATS ACCESS
+                const stats = sData.stats || sData.Stats || {};
+                const points = parseInt(stats.points || stats.Points || stats.pts || 0);
+                const wins = parseInt(stats.wins || stats.Wins || 0);
                 
                 let carNum = sData.number;
                 if (!carNum || carNum === "N/A") {
@@ -401,21 +441,29 @@
 
             sortedSeriesKeys.forEach(sName => {
                 const s = driverData.series[sName];
-                const st = s.stats || {wins:0, top5:0, top10:0, poles:0, avg:0, points:0};
-                let avgFin = st.avg;
+                const st = s.stats || s.Stats || {wins:0, top5:0, top10:0, poles:0, avg:0, points:0};
+                
+                let avgFin = st.avg || st.Avg || 0;
                 if (typeof avgFin === 'number') avgFin = avgFin.toFixed(1);
                 else if (!isNaN(parseFloat(avgFin))) avgFin = parseFloat(avgFin).toFixed(1);
                 else avgFin = "N/A";
+                
+                // ROBUST MODAL POINTS
+                const pts = parseInt(st.points || st.Points || st.pts || 0);
+                const wins = parseInt(st.wins || st.Wins || 0);
+                const t5 = parseInt(st.top5 || st.Top5 || 0);
+                const t10 = parseInt(st.top10 || st.Top10 || 0);
+                const poles = parseInt(st.poles || st.Poles || 0);
 
                 html += `
                     <h4>${sName} Series / #${s.number || ''} ${s.manufacturer || ''}</h4>
                     <p style="font-family:sans-serif; font-size:0.9rem; color:#666;">Team: ${s.team || 'Independent'}</p>
                     <div class="stat-row">
-                        <div class="stat-box"><small>Points</small><span>${st.points}</span></div>
-                        <div class="stat-box"><small>Wins</small><span>${st.wins}</span></div>
-                        <div class="stat-box"><small>Top 5s</small><span>${st.top5}</span></div>
-                        <div class="stat-box"><small>Top 10s</small><span>${st.top10}</span></div>
-                        <div class="stat-box"><small>Poles</small><span>${st.poles}</span></div>
+                        <div class="stat-box"><small>Points</small><span>${pts}</span></div>
+                        <div class="stat-box"><small>Wins</small><span>${wins}</span></div>
+                        <div class="stat-box"><small>Top 5s</small><span>${t5}</span></div>
+                        <div class="stat-box"><small>Top 10s</small><span>${t10}</span></div>
+                        <div class="stat-box"><small>Poles</small><span>${poles}</span></div>
                         <div class="stat-box"><small>Avg. Fin</small><span>${avgFin}</span></div>
                     </div>
                 `;
