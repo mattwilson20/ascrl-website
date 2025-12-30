@@ -31,19 +31,13 @@
             font-family: 'Arial Black', sans-serif; 
             
             /* --- NASHVILLE (CONCRETE) TEXTURE --- */
-            /* We use a medium grey (#333) instead of black to mimic concrete */
             background-color: #333333; 
             
             background-image: 
-                /* Strong Vignette to keep edges dark/cool */
                 radial-gradient(transparent 0%, #000 100%),
-                
-                /* Tighter, heavier noise to mimic concrete aggregate */
                 url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.35'/%3E%3C/svg%3E");
             
             background-attachment: fixed;
-            /* ------------------------------------ */
-
             color: #fff; 
             overflow-x: hidden; 
         }
@@ -51,6 +45,34 @@
         /* --- MODULAR NAVIGATION STYLES --- */
         #nav-placeholder { position: relative; z-index: 2000; }
         
+        /* FIXED: Added missing Hamburger Styles so the button is visible */
+        .hamburger {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            z-index: 2001; /* Above the overlay */
+            cursor: pointer;
+            padding: 10px;
+            background: rgba(0,0,0,0.4); /* Slight backing for contrast */
+            border-radius: 5px;
+            border: 1px solid var(--border);
+        }
+
+        .hamburger-line {
+            width: 35px;
+            height: 4px;
+            background-color: var(--primary);
+            margin: 6px 0;
+            transition: 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .hamburger:hover .hamburger-line {
+            background-color: #fff;
+            box-shadow: 0 0 10px var(--primary);
+        }
+        /* End Fixed Hamburger Styles */
+
         .nav-overlay { 
             position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; 
             height: 100vh; background: #050505; transition: left 0.5s ease; 
@@ -116,7 +138,6 @@
 
         .driver-card {
             background-color: #111;
-            /* Removed background-image properties to use <img> tag for lazy loading */
             border: 1px solid #222;
             padding: 2rem;
             position: relative;
@@ -130,7 +151,6 @@
             cursor: pointer;
         }
 
-        /* NEW: Class for the lazy loaded image */
         .card-bg-img {
             position: absolute;
             top: 0;
@@ -143,13 +163,12 @@
             transition: transform 0.3s ease;
         }
 
-        /* Gradient Overlay for Readability */
         .driver-card::after {
             content: "";
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.95) 90%);
-            z-index: 1; /* Sits ON TOP of the image */
+            z-index: 1;
         }
 
         .driver-card:hover {
@@ -163,7 +182,6 @@
         .truck-hover:hover { border-color: var(--truck-red) !important; box-shadow: 0 10px 30px rgba(204, 0, 0, 0.2); }
         .menards-hover:hover { border-color: var(--menards-yellow) !important; box-shadow: 0 10px 30px rgba(255, 242, 0, 0.2); }
 
-        /* --- NUMBER WATERMARK FIX (Tucked Inside) --- */
         .bg-number {
             position: absolute;
             top: 10px;       /* Moved down inside the card */
