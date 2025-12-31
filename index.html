@@ -116,8 +116,8 @@
         .driver-card::after, .carousel-cell::after {
             content: "";
             position: absolute;
-            bottom: 0; left: 0; width: 100%; height: 60%;
-            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 50%, transparent 100%);
+            bottom: 0; left: 0; width: 100%; height: 70%; /* Increased gradient height for visibility */
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 40%, transparent 100%);
             z-index: 1;
         }
 
@@ -209,8 +209,8 @@
         }
 
         .carousel-scene {
-            width: 220px;
-            height: 330px;
+            width: 200px; /* Reduced from 220px */
+            height: 300px; /* Reduced from 330px */
             margin: 4rem auto 0;
             position: relative;
             transform-style: preserve-3d;
@@ -224,12 +224,17 @@
         /* Desktop specific positions for 3D */
         .carousel-cell {
             position: absolute;
-            width: 220px;
-            height: 330px;
+            width: 200px; /* Match scene */
+            height: 300px; /* Match scene */
             left: 0;
             top: 0;
             backface-visibility: hidden;
         }
+
+        /* Carousel specific adjustments */
+        .carousel-cell .driver-name { font-size: 1.0rem; } /* Smaller text */
+        .carousel-cell .bg-number { font-size: 2.2rem; } /* Smaller number */
+        .carousel-cell .stats-pill { padding: 4px 10px; font-size: 0.65rem; }
 
         .carousel-cell:nth-child(1) { transform: rotateY(0deg) translateZ(300px); }
         .carousel-cell:nth-child(2) { transform: rotateY(90deg) translateZ(300px); }
@@ -274,7 +279,7 @@
         .social-icon { color: #555; font-size: 1.8rem; transition: 0.3s ease; display: flex; align-items: center; justify-content: center; text-decoration: none; }
         .social-icon:hover { transform: translateY(-3px); }
 
-        /* --- MOBILE OVERRIDE: CONTINUOUS SCROLLERS --- */
+        /* --- MOBILE OVERRIDE: SIMPLE HORIZONTAL SCROLL --- */
         @media (max-width: 900px) {
             /* 1. Global Horizontal Layouts */
             .timer-container, 
@@ -286,44 +291,45 @@
                 overflow-x: auto !important; 
                 gap: 1rem;
                 width: 100%;
-                padding: 1rem;
+                padding: 1rem 1rem 2rem 1rem; /* Extra bottom padding for scroll area */
                 box-sizing: border-box;
-                align-items: flex-start;
+                align-items: flex-start; /* Align tops */
                 
-                /* Hide Scrollbars */
-                -ms-overflow-style: none;
-                scrollbar-width: none;
+                /* Standard mobile scrolling physics */
+                -webkit-overflow-scrolling: touch;
+                scroll-snap-type: x mandatory;
             }
             
-            .timer-container::-webkit-scrollbar, 
-            .leader-strip::-webkit-scrollbar,
-            .carousel-scene::-webkit-scrollbar {
-                display: none;
-            }
-
             /* 2. Specific Tweaks */
             .timer-container { margin-top: 0 !important; }
 
             .race-card {
                 flex: 0 0 240px; /* Fixed width */
                 width: 240px;
+                scroll-snap-align: start;
             }
 
             /* 3. Driver Cards (Winners & Leaders) */
-            /* IMPORTANT: Override absolute positioning from desktop 3D */
             .driver-card, .carousel-cell {
-                flex: 0 0 260px !important; 
-                width: 260px !important;
+                flex: 0 0 220px !important; /* Smaller Fixed width */
+                width: 220px !important;
+                height: 320px !important; /* Smaller Fixed Height */
+                
                 margin-bottom: 0 !important;
                 position: relative !important;
                 transform: none !important;
                 left: auto !important; 
                 top: auto !important;
-                height: 380px !important; 
+                scroll-snap-align: center;
+                
+                /* Reset content positioning for 2D */
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: flex-end !important;
             }
 
             /* 4. Fix 3D Carousel Container */
-            .winners-section { perspective: none; padding-bottom: 2rem; }
+            .winners-section { perspective: none; padding-bottom: 1rem; }
             .carousel-scene {
                 height: auto; 
                 animation: none; 
@@ -336,6 +342,7 @@
             .leader-strip .driver-card { filter: none !important; opacity: 1 !important; transform: none !important; }
             
             .contact-btn { width: 100%; justify-content: center; padding: 15px; box-sizing: border-box; }
+            .contact-btn span { font-size: 0.7rem !important; letter-spacing: 1px !important; }
         }
     </style>
 </head>
@@ -484,7 +491,6 @@
         if (nameLower.includes('mattwilson20')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6686ee35c988cd1b0ae305d099ff4e31c652a49f/mattwilson20_Hero_Card.jpg";
         if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/81df81de5161ea2f590ee32c370d3e99675cdbaa/Hockey_Hero_Card.png";
         
-        // Default
         return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg";
     }
 
@@ -606,57 +612,8 @@
             document.getElementById('winners-carousel').innerHTML = html;
         }
 
-        // --- D. INITIALIZE INFINITE SCROLL (MOBILE ONLY) ---
-        setTimeout(() => {
-            setupInfiniteScroll('winners-carousel');
-            setupInfiniteScroll('leaders-grid');
-        }, 1500); // 1.5s delay to ensure content is loaded
-
+        // --- D. REMOVED AUTO-SCROLL (Now pure touch/swipe) ---
     });
-
-    // --- INFINITE SCROLL LOGIC ---
-    function setupInfiniteScroll(id) {
-        // Only run on mobile
-        if (window.innerWidth > 900) return;
-
-        const el = document.getElementById(id);
-        if (!el || el.children.length === 0) return;
-
-        // 1. Clone Children for Infinite Loop (Duplicate content to allow seamless reset)
-        const originalContent = Array.from(el.children);
-        originalContent.forEach(child => {
-            const clone = child.cloneNode(true);
-            el.appendChild(clone);
-        });
-
-        // 2. Animation Loop
-        let scrollPos = 0;
-        let isTouching = false;
-        const speed = 0.5; // Smooth slow scroll
-
-        function animate() {
-            if (!isTouching) {
-                scrollPos += speed;
-                // If we've scrolled past the first set (halfway), reset to 0 to loop
-                if (scrollPos >= el.scrollWidth / 2) {
-                    scrollPos = 0;
-                }
-                el.scrollLeft = scrollPos;
-            } else {
-                // If user is touching, update our tracker to match their manual scroll
-                scrollPos = el.scrollLeft;
-            }
-            requestAnimationFrame(animate);
-        }
-
-        // 3. Touch Listeners to Pause
-        el.addEventListener('touchstart', () => { isTouching = true; });
-        el.addEventListener('touchend', () => { 
-            setTimeout(() => { isTouching = false; }, 2000); // Resume after 2s
-        });
-
-        animate();
-    }
     </script>
 </body>
 </html>
