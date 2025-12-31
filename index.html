@@ -277,17 +277,17 @@
                 word-break: break-all; 
             }
         }
-/* --- 3D WINNERS CAROUSEL (RESIZED) --- */
+/* --- 3D WINNERS CAROUSEL (LOWERED & VISIBLE NAMES) --- */
 .winners-section {
-    padding: 3rem 0;
+    padding: 2rem 0 6rem 0; /* Added bottom padding for space */
     overflow: hidden;
     perspective: 1000px;
 }
 
 .carousel-scene {
-    width: 220px; /* Reduced from 300px */
-    height: 330px; /* Reduced from 450px */
-    margin: 0 auto;
+    width: 220px;
+    height: 330px;
+    margin: 4rem auto 0; /* Added 4rem top margin to lower it */
     position: relative;
     transform-style: preserve-3d;
     animation: carouselSpin 20s infinite linear;
@@ -299,24 +299,44 @@
 
 .carousel-cell {
     position: absolute;
-    width: 220px; /* Match scene width */
-    height: 330px; /* Match scene height */
+    width: 220px;
+    height: 330px;
     left: 0;
     top: 0;
-    backface-visibility: hidden; 
-    /* Adjust internal layout for smaller size */
-    display: flex; 
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 1.5rem !important; /* Smaller padding */
+    backface-visibility: hidden;
+    border: 1px solid #333;
+    border-radius: 8px; /* Slight rounded corners for modern look */
+    /* Ensure background covers everything */
+    background-size: cover;
+    background-position: center top;
 }
 
-/* Adjust text sizes for smaller cards */
-.carousel-cell .bg-number { font-size: 2.5rem; top: 5px; right: 10px; }
-.carousel-cell .driver-name { font-size: 1.1rem; }
-.carousel-cell .stats-pill { padding: 5px 10px; font-size: 0.7rem; }
+/* Dark Gradient Overlay for Name Visibility */
+.carousel-cell::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; width: 100%; height: 60%;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 50%, transparent 100%);
+    z-index: 1;
+}
 
-/* 4 Items = 90 deg spacing. Reduced TranslateZ to pull them closer */
+/* Ensure content sits on top of the gradient */
+.carousel-cell .card-content {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+/* Adjust text sizes for the carousel specifically */
+.carousel-cell .bg-number { font-size: 2.5rem; top: 10px; right: 10px; opacity: 0.5; }
+.carousel-cell .driver-name { font-size: 1.2rem; margin-bottom: 5px; text-shadow: 0 2px 4px #000; }
+.carousel-cell .stats-pill { padding: 4px 10px; font-size: 0.65rem; }
+
+/* 3D Transform Positions */
 .carousel-cell:nth-child(1) { transform: rotateY(0deg) translateZ(300px); }
 .carousel-cell:nth-child(2) { transform: rotateY(90deg) translateZ(300px); }
 .carousel-cell:nth-child(3) { transform: rotateY(180deg) translateZ(300px); }
@@ -329,14 +349,14 @@
 
 /* --- MOBILE OVERRIDE --- */
 @media (max-width: 900px) {
-    .winners-section { perspective: none; }
+    .winners-section { perspective: none; padding-bottom: 2rem; }
     .carousel-scene {
         width: 100%; height: auto; animation: none; transform-style: flat;
-        display: flex; flex-direction: column; align-items: center; gap: 2rem;
+        display: flex; flex-direction: column; align-items: center; gap: 2rem; margin-top: 2rem;
     }
     .carousel-cell {
-        position: relative; width: 280px; height: 400px;
-        transform: none !important; margin-bottom: 20px;
+        position: relative; width: 260px; height: 380px;
+        transform: none !important; margin-bottom: 0;
     }
 }
     </style>
@@ -488,20 +508,21 @@
         return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg";
     }
 
-    // 2. DATA LOADING
+    // 2. DATA LOADING - UPDATED FILES
+    // Ensure you ran /master_website_update in Discord to generate these!
     const season = "Season_1"; 
     const scheduleFile = `ASCRL_Schedule_${season}.json`; 
-    const scheduleFallback = `schedule.json`; // FALLBACK RESTORED
+    const scheduleFallback = `schedule.json`; // Backup
     const driversFile = `drivers_${season}.json`;
     const driversFallback = `drivers.json`;
     const resultsFile = `ASCRL_Results_${season}.json`;
 
-    // --- FIX: FETCH WITH FALLBACK LOGIC ---
+    // Robust Fetcher
     async function fetchWithFallback(primary, secondary) {
         try {
             let r = await fetch(primary);
             if (!r.ok && secondary) {
-                console.log(`Primary ${primary} failed, trying ${secondary}`);
+                console.warn(`Primary ${primary} failed, trying ${secondary}`);
                 r = await fetch(secondary);
             }
             return r.ok ? await r.json() : null;
@@ -511,20 +532,30 @@
     Promise.all([
         fetchWithFallback(scheduleFile, scheduleFallback),
         fetchWithFallback(driversFile, driversFallback),
-        fetchWithFallback(resultsFile, null) // No fallback for results yet
+        fetchWithFallback(resultsFile, null)
     ]).then(([schedData, driversData, resultsData]) => {
         
-        // --- A. UPCOMING SCHEDULE ---
+        // --- A. UPCOMING SCHEDULE (FIXED) ---
         if(schedData) {
             ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(s => {
+                // Find matching key case-insensitive
                 const sKey = Object.keys(schedData).find(k => k.toLowerCase() === s.toLowerCase());
+                
                 if (sKey && schedData[sKey]) {
-                    const next = schedData[sKey].find(r => new Date(r.date) >= new Date().setHours(0,0,0,0));
+                    // Find next race (today or future)
+                    const next = schedData[sKey].find(r => {
+                        // Use T00:00:00 to prevent timezone offsets shifting it to yesterday
+                        const raceDate = new Date(r.date + "T23:59:00"); 
+                        const today = new Date();
+                        return raceDate >= today;
+                    });
+
                     if(next) {
                         document.getElementById(s.toLowerCase() + '-next').innerText = next.track;
                         document.getElementById(s.toLowerCase() + '-timer').innerText = next.date;
                     } else {
                         document.getElementById(s.toLowerCase() + '-next').innerText = "SEASON COMPLETE";
+                        document.getElementById(s.toLowerCase() + '-timer').innerText = "2026 Pending";
                     }
                 }
             });
@@ -557,8 +588,8 @@
                 });
 
                 if (bestDriver && bestData) {
-                    let carNum = bestData.number;
-                    if (!carNum || carNum === "N/A") {
+                    let carNum = bestData.number || '';
+                    if (carNum === "N/A" || !carNum) {
                          const match = (bestData.driver_name || bestDriver.display_name).match(/^#(\d+)/);
                          carNum = match ? match[1] : '';
                     }
@@ -637,17 +668,17 @@
                         if (seriesName.toLowerCase() === 'menards') badgeClass = 'badge-menards';
 
                         carouselHtml += `
-                            <div class="carousel-cell driver-card" style="background-image: url('${driverImage}');">
+                            <div class="carousel-cell" style="background-image: url('${driverImage}');">
                                 <div class="series-badge-top ${badgeClass}" style="right:0; left:auto; clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);">
                                     ${seriesName} WINNER
                                 </div>
                                 <div class="bg-number">${carNum}</div>
                                 <div class="card-content">
-                                    <div style="margin-bottom:10px; font-size:0.8rem; text-transform:uppercase; letter-spacing:2px; color:var(--primary); font-weight:bold;">
+                                    <div style="margin-bottom:5px; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; color:var(--primary); font-weight:bold; text-shadow:0 1px 3px #000;">
                                         ${trackName}
                                     </div>
                                     <h3 class="driver-name">${cleanName}</h3>
-                                    <div class="stats-pill" style="margin-top:10px;">
+                                    <div class="stats-pill" style="margin-top:5px;">
                                         <span>WINNER</span>
                                         <div class="stat-divider"></div>
                                         <span>${winner.points} PTS</span>
