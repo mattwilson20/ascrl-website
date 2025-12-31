@@ -29,23 +29,14 @@
         body { 
             margin: 0; 
             font-family: 'Arial Black', sans-serif; 
-            
-            /* --- NASHVILLE (CONCRETE) TEXTURE --- */
             background-color: #333333; 
-            
             background-image: 
-                /* Strong Vignette */
                 radial-gradient(transparent 0%, #000 100%),
-                
-                /* Tighter, heavier noise */
                 url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.35'/%3E%3C/svg%3E");
-            
             background-attachment: fixed;
-            /* ------------------------------------ */
-
             color: #fff; 
             overflow-x: hidden; 
-                }
+        }
 
         /* --- MODULAR NAVIGATION STYLES --- */
         #nav-placeholder { position: relative; z-index: 2000; }
@@ -63,7 +54,7 @@
         }
         .nav-links a:hover { color: var(--primary); padding-left: 10px; }
 
-        /* --- HOME HERO ANIMATION & LAYOUT --- */
+        /* --- HOME HERO --- */
         .hero { 
             position: relative; 
             overflow: hidden; 
@@ -92,7 +83,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
-            margin-top: -4rem; /* Overlap into Hero */
+            margin-top: -4rem; /* Desktop overlap */
             position: relative;
             z-index: 10;
         }
@@ -106,7 +97,7 @@
         }
         .race-card:hover { border-color: var(--primary); transform: translateY(-5px); }
 
-        /* --- HERO CARD STYLES --- */
+        /* --- HERO CARD STYLES (SHARED) --- */
         .leader-strip {
             display: flex;
             justify-content: center;
@@ -213,57 +204,9 @@
         .badge-truck { background: var(--truck-red); }
         .badge-menards { background: var(--menards-yellow); color: #000; }
 
-        /* --- OTHER SECTIONS --- */
-        .highlight-box {
-            background: linear-gradient(90deg, #0d0d0d 0%, #000 100%);
-            border-left: 4px solid var(--primary);
-            padding: 4rem 3rem;
-            text-align: left;
-            margin: 4rem 0;
-        }
-
-        .stat-label { color: var(--primary); font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; display: block; }
-        .stat-value { font-size: 1.8rem; font-family: 'Arial Black', sans-serif; display: block; margin-top: 0.5rem; }
-        
-        .social-icon.email:hover { color: var(--primary); transform: scale(1.1); }
-
-        /* --- CONTACT BUTTON --- */
-        .contact-btn {
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            border: 1px solid var(--primary);
-            padding: 15px 30px;
-            color: #fff;
-            transition: 0.3s;
-        }
-        .contact-btn:hover { background: var(--primary); }
-
-        /* --- FOOTER & SOCIALS --- */
-        footer { 
-            padding: 4rem 1rem; 
-            text-align: center; 
-            border-top: 1px solid var(--border); 
-            color: #333; 
-            font-size: 0.8rem; 
-            letter-spacing: 2px; 
-            text-transform: uppercase; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            gap: 1.5rem; 
-        }
-
-        .social-links { display: flex; gap: 2rem; justify-content: center; }
-        .social-icon { color: #555; font-size: 1.8rem; transition: 0.3s ease; display: flex; align-items: center; justify-content: center; text-decoration: none; }
-        .social-icon:hover { transform: translateY(-3px); }
-        .social-icon.facebook:hover { color: #1877F2; } 
-        .social-icon.x-twitter:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
-
         /* --- 3D WINNERS CAROUSEL (LOWERED & VISIBLE NAMES) --- */
         .winners-section {
-            padding: 2rem 0 6rem 0; /* Added bottom padding for space */
+            padding: 2rem 0 6rem 0; 
             overflow: hidden;
             perspective: 1000px;
         }
@@ -271,7 +214,7 @@
         .carousel-scene {
             width: 220px;
             height: 330px;
-            margin: 4rem auto 0; /* Added 4rem top margin to lower it */
+            margin: 4rem auto 0;
             position: relative;
             transform-style: preserve-3d;
             animation: carouselSpin 20s infinite linear;
@@ -289,8 +232,7 @@
             top: 0;
             backface-visibility: hidden;
             border: 1px solid #333;
-            border-radius: 8px; /* Slight rounded corners for modern look */
-            /* Ensure background covers everything */
+            border-radius: 8px;
             background-size: cover;
             background-position: center top;
         }
@@ -304,7 +246,6 @@
             z-index: 1;
         }
 
-        /* Ensure content sits on top of the gradient */
         .carousel-cell .card-content {
             position: absolute;
             bottom: 15px;
@@ -315,12 +256,10 @@
             box-sizing: border-box;
         }
 
-        /* Adjust text sizes for the carousel specifically */
         .carousel-cell .bg-number { font-size: 2.5rem; top: 10px; right: 10px; opacity: 0.5; }
         .carousel-cell .driver-name { font-size: 1.2rem; margin-bottom: 5px; text-shadow: 0 2px 4px #000; }
         .carousel-cell .stats-pill { padding: 4px 10px; font-size: 0.65rem; }
 
-        /* 3D Transform Positions */
         .carousel-cell:nth-child(1) { transform: rotateY(0deg) translateZ(300px); }
         .carousel-cell:nth-child(2) { transform: rotateY(90deg) translateZ(300px); }
         .carousel-cell:nth-child(3) { transform: rotateY(180deg) translateZ(300px); }
@@ -331,85 +270,132 @@
             to { transform: rotateY(-360deg); }
         }
 
+        /* --- OTHER SECTIONS --- */
+        .highlight-box {
+            background: linear-gradient(90deg, #0d0d0d 0%, #000 100%);
+            border-left: 4px solid var(--primary);
+            padding: 4rem 3rem;
+            text-align: left;
+            margin: 4rem 0;
+        }
+
+        .stat-label { color: var(--primary); font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; display: block; }
+        .stat-value { font-size: 1.8rem; font-family: 'Arial Black', sans-serif; display: block; margin-top: 0.5rem; }
+        .social-icon.email:hover { color: var(--primary); transform: scale(1.1); }
+
+        .contact-btn {
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid var(--primary);
+            padding: 15px 30px;
+            color: #fff;
+            transition: 0.3s;
+        }
+        .contact-btn:hover { background: var(--primary); }
+
+        footer { 
+            padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); 
+            color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; 
+            display: flex; flex-direction: column; align-items: center; gap: 1.5rem; 
+        }
+        .social-links { display: flex; gap: 2rem; justify-content: center; }
+        .social-icon { color: #555; font-size: 1.8rem; transition: 0.3s ease; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+        .social-icon:hover { transform: translateY(-3px); }
+        .social-icon.facebook:hover { color: #1877F2; } 
+        .social-icon.x-twitter:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+
         /* --- MOBILE OVERRIDE: HORIZONTAL SCROLLERS --- */
-@media (max-width: 900px) {
-    /* 1. Reset Global Layouts to Rows */
-    .timer-container, 
-    .leader-strip, 
-    .carousel-scene {
-        display: flex !important;
-        flex-direction: row !important; /* Force side-by-side */
-        flex-wrap: nowrap !important; /* Prevent stacking */
-        overflow-x: auto !important; /* Enable swiping */
-        gap: 1.5rem;
-        width: 100%;
-        padding: 1rem 1.5rem; /* Breathing room */
-        box-sizing: border-box;
-        align-items: flex-start; /* Align tops */
-        
-        /* Hide Scrollbar for cleaner look */
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
-        scroll-behavior: smooth; /* Smooth momentum */
-    }
-    
-    /* Hide scrollbar Webkit */
-    .timer-container::-webkit-scrollbar, 
-    .leader-strip::-webkit-scrollbar,
-    .carousel-scene::-webkit-scrollbar {
-        display: none;
-    }
+        @media (max-width: 900px) {
+            /* 1. Reset Global Layouts to Rows */
+            .timer-container, 
+            .leader-strip, 
+            .carousel-scene {
+                display: flex !important;
+                flex-direction: row !important; /* Force side-by-side */
+                flex-wrap: nowrap !important; /* Prevent stacking */
+                overflow-x: auto !important; /* Enable swiping */
+                gap: 1.5rem;
+                width: 100%;
+                padding: 1rem 1.5rem; /* Breathing room */
+                box-sizing: border-box;
+                align-items: flex-start; /* Align tops */
+                
+                /* Hide Scrollbar for cleaner look */
+                -ms-overflow-style: none;  /* IE and Edge */
+                scrollbar-width: none;  /* Firefox */
+                scroll-behavior: smooth; /* Smooth momentum */
+            }
+            
+            /* Hide scrollbar Webkit */
+            .timer-container::-webkit-scrollbar, 
+            .leader-strip::-webkit-scrollbar,
+            .carousel-scene::-webkit-scrollbar {
+                display: none;
+            }
 
-    /* 2. Resize Cards for Horizontal View */
-    .race-card {
-        flex: 0 0 260px; /* Fixed width, don't shrink */
-        width: 260px;
-    }
+            /* 2. FIX: Remove Negative Margin so Header is Visible */
+            .timer-container {
+                margin-top: 0 !important; 
+            }
 
-    .driver-card {
-        flex: 0 0 280px; /* Fixed width */
-        width: 280px;
-        margin-bottom: 0; /* Remove bottom margin */
-    }
+            /* 3. Resize Cards for Horizontal View */
+            .race-card {
+                flex: 0 0 260px; /* Fixed width, don't shrink */
+                width: 260px;
+            }
 
-    /* 3. Fix 3D Carousel for 2D Scroll */
-    .winners-section { 
-        perspective: none; 
-        padding-bottom: 2rem; 
-    }
-    .carousel-scene {
-        height: auto; 
-        animation: none; 
-        transform-style: flat;
-        margin-top: 1rem;
-    }
-    .carousel-cell {
-        position: relative; /* Stop overlapping */
-        flex: 0 0 220px; /* Fixed width */
-        height: 330px;
-        transform: none !important; /* Reset 3D rotation */
-        left: auto; top: auto; /* Reset positioning */
-    }
+            .driver-card {
+                flex: 0 0 280px; /* Fixed width */
+                width: 280px;
+                margin-bottom: 0; /* Remove bottom margin */
+            }
 
-    /* 4. Disable Desktop Hover Effects on Mobile */
-    .driver-card:hover, .race-card:hover {
-        transform: none;
-        box-shadow: none;
-    }
-    
-    /* Ensure Leader cards are fully visible */
-    .leader-strip .driver-card {
-        filter: none !important;
-        opacity: 1 !important;
-        transform: none !important;
-    }
-    
-    .contact-btn {
-        width: 100%; 
-        justify-content: center; 
-        padding: 15px; 
-    }
-}
+            /* 4. Fix 3D Carousel for 2D Scroll */
+            .winners-section { 
+                perspective: none; 
+                padding-bottom: 2rem; 
+            }
+            .carousel-scene {
+                height: auto; 
+                animation: none; 
+                transform-style: flat;
+                margin-top: 1rem;
+            }
+            .carousel-cell {
+                position: relative; /* Stop overlapping */
+                flex: 0 0 220px; /* Fixed width */
+                height: 330px;
+                transform: none !important; /* Reset 3D rotation */
+                left: auto; top: auto; /* Reset positioning */
+            }
+
+            /* 5. Disable Desktop Hover Effects on Mobile */
+            .driver-card:hover, .race-card:hover {
+                transform: none;
+                box-shadow: none;
+            }
+            
+            /* Ensure Leader cards are fully visible */
+            .leader-strip .driver-card {
+                filter: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+            
+            .contact-btn {
+                width: 100%; 
+                justify-content: center; 
+                padding: 15px; 
+                box-sizing: border-box;
+            }
+            .contact-btn span {
+                font-size: 0.7rem !important; 
+                letter-spacing: 1px !important; 
+                word-break: break-all; 
+            }
+        }
     </style>
 </head>
 <body>
@@ -426,7 +412,7 @@
 
     <main class="container" style="max-width: 1300px; margin: 0 auto; padding: 2rem;">
         <section>
-            <h2 style="margin-bottom: 2rem; font-size: 1.2rem; color: var(--text-muted); letter-spacing: 4px;">UPCOMING EVENTS</h2>
+            <h2 style="margin-bottom: 2rem; font-size: 1.2rem; color: var(--text-muted); letter-spacing: 4px; position: relative; z-index: 20;">UPCOMING EVENTS</h2>
             <div class="timer-container" id="race-countdowns">
                 <div class="race-card">
                     <span class="stat-label">CUP SERIES</span>
