@@ -261,102 +261,153 @@
         .social-icon.facebook:hover { color: #1877F2; } 
         .social-icon.x-twitter:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
 
-        @media (max-width: 768px) {
-            .leader-strip { flex-direction: column; align-items: center; }
-            .driver-card { width: 100%; max-width: 320px; margin-bottom: 1.5rem; }
-            
-            .contact-btn {
-                width: 100%; 
-                justify-content: center; 
-                padding: 15px; 
-                box-sizing: border-box; 
-            }
-            .contact-btn span {
-                font-size: 0.7rem !important; 
-                letter-spacing: 1px !important; 
-                word-break: break-all; 
-            }
+        /* --- 3D WINNERS CAROUSEL (LOWERED & VISIBLE NAMES) --- */
+        .winners-section {
+            padding: 2rem 0 6rem 0; /* Added bottom padding for space */
+            overflow: hidden;
+            perspective: 1000px;
         }
-/* --- 3D WINNERS CAROUSEL (LOWERED & VISIBLE NAMES) --- */
-.winners-section {
-    padding: 2rem 0 6rem 0; /* Added bottom padding for space */
-    overflow: hidden;
-    perspective: 1000px;
-}
 
-.carousel-scene {
-    width: 220px;
-    height: 330px;
-    margin: 4rem auto 0; /* Added 4rem top margin to lower it */
-    position: relative;
-    transform-style: preserve-3d;
-    animation: carouselSpin 20s infinite linear;
-}
+        .carousel-scene {
+            width: 220px;
+            height: 330px;
+            margin: 4rem auto 0; /* Added 4rem top margin to lower it */
+            position: relative;
+            transform-style: preserve-3d;
+            animation: carouselSpin 20s infinite linear;
+        }
 
-.carousel-scene:hover {
-    animation-play-state: paused;
-}
+        .carousel-scene:hover {
+            animation-play-state: paused;
+        }
 
-.carousel-cell {
-    position: absolute;
-    width: 220px;
-    height: 330px;
-    left: 0;
-    top: 0;
-    backface-visibility: hidden;
-    border: 1px solid #333;
-    border-radius: 8px; /* Slight rounded corners for modern look */
-    /* Ensure background covers everything */
-    background-size: cover;
-    background-position: center top;
-}
+        .carousel-cell {
+            position: absolute;
+            width: 220px;
+            height: 330px;
+            left: 0;
+            top: 0;
+            backface-visibility: hidden;
+            border: 1px solid #333;
+            border-radius: 8px; /* Slight rounded corners for modern look */
+            /* Ensure background covers everything */
+            background-size: cover;
+            background-position: center top;
+        }
 
-/* Dark Gradient Overlay for Name Visibility */
-.carousel-cell::after {
-    content: "";
-    position: absolute;
-    bottom: 0; left: 0; width: 100%; height: 60%;
-    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 50%, transparent 100%);
-    z-index: 1;
-}
+        /* Dark Gradient Overlay for Name Visibility */
+        .carousel-cell::after {
+            content: "";
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 60%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 50%, transparent 100%);
+            z-index: 1;
+        }
 
-/* Ensure content sits on top of the gradient */
-.carousel-cell .card-content {
-    position: absolute;
-    bottom: 15px;
-    left: 0;
-    width: 100%;
-    z-index: 2;
-    padding: 0 10px;
-    box-sizing: border-box;
-}
+        /* Ensure content sits on top of the gradient */
+        .carousel-cell .card-content {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            width: 100%;
+            z-index: 2;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
 
-/* Adjust text sizes for the carousel specifically */
-.carousel-cell .bg-number { font-size: 2.5rem; top: 10px; right: 10px; opacity: 0.5; }
-.carousel-cell .driver-name { font-size: 1.2rem; margin-bottom: 5px; text-shadow: 0 2px 4px #000; }
-.carousel-cell .stats-pill { padding: 4px 10px; font-size: 0.65rem; }
+        /* Adjust text sizes for the carousel specifically */
+        .carousel-cell .bg-number { font-size: 2.5rem; top: 10px; right: 10px; opacity: 0.5; }
+        .carousel-cell .driver-name { font-size: 1.2rem; margin-bottom: 5px; text-shadow: 0 2px 4px #000; }
+        .carousel-cell .stats-pill { padding: 4px 10px; font-size: 0.65rem; }
 
-/* 3D Transform Positions */
-.carousel-cell:nth-child(1) { transform: rotateY(0deg) translateZ(300px); }
-.carousel-cell:nth-child(2) { transform: rotateY(90deg) translateZ(300px); }
-.carousel-cell:nth-child(3) { transform: rotateY(180deg) translateZ(300px); }
-.carousel-cell:nth-child(4) { transform: rotateY(270deg) translateZ(300px); }
+        /* 3D Transform Positions */
+        .carousel-cell:nth-child(1) { transform: rotateY(0deg) translateZ(300px); }
+        .carousel-cell:nth-child(2) { transform: rotateY(90deg) translateZ(300px); }
+        .carousel-cell:nth-child(3) { transform: rotateY(180deg) translateZ(300px); }
+        .carousel-cell:nth-child(4) { transform: rotateY(270deg) translateZ(300px); }
 
-@keyframes carouselSpin {
-    from { transform: rotateY(0deg); }
-    to { transform: rotateY(-360deg); }
-}
+        @keyframes carouselSpin {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(-360deg); }
+        }
 
-/* --- MOBILE OVERRIDE --- */
+        /* --- MOBILE OVERRIDE: HORIZONTAL SCROLLERS --- */
 @media (max-width: 900px) {
-    .winners-section { perspective: none; padding-bottom: 2rem; }
+    /* 1. Reset Global Layouts to Rows */
+    .timer-container, 
+    .leader-strip, 
     .carousel-scene {
-        width: 100%; height: auto; animation: none; transform-style: flat;
-        display: flex; flex-direction: column; align-items: center; gap: 2rem; margin-top: 2rem;
+        display: flex !important;
+        flex-direction: row !important; /* Force side-by-side */
+        flex-wrap: nowrap !important; /* Prevent stacking */
+        overflow-x: auto !important; /* Enable swiping */
+        gap: 1.5rem;
+        width: 100%;
+        padding: 1rem 1.5rem; /* Breathing room */
+        box-sizing: border-box;
+        align-items: flex-start; /* Align tops */
+        
+        /* Hide Scrollbar for cleaner look */
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+        scroll-behavior: smooth; /* Smooth momentum */
+    }
+    
+    /* Hide scrollbar Webkit */
+    .timer-container::-webkit-scrollbar, 
+    .leader-strip::-webkit-scrollbar,
+    .carousel-scene::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* 2. Resize Cards for Horizontal View */
+    .race-card {
+        flex: 0 0 260px; /* Fixed width, don't shrink */
+        width: 260px;
+    }
+
+    .driver-card {
+        flex: 0 0 280px; /* Fixed width */
+        width: 280px;
+        margin-bottom: 0; /* Remove bottom margin */
+    }
+
+    /* 3. Fix 3D Carousel for 2D Scroll */
+    .winners-section { 
+        perspective: none; 
+        padding-bottom: 2rem; 
+    }
+    .carousel-scene {
+        height: auto; 
+        animation: none; 
+        transform-style: flat;
+        margin-top: 1rem;
     }
     .carousel-cell {
-        position: relative; width: 260px; height: 380px;
-        transform: none !important; margin-bottom: 0;
+        position: relative; /* Stop overlapping */
+        flex: 0 0 220px; /* Fixed width */
+        height: 330px;
+        transform: none !important; /* Reset 3D rotation */
+        left: auto; top: auto; /* Reset positioning */
+    }
+
+    /* 4. Disable Desktop Hover Effects on Mobile */
+    .driver-card:hover, .race-card:hover {
+        transform: none;
+        box-shadow: none;
+    }
+    
+    /* Ensure Leader cards are fully visible */
+    .leader-strip .driver-card {
+        filter: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    
+    .contact-btn {
+        width: 100%; 
+        justify-content: center; 
+        padding: 15px; 
     }
 }
     </style>
@@ -399,13 +450,13 @@
                 </div>
             </div>
         </section>
+
         <section class="winners-section">
-    <h2 style="margin-bottom: 3rem; text-align: center; color: var(--text-muted); font-size: 1.2rem; letter-spacing: 4px;">VICTORY LANE</h2>
-    
-    <div class="carousel-scene" id="winners-carousel">
-        <p style="color:#666; text-align:center; padding-top:200px;">Loading Recent Winners...</p>
-    </div>
-</section>
+            <h2 style="margin-bottom: 3rem; text-align: center; color: var(--text-muted); font-size: 1.2rem; letter-spacing: 4px;">VICTORY LANE</h2>
+            <div class="carousel-scene" id="winners-carousel">
+                <p style="color:#666; text-align:center; padding-top:150px;">Loading Recent Winners...</p>
+            </div>
+        </section>
 
         <section style="margin-top: 6rem;">
             <h2 style="margin-bottom: 2rem; text-align: center; color: var(--text-muted); font-size: 1.2rem; letter-spacing: 4px;">CHAMPIONSHIP LEADERS</h2>
@@ -693,6 +744,54 @@
         }
 
     });
+        // --- MOBILE AUTO-SCROLLER ---
+    // This makes the rows move slowly to the right, but stops if you touch them.
+    function initMobileScrollers() {
+        if (window.innerWidth > 900) return; // Don't run on desktop
+
+        const scrollers = [
+            document.getElementById('race-countdowns'),
+            document.getElementById('winners-carousel'),
+            document.getElementById('leaders-grid')
+        ];
+
+        scrollers.forEach(el => {
+            if (!el) return;
+
+            let scrollSpeed = 0.5; // Speed of movement
+            let isTouching = false;
+            let autoScroll;
+
+            function startScroll() {
+                clearInterval(autoScroll);
+                autoScroll = setInterval(() => {
+                    if (!isTouching) {
+                        // Move scrollbar slightly
+                        el.scrollLeft += scrollSpeed;
+                        
+                        // If hit the end, optional: reset to 0 (Loop)
+                        // Note: Smooth looping requires cloning elements, simpler to just stop at end
+                        if(el.scrollLeft >= (el.scrollWidth - el.clientWidth)) {
+                             // Optional: el.scrollLeft = 0; // Uncomment to snap back to start
+                        }
+                    }
+                }, 20); // 50fps
+            }
+
+            // Stop on Touch
+            el.addEventListener('touchstart', () => { isTouching = true; });
+            el.addEventListener('touchend', () => { 
+                // Wait 2 seconds after letting go before moving again
+                setTimeout(() => { isTouching = false; }, 2000); 
+            });
+
+            // Start
+            startScroll();
+        });
+    }
+
+    // Initialize after a short delay to ensure elements are loaded
+    setTimeout(initMobileScrollers, 2000);
 </script>
 </body>
 </html>
