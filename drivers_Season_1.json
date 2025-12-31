@@ -148,13 +148,13 @@
                 "team": null,
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 174,
+                    "points": 139,
                     "wins": 1,
-                    "top5": 5,
-                    "top10": 5,
+                    "top5": 4,
+                    "top10": 4,
                     "poles": 0,
-                    "starts": 5,
-                    "avg": 2.6
+                    "starts": 4,
+                    "avg": 2.75
                 }
             },
             "Truck": {
@@ -1022,13 +1022,13 @@
                 "team": "TOO BROKE RACING",
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 253,
+                    "points": 221,
                     "wins": 4,
-                    "top5": 6,
-                    "top10": 7,
+                    "top5": 5,
+                    "top10": 6,
                     "poles": 2,
-                    "starts": 7,
-                    "avg": 2.71
+                    "starts": 6,
+                    "avg": 2.5
                 }
             },
             "Xfinity": {
@@ -1205,13 +1205,13 @@
                 "team": "APEX RACING",
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 141,
+                    "points": 111,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 3,
+                    "top10": 2,
                     "poles": 0,
-                    "starts": 6,
-                    "avg": 12.5
+                    "starts": 5,
+                    "avg": 13.8
                 }
             },
             "Menards": {
@@ -1346,13 +1346,13 @@
                 "team": "TOO BROKE RACING",
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 243,
+                    "points": 212,
                     "wins": 0,
-                    "top5": 5,
-                    "top10": 8,
+                    "top5": 4,
+                    "top10": 7,
                     "poles": 0,
-                    "starts": 8,
-                    "avg": 5.62
+                    "starts": 7,
+                    "avg": 5.71
                 }
             },
             "Menards": {
@@ -1752,16 +1752,16 @@
             },
             "Cup": {
                 "number": "50",
-                "team": "",
+                "team": "WHY IS IT SMOKING? MOTORSPORTS",
                 "manufacturer": "",
                 "stats": {
-                    "points": 113,
-                    "wins": 2,
-                    "top5": 3,
-                    "top10": 3,
-                    "poles": 2,
-                    "starts": 3,
-                    "avg": 1.67
+                    "points": 73,
+                    "wins": 1,
+                    "top5": 2,
+                    "top10": 2,
+                    "poles": 1,
+                    "starts": 2,
+                    "avg": 2.0
                 }
             }
         }
@@ -1816,13 +1816,13 @@
                 "team": "TOO BROKE RACING",
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 132,
+                    "points": 99,
                     "wins": 0,
-                    "top5": 2,
-                    "top10": 3,
+                    "top5": 1,
+                    "top10": 2,
                     "poles": 0,
-                    "starts": 5,
-                    "avg": 9.6
+                    "starts": 4,
+                    "avg": 11.25
                 }
             }
         }
@@ -2776,12 +2776,12 @@
                 "team": "",
                 "manufacturer": "",
                 "stats": {
-                    "points": 58,
+                    "points": 29,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 2,
+                    "top10": 1,
                     "poles": 0,
-                    "starts": 2,
+                    "starts": 1,
                     "avg": 7.0
                 }
             },
@@ -3204,12 +3204,12 @@
                 "team": "",
                 "manufacturer": "",
                 "stats": {
-                    "points": 56,
+                    "points": 28,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 2,
+                    "top10": 1,
                     "poles": 0,
-                    "starts": 2,
+                    "starts": 1,
                     "avg": 8.0
                 }
             }
