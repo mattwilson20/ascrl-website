@@ -78,7 +78,7 @@
         #compareBtn:hover { background-color: var(--primary); color: #fff; }
         @keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        /* --- NASCAR STYLE TABLE --- */
+        /* --- TABLE --- */
         .standings-container { max-width: 1300px; margin: 0 auto; padding: 2rem 1rem; background: #000; }
         .standings-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1rem; border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
         .standings-header h2 { margin: 0; font-size: 1.5rem; letter-spacing: 2px; }
@@ -89,20 +89,15 @@
         .nascar-table { width: 100%; border-collapse: collapse; font-family: sans-serif; text-transform: uppercase; min-width: 100%; }
         .nascar-table th { background-color: #111; color: #666; font-size: 0.75rem; padding: 15px 10px; text-align: center; letter-spacing: 1px; border-bottom: 1px solid #333; }
         .nascar-table td { padding: 15px 10px; border-bottom: 1px solid #222; text-align: center; font-size: 0.9rem; color: #fff; }
-        
-        /* Row Styling */
-        .nascar-table tr.main-row:hover td { background-color: #1a1a1a; }
-        
-        /* Left Align Driver */
+        .nascar-table tr:hover td { background-color: #1a1a1a; }
+
         .nascar-table th.col-driver, .nascar-table td.col-driver { text-align: left; }
 
-        /* Position Badge */
         .pos-badge { display: inline-block; width: 30px; height: 30px; line-height: 30px; background-color: #333; color: #fff; font-weight: bold; border-radius: 3px; }
         .pos-badge.first { background-color: var(--primary); color: #fff; }
 
         .col-car { font-weight: 900; font-style: italic; font-size: 1.2rem; color: var(--accent); }
 
-        /* Driver Info */
         .driver-info { display: flex; flex-direction: column; cursor: pointer; transition: 0.2s; }
         .driver-info:hover .name { color: var(--primary); text-decoration: underline; }
         .driver-info .name { font-weight: bold; font-size: 1rem; color: #fff; }
@@ -113,71 +108,60 @@
         .select-box { width: 20px; height: 20px; cursor: pointer; accent-color: var(--primary); }
 
         /* --- MOBILE DROPDOWN STYLES --- */
-        .mobile-toggle-btn {
-            display: none; /* Hidden on desktop */
-            background: none; border: none; color: var(--primary); font-size: 1.2rem; cursor: pointer; transition: 0.3s;
-        }
-        
-        /* Hidden Row by default */
+        .mobile-toggle-btn { display: none; background: none; border: none; color: var(--primary); font-size: 1.2rem; cursor: pointer; transition: 0.3s; }
         .mobile-details-row { display: none; background-color: #111; }
-        
-        /* The container inside the hidden row */
-        .mobile-details-content {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 stats per row */
-            gap: 15px;
-            padding: 20px;
-            text-align: center;
-            border-top: 1px solid #333;
-        }
+        .mobile-details-content { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding: 20px; text-align: center; border-top: 1px solid #333; }
+        .mobile-stat-box { display: flex; flex-direction: column; }
+        .mobile-stat-label { font-size: 0.65rem; color: #888; letter-spacing: 1px; margin-bottom: 5px; }
+        .mobile-stat-value { font-size: 1.1rem; font-weight: bold; color: #fff; }
 
-        .mobile-stat-box {
-            display: flex; flex-direction: column;
-        }
-        .mobile-stat-label {
-            font-size: 0.65rem; color: #888; letter-spacing: 1px; margin-bottom: 5px;
-        }
-        .mobile-stat-value {
-            font-size: 1.1rem; font-weight: bold; color: #fff;
-        }
-
-        /* --- MOBILE MEDIA QUERY --- */
+        /* --- MOBILE OPTIMIZATION --- */
         @media (max-width: 900px) {
-            /* Hide regular columns on mobile */
             .mobile-hide { display: none; }
-            
-            /* Show Toggle Button */
             .mobile-toggle-btn { display: block; margin: 0 auto; }
-            
-            /* Adjust table padding */
             .nascar-table th, .nascar-table td { padding: 12px 5px; font-size: 0.8rem; }
             .pos-badge { width: 24px; height: 24px; line-height: 24px; font-size: 0.8rem; }
             .col-car { font-size: 1rem; }
             .hero { padding: 10rem 1rem 4rem; }
-            
-            /* Rotate arrow when active */
             .mobile-toggle-btn.active { transform: rotate(180deg); }
         }
 
-        /* --- MODAL --- */
+        /* --- MODAL (Shared) --- */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 3000; justify-content: center; align-items: center; }
         .modal-content { background: #0d0d0d; border: 1px solid #333; padding: 0; width: 90%; max-width: 500px; position: relative; border-radius: 8px; overflow: hidden; }
         .close-modal { position: absolute; top: 15px; right: 15px; font-size: 1.5rem; color: #fff; cursor: pointer; z-index: 20; background: rgba(0,0,0,0.5); width: 40px; height: 40px; border-radius: 50%; text-align: center; line-height: 40px; transition: 0.3s; }
-        
-        /* Hero Card Modal Styles */
-        .hero-card-modal { display: flex; flex-direction: column; position: relative; min-height: 600px; background-color: #000; }
+        .close-modal:hover { background: var(--primary); }
+
+        /* --- HERO CARD MODAL --- */
+        .hero-card-modal { display: flex; flex-direction: column; position: relative; min-height: 650px; background-color: #000; }
         .hero-card-header { position: absolute; top: 20px; left: 0; width: 100%; display: flex; justify-content: space-between; padding: 0 20px; z-index: 10; box-sizing: border-box; }
         .hero-series-badge { background: var(--primary); color: #fff; font-size: 0.8rem; padding: 5px 15px; text-transform: uppercase; font-weight: bold; clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%); }
         .hero-car-number { font-size: 4rem; font-weight: 900; color: rgba(255,255,255,0.2); font-style: italic; }
-        .hero-image-container { width: 100%; height: 450px; background-size: cover; background-position: center top; background-repeat: no-repeat; position: relative; margin-top: 50px; }
+        .hero-image-container { width: 100%; height: 400px; background-size: cover; background-position: center top; background-repeat: no-repeat; position: relative; margin-top: 50px; }
         .hero-image-container::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(to top, #0d0d0d 0%, transparent 100%); }
-        .hero-details { padding: 2rem; text-align: center; background: #0d0d0d; position: relative; z-index: 5; margin-top: -50px; }
-        .hero-name { font-size: 2rem; margin: 0; line-height: 1; text-transform: uppercase; }
+        .hero-details { padding: 1.5rem; text-align: center; background: #0d0d0d; position: relative; z-index: 5; margin-top: -50px; }
+        .hero-name { font-size: 1.8rem; margin: 0; line-height: 1; text-transform: uppercase; }
         .hero-team { color: var(--primary); font-family: sans-serif; font-size: 0.9rem; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
-        .hero-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 2rem; border-top: 1px solid #333; padding-top: 1.5rem; }
+        
+        /* Updated Grid for 8 Items */
+        .hero-stats-grid { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 15px 5px; 
+            margin-top: 1.5rem; 
+            border-top: 1px solid #333; 
+            padding-top: 1.5rem; 
+        }
+        
         .hero-stat-box { display: flex; flex-direction: column; }
-        .stat-val { font-size: 1.5rem; font-weight: bold; color: #fff; }
+        .stat-val { font-size: 1.2rem; font-weight: bold; color: #fff; }
         .stat-lbl { font-size: 0.6rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px; }
+
+        /* Series Colors for Modal */
+        .badge-Cup { background: var(--cup-blue); }
+        .badge-Xfinity { background: var(--xfinity-purple); }
+        .badge-Truck { background: var(--truck-red); }
+        .badge-Menards { background: var(--menards-yellow); color: #000; }
 
         /* Spinner */
         #loading-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 5000; display: flex; justify-content: center; align-items: center; transition: opacity 0.5s ease; }
@@ -262,12 +246,28 @@
                             <span class="stat-lbl">Points</span>
                         </div>
                         <div class="hero-stat-box">
+                            <span id="modal-behind" class="stat-val">--</span>
+                            <span class="stat-lbl">Behind</span>
+                        </div>
+                        <div class="hero-stat-box">
+                            <span id="modal-starts" class="stat-val">0</span>
+                            <span class="stat-lbl">Starts</span>
+                        </div>
+                        <div class="hero-stat-box">
                             <span id="modal-wins" class="stat-val">0</span>
                             <span class="stat-lbl">Wins</span>
                         </div>
                         <div class="hero-stat-box">
                             <span id="modal-top5" class="stat-val">0</span>
                             <span class="stat-lbl">Top 5</span>
+                        </div>
+                        <div class="hero-stat-box">
+                            <span id="modal-top10" class="stat-val">0</span>
+                            <span class="stat-lbl">Top 10</span>
+                        </div>
+                        <div class="hero-stat-box">
+                            <span id="modal-poles" class="stat-val">0</span>
+                            <span class="stat-lbl">Poles</span>
                         </div>
                         <div class="hero-stat-box">
                             <span id="modal-avg" class="stat-val">0</span>
@@ -303,7 +303,6 @@
     </footer>
 
     <script>
-        // --- CONFIGURATION ---
         const STANDINGS_FILE = 'drivers.json';
         const TRENDS_FILE = 'ASCRL_Trends_Season_1.json';
 
@@ -392,7 +391,7 @@
             renderTable();
         }
 
-        // 4. RENDER TABLE (NASCAR ACCORDION STYLE)
+        // 4. RENDER TABLE
         function renderTable() {
             const tbody = document.getElementById('standings-body');
             tbody.innerHTML = '';
@@ -468,33 +467,19 @@
                 `;
                 tbody.appendChild(tr);
 
-                // --- MOBILE DROPDOWN ROW ---
+                // --- MOBILE DROPDOWN ---
                 const hiddenRow = document.createElement('tr');
                 hiddenRow.id = rowId;
                 hiddenRow.classList.add('mobile-details-row');
                 hiddenRow.innerHTML = `
                     <td colspan="12" style="padding:0; border:none;">
                         <div class="mobile-details-content">
-                            <div class="mobile-stat-box">
-                                <span class="mobile-stat-label">STARTS</span>
-                                <span class="mobile-stat-value">${stats.starts}</span>
-                            </div>
-                            <div class="mobile-stat-box">
-                                <span class="mobile-stat-label">WINS</span>
-                                <span class="mobile-stat-value">${stats.wins}</span>
-                            </div>
-                            <div class="mobile-stat-box">
-                                <span class="mobile-stat-label">TOP 5</span>
-                                <span class="mobile-stat-value">${stats.top5}</span>
-                            </div>
-                            <div class="mobile-stat-box">
-                                <span class="mobile-stat-label">TOP 10</span>
-                                <span class="mobile-stat-value">${stats.top10}</span>
-                            </div>
-                            <div class="mobile-stat-box">
-                                <span class="mobile-stat-label">AVG FIN</span>
-                                <span class="mobile-stat-value">${avg}</span>
-                            </div>
+                            <div class="mobile-stat-box"><span class="mobile-stat-label">STARTS</span><span class="mobile-stat-value">${stats.starts}</span></div>
+                            <div class="mobile-stat-box"><span class="mobile-stat-label">WINS</span><span class="mobile-stat-value">${stats.wins}</span></div>
+                            <div class="mobile-stat-box"><span class="mobile-stat-label">TOP 5</span><span class="mobile-stat-value">${stats.top5}</span></div>
+                            <div class="mobile-stat-box"><span class="mobile-stat-label">TOP 10</span><span class="mobile-stat-value">${stats.top10}</span></div>
+                            <div class="mobile-stat-box"><span class="mobile-stat-label">POLES</span><span class="mobile-stat-value">${stats.poles || 0}</span></div>
+                            <div class="mobile-stat-box"><span class="mobile-stat-label">AVG FIN</span><span class="mobile-stat-value">${avg}</span></div>
                         </div>
                     </td>
                 `;
@@ -522,14 +507,31 @@
             const sData = driver.series[currentSeries];
             if (!sData) return;
 
+            // Recalculate Leader Points to determine "Behind"
+            let driversList = Object.values(rawData).filter(d => d.series && d.series[currentSeries]);
+            driversList.sort((a, b) => (b.series[currentSeries].stats.points || 0) - (a.series[currentSeries].stats.points || 0));
+            const leaderPoints = driversList[0].series[currentSeries].stats.points || 0;
+            
+            let behind = leaderPoints - sData.stats.points;
+            if (behind === 0 && driversList[0].display_name === driver.display_name) behind = "--";
+            else behind = "-" + behind;
+
+            // Populate Modal
             document.getElementById('modal-name').innerText = driver.display_name;
             document.getElementById('modal-team').innerText = sData.team || "Independent";
             document.getElementById('modal-number').innerText = sData.number;
             document.getElementById('modal-series-badge').innerText = currentSeries + " SERIES";
-            
+            const badge = document.getElementById('modal-series-badge');
+            badge.className = `hero-series-badge badge-${currentSeries}`;
+
+            // Populate Stats
             document.getElementById('modal-points').innerText = sData.stats.points;
+            document.getElementById('modal-behind').innerText = behind;
+            document.getElementById('modal-starts').innerText = sData.stats.starts;
             document.getElementById('modal-wins').innerText = sData.stats.wins;
             document.getElementById('modal-top5').innerText = sData.stats.top5;
+            document.getElementById('modal-top10').innerText = sData.stats.top10;
+            document.getElementById('modal-poles').innerText = sData.stats.poles || 0;
             document.getElementById('modal-avg').innerText = sData.stats.avg ? sData.stats.avg.toFixed(1) : '-';
 
             const imgUrl = getDriverImage(driver.display_name);
