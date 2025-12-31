@@ -38,21 +38,8 @@
             overflow-x: hidden; 
         }
 
-        /* --- MODULAR NAVIGATION STYLES --- */
+        /* --- NAVIGATION --- */
         #nav-placeholder { position: relative; z-index: 2000; }
-        
-        .nav-overlay { 
-            position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; 
-            height: 100vh; background: #050505; transition: left 0.5s ease; 
-            z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); 
-        }
-        .nav-overlay.open { left: 0; }
-        .nav-links { display: flex; flex-direction: column; padding: 0 3rem; }
-        .nav-links a { 
-            color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; 
-            border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; 
-        }
-        .nav-links a:hover { color: var(--primary); padding-left: 10px; }
         
         /* --- HOME HERO --- */
         .hero { 
@@ -83,7 +70,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
-            margin-top: -4rem; 
+            margin-top: 0; /* FIX: Removed negative margin so it doesn't overlap text */
             position: relative;
             z-index: 10;
         }
@@ -167,6 +154,7 @@
             color: rgba(255, 255, 255, 0.4);
             z-index: 2; /* Sit above image, below text */
             pointer-events: none;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
         }
 
         .win-flags-container {
@@ -293,7 +281,7 @@
 
         /* --- MOBILE OVERRIDE --- */
         @media (max-width: 900px) {
-            /* 1. Reset Global Layouts to Rows */
+            /* 1. Global Horizontal Layouts */
             .timer-container, 
             .leader-strip, 
             .carousel-scene {
@@ -380,7 +368,7 @@
 
     <main class="container" style="max-width: 1300px; margin: 0 auto; padding: 2rem;">
         <section>
-            <h2 style="margin-bottom: 2rem; font-size: 1.2rem; color: var(--text-muted); letter-spacing: 4px; position: relative; z-index: 20;">UPCOMING EVENTS</h2>
+            <h2 style="margin-bottom: 2rem; font-size: 1.2rem; color: var(--text-muted); letter-spacing: 4px; position: relative; z-index: 20; text-align: center;">UPCOMING ASCR RACES</h2>
             <div class="timer-container" id="race-countdowns">
                 <div class="race-card">
                     <span class="stat-label">CUP SERIES</span>
