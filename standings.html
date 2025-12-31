@@ -288,7 +288,7 @@
             renderTable();
         }
 
-        // 4. RENDER TABLE (NASCAR STYLE)
+        // 4. RENDER TABLE
         function renderTable() {
             const tbody = document.getElementById('standings-body');
             tbody.innerHTML = '';
@@ -326,12 +326,21 @@
                 let teamName = sData.team;
                 if (!teamName || teamName === "" || teamName === "null") teamName = "Independent";
 
-                // Handle Manufacturer Icon
+                // --- MANUFACTURE LOGIC UPDATED HERE ---
                 let mfrRaw = sData.manufacturer || '';
                 let mfrDisplay = 'N/A';
-                if (mfrRaw.toLowerCase().includes('chevy')) mfrDisplay = '<i class="fa-brands fa-accessible-icon"></i> CHVY'; // FontAwesome generic icon used as placeholder
-                else if (mfrRaw.toLowerCase().includes('toyota')) mfrDisplay = 'TOY';
-                else if (mfrRaw.toLowerCase().includes('ford')) mfrDisplay = 'FORD';
+                
+                // Convert to lowercase to catch "Chevy", "Chevrolet", "chevy", etc.
+                let mfrLower = mfrRaw.toLowerCase();
+
+                if (mfrLower.includes('chevy') || mfrLower.includes('chevrolet')) {
+                    mfrDisplay = '<img src="https://cdn.discordapp.com/emojis/1437922651401093182.webp?size=96" alt="Chevy" style="height: 24px; vertical-align: middle;">';
+                } else if (mfrLower.includes('toyota')) {
+                    mfrDisplay = '<img src="https://cdn.discordapp.com/emojis/1437923347370606653.webp?size=96" alt="Toyota" style="height: 24px; vertical-align: middle;">';
+                } else if (mfrLower.includes('ford')) {
+                    mfrDisplay = '<img src="https://cdn.discordapp.com/emojis/1437922912626544886.webp?size=96" alt="Ford" style="height: 24px; vertical-align: middle;">';
+                }
+                // -------------------------------------
 
                 // Handle Avg
                 const avg = stats.avg ? stats.avg.toFixed(1) : '-';
