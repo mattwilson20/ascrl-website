@@ -277,69 +277,66 @@
                 word-break: break-all; 
             }
         }
-        /* --- 3D WINNERS CAROUSEL --- */
+/* --- 3D WINNERS CAROUSEL (RESIZED) --- */
 .winners-section {
-    padding: 4rem 0;
-    overflow: hidden; /* Hide overflow so 3D elements don't cause scrollbars */
-    perspective: 1000px; /* Essential for 3D effect */
+    padding: 3rem 0;
+    overflow: hidden;
+    perspective: 1000px;
 }
 
 .carousel-scene {
-    width: 300px; /* Match card width */
-    height: 450px; /* Match card height */
+    width: 220px; /* Reduced from 300px */
+    height: 330px; /* Reduced from 450px */
     margin: 0 auto;
     position: relative;
     transform-style: preserve-3d;
-    animation: carouselSpin 20s infinite linear; /* Continuous rotation */
+    animation: carouselSpin 20s infinite linear;
 }
 
-/* Pause animation on hover so people can read */
 .carousel-scene:hover {
     animation-play-state: paused;
 }
 
 .carousel-cell {
     position: absolute;
-    width: 300px;
-    height: 450px;
+    width: 220px; /* Match scene width */
+    height: 330px; /* Match scene height */
     left: 0;
     top: 0;
-    /* Backface visibility ensures we see them as they spin */
     backface-visibility: hidden; 
-    /* We will set rotation/translation via JS or nth-child below */
+    /* Adjust internal layout for smaller size */
+    display: flex; 
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.5rem !important; /* Smaller padding */
 }
 
-/* 4 Items = 90 degrees apart (360 / 4) */
-/* TranslateZ pushes them out from center. 400px creates a nice circle size */
-.carousel-cell:nth-child(1) { transform: rotateY(0deg) translateZ(400px); }
-.carousel-cell:nth-child(2) { transform: rotateY(90deg) translateZ(400px); }
-.carousel-cell:nth-child(3) { transform: rotateY(180deg) translateZ(400px); }
-.carousel-cell:nth-child(4) { transform: rotateY(270deg) translateZ(400px); }
+/* Adjust text sizes for smaller cards */
+.carousel-cell .bg-number { font-size: 2.5rem; top: 5px; right: 10px; }
+.carousel-cell .driver-name { font-size: 1.1rem; }
+.carousel-cell .stats-pill { padding: 5px 10px; font-size: 0.7rem; }
+
+/* 4 Items = 90 deg spacing. Reduced TranslateZ to pull them closer */
+.carousel-cell:nth-child(1) { transform: rotateY(0deg) translateZ(300px); }
+.carousel-cell:nth-child(2) { transform: rotateY(90deg) translateZ(300px); }
+.carousel-cell:nth-child(3) { transform: rotateY(180deg) translateZ(300px); }
+.carousel-cell:nth-child(4) { transform: rotateY(270deg) translateZ(300px); }
 
 @keyframes carouselSpin {
     from { transform: rotateY(0deg); }
     to { transform: rotateY(-360deg); }
 }
 
-/* --- MOBILE OVERRIDE: DISABLE 3D --- */
+/* --- MOBILE OVERRIDE --- */
 @media (max-width: 900px) {
-    .winners-section {
-        perspective: none;
-    }
+    .winners-section { perspective: none; }
     .carousel-scene {
-        width: 100%;
-        height: auto;
-        animation: none;
-        transform-style: flat;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2rem;
+        width: 100%; height: auto; animation: none; transform-style: flat;
+        display: flex; flex-direction: column; align-items: center; gap: 2rem;
     }
     .carousel-cell {
-        position: relative;
-        transform: none !important; /* Reset 3D positioning */
-        margin-bottom: 20px;
+        position: relative; width: 280px; height: 400px;
+        transform: none !important; margin-bottom: 20px;
     }
 }
     </style>
@@ -488,28 +485,33 @@
         if (nameLower.includes('mattwilson20')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6686ee35c988cd1b0ae305d099ff4e31c652a49f/mattwilson20_Hero_Card.jpg";
         if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/81df81de5161ea2f590ee32c370d3e99675cdbaa/Hockey_Hero_Card.png";
         
-        // Default Placeholder
         return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg";
     }
 
     // 2. DATA LOADING
     const season = "Season_1"; 
     const scheduleFile = `ASCRL_Schedule_${season}.json`; 
+    const scheduleFallback = `schedule.json`; // FALLBACK RESTORED
     const driversFile = `drivers_${season}.json`;
-    const resultsFile = `ASCRL_Results_${season}.json`; // NEW: Results File
+    const driversFallback = `drivers.json`;
+    const resultsFile = `ASCRL_Results_${season}.json`;
 
-    // Generic Fetcher
-    async function fetchJson(url) {
+    // --- FIX: FETCH WITH FALLBACK LOGIC ---
+    async function fetchWithFallback(primary, secondary) {
         try {
-            const r = await fetch(url);
+            let r = await fetch(primary);
+            if (!r.ok && secondary) {
+                console.log(`Primary ${primary} failed, trying ${secondary}`);
+                r = await fetch(secondary);
+            }
             return r.ok ? await r.json() : null;
         } catch (e) { return null; }
     }
 
     Promise.all([
-        fetchJson(scheduleFile),
-        fetchJson(driversFile),
-        fetchJson(resultsFile)
+        fetchWithFallback(scheduleFile, scheduleFallback),
+        fetchWithFallback(driversFile, driversFallback),
+        fetchWithFallback(resultsFile, null) // No fallback for results yet
     ]).then(([schedData, driversData, resultsData]) => {
         
         // --- A. UPCOMING SCHEDULE ---
@@ -602,15 +604,9 @@
         // --- C. RECENT WINNERS (3D CAROUSEL) ---
         if(resultsData) {
             let carouselHtml = '';
-            
-            // NOTE: The JSON file might not be sorted chronologically. 
-            // We assume the keys (e.g. "Cup - Daytona") are appended in order.
-            // We will iterate BACKWARDS to find the last race for each series.
-            
             const allRaceKeys = Object.keys(resultsData);
             
             ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(seriesName => {
-                // Find the LAST key that starts with this series name
                 let lastRaceKey = null;
                 for (let i = allRaceKeys.length - 1; i >= 0; i--) {
                     if (allRaceKeys[i].toLowerCase().startsWith(seriesName.toLowerCase())) {
@@ -621,23 +617,18 @@
 
                 if(lastRaceKey) {
                     const results = resultsData[lastRaceKey];
-                    // Find Winner (Position 1)
                     const winner = results.find(r => r.position === 1);
                     
                     if(winner) {
-                        // Clean up driver name ("#24 dakota" -> "dakota")
                         let rawName = winner.driver;
                         let cleanName = rawName.replace(/^#\d+\s+/, '').trim();
                         if(!cleanName) cleanName = rawName;
 
-                        // Parse Number from string if possible
                         let carNum = "1";
                         const numMatch = rawName.match(/^#(\d+)/);
                         if(numMatch) carNum = numMatch[1];
 
                         const driverImage = getDriverImage(cleanName);
-                        
-                        // Extract Track Name from Key ("Cup - Daytona" -> "Daytona")
                         const trackName = lastRaceKey.split('-')[1].trim();
 
                         let badgeClass = 'badge-truck'; 
@@ -646,13 +637,13 @@
                         if (seriesName.toLowerCase() === 'menards') badgeClass = 'badge-menards';
 
                         carouselHtml += `
-                            <div class="carousel-cell driver-card" style="background-image: url('${driverImage}'); width:300px; height:450px;">
+                            <div class="carousel-cell driver-card" style="background-image: url('${driverImage}');">
                                 <div class="series-badge-top ${badgeClass}" style="right:0; left:auto; clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);">
                                     ${seriesName} WINNER
                                 </div>
                                 <div class="bg-number">${carNum}</div>
                                 <div class="card-content">
-                                    <div style="margin-bottom:10px; font-size:0.9rem; text-transform:uppercase; letter-spacing:2px; color:var(--primary); font-weight:bold;">
+                                    <div style="margin-bottom:10px; font-size:0.8rem; text-transform:uppercase; letter-spacing:2px; color:var(--primary); font-weight:bold;">
                                         ${trackName}
                                     </div>
                                     <h3 class="driver-name">${cleanName}</h3>
@@ -667,7 +658,6 @@
                     }
                 }
             });
-
             document.getElementById('winners-carousel').innerHTML = carouselHtml;
         }
 
