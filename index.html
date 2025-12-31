@@ -85,7 +85,6 @@
         .race-card:hover { border-color: var(--primary); transform: translateY(-5px); }
 
         /* --- DRIVER CARDS (SHARED) --- */
-        /* Used for both Winners Carousel and Leaders Grid */
         .leader-strip {
             display: flex;
             justify-content: center;
@@ -95,13 +94,13 @@
         }
 
         .driver-card, .carousel-cell {
-            background-color: #111; /* Fallback color */
+            background-color: #111; 
             background-size: cover;
             background-position: center top;
             background-repeat: no-repeat;
             border: 1px solid #333;
             border-radius: 8px;
-            padding: 0; /* Remove padding to let image fill */
+            padding: 0; 
             position: relative;
             overflow: hidden;
             display: flex;
@@ -112,21 +111,23 @@
             transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
         }
 
-        /* Gradient Overlay so text is visible on top of images */
+        /* Gradient Overlay */
         .driver-card::after, .carousel-cell::after {
             content: "";
             position: absolute;
-            bottom: 0; left: 0; width: 100%; height: 70%; /* Increased gradient height for visibility */
+            bottom: 0; left: 0; width: 100%; height: 70%;
             background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 40%, transparent 100%);
-            z-index: 1;
+            z-index: 1; /* Sits on top of image */
         }
 
-        /* Content Z-Index to sit above gradient */
+        /* Content Fix: Absolute positioning ensures visibility */
         .card-content {
-            position: relative; 
-            z-index: 2;
+            position: absolute; 
+            bottom: 0;
+            left: 0;
             width: 100%;
             padding: 1.5rem;
+            z-index: 10; /* Sits on top of EVERYTHING */
             box-sizing: border-box;
             text-align: center;
             display: flex; 
@@ -209,31 +210,28 @@
         }
 
         .carousel-scene {
-            width: 200px; /* Reduced from 220px */
-            height: 300px; /* Reduced from 330px */
+            width: 200px; 
+            height: 300px;
             margin: 4rem auto 0;
             position: relative;
             transform-style: preserve-3d;
             animation: carouselSpin 20s infinite linear;
         }
 
-        .carousel-scene:hover {
-            animation-play-state: paused;
-        }
+        .carousel-scene:hover { animation-play-state: paused; }
 
         /* Desktop specific positions for 3D */
         .carousel-cell {
             position: absolute;
-            width: 200px; /* Match scene */
-            height: 300px; /* Match scene */
+            width: 200px; 
+            height: 300px; 
             left: 0;
             top: 0;
             backface-visibility: hidden;
         }
 
-        /* Carousel specific adjustments */
-        .carousel-cell .driver-name { font-size: 1.0rem; } /* Smaller text */
-        .carousel-cell .bg-number { font-size: 2.2rem; } /* Smaller number */
+        .carousel-cell .driver-name { font-size: 1.0rem; } 
+        .carousel-cell .bg-number { font-size: 2.2rem; }
         .carousel-cell .stats-pill { padding: 4px 10px; font-size: 0.65rem; }
 
         .carousel-cell:nth-child(1) { transform: rotateY(0deg) translateZ(300px); }
@@ -289,32 +287,40 @@
                 flex-direction: row !important; 
                 flex-wrap: nowrap !important;
                 overflow-x: auto !important; 
+                
+                /* FIX 1: LEFT ALIGN ITEMS TO FIX SCROLL CLIPPING */
+                justify-content: flex-start !important;
+                
                 gap: 1rem;
                 width: 100%;
-                padding: 1rem 1rem 2rem 1rem; /* Extra bottom padding for scroll area */
+                padding: 1rem 1rem 2rem 1rem; 
                 box-sizing: border-box;
-                align-items: flex-start; /* Align tops */
+                align-items: flex-start;
                 
                 /* Standard mobile scrolling physics */
                 -webkit-overflow-scrolling: touch;
                 scroll-snap-type: x mandatory;
             }
             
+            /* Hide scrollbars */
+            .timer-container::-webkit-scrollbar, 
+            .leader-strip::-webkit-scrollbar,
+            .carousel-scene::-webkit-scrollbar { display: none; }
+
             /* 2. Specific Tweaks */
             .timer-container { margin-top: 0 !important; }
 
             .race-card {
-                flex: 0 0 240px; /* Fixed width */
+                flex: 0 0 240px; 
                 width: 240px;
                 scroll-snap-align: start;
             }
 
             /* 3. Driver Cards (Winners & Leaders) */
             .driver-card, .carousel-cell {
-                flex: 0 0 220px !important; /* Smaller Fixed width */
+                flex: 0 0 220px !important; 
                 width: 220px !important;
-                height: 320px !important; /* Smaller Fixed Height */
-                
+                height: 320px !important; 
                 margin-bottom: 0 !important;
                 position: relative !important;
                 transform: none !important;
