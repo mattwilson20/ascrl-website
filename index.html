@@ -70,7 +70,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
-            margin-top: -4rem; /* Desktop overlap */
+            margin-top: -4rem; 
             position: relative;
             z-index: 10;
         }
@@ -84,7 +84,7 @@
         }
         .race-card:hover { border-color: var(--primary); transform: translateY(-5px); }
 
-        /* --- DRIVER CARDS (SHARED) --- */
+        /* --- DRIVER CARDS (SHARED STRUCTURE) --- */
         .leader-strip {
             display: flex;
             justify-content: center;
@@ -93,41 +93,42 @@
             padding: 3rem 0;
         }
 
+        /* Base Card Container */
         .driver-card, .carousel-cell {
-            background-color: #111; 
-            background-size: cover;
-            background-position: center top;
-            background-repeat: no-repeat;
+            background-color: #000;
             border: 1px solid #333;
             border-radius: 8px;
-            padding: 0; 
             position: relative;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
+            /* Default Sizes */
             min-height: 450px; 
             width: 300px; 
-            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s, border-color 0.3s;
         }
 
-        /* Gradient Overlay */
-        .driver-card::after, .carousel-cell::after {
-            content: "";
+        /* LAYER 1: The Image */
+        .card-layer-image {
             position: absolute;
-            bottom: 0; left: 0; width: 100%; height: 70%;
-            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 40%, transparent 100%);
-            z-index: 1; /* Sits on top of image */
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center top;
+            z-index: 1;
         }
 
-        /* Content Fix: Absolute positioning ensures visibility */
+        /* LAYER 2: The Gradient (Darkens bottom for text) */
+        .card-layer-gradient {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 75%;
+            background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 30%, transparent 100%);
+            z-index: 2;
+        }
+
+        /* LAYER 3: The Content (Text) */
         .card-content {
             position: absolute; 
-            bottom: 0;
-            left: 0;
-            width: 100%;
+            bottom: 0; left: 0; width: 100%;
+            z-index: 3; /* Topmost layer */
             padding: 1.5rem;
-            z-index: 10; /* Sits on top of EVERYTHING */
             box-sizing: border-box;
             text-align: center;
             display: flex; 
@@ -138,9 +139,9 @@
         .driver-card:hover {
             transform: translateY(-10px);
             border-color: var(--primary);
-            box-shadow: 0 10px 30px rgba(204, 0, 0, 0.2);
         }
 
+        /* Hover colors */
         .cup-hover:hover { border-color: var(--cup-blue) !important; box-shadow: 0 10px 30px rgba(0, 119, 255, 0.2); }
         .xfinity-hover:hover { border-color: var(--xfinity-purple) !important; box-shadow: 0 10px 30px rgba(128, 0, 176, 0.2); }
         .truck-hover:hover { border-color: var(--truck-red) !important; box-shadow: 0 10px 30px rgba(204, 0, 0, 0.2); }
@@ -151,8 +152,8 @@
             top: 10px; right: 15px;
             font-size: 3.5rem; font-weight: 900;
             color: rgba(255, 255, 255, 0.4);
-            z-index: 2; pointer-events: none;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            z-index: 2; /* Sit above image, below text */
+            pointer-events: none;
         }
 
         .win-flags-container {
@@ -225,9 +226,9 @@
             position: absolute;
             width: 200px; 
             height: 300px; 
-            left: 0;
-            top: 0;
+            left: 0; top: 0;
             backface-visibility: hidden;
+            min-height: auto; /* Override default */
         }
 
         .carousel-cell .driver-name { font-size: 1.0rem; } 
@@ -277,9 +278,9 @@
         .social-icon { color: #555; font-size: 1.8rem; transition: 0.3s ease; display: flex; align-items: center; justify-content: center; text-decoration: none; }
         .social-icon:hover { transform: translateY(-3px); }
 
-        /* --- MOBILE OVERRIDE: SIMPLE HORIZONTAL SCROLL --- */
+        /* --- MOBILE OVERRIDE --- */
         @media (max-width: 900px) {
-            /* 1. Global Horizontal Layouts */
+            /* 1. Reset Global Layouts to Rows */
             .timer-container, 
             .leader-strip, 
             .carousel-scene {
@@ -564,11 +565,15 @@
                     let flags = '';
                     for(let i=0; i<wins; i++) flags += `<i class="fa-solid fa-flag-checkered flag-icon ${badgeClass.replace('badge', 'flag')}"></i>`;
 
-                    // FIX: Applied background-image directly to the container to ensure it shows
+                    // RESTRUCTURED CARD HTML FOR VISIBILITY
                     html += `
-                        <div class="driver-card" style="background-image: url('${getDriverImage(bestDriver.display_name)}');">
-                            <div class="series-badge-top ${badgeClass}">${seriesName} LEADER</div>
+                        <div class="driver-card">
+                            <div class="card-layer-image" style="background-image: url('${getDriverImage(bestDriver.display_name)}');"></div>
+                            <div class="card-layer-gradient"></div>
+                            
+                            <div class="series-badge-top ${badgeClass}" style="z-index: 5;">${seriesName} LEADER</div>
                             <div class="bg-number">${bestData.number || ''}</div>
+                            
                             <div class="card-content">
                                 <div class="win-flags-container">${flags}</div>
                                 <h3 class="driver-name">${bestDriver.display_name}</h3>
@@ -601,13 +606,17 @@
                         let cleanName = winner.driver.replace(/^#\d+\s+/, '').trim();
                         let carNum = (winner.driver.match(/^#(\d+)/) || [])[1] || '';
                         
-                        // FIX: Applied background-image directly to the container
+                        // RESTRUCTURED CARD HTML FOR VISIBILITY
                         html += `
-                            <div class="carousel-cell" style="background-image: url('${getDriverImage(cleanName)}');">
-                                <div class="series-badge-top ${badgeClass}" style="right:0; left:auto; clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);">${seriesName} WINNER</div>
+                            <div class="carousel-cell">
+                                <div class="card-layer-image" style="background-image: url('${getDriverImage(cleanName)}');"></div>
+                                <div class="card-layer-gradient"></div>
+                                
+                                <div class="series-badge-top ${badgeClass}" style="right:0; left:auto; clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%); z-index:5;">${seriesName} WINNER</div>
                                 <div class="bg-number">${carNum}</div>
+                                
                                 <div class="card-content">
-                                    <div style="font-size:0.8rem; color:var(--primary); font-weight:bold;">${lastKey.split('-')[1].trim()}</div>
+                                    <div style="font-size:0.8rem; color:var(--primary); font-weight:bold; margin-bottom:5px;">${lastKey.split('-')[1].trim()}</div>
                                     <h3 class="driver-name">${cleanName}</h3>
                                     <div class="stats-pill"><span>WINNER</span><div class="stat-divider"></div><span>${winner.points} PTS</span></div>
                                 </div>
@@ -617,8 +626,6 @@
             });
             document.getElementById('winners-carousel').innerHTML = html;
         }
-
-        // --- D. REMOVED AUTO-SCROLL (Now pure touch/swipe) ---
     });
     </script>
 </body>
