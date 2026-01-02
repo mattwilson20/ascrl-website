@@ -21,20 +21,12 @@
             background-attachment: fixed; color: #fff; overflow-x: hidden; 
         }
 
-        /* --- MODULAR NAVIGATION STYLES --- */
+        /* --- NAV --- */
         #nav-placeholder { position: relative; z-index: 2000; }
-        
-        .nav-overlay { 
-            position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; 
-            height: 100vh; background: #050505; transition: left 0.5s ease; 
-            z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); 
-        }
+        .nav-overlay { position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; height: 100vh; background: #050505; transition: left 0.5s ease; z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); }
         .nav-overlay.open { left: 0; }
         .nav-links { display: flex; flex-direction: column; padding: 0 3rem; }
-        .nav-links a { 
-            color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; 
-            border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; 
-        }
+        .nav-links a { color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; }
         .nav-links a:hover { color: var(--primary); padding-left: 10px; }
 
         /* --- HERO --- */
@@ -207,9 +199,9 @@
         const FILE_DRIVERS = "drivers.json"; 
         let raceData = {};
         let driverData = {};
-        let currentSeries = 'Cup'; // Default
+        let currentSeries = 'Cup';
 
-        // 1. NAV & DATA LOADING
+        // 1. NAV LOADING
         fetch('nav.html').then(res => res.text()).then(data => { 
             document.getElementById('nav-placeholder').innerHTML = data;
             const link = document.getElementById('nav-results');
@@ -218,21 +210,37 @@
 
         function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            // Load Drivers First
-            fetch(FILE_DRIVERS)
-                .then(r => r.json())
-                .then(d => {
-                    driverData = d;
-                    loadRaceData("Season_1");
-                })
-                .catch(e => {
-                    console.error("Error loading drivers:", e);
-                    loadRaceData("Season_1"); // Try loading results anyway
-                });
-        });
+        // 2. INITIALIZATION (ASYNC/AWAIT TO FIX TIMING ISSUES)
+        async function init() {
+            document.getElementById('loading-screen').style.display = 'flex';
+            document.getElementById('loading-screen').style.opacity = 1;
 
-        // 2. SWITCH SERIES
+            try {
+                // Step 1: Load Drivers Database FIRST
+                const driverRes = await fetch(FILE_DRIVERS);
+                if(driverRes.ok) {
+                    driverData = await driverRes.json();
+                    console.log("Drivers Loaded:", Object.keys(driverData).length);
+                } else {
+                    console.error("Failed to load drivers.json");
+                }
+
+                // Step 2: Load Race Data
+                await loadRaceData("Season_1");
+
+            } catch (err) {
+                console.error("Initialization Error:", err);
+            } finally {
+                // Done loading
+                document.getElementById('loading-screen').style.opacity = 0;
+                setTimeout(() => document.getElementById('loading-screen').style.display = 'none', 500);
+            }
+        }
+
+        // Run Init
+        document.addEventListener('DOMContentLoaded', init);
+
+        // 3. SWITCH SERIES
         function switchSeries(seriesName) {
             currentSeries = seriesName;
             
@@ -246,37 +254,28 @@
             populateTracks();
         }
 
-        // 3. LOAD RACE DATA
-        function loadRaceData(season) {
-            document.getElementById('loading-screen').style.opacity = 1;
-            document.getElementById('loading-screen').style.display = 'flex';
-            
+        // 4. LOAD RACE DATA (Updated to just fetch, not init)
+        async function loadRaceData(season) {
             const fileName = `ASCRL_Results_${season}.json`;
-            fetch(fileName)
-                .then(res => {
-                    if (!res.ok) throw new Error("Season data not found");
-                    return res.json();
-                })
-                .then(data => {
-                    raceData = data;
-                    populateTracks();
-                    document.getElementById('loading-screen').style.opacity = 0;
-                    setTimeout(() => document.getElementById('loading-screen').style.display = 'none', 500);
-                })
-                .catch(err => {
-                    console.error(err);
-                    raceData = {};
-                    document.getElementById('track-select').innerHTML = '<option>NO DATA</option>';
-                    document.getElementById('results-body').innerHTML = '<tr><td colspan="8" style="text-align:center;">No data available.</td></tr>';
-                    document.getElementById('loading-screen').style.display = 'none';
-                });
+            try {
+                const res = await fetch(fileName);
+                if (!res.ok) throw new Error("Season data not found");
+                raceData = await res.json();
+                populateTracks();
+            } catch (err) {
+                console.error(err);
+                raceData = {};
+                document.getElementById('track-select').innerHTML = '<option>NO DATA</option>';
+                document.getElementById('results-body').innerHTML = '<tr><td colspan="8" style="text-align:center;">No data available.</td></tr>';
+            }
         }
 
-        // 4. POPULATE TRACKS
+        // 5. POPULATE TRACKS
         function populateTracks() {
             const trackSelect = document.getElementById('track-select');
             trackSelect.innerHTML = '<option value="">Select a Race...</option>';
 
+            // Filter keys that match "SeriesName - TrackName"
             const availableTracks = Object.keys(raceData).filter(key => 
                 key.toLowerCase().startsWith(currentSeries.toLowerCase() + " -")
             );
@@ -296,16 +295,21 @@
             document.getElementById('results-body').innerHTML = '<tr><td colspan="8" style="text-align:center; padding:3rem;">Select a race to view results.</td></tr>';
         }
 
-        // 5. HELPER: FIND DRIVER INFO
+        // 6. HELPER: FIND DRIVER INFO
         function getDriverInfo(driverName) {
+            if (!driverData || Object.keys(driverData).length === 0) {
+                return { number: "00", team: "Independent", manufacturer: "N/A" };
+            }
+
             // Find driver object by name (case-insensitive)
             const driverObj = Object.values(driverData).find(d => 
-                d.display_name.toLowerCase() === driverName.toLowerCase()
+                d.display_name.trim().toLowerCase() === driverName.trim().toLowerCase()
             );
 
-            // Default info if not found
             let info = { number: "00", team: "Independent", manufacturer: "N/A" };
 
+            // Be careful with series key matching (API vs JSON)
+            // Your JSON uses "Cup", "Truck", "Menards", "Xfinity" - exactly what we use in currentSeries
             if (driverObj && driverObj.series && driverObj.series[currentSeries]) {
                 const sData = driverObj.series[currentSeries];
                 info.number = sData.number || "00";
@@ -315,7 +319,7 @@
             return info;
         }
 
-        // 6. DISPLAY RESULTS
+        // 7. DISPLAY RESULTS
         function displayResults() {
             const trackKey = document.getElementById('track-select').value;
             if (!trackKey || !raceData[trackKey]) return;
@@ -334,11 +338,14 @@
                 document.getElementById('winner-points').innerText = winner.points;
                 document.getElementById('winner-team').innerText = wInfo.team;
                 
-                // Image Logic
+                // Image Logic (Hardcoded Fallback + Custom Overrides)
                 let imgUrl = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg"; 
                 const nameLower = winner.driver.toLowerCase();
+                
+                // Custom Image Mappings (Add your list here)
                 if (nameLower.includes('dakotathomas1994')) imgUrl = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg";
-                // Add more overrides here if needed
+                if (nameLower.includes('mattwilson20')) imgUrl = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6686ee35c988cd1b0ae305d099ff4e31c652a49f/mattwilson20_Hero_Card.jpg";
+                if (nameLower.includes('singular_nacho')) imgUrl = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/f311b21127533ca6128a4408f36edaf9612d59b1/Singular_Nacho_Hero_Card.jpg";
                 
                 document.getElementById('winner-photo').style.backgroundImage = `url('${imgUrl}')`;
             }
@@ -353,17 +360,19 @@
                 if(row.fl === "FL" || row.fl === "Yes") bonus += '<span class="pill pill-fl">FASTEST LAP</span>';
 
                 // Manufacturer Logo Logic
-                let mfr = info.manufacturer;
-                if (mfr.toLowerCase().includes('chevy')) mfr = '<img src="https://cdn.discordapp.com/emojis/1437922651401093182.webp?size=96" style="height:20px;">';
-                else if (mfr.toLowerCase().includes('toyota')) mfr = '<img src="https://cdn.discordapp.com/emojis/1437923347370606653.webp?size=96" style="height:20px;">';
-                else if (mfr.toLowerCase().includes('ford')) mfr = '<img src="https://cdn.discordapp.com/emojis/1437922912626544886.webp?size=96" style="height:20px;">';
+                let mfr = info.manufacturer || "N/A";
+                let mfrDisplay = mfr;
+                
+                if (mfr.toLowerCase().includes('chevy')) mfrDisplay = '<img src="https://cdn.discordapp.com/emojis/1437922651401093182.webp?size=96" style="height:20px;">';
+                else if (mfr.toLowerCase().includes('toyota')) mfrDisplay = '<img src="https://cdn.discordapp.com/emojis/1437923347370606653.webp?size=96" style="height:20px;">';
+                else if (mfr.toLowerCase().includes('ford')) mfrDisplay = '<img src="https://cdn.discordapp.com/emojis/1437922912626544886.webp?size=96" style="height:20px;">';
 
                 tbody.innerHTML += `
                     <tr class="${isWinner}">
                         <td class="pos-cell">${row.position}</td>
                         <td style="font-weight:bold;">${row.driver}</td>
                         <td>#${info.number}</td>
-                        <td>${mfr}</td>
+                        <td>${mfrDisplay}</td>
                         <td class="mobile-hide team-cell">${info.team}</td>
                         <td class="mobile-hide">${row.laps || '-'}</td>
                         <td class="points-cell">${row.points}</td>
