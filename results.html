@@ -21,20 +21,12 @@
             background-attachment: fixed; color: #fff; overflow-x: hidden; 
         }
 
-        /* --- MODULAR NAVIGATION STYLES --- */
+        /* --- NAV --- */
         #nav-placeholder { position: relative; z-index: 2000; }
-        
-        .nav-overlay { 
-            position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; 
-            height: 100vh; background: #050505; transition: left 0.5s ease; 
-            z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); 
-        }
+        .nav-overlay { position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; height: 100vh; background: #050505; transition: left 0.5s ease; z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); }
         .nav-overlay.open { left: 0; }
         .nav-links { display: flex; flex-direction: column; padding: 0 3rem; }
-        .nav-links a { 
-            color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; 
-            border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; 
-        }
+        .nav-links a { color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; }
         .nav-links a:hover { color: var(--primary); padding-left: 10px; }
 
         /* --- HERO --- */
@@ -198,24 +190,9 @@
         <div style="margin-bottom: 0.5rem; letter-spacing: 2px; color: #fff;">
             © 2025-2026 AMERICAN STOCK CAR RACING LEAGUE
         </div>
-        
         <div style="font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 2rem; text-transform: uppercase;">
             OWNED AND OPERATED BY <span style="color: #fff; font-weight: bold;">A&M PRODUCTIONS LLC</span>
         </div>
-
-        <div class="social-links">
-            <a href="https://www.facebook.com/share/14PeZVCH1hL/" target="_blank" class="social-icon facebook" aria-label="Facebook">
-                <i class="fa-brands fa-facebook"></i>
-            </a>
-            <a href="https://x.com/ASCRWeekly" target="_blank" class="social-icon x-twitter" aria-label="X (Twitter)">
-                <i class="fa-brands fa-x-twitter"></i>
-            </a>
-            <a href="mailto:contact.ascrl@gmail.com" class="social-icon email" aria-label="Email A&M Productions">
-                <i class="fa-solid fa-envelope"></i>
-            </a>
-        </div>
-        
-        <div style="font-size: 0.6rem; color: #444; margin-top: 20px; font-style: italic;">*ai generated images may be used</div>
     </footer>
 
     <script>
@@ -316,17 +293,46 @@
             document.getElementById('results-body').innerHTML = '<tr><td colspan="8" style="text-align:center; padding:3rem;">Select a race to view results.</td></tr>';
         }
 
-        // 6. HELPER: FIND DRIVER INFO
+        // 6. HELPER: GET DRIVER IMAGE URL
+        function getDriverImage(driverName) {
+            const nameLower = driverName.toLowerCase().trim();
+
+            if (nameLower.includes('dakotathomas1994')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg";
+            if (nameLower.includes('orangeman96')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/70b5243e68e9c7f7a596f6695677d8d3520e89e1/IMG_7160.jpg";
+            if (nameLower.includes('ant_was_he')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/602e91f22a89c294308d1e79473121daa8e777e7/ant_was_he_hero_card.jpg";
+            if (nameLower.includes('c0mpl1c8ted')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/099805ff88fcc2ba2a1cc2e8b5aba8f515a716a6/C0mpl1c8ted_hero_card.jpg";
+            if (nameLower.includes('on-a-mission')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/446d56688b6fdf55420d2c5e52b6a764e873fab6/Mission_Hero_card.jpg";
+            if (nameLower.includes('banishedcrayon')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/d42bcd32df90441f1b5f24da75a77074ea2186fe/Banished_Crayon_hero_Card.jpg";
+            if (nameLower.includes('sithwarrioruno')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/3e992547a13fe5d73940648e83df80d97df41f90/SithWarriorUno_Hero_Card.jpg";
+            if (nameLower.includes('majorblaze33')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/77807b78b078188862cb490d2b95d2f846d237bf/Blaze_Hero_Card.jpg";
+            if (nameLower.includes('thereaperrhino')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6ba07383a20109b63eec703c34fedc30f7a191bf/Rhino_Hero_Card.jpg";
+            if (nameLower.includes('daltongregson')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ec988478a8132f49d9d6b596e7ed258e2c2dd482/DaltonGregson_Hero_Card.jpg";
+            if (nameLower.includes('singular_nacho')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/f311b21127533ca6128a4408f36edaf9612d59b1/Singular_Nacho_Hero_Card.jpg";
+            if (nameLower.includes('callmemillion')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/e86926900f4957c57588db9a14beae7d6329a794/CallMeMillion_Hero_Card.jpg";
+            if (nameLower.includes('mattwilson20')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6686ee35c988cd1b0ae305d099ff4e31c652a49f/mattwilson20_Hero_Card.jpg";
+            if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/81df81de5161ea2f590ee32c370d3e99675cdbaa/Hockey_Hero_Card.png";
+            if (nameLower.includes('dewshine')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/c5319ac2110c0b89850cf83b5d93b1af677f8611/Dewshine_Hero_Card.jpg";
+            if (nameLower.includes('alessi')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/4719bd5e06709f59cf1a811ee7ebe20c6a945dae/Alessi.Hero.Card.jpg";
+            if (nameLower.includes('kevwood')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/07ccf5d79d881bf2047f439e25540dc380fec2d0/Kevwood.Hero.Card.jpg";
+            if (nameLower.includes('lnfvmous')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/acff9081bff808e0028c0ae22dada726083e7948/Infamous.hero.card.jpg";
+            if (nameLower.includes('fordemgators')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/58a3bfc691085c472f888d1c1d071fdf96b2ba20/Fordemgators.Hero.Card.jpg";
+            if (nameLower.includes('dgibby')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/a0de7269483b7e2ec5e1aaae549f739229008914/DGibby.hero.card.jpg";
+            if (nameLower.includes('kingg')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/9eb12bdb1b61a806ad951ae9a8bddc590622f35f/King.Hero.Card.jpg";
+            if (nameLower.includes('hatter')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/34425dadb737bc4bc27aa9271be62909dc9a3e99/Hatter.Hero.Card.jpg";
+            if (nameLower.includes('big_fella')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ced27a5d96e0d211f038b36e34a55bccf4a7e4de/BigFella.Hero.Card.jpg";
+            
+            // Default Ghost Image
+            return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg";
+        }
+
+        // 7. HELPER: FIND DRIVER INFO
         function getDriverInfo(driverNameString) {
             if (!driverData || Object.keys(driverData).length === 0) {
                 return { number: "00", team: "Independent", manufacturer: "N/A" };
             }
 
-            // CLEAN THE INPUT NAME: Remove numbers, #, and trim spaces
-            // Input e.g. "#24 dakotathomas1994" -> "dakotathomas1994"
             let cleanName = driverNameString.replace(/^#\d+\s*/, '').trim().toLowerCase();
 
-            // Find driver object by name (case-insensitive)
             const driverObj = Object.values(driverData).find(d => 
                 d.display_name.trim().toLowerCase() === cleanName
             );
@@ -342,7 +348,7 @@
             return info;
         }
 
-        // 7. DISPLAY RESULTS
+        // 8. DISPLAY RESULTS
         function displayResults() {
             const trackKey = document.getElementById('track-select').value;
             if (!trackKey || !raceData[trackKey]) return;
@@ -354,10 +360,7 @@
             // --- A. WINNER BANNER ---
             const winner = rows.find(r => r.position == 1);
             if (winner) {
-                // Pass full string from results to helper
                 const wInfo = getDriverInfo(winner.driver);
-                
-                // Clean name for display
                 const cleanWinnerName = winner.driver.replace(/^#\d+\s*/, '').trim();
 
                 document.getElementById('winner-banner').style.display = 'flex';
@@ -365,13 +368,8 @@
                 document.getElementById('winner-points').innerText = winner.points;
                 document.getElementById('winner-team').innerText = wInfo.team;
                 
-                // Image Logic
-                let imgUrl = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg"; 
-                const nameLower = cleanWinnerName.toLowerCase();
-                
-                // Add your custom images here
-                if (nameLower.includes('dakotathomas1994')) imgUrl = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg";
-                
+                // Get Image from centralized function
+                const imgUrl = getDriverImage(cleanWinnerName);
                 document.getElementById('winner-photo').style.backgroundImage = `url('${imgUrl}')`;
             }
 
@@ -379,15 +377,12 @@
             rows.forEach(row => {
                 const info = getDriverInfo(row.driver);
                 const isWinner = (row.position == 1) ? 'winner-row' : '';
-                
-                // Clean name
                 const cleanName = row.driver.replace(/^#\d+\s*/, '').trim();
 
                 let bonus = '';
                 if(row.pole === "Yes" || row.pole === "Pole") bonus += '<span class="pill pill-pole">POLE</span>';
                 if(row.fl === "FL" || row.fl === "Yes") bonus += '<span class="pill pill-fl">FASTEST LAP</span>';
 
-                // Manufacturer Logo
                 let mfr = info.manufacturer || "N/A";
                 let mfrDisplay = mfr;
                 if (mfr.toLowerCase().includes('chevy')) mfrDisplay = '<img src="https://cdn.discordapp.com/emojis/1437922651401093182.webp?size=96" style="height:20px;">';
