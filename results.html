@@ -21,20 +21,12 @@
             background-attachment: fixed; color: #fff; overflow-x: hidden; 
         }
 
-        /* --- MODULAR NAVIGATION STYLES --- */
+        /* --- NAV --- */
         #nav-placeholder { position: relative; z-index: 2000; }
-        
-        .nav-overlay { 
-            position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; 
-            height: 100vh; background: #050505; transition: left 0.5s ease; 
-            z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); 
-        }
+        .nav-overlay { position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; height: 100vh; background: #050505; transition: left 0.5s ease; z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); }
         .nav-overlay.open { left: 0; }
         .nav-links { display: flex; flex-direction: column; padding: 0 3rem; }
-        .nav-links a { 
-            color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; 
-            border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; 
-        }
+        .nav-links a { color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; }
         .nav-links a:hover { color: var(--primary); padding-left: 10px; }
 
         /* --- HERO --- */
@@ -194,29 +186,13 @@
         </div>
     </main>
 
-     <footer>
+    <footer>
         <div style="margin-bottom: 0.5rem; letter-spacing: 2px; color: #fff;">
             © 2025-2026 AMERICAN STOCK CAR RACING LEAGUE
         </div>
-        
         <div style="font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 2rem; text-transform: uppercase;">
             OWNED AND OPERATED BY <span style="color: #fff; font-weight: bold;">A&M PRODUCTIONS LLC</span>
         </div>
-
-        <div class="social-links">
-            <a href="https://www.facebook.com/share/14PeZVCH1hL/" target="_blank" class="social-icon facebook" aria-label="Facebook">
-                <i class="fa-brands fa-facebook"></i>
-            </a>
-            <a href="https://x.com/ASCRWeekly" target="_blank" class="social-icon x-twitter" aria-label="X (Twitter)">
-                <i class="fa-brands fa-x-twitter"></i>
-            </a>
-            
-            <a href="mailto:contact.ascrl@gmail.com" class="social-icon email" aria-label="Email A&M Productions">
-                <i class="fa-solid fa-envelope"></i>
-            </a>
-        </div>
-        
-        <div style="font-size: 0.6rem; color: #444; margin-top: 20px; font-style: italic;">*ai generated images may be used</div>
     </footer>
 
     <script>
@@ -234,7 +210,7 @@
 
         function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
 
-        // 2. INITIALIZATION (ASYNC/AWAIT TO FIX TIMING ISSUES)
+        // 2. INITIALIZATION
         async function init() {
             document.getElementById('loading-screen').style.display = 'flex';
             document.getElementById('loading-screen').style.opacity = 1;
@@ -244,7 +220,6 @@
                 const driverRes = await fetch(FILE_DRIVERS);
                 if(driverRes.ok) {
                     driverData = await driverRes.json();
-                    console.log("Drivers Loaded:", Object.keys(driverData).length);
                 } else {
                     console.error("Failed to load drivers.json");
                 }
@@ -278,7 +253,7 @@
             populateTracks();
         }
 
-        // 4. LOAD RACE DATA (Updated to just fetch, not init)
+        // 4. LOAD RACE DATA
         async function loadRaceData(season) {
             const fileName = `ASCRL_Results_${season}.json`;
             try {
@@ -299,7 +274,6 @@
             const trackSelect = document.getElementById('track-select');
             trackSelect.innerHTML = '<option value="">Select a Race...</option>';
 
-            // Filter keys that match "SeriesName - TrackName"
             const availableTracks = Object.keys(raceData).filter(key => 
                 key.toLowerCase().startsWith(currentSeries.toLowerCase() + " -")
             );
@@ -320,20 +294,22 @@
         }
 
         // 6. HELPER: FIND DRIVER INFO
-        function getDriverInfo(driverName) {
+        function getDriverInfo(driverNameString) {
             if (!driverData || Object.keys(driverData).length === 0) {
                 return { number: "00", team: "Independent", manufacturer: "N/A" };
             }
 
+            // CLEAN THE INPUT NAME: Remove numbers, #, and trim spaces
+            // Input e.g. "#24 dakotathomas1994" -> "dakotathomas1994"
+            let cleanName = driverNameString.replace(/^#\d+\s*/, '').trim().toLowerCase();
+
             // Find driver object by name (case-insensitive)
             const driverObj = Object.values(driverData).find(d => 
-                d.display_name.trim().toLowerCase() === driverName.trim().toLowerCase()
+                d.display_name.trim().toLowerCase() === cleanName
             );
 
             let info = { number: "00", team: "Independent", manufacturer: "N/A" };
 
-            // Be careful with series key matching (API vs JSON)
-            // Your JSON uses "Cup", "Truck", "Menards", "Xfinity" - exactly what we use in currentSeries
             if (driverObj && driverObj.series && driverObj.series[currentSeries]) {
                 const sData = driverObj.series[currentSeries];
                 info.number = sData.number || "00";
@@ -355,21 +331,23 @@
             // --- A. WINNER BANNER ---
             const winner = rows.find(r => r.position == 1);
             if (winner) {
+                // Pass full string from results to helper
                 const wInfo = getDriverInfo(winner.driver);
                 
+                // Clean name for display
+                const cleanWinnerName = winner.driver.replace(/^#\d+\s*/, '').trim();
+
                 document.getElementById('winner-banner').style.display = 'flex';
-                document.getElementById('winner-name').innerText = winner.driver;
+                document.getElementById('winner-name').innerText = cleanWinnerName;
                 document.getElementById('winner-points').innerText = winner.points;
                 document.getElementById('winner-team').innerText = wInfo.team;
                 
-                // Image Logic (Hardcoded Fallback + Custom Overrides)
+                // Image Logic
                 let imgUrl = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg"; 
-                const nameLower = winner.driver.toLowerCase();
+                const nameLower = cleanWinnerName.toLowerCase();
                 
-                // Custom Image Mappings (Add your list here)
+                // Add your custom images here
                 if (nameLower.includes('dakotathomas1994')) imgUrl = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg";
-                if (nameLower.includes('mattwilson20')) imgUrl = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6686ee35c988cd1b0ae305d099ff4e31c652a49f/mattwilson20_Hero_Card.jpg";
-                if (nameLower.includes('singular_nacho')) imgUrl = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/f311b21127533ca6128a4408f36edaf9612d59b1/Singular_Nacho_Hero_Card.jpg";
                 
                 document.getElementById('winner-photo').style.backgroundImage = `url('${imgUrl}')`;
             }
@@ -379,14 +357,16 @@
                 const info = getDriverInfo(row.driver);
                 const isWinner = (row.position == 1) ? 'winner-row' : '';
                 
+                // Clean name
+                const cleanName = row.driver.replace(/^#\d+\s*/, '').trim();
+
                 let bonus = '';
                 if(row.pole === "Yes" || row.pole === "Pole") bonus += '<span class="pill pill-pole">POLE</span>';
                 if(row.fl === "FL" || row.fl === "Yes") bonus += '<span class="pill pill-fl">FASTEST LAP</span>';
 
-                // Manufacturer Logo Logic
+                // Manufacturer Logo
                 let mfr = info.manufacturer || "N/A";
                 let mfrDisplay = mfr;
-                
                 if (mfr.toLowerCase().includes('chevy')) mfrDisplay = '<img src="https://cdn.discordapp.com/emojis/1437922651401093182.webp?size=96" style="height:20px;">';
                 else if (mfr.toLowerCase().includes('toyota')) mfrDisplay = '<img src="https://cdn.discordapp.com/emojis/1437923347370606653.webp?size=96" style="height:20px;">';
                 else if (mfr.toLowerCase().includes('ford')) mfrDisplay = '<img src="https://cdn.discordapp.com/emojis/1437922912626544886.webp?size=96" style="height:20px;">';
@@ -394,7 +374,7 @@
                 tbody.innerHTML += `
                     <tr class="${isWinner}">
                         <td class="pos-cell">${row.position}</td>
-                        <td style="font-weight:bold;">${row.driver}</td>
+                        <td style="font-weight:bold;">${cleanName}</td>
                         <td>#${info.number}</td>
                         <td>${mfrDisplay}</td>
                         <td class="mobile-hide team-cell">${info.team}</td>
