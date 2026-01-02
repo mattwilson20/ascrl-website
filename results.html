@@ -21,37 +21,31 @@
             background-attachment: fixed; color: #fff; overflow-x: hidden; 
         }
 
-        /* --- MODULAR NAVIGATION STYLES --- */
+        /* --- NAV --- */
         #nav-placeholder { position: relative; z-index: 2000; }
-        
-        .nav-overlay { 
-            position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; 
-            height: 100vh; background: #050505; transition: left 0.5s ease; 
-            z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); 
-        }
+        .nav-overlay { position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; height: 100vh; background: #050505; transition: left 0.5s ease; z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); }
         .nav-overlay.open { left: 0; }
         .nav-links { display: flex; flex-direction: column; padding: 0 3rem; }
-        .nav-links a { 
-            color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; 
-            border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; 
-        }
+        .nav-links a { color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; }
         .nav-links a:hover { color: var(--primary); padding-left: 10px; }
-        
+
         /* --- HERO --- */
         .hero { background: radial-gradient(circle at center, #222 0%, #000 100%); padding: 8rem 1rem 4rem; text-align: center; border-bottom: 1px solid var(--border); }
         h1 { font-size: clamp(2rem, 5vw, 4rem); margin: 0; letter-spacing: -2px; }
 
-        /* --- CONTROLS BAR --- */
+        /* --- CONTROLS BAR (PC: Flex Row, Mobile: Column) --- */
         .controls-bar { 
             background: #050505; padding: 1rem 2rem; border-bottom: 1px solid var(--border); 
             position: sticky; top: 0; z-index: 100; 
             display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
         }
 
+        /* Left Side: Dropdowns */
         .filters-left { display: flex; gap: 10px; }
         select { background: #111; color: #fff; border: 1px solid var(--border); padding: 0.8rem 1.5rem; font-family: 'Arial Black'; text-transform: uppercase; cursor: pointer; min-width: 200px; }
         select:focus { border-color: var(--primary); outline: none; background: #000; }
 
+        /* Right Side: Series Buttons */
         .series-tabs { display: flex; gap: 5px; }
         .series-btn { 
             background: #111; border: 1px solid #333; color: #888; 
@@ -59,6 +53,8 @@
             font-size: 0.9rem; cursor: pointer; transition: 0.3s;
         }
         .series-btn:hover { color: #fff; border-color: #666; }
+        
+        /* Series Active States */
         .series-btn.active { color: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-color: #fff; }
         .series-btn[data-series="Cup"].active { background: var(--cup-blue); border-color: var(--cup-blue); }
         .series-btn[data-series="Xfinity"].active { background: var(--xfinity-purple); border-color: var(--xfinity-purple); }
@@ -96,9 +92,11 @@
         .points-cell { font-family: 'Arial Black'; color: var(--accent); }
         .team-cell { font-size: 0.85rem; color: #888; text-transform: uppercase; }
         
+        /* Winner Row Highlight */
         tr.winner-row td { background: rgba(204,0,0,0.15); }
         tr.winner-row .pos-cell { color: var(--primary); font-size: 1.2rem; }
 
+        /* Bonus Pills */
         .pill { font-size: 0.65rem; padding: 3px 8px; border-radius: 4px; font-weight: bold; margin-left: 5px; text-transform: uppercase; }
         .pill-pole { background: #fff; color: #000; }
         .pill-fl { background: var(--primary); color: #fff; }
@@ -108,41 +106,19 @@
         .spinner { width: 50px; height: 50px; border: 5px solid #333; border-top: 5px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* --- MOBILE TWEAKS --- */
+        /* Mobile */
         @media (max-width: 900px) {
             .hero { padding: 6rem 1rem 2rem; }
             .controls-bar { flex-direction: column; gap: 15px; padding: 1rem; }
             .filters-left { width: 100%; flex-direction: column; }
             select { width: 100%; }
             
+            /* Center Series Buttons on Mobile */
             .series-tabs { justify-content: center; width: 100%; flex-wrap: wrap; }
             .series-btn { flex: 1; text-align: center; padding: 10px; font-size: 0.8rem; }
 
-            /* --- FIXED WINNER BANNER FOR MOBILE --- */
-            .winner-banner { 
-                flex-direction: column; 
-                text-align: center; 
-                gap: 1.5rem; 
-                padding: 2rem 1rem; 
-            }
-            .winner-info { 
-                text-align: center; 
-                width: 100%; /* Ensures text container doesn't overflow */
-            }
-            
-            /* Fix Giant Name Issue */
-            .winner-name { 
-                font-size: 1.8rem; /* Smaller Font */
-                word-break: break-word; /* Breaks long names like DAKOTATHOMAS1994 */
-                line-height: 1.1;
-                margin-bottom: 5px;
-            }
-            
-            .winner-photo { 
-                width: 120px; 
-                height: 120px; 
-            }
-            
+            .winner-banner { flex-direction: column; text-align: center; gap: 2rem; }
+            .winner-info { text-align: center; }
             .winner-stats { justify-content: center; }
             .mobile-hide { display: none; }
         }
@@ -198,13 +174,12 @@
                         <th>CAR</th>
                         <th>MANUFACTURER</th>
                         <th class="mobile-hide">TEAM</th>
-                        <th class="mobile-hide">LAPS</th>
                         <th>PTS</th>
                         <th style="text-align:right;">BONUS</th>
                     </tr>
                 </thead>
                 <tbody id="results-body">
-                    <tr><td colspan="8" style="text-align:center; padding:3rem; color:#666;">Select a race to view results.</td></tr>
+                    <tr><td colspan="7" style="text-align:center; padding:3rem; color:#666;">Select a race to view results.</td></tr>
                 </tbody>
             </table>
         </div>
@@ -214,24 +189,9 @@
         <div style="margin-bottom: 0.5rem; letter-spacing: 2px; color: #fff;">
             © 2025-2026 AMERICAN STOCK CAR RACING LEAGUE
         </div>
-        
         <div style="font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 2rem; text-transform: uppercase;">
             OWNED AND OPERATED BY <span style="color: #fff; font-weight: bold;">A&M PRODUCTIONS LLC</span>
         </div>
-
-        <div class="social-links">
-            <a href="https://www.facebook.com/share/14PeZVCH1hL/" target="_blank" class="social-icon facebook" aria-label="Facebook">
-                <i class="fa-brands fa-facebook"></i>
-            </a>
-            <a href="https://x.com/ASCRWeekly" target="_blank" class="social-icon x-twitter" aria-label="X (Twitter)">
-                <i class="fa-brands fa-x-twitter"></i>
-            </a>
-            <a href="mailto:contact.ascrl@gmail.com" class="social-icon email" aria-label="Email A&M Productions">
-                <i class="fa-solid fa-envelope"></i>
-            </a>
-        </div>
-        
-        <div style="font-size: 0.6rem; color: #444; margin-top: 20px; font-style: italic;">*ai generated images may be used</div>
     </footer>
 
     <script>
@@ -304,7 +264,7 @@
                 console.error(err);
                 raceData = {};
                 document.getElementById('track-select').innerHTML = '<option>NO DATA</option>';
-                document.getElementById('results-body').innerHTML = '<tr><td colspan="8" style="text-align:center;">No data available.</td></tr>';
+                document.getElementById('results-body').innerHTML = '<tr><td colspan="7" style="text-align:center;">No data available.</td></tr>';
             }
         }
 
@@ -329,7 +289,7 @@
             }
             // Reset View
             document.getElementById('winner-banner').style.display = 'none';
-            document.getElementById('results-body').innerHTML = '<tr><td colspan="8" style="text-align:center; padding:3rem;">Select a race to view results.</td></tr>';
+            document.getElementById('results-body').innerHTML = '<tr><td colspan="7" style="text-align:center; padding:3rem;">Select a race to view results.</td></tr>';
         }
 
         // 6. HELPER: GET DRIVER IMAGE URL
@@ -435,7 +395,6 @@
                         <td>#${info.number}</td>
                         <td>${mfrDisplay}</td>
                         <td class="mobile-hide team-cell">${info.team}</td>
-                        <td class="mobile-hide">${row.laps || '-'}</td>
                         <td class="points-cell">${row.points}</td>
                         <td style="text-align:right;">${bonus}</td>
                     </tr>
