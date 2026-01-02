@@ -1734,7 +1734,7 @@
             "Cup": {
                 "number": "50",
                 "team": "WHY IS IT SMOKING? MOTORSPORTS",
-                "manufacturer": "",
+                "manufacturer": "Toyota",
                 "stats": {
                     "points": 73,
                     "wins": 1,
@@ -2325,67 +2325,6 @@
             }
         }
     },
-    "808878779615150120": {
-        "display_name": "punish_r22",
-        "series": {
-            "Cup": {
-                "number": "51",
-                "team": "",
-                "manufacturer": "",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "starts": 0,
-                    "avg": 0
-                }
-            },
-            "Xfinity": {
-                "number": "39",
-                "team": "",
-                "manufacturer": "",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "starts": 0,
-                    "avg": 0
-                }
-            },
-            "Menards": {
-                "number": "67",
-                "team": "",
-                "manufacturer": "",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "starts": 0,
-                    "avg": 0
-                }
-            },
-            "Truck": {
-                "number": "66",
-                "team": "",
-                "manufacturer": "",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "starts": 0,
-                    "avg": 0
-                }
-            }
-        }
-    },
     "970799999912935434": {
         "display_name": "OprahsKooter69",
         "series": {
@@ -2608,6 +2547,25 @@
                     "poles": 0,
                     "starts": 1,
                     "avg": 10.0
+                }
+            }
+        }
+    },
+    "808878779615150120": {
+        "display_name": "Driver 808878779615150120",
+        "series": {
+            "Truck": {
+                "number": "66",
+                "team": "",
+                "manufacturer": "",
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0
                 }
             }
         }
@@ -3120,30 +3078,39 @@
             }
         }
     },
-    "1299437922860400652": {
-        "display_name": "Driver 1299437922860400652",
-        "series": {
-            "Cup": {
-                "number": "21",
-                "team": "",
-                "manufacturer": "",
-                "stats": {
-                    "points": 28,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "starts": 1,
-                    "avg": 8.0
-                }
-            }
-        }
-    },
     "184477940979990528": {
         "display_name": "thelastofdavid",
         "series": {
             "Menards": {
                 "number": "89",
+                "team": "",
+                "manufacturer": "",
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0
+                }
+            },
+            "Truck": {
+                "number": "37",
+                "team": "",
+                "manufacturer": "",
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0
+                }
+            },
+            "Xfinity": {
+                "number": "49",
                 "team": "",
                 "manufacturer": "",
                 "stats": {
@@ -3230,6 +3197,25 @@
                     "poles": 0,
                     "starts": 1,
                     "avg": 6.0
+                }
+            }
+        }
+    },
+    "1299437922860400652": {
+        "display_name": "X1992_COROLLA",
+        "series": {
+            "Cup": {
+                "number": "21",
+                "team": "Independent",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 28,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "starts": 1,
+                    "avg": 8.0
                 }
             }
         }
