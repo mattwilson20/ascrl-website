@@ -16,6 +16,12 @@
             --border: #1a1a1a;
             --text-muted: #a0a0a0;
             --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            
+            /* Series Colors */
+            --cup-blue: #0077ff;
+            --xfinity-purple: #8000b0;
+            --truck-red: #c00;
+            --menards-yellow: #fff200;
         }
 
         body { 
@@ -30,21 +36,8 @@
             overflow-x: hidden; 
         }
 
-        /* --- MODULAR NAVIGATION STYLES --- */
+        /* --- NAVIGATION --- */
         #nav-placeholder { position: relative; z-index: 2000; }
-        
-        .nav-overlay { 
-            position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; 
-            height: 100vh; background: #050505; transition: left 0.5s ease; 
-            z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); 
-        }
-        .nav-overlay.open { left: 0; }
-        .nav-links { display: flex; flex-direction: column; padding: 0 3rem; }
-        .nav-links a { 
-            color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; 
-            border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; 
-        }
-        .nav-links a:hover { color: var(--primary); padding-left: 10px; }
 
         /* --- HERO --- */
         .hero { 
@@ -56,24 +49,32 @@
         h1 { font-size: clamp(3rem, 10vw, 5rem); margin: 0; letter-spacing: -2px; line-height: 0.9; }
         .hero p { color: var(--primary); letter-spacing: 5px; text-transform: uppercase; font-size: 0.9rem; margin-top: 1rem; }
 
-        /* --- CONTROLS --- */
-        .controls { background: #050505; padding: 2rem 1rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; text-align: center; }
-        select { 
-            background: #000; color: #fff; border: 1px solid var(--border); 
-            padding: 1.2rem 2rem; font-family: 'Arial Black', sans-serif; 
-            text-transform: uppercase; cursor: pointer; min-width: 300px;
-            font-size: 1rem;
+        /* --- CONTROLS (TABS) --- */
+        .controls { background: #050505; padding: 2rem 1rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+        .tabs-container { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+
+        .series-btn {
+            background: #111; border: 1px solid #333; color: #fff; 
+            padding: 15px 30px; font-family: 'Arial Black', sans-serif; 
+            text-transform: uppercase; font-size: 1rem; letter-spacing: 1px;
+            cursor: pointer; transition: var(--transition); min-width: 150px;
+            position: relative; overflow: hidden;
         }
-        select:focus { border-color: var(--primary); outline: none; background: #0a0a0a; }
+        .series-btn:hover { transform: translateY(-3px); }
+        .series-btn.active { border-color: #fff; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        .series-btn[data-series="Cup"].active { background: var(--cup-blue); border-color: var(--cup-blue); }
+        .series-btn[data-series="Xfinity"].active { background: var(--xfinity-purple); border-color: var(--xfinity-purple); }
+        .series-btn[data-series="Truck"].active { background: var(--truck-red); border-color: var(--truck-red); }
+        .series-btn[data-series="Menards"].active { background: var(--menards-yellow); border-color: var(--menards-yellow); color: #000; }
 
         /* --- SCHEDULE LIST --- */
         .container { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; }
-        .schedule-list { list-style: none; padding: 0; }
         
         .race-item { 
             display: flex; align-items: center; justify-content: space-between;
             background: var(--card-bg); border: 1px solid var(--border);
             padding: 2rem; margin-bottom: 1rem; transition: var(--transition);
+            position: relative; overflow: hidden;
         }
         
         .race-date { 
@@ -83,18 +84,27 @@
         .month { color: var(--primary); font-size: 0.8rem; letter-spacing: 2px; }
         .day { font-size: 2.5rem; line-height: 1; }
         
-        .race-info { padding-left: 2rem; flex-grow: 1; text-align: left; }
+        .race-info { padding-left: 2rem; flex-grow: 1; text-align: left; z-index: 2; }
         .race-info h3 { margin: 0; font-size: 1.5rem; text-transform: uppercase; letter-spacing: -1px; }
         .race-info p { margin: 5px 0 0; color: var(--text-muted); font-family: sans-serif; font-size: 0.9rem; }
 
+        .race-status { text-align: right; z-index: 2; }
         .status-badge { 
             font-size: 0.7rem; padding: 5px 10px; border: 1px solid #333; 
             border-radius: 4px; text-transform: uppercase; color: #666;
         }
 
+        /* Winner Text */
+        .winner-display {
+            font-size: 0.9rem; color: #fff; margin-top: 5px;
+        }
+        .winner-display i { color: var(--accent); margin-right: 5px; }
+
         /* --- STATES --- */
-        .race-item.completed { opacity: 0.5; border-color: #111; }
-        .race-item.completed:hover { opacity: 1; }
+        .race-item.completed { 
+            border-color: #111; 
+        }
+        .race-item.completed .race-date { opacity: 0.5; }
         
         .race-item.next { 
             border: 1px solid var(--primary); 
@@ -106,33 +116,18 @@
             background: var(--primary); color: #fff; border-color: var(--primary); 
         }
 
-        /* --- FOOTER & SOCIALS --- */
-        footer { 
-            padding: 4rem 1rem; 
-            text-align: center; 
-            border-top: 1px solid var(--border); 
-            color: #333; 
-            font-size: 0.8rem; 
-            letter-spacing: 2px; 
-            text-transform: uppercase; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            gap: 1.5rem; 
-        }
-
+        /* --- FOOTER --- */
+        footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
         .social-links { display: flex; gap: 2rem; justify-content: center; }
         .social-icon { color: #555; font-size: 1.8rem; transition: 0.3s ease; display: flex; align-items: center; justify-content: center; text-decoration: none; }
         .social-icon:hover { transform: translateY(-3px); }
-        .social-icon.facebook:hover { color: #1877F2; } 
-        .social-icon.x-twitter:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
-        .social-icon.email:hover { color: var(--primary); }
 
         @media (max-width: 768px) {
             .hero { padding: 10rem 1rem 4rem; }
             .race-item { flex-direction: column; text-align: center; gap: 1rem; }
             .race-date { border-right: none; border-bottom: 1px solid #222; padding-right: 0; padding-bottom: 1rem; width: 100%; }
             .race-info { padding-left: 0; }
+            .race-status { width: 100%; text-align: center; }
         }
     </style>
 </head>
@@ -146,20 +141,24 @@
     </header>
 
     <div class="controls">
-        <select id="series-select" onchange="loadSchedule()">
-            <option value="Cup">NASCAR Cup Series</option>
-            <option value="Xfinity">Xfinity Series</option>
-            <option value="Truck">Truck Series</option>
-            <option value="Menards">ARCA Menards</option>
-        </select>
+        <div class="tabs-container">
+            <button class="series-btn active" data-series="Cup" onclick="switchSeries('Cup')">Cup Series</button>
+            <button class="series-btn" data-series="Xfinity" onclick="switchSeries('Xfinity')">Xfinity</button>
+            <button class="series-btn" data-series="Truck" onclick="switchSeries('Truck')">Trucks</button>
+            <button class="series-btn" data-series="Menards" onclick="switchSeries('Menards')">Menards</button>
+        </div>
     </div>
 
     <main class="container">
-        <div id="schedule-container" class="schedule-list"></div>
+        <div id="schedule-container">
+            <p style="text-align:center; padding:2rem; color:#666;">Loading Schedule...</p>
+        </div>
     </main>
 
     <footer>
-        <div>© 2025-2026 American Stock Car Racing League | Strictly Professional Fantasy Racing</div>
+        <div style="margin-bottom: 0.5rem; letter-spacing: 2px; color: #fff;">
+            © 2025-2026 AMERICAN STOCK CAR RACING LEAGUE
+        </div>
         <div style="font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 2rem; text-transform: uppercase;">
             OWNED AND OPERATED BY <span style="color: #fff; font-weight: bold;">A&M PRODUCTIONS LLC</span>
         </div>
@@ -177,18 +176,12 @@
             .then(response => response.text())
             .then(data => {
                 document.getElementById('nav-placeholder').innerHTML = data;
-                const currentPage = window.location.pathname.split("/").pop() || "index.html";
-                const navID = "nav-" + currentPage.split(".")[0];
-                
-                // Slight delay to ensure DOM is ready
-                setTimeout(() => {
-                    const activeLink = document.getElementById(navID);
-                    if (activeLink) {
-                        activeLink.style.color = "var(--primary)";
-                        activeLink.style.borderLeft = "4px solid var(--primary)";
-                        activeLink.style.paddingLeft = "15px";
-                    }
-                }, 50);
+                const activeLink = document.getElementById('nav-schedule'); // Ensure nav.html has this ID
+                if (activeLink) {
+                    activeLink.style.color = "var(--primary)";
+                    activeLink.style.borderLeft = "4px solid var(--primary)";
+                    activeLink.style.paddingLeft = "15px";
+                }
             })
             .catch(err => console.error("Nav Error:", err));
 
@@ -198,52 +191,40 @@
         }
 
         // --- 2. SCHEDULE LOGIC ---
+        const SCHEDULE_FILE = 'schedule.json';
         let scheduleData = {};
-
-        // Helper for GitHub Fallback
-        async function fetchWithFallback(filename) {
-            const local = filename;
-            const github = `https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/${filename}`;
-            
-            try {
-                let response = await fetch(local);
-                if (response.ok) return await response.json();
-                
-                console.warn(`Local fetch failed for ${local}, trying GitHub...`);
-                response = await fetch(github);
-                if (response.ok) return await response.json();
-                
-                throw new Error("404 Not Found");
-            } catch (err) {
-                throw err;
-            }
-        }
+        let currentSeries = 'Cup';
 
         document.addEventListener('DOMContentLoaded', () => {
-            // UPDATED FILENAME TO MATCH YOUR JSON
-            const filename = 'schedule.json';
-
-            fetchWithFallback(filename)
+            fetch(SCHEDULE_FILE)
+                .then(res => res.json())
                 .then(data => {
                     scheduleData = data;
-                    loadSchedule();
+                    renderSchedule();
                 })
                 .catch(err => {
                     console.error(err);
-                    document.getElementById('schedule-container').innerHTML = 
-                        `<div style="text-align:center; color:var(--primary); padding:2rem;">
-                            <h3>Unable to load schedule.</h3>
-                            <p style="font-size:0.8rem; color:#666;">Ensure <b>${filename}</b> is present.</p>
-                        </div>`;
+                    document.getElementById('schedule-container').innerHTML = '<p style="text-align:center;">Failed to load schedule.</p>';
                 });
         });
 
-        function loadSchedule() {
-            const selectedSeries = document.getElementById('series-select').value;
+        function switchSeries(seriesName) {
+            currentSeries = seriesName;
+            
+            // Update Buttons
+            document.querySelectorAll('.series-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.dataset.series === seriesName) btn.classList.add('active');
+            });
+
+            renderSchedule();
+        }
+
+        function renderSchedule() {
             const container = document.getElementById('schedule-container');
             container.innerHTML = '';
 
-            const seriesKey = Object.keys(scheduleData).find(k => k.toLowerCase() === selectedSeries.toLowerCase());
+            const seriesKey = Object.keys(scheduleData).find(k => k.toLowerCase() === currentSeries.toLowerCase());
 
             if (!seriesKey || !scheduleData[seriesKey]) {
                 container.innerHTML = '<p style="text-align:center; color:#666; padding:2rem;">No schedule found for this series.</p>';
@@ -255,7 +236,7 @@
             let nextFound = false;
 
             scheduleData[seriesKey].forEach(race => {
-                // Parse date (Assuming YYYY-MM-DD format)
+                // Parse date assuming YYYY-MM-DD
                 const raceDate = new Date(race.date + 'T12:00:00'); 
                 const isPast = raceDate < today;
                 
@@ -264,14 +245,20 @@
                 const year = raceDate.getFullYear();
 
                 let statusClass = '';
-                let statusText = 'UPCOMING';
+                let statusBadge = '<span class="status-badge">UPCOMING</span>';
+                let winnerHtml = '';
 
                 if (isPast) {
                     statusClass = 'completed';
-                    statusText = 'COMPLETED';
+                    statusBadge = '<span class="status-badge">COMPLETED</span>';
+                    
+                    // Show winner if available in JSON
+                    if (race.winner) {
+                        winnerHtml = `<div class="winner-display"><i class="fa-solid fa-trophy"></i> ${race.winner}</div>`;
+                    }
                 } else if (!nextFound) {
                     statusClass = 'next';
-                    statusText = 'NEXT RACE';
+                    statusBadge = '<span class="status-badge" style="background:var(--primary); color:#fff; border:none;">NEXT RACE</span>';
                     nextFound = true; 
                 }
 
@@ -286,7 +273,8 @@
                             <p>${year} Season Event</p>
                         </div>
                         <div class="race-status">
-                            <span class="status-badge">${statusText}</span>
+                            ${statusBadge}
+                            ${winnerHtml}
                         </div>
                     </div>
                 `;
@@ -296,36 +284,15 @@
     </script>
 
     <script>
-        // 1. Disable Right Click
-        document.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-        });
-
-        // 2. Disable Keyboard Shortcuts (Ctrl+U, F12, Ctrl+Shift+I, etc.)
-        document.addEventListener('keydown', (e) => {
-            // Check for Ctrl (or Command on Mac)
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
             if (e.ctrlKey || e.metaKey) {
-                switch (e.key.toLowerCase()) {
-                    case 'u': // View Source
-                    case 's': // Save Page
-                    case 'a': // Select All
-                    case 'c': // Copy
-                        e.preventDefault();
-                        return false;
-                }
-                // Check for Ctrl+Shift+I or J (Developer Tools)
-                if (e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j')) {
-                    e.preventDefault();
-                    return false;
-                }
+                if (['u','s','a','c'].includes(e.key.toLowerCase())) return e.preventDefault();
+                if (e.shiftKey && ['i','j'].includes(e.key.toLowerCase())) return e.preventDefault();
             }
-            
-            // Check for F12 (Developer Tools)
-            if (e.key === 'F12') {
-                e.preventDefault();
-                return false;
-            }
+            if (e.key === 'F12') return e.preventDefault();
         });
     </script>
+
 </body>
 </html>
