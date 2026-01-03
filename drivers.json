@@ -49,13 +49,27 @@
                 "team": "",
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 72,
+                    "points": 97,
                     "wins": 0,
                     "top5": 0,
                     "top10": 1,
                     "poles": 0,
-                    "starts": 3,
-                    "avg": 12.0
+                    "starts": 4,
+                    "avg": 11.75
+                }
+            },
+            "World Of Outlaws": {
+                "number": "1",
+                "team": null,
+                "manufacturer": null,
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0
                 }
             }
         }
@@ -237,13 +251,27 @@
                 "team": null,
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 128,
+                    "points": 161,
                     "wins": 0,
-                    "top5": 1,
-                    "top10": 2,
+                    "top5": 2,
+                    "top10": 3,
                     "poles": 0,
-                    "starts": 5,
-                    "avg": 10.4
+                    "starts": 6,
+                    "avg": 9.17
+                }
+            },
+            "World Of Outlaws": {
+                "number": "24a",
+                "team": null,
+                "manufacturer": null,
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0
                 }
             }
         }
@@ -364,13 +392,13 @@
                 "team": null,
                 "manufacturer": null,
                 "stats": {
-                    "points": 43,
+                    "points": 61,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "starts": 2,
-                    "avg": 14.5
+                    "starts": 3,
+                    "avg": 15.67
                 }
             }
         }
@@ -422,6 +450,20 @@
             },
             "Xfinity": {
                 "number": "40",
+                "team": null,
+                "manufacturer": null,
+                "stats": {
+                    "points": 19,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 1,
+                    "avg": 17.0
+                }
+            },
+            "World Of Outlaws": {
+                "number": "07",
                 "team": null,
                 "manufacturer": null,
                 "stats": {
@@ -740,13 +782,13 @@
                 "team": null,
                 "manufacturer": null,
                 "stats": {
-                    "points": 93,
+                    "points": 119,
                     "wins": 0,
                     "top5": 1,
-                    "top10": 1,
-                    "poles": 0,
-                    "starts": 4,
-                    "avg": 12.75
+                    "top10": 2,
+                    "poles": 1,
+                    "starts": 5,
+                    "avg": 12.2
                 }
             },
             "Menards": {
@@ -862,13 +904,13 @@
                 "team": null,
                 "manufacturer": null,
                 "stats": {
-                    "points": 47,
+                    "points": 69,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "starts": 2,
-                    "avg": 12.5
+                    "starts": 3,
+                    "avg": 13.0
                 }
             },
             "Menards": {
@@ -883,6 +925,20 @@
                     "poles": 0,
                     "starts": 3,
                     "avg": 12.67
+                }
+            },
+            "World Of Outlaws": {
+                "number": "63",
+                "team": null,
+                "manufacturer": null,
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0
                 }
             }
         }
@@ -931,6 +987,20 @@
                     "starts": 3,
                     "avg": 9.33
                 }
+            },
+            "World Of Outlaws": {
+                "number": "64",
+                "team": null,
+                "manufacturer": null,
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0
+                }
             }
         }
     },
@@ -956,13 +1026,13 @@
                 "team": null,
                 "manufacturer": null,
                 "stats": {
-                    "points": 124,
+                    "points": 147,
                     "wins": 1,
                     "top5": 2,
                     "top10": 3,
                     "poles": 0,
-                    "starts": 4,
-                    "avg": 6.25
+                    "starts": 5,
+                    "avg": 7.6
                 }
             },
             "Truck": {
@@ -991,6 +1061,20 @@
                     "poles": 2,
                     "starts": 5,
                     "avg": 5.6
+                }
+            },
+            "World Of Outlaws": {
+                "number": "69 <@1141220889816465469>",
+                "team": null,
+                "manufacturer": null,
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0
                 }
             }
         }
@@ -1053,6 +1137,20 @@
                     "starts": 1,
                     "avg": 12.0
                 }
+            },
+            "World Of Outlaws": {
+                "number": "218",
+                "team": null,
+                "manufacturer": null,
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0
+                }
             }
         }
     },
@@ -1106,13 +1204,13 @@
                 "team": null,
                 "manufacturer": null,
                 "stats": {
-                    "points": 137,
+                    "points": 153,
                     "wins": 0,
                     "top5": 3,
                     "top10": 3,
                     "poles": 0,
-                    "starts": 5,
-                    "avg": 8.6
+                    "starts": 6,
+                    "avg": 10.5
                 }
             }
         }
@@ -1339,20 +1437,20 @@
         }
     },
     "750570435380248678": {
-        "display_name": "kevwood87",
+        "display_name": "Driver 750570435380248678",
         "series": {
             "Truck": {
                 "number": "5",
                 "team": null,
                 "manufacturer": null,
                 "stats": {
-                    "points": 94,
+                    "points": 0,
                     "wins": 0,
-                    "top5": 2,
-                    "top10": 3,
+                    "top5": 0,
+                    "top10": 0,
                     "poles": 0,
-                    "starts": 3,
-                    "avg": 5.0
+                    "starts": 0,
+                    "avg": 0
                 }
             },
             "Menards": {
@@ -1360,41 +1458,13 @@
                 "team": null,
                 "manufacturer": null,
                 "stats": {
-                    "points": 138,
-                    "wins": 1,
-                    "top5": 4,
-                    "top10": 4,
-                    "poles": 0,
-                    "starts": 4,
-                    "avg": 3.0
-                }
-            },
-            "Xfinity": {
-                "number": "91",
-                "team": "",
-                "manufacturer": "",
-                "stats": {
-                    "points": 94,
-                    "wins": 1,
-                    "top5": 2,
-                    "top10": 2,
-                    "poles": 0,
-                    "starts": 3,
-                    "avg": 6.33
-                }
-            },
-            "Cup": {
-                "number": "N/A",
-                "team": "Independent",
-                "manufacturer": "N/A",
-                "stats": {
-                    "points": 17,
+                    "points": 0,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "starts": 1,
-                    "avg": 19.0
+                    "starts": 0,
+                    "avg": 0
                 }
             }
         }
@@ -1708,13 +1778,13 @@
                 "team": "",
                 "manufacturer": "",
                 "stats": {
-                    "points": 65,
+                    "points": 86,
                     "wins": 0,
                     "top5": 1,
                     "top10": 2,
                     "poles": 0,
-                    "starts": 2,
-                    "avg": 4.0
+                    "starts": 3,
+                    "avg": 7.67
                 }
             },
             "Truck": {
@@ -1783,13 +1853,13 @@
                 "team": "",
                 "manufacturer": "",
                 "stats": {
-                    "points": 111,
-                    "wins": 2,
-                    "top5": 3,
-                    "top10": 3,
+                    "points": 151,
+                    "wins": 3,
+                    "top5": 4,
+                    "top10": 4,
                     "poles": 0,
-                    "starts": 3,
-                    "avg": 2.33
+                    "starts": 4,
+                    "avg": 2.0
                 }
             },
             "Cup": {
@@ -1804,6 +1874,20 @@
                     "poles": 0,
                     "starts": 4,
                     "avg": 11.25
+                }
+            },
+            "World Of Outlaws": {
+                "number": "8",
+                "team": null,
+                "manufacturer": null,
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0
                 }
             }
         }
@@ -1830,13 +1914,13 @@
                 "team": "",
                 "manufacturer": "",
                 "stats": {
-                    "points": 56,
+                    "points": 87,
                     "wins": 0,
-                    "top5": 1,
-                    "top10": 1,
+                    "top5": 2,
+                    "top10": 2,
                     "poles": 0,
-                    "starts": 2,
-                    "avg": 8.0
+                    "starts": 3,
+                    "avg": 7.0
                 }
             },
             "Cup": {
@@ -1952,13 +2036,27 @@
                 "team": "",
                 "manufacturer": "",
                 "stats": {
-                    "points": 74,
+                    "points": 102,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 1,
+                    "top10": 2,
                     "poles": 0,
-                    "starts": 3,
-                    "avg": 11.33
+                    "starts": 4,
+                    "avg": 10.5
+                }
+            },
+            "World Of Outlaws": {
+                "number": "000",
+                "team": null,
+                "manufacturer": null,
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0
                 }
             },
             "Menards": {
@@ -2253,13 +2351,13 @@
                 "team": "",
                 "manufacturer": "",
                 "stats": {
-                    "points": 0,
+                    "points": 32,
                     "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
+                    "top5": 1,
+                    "top10": 1,
                     "poles": 0,
-                    "starts": 0,
-                    "avg": 0
+                    "starts": 1,
+                    "avg": 4.0
                 }
             },
             "Truck": {
@@ -2303,11 +2401,25 @@
                     "starts": 1,
                     "avg": 21.0
                 }
+            },
+            "World Of Outlaws": {
+                "number": "9",
+                "team": null,
+                "manufacturer": null,
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0
+                }
             }
         }
     },
     "1395112541633642531": {
-        "display_name": "RCR3LEGEND-",
+        "display_name": "Driver 1395112541633642531",
         "series": {
             "Cup": {
                 "number": "65",
@@ -2526,13 +2638,13 @@
                 "team": "",
                 "manufacturer": "",
                 "stats": {
-                    "points": 0,
+                    "points": 29,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 0,
+                    "top10": 1,
                     "poles": 0,
-                    "starts": 0,
-                    "avg": 0
+                    "starts": 1,
+                    "avg": 7.0
                 }
             },
             "Menards": {
@@ -2547,6 +2659,20 @@
                     "poles": 0,
                     "starts": 1,
                     "avg": 10.0
+                }
+            },
+            "World Of Outlaws": {
+                "number": "85",
+                "team": null,
+                "manufacturer": null,
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0
                 }
             }
         }
@@ -2658,6 +2784,20 @@
                 "team": "",
                 "manufacturer": "",
                 "stats": {
+                    "points": 35,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 1,
+                    "poles": 0,
+                    "starts": 1,
+                    "avg": 2.0
+                }
+            },
+            "World Of Outlaws": {
+                "number": "57",
+                "team": null,
+                "manufacturer": null,
+                "stats": {
                     "points": 0,
                     "wins": 0,
                     "top5": 0,
@@ -2691,13 +2831,13 @@
                 "team": "",
                 "manufacturer": "",
                 "stats": {
-                    "points": 0,
+                    "points": 30,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 0,
+                    "top10": 1,
                     "poles": 0,
-                    "starts": 0,
-                    "avg": 0
+                    "starts": 1,
+                    "avg": 6.0
                 }
             }
         }
@@ -2745,6 +2885,20 @@
                     "poles": 0,
                     "starts": 1,
                     "avg": 15.0
+                }
+            },
+            "Xfinity": {
+                "number": "87",
+                "team": "",
+                "manufacturer": "",
+                "stats": {
+                    "points": 27,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "starts": 1,
+                    "avg": 9.0
                 }
             }
         }
@@ -2832,13 +2986,13 @@
                 "team": "",
                 "manufacturer": "",
                 "stats": {
-                    "points": 0,
+                    "points": 17,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "starts": 0,
-                    "avg": 0
+                    "starts": 1,
+                    "avg": 19.0
                 }
             }
         }
@@ -2872,6 +3026,20 @@
                     "poles": 0,
                     "starts": 1,
                     "avg": 9.0
+                }
+            },
+            "Xfinity": {
+                "number": "90",
+                "team": "",
+                "manufacturer": "",
+                "stats": {
+                    "points": 20,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 1,
+                    "avg": 16.0
                 }
             }
         }
@@ -2926,13 +3094,13 @@
                 "team": "INDEPENDENT",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 141,
+                    "points": 165,
                     "wins": 0,
                     "top5": 1,
                     "top10": 4,
                     "poles": 0,
-                    "starts": 5,
-                    "avg": 8.0
+                    "starts": 6,
+                    "avg": 8.67
                 }
             }
         }
@@ -2959,13 +3127,13 @@
                 "team": "INDEPENDENT",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 104,
+                    "points": 119,
                     "wins": 0,
                     "top5": 2,
                     "top10": 3,
                     "poles": 0,
-                    "starts": 4,
-                    "avg": 10.0
+                    "starts": 5,
+                    "avg": 12.2
                 }
             },
             "Truck": {
@@ -3079,7 +3247,7 @@
         }
     },
     "184477940979990528": {
-        "display_name": "thelastofdavid",
+        "display_name": "Driver 184477940979990528",
         "series": {
             "Menards": {
                 "number": "89",
@@ -3140,6 +3308,86 @@
                     "poles": 0,
                     "starts": 0,
                     "avg": 0
+                }
+            }
+        }
+    },
+    "1141220889816465469": {
+        "display_name": "\ud83e\udda5Strait_Rogue\ud83e\udda5",
+        "series": {
+            "World Of Outlaws": {
+                "number": "69",
+                "team": null,
+                "manufacturer": null,
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0
+                }
+            }
+        }
+    },
+    "guest_kevwood87": {
+        "display_name": "kevwood87",
+        "series": {
+            "Menards": {
+                "number": "6",
+                "team": "Independent",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 138,
+                    "wins": 1,
+                    "top5": 4,
+                    "top10": 4,
+                    "poles": 0,
+                    "starts": 4,
+                    "avg": 3.0
+                }
+            },
+            "Truck": {
+                "number": "5",
+                "team": "Independent",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 94,
+                    "wins": 0,
+                    "top5": 2,
+                    "top10": 3,
+                    "poles": 0,
+                    "starts": 3,
+                    "avg": 5.0
+                }
+            },
+            "Xfinity": {
+                "number": "91",
+                "team": "Independent",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 94,
+                    "wins": 1,
+                    "top5": 2,
+                    "top10": 2,
+                    "poles": 0,
+                    "starts": 3,
+                    "avg": 6.33
+                }
+            },
+            "Cup": {
+                "number": "N/A",
+                "team": "Independent",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 17,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 1,
+                    "avg": 19.0
                 }
             }
         }
