@@ -9,9 +9,9 @@
     <style>
         :root {
             /* THE RED CLAY THEME */
-            --dirt-bg: #5c1414; /* Deep Red Clay Base */
-            --dirt-card: #2a0e0e; /* Darker Red/Black for cards */
-            --dirt-gold: #ffc800; /* Bright Gold for contrast */
+            --dirt-bg: #5c1414; 
+            --dirt-card: #2a0e0e; 
+            --dirt-gold: #ffc800; 
             --dirt-red: #8b0000;
             --text-light: #f0e6e6;
             --text-dim: #cbaaaa;
@@ -21,8 +21,6 @@
             margin: 0; 
             font-family: 'Arial Black', sans-serif; 
             color: var(--text-light); 
-            
-            /* --- RED CLAY RACING SURFACE BACKGROUND --- */
             background-color: var(--dirt-bg);
             background-image: 
                 linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)),
@@ -30,10 +28,9 @@
             background-attachment: fixed;
         }
 
-        /* --- NAV PLACEHOLDER --- */
         #nav-placeholder { position: relative; z-index: 2000; }
-        
-        /* --- HERO SECTION --- */
+
+        /* --- HERO --- */
         .woo-hero {
             text-align: center;
             padding: 6rem 1rem 4rem;
@@ -76,7 +73,7 @@
             transform: skew(-10deg);
         }
 
-        /* --- GRID LAYOUT --- */
+        /* --- VIEWS --- */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -86,7 +83,18 @@
             padding: 0 2rem;
         }
 
-        /* --- DRIVER CARD --- */
+        .table-view { display: none; max-width: 1000px; margin: 3rem auto; padding: 0 1rem; }
+        
+        /* TABLE STYLING */
+        table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.5); border: 1px solid #551111; }
+        th { text-align: left; padding: 15px; color: var(--dirt-gold); border-bottom: 2px solid #551111; background: rgba(50, 10, 10, 0.8); }
+        td { padding: 15px; border-bottom: 1px solid #441111; font-family: sans-serif; }
+        
+        /* CLICKABLE ROWS */
+        tbody tr { cursor: pointer; transition: 0.2s; }
+        tbody tr:hover { background: rgba(255, 200, 0, 0.15); border-left: 3px solid var(--dirt-gold); }
+
+        /* --- DRIVER CARD (Used in Grid & Modal) --- */
         .driver-card {
             background: var(--dirt-card);
             border: 1px solid #441111;
@@ -97,7 +105,7 @@
             position: relative;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
-        .driver-card:hover { 
+        .grid-container .driver-card:hover { 
             transform: translateY(-5px); 
             box-shadow: 0 10px 25px rgba(0,0,0,0.6); 
             border-color: var(--dirt-gold);
@@ -113,7 +121,6 @@
         }
         .driver-info h2 { margin: 0; font-size: 1.4rem; color: #fff; text-shadow: 2px 2px 0 #000; }
         .driver-info span { font-size: 0.8rem; color: var(--text-dim); font-weight: normal; font-family: sans-serif; }
-        
         .total-badge { text-align: right; }
         .total-points { font-size: 2rem; color: var(--dirt-gold); line-height: 1; text-shadow: 0 0 10px rgba(255, 200, 0, 0.3); }
         .total-label { font-size: 0.6rem; color: #995555; text-transform: uppercase; letter-spacing: 1px; }
@@ -130,31 +137,33 @@
         }
         .stat-item b { color: #fff; font-size: 1rem; }
 
-        /* --- CAR BREAKDOWN LIST --- */
         .car-list { padding: 1rem; }
         .car-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(0,0,0,0.2);
-            margin-bottom: 8px;
-            padding: 10px;
-            border-radius: 4px;
-            border-left: 3px solid #551111;
-            transition: 0.2s;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0,0,0,0.2); margin-bottom: 8px; padding: 10px;
+            border-radius: 4px; border-left: 3px solid #551111; transition: 0.2s;
         }
         .car-item:hover { background: rgba(0,0,0,0.4); border-left-color: var(--dirt-gold); }
-        
         .car-name { font-size: 0.9rem; color: var(--text-light); }
         .car-details { text-align: right; font-family: sans-serif; font-size: 0.8rem; color: #aaa; }
         .car-pts { color: var(--dirt-gold); font-weight: bold; font-family: 'Arial Black'; margin-left: 10px; }
 
-        /* --- TABLE VIEW --- */
-        .table-view { display: none; max-width: 1000px; margin: 3rem auto; padding: 0 1rem; }
-        table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.5); border: 1px solid #551111; }
-        th { text-align: left; padding: 15px; color: var(--dirt-gold); border-bottom: 2px solid #551111; background: rgba(50, 10, 10, 0.8); }
-        td { padding: 15px; border-bottom: 1px solid #441111; font-family: sans-serif; }
-        tr:hover td { background: rgba(100, 20, 20, 0.3); }
+        /* --- MODAL --- */
+        #driver-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 3000;
+            display: none; align-items: center; justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            width: 100%; max-width: 500px;
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        #close-modal {
+            position: absolute; top: 20px; right: 20px;
+            font-size: 2rem; color: #fff; cursor: pointer;
+        }
 
     </style>
 </head>
@@ -187,77 +196,85 @@
             </thead>
             <tbody id="table-body"></tbody>
         </table>
+        <div style="text-align:center; padding:10px; color:#666; font-size:0.8rem;">
+            * Click any row to view breakdown
+        </div>
+    </div>
+
+    <div id="driver-modal" onclick="closeModal(event)">
+        <div id="close-modal">&times;</div>
+        <div class="modal-content" id="modal-body">
+            </div>
     </div>
 
     <script>
-        // 1. Load Navigation
+        // 1. Navigation
         fetch('nav.html').then(res => res.text()).then(data => document.getElementById('nav-placeholder').innerHTML = data);
+        function toggleMenu() { const nav = document.getElementById('nav-menu'); if (nav) nav.classList.toggle('open'); }
 
-        // 2. TOGGLE MENU FUNCTION (Fixes the hamburger button)
-        function toggleMenu() {
-            const nav = document.getElementById('nav-menu');
-            if (nav) {
-                nav.classList.toggle('open');
-            }
-        }
+        // 2. Data Logic
+        let allDrivers = [];
 
-        // 3. Fetch Data (Fixed filename to woo.json)
         fetch('woo.json')
             .then(res => res.json())
-            .then(data => renderPage(data))
+            .then(data => {
+                // --- SMART DATA PARSER (Handles Flat AND Nested JSON) ---
+                allDrivers = Object.keys(data).map(key => {
+                    const item = data[key];
+                    let stats, number, team, cars;
+
+                    // CHECK 1: Is it the New Flat Format? (from Python script)
+                    if (item.stats && item.cars) {
+                        stats = item.stats;
+                        number = item.number;
+                        team = item.team;
+                        cars = item.cars;
+                    }
+                    // CHECK 2: Is it the Old Nested Format? (from your uploaded file)
+                    else if (item.series && item.series["World Of Outlaws"]) {
+                        const woo = item.series["World Of Outlaws"];
+                        stats = woo.stats;
+                        number = woo.number;
+                        team = woo.team;
+                        cars = []; // Old format has no cars list
+                    }
+                    // FALLBACK
+                    else {
+                        stats = { points: 0, wins: 0, starts: 0, avg: 0 };
+                        number = "??";
+                        team = "Unknown";
+                        cars = [];
+                    }
+
+                    return {
+                        id: key, 
+                        display_name: item.display_name,
+                        number: number || "??",
+                        team: team,
+                        stats: stats,
+                        cars: cars
+                    };
+                });
+                
+                allDrivers.sort((a, b) => b.stats.points - a.stats.points);
+                renderPage();
+            })
             .catch(err => console.error("Error loading WoO data:", err));
 
-        function renderPage(data) {
+        function renderPage() {
             const cardContainer = document.getElementById('card-container');
             const tableBody = document.getElementById('table-body');
             
-            let drivers = Object.keys(data).map(key => data[key]);
-            drivers.sort((a, b) => b.stats.points - a.stats.points);
+            cardContainer.innerHTML = '';
+            tableBody.innerHTML = '';
 
-            drivers.forEach((d, index) => {
-                const card = document.createElement('div');
-                card.className = 'driver-card';
-                
-                let carsHtml = '';
-                if (d.cars && d.cars.length > 0) {
-                    d.cars.forEach(car => {
-                        carsHtml += `
-                            <div class="car-item">
-                                <div class="car-name">${car.type}</div>
-                                <div class="car-details">
-                                    ${car.starts} Starts • ${car.wins} Wins • Avg ${car.avg}
-                                    <span class="car-pts">${car.points} pts</span>
-                                </div>
-                            </div>
-                        `;
-                    });
-                } else {
-                    carsHtml = '<div style="padding:1rem; text-align:center; color:#775555; font-size:0.8rem;">No car data available</div>';
-                }
+            allDrivers.forEach((d, index) => {
+                // 1. Render Main Card
+                cardContainer.appendChild(createDriverCard(d, index));
 
-                card.innerHTML = `
-                    <div class="card-header">
-                        <div class="driver-info">
-                            <h2>${d.display_name}</h2>
-                            <span>#${d.number} • ${d.team || 'Independent'}</span>
-                        </div>
-                        <div class="total-badge">
-                            <div class="total-points">${d.stats.points}</div>
-                            <div class="total-label">Rank ${index + 1}</div>
-                        </div>
-                    </div>
-                    <div class="card-stats">
-                        <div class="stat-item"><b>${d.stats.starts}</b> Starts</div>
-                        <div class="stat-item"><b>${d.stats.wins}</b> Wins</div>
-                        <div class="stat-item"><b>${d.stats.avg}</b> Avg</div>
-                    </div>
-                    <div class="car-list">
-                        ${carsHtml}
-                    </div>
-                `;
-                cardContainer.appendChild(card);
-
+                // 2. Render Table Row (Clickable)
                 const tr = document.createElement('tr');
+                tr.onclick = () => openModal(index); 
                 tr.innerHTML = `
                     <td>${index + 1}</td>
                     <td style="font-weight:bold; color:#fff;">${d.display_name}</td>
@@ -269,10 +286,58 @@
             });
         }
 
+        // Helper to build the Card HTML
+        function createDriverCard(d, index) {
+            const card = document.createElement('div');
+            card.className = 'driver-card';
+            
+            // Generate Car Breakdown List
+            let carsHtml = '';
+            if (d.cars && d.cars.length > 0) {
+                d.cars.forEach(car => {
+                    carsHtml += `
+                        <div class="car-item">
+                            <div class="car-name">${car.type}</div>
+                            <div class="car-details">
+                                ${car.starts} Starts • ${car.wins} Wins • Avg ${car.avg}
+                                <span class="car-pts">${car.points} pts</span>
+                            </div>
+                        </div>`;
+                });
+            } else {
+                carsHtml = '<div style="padding:1rem; text-align:center; color:#775555; font-size:0.8rem;">No specific car data available</div>';
+            }
+
+            // Clean Number (Remove discord ID junk if present)
+            let cleanNumber = String(d.number).split(' ')[0];
+
+            card.innerHTML = `
+                <div class="card-header">
+                    <div class="driver-info">
+                        <h2>${d.display_name}</h2>
+                        <span>#${cleanNumber} • ${d.team || 'Independent'}</span>
+                    </div>
+                    <div class="total-badge">
+                        <div class="total-points">${d.stats.points}</div>
+                        <div class="total-label">Rank ${index + 1}</div>
+                    </div>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item"><b>${d.stats.starts}</b> Starts</div>
+                    <div class="stat-item"><b>${d.stats.wins}</b> Wins</div>
+                    <div class="stat-item"><b>${d.stats.avg}</b> Avg</div>
+                </div>
+                <div class="car-list">
+                    ${carsHtml}
+                </div>
+            `;
+            return card;
+        }
+
+        // --- INTERACTION LOGIC ---
         function showView(view) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             event.target.classList.add('active');
-
             if (view === 'cards') {
                 document.getElementById('card-container').style.display = 'grid';
                 document.getElementById('table-container').style.display = 'none';
@@ -281,15 +346,25 @@
                 document.getElementById('table-container').style.display = 'block';
             }
         }
+
+        function openModal(index) {
+            const driver = allDrivers[index];
+            const modalBody = document.getElementById('modal-body');
+            modalBody.innerHTML = ''; 
+            modalBody.appendChild(createDriverCard(driver, index));
+            document.getElementById('driver-modal').style.display = 'flex';
+        }
+
+        function closeModal(e) {
+            if (e.target.id === 'driver-modal' || e.target.id === 'close-modal') {
+                document.getElementById('driver-modal').style.display = 'none';
+            }
+        }
     </script>
 
     <script>
         document.addEventListener('contextmenu', (e) => e.preventDefault());
         document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey || e.metaKey) {
-                if (['u', 's', 'a', 'c'].includes(e.key.toLowerCase())) { e.preventDefault(); return false; }
-                if (e.shiftKey && ['i', 'j'].includes(e.key.toLowerCase())) { e.preventDefault(); return false; }
-            }
             if (e.key === 'F12') { e.preventDefault(); return false; }
         });
     </script>
