@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World of Outlaws | ASCRL</title>
+    <link rel="icon" href="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            /* THE RED CLAY THEME */
+            --dirt-bg: #5c1414; /* Deep Red Clay Base */
+            --dirt-card: #2a0e0e; /* Darker Red/Black for cards */
+            --dirt-gold: #ffc800; /* Bright Gold for contrast */
+            --dirt-red: #8b0000;
+            --text-light: #f0e6e6;
+            --text-dim: #cbaaaa;
+        }
+
+        body { 
+            margin: 0; 
+            font-family: 'Arial Black', sans-serif; 
+            color: var(--text-light); 
+            
+            /* --- RED CLAY RACING SURFACE BACKGROUND --- */
+            background-color: var(--dirt-bg);
+            /* This texture pattern (Asphalt) over the red color makes it look like packed clay */
+            background-image: 
+                linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)), /* Vignette for depth */
+                url('https://www.transparenttextures.com/patterns/asphalt.png'); 
+            background-attachment: fixed; /* Keeps the dirt still while you scroll */
+        }
+
+        /* --- NAV PLACEHOLDER --- */
+        #nav-placeholder { position: relative; z-index: 100; }
+
+        /* --- HERO SECTION --- */
+        .woo-hero {
+            text-align: center;
+            padding: 6rem 1rem 4rem;
+            /* Update this image to a dirt track photo if you have one */
+            background: linear-gradient(to bottom, rgba(50, 10, 10, 0.8), var(--dirt-bg)), url('https://i.imgur.com/3Z6Q1qM.jpg');
+            background-size: cover;
+            background-position: center;
+            border-bottom: 4px solid var(--dirt-gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .woo-hero h1 { font-size: 3.5rem; text-transform: uppercase; color: #fff; text-shadow: 0 4px 10px rgba(0,0,0,0.8); margin: 0; }
+        .woo-hero p { color: var(--dirt-gold); font-size: 1.2rem; letter-spacing: 2px; margin-top: 10px; }
+
+        /* --- CONTROLS --- */
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(40, 10, 10, 0.95); /* Semi-transparent Red/Black */
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            border-bottom: 1px solid #441111;
+            backdrop-filter: blur(5px);
+        }
+        .filter-btn {
+            background: transparent;
+            border: 2px solid #551111;
+            color: #ddd;
+            padding: 10px 25px;
+            font-family: 'Arial Black';
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            border-color: var(--dirt-gold);
+            color: var(--dirt-gold);
+            background: rgba(255, 200, 0, 0.1);
+            transform: skew(-10deg); /* Slight racing angle */
+        }
+
+        /* --- GRID LAYOUT --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        /* --- DRIVER CARD --- */
+        .driver-card {
+            background: var(--dirt-card);
+            border: 1px solid #441111;
+            border-left: 5px solid var(--dirt-gold);
+            border-radius: 4px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .driver-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6); 
+            border-color: var(--dirt-gold);
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            background: linear-gradient(45deg, #380e0e, #1f0505);
+            border-bottom: 1px solid #441111;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .driver-info h2 { margin: 0; font-size: 1.4rem; color: #fff; text-shadow: 2px 2px 0 #000; }
+        .driver-info span { font-size: 0.8rem; color: var(--text-dim); font-weight: normal; font-family: sans-serif; }
+        
+        .total-badge { text-align: right; }
+        .total-points { font-size: 2rem; color: var(--dirt-gold); line-height: 1; text-shadow: 0 0 10px rgba(255, 200, 0, 0.3); }
+        .total-label { font-size: 0.6rem; color: #995555; text-transform: uppercase; letter-spacing: 1px; }
+
+        .card-stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem;
+            background: rgba(0,0,0,0.2);
+            font-size: 0.8rem;
+            font-family: sans-serif;
+            color: #ccc;
+            border-bottom: 1px solid #441111;
+        }
+        .stat-item b { color: #fff; font-size: 1rem; }
+
+        /* --- CAR BREAKDOWN LIST --- */
+        .car-list { padding: 1rem; }
+        .car-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,0.2);
+            margin-bottom: 8px;
+            padding: 10px;
+            border-radius: 4px;
+            border-left: 3px solid #551111;
+            transition: 0.2s;
+        }
+        .car-item:hover { background: rgba(0,0,0,0.4); border-left-color: var(--dirt-gold); }
+        
+        .car-name { font-size: 0.9rem; color: var(--text-light); }
+        .car-details { text-align: right; font-family: sans-serif; font-size: 0.8rem; color: #aaa; }
+        .car-pts { color: var(--dirt-gold); font-weight: bold; font-family: 'Arial Black'; margin-left: 10px; }
+
+        /* --- TABLE VIEW --- */
+        .table-view { display: none; max-width: 1000px; margin: 3rem auto; padding: 0 1rem; }
+        table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.5); border: 1px solid #551111; }
+        th { text-align: left; padding: 15px; color: var(--dirt-gold); border-bottom: 2px solid #551111; background: rgba(50, 10, 10, 0.8); }
+        td { padding: 15px; border-bottom: 1px solid #441111; font-family: sans-serif; }
+        tr:hover td { background: rgba(100, 20, 20, 0.3); }
+
+    </style>
+</head>
+<body>
+
+    <div id="nav-placeholder"></div>
+
+    <header class="woo-hero">
+        <h1>World of Outlaws</h1>
+        <p>Career Stats & Breakdown</p>
+    </header>
+
+    <div class="controls">
+        <button class="filter-btn active" onclick="showView('cards')">Driver Cards</button>
+        <button class="filter-btn" onclick="showView('table')">Simple Standings</button>
+    </div>
+
+    <div id="card-container" class="grid-container"></div>
+
+    <div id="table-container" class="table-view">
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Driver</th>
+                    <th>Points</th>
+                    <th>Wins</th>
+                    <th>Avg</th>
+                </tr>
+            </thead>
+            <tbody id="table-body"></tbody>
+        </table>
+    </div>
+
+    <script>
+        // Load Navigation
+        fetch('nav.html').then(res => res.text()).then(data => document.getElementById('nav-placeholder').innerHTML = data);
+
+        // Fetch Data
+        fetch('woo_data.json')
+            .then(res => res.json())
+            .then(data => renderPage(data))
+            .catch(err => console.error("Error loading WoO data:", err));
+
+        function renderPage(data) {
+            const cardContainer = document.getElementById('card-container');
+            const tableBody = document.getElementById('table-body');
+            
+            // Convert Object to Array for sorting
+            let drivers = Object.keys(data).map(key => data[key]);
+            
+            // Sort by Points
+            drivers.sort((a, b) => b.stats.points - a.stats.points);
+
+            drivers.forEach((d, index) => {
+                // 1. CREATE CARD
+                const card = document.createElement('div');
+                card.className = 'driver-card';
+                
+                // Build Car Breakdown HTML
+                let carsHtml = '';
+                if (d.cars && d.cars.length > 0) {
+                    d.cars.forEach(car => {
+                        carsHtml += `
+                            <div class="car-item">
+                                <div class="car-name">${car.type}</div>
+                                <div class="car-details">
+                                    ${car.starts} Starts • ${car.wins} Wins • Avg ${car.avg}
+                                    <span class="car-pts">${car.points} pts</span>
+                                </div>
+                            </div>
+                        `;
+                    });
+                } else {
+                    carsHtml = '<div style="padding:1rem; text-align:center; color:#775555; font-size:0.8rem;">No car data available</div>';
+                }
+
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="driver-info">
+                            <h2>${d.display_name}</h2>
+                            <span>#${d.number} • ${d.team || 'Independent'}</span>
+                        </div>
+                        <div class="total-badge">
+                            <div class="total-points">${d.stats.points}</div>
+                            <div class="total-label">Rank ${index + 1}</div>
+                        </div>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat-item"><b>${d.stats.starts}</b> Starts</div>
+                        <div class="stat-item"><b>${d.stats.wins}</b> Wins</div>
+                        <div class="stat-item"><b>${d.stats.avg}</b> Avg</div>
+                    </div>
+                    <div class="car-list">
+                        ${carsHtml}
+                    </div>
+                `;
+                cardContainer.appendChild(card);
+
+                // 2. CREATE TABLE ROW
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td style="font-weight:bold; color:#fff;">${d.display_name}</td>
+                    <td style="color:var(--dirt-gold); font-weight:bold;">${d.stats.points}</td>
+                    <td>${d.stats.wins}</td>
+                    <td>${d.stats.avg}</td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        function showView(view) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (view === 'cards') {
+                document.getElementById('card-container').style.display = 'grid';
+                document.getElementById('table-container').style.display = 'none';
+            } else {
+                document.getElementById('card-container').style.display = 'none';
+                document.getElementById('table-container').style.display = 'block';
+            }
+        }
+    </script>
+
+</body>
+</html>
