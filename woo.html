@@ -30,7 +30,7 @@
             background-attachment: fixed;
         }
 
-        /* --- NAV STYLES (Should match nav.html but kept here for safety) --- */
+        /* --- NAV PLACEHOLDER --- */
         #nav-placeholder { position: relative; z-index: 2000; }
         
         /* --- HERO SECTION --- */
@@ -193,7 +193,7 @@
         // 1. Load Navigation
         fetch('nav.html').then(res => res.text()).then(data => document.getElementById('nav-placeholder').innerHTML = data);
 
-        // 2. THIS IS THE MISSING PART: The Toggle Menu Function
+        // 2. TOGGLE MENU FUNCTION (Fixes the hamburger button)
         function toggleMenu() {
             const nav = document.getElementById('nav-menu');
             if (nav) {
@@ -201,8 +201,8 @@
             }
         }
 
-        // 3. Fetch Data
-        fetch('woo_data.json')
+        // 3. Fetch Data (Fixed filename to woo.json)
+        fetch('woo.json')
             .then(res => res.json())
             .then(data => renderPage(data))
             .catch(err => console.error("Error loading WoO data:", err));
