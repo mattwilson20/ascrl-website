@@ -13,7 +13,7 @@
     <style>
         /* --- WOO SPECIFIC OVERRIDES --- */
         :root {
-            /* Keep the Red Clay Theme variables for this page */
+            /* THE RED CLAY THEME */
             --dirt-bg: #5c1414; 
             --dirt-card: #2a0e0e; 
             --dirt-gold: #ffc800; 
@@ -34,18 +34,41 @@
 
         #nav-placeholder { position: relative; z-index: 2000; }
 
-        /* --- HERO --- */
-        /* We inherit .hero from style.css, but add specific image */
+        /* --- HERO (Black Background) --- */
         .hero-woo {
-            background: linear-gradient(to bottom, rgba(50, 10, 10, 0.8), var(--dirt-bg)), url('https://i.imgur.com/3Z6Q1qM.jpg');
-            background-size: cover;
-            background-position: center;
+            background: #000; /* Solid Black */
+            text-align: center;
+            padding: 8rem 1rem 4rem; /* Spacing */
             border-bottom: 4px solid var(--dirt-gold);
-            padding: 10rem 1rem 6rem; /* Match main site spacing */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
-        .hero-woo h1 { text-shadow: 0 4px 10px rgba(0,0,0,0.8); color: #fff; }
-        .hero-woo p { color: var(--dirt-gold); font-size: 1.2rem; letter-spacing: 2px; margin-top: 10px; text-transform: uppercase; }
+        
+        .hero-woo h1 { 
+            font-size: 3.5rem; 
+            text-transform: uppercase; 
+            color: #fff; 
+            margin: 0;
+            line-height: 1;
+        }
+        
+        /* "ASCR'S" Label */
+        .woo-super-title {
+            color: var(--dirt-gold);
+            font-size: 1rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        /* "Career Stats" Label */
+        .woo-sub-title {
+            color: #666; 
+            font-size: 0.9rem; 
+            letter-spacing: 2px; 
+            margin-top: 15px; 
+            text-transform: uppercase;
+        }
 
         /* --- CONTROLS --- */
         .controls {
@@ -61,7 +84,6 @@
             backdrop-filter: blur(5px);
         }
         
-        /* Styled to match .btn-primary but with Dirt Colors */
         .filter-btn {
             background: transparent;
             border: 2px solid #551111;
@@ -101,7 +123,6 @@
         tbody tr:hover { background: rgba(255, 200, 0, 0.15); border-left: 3px solid var(--dirt-gold); }
 
         /* --- DRIVER CARD --- */
-        /* Adapted to match .race-card structure but with specific data layout */
         .driver-card {
             background: var(--dirt-card);
             border: 1px solid #441111;
@@ -179,8 +200,9 @@
     <div id="nav-placeholder"></div>
 
     <header class="hero-woo">
+        <p class="woo-super-title">ASCR'S</p>
         <h1>World of Outlaws</h1>
-        <p>Career Stats & Breakdown</p>
+        <p class="woo-sub-title">Career Stats & Breakdown</p>
     </header>
 
     <div class="controls">
@@ -237,7 +259,6 @@
                 // --- ROBUST PARSER ---
                 allDrivers = Object.keys(data).map(key => {
                     const item = data[key];
-                    
                     const wooSeriesData = item.series ? (item.series["World Of Outlaws"] || {}) : {};
                     
                     const stats = item.stats || wooSeriesData.stats || { points: 0, wins: 0, starts: 0, avg: 0 };
@@ -268,10 +289,8 @@
             tableBody.innerHTML = '';
 
             allDrivers.forEach((d, index) => {
-                // 1. Render Main Card
                 cardContainer.appendChild(createDriverCard(d, index));
 
-                // 2. Render Table Row (Clickable)
                 const tr = document.createElement('tr');
                 tr.onclick = () => openModal(index); 
                 tr.innerHTML = `
@@ -285,12 +304,10 @@
             });
         }
 
-        // Helper to build the Card HTML
         function createDriverCard(d, index) {
             const card = document.createElement('div');
             card.className = 'driver-card';
             
-            // Generate Car Breakdown List
             let carsHtml = '';
             if (d.cars && d.cars.length > 0) {
                 d.cars.forEach(car => {
@@ -307,7 +324,6 @@
                 carsHtml = '<div style="padding:1rem; text-align:center; color:#775555; font-size:0.8rem;">No specific car data available</div>';
             }
 
-            // Clean Number
             let cleanNumber = String(d.number).split(' ')[0];
 
             card.innerHTML = `
@@ -333,7 +349,6 @@
             return card;
         }
 
-        // --- INTERACTION LOGIC ---
         function showView(view) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             event.target.classList.add('active');
