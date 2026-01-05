@@ -610,8 +610,13 @@
         }
 
         function drawChart() {
+            // 1. Find the correct series object (Case-insensitive check)
             const tKey = Object.keys(trendsData).find(k => k.toLowerCase() === currentSeries.toLowerCase());
-            if (!tKey) { alert("Trend data not available for this series."); return; }
+            
+            if (!tKey) { 
+                alert("Trend data not available for this series."); 
+                return; 
+            }
 
             const sData = trendsData[tKey];
             const ctx = document.getElementById('trendChart').getContext('2d');
@@ -619,9 +624,19 @@
             let i = 0;
 
             selectedDrivers.forEach(driverName => {
-                let dataPoints = sData.drivers[driverName];
+                // 2. Normalize the driver name from the checkbox (lowercase, trimmed)
+                const searchName = driverName.toLowerCase().trim();
+                
+                let dataPoints = sData.drivers[driverName]; // Try exact match first
+
+                // 3. If no exact match, try a "Fuzzy" match ignoring Case and Numbers
                 if (!dataPoints) {
-                    const matchKey = Object.keys(sData.drivers).find(k => k.includes(driverName));
+                    const matchKey = Object.keys(sData.drivers).find(k => {
+                        const trendKeyLower = k.toLowerCase();
+                        // Check if the trend key includes the driver name (e.g., "#1 mattwilson20" includes "mattwilson20")
+                        return trendKeyLower.includes(searchName);
+                    });
+                    
                     if(matchKey) dataPoints = sData.drivers[matchKey];
                 }
 
@@ -629,7 +644,7 @@
                     const hue = (i * 360) / selectedDrivers.size;
                     const color = `hsl(${hue}, 70%, 50%)`;
                     datasets.push({
-                        label: driverName,
+                        label: driverName, // Use the Clean name for the Legend
                         data: dataPoints,
                         borderColor: color,
                         backgroundColor: color,
@@ -637,20 +652,37 @@
                         pointRadius: 4
                     });
                     i++;
+                } else {
+                    console.warn(`No trend data found for: ${driverName}`);
                 }
             });
 
             if (myChart) myChart.destroy();
+            
             myChart = new Chart(ctx, {
                 type: 'line',
                 data: { labels: sData.labels, datasets: datasets },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { labels: { color: '#fff' } } },
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: { 
+                        legend: { labels: { color: '#fff' } },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    },
                     scales: {
                         x: { ticks: { color: '#888' }, grid: { color: '#333' } },
-                        y: { ticks: { color: '#888' }, grid: { color: '#333' } }
+                        y: { 
+                            ticks: { color: '#888' }, 
+                            grid: { color: '#333' },
+                            reverse: true // Optional: In racing, lower points usually isn't better, but if this is Rank, true. If Points, false.
+                        } 
                     }
                 }
             });
