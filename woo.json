@@ -1,13 +1,29 @@
 {
     "196864998251692032": {
         "display_name": "mattwilson20",
+        "cars": [
+            {
+                "type": "Big Block Modified",
+                "starts": 3,
+                "points": 103,
+                "wins": 0,
+                "avg": 2.67
+            },
+            {
+                "type": "360 Sprint",
+                "starts": 3,
+                "points": 103,
+                "wins": 0,
+                "avg": 2.67
+            }
+        ],
         "series": {
             "World Of Outlaws": {
                 "number": "1",
                 "team": null,
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 868,
+                    "points": 206,
                     "wins": 0,
                     "top5": 6,
                     "top10": 6,
@@ -19,6 +35,7 @@
     },
     "336189571991732226": {
         "display_name": "HatterMAD218",
+        "cars": [],
         "series": {
             "World Of Outlaws": {
                 "number": "218",
@@ -37,13 +54,29 @@
     },
     "1324218531788754998": {
         "display_name": "ThirstTrapToby",
+        "cars": [
+            {
+                "type": "Big Block Modified",
+                "starts": 3,
+                "points": 86,
+                "wins": 0,
+                "avg": 8.33
+            },
+            {
+                "type": "360 Sprint",
+                "starts": 3,
+                "points": 84,
+                "wins": 0,
+                "avg": 9.0
+            }
+        ],
         "series": {
             "World Of Outlaws": {
                 "number": "000",
                 "team": null,
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 796,
+                    "points": 170,
                     "wins": 0,
                     "top5": 0,
                     "top10": 6,
@@ -55,6 +88,7 @@
     },
     "1323671887590592543": {
         "display_name": "SOLID1915ONE",
+        "cars": [],
         "series": {
             "World Of Outlaws": {
                 "number": "64",
@@ -73,13 +107,29 @@
     },
     "271508381506732032": {
         "display_name": "ALESSI-20-11",
+        "cars": [
+            {
+                "type": "360 Sprint",
+                "starts": 3,
+                "points": 93,
+                "wins": 0,
+                "avg": 6.0
+            },
+            {
+                "type": "Big Block Modified",
+                "starts": 3,
+                "points": 88,
+                "wins": 0,
+                "avg": 7.67
+            }
+        ],
         "series": {
             "World Of Outlaws": {
                 "number": "8",
                 "team": null,
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 818,
+                    "points": 181,
                     "wins": 0,
                     "top5": 1,
                     "top10": 6,
@@ -91,13 +141,29 @@
     },
     "1308829427769016331": {
         "display_name": "dakotathomas1994",
+        "cars": [
+            {
+                "type": "Big Block Modified",
+                "starts": 3,
+                "points": 97,
+                "wins": 0,
+                "avg": 4.67
+            },
+            {
+                "type": "360 Sprint",
+                "starts": 3,
+                "points": 90,
+                "wins": 0,
+                "avg": 7.0
+            }
+        ],
         "series": {
             "World Of Outlaws": {
                 "number": "24a",
                 "team": null,
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 830,
+                    "points": 187,
                     "wins": 0,
                     "top5": 4,
                     "top10": 6,
@@ -109,13 +175,29 @@
     },
     "1176703700887146518": {
         "display_name": "the_fireman199",
+        "cars": [
+            {
+                "type": "Big Block Modified",
+                "starts": 3,
+                "points": 96,
+                "wins": 0,
+                "avg": 5.0
+            },
+            {
+                "type": "360 Sprint",
+                "starts": 3,
+                "points": 94,
+                "wins": 0,
+                "avg": 5.67
+            }
+        ],
         "series": {
             "World Of Outlaws": {
                 "number": "57",
                 "team": null,
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 836,
+                    "points": 190,
                     "wins": 0,
                     "top5": 3,
                     "top10": 6,
@@ -127,13 +209,29 @@
     },
     "1092835109067034735": {
         "display_name": "The_Stone07",
+        "cars": [
+            {
+                "type": "360 Sprint",
+                "starts": 3,
+                "points": 120,
+                "wins": 3,
+                "avg": 1.0
+            },
+            {
+                "type": "Big Block Modified",
+                "starts": 3,
+                "points": 115,
+                "wins": 2,
+                "avg": 1.33
+            }
+        ],
         "series": {
             "World Of Outlaws": {
                 "number": "07",
                 "team": null,
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 896,
+                    "points": 235,
                     "wins": 5,
                     "top5": 6,
                     "top10": 6,
@@ -145,13 +243,22 @@
     },
     "1452703742704222455": {
         "display_name": "Z71chevymanz71",
+        "cars": [
+            {
+                "type": "360 Sprint",
+                "starts": 3,
+                "points": 88,
+                "wins": 0,
+                "avg": 7.67
+            }
+        ],
         "series": {
             "World Of Outlaws": {
                 "number": "85",
                 "team": null,
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 404,
+                    "points": 88,
                     "wins": 0,
                     "top5": 1,
                     "top10": 3,
@@ -163,13 +270,29 @@
     },
     "725157771187716136": {
         "display_name": "C0mpl1c8ed",
+        "cars": [
+            {
+                "type": "Big Block Modified",
+                "starts": 3,
+                "points": 91,
+                "wins": 0,
+                "avg": 6.67
+            },
+            {
+                "type": "360 Sprint",
+                "starts": 3,
+                "points": 86,
+                "wins": 0,
+                "avg": 8.33
+            }
+        ],
         "series": {
             "World Of Outlaws": {
                 "number": "9",
                 "team": null,
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 810,
+                    "points": 177,
                     "wins": 0,
                     "top5": 0,
                     "top10": 6,
@@ -181,13 +304,29 @@
     },
     "766025588217085952": {
         "display_name": "HockeyDeckout",
+        "cars": [
+            {
+                "type": "Big Block Modified",
+                "starts": 3,
+                "points": 108,
+                "wins": 1,
+                "avg": 2.33
+            },
+            {
+                "type": "360 Sprint",
+                "starts": 3,
+                "points": 104,
+                "wins": 0,
+                "avg": 2.33
+            }
+        ],
         "series": {
             "World Of Outlaws": {
                 "number": "69 <@1141220889816465469>",
                 "team": null,
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 874,
+                    "points": 212,
                     "wins": 1,
                     "top5": 6,
                     "top10": 6,
@@ -199,13 +338,29 @@
     },
     "1141220889816465469": {
         "display_name": "\ud83e\udda5Strait_Rogue\ud83e\udda5",
+        "cars": [
+            {
+                "type": "360 Sprint",
+                "starts": 3,
+                "points": 95,
+                "wins": 0,
+                "avg": 5.33
+            },
+            {
+                "type": "Big Block Modified",
+                "starts": 3,
+                "points": 92,
+                "wins": 0,
+                "avg": 6.33
+            }
+        ],
         "series": {
             "World Of Outlaws": {
                 "number": "69",
                 "team": null,
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 830,
+                    "points": 187,
                     "wins": 0,
                     "top5": 3,
                     "top10": 6,
@@ -217,13 +372,22 @@
     },
     "1432485477834817607": {
         "display_name": "Lostcozov",
+        "cars": [
+            {
+                "type": "Big Block Modified",
+                "starts": 1,
+                "points": 27,
+                "wins": 0,
+                "avg": 10.0
+            }
+        ],
         "series": {
             "World Of Outlaws": {
                 "number": "63",
                 "team": null,
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 130,
+                    "points": 27,
                     "wins": 0,
                     "top5": 0,
                     "top10": 1,
