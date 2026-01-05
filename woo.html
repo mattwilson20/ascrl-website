@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>World of Outlaws | ASCRL</title>
+    
     <link rel="icon" href="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+
     <style>
+        /* --- WOO SPECIFIC OVERRIDES --- */
         :root {
-            /* THE RED CLAY THEME */
+            /* Keep the Red Clay Theme variables for this page */
             --dirt-bg: #5c1414; 
             --dirt-card: #2a0e0e; 
             --dirt-gold: #ffc800; 
@@ -17,31 +22,30 @@
             --text-dim: #cbaaaa;
         }
 
+        /* Override Body Background for Dirt Feel */
         body { 
-            margin: 0; 
-            font-family: 'Arial Black', sans-serif; 
-            color: var(--text-light); 
             background-color: var(--dirt-bg);
             background-image: 
                 linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)),
                 url('https://www.transparenttextures.com/patterns/asphalt.png'); 
             background-attachment: fixed;
+            color: var(--text-light);
         }
 
         #nav-placeholder { position: relative; z-index: 2000; }
 
         /* --- HERO --- */
-        .woo-hero {
-            text-align: center;
-            padding: 6rem 1rem 4rem;
+        /* We inherit .hero from style.css, but add specific image */
+        .hero-woo {
             background: linear-gradient(to bottom, rgba(50, 10, 10, 0.8), var(--dirt-bg)), url('https://i.imgur.com/3Z6Q1qM.jpg');
             background-size: cover;
             background-position: center;
             border-bottom: 4px solid var(--dirt-gold);
+            padding: 10rem 1rem 6rem; /* Match main site spacing */
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .woo-hero h1 { font-size: 3.5rem; text-transform: uppercase; color: #fff; text-shadow: 0 4px 10px rgba(0,0,0,0.8); margin: 0; }
-        .woo-hero p { color: var(--dirt-gold); font-size: 1.2rem; letter-spacing: 2px; margin-top: 10px; }
+        .hero-woo h1 { text-shadow: 0 4px 10px rgba(0,0,0,0.8); color: #fff; }
+        .hero-woo p { color: var(--dirt-gold); font-size: 1.2rem; letter-spacing: 2px; margin-top: 10px; text-transform: uppercase; }
 
         /* --- CONTROLS --- */
         .controls {
@@ -56,21 +60,23 @@
             border-bottom: 1px solid #441111;
             backdrop-filter: blur(5px);
         }
+        
+        /* Styled to match .btn-primary but with Dirt Colors */
         .filter-btn {
             background: transparent;
             border: 2px solid #551111;
             color: #ddd;
             padding: 10px 25px;
-            font-family: 'Arial Black';
+            font-family: 'Arial Black', sans-serif;
             cursor: pointer;
             transition: 0.3s;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
         .filter-btn:hover, .filter-btn.active {
             border-color: var(--dirt-gold);
             color: var(--dirt-gold);
             background: rgba(255, 200, 0, 0.1);
-            transform: skew(-10deg);
         }
 
         /* --- VIEWS --- */
@@ -94,7 +100,8 @@
         tbody tr { cursor: pointer; transition: 0.2s; }
         tbody tr:hover { background: rgba(255, 200, 0, 0.15); border-left: 3px solid var(--dirt-gold); }
 
-        /* --- DRIVER CARD (Used in Grid & Modal) --- */
+        /* --- DRIVER CARD --- */
+        /* Adapted to match .race-card structure but with specific data layout */
         .driver-card {
             background: var(--dirt-card);
             border: 1px solid #441111;
@@ -146,7 +153,7 @@
         .car-item:hover { background: rgba(0,0,0,0.4); border-left-color: var(--dirt-gold); }
         .car-name { font-size: 0.9rem; color: var(--text-light); }
         .car-details { text-align: right; font-family: sans-serif; font-size: 0.8rem; color: #aaa; }
-        .car-pts { color: var(--dirt-gold); font-weight: bold; font-family: 'Arial Black'; margin-left: 10px; }
+        .car-pts { color: var(--dirt-gold); font-weight: bold; font-family: 'Arial Black', sans-serif; margin-left: 10px; }
 
         /* --- MODAL --- */
         #driver-modal {
@@ -171,7 +178,7 @@
 
     <div id="nav-placeholder"></div>
 
-    <header class="woo-hero">
+    <header class="hero-woo">
         <h1>World of Outlaws</h1>
         <p>Career Stats & Breakdown</p>
     </header>
@@ -196,7 +203,7 @@
             </thead>
             <tbody id="table-body"></tbody>
         </table>
-        <div style="text-align:center; padding:10px; color:#666; font-size:0.8rem;">
+        <div style="text-align:center; padding:10px; color:#666; font-size:0.8rem; margin-top:10px;">
             * Click any row to view breakdown
         </div>
     </div>
@@ -206,6 +213,15 @@
         <div class="modal-content" id="modal-body">
             </div>
     </div>
+
+    <footer>
+        <div style="margin-bottom: 0.5rem; letter-spacing: 2px; color: #fff;">
+            © 2025-2026 AMERICAN STOCK CAR RACING LEAGUE
+        </div>
+        <div style="font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 2rem; text-transform: uppercase;">
+            OWNED AND OPERATED BY <span style="color: #fff; font-weight: bold;">A&M PRODUCTIONS LLC</span>
+        </div>
+    </footer>
 
     <script>
         // 1. Navigation
@@ -222,17 +238,11 @@
                 allDrivers = Object.keys(data).map(key => {
                     const item = data[key];
                     
-                    // Look for nested data (Old Format support)
                     const wooSeriesData = item.series ? (item.series["World Of Outlaws"] || {}) : {};
                     
-                    // 1. Get Stats (Try top level first, then nested)
                     const stats = item.stats || wooSeriesData.stats || { points: 0, wins: 0, starts: 0, avg: 0 };
-                    
-                    // 2. Get Info
                     const number = item.number || wooSeriesData.number || "??";
                     const team = item.team || wooSeriesData.team;
-                    
-                    // 3. Get Cars (IMPORTANT: Always check item.cars)
                     const cars = item.cars || [];
 
                     return {
@@ -297,7 +307,7 @@
                 carsHtml = '<div style="padding:1rem; text-align:center; color:#775555; font-size:0.8rem;">No specific car data available</div>';
             }
 
-            // Clean Number (Remove discord ID junk if present)
+            // Clean Number
             let cleanNumber = String(d.number).split(' ')[0];
 
             card.innerHTML = `
