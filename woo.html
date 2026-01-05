@@ -24,34 +24,19 @@
             
             /* --- RED CLAY RACING SURFACE BACKGROUND --- */
             background-color: var(--dirt-bg);
-            /* This texture pattern (Asphalt) over the red color makes it look like packed clay */
             background-image: 
-                linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)), /* Vignette for depth */
+                linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)),
                 url('https://www.transparenttextures.com/patterns/asphalt.png'); 
-            background-attachment: fixed; /* Keeps the dirt still while you scroll */
+            background-attachment: fixed;
         }
 
-        /* --- MODULAR NAVIGATION STYLES --- */
+        /* --- NAV STYLES (Should match nav.html but kept here for safety) --- */
         #nav-placeholder { position: relative; z-index: 2000; }
         
-        .nav-overlay { 
-            position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; 
-            height: 100vh; background: #050505; transition: left 0.5s ease; 
-            z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); 
-        }
-        .nav-overlay.open { left: 0; }
-        .nav-links { display: flex; flex-direction: column; padding: 0 3rem; }
-        .nav-links a { 
-            color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; 
-            border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; 
-        }
-        .nav-links a:hover { color: var(--primary); padding-left: 10px; }
-
         /* --- HERO SECTION --- */
         .woo-hero {
             text-align: center;
             padding: 6rem 1rem 4rem;
-            /* Update this image to a dirt track photo if you have one */
             background: linear-gradient(to bottom, rgba(50, 10, 10, 0.8), var(--dirt-bg)), url('https://i.imgur.com/3Z6Q1qM.jpg');
             background-size: cover;
             background-position: center;
@@ -67,7 +52,7 @@
             justify-content: center;
             gap: 20px;
             padding: 20px;
-            background: rgba(40, 10, 10, 0.95); /* Semi-transparent Red/Black */
+            background: rgba(40, 10, 10, 0.95);
             position: sticky;
             top: 0;
             z-index: 50;
@@ -88,7 +73,7 @@
             border-color: var(--dirt-gold);
             color: var(--dirt-gold);
             background: rgba(255, 200, 0, 0.1);
-            transform: skew(-10deg); /* Slight racing angle */
+            transform: skew(-10deg);
         }
 
         /* --- GRID LAYOUT --- */
@@ -205,10 +190,18 @@
     </div>
 
     <script>
-        // Load Navigation
+        // 1. Load Navigation
         fetch('nav.html').then(res => res.text()).then(data => document.getElementById('nav-placeholder').innerHTML = data);
 
-        // Fetch Data
+        // 2. THIS IS THE MISSING PART: The Toggle Menu Function
+        function toggleMenu() {
+            const nav = document.getElementById('nav-menu');
+            if (nav) {
+                nav.classList.toggle('open');
+            }
+        }
+
+        // 3. Fetch Data
         fetch('woo_data.json')
             .then(res => res.json())
             .then(data => renderPage(data))
@@ -218,18 +211,13 @@
             const cardContainer = document.getElementById('card-container');
             const tableBody = document.getElementById('table-body');
             
-            // Convert Object to Array for sorting
             let drivers = Object.keys(data).map(key => data[key]);
-            
-            // Sort by Points
             drivers.sort((a, b) => b.stats.points - a.stats.points);
 
             drivers.forEach((d, index) => {
-                // 1. CREATE CARD
                 const card = document.createElement('div');
                 card.className = 'driver-card';
                 
-                // Build Car Breakdown HTML
                 let carsHtml = '';
                 if (d.cars && d.cars.length > 0) {
                     d.cars.forEach(car => {
@@ -269,7 +257,6 @@
                 `;
                 cardContainer.appendChild(card);
 
-                // 2. CREATE TABLE ROW
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td>${index + 1}</td>
@@ -295,36 +282,15 @@
             }
         }
     </script>
-<script>
-        // 1. Disable Right Click
-        document.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-        });
 
-        // 2. Disable Keyboard Shortcuts (Ctrl+U, F12, Ctrl+Shift+I, etc.)
+    <script>
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
         document.addEventListener('keydown', (e) => {
-            // Check for Ctrl (or Command on Mac)
             if (e.ctrlKey || e.metaKey) {
-                switch (e.key.toLowerCase()) {
-                    case 'u': // View Source
-                    case 's': // Save Page
-                    case 'a': // Select All
-                    case 'c': // Copy
-                        e.preventDefault();
-                        return false;
-                }
-                // Check for Ctrl+Shift+I or J (Developer Tools)
-                if (e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j')) {
-                    e.preventDefault();
-                    return false;
-                }
+                if (['u', 's', 'a', 'c'].includes(e.key.toLowerCase())) { e.preventDefault(); return false; }
+                if (e.shiftKey && ['i', 'j'].includes(e.key.toLowerCase())) { e.preventDefault(); return false; }
             }
-            
-            // Check for F12 (Developer Tools)
-            if (e.key === 'F12') {
-                e.preventDefault();
-                return false;
-            }
+            if (e.key === 'F12') { e.preventDefault(); return false; }
         });
     </script>
 
