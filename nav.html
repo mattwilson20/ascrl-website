@@ -5,14 +5,155 @@
 </div>
 
 <nav class="nav-overlay" id="nav-menu">
-    <div class="nav-links">
-        <a href="index.html" id="nav-index">DASHBOARD</a>
-        <a href="news.html" id="nav-news">LATEST NEWS</a>
-        <a href="standings.html" id="nav-standings">STANDINGS</a>
-        <a href="results.html" id="nav-results">RESULTS</a>
-        <a href="schedule.html" id="nav-schedule">CALENDAR</a>
-        <a href="teams.html" id="nav-teams">TEAMS</a>
-        <a href="drivers.html" id="nav-drivers">ROSTER</a>
-        <a href="rules.html" id="nav-rules">REGULATIONS</a>
+    <div class="nav-content">
+        
+        <div class="nav-group asphalt-group">
+            <div class="group-label">PAVEMENT SERIES</div>
+            <div class="nav-links">
+                <a href="index.html" id="nav-index">DASHBOARD</a>
+                <a href="news.html" id="nav-news">LATEST NEWS</a>
+                <a href="standings.html" id="nav-standings">STANDINGS</a>
+                <a href="results.html" id="nav-results">RESULTS</a>
+                <a href="schedule.html" id="nav-schedule">CALENDAR</a>
+                <a href="teams.html" id="nav-teams">TEAMS</a>
+                <a href="drivers.html" id="nav-drivers">ROSTER</a>
+                <a href="rules.html" id="nav-rules">REGULATIONS</a>
+            </div>
+        </div>
+
+        <div class="nav-split"></div>
+
+        <div class="nav-group dirt-group">
+            <div class="group-label">DIRT SERIES</div>
+            <a href="woo.html" id="nav-woo" class="woo-btn">
+                <span class="woo-icon"><i class="fa-solid fa-flag-checkered"></i></span>
+                <span class="woo-text">WORLD OF OUTLAWS</span>
+            </a>
+            <p class="woo-subtext">Sprint Cars • Late Models • Modifieds</p>
+        </div>
+
     </div>
 </nav>
+
+<style>
+    /* --- NAV OVERLAY STRUCTURE --- */
+    .nav-overlay { 
+        position: fixed; top: 0; left: -100%; width: 100%; height: 100vh; 
+        background: #000; z-index: 1999; transition: left 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        display: flex; flex-direction: column; 
+        /* Glassmorphism for modern feel */
+        backdrop-filter: blur(10px);
+        box-shadow: 5px 0 20px rgba(0,0,0,0.8);
+        border-right: 1px solid #222;
+        max-width: 400px; /* Limits width on desktop */
+    }
+    .nav-overlay.open { left: 0; }
+
+    .nav-content {
+        padding-top: 80px; /* Space for hamburger */
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto; /* Scrollable if screen is short */
+    }
+
+    /* --- GROUP LABELS --- */
+    .group-label {
+        font-size: 0.7rem; color: #555; letter-spacing: 3px; 
+        margin: 0 0 1rem 2rem; font-weight: bold;
+    }
+
+    /* --- ASPHALT (NASCAR) LINKS --- */
+    .asphalt-group { padding-bottom: 2rem; }
+    
+    .nav-links { display: flex; flex-direction: column; }
+    .nav-links a { 
+        color: #fff; text-decoration: none; font-size: 1.1rem; 
+        padding: 1rem 0 1rem 3rem; 
+        border-left: 3px solid transparent; 
+        transition: 0.3s; 
+        letter-spacing: 1px;
+    }
+    .nav-links a:hover { 
+        background: rgba(255,255,255,0.05); 
+        padding-left: 3.5rem; 
+        color: var(--primary, #c00); /* Uses your site's main NASCAR color */
+        border-left-color: var(--primary, #c00);
+    }
+
+    /* --- THE SPLIT --- */
+    .nav-split {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #333, transparent);
+        margin: 0 2rem;
+    }
+
+    /* --- DIRT (WoO) SECTION - COMPLETELY DISTINCT --- */
+    .dirt-group {
+        background: linear-gradient(180deg, #0a0a0a 0%, #1a0505 100%); /* Subtle dark red gradient */
+        padding: 2rem;
+        flex-grow: 1; /* Pushes to fill bottom space */
+        border-top: 1px solid #330000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .dirt-group .group-label {
+        color: #d4af37; /* Dirt Gold */
+        margin-left: 0; text-align: center;
+        text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+    }
+
+    /* The Big WoO Button */
+    .woo-btn {
+        display: flex; align-items: center; justify-content: center; gap: 15px;
+        background: #8b0000; /* Dirt Red */
+        color: #fff; text-decoration: none;
+        padding: 1.5rem;
+        border: 2px solid #500;
+        border-radius: 4px;
+        transition: 0.3s;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        margin-top: 10px;
+    }
+    
+    .woo-btn:hover {
+        background: #a00000;
+        border-color: #d4af37; /* Gold Border on Hover */
+        transform: scale(1.02);
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+    }
+
+    .woo-text {
+        font-family: 'Arial Black', sans-serif; 
+        font-size: 1.2rem; 
+        letter-spacing: -1px;
+        text-transform: uppercase;
+    }
+
+    .woo-subtext {
+        text-align: center; color: #666; font-size: 0.75rem; 
+        margin-top: 1rem; font-family: sans-serif; letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    /* HAMBURGER (Included here to ensure style matches) */
+    .hamburger {
+        position: fixed; top: 2rem; left: 2rem; z-index: 2001;
+        cursor: pointer; display: flex; flex-direction: column; gap: 6px;
+        padding: 10px; background: rgba(0,0,0,0.5); border-radius: 5px;
+    }
+    .hamburger-line { width: 35px; height: 4px; background-color: #fff; transition: 0.4s; }
+    .hamburger:hover .hamburger-line { background-color: var(--primary, #c00); }
+
+    /* RESPONSIVE */
+    @media (min-width: 1024px) {
+        .nav-overlay { max-width: 350px; } /* Clean sidebar on desktop */
+    }
+    @media (max-width: 480px) {
+        .nav-overlay { width: 100%; max-width: 100%; } /* Full screen on phone */
+        .dirt-group { padding: 3rem 1rem; }
+    }
+</style>
