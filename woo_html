@@ -282,6 +282,38 @@
             }
         }
     </script>
+<script>
+        // 1. Disable Right Click
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+
+        // 2. Disable Keyboard Shortcuts (Ctrl+U, F12, Ctrl+Shift+I, etc.)
+        document.addEventListener('keydown', (e) => {
+            // Check for Ctrl (or Command on Mac)
+            if (e.ctrlKey || e.metaKey) {
+                switch (e.key.toLowerCase()) {
+                    case 'u': // View Source
+                    case 's': // Save Page
+                    case 'a': // Select All
+                    case 'c': // Copy
+                        e.preventDefault();
+                        return false;
+                }
+                // Check for Ctrl+Shift+I or J (Developer Tools)
+                if (e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j')) {
+                    e.preventDefault();
+                    return false;
+                }
+            }
+            
+            // Check for F12 (Developer Tools)
+            if (e.key === 'F12') {
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
 
 </body>
 </html>
