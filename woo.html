@@ -218,38 +218,27 @@
         fetch('woo.json')
             .then(res => res.json())
             .then(data => {
-                // --- SMART DATA PARSER (Handles Flat AND Nested JSON) ---
+                // --- ROBUST PARSER ---
                 allDrivers = Object.keys(data).map(key => {
                     const item = data[key];
-                    let stats, number, team, cars;
-
-                    // CHECK 1: Is it the New Flat Format? (from Python script)
-                    if (item.stats && item.cars) {
-                        stats = item.stats;
-                        number = item.number;
-                        team = item.team;
-                        cars = item.cars;
-                    }
-                    // CHECK 2: Is it the Old Nested Format? (from your uploaded file)
-                    else if (item.series && item.series["World Of Outlaws"]) {
-                        const woo = item.series["World Of Outlaws"];
-                        stats = woo.stats;
-                        number = woo.number;
-                        team = woo.team;
-                        cars = []; // Old format has no cars list
-                    }
-                    // FALLBACK
-                    else {
-                        stats = { points: 0, wins: 0, starts: 0, avg: 0 };
-                        number = "??";
-                        team = "Unknown";
-                        cars = [];
-                    }
+                    
+                    // Look for nested data (Old Format support)
+                    const wooSeriesData = item.series ? (item.series["World Of Outlaws"] || {}) : {};
+                    
+                    // 1. Get Stats (Try top level first, then nested)
+                    const stats = item.stats || wooSeriesData.stats || { points: 0, wins: 0, starts: 0, avg: 0 };
+                    
+                    // 2. Get Info
+                    const number = item.number || wooSeriesData.number || "??";
+                    const team = item.team || wooSeriesData.team;
+                    
+                    // 3. Get Cars (IMPORTANT: Always check item.cars)
+                    const cars = item.cars || [];
 
                     return {
-                        id: key, 
+                        id: key,
                         display_name: item.display_name,
-                        number: number || "??",
+                        number: number,
                         team: team,
                         stats: stats,
                         cars: cars
