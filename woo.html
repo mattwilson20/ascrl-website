@@ -9,23 +9,60 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
+        /* --- WOO SPECIFIC OVERRIDES --- */
         :root {
-            --dirt-bg: #5c1414; --dirt-card: #2a0e0e; --dirt-gold: #ffc800; 
-            --dirt-red: #8b0000; --text-light: #f0e6e6; --text-dim: #cbaaaa;
+            /* THE RED CLAY THEME */
+            --dirt-bg: #5c1414; 
+            --dirt-card: #2a0e0e; 
+            --dirt-gold: #ffc800; 
+            --dirt-red: #8b0000;
+            --text-light: #f0e6e6;
+            --text-dim: #cbaaaa;
         }
 
+        /* Override Body Background for Realistic Dirt Texture */
         body { 
             background-color: var(--dirt-bg);
+            
+            /* --- KNOXVILLE STYLE DIRT TEXTURE --- */
             background-image: 
-                linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)),
-                url('https://www.transparenttextures.com/patterns/asphalt.png'); 
+                /* 1. Vignette: Darkens edges for focus */
+                radial-gradient(circle at center, transparent 20%, #000 130%),
+                
+                /* 2. Dirt Noise: SVG noise filter for clumpy dirt look */
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='dirtFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23dirtFilter)' opacity='0.35'/%3E%3C/svg%3E");
+            
             background-attachment: fixed;
             color: var(--text-light);
         }
 
         #nav-placeholder { position: relative; z-index: 2000; }
 
-        /* HERO */
+        /* --- NAVIGATION STYLES (Compact 3-Line) --- */
+        .hamburger { position: fixed; top: 1.5rem; left: 1.5rem; z-index: 2001; cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 8px; background: rgba(0,0,0,0.6); border-radius: 4px; transition: 0.3s; }
+        .hamburger-line { width: 25px; height: 3px; background-color: #fff; transition: 0.4s; }
+        .hamburger:hover { background: rgba(0,0,0,0.9); }
+        .hamburger:hover .hamburger-line { background-color: #c00; }
+
+        .nav-overlay { position: fixed; top: 0; left: -100%; width: 100%; height: 100vh; background: #000; z-index: 1999; transition: left 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); display: flex; flex-direction: column; backdrop-filter: blur(10px); box-shadow: 5px 0 20px rgba(0,0,0,0.8); border-right: 1px solid #222; max-width: 350px; }
+        .nav-overlay.open { left: 0; }
+        .nav-content { padding-top: 80px; height: 100%; display: flex; flex-direction: column; overflow-y: auto; }
+        
+        .group-label { font-size: 0.7rem; color: #555; letter-spacing: 3px; margin: 0 0 1rem 2rem; font-weight: bold; }
+        .asphalt-group { padding-bottom: 2rem; }
+        .nav-links { display: flex; flex-direction: column; }
+        .nav-links a { color: #fff; text-decoration: none; font-size: 1.1rem; padding: 1rem 0 1rem 3rem; border-left: 3px solid transparent; transition: 0.3s; letter-spacing: 1px; }
+        .nav-links a:hover { background: rgba(255,255,255,0.05); padding-left: 3.5rem; color: #c00; border-left-color: #c00; }
+        .nav-split { height: 1px; background: linear-gradient(90deg, transparent, #333, transparent); margin: 0 2rem; }
+        .dirt-group { background: linear-gradient(180deg, #0a0a0a 0%, #1a0505 100%); padding: 2rem; flex-grow: 1; border-top: 1px solid #330000; display: flex; flex-direction: column; justify-content: center; }
+        .dirt-group .group-label { color: #d4af37; margin-left: 0; text-align: center; text-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
+        .woo-btn { display: flex; align-items: center; justify-content: center; gap: 15px; background: #8b0000; color: #fff; text-decoration: none; padding: 1.5rem; border: 2px solid #500; border-radius: 4px; transition: 0.3s; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.5); margin-top: 10px; }
+        .woo-btn:hover { background: #a00000; border-color: #d4af37; transform: scale(1.02); box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); }
+        .woo-text { font-family: 'Arial Black', sans-serif; font-size: 1.2rem; letter-spacing: -1px; text-transform: uppercase; }
+        .woo-subtext { text-align: center; color: #666; font-size: 0.75rem; margin-top: 1rem; font-family: sans-serif; letter-spacing: 1px; text-transform: uppercase; }
+        @media (max-width: 480px) { .nav-overlay { width: 100%; max-width: 100%; } .dirt-group { padding: 3rem 1rem; } }
+
+        /* HERO (Black Header) */
         .hero-woo {
             background: #000; text-align: center; padding: 8rem 1rem 4rem;
             border-bottom: 4px solid var(--dirt-gold); box-shadow: 0 10px 30px rgba(0,0,0,0.8);
@@ -100,7 +137,38 @@
 </head>
 <body>
 
-    <div id="nav-placeholder"></div>
+    <div class="hamburger" onclick="toggleMenu()">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </div>
+
+    <nav class="nav-overlay" id="nav-menu">
+        <div class="nav-content">
+            <div class="nav-group asphalt-group">
+                <div class="group-label">PAVEMENT SERIES</div>
+                <div class="nav-links">
+                    <a href="index.html" id="nav-index">DASHBOARD</a>
+                    <a href="news.html" id="nav-news">LATEST NEWS</a>
+                    <a href="standings.html" id="nav-standings">STANDINGS</a>
+                    <a href="results.html" id="nav-results">RESULTS</a>
+                    <a href="schedule.html" id="nav-schedule">CALENDAR</a>
+                    <a href="teams.html" id="nav-teams">TEAMS</a>
+                    <a href="drivers.html" id="nav-drivers">ROSTER</a>
+                    <a href="rules.html" id="nav-rules">REGULATIONS</a>
+                </div>
+            </div>
+            <div class="nav-split"></div>
+            <div class="nav-group dirt-group">
+                <div class="group-label">DIRT SERIES</div>
+                <a href="woo.html" id="nav-woo" class="woo-btn">
+                    <span class="woo-icon"><i class="fa-solid fa-flag-checkered"></i></span>
+                    <span class="woo-text">WORLD OF OUTLAWS</span>
+                </a>
+                <p class="woo-subtext">Sprint Cars • Late Models • Modifieds</p>
+            </div>
+        </div>
+    </nav>
 
     <header class="hero-woo">
         <p class="woo-super-title">ASCR'S</p>
@@ -110,7 +178,7 @@
 
     <div class="controls">
         <button class="filter-btn active" onclick="showView('cards')">Driver Cards</button>
-        <button class="filter-btn" onclick="showView('table')">Standings</button>
+        <button class="filter-btn" onclick="showView('table')">Simple Standings</button>
     </div>
 
     <div id="card-container" class="grid-container"></div>
@@ -143,28 +211,12 @@
         <div style="margin-bottom: 0.5rem; letter-spacing: 2px; color: #fff;">
             © 2025-2026 AMERICAN STOCK CAR RACING LEAGUE
         </div>
-        
         <div style="font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 2rem; text-transform: uppercase;">
             OWNED AND OPERATED BY <span style="color: #fff; font-weight: bold;">A&M PRODUCTIONS LLC</span>
         </div>
-
-        <div class="social-links">
-            <a href="https://www.facebook.com/share/14PeZVCH1hL/" target="_blank" class="social-icon facebook" aria-label="Facebook">
-                <i class="fa-brands fa-facebook"></i>
-            </a>
-            <a href="https://x.com/ASCRWeekly" target="_blank" class="social-icon x-twitter" aria-label="X (Twitter)">
-                <i class="fa-brands fa-x-twitter"></i>
-            </a>
-            <a href="mailto:contact.ascrl@gmail.com" class="social-icon email" aria-label="Email A&M Productions">
-                <i class="fa-solid fa-envelope"></i>
-            </a>
-        </div>
-        
-        <div style="font-size: 0.6rem; color: #444; margin-top: 20px; font-style: italic;">*ai generated images may be used</div>
     </footer>
 
     <script>
-        fetch('nav.html').then(res => res.text()).then(data => document.getElementById('nav-placeholder').innerHTML = data);
         function toggleMenu() { const nav = document.getElementById('nav-menu'); if (nav) nav.classList.toggle('open'); }
 
         let allDrivers = [];
@@ -239,7 +291,7 @@
                 carsHtml = '<div style="padding:2rem; text-align:center; color:#775555; font-size:0.8rem;">No specific car data available</div>';
             }
 
-            // 2. RACE LOG TAB
+            // 2. RACE LOG TAB (This corresponds to the button you asked for)
             let logHtml = '';
             if (d.race_log && d.race_log.length > 0) {
                 d.race_log.forEach(r => {
