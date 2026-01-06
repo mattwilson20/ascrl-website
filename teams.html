@@ -3,412 +3,342 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teams | American Stock Car Racing League</title>
+    <title>World of Outlaws | ASCRL</title>
     <link rel="icon" href="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+
     <style>
         :root {
-            --primary: #c00; --accent: #ff0; --bg-dark: #000; --card-bg: #0d0d0d; --border: #1a1a1a;
-            --text-muted: #a0a0a0; --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            --cup-blue: #0077ff; --xfinity-purple: #8000b0; --truck-red: #c00; --menards-yellow: #fff200;
+            --dirt-bg: #5c1414; --dirt-card: #2a0e0e; --dirt-gold: #ffc800; 
+            --dirt-red: #8b0000; --text-light: #f0e6e6; --text-dim: #cbaaaa;
         }
 
         body { 
-            margin: 0; font-family: 'Arial Black', sans-serif; background-color: #333; 
-            background-image: radial-gradient(transparent 0%, #000 100%), url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.35'/%3E%3C/svg%3E");
-            background-attachment: fixed; color: #fff; overflow-x: hidden; 
+            background-color: var(--dirt-bg);
+            background-image: 
+                linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)),
+                url('https://www.transparenttextures.com/patterns/asphalt.png'); 
+            background-attachment: fixed;
+            color: var(--text-light);
         }
 
         #nav-placeholder { position: relative; z-index: 2000; }
 
-        /* --- NAVIGATION STYLES (Embedded for Teams Page) --- */
-        .hamburger { position: fixed; top: 1.5rem; left: 1.5rem; z-index: 2001; cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 8px; background: rgba(0,0,0,0.6); border-radius: 4px; transition: 0.3s; }
-        .hamburger-line { width: 25px; height: 3px; background-color: #fff; transition: 0.4s; }
-        .hamburger:hover { background: rgba(0,0,0,0.9); }
-        .hamburger:hover .hamburger-line { background-color: #c00; }
-
-        .nav-overlay { position: fixed; top: 0; left: -100%; width: 100%; height: 100vh; background: #000; z-index: 1999; transition: left 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); display: flex; flex-direction: column; backdrop-filter: blur(10px); box-shadow: 5px 0 20px rgba(0,0,0,0.8); border-right: 1px solid #222; max-width: 350px; }
-        .nav-overlay.open { left: 0; }
-        .nav-content { padding-top: 80px; height: 100%; display: flex; flex-direction: column; overflow-y: auto; }
-        
-        .group-label { font-size: 0.7rem; color: #555; letter-spacing: 3px; margin: 0 0 1rem 2rem; font-weight: bold; }
-        .asphalt-group { padding-bottom: 2rem; }
-        .nav-links { display: flex; flex-direction: column; }
-        .nav-links a { color: #fff; text-decoration: none; font-size: 1.1rem; padding: 1rem 0 1rem 3rem; border-left: 3px solid transparent; transition: 0.3s; letter-spacing: 1px; }
-        .nav-links a:hover { background: rgba(255,255,255,0.05); padding-left: 3.5rem; color: #c00; border-left-color: #c00; }
-        
-        .nav-split { height: 1px; background: linear-gradient(90deg, transparent, #333, transparent); margin: 0 2rem; }
-        
-        .dirt-group { background: linear-gradient(180deg, #0a0a0a 0%, #1a0505 100%); padding: 2rem; flex-grow: 1; border-top: 1px solid #330000; display: flex; flex-direction: column; justify-content: center; }
-        .dirt-group .group-label { color: #d4af37; margin-left: 0; text-align: center; text-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
-        
-        .woo-btn { display: flex; align-items: center; justify-content: center; gap: 15px; background: #8b0000; color: #fff; text-decoration: none; padding: 1.5rem; border: 2px solid #500; border-radius: 4px; transition: 0.3s; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.5); margin-top: 10px; }
-        .woo-btn:hover { background: #a00000; border-color: #d4af37; transform: scale(1.02); box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); }
-        .woo-text { font-family: 'Arial Black', sans-serif; font-size: 1.2rem; letter-spacing: -1px; text-transform: uppercase; }
-        .woo-subtext { text-align: center; color: #666; font-size: 0.75rem; margin-top: 1rem; font-family: sans-serif; letter-spacing: 1px; text-transform: uppercase; }
-
-        @media (max-width: 480px) { .nav-overlay { width: 100%; max-width: 100%; } .dirt-group { padding: 3rem 1rem; } }
-
-        /* HERO & LAYOUT */
-        .hero { background: radial-gradient(circle at center, #222 0%, #000 100%); padding: 12rem 1rem 8rem; text-align: center; border-bottom: 1px solid var(--border); }
-        h1 { font-size: clamp(3rem, 10vw, 5rem); margin: 0; letter-spacing: -2px; }
-        
-        .standings-section { background: #050505; padding: 3rem 2rem; border-bottom: 1px solid var(--border); margin-bottom: 4rem; min-height: 60vh;}
-        .standings-controls { text-align: center; margin-bottom: 2rem; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
-        
-        .series-btn { background: #111; border: 1px solid #333; color: #fff; padding: 15px 30px; font-family: 'Arial Black', sans-serif; text-transform: uppercase; cursor: pointer; min-width: 150px; }
-        .series-btn.active { border-color: #fff; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
-        .series-btn[data-series="Cup"].active { background: var(--cup-blue); border-color: var(--cup-blue); }
-        .series-btn[data-series="Xfinity"].active { background: var(--xfinity-purple); border-color: var(--xfinity-purple); }
-        .series-btn[data-series="Truck"].active { background: var(--truck-red); border-color: var(--truck-red); }
-        .series-btn[data-series="Menards"].active { background: var(--menards-yellow); border-color: var(--menards-yellow); color: #000; }
-        
-        select { background: #111; color: #fff; border: 1px solid var(--border); padding: 1rem 2rem; font-family: 'Arial Black'; text-transform: uppercase; cursor: pointer; min-width: 250px; }
-
-        /* TABLE */
-        .standings-table { width: 100%; max-width: 900px; margin: 0 auto; border-collapse: collapse; }
-        .standings-table th { text-align: left; padding: 1rem; color: var(--primary); border-bottom: 1px solid var(--border); }
-        
-        /* Main Team Row */
-        .team-row { cursor: pointer; transition: background 0.2s; }
-        .team-row:hover { background: #1a1a1a; }
-        .team-row td { padding: 1.5rem 1rem; border-bottom: 1px solid #222; font-family: sans-serif; vertical-align: middle; }
-        .team-row.active-row td { border-bottom: none; background: #111; }
-        
-        .rank-cell { font-family: 'Arial Black'; text-align: center; width: 50px; }
-        .points-cell { font-family: 'Arial Black'; color: var(--accent); text-align: right; font-size: 1.2rem; }
-        .leader-row td { background: rgba(204,0,0,0.1); }
-        
-        .toggle-icon { margin-left: 10px; font-size: 0.8rem; color: #666; transition: 0.3s; }
-        .active-row .toggle-icon { transform: rotate(180deg); color: var(--primary); }
-
-        /* Dropdown Details */
-        .details-row { display: none; background: #0a0a0a; }
-        .details-row.show { display: table-row; animation: fadeIn 0.3s ease; }
-        .details-content { padding: 1rem 2rem 2rem; border-bottom: 1px solid var(--primary); }
-        
-        .roster-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin-top: 10px; }
-        .driver-chip { 
-            display: flex; justify-content: space-between; align-items: center; 
-            background: #151515; border: 1px solid #333; padding: 10px; 
+        /* HERO */
+        .hero-woo {
+            background: #000; text-align: center; padding: 8rem 1rem 4rem;
+            border-bottom: 4px solid var(--dirt-gold); box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
-        .chip-left { display: flex; align-items: center; gap: 10px; }
-        .chip-num { font-family: 'Arial Black'; color: var(--accent); font-style: italic; }
-        .chip-name { font-size: 0.9rem; font-weight: bold; }
-        .chip-pts { font-family: 'Arial Black'; color: #fff; font-size: 0.9rem; }
+        .hero-woo h1 { font-size: 3.5rem; text-transform: uppercase; color: #fff; margin: 0; line-height: 1; }
+        .woo-super-title { color: var(--dirt-gold); font-size: 1rem; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 10px; font-weight: bold; }
+        .woo-sub-title { color: #666; font-size: 0.9rem; letter-spacing: 2px; margin-top: 15px; text-transform: uppercase; }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* CONTROLS */
+        .controls { display: flex; justify-content: center; gap: 20px; padding: 20px; background: rgba(40, 10, 10, 0.95); position: sticky; top: 0; z-index: 50; border-bottom: 1px solid #441111; backdrop-filter: blur(5px); }
+        .filter-btn { background: transparent; border: 2px solid #551111; color: #ddd; padding: 10px 25px; font-family: 'Arial Black', sans-serif; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .filter-btn:hover, .filter-btn.active { border-color: var(--dirt-gold); color: var(--dirt-gold); background: rgba(255, 200, 0, 0.1); }
 
-        footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
-        .social-links { display: flex; gap: 2rem; justify-content: center; }
-        .social-icon { color: #555; font-size: 1.8rem; transition: 0.3s; }
-        .social-icon:hover { color: #fff; }
+        /* GRID */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; max-width: 1400px; margin: 3rem auto; padding: 0 2rem; }
+        .table-view { display: none; max-width: 1000px; margin: 3rem auto; padding: 0 1rem; }
+        
+        /* TABLE */
+        table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.5); border: 1px solid #551111; }
+        th { text-align: left; padding: 15px; color: var(--dirt-gold); border-bottom: 2px solid #551111; background: rgba(50, 10, 10, 0.8); }
+        td { padding: 15px; border-bottom: 1px solid #441111; font-family: sans-serif; }
+        tbody tr { cursor: pointer; transition: 0.2s; }
+        tbody tr:hover { background: rgba(255, 200, 0, 0.15); border-left: 3px solid var(--dirt-gold); }
 
-        /* DEBUG BOX */
-        #debug-log { display: none; background: #220000; color: #ffaaaa; padding: 20px; margin: 20px auto; max-width: 800px; border: 1px solid red; font-family: monospace; text-align: left; }
+        /* CARD */
+        .driver-card { background: var(--dirt-card); border: 1px solid #441111; border-left: 5px solid var(--dirt-gold); border-radius: 4px; overflow: hidden; transition: transform 0.3s ease; position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .grid-container .driver-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.6); border-color: var(--dirt-gold); }
+
+        .card-header { padding: 1.5rem; background: linear-gradient(45deg, #380e0e, #1f0505); border-bottom: 1px solid #441111; display: flex; justify-content: space-between; align-items: center; }
+        .driver-info h2 { margin: 0; font-size: 1.4rem; color: #fff; }
+        .driver-info span { font-size: 0.8rem; color: var(--text-dim); font-family: sans-serif; }
+        .total-badge { text-align: right; }
+        .total-points { font-size: 2rem; color: var(--dirt-gold); line-height: 1; }
+        .total-label { font-size: 0.6rem; color: #995555; text-transform: uppercase; letter-spacing: 1px; }
+
+        .card-stats { display: flex; justify-content: space-around; padding: 1rem; background: rgba(0,0,0,0.2); font-size: 0.8rem; font-family: sans-serif; color: #ccc; border-bottom: 1px solid #441111; }
+        .stat-item b { color: #fff; font-size: 1rem; }
+
+        /* LISTS */
+        .data-list { padding: 1rem; max-height: 300px; overflow-y: auto; }
+        
+        /* Car Item */
+        .car-item { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2); margin-bottom: 8px; padding: 10px; border-radius: 4px; border-left: 3px solid #551111; }
+        .car-name { font-size: 0.9rem; color: var(--text-light); }
+        .car-details { text-align: right; font-family: sans-serif; font-size: 0.8rem; color: #aaa; }
+        .car-pts { color: var(--dirt-gold); font-weight: bold; font-family: 'Arial Black'; margin-left: 10px; }
+
+        /* Race Log Item */
+        .log-item { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.3); margin-bottom: 5px; padding: 8px 12px; border-bottom: 1px solid #333; font-family: sans-serif; font-size: 0.85rem; }
+        .log-pos { font-weight: bold; width: 30px; text-align: center; margin-right: 10px; color: #fff; background: #333; border-radius: 3px; }
+        .log-pos.p1 { background: var(--dirt-gold); color: #000; }
+        .log-track { flex-grow: 1; color: #ddd; }
+        .log-car { color: #888; font-size: 0.75rem; text-transform: uppercase; margin-right: 10px; }
+        .log-pts { color: var(--dirt-gold); font-weight: bold; }
+
+        /* MODAL */
+        #driver-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 3000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+        .modal-content { width: 100%; max-width: 500px; animation: slideIn 0.3s ease-out; background: #1a0505; border: 1px solid var(--dirt-red); box-shadow: 0 0 50px rgba(0,0,0,0.8); }
+        @keyframes slideIn { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        #close-modal { position: absolute; top: 20px; right: 20px; font-size: 2rem; color: #fff; cursor: pointer; }
+
+        /* MODAL TABS */
+        .modal-tabs { display: flex; border-bottom: 1px solid #333; background: #111; }
+        .tab-btn { flex: 1; padding: 15px; background: transparent; border: none; color: #777; font-family: 'Arial Black'; cursor: pointer; transition: 0.2s; }
+        .tab-btn:hover { background: #222; color: #fff; }
+        .tab-btn.active { color: var(--dirt-gold); border-bottom: 3px solid var(--dirt-gold); background: rgba(255, 200, 0, 0.05); }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
     </style>
 </head>
 <body>
 
-    <div class="hamburger" onclick="toggleMenu()">
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-    </div>
+    <div id="nav-placeholder"></div>
 
-    <nav class="nav-overlay" id="nav-menu">
-        <div class="nav-content">
-            <div class="nav-group asphalt-group">
-                <div class="group-label">PAVEMENT SERIES</div>
-                <div class="nav-links">
-                    <a href="index.html" id="nav-index">DASHBOARD</a>
-                    <a href="news.html" id="nav-news">LATEST NEWS</a>
-                    <a href="standings.html" id="nav-standings">STANDINGS</a>
-                    <a href="results.html" id="nav-results">RESULTS</a>
-                    <a href="schedule.html" id="nav-schedule">CALENDAR</a>
-                    <a href="teams.html" id="nav-teams">TEAMS</a>
-                    <a href="drivers.html" id="nav-drivers">ROSTER</a>
-                    <a href="rules.html" id="nav-rules">REGULATIONS</a>
-                </div>
-            </div>
-            <div class="nav-split"></div>
-            <div class="nav-group dirt-group">
-                <div class="group-label">DIRT SERIES</div>
-                <a href="woo.html" id="nav-woo" class="woo-btn">
-                    <span class="woo-icon"><i class="fa-solid fa-flag-checkered"></i></span>
-                    <span class="woo-text">WORLD OF OUTLAWS</span>
-                </a>
-                <p class="woo-subtext">Sprint Cars • Late Models • Modifieds</p>
-            </div>
-        </div>
-    </nav>
-
-    <header class="hero">
-        <p>Constructors Championship</p>
-        <h1>TEAMS</h1>
+    <header class="hero-woo">
+        <p class="woo-super-title">ASCR'S</p>
+        <h1>World of Outlaws</h1>
+        <p class="woo-sub-title">Career Stats & Breakdown</p>
     </header>
 
-    <div id="debug-log"></div>
+    <div class="controls">
+        <button class="filter-btn active" onclick="showView('cards')">Driver Cards</button>
+        <button class="filter-btn" onclick="showView('table')">Simple Standings</button>
+    </div>
 
-    <div class="standings-section">
-        <div class="standings-controls">
-            <select id="season-select" onchange="loadSeasonData()">
-                <option value="Season_1" selected>Season 1 (2025-26)</option>
-            </select>
+    <div id="card-container" class="grid-container"></div>
 
-            <div class="tabs-container">
-                <button class="series-btn active" data-series="Cup" onclick="switchSeries('Cup')">Cup</button>
-                <button class="series-btn" data-series="Xfinity" onclick="switchSeries('Xfinity')">Xfinity</button>
-                <button class="series-btn" data-series="Truck" onclick="switchSeries('Truck')">Truck</button>
-                <button class="series-btn" data-series="Menards" onclick="switchSeries('Menards')">Menards</button>
-            </div>
-        </div>
-        
-        <table class="standings-table">
+    <div id="table-container" class="table-view">
+        <table>
             <thead>
                 <tr>
-                    <th style="text-align:center;">RANK</th>
-                    <th>TEAM</th>
-                    <th style="text-align:right;">TOTAL POINTS</th>
+                    <th>Rank</th>
+                    <th>Driver</th>
+                    <th>Points</th>
+                    <th>Wins</th>
+                    <th>Avg</th>
                 </tr>
             </thead>
-            <tbody id="standings-body">
-                <tr><td colspan="3" style="text-align:center; padding:2rem; color:#666;">Loading Standings...</td></tr>
-            </tbody>
+            <tbody id="table-body"></tbody>
         </table>
+        <div style="text-align:center; padding:10px; color:#666; font-size:0.8rem; margin-top:10px;">
+            * Click any row to view full stats & race logs
+        </div>
+    </div>
+
+    <div id="driver-modal" onclick="closeModal(event)">
+        <div id="close-modal">&times;</div>
+        <div class="modal-content" id="modal-body">
+            </div>
     </div>
 
     <footer>
         <div style="margin-bottom: 0.5rem; letter-spacing: 2px; color: #fff;">
             © 2025-2026 AMERICAN STOCK CAR RACING LEAGUE
         </div>
-        
         <div style="font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 2rem; text-transform: uppercase;">
             OWNED AND OPERATED BY <span style="color: #fff; font-weight: bold;">A&M PRODUCTIONS LLC</span>
         </div>
-
-        <div class="social-links">
-            <a href="https://www.facebook.com/share/14PeZVCH1hL/" target="_blank" class="social-icon facebook" aria-label="Facebook">
-                <i class="fa-brands fa-facebook"></i>
-            </a>
-            <a href="https://x.com/ASCRWeekly" target="_blank" class="social-icon x-twitter" aria-label="X (Twitter)">
-                <i class="fa-brands fa-x-twitter"></i>
-            </a>
-            
-            <a href="mailto:contact.ascrl@gmail.com" class="social-icon email" aria-label="Email A&M Productions">
-                <i class="fa-solid fa-envelope"></i>
-            </a>
-        </div>
-        
-        <div style="font-size: 0.6rem; color: #444; margin-top: 20px; font-style: italic;">*ai generated images may be used</div>
     </footer>
 
     <script>
-        // 1. NAV LOGIC
-        const navLink = document.getElementById('nav-teams');
-        if(navLink) {
-            navLink.style.color = "var(--primary)";
-            navLink.style.borderLeft = "4px solid var(--primary)";
-            navLink.style.paddingLeft = "15px";
-        }
-        function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
+        fetch('nav.html').then(res => res.text()).then(data => document.getElementById('nav-placeholder').innerHTML = data);
+        function toggleMenu() { const nav = document.getElementById('nav-menu'); if (nav) nav.classList.toggle('open'); }
 
-        // 2. DATA LOADING
-        let driversData = {}; 
-        let currentSeries = 'Cup';
+        let allDrivers = [];
 
-        const FILE_DRIVERS = "drivers.json";
-
-        document.addEventListener('DOMContentLoaded', () => { loadSeasonData(); });
-
-        async function fetchWithFallback(filename) {
-            const local = filename;
-            const github = `https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/${filename}`;
-            try {
-                let r = await fetch(local);
-                if (r.ok) return await r.json();
-                console.warn(`Local failed for ${local}, trying GitHub...`);
-                r = await fetch(github);
-                if (r.ok) return await r.json();
-                throw new Error("404 Not Found");
-            } catch (err) {
-                console.error(`Failed to load: ${filename}`);
-                return null; 
-            }
-        }
-
-        async function loadSeasonData() {
-            document.getElementById('standings-body').innerHTML = '<tr><td colspan="3" style="text-align:center;">Accessing Data...</td></tr>';
-            
-            // We only STRICTLY need drivers.json to calculate team points + driver breakdown
-            const dData = await fetchWithFallback(FILE_DRIVERS);
-            driversData = dData || {};
-
-            updateUI();
-        }
-
-        function switchSeries(s) {
-            currentSeries = s;
-            document.querySelectorAll('.series-btn').forEach(b => {
-                b.classList.remove('active');
-                if(b.dataset.series === s) b.classList.add('active');
-            });
-            updateUI();
-        }
-
-        function updateUI() {
-            updateStandingsTable();
-        }
-
-        // 3. TABLE LOGIC
-        function updateStandingsTable() {
-            const tbody = document.getElementById('standings-body');
-            tbody.innerHTML = '';
-            
-            // We calculate teams dynamically from drivers.json to ensure we have the member list
-            const teams = calculateTeamsFromDrivers(currentSeries);
-
-            if(teams.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="3" style="text-align:center;">No active teams for ${currentSeries}.</td></tr>`;
-                return;
-            }
-
-            teams.forEach((team, index) => {
-                let displayTeamName = team.name;
-                let logoUrl = "";
-                let cleanName = displayTeamName.toUpperCase();
-
-                // Logo mapping
-                if(cleanName.includes("TOO BROKE RACING")) logoUrl = "https://cdn.discordapp.com/emojis/1438415391943692338.png";
-                else if(cleanName.includes("APEX")) logoUrl = "https://cdn.discordapp.com/emojis/1438414940078870559.png";
-                else if(cleanName.includes("BHG MOTORSPORTS")) logoUrl = "https://cdn.discordapp.com/emojis/1453504409119232072.webp?size=96";
-                else if(cleanName.includes("GREAT LAKES RACING")) logoUrl = "https://cdn.discordapp.com/emojis/1452901033419210887.webp?size=96";
-                else if(cleanName.includes("BACKROW MOTORSPORTS")) logoUrl = "https://cdn.discordapp.com/emojis/1438414138387861544.webp?size=96";
-                else if(cleanName.includes("WHY IS IT SMOKING? MOTORSPORTS")) logoUrl = "https://cdn.discordapp.com/emojis/1439739464464334888.webp?size=96";
-                else if(cleanName.includes("GAZOO MOTORSPORTS")) logoUrl = "https://cdn.discordapp.com/emojis/1438414850895249439.webp?size=96";
-                else if(cleanName.includes("FAST AND LOOSE RACING")) logoUrl = "https://cdn.discordapp.com/emojis/1439739297761857616.webp?size=96";
-                else if(cleanName.includes("OUTLAW RACING")) logoUrl = "https://cdn.discordapp.com/emojis/1456473937742397612.webp?size=44";
-
-                if(logoUrl) displayTeamName = `<img src="${logoUrl}" style="height: 1.5em; vertical-align: middle; margin-right: 8px;"> ${displayTeamName}`;
-
-                const rowId = `team-row-${index}`;
-                const detailId = `team-detail-${index}`;
-
-                // Create roster HTML
-                const rosterHtml = team.drivers.map(d => `
-                    <div class="driver-chip">
-                        <div class="chip-left">
-                            <span class="chip-num">#${d.number}</span>
-                            <span class="chip-name">${d.name}</span>
-                        </div>
-                        <span class="chip-pts">${d.points} PTS</span>
-                    </div>
-                `).join('');
-
-                // MAIN ROW
-                const tr = document.createElement('tr');
-                tr.className = `team-row ${index === 0 ? 'leader-row' : ''}`;
-                tr.onclick = () => toggleDetails(rowId, detailId);
-                tr.id = rowId;
-                tr.innerHTML = `
-                    <td class="rank-cell">${index + 1}</td>
-                    <td style="font-weight:bold; letter-spacing:1px; color:#fff;">
-                        ${displayTeamName} <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </td>
-                    <td class="points-cell">${team.totalPoints}</td>
-                `;
-                tbody.appendChild(tr);
-
-                // HIDDEN DETAILS ROW
-                const trDetail = document.createElement('tr');
-                trDetail.className = 'details-row';
-                trDetail.id = detailId;
-                trDetail.innerHTML = `
-                    <td colspan="3" style="padding:0;">
-                        <div class="details-content">
-                            <small style="color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Contributing Drivers</small>
-                            <div class="roster-grid">
-                                ${rosterHtml}
-                            </div>
-                        </div>
-                    </td>
-                `;
-                tbody.appendChild(trDetail);
-            });
-        }
-
-        function calculateTeamsFromDrivers(seriesName) {
-            const teamsMap = {};
-            
-            for (const [id, driver] of Object.entries(driversData)) {
-                if(!driver.series) continue;
-                
-                // Case insensitive series match
-                const sKey = Object.keys(driver.series).find(k => k.toLowerCase() === seriesName.toLowerCase());
-                if (!sKey) continue;
-                
-                const sData = driver.series[sKey];
-                const teamName = sData.team || "Independent";
-                
-                // FILTER: Remove Independents / Nulls
-                if (!teamName || teamName.toLowerCase().includes("independent") || teamName === "") continue;
-                
-                // POINTS CHECK
-                const st = sData.stats || {};
-                const pts = parseInt(st.points || st.Points || 0);
-                
-                if (!teamsMap[teamName]) {
-                    teamsMap[teamName] = {
-                        name: teamName,
-                        totalPoints: 0,
-                        drivers: []
+        fetch('woo.json')
+            .then(res => res.json())
+            .then(data => {
+                allDrivers = Object.keys(data).map(key => {
+                    const item = data[key];
+                    const wooSeries = item.series ? (item.series["World Of Outlaws"] || {}) : {};
+                    
+                    return {
+                        id: key,
+                        display_name: item.display_name,
+                        number: item.number || wooSeries.number || "??",
+                        team: item.team || wooSeries.team,
+                        stats: item.stats || wooSeries.stats || { points: 0, wins: 0, starts: 0, avg: 0 },
+                        cars: item.cars || [],
+                        race_log: item.race_log || [] // Capture the new race log
                     };
-                }
-                
-                teamsMap[teamName].totalPoints += pts;
-                teamsMap[teamName].drivers.push({
-                    name: driver.display_name,
-                    number: sData.number,
-                    points: pts
                 });
-            }
+                
+                allDrivers.sort((a, b) => b.stats.points - a.stats.points);
+                renderPage();
+            })
+            .catch(err => console.error("Error loading WoO data:", err));
 
-            // Convert map to array and sort by points
-            const sortedTeams = Object.values(teamsMap).sort((a, b) => b.totalPoints - a.totalPoints);
+        function renderPage() {
+            const cardContainer = document.getElementById('card-container');
+            const tableBody = document.getElementById('table-body');
             
-            // Sort drivers inside each team by number
-            sortedTeams.forEach(team => {
-                team.drivers.sort((a, b) => parseInt(a.number) - parseInt(b.number));
-            });
+            cardContainer.innerHTML = '';
+            tableBody.innerHTML = '';
 
-            return sortedTeams;
+            allDrivers.forEach((d, index) => {
+                // Main Grid Card
+                cardContainer.appendChild(createDriverCard(d, index, false));
+
+                // Table Row
+                const tr = document.createElement('tr');
+                tr.onclick = () => openModal(index); 
+                tr.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td style="font-weight:bold; color:#fff;">${d.display_name}</td>
+                    <td style="color:var(--dirt-gold); font-weight:bold;">${d.stats.points}</td>
+                    <td>${d.stats.wins}</td>
+                    <td>${d.stats.avg}</td>
+                `;
+                tableBody.appendChild(tr);
+            });
         }
 
-        function toggleDetails(rowId, detailId) {
-            const row = document.getElementById(rowId);
-            const detail = document.getElementById(detailId);
+        // Helper to build the Card HTML
+        function createDriverCard(d, index, isModal) {
+            const card = document.createElement('div');
+            card.className = isModal ? '' : 'driver-card'; // Modal wrapper handles styling
             
-            row.classList.toggle('active-row');
-            detail.classList.toggle('show');
+            // 1. CAR STATS TAB
+            let carsHtml = '';
+            if (d.cars && d.cars.length > 0) {
+                d.cars.forEach(car => {
+                    carsHtml += `
+                        <div class="car-item">
+                            <div class="car-name">${car.type}</div>
+                            <div class="car-details">
+                                ${car.starts} Starts • ${car.wins} Wins • Avg ${car.avg}
+                                <span class="car-pts">${car.points} pts</span>
+                            </div>
+                        </div>`;
+                });
+            } else {
+                carsHtml = '<div style="padding:2rem; text-align:center; color:#775555; font-size:0.8rem;">No specific car data available</div>';
+            }
+
+            // 2. RACE LOG TAB
+            let logHtml = '';
+            if (d.race_log && d.race_log.length > 0) {
+                d.race_log.forEach(r => {
+                    const posClass = r.pos == 1 ? 'p1' : '';
+                    logHtml += `
+                        <div class="log-item">
+                            <div class="log-pos ${posClass}">P${r.pos}</div>
+                            <div class="log-track">${r.track}</div>
+                            <div class="log-car">${r.car}</div>
+                            <div class="log-pts">+${r.pts}</div>
+                        </div>`;
+                });
+            } else {
+                logHtml = '<div style="padding:2rem; text-align:center; color:#775555; font-size:0.8rem;">No races recorded yet</div>';
+            }
+
+            // Clean Number
+            let cleanNumber = String(d.number).split(' ')[0];
+
+            // TABS UI (Only show tabs if inside modal)
+            let tabsUi = '';
+            let contentUi = `<div class="data-list">${carsHtml}</div>`;
+
+            if (isModal) {
+                tabsUi = `
+                    <div class="modal-tabs">
+                        <button class="tab-btn active" onclick="switchTab(this, 'tab-cars')">CAR STATS</button>
+                        <button class="tab-btn" onclick="switchTab(this, 'tab-log')">RACE LOG</button>
+                    </div>
+                `;
+                contentUi = `
+                    <div id="tab-cars" class="tab-content active data-list">
+                        ${carsHtml}
+                    </div>
+                    <div id="tab-log" class="tab-content data-list">
+                        ${logHtml}
+                    </div>
+                `;
+            }
+
+            card.innerHTML = `
+                <div class="card-header">
+                    <div class="driver-info">
+                        <h2>${d.display_name}</h2>
+                        <span>#${cleanNumber} • ${d.team || 'Independent'}</span>
+                    </div>
+                    <div class="total-badge">
+                        <div class="total-points">${d.stats.points}</div>
+                        <div class="total-label">Rank ${index + 1}</div>
+                    </div>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item"><b>${d.stats.starts}</b> Starts</div>
+                    <div class="stat-item"><b>${d.stats.wins}</b> Wins</div>
+                    <div class="stat-item"><b>${d.stats.avg}</b> Avg</div>
+                </div>
+                ${tabsUi}
+                ${contentUi}
+            `;
+            
+            // If in grid view, make the whole card clickable to open modal
+            if (!isModal) {
+                card.onclick = () => openModal(index);
+                card.style.cursor = "pointer";
+            }
+
+            return card;
+        }
+
+        function showView(view) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            if (view === 'cards') {
+                document.getElementById('card-container').style.display = 'grid';
+                document.getElementById('table-container').style.display = 'none';
+            } else {
+                document.getElementById('card-container').style.display = 'none';
+                document.getElementById('table-container').style.display = 'block';
+            }
+        }
+
+        function openModal(index) {
+            const driver = allDrivers[index];
+            const modalBody = document.getElementById('modal-body');
+            modalBody.innerHTML = ''; 
+            // Create card with TRUE flag for modal mode (enables tabs)
+            modalBody.appendChild(createDriverCard(driver, index, true));
+            document.getElementById('driver-modal').style.display = 'flex';
+        }
+
+        function closeModal(e) {
+            if (e.target.id === 'driver-modal' || e.target.id === 'close-modal') {
+                document.getElementById('driver-modal').style.display = 'none';
+            }
+        }
+
+        function switchTab(btn, tabId) {
+            // 1. Remove active class from buttons
+            const parent = btn.parentElement;
+            parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // 2. Hide all contents
+            const container = parent.parentElement;
+            container.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            // 3. Show target content
+            container.querySelector(`#${tabId}`).classList.add('active');
         }
     </script>
 
     <script>
-        // 1. Disable Right Click
-        document.addEventListener('contextmenu', (e) => { e.preventDefault(); });
-
-        // 2. Disable Keyboard Shortcuts
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
         document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey || e.metaKey) {
-                switch (e.key.toLowerCase()) {
-                    case 'u': case 's': case 'a': case 'c':
-                        e.preventDefault(); return false;
-                }
-                if (e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j')) {
-                    e.preventDefault(); return false;
-                }
-            }
             if (e.key === 'F12') { e.preventDefault(); return false; }
         });
     </script>
