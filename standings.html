@@ -106,10 +106,20 @@
 
         .col-car { font-weight: 900; font-style: italic; font-size: 1.2rem; color: var(--accent); }
 
-        .driver-info { display: flex; flex-direction: column; cursor: pointer; transition: 0.2s; }
+        .driver-info { display: flex; flex-direction: column; cursor: pointer; transition: 0.2s; position: relative; }
         .driver-info:hover .name { color: var(--primary); text-decoration: underline; }
+        
+        /* Flex container for arrow + name */
+        .driver-name-block { display: flex; align-items: center; gap: 8px; }
+        
         .driver-info .name { font-weight: bold; font-size: 1rem; color: #fff; }
-        .driver-info .team { font-size: 0.7rem; color: #888; margin-top: 2px; text-transform: uppercase; }
+        .driver-info .team { font-size: 0.7rem; color: #888; margin-top: 2px; text-transform: uppercase; margin-left: 20px; /* Align with text not arrow */ }
+
+        /* Trend Icons */
+        .trend-icon { font-size: 0.8rem; width: 12px; text-align: center; }
+        .trend-up { color: #00ff00; }
+        .trend-down { color: #cc0000; }
+        .trend-neutral { color: #cc0000; font-size: 0.7rem; }
 
         .col-points { font-weight: bold; color: #fff; }
         .col-behind { color: #888; }
@@ -428,6 +438,37 @@
             renderTable();
         }
 
+        // 3.5 CALCULATE PREVIOUS RANKS
+        function getPreviousRanks() {
+            // Find trend data for current series
+            const tKey = Object.keys(trendsData).find(k => k.toLowerCase() === currentSeries.toLowerCase());
+            if (!tKey || !trendsData[tKey].drivers) return null;
+
+            const trendDrivers = trendsData[tKey].drivers;
+            const prevRanks = [];
+
+            // Get points for the SECOND to last race (index: length - 2)
+            for (const [key, pointsArr] of Object.entries(trendDrivers)) {
+                if (pointsArr.length >= 2) {
+                    const prevPoints = pointsArr[pointsArr.length - 2];
+                    // Clean Name (remove #number)
+                    const cleanName = key.replace(/^#\d+\s+/, '').trim().toLowerCase();
+                    prevRanks.push({ name: cleanName, points: prevPoints });
+                }
+            }
+
+            // Sort descending by points
+            prevRanks.sort((a, b) => b.points - a.points);
+
+            // Create map: name -> rank (index + 1)
+            const rankMap = {};
+            prevRanks.forEach((d, index) => {
+                rankMap[d.name] = index + 1;
+            });
+
+            return rankMap;
+        }
+
         // 4. RENDER TABLE
         function renderTable() {
             const tbody = document.getElementById('standings-body');
@@ -445,12 +486,31 @@
             }
 
             const leaderPoints = drivers[0].series[currentSeries].stats.points || 0;
+            const prevRankMap = getPreviousRanks(); // Get previous ranks
 
             drivers.forEach((driver, index) => {
                 const sData = driver.series[currentSeries];
                 const stats = sData.stats;
                 const rank = index + 1;
                 const rowId = `details-${index}`;
+
+                // --- MOMENTUM LOGIC ---
+                let trendIcon = '<i class="fa-solid fa-minus trend-neutral"></i>'; // Default red line
+                if (prevRankMap) {
+                    const dName = driver.display_name.toLowerCase().trim();
+                    const prevRank = prevRankMap[dName];
+                    
+                    if (prevRank) {
+                        if (prevRank > rank) {
+                            // Was 5th, Now 3rd -> Moved Up (Green Arrow)
+                            trendIcon = '<i class="fa-solid fa-caret-up trend-up"></i>';
+                        } else if (prevRank < rank) {
+                            // Was 1st, Now 4th -> Moved Down (Red Arrow)
+                            trendIcon = '<i class="fa-solid fa-caret-down trend-down"></i>';
+                        }
+                    }
+                }
+                // ----------------------
 
                 let behind = leaderPoints - stats.points;
                 if (rank === 1) behind = "--";
@@ -482,7 +542,10 @@
                     <td class="col-car">${sData.number}</td>
                     <td class="col-driver">
                         <div class="driver-info" onclick="openDriverModal('${driver.id}')">
-                            <span class="name">${driver.display_name}</span>
+                            <div class="driver-name-block">
+                                <span class="trend-icon">${trendIcon}</span>
+                                <span class="name">${driver.display_name}</span>
+                            </div>
                             <span class="team">${teamName}</span>
                         </div>
                     </td>
@@ -681,7 +744,7 @@
                         y: { 
                             ticks: { color: '#888' }, 
                             grid: { color: '#333' },
-                            reverse: true // Optional: In racing, lower points usually isn't better, but if this is Rank, true. If Points, false.
+                            reverse: false // FALSE for Points (Higher is better? Wait, racing points accumulate. Higher is top of graph)
                         } 
                     }
                 }
