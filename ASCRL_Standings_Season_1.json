@@ -6,7 +6,7 @@
             "wins": 1,
             "top5": 5,
             "top10": 5,
-            "avg": 7.555555555555555,
+            "avg": 7.56,
             "starts": 9
         },
         {
@@ -24,7 +24,7 @@
             "wins": 1,
             "top5": 2,
             "top10": 4,
-            "avg": 10.11111111111111,
+            "avg": 10.11,
             "starts": 9
         },
         {
@@ -51,7 +51,7 @@
             "wins": 0,
             "top5": 4,
             "top10": 7,
-            "avg": 5.714285714285714,
+            "avg": 5.71,
             "starts": 7
         },
         {
@@ -60,7 +60,16 @@
             "wins": 0,
             "top5": 3,
             "top10": 5,
-            "avg": 7.285714285714286,
+            "avg": 7.29,
+            "starts": 7
+        },
+        {
+            "driver": "#48 Orangeman_96",
+            "points": 187,
+            "wins": 0,
+            "top5": 1,
+            "top10": 5,
+            "avg": 10.43,
             "starts": 7
         },
         {
@@ -69,7 +78,7 @@
             "wins": 0,
             "top5": 0,
             "top10": 3,
-            "avg": 11.571428571428571,
+            "avg": 11.57,
             "starts": 7
         },
         {
@@ -78,7 +87,7 @@
             "wins": 0,
             "top5": 1,
             "top10": 1,
-            "avg": 15.875,
+            "avg": 15.88,
             "starts": 8
         },
         {
@@ -87,7 +96,7 @@
             "wins": 0,
             "top5": 1,
             "top10": 3,
-            "avg": 13.571428571428571,
+            "avg": 13.57,
             "starts": 7
         },
         {
@@ -96,7 +105,7 @@
             "wins": 0,
             "top5": 3,
             "top10": 5,
-            "avg": 9.833333333333334,
+            "avg": 9.83,
             "starts": 6
         },
         {
@@ -123,7 +132,7 @@
             "wins": 0,
             "top5": 1,
             "top10": 3,
-            "avg": 17.428571428571427,
+            "avg": 17.43,
             "starts": 7
         },
         {
@@ -397,15 +406,6 @@
             "starts": 1
         },
         {
-            "driver": "#48 Orangeman_96",
-            "points": 16,
-            "wins": 0,
-            "top5": 0,
-            "top10": 0,
-            "avg": 21.0,
-            "starts": 7
-        },
-        {
             "driver": "#11 American-Hero216",
             "points": 15,
             "wins": 0,
@@ -458,7 +458,7 @@
             "wins": 0,
             "top5": 1,
             "top10": 4,
-            "avg": 8.666666666666666,
+            "avg": 8.67,
             "starts": 6
         },
         {
@@ -467,7 +467,7 @@
             "wins": 0,
             "top5": 2,
             "top10": 3,
-            "avg": 9.166666666666666,
+            "avg": 9.17,
             "starts": 6
         },
         {
@@ -566,7 +566,7 @@
             "wins": 1,
             "top5": 2,
             "top10": 2,
-            "avg": 6.333333333333333,
+            "avg": 6.33,
             "starts": 3
         },
         {
@@ -584,7 +584,7 @@
             "wins": 0,
             "top5": 1,
             "top10": 2,
-            "avg": 7.666666666666667,
+            "avg": 7.67,
             "starts": 3
         },
         {
@@ -593,7 +593,7 @@
             "wins": 0,
             "top5": 0,
             "top10": 2,
-            "avg": 9.333333333333334,
+            "avg": 9.33,
             "starts": 3
         },
         {
@@ -602,7 +602,7 @@
             "wins": 0,
             "top5": 0,
             "top10": 2,
-            "avg": 9.333333333333334,
+            "avg": 9.33,
             "starts": 3
         },
         {
@@ -629,7 +629,7 @@
             "wins": 0,
             "top5": 0,
             "top10": 0,
-            "avg": 15.666666666666666,
+            "avg": 15.67,
             "starts": 3
         },
         {
@@ -798,30 +798,48 @@
     "Truck": [
         {
             "driver": "#9 dakotathomas1994",
-            "points": 283,
+            "points": 310,
             "wins": 0,
             "top5": 6,
-            "top10": 8,
-            "avg": 5.555555555555555,
-            "starts": 9
+            "top10": 9,
+            "avg": 6.0,
+            "starts": 10
         },
         {
             "driver": "#44 mattwilson20",
-            "points": 247,
-            "wins": 1,
-            "top5": 2,
-            "top10": 4,
-            "avg": 10.0,
-            "starts": 9
-        },
-        {
-            "driver": "#10 MajorBlaz33",
-            "points": 245,
+            "points": 276,
             "wins": 1,
             "top5": 2,
             "top10": 5,
-            "avg": 10.222222222222221,
-            "starts": 9
+            "avg": 9.8,
+            "starts": 10
+        },
+        {
+            "driver": "#10 MajorBlaz33",
+            "points": 269,
+            "wins": 1,
+            "top5": 2,
+            "top10": 5,
+            "avg": 10.5,
+            "starts": 10
+        },
+        {
+            "driver": "#58 On-A-Mission618",
+            "points": 245,
+            "wins": 1,
+            "top5": 5,
+            "top10": 5,
+            "avg": 7.0,
+            "starts": 8
+        },
+        {
+            "driver": "#96 Orangeman_96",
+            "points": 223,
+            "wins": 0,
+            "top5": 1,
+            "top10": 5,
+            "avg": 9.25,
+            "starts": 8
         },
         {
             "driver": "#61 Singular_Nacho",
@@ -833,67 +851,67 @@
             "starts": 6
         },
         {
-            "driver": "#58 On-A-Mission618",
-            "points": 209,
+            "driver": "#71 Dewshine_02",
+            "points": 215,
             "wins": 1,
-            "top5": 4,
-            "top10": 4,
-            "avg": 7.714285714285714,
+            "top5": 3,
+            "top10": 5,
+            "avg": 7.285714285714286,
             "starts": 7
         },
         {
             "driver": "#36 DaltonGregson",
-            "points": 187,
+            "points": 210,
             "wins": 0,
             "top5": 1,
             "top10": 3,
-            "avg": 10.285714285714286,
-            "starts": 7
-        },
-        {
-            "driver": "#71 Dewshine_02",
-            "points": 182,
-            "wins": 1,
-            "top5": 2,
-            "top10": 4,
-            "avg": 7.833333333333333,
-            "starts": 6
+            "avg": 10.75,
+            "starts": 8
         },
         {
             "driver": "#73 TheReaperRhino",
-            "points": 178,
+            "points": 196,
             "wins": 0,
             "top5": 1,
             "top10": 3,
-            "avg": 11.714285714285714,
-            "starts": 7
+            "avg": 12.625,
+            "starts": 8
         },
         {
             "driver": "#59 BanishedCrayon",
-            "points": 170,
+            "points": 192,
             "wins": 0,
             "top5": 0,
             "top10": 5,
-            "avg": 8.666666666666666,
-            "starts": 6
+            "avg": 9.571428571428571,
+            "starts": 7
         },
         {
             "driver": "#80 SithWarriorUno",
-            "points": 165,
+            "points": 191,
             "wins": 1,
             "top5": 3,
             "top10": 5,
-            "avg": 5.0,
-            "starts": 5
+            "avg": 6.0,
+            "starts": 6
         },
         {
             "driver": "#08 The_Stone07",
-            "points": 153,
+            "points": 181,
             "wins": 0,
             "top5": 1,
-            "top10": 2,
-            "avg": 11.5,
-            "starts": 6
+            "top10": 3,
+            "avg": 11.142857142857142,
+            "starts": 7
+        },
+        {
+            "driver": "#01 Duramax18gg",
+            "points": 139,
+            "wins": 2,
+            "top5": 3,
+            "top10": 3,
+            "avg": 5.0,
+            "starts": 4
         },
         {
             "driver": "#29 Fordemgators",
@@ -902,6 +920,24 @@
             "top5": 1,
             "top10": 2,
             "avg": 11.2,
+            "starts": 5
+        },
+        {
+            "driver": "#49 Lostcozov",
+            "points": 129,
+            "wins": 0,
+            "top5": 0,
+            "top10": 1,
+            "avg": 15.5,
+            "starts": 6
+        },
+        {
+            "driver": "#03 Ant_was_he",
+            "points": 127,
+            "wins": 0,
+            "top5": 1,
+            "top10": 2,
+            "avg": 11.6,
             "starts": 5
         },
         {
@@ -914,30 +950,12 @@
             "starts": 4
         },
         {
-            "driver": "#49 Lostcozov",
-            "points": 112,
-            "wins": 0,
-            "top5": 0,
-            "top10": 1,
-            "avg": 14.6,
-            "starts": 5
-        },
-        {
             "driver": "#92 DGibby17",
             "points": 111,
             "wins": 0,
             "top5": 1,
             "top10": 3,
             "avg": 9.5,
-            "starts": 4
-        },
-        {
-            "driver": "#03 Ant_was_he",
-            "points": 106,
-            "wins": 0,
-            "top5": 1,
-            "top10": 2,
-            "avg": 10.5,
             "starts": 4
         },
         {
@@ -948,15 +966,6 @@
             "top10": 1,
             "avg": 12.0,
             "starts": 4
-        },
-        {
-            "driver": "#01 Duramax18gg",
-            "points": 99,
-            "wins": 1,
-            "top5": 2,
-            "top10": 2,
-            "avg": 6.333333333333333,
-            "starts": 3
         },
         {
             "driver": "#5 kevwood87",
@@ -995,6 +1004,33 @@
             "starts": 3
         },
         {
+            "driver": "#83 C0mpl1c8ed",
+            "points": 63,
+            "wins": 0,
+            "top5": 1,
+            "top10": 2,
+            "avg": 5.5,
+            "starts": 2
+        },
+        {
+            "driver": "#85 Z71chevymanz71",
+            "points": 63,
+            "wins": 0,
+            "top5": 1,
+            "top10": 2,
+            "avg": 5.5,
+            "starts": 2
+        },
+        {
+            "driver": "#05 nascar_kam",
+            "points": 58,
+            "wins": 0,
+            "top5": 0,
+            "top10": 2,
+            "avg": 8.5,
+            "starts": 2
+        },
+        {
             "driver": "#54 TrumpTrain06",
             "points": 49,
             "wins": 0,
@@ -1005,6 +1041,15 @@
         },
         {
             "driver": "#87 ThirstTrapToby",
+            "points": 41,
+            "wins": 0,
+            "top5": 0,
+            "top10": 0,
+            "avg": 16.5,
+            "starts": 2
+        },
+        {
+            "driver": "#89 tophert422",
             "points": 41,
             "wins": 0,
             "top5": 0,
@@ -1067,15 +1112,6 @@
             "starts": 1
         },
         {
-            "driver": "#83 C0mpl1c8ed",
-            "points": 32,
-            "wins": 0,
-            "top5": 1,
-            "top10": 1,
-            "avg": 5.0,
-            "starts": 1
-        },
-        {
             "driver": "A54buickbandit",
             "points": 31,
             "wins": 0,
@@ -1091,24 +1127,6 @@
             "top5": 0,
             "top10": 1,
             "avg": 6.0,
-            "starts": 1
-        },
-        {
-            "driver": "#85 Z71chevymanz71",
-            "points": 29,
-            "wins": 0,
-            "top5": 0,
-            "top10": 1,
-            "avg": 8.0,
-            "starts": 1
-        },
-        {
-            "driver": "#05 nascar_kam",
-            "points": 28,
-            "wins": 0,
-            "top5": 0,
-            "top10": 1,
-            "avg": 10.0,
             "starts": 1
         },
         {
@@ -1139,6 +1157,15 @@
             "starts": 1
         },
         {
+            "driver": "#51 the_fireman199",
+            "points": 25,
+            "wins": 0,
+            "top5": 0,
+            "top10": 0,
+            "avg": 12.0,
+            "starts": 1
+        },
+        {
             "driver": "#94 LBR_notjayce421",
             "points": 25,
             "wins": 0,
@@ -1148,25 +1175,16 @@
             "starts": 1
         },
         {
-            "driver": "#96 Orangeman_96",
-            "points": 25,
+            "driver": "#11 lnfvmous_-",
+            "points": 20,
             "wins": 0,
             "top5": 0,
             "top10": 0,
-            "avg": 12.0,
-            "starts": 7
-        },
-        {
-            "driver": "#89 tophert422",
-            "points": 22,
-            "wins": 0,
-            "top5": 0,
-            "top10": 0,
-            "avg": 15.0,
+            "avg": 17.0,
             "starts": 1
         },
         {
-            "driver": "#11 lnfvmous_-",
+            "driver": "Rebelrunner8",
             "points": 20,
             "wins": 0,
             "top5": 0,
@@ -1209,7 +1227,7 @@
             "wins": 0,
             "top5": 1,
             "top10": 7,
-            "avg": 7.285714285714286,
+            "avg": 7.29,
             "starts": 7
         },
         {
@@ -1218,7 +1236,7 @@
             "wins": 2,
             "top5": 5,
             "top10": 5,
-            "avg": 4.833333333333333,
+            "avg": 4.83,
             "starts": 6
         },
         {
@@ -1227,7 +1245,7 @@
             "wins": 0,
             "top5": 3,
             "top10": 5,
-            "avg": 5.666666666666667,
+            "avg": 5.67,
             "starts": 6
         },
         {
@@ -1245,7 +1263,7 @@
             "wins": 0,
             "top5": 0,
             "top10": 2,
-            "avg": 12.571428571428571,
+            "avg": 12.57,
             "starts": 7
         },
         {
@@ -1254,17 +1272,17 @@
             "wins": 0,
             "top5": 0,
             "top10": 3,
-            "avg": 12.857142857142858,
+            "avg": 12.86,
             "starts": 7
         },
         {
             "driver": "#74 Orangeman_96",
-            "points": 145,
+            "points": 169,
             "wins": 0,
             "top5": 0,
             "top10": 2,
-            "avg": 12.833333333333334,
-            "starts": 6
+            "avg": 12.86,
+            "starts": 7
         },
         {
             "driver": "#9 lnfvmous_-",
@@ -1272,7 +1290,7 @@
             "wins": 0,
             "top5": 1,
             "top10": 2,
-            "avg": 13.333333333333334,
+            "avg": 13.33,
             "starts": 6
         },
         {
@@ -1290,7 +1308,7 @@
             "wins": 0,
             "top5": 0,
             "top10": 1,
-            "avg": 13.666666666666666,
+            "avg": 13.67,
             "starts": 6
         },
         {
@@ -1335,7 +1353,7 @@
             "wins": 0,
             "top5": 1,
             "top10": 2,
-            "avg": 7.666666666666667,
+            "avg": 7.67,
             "starts": 3
         },
         {
@@ -1344,7 +1362,7 @@
             "wins": 0,
             "top5": 1,
             "top10": 2,
-            "avg": 7.666666666666667,
+            "avg": 7.67,
             "starts": 3
         },
         {
@@ -1502,15 +1520,6 @@
         },
         {
             "driver": "#78 zaptear",
-            "points": 24,
-            "wins": 0,
-            "top5": 0,
-            "top10": 0,
-            "avg": 13.0,
-            "starts": 1
-        },
-        {
-            "driver": "Orangeman96",
             "points": 24,
             "wins": 0,
             "top5": 0,
