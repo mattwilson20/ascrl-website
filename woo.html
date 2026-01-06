@@ -21,38 +21,32 @@
         }
 
         body { 
-    /* Base Clay Red fallback */
-    background-color: #6d1f1f;
+    /* Fallback Color */
+    background-color: #5c1414;
     
     background-image: 
         /* --- LAYER 1: THE RACING GROOVE (Compacted Rubber) --- */
-        /* A dark, wide, shiny arc to simulate the fast lane where cars drive */
-        radial-gradient(ellipse at 50% 120%, rgba(0,0,0,0.7) 10%, rgba(0,0,0,0.4) 30%, transparent 60%),
+        /* Dark, wide arc to simulate where the cars drive */
+        radial-gradient(ellipse at 50% 120%, rgba(0,0,0,0.7) 10%, rgba(0,0,0,0.3) 30%, transparent 60%),
         
-        /* --- LAYER 2: DARK CLODS (Shadows) --- */
-        radial-gradient(circle at 10% 20%, rgba(0,0,0,0.2) 2px, transparent 3px),
-        radial-gradient(circle at 80% 40%, rgba(0,0,0,0.2) 3px, transparent 4px),
+        /* --- LAYER 2: VIGNETTE (Focus focus on center) --- */
+        radial-gradient(circle at center, transparent 40%, #000 120%),
         
-        /* --- LAYER 3: LIGHT PEBBLES (Highlights) --- */
-        radial-gradient(circle at 40% 80%, rgba(255,200,100,0.3) 1px, transparent 2px),
-        radial-gradient(circle at 90% 10%, rgba(255,200,100,0.3) 2px, transparent 3px),
-        
-        /* --- LAYER 4: HEAVY GRIT (Noise Filter) --- */
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.3'/%3E%3C/svg%3E");
+        /* --- LAYER 3: YOUR RED CLAY TEXTURE --- */
+        url('https://raw.githubusercontent.com/mattwilson20/ascrl-website/e331ac79ecc15fd984ae7162b7882c74a81f93ff/redclay.jpg');
     
+    /* Lock the background so it doesn't scroll */
     background-attachment: fixed;
-    background-size: 
-        100% 100%,       /* Groove covers whole screen */
-        150px 150px,     /* Clods */
-        200px 200px,     /* More Clods */
-        100px 100px,     /* Pebbles */
-        100px 100px,     /* More Pebbles */
-        200px 200px;     /* Noise Texture */
-        
-    background-repeat: 
-        no-repeat,       /* Groove doesn't repeat */
-        repeat, repeat, repeat, repeat, repeat;
-        
+    
+    /* Layer 1 Size: 100% width/height to cover screen
+       Layer 2 Size: 100% width/height
+       Layer 3 Size: 'cover' makes your image fill the screen without repeating
+    */
+    background-size: 100% 100%, 100% 100%, cover;
+    
+    background-repeat: no-repeat;
+    background-position: center bottom, center center, center center;
+    
     color: var(--text-light);
 }
 
