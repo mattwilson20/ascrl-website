@@ -20,21 +20,41 @@
             --text-dim: #cbaaaa;
         }
 
-        /* Override Body Background for Realistic Dirt Texture */
         body { 
-            background-color: var(--dirt-bg);
-            
-            /* --- KNOXVILLE STYLE DIRT TEXTURE --- */
-            background-image: 
-                /* 1. Vignette: Darkens edges for focus */
-                radial-gradient(circle at center, transparent 20%, #000 130%),
-                
-                /* 2. Dirt Noise: SVG noise filter for clumpy dirt look */
-                url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='dirtFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23dirtFilter)' opacity='0.35'/%3E%3C/svg%3E");
-            
-            background-attachment: fixed;
-            color: var(--text-light);
-        }
+    /* Base Clay Red fallback */
+    background-color: #6d1f1f;
+    
+    background-image: 
+        /* --- LAYER 1: THE RACING GROOVE (Compacted Rubber) --- */
+        /* A dark, wide, shiny arc to simulate the fast lane where cars drive */
+        radial-gradient(ellipse at 50% 120%, rgba(0,0,0,0.7) 10%, rgba(0,0,0,0.4) 30%, transparent 60%),
+        
+        /* --- LAYER 2: DARK CLODS (Shadows) --- */
+        radial-gradient(circle at 10% 20%, rgba(0,0,0,0.2) 2px, transparent 3px),
+        radial-gradient(circle at 80% 40%, rgba(0,0,0,0.2) 3px, transparent 4px),
+        
+        /* --- LAYER 3: LIGHT PEBBLES (Highlights) --- */
+        radial-gradient(circle at 40% 80%, rgba(255,200,100,0.3) 1px, transparent 2px),
+        radial-gradient(circle at 90% 10%, rgba(255,200,100,0.3) 2px, transparent 3px),
+        
+        /* --- LAYER 4: HEAVY GRIT (Noise Filter) --- */
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.3'/%3E%3C/svg%3E");
+    
+    background-attachment: fixed;
+    background-size: 
+        100% 100%,       /* Groove covers whole screen */
+        150px 150px,     /* Clods */
+        200px 200px,     /* More Clods */
+        100px 100px,     /* Pebbles */
+        100px 100px,     /* More Pebbles */
+        200px 200px;     /* Noise Texture */
+        
+    background-repeat: 
+        no-repeat,       /* Groove doesn't repeat */
+        repeat, repeat, repeat, repeat, repeat;
+        
+    color: var(--text-light);
+}
 
         #nav-placeholder { position: relative; z-index: 2000; }
 
