@@ -21,13 +21,13 @@
                 "team": "Independent",
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 247,
+                    "points": 276,
                     "wins": 1,
                     "top5": 2,
-                    "top10": 4,
+                    "top10": 5,
                     "poles": 0,
-                    "starts": 9,
-                    "avg": 10.0
+                    "starts": 10,
+                    "avg": 9.8
                 }
             },
             "Menards": {
@@ -223,13 +223,13 @@
                 "team": "Independent",
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 283,
+                    "points": 310,
                     "wins": 0,
                     "top5": 6,
-                    "top10": 8,
+                    "top10": 9,
                     "poles": 0,
-                    "starts": 9,
-                    "avg": 5.56
+                    "starts": 10,
+                    "avg": 6.0
                 }
             },
             "Menards": {
@@ -425,13 +425,13 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 153,
+                    "points": 181,
                     "wins": 0,
                     "top5": 1,
-                    "top10": 2,
+                    "top10": 3,
                     "poles": 0,
-                    "starts": 6,
-                    "avg": 11.5
+                    "starts": 7,
+                    "avg": 11.14
                 }
             },
             "Menards": {
@@ -538,13 +538,13 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 165,
+                    "points": 191,
                     "wins": 1,
                     "top5": 3,
                     "top10": 5,
                     "poles": 0,
-                    "starts": 5,
-                    "avg": 5.0
+                    "starts": 6,
+                    "avg": 6.0
                 }
             },
             "Menards": {
@@ -646,13 +646,13 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 106,
+                    "points": 127,
                     "wins": 0,
                     "top5": 1,
                     "top10": 2,
                     "poles": 0,
-                    "starts": 4,
-                    "avg": 10.5
+                    "starts": 5,
+                    "avg": 11.6
                 }
             },
             "Menards": {
@@ -707,13 +707,13 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 187,
+                    "points": 210,
                     "wins": 0,
                     "top5": 1,
                     "top10": 3,
                     "poles": 0,
-                    "starts": 7,
-                    "avg": 10.29
+                    "starts": 8,
+                    "avg": 10.75
                 }
             },
             "Menards": {
@@ -768,13 +768,13 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 209,
+                    "points": 245,
                     "wins": 1,
-                    "top5": 4,
-                    "top10": 4,
+                    "top5": 5,
+                    "top10": 5,
                     "poles": 0,
-                    "starts": 7,
-                    "avg": 7.71
+                    "starts": 8,
+                    "avg": 7.0
                 }
             },
             "Xfinity": {
@@ -890,13 +890,13 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 112,
+                    "points": 129,
                     "wins": 0,
                     "top5": 0,
                     "top10": 1,
                     "poles": 0,
-                    "starts": 5,
-                    "avg": 14.6
+                    "starts": 6,
+                    "avg": 15.5
                 }
             },
             "Xfinity": {
@@ -1176,13 +1176,13 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 182,
+                    "points": 215,
                     "wins": 1,
-                    "top5": 2,
-                    "top10": 4,
+                    "top5": 3,
+                    "top10": 5,
                     "poles": 2,
-                    "starts": 6,
-                    "avg": 7.83
+                    "starts": 7,
+                    "avg": 7.29
                 }
             },
             "Menards": {
@@ -1456,7 +1456,7 @@
         }
     },
     "933470832993378344": {
-        "display_name": "Brentski",
+        "display_name": "Biggie",
         "series": {
             "Truck": {
                 "number": "101",
@@ -1562,13 +1562,13 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 178,
+                    "points": 196,
                     "wins": 0,
                     "top5": 1,
                     "top10": 3,
                     "poles": 0,
-                    "starts": 7,
-                    "avg": 11.71
+                    "starts": 8,
+                    "avg": 12.62
                 }
             },
             "Cup": {
@@ -1750,13 +1750,13 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 99,
-                    "wins": 1,
-                    "top5": 2,
-                    "top10": 2,
+                    "points": 139,
+                    "wins": 2,
+                    "top5": 3,
+                    "top10": 3,
                     "poles": 2,
-                    "starts": 3,
-                    "avg": 6.33
+                    "starts": 4,
+                    "avg": 5.0
                 }
             },
             "Cup": {
@@ -2173,13 +2173,13 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 28,
+                    "points": 58,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 1,
+                    "top10": 2,
                     "poles": 1,
-                    "starts": 1,
-                    "avg": 10.0
+                    "starts": 2,
+                    "avg": 8.5
                 }
             },
             "Xfinity": {
@@ -2309,13 +2309,13 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 32,
+                    "points": 63,
                     "wins": 0,
                     "top5": 1,
-                    "top10": 1,
+                    "top10": 2,
                     "poles": 0,
-                    "starts": 1,
-                    "avg": 5.0
+                    "starts": 2,
+                    "avg": 5.5
                 }
             },
             "Cup": {
@@ -2568,13 +2568,13 @@
                 "team": "Independent",
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 29,
+                    "points": 63,
                     "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
+                    "top5": 1,
+                    "top10": 2,
                     "poles": 0,
-                    "starts": 1,
-                    "avg": 8.0
+                    "starts": 2,
+                    "avg": 5.5
                 }
             },
             "Xfinity": {
@@ -2700,13 +2700,13 @@
                 "team": "Independent",
                 "manufacturer": "Ford",
                 "stats": {
-                    "points": 0,
+                    "points": 25,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "starts": 0,
-                    "avg": 0
+                    "starts": 1,
+                    "avg": 12.0
                 }
             },
             "Menards": {
@@ -2822,13 +2822,13 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 22,
+                    "points": 41,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "starts": 1,
-                    "avg": 15.0
+                    "starts": 2,
+                    "avg": 16.5
                 }
             },
             "Xfinity": {
@@ -3024,13 +3024,13 @@
                 "team": "INDEPENDENT",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 190,
+                    "points": 223,
                     "wins": 0,
-                    "top5": 0,
-                    "top10": 4,
-                    "poles": 0,
-                    "starts": 7,
-                    "avg": 9.86
+                    "top5": 1,
+                    "top10": 5,
+                    "poles": 1,
+                    "starts": 8,
+                    "avg": 9.25
                 }
             },
             "Xfinity": {
@@ -3085,13 +3085,13 @@
                 "team": "INDEPENDENT",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 245,
+                    "points": 269,
                     "wins": 1,
                     "top5": 2,
                     "top10": 5,
                     "poles": 0,
-                    "starts": 9,
-                    "avg": 10.22
+                    "starts": 10,
+                    "avg": 10.5
                 }
             },
             "Menards": {
@@ -3146,13 +3146,13 @@
                 "team": "INDEPENDENT",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 170,
+                    "points": 192,
                     "wins": 0,
                     "top5": 0,
                     "top10": 5,
                     "poles": 0,
-                    "starts": 6,
-                    "avg": 8.67
+                    "starts": 7,
+                    "avg": 9.57
                 }
             },
             "Menards": {
