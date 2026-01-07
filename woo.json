@@ -590,78 +590,6 @@
             }
         }
     },
-    "766025588217085952": {
-        "display_name": "HockeyDeckout",
-        "cars": [
-            {
-                "type": "Big Block Modified",
-                "starts": 3,
-                "points": 108,
-                "wins": 1,
-                "avg": 2.33
-            },
-            {
-                "type": "360 Sprint",
-                "starts": 3,
-                "points": 104,
-                "wins": 0,
-                "avg": 2.33
-            }
-        ],
-        "race_log": [
-            {
-                "track": "Huset'S",
-                "car": "360 Sprint",
-                "pos": 2,
-                "pts": 35
-            },
-            {
-                "track": "Millstone Park",
-                "car": "360 Sprint",
-                "pos": 2,
-                "pts": 35
-            },
-            {
-                "track": "I-84 Raceway",
-                "car": "360 Sprint",
-                "pos": 3,
-                "pts": 34
-            },
-            {
-                "track": "Prairie View",
-                "car": "Big Block Modified",
-                "pos": 1,
-                "pts": 40
-            },
-            {
-                "track": "Sheep Mtn.",
-                "car": "Big Block Modified",
-                "pos": 2,
-                "pts": 35
-            },
-            {
-                "track": "Lucas Oil",
-                "car": "Big Block Modified",
-                "pos": 4,
-                "pts": 33
-            }
-        ],
-        "series": {
-            "World Of Outlaws": {
-                "number": "69 <@1141220889816465469>",
-                "team": null,
-                "manufacturer": "N/A",
-                "stats": {
-                    "points": 212,
-                    "wins": 1,
-                    "top5": 6,
-                    "top10": 6,
-                    "starts": 6,
-                    "avg": 2.33
-                }
-            }
-        }
-    },
     "1141220889816465469": {
         "display_name": "\ud83e\udda5Strait_Rogue\ud83e\udda5",
         "cars": [
@@ -765,6 +693,98 @@
                     "top10": 1,
                     "starts": 1,
                     "avg": 10.0
+                }
+            }
+        }
+    },
+    "766025588217085952": {
+        "display_name": "HockeyDeckout",
+        "cars": [
+            {
+                "type": "Big Block Modified",
+                "starts": 3,
+                "points": 108,
+                "wins": 1,
+                "avg": 2.33
+            },
+            {
+                "type": "360 Sprint",
+                "starts": 3,
+                "points": 104,
+                "wins": 0,
+                "avg": 2.33
+            }
+        ],
+        "race_log": [
+            {
+                "track": "Huset'S",
+                "car": "360 Sprint",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Millstone Park",
+                "car": "360 Sprint",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "I-84 Raceway",
+                "car": "360 Sprint",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Prairie View",
+                "car": "Big Block Modified",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Sheep Mtn.",
+                "car": "Big Block Modified",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Lucas Oil",
+                "car": "Big Block Modified",
+                "pos": 4,
+                "pts": 33
+            }
+        ],
+        "series": {
+            "World Of Outlaws": {
+                "number": "12",
+                "team": "INDEPENDENT",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 212,
+                    "wins": 1,
+                    "top5": 6,
+                    "top10": 6,
+                    "starts": 6,
+                    "avg": 2.33
+                }
+            }
+        }
+    },
+    "1099189840840491068": {
+        "display_name": "MajorBlaz33",
+        "cars": [],
+        "race_log": [],
+        "series": {
+            "World Of Outlaws": {
+                "number": "13",
+                "team": "INDEPENDENT",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "starts": 0,
+                    "avg": 0
                 }
             }
         }
