@@ -256,75 +256,99 @@
         .social-icon { color: #555; font-size: 1.8rem; transition: 0.3s ease; display: flex; align-items: center; justify-content: center; text-decoration: none; }
         .social-icon:hover { transform: translateY(-3px); }
 
-        /* --- TELEMETRY / INTEL STYLES (NEW) --- */
-        .intel-grid {
-            display: flex;
-            flex-wrap: wrap;
-            min-height: 400px;
-            position: relative; 
-            z-index: 1;
+        /* --- RCT2 UI THEME (NEW) --- */
+        .rct-window {
+            background-color: #5c4226; /* Dark Brown Border */
+            padding: 2px;
+            border-radius: 3px;
+            box-shadow: 5px 5px 0px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 650px;
+            font-family: 'Courier New', monospace; /* Pixel-ish font */
         }
-        .track-visual-container {
-            flex: 1.5;
-            min-width: 300px;
-            background: radial-gradient(circle at center, #111 0%, rgba(0,0,0,0) 100%);
+
+        .rct-title-bar {
+            background: linear-gradient(to bottom, #9cbba5, #5e846b);
+            padding: 4px 8px;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
+            color: #fff;
+            text-shadow: 1px 1px 0 #000;
+            font-weight: bold;
+            font-size: 0.9rem;
+            border: 1px solid #a8c6b0;
+            border-bottom: 1px solid #3c5644;
+        }
+
+        .rct-close-btn {
+            background: #bf4d4d;
+            width: 16px; height: 16px;
+            line-height: 14px;
+            text-align: center;
+            font-size: 14px;
+            border: 1px solid #fff;
+            cursor: pointer;
+            box-shadow: inset 1px 1px 0 rgba(255,255,255,0.5);
+        }
+
+        .rct-content {
+            background-color: #cbb48b; /* Classic Tan */
+            padding: 8px;
+            border: 1px solid #8e7a5e;
+        }
+
+        .rct-viewport {
+            background-color: #5d9636; /* Grass Green */
+            border: 2px solid #4a3723;
+            border-bottom-color: #7a6348;
+            border-right-color: #7a6348;
             position: relative;
-            border-right: 1px solid #222;
-            padding: 2rem;
-        }
-        .intel-data {
-            flex: 1;
-            min-width: 300px;
-            padding: 3rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            image-rendering: pixelated;
+            overflow: hidden;
+            /* Create Checkerboard Grass Pattern */
+            background-image: linear-gradient(45deg, #538730 25%, transparent 25%, transparent 75%, #538730 75%, #538730),
+                              linear-gradient(45deg, #538730 25%, transparent 25%, transparent 75%, #538730 75%, #538730);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
         }
 
-        /* Live Tag */
-        .live-tag {
-            position: absolute; top: 20px; left: 20px;
-            background: rgba(204, 0, 0, 0.2);
-            color: var(--primary);
-            border: 1px solid var(--primary);
-            padding: 5px 10px;
-            font-size: 0.6rem;
-            letter-spacing: 2px;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .blink-dot { width: 8px; height: 8px; background: var(--primary); border-radius: 50%; animation: blinker 1.5s linear infinite; }
-        @keyframes blinker { 50% { opacity: 0; } }
+        canvas { width: 100%; height: auto; display: block; }
 
-        /* SVG Animations */
-        .track-svg { width: 100%; max-width: 500px; height: auto; overflow: visible; }
-        
-        .track-draw-anim {
-            stroke-dasharray: 1000;
-            stroke-dashoffset: 1000;
-            animation: drawTrack 3s ease-out forwards;
-        }
-        
-        /* The magic moving dot */
-        .racer-dot {
-            offset-distance: 0%;
-            animation: raceLap 6s infinite linear;
+        .rct-overlay-text {
+            position: absolute; bottom: 10px; left: 10px;
+            background: rgba(0,0,0,0.6); color: #fff;
+            padding: 2px 6px; font-size: 0.7rem; pointer-events: none;
         }
 
-        @keyframes drawTrack { to { stroke-dashoffset: 0; } }
-        @keyframes raceLap { 
-            0% { offset-distance: 0%; }
-            100% { offset-distance: 100%; } 
+        .rct-controls {
+            display: flex; gap: 1rem;
+            margin-top: 8px; padding-top: 8px;
+            border-top: 1px solid #a9926d;
         }
 
-        /* Telemetry Data Boxes */
-        .telemetry-row { display: flex; gap: 1.5rem; margin-top: 2rem; }
-        .t-box { display: flex; flex-direction: column; border-top: 2px solid #333; padding-top: 0.5rem; width: 80px; }
-        .t-label { font-size: 0.6rem; color: #666; letter-spacing: 1px; margin-bottom: 5px; }
-        .t-value { font-size: 1.5rem; font-family: 'Arial Black'; color: #fff; }
+        .rct-control-group { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+        .rct-control-group label { font-size: 0.6rem; color: #4a3723; font-weight: bold; }
+
+        .rct-input {
+            background: #000; color: #0f0; border: 1px solid #5c4226;
+            padding: 4px; font-family: monospace;
+        }
+
+        .rct-btn {
+            background: #4a3723; color: #fff; border: 1px solid #7a6348;
+            padding: 5px; cursor: pointer; font-family: monospace; font-weight: bold;
+            box-shadow: inset 1px 1px 0 rgba(255,255,255,0.2);
+        }
+        .rct-btn:active { transform: translateY(1px); }
+
+        .rct-leaderboard {
+            margin-top: 8px; background: #000; padding: 4px;
+            border: 1px solid #5c4226;
+            font-family: monospace; color: #0f0; font-size: 0.7rem;
+            height: 50px; overflow: hidden;
+        }
+        .rct-row { display: flex; justify-content: space-between; border-bottom: 1px dashed #333; }
 
         /* --- MOBILE OVERRIDE --- */
         @media (max-width: 900px) {
@@ -397,11 +421,6 @@
             /* 5. Mobile Interactions */
             .contact-btn { width: 100%; justify-content: center; padding: 15px; box-sizing: border-box; }
             .contact-btn span { font-size: 0.7rem !important; letter-spacing: 1px !important; }
-
-            /* 6. Intel Grid Mobile */
-            .intel-grid { flex-direction: column; }
-            .track-visual-container { border-right: none; border-bottom: 1px solid #222; padding: 4rem 1rem; }
-            .intel-data { padding: 2rem; }
         }
     </style>
 </head>
@@ -458,64 +477,42 @@
             </div>
         </section>
 
-        <section class="highlight-box" style="padding: 0; background: #080808; border-left: 4px solid var(--primary); position: relative; overflow: hidden;">
-            
-            <div style="position: absolute; top:0; left:0; width:100%; height:100%; 
-                 background-image: linear-gradient(#1a1a1a 1px, transparent 1px), linear-gradient(90deg, #1a1a1a 1px, transparent 1px); 
-                 background-size: 40px 40px; opacity: 0.3; pointer-events: none; z-index: 0;"></div>
-
-            <div class="intel-grid">
-                <div class="track-visual-container">
-                    <div class="live-tag"><div class="blink-dot"></div> SIMULATION LIVE</div>
-                    
-                    <svg viewBox="0 0 400 250" class="track-svg">
-                        <defs>
-                            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                                <feGaussianBlur stdDeviation="4" result="blur" />
-                                <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                            </filter>
-                            <path id="trackPath" d="M 50,200 L 200,200 L 350,200 C 380,200 380,50 350,50 L 200,50 L 50,50 C 20,50 20,200 50,200" />
-                        </defs>
-
-                        <use href="#trackPath" stroke="#333" stroke-width="10" fill="none" />
-                        
-                        <use href="#trackPath" class="track-draw-anim" stroke="var(--primary)" stroke-width="3" fill="none" filter="url(#glow)" />
-
-                        <circle r="6" fill="#fff" class="racer-dot" style="offset-path: path('M 50,200 L 200,200 L 350,200 C 380,200 380,50 350,50 L 200,50 L 50,50 C 20,50 20,200 50,200');">
-                        </circle>
-                    </svg>
-                    
-                    <div style="text-align: center; color: #666; font-family: monospace; font-size: 0.8rem; margin-top: -20px;">
-                        SECTOR 1: <span style="color: #0f0;">-0.024</span> | SECTOR 2: <span style="color: var(--primary);">+0.110</span>
-                    </div>
+        <section class="highlight-box" style="padding: 0; background: transparent; border: none; display: flex; justify-content: center;">
+            <div class="rct-window">
+                <div class="rct-title-bar">
+                    <span class="rct-title">Race Simulation - View 1</span>
+                    <div class="rct-close-btn">×</div>
                 </div>
 
-                <div class="intel-data">
-                    <span class="stat-label" style="color: var(--primary);">NEXT EVENT INTEL</span>
-                    <h2 style="font-size: 3rem; margin: 0.5rem 0; line-height: 1;">SPEEDWAY</h2>
+                <div class="rct-content">
                     
-                    <div class="telemetry-row">
-                        <div class="t-box">
-                            <span class="t-label">TRACK TEMP</span>
-                            <span class="t-value">98°F</span>
+                    <div class="rct-viewport">
+                        <canvas id="raceCanvas" width="600" height="300"></canvas>
+                        <div class="rct-overlay-text" id="raceStatus">WAITING FOR GREEN FLAG...</div>
+                    </div>
+
+                    <div class="rct-controls">
+                        <div class="rct-control-group">
+                            <label>TRACK SELECTION:</label>
+                            <select id="trackSelect" class="rct-input">
+                                <option value="speedway">Superspeedway (2.5mi)</option>
+                                <option value="short">The Paperclip (0.5mi)</option>
+                                <option value="roval">The Roval (2.2mi)</option>
+                            </select>
                         </div>
-                        <div class="t-box">
-                            <span class="t-label">PIT WINDOW</span>
-                            <span class="t-value">42-46</span>
-                        </div>
-                        <div class="t-box">
-                            <span class="t-label">AVG SPEED</span>
-                            <span class="t-value" id="sim-speed">182</span> <span style="font-size: 0.8rem; color:#666;">MPH</span>
+                        
+                        <div class="rct-control-group">
+                            <label>ACTION:</label>
+                            <button id="btnStartRace" class="rct-btn">START RACE</button>
+                            <button id="btnResetRace" class="rct-btn" style="background: #a33;">RESET</button>
                         </div>
                     </div>
 
-                    <p style="color: #888; font-family: sans-serif; line-height: 1.5; font-size: 0.9rem; margin-top: 1.5rem;">
-                        Strategies are shifting for the upcoming speedway event. High wear is expected on the right-fronts. Setup shops are currently optimizing for long-run stability over qualifying trim.
-                    </p>
-
-                    <a href="#" class="contact-btn" style="margin-top: 2rem; background: rgba(255,255,255,0.05); border: 1px solid #444;">
-                        <i class="fa-solid fa-download"></i> DOWNLOAD SETUP
-                    </a>
+                    <div class="rct-leaderboard" id="miniLeaderboard">
+                        <div class="rct-row"><span>1. --</span><span>Lap 0</span></div>
+                        <div class="rct-row"><span>2. --</span><span>Lap 0</span></div>
+                        <div class="rct-row"><span>3. --</span><span>Lap 0</span></div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -758,41 +755,202 @@
             e.preventDefault();
         });
 
-        // 2. Disable Keyboard Shortcuts (Ctrl+U, F12, Ctrl+Shift+I, etc.)
+        // 2. Disable Keyboard Shortcuts
         document.addEventListener('keydown', (e) => {
-            // Check for Ctrl (or Command on Mac)
             if (e.ctrlKey || e.metaKey) {
                 switch (e.key.toLowerCase()) {
-                    case 'u': // View Source
-                    case 's': // Save Page
-                    case 'a': // Select All
-                    case 'c': // Copy
-                        e.preventDefault();
-                        return false;
+                    case 'u': case 's': case 'a': case 'c': e.preventDefault(); return false;
                 }
-                // Check for Ctrl+Shift+I or J (Developer Tools)
                 if (e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j')) {
-                    e.preventDefault();
-                    return false;
+                    e.preventDefault(); return false;
                 }
             }
+            if (e.key === 'F12') { e.preventDefault(); return false; }
+        });
+
+        /* --- RACE SIMULATION LOGIC --- */
+        const canvas = document.getElementById('raceCanvas');
+        const ctx = canvas.getContext('2d');
+        const statusEl = document.getElementById('raceStatus');
+        const leaderboardEl = document.getElementById('miniLeaderboard');
+        
+        // Scale for Retina/HighDPI
+        const scale = window.devicePixelRatio || 1;
+        canvas.width = 600 * scale;
+        canvas.height = 300 * scale;
+        ctx.scale(scale, scale);
+
+        // Game State
+        let isRacing = false;
+        let animationId;
+        let cars = [];
+        
+        // Tracks (Hidden Path Data)
+        const TRACKS = {
+            speedway: { 
+                d: "M 100,200 L 250,200 L 450,200 C 550,200 550,50 450,50 L 250,50 L 100,50 C 20,50 20,200 100,200",
+                name: "SUPERSPEEDWAY"
+            },
+            short: { 
+                d: "M 150,200 L 450,200 C 500,200 500,100 450,100 L 150,100 C 100,100 100,200 150,200",
+                name: "THE PAPERCLIP"
+            },
+            roval: { 
+                d: "M 50,250 L 200,250 L 300,150 L 400,250 L 550,250 C 580,250 580,50 550,50 L 300,50 L 150,50 C 100,50 50,150 50,250",
+                name: "THE ROVAL"
+            }
+        };
+
+        let currentTrack = TRACKS.speedway;
+
+        // Hidden SVG Path for calculation
+        const hiddenPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        function updatePathLogic() {
+            hiddenPath.setAttribute("d", currentTrack.d);
+            return hiddenPath.getTotalLength();
+        }
+        let pathLen = updatePathLogic();
+        const p2d = new Path2D(currentTrack.d); // For drawing
+
+        class Car {
+            constructor(id, color) {
+                this.id = id;
+                this.color = color;
+                this.progress = Math.random() * 0.1; // Stagger start
+                this.speed = 0.5 + Math.random() * 0.5; // Base speed
+                this.lap = 0;
+                this.laneOffset = (Math.random() * 10) - 5; // Variation in lane
+            }
+
+            update() {
+                if(!isRacing) return;
+                
+                // Random speed fluctuation (drafting/braking)
+                const fluctuation = (Math.random() - 0.5) * 0.05;
+                this.speed = Math.max(0.2, Math.min(1.5, this.speed + fluctuation));
+                
+                // Move based on path length relative to standard size
+                const speedMod = 1000 / pathLen; 
+                this.progress += (this.speed * 0.2 * speedMod);
+                
+                if(this.progress >= 100) {
+                    this.progress = 0;
+                    this.lap++;
+                    updateLeaderboard();
+                }
+            }
+        }
+
+        function initCars() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffffff', '#orange', '#purple', '#888'];
+            cars = [];
+            for(let i=0; i<10; i++) {
+                cars.push(new Car(i+1, colors[i]));
+            }
+            updateLeaderboard();
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, 600, 300);
+
+            // 1. Draw Track Surface
+            ctx.lineWidth = 20;
+            ctx.strokeStyle = "#333"; // Asphalt
+            ctx.stroke(p2d);
             
-            // Check for F12 (Developer Tools)
-            if (e.key === 'F12') {
-                e.preventDefault();
-                return false;
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "#fff"; // White lines
+            ctx.stroke(p2d);
+
+            // 2. Update and Draw Cars
+            cars.sort((a,b) => (b.lap * 100 + b.progress) - (a.lap * 100 + a.progress)); // Sort for Z-index
+
+            cars.forEach(car => {
+                car.update();
+
+                // Calculate Position
+                const dist = (car.progress / 100) * pathLen;
+                const p1 = hiddenPath.getPointAtLength(dist);
+                const p2 = hiddenPath.getPointAtLength((dist + 5) % pathLen); // Look ahead
+
+                // Calculate Angle
+                const angle = Math.atan2(p2.y - p1.y, p2.x - p1.x);
+
+                ctx.save();
+                ctx.translate(p1.x, p1.y);
+                ctx.rotate(angle);
+                
+                // Draw Car (Pixel Style)
+                ctx.fillStyle = car.color;
+                ctx.fillRect(-6, -3 + (car.laneOffset/3), 12, 6); // Car body
+                ctx.fillStyle = "black";
+                ctx.fillRect(-4, -3 + (car.laneOffset/3), 2, 6); // Window
+                
+                ctx.restore();
+            });
+
+            if(isRacing) animationId = requestAnimationFrame(draw);
+        }
+
+        function updateLeaderboard() {
+            // Top 3
+            const sorted = [...cars].sort((a,b) => (b.lap * 100 + b.progress) - (a.lap * 100 + a.progress));
+            let html = '';
+            for(let i=0; i<3; i++) {
+                html += `<div class="rct-row">
+                    <span style="color:${sorted[i].color}">#${sorted[i].id}</span>
+                    <span>L${sorted[i].lap}</span>
+                </div>`;
+            }
+            leaderboardEl.innerHTML = html;
+        }
+
+        // --- EVENTS ---
+        document.getElementById('btnStartRace').addEventListener('click', () => {
+            if(!isRacing) {
+                isRacing = true;
+                statusEl.innerText = "STATUS: GREEN FLAG";
+                draw();
             }
         });
 
-        // 3. Telemetry Number Flicker
-        setInterval(() => {
-            const speedEl = document.getElementById('sim-speed');
-            if(speedEl) {
-                // Random number between 178 and 185
-                const rand = Math.floor(Math.random() * (185 - 178 + 1) + 178);
-                speedEl.innerText = rand;
-            }
-        }, 150); 
+        document.getElementById('btnResetRace').addEventListener('click', () => {
+            isRacing = false;
+            cancelAnimationFrame(animationId);
+            initCars();
+            ctx.clearRect(0, 0, 600, 300);
+            
+            // Draw static track
+            const p = new Path2D(currentTrack.d);
+            ctx.lineWidth = 20; ctx.strokeStyle = "#333"; ctx.stroke(p);
+            ctx.lineWidth = 2; ctx.strokeStyle = "#fff"; ctx.stroke(p);
+            
+            statusEl.innerText = "STATUS: CAUTION / RESET";
+            updateLeaderboard();
+        });
+
+        document.getElementById('trackSelect').addEventListener('change', (e) => {
+            const val = e.target.value;
+            currentTrack = TRACKS[val];
+            pathLen = updatePathLogic();
+            
+            // Reset Logic
+            isRacing = false;
+            cancelAnimationFrame(animationId);
+            initCars();
+            ctx.clearRect(0, 0, 600, 300);
+            const p = new Path2D(currentTrack.d);
+            ctx.lineWidth = 20; ctx.strokeStyle = "#333"; ctx.stroke(p);
+            ctx.lineWidth = 2; ctx.strokeStyle = "#fff"; ctx.stroke(p);
+        });
+
+        // Initialize
+        initCars();
+        // Initial static draw
+        const pStart = new Path2D(currentTrack.d);
+        ctx.lineWidth = 20; ctx.strokeStyle = "#333"; ctx.stroke(pStart);
+        ctx.lineWidth = 2; ctx.strokeStyle = "#fff"; ctx.stroke(pStart);
+
     </script>
 
 </body>
