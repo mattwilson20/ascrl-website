@@ -256,7 +256,7 @@
         .social-icon { color: #555; font-size: 1.8rem; transition: 0.3s ease; display: flex; align-items: center; justify-content: center; text-decoration: none; }
         .social-icon:hover { transform: translateY(-3px); }
 
-        /* --- DUAL COUNTDOWN STYLES (NEW) --- */
+        /* --- DUAL COUNTDOWN STYLES --- */
         .countdown-wrapper {
             display: flex;
             flex-wrap: wrap;
@@ -280,21 +280,8 @@
             text-align: center;
         }
 
-        /* Specific accents */
         .cd-real { border-top: 4px solid var(--cup-blue); }
         .cd-league { border-top: 4px solid var(--primary); }
-
-        /* Background glow hints */
-        .cd-real::before {
-            content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%;
-            background: radial-gradient(circle, rgba(0, 119, 255, 0.1) 0%, transparent 60%);
-            pointer-events: none;
-        }
-        .cd-league::before {
-            content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%;
-            background: radial-gradient(circle, rgba(204, 0, 0, 0.1) 0%, transparent 60%);
-            pointer-events: none;
-        }
 
         .cd-title {
             font-size: 1rem;
@@ -343,7 +330,84 @@
             margin-top: 5px;
         }
 
-        /* --- MOBILE OVERRIDE --- */
+        /* --- POWER RANKINGS STYLES --- */
+        .power-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .power-card {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid #222;
+            padding: 10px 20px;
+            border-radius: 6px;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .power-card:hover { 
+            transform: translateX(10px); 
+            border-color: #00ff00; 
+            background: rgba(0, 255, 0, 0.05); 
+        }
+
+        .p-rank {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #444;
+            width: 60px;
+            text-align: center;
+            font-style: italic;
+            z-index: 2;
+        }
+        .power-card:nth-child(1) .p-rank { color: #ffd700; text-shadow: 0 0 15px rgba(255, 215, 0, 0.4); }
+        .power-card:nth-child(2) .p-rank { color: #c0c0c0; }
+        .power-card:nth-child(3) .p-rank { color: #cd7f32; }
+
+        .p-driver {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex: 1;
+            z-index: 2;
+        }
+
+        .p-img {
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #333;
+            background: #000;
+        }
+
+        .p-info { display: flex; flex-direction: column; }
+        .p-info h3 { margin: 0; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
+        .p-team { font-size: 0.7rem; color: #888; font-family: sans-serif; }
+
+        .p-score-box {
+            text-align: right;
+            z-index: 2;
+        }
+        .p-score {
+            font-family: 'Arial Black', sans-serif;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+        .p-label { font-size: 0.6rem; color: #00ff00; letter-spacing: 1px; text-transform: uppercase; }
+
+        .p-bar {
+            position: absolute;
+            top: 0; left: 0; bottom: 0;
+            background: linear-gradient(90deg, rgba(0,255,0,0.05), transparent);
+            z-index: 1;
+            transition: width 1s ease-out;
+        }
+
         @media (max-width: 900px) {
             /* 1. Global Horizontal Layouts */
             .timer-container, 
@@ -414,6 +478,11 @@
             /* 5. Mobile Interactions */
             .contact-btn { width: 100%; justify-content: center; padding: 15px; box-sizing: border-box; }
             .contact-btn span { font-size: 0.7rem !important; letter-spacing: 1px !important; }
+
+            /* 6. Power Rankings Mobile */
+            .p-team { display: none; }
+            .p-img { width: 40px; height: 40px; }
+            .p-rank { font-size: 1.5rem; width: 40px; }
         }
     </style>
 </head>
@@ -500,6 +569,20 @@
                         <div class="cd-box"><span class="cd-num" id="a-s">00</span><span class="cd-label">SEC</span></div>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <section class="highlight-box" style="padding: 3rem 1rem; background: linear-gradient(to right, #111, #080808); border-left: 4px solid #00ff00; margin-top: 4rem;">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <span class="stat-label" style="color: #00ff00;">WEEKLY ANALYSIS</span>
+                <h2 style="font-size: 2.5rem; margin: 0.5rem 0; text-transform: uppercase;">Power Rankings</h2>
+                <p style="color: #888; font-size: 0.9rem; font-family: sans-serif;">
+                    Algorithmic ranking based on Points, Wins, Consistency, and Momentum.
+                </p>
+            </div>
+
+            <div class="power-grid" id="power-rankings-container">
+                <p style="text-align:center; color:#444;">Calculating Power Scores...</p>
             </div>
         </section>
 
@@ -612,7 +695,9 @@
     const season = "Season_1"; 
     const scheduleFile = `ASCRL_Schedule_${season}.json`; 
     const scheduleFallback = `schedule.json`;
-    const driversFile = `drivers_${season}.json`;
+    
+    // UPDATED FILE NAMES
+    const driversFile = `drivers_${season}.json`; // or drivers_live_stats.json if you prefer
     const driversFallback = `drivers.json`;
     const resultsFile = `ASCRL_Results_${season}.json`;
 
@@ -732,97 +817,206 @@
             });
             document.getElementById('winners-carousel').innerHTML = html;
         }
-    });
-    </script>
 
-    <script>
-        // 1. Disable Right Click
-        document.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-        });
-
-        // 2. Disable Keyboard Shortcuts (Ctrl+U, F12, Ctrl+Shift+I, etc.)
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey || e.metaKey) {
-                switch (e.key.toLowerCase()) {
-                    case 'u': case 's': case 'a': case 'c': e.preventDefault(); return false;
-                }
-                if (e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j')) {
-                    e.preventDefault(); return false;
-                }
-            }
-            if (e.key === 'F12') { e.preventDefault(); return false; }
-        });
-
-        // 3. DUAL COUNTDOWN LOGIC
-        // Target dates: Feb 15, 2026 (NASCAR) and Feb 17, 2026 (ASCRL)
-        const nascarDate = new Date("February 15, 2026 14:30:00").getTime();
-        const ascrlDate = new Date("February 17, 2026 20:00:00").getTime();
-
-        function updateCountdowns() {
-            const now = new Date().getTime();
-
-            // Function to calculate time parts
-            function getParts(target) {
-                const distance = target - now;
-                if (distance < 0) return { d:0, h:0, m:0, s:0 };
-                return {
-                    d: Math.floor(distance / (1000 * 60 * 60 * 24)),
-                    h: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-                    m: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
-                    s: Math.floor((distance % (1000 * 60)) / 1000)
-                };
-            }
-
-            // Update NASCAR
-            const n = getParts(nascarDate);
-            document.getElementById("n-d").innerText = n.d < 10 ? "0" + n.d : n.d;
-            document.getElementById("n-h").innerText = n.h < 10 ? "0" + n.h : n.h;
-            document.getElementById("n-m").innerText = n.m < 10 ? "0" + n.m : n.m;
-            document.getElementById("n-s").innerText = n.s < 10 ? "0" + n.s : n.s;
-
-            // Update ASCRL
-            const a = getParts(ascrlDate);
-            document.getElementById("a-d").innerText = a.d < 10 ? "0" + a.d : a.d;
-            document.getElementById("a-h").innerText = a.h < 10 ? "0" + a.h : a.h;
-            document.getElementById("a-m").innerText = a.m < 10 ? "0" + a.m : a.m;
-            document.getElementById("a-s").innerText = a.s < 10 ? "0" + a.s : a.s;
+        // D. POWER RANKINGS CALCULATION
+        if(driversData && resultsData) {
+            calculatePowerRankings(driversData, resultsData);
         }
+    });
 
-        setInterval(updateCountdowns, 1000);
-        updateCountdowns(); // Initial call
-    </script>
-    <script>
-        // 1. Disable Right Click
-        document.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
+    // --- POWER RANKINGS ENGINE ---
+    function calculatePowerRankings(driversData, resultsData) {
+        
+        // 1. Process Results to find Momentum (Last 3 finishes per series)
+        // Map: DriverName -> { SeriesName: [finish1, finish2, ...] }
+        const momentumMap = {};
+        
+        // Results keys are like "Truck - Daytona", so we assume chronological order in file
+        Object.keys(resultsData).forEach(raceKey => {
+            const parts = raceKey.split(' - ');
+            const series = parts[0];
+            const results = resultsData[raceKey];
+
+            results.forEach(r => {
+                // Clean driver name (remove #Number)
+                let name = r.driver;
+                if(name.includes('#')) {
+                    name = name.split(' ').slice(1).join(' '); // "#10 Name" -> "Name"
+                }
+                name = name.trim();
+
+                if(!momentumMap[name]) momentumMap[name] = {};
+                if(!momentumMap[name][series]) momentumMap[name][series] = [];
+                
+                momentumMap[name][series].push(r.position);
+            });
         });
 
-        // 2. Disable Keyboard Shortcuts (Ctrl+U, F12, Ctrl+Shift+I, etc.)
-        document.addEventListener('keydown', (e) => {
-            // Check for Ctrl (or Command on Mac)
-            if (e.ctrlKey || e.metaKey) {
-                switch (e.key.toLowerCase()) {
-                    case 'u': // View Source
-                    case 's': // Save Page
-                    case 'a': // Select All
-                    case 'c': // Copy
-                        e.preventDefault();
-                        return false;
-                }
-                // Check for Ctrl+Shift+I or J (Developer Tools)
-                if (e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j')) {
-                    e.preventDefault();
-                    return false;
-                }
-            }
-            
-            // Check for F12 (Developer Tools)
-            if (e.key === 'F12') {
-                e.preventDefault();
-                return false;
+        // 2. Weights & Settings
+        const WEIGHTS = { points: 0.40, wins: 0.20, consistency: 0.25, momentum: 0.15 };
+        const SERIES_MULT = { "Cup": 1.0, "Xfinity": 0.85, "Truck": 0.70, "Menards": 0.55 };
+        
+        // Find Max Points per Series for normalization
+        const maxPointsMap = {};
+        Object.values(driversData).forEach(d => {
+            if(d.series) {
+                Object.keys(d.series).forEach(s => {
+                    const pts = d.series[s].stats.points || 0;
+                    if(!maxPointsMap[s] || pts > maxPointsMap[s]) maxPointsMap[s] = pts;
+                });
             }
         });
+
+        // 3. Calculate Score per Driver
+        const powerList = [];
+
+        Object.keys(driversData).forEach(id => {
+            const d = driversData[id];
+            const name = d.display_name;
+            let totalScore = 0;
+            let seriesCount = 0;
+            let totalWins = 0;
+            let mainTeam = "Independent";
+
+            if(d.series) {
+                Object.keys(d.series).forEach(s => {
+                    if(!SERIES_MULT[s]) return; // Skip WOO if not in list
+
+                    const stats = d.series[s].stats;
+                    const pts = stats.points || 0;
+                    const wins = stats.wins || 0;
+                    const avg = stats.avg || 40;
+                    if(d.series[s].team) mainTeam = d.series[s].team;
+
+                    // Metrics
+                    const normPoints = pts / (maxPointsMap[s] || 1);
+                    const normWins = Math.min(wins / 5, 1.0);
+                    const normConsist = Math.max(0, (40 - avg) / 39);
+                    
+                    // Momentum
+                    let normMom = 0;
+                    const recentFinishes = momentumMap[name] ? momentumMap[name][s] : null;
+                    if(recentFinishes && recentFinishes.length > 0) {
+                        const last3 = recentFinishes.slice(-3);
+                        const avgRec = last3.reduce((a,b)=>a+b,0) / last3.length;
+                        normMom = Math.max(0, (40 - avgRec) / 39);
+                    } else {
+                        normMom = normConsist; // Fallback
+                    }
+
+                    // Series Score
+                    const sScore = (
+                        (normPoints * WEIGHTS.points) +
+                        (normWins * WEIGHTS.wins) +
+                        (normConsist * WEIGHTS.consistency) +
+                        (normMom * WEIGHTS.momentum)
+                    ) * 100;
+
+                    // Add to Total (Weighted by Series Difficulty)
+                    totalScore += sScore * SERIES_MULT[s];
+                    seriesCount++;
+                    totalWins += wins;
+                });
+            }
+
+            if(seriesCount > 0) {
+                // Normalize total score so multi-series drivers don't just win by default
+                // (Optional: You can keep additive scoring to reward busy drivers)
+                // Let's keep it additive but capped slightly? 
+                // Actually, the Python code sums them up: `global_scores[discord_id] += power_score * mult`
+                // So we do the same.
+                
+                powerList.push({
+                    name: name,
+                    team: mainTeam,
+                    wins: totalWins,
+                    score: totalScore,
+                    img: getDriverImage(name)
+                });
+            }
+        });
+
+        // 4. Sort & Render
+        powerList.sort((a,b) => b.score - a.score);
+        const top10 = powerList.slice(0, 10);
+
+        const container = document.getElementById('power-rankings-container');
+        container.innerHTML = ''; 
+
+        top10.forEach((d, index) => {
+            const rank = index + 1;
+            // Visual bar width (capped relative to top score)
+            const topScore = top10[0].score;
+            const widthPct = (d.score / topScore) * 100;
+
+            const html = `
+            <div class="power-card">
+                <div class="p-bar" style="width: ${widthPct}%;"></div>
+                <div class="p-rank">${rank}</div>
+                <div class="p-driver">
+                    <img src="${d.img}" class="p-img" onerror="this.src='https://via.placeholder.com/50'">
+                    <div class="p-info">
+                        <h3>${d.name}</h3>
+                        <span class="p-team">${d.team} • ${d.wins} Wins</span>
+                    </div>
+                </div>
+                <div class="p-score-box">
+                    <div class="p-score">${d.score.toFixed(1)}</div>
+                    <div class="p-label">POWER RATING</div>
+                </div>
+            </div>`;
+            container.innerHTML += html;
+        });
+    }
+
+    // 1. Disable Right Click
+    document.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+    });
+
+    // 2. Disable Keyboard Shortcuts (Ctrl+U, F12, Ctrl+Shift+I, etc.)
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey || e.metaKey) {
+            switch (e.key.toLowerCase()) {
+                case 'u': case 's': case 'a': case 'c': e.preventDefault(); return false;
+            }
+            if (e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j')) {
+                e.preventDefault(); return false;
+            }
+        }
+        if (e.key === 'F12') { e.preventDefault(); return false; }
+    });
+
+    // 3. DUAL COUNTDOWN LOGIC
+    const nascarDate = new Date("February 15, 2026 14:30:00").getTime();
+    const ascrlDate = new Date("February 17, 2026 20:00:00").getTime();
+
+    function updateCountdowns() {
+        const now = new Date().getTime();
+        function getParts(target) {
+            const distance = target - now;
+            if (distance < 0) return { d:0, h:0, m:0, s:0 };
+            return {
+                d: Math.floor(distance / (1000 * 60 * 60 * 24)),
+                h: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+                m: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+                s: Math.floor((distance % (1000 * 60)) / 1000)
+            };
+        }
+        const n = getParts(nascarDate);
+        document.getElementById("n-d").innerText = n.d < 10 ? "0" + n.d : n.d;
+        document.getElementById("n-h").innerText = n.h < 10 ? "0" + n.h : n.h;
+        document.getElementById("n-m").innerText = n.m < 10 ? "0" + n.m : n.m;
+        document.getElementById("n-s").innerText = n.s < 10 ? "0" + n.s : n.s;
+
+        const a = getParts(ascrlDate);
+        document.getElementById("a-d").innerText = a.d < 10 ? "0" + a.d : a.d;
+        document.getElementById("a-h").innerText = a.h < 10 ? "0" + a.h : a.h;
+        document.getElementById("a-m").innerText = a.m < 10 ? "0" + a.m : a.m;
+        document.getElementById("a-s").innerText = a.s < 10 ? "0" + a.s : a.s;
+    }
+    setInterval(updateCountdowns, 1000);
+    updateCountdowns(); 
     </script>
 
 </body>
