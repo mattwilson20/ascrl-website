@@ -477,9 +477,25 @@
             .contact-btn { width: 100%; justify-content: center; padding: 15px; box-sizing: border-box; }
             .contact-btn span { font-size: 0.7rem !important; letter-spacing: 1px !important; }
 
-            /* 6. Power Rankings Mobile - FIXED */
-            .ranking-filters { gap: 5px; }
-            .filter-btn { padding: 8px 10px; font-size: 0.65rem; flex: 1 1 auto; }
+            /* 6. Power Rankings Mobile - FIXED GRID */
+            .ranking-filters { 
+                display: grid; 
+                grid-template-columns: 1fr 1fr; 
+                gap: 8px; 
+                width: 100%; 
+            }
+            .filter-btn { 
+                padding: 12px; 
+                font-size: 0.75rem; 
+                width: 100%;
+            }
+            .filter-btn.btn-overall {
+                grid-column: 1 / -1; /* Span Full Width */
+                font-size: 0.9rem;
+                padding: 14px;
+                margin-bottom: 5px;
+            }
+            
             .p-team { display: none; }
             .p-rank { font-size: 1.1rem; width: 25px; margin-right: 5px; }
             .p-img { width: 35px; height: 35px; }
@@ -1079,38 +1095,6 @@
     }
     setInterval(updateCountdowns, 1000);
     updateCountdowns(); 
-    </script>
-    <script>
-        // 1. Disable Right Click
-        document.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-        });
-
-        // 2. Disable Keyboard Shortcuts (Ctrl+U, F12, Ctrl+Shift+I, etc.)
-        document.addEventListener('keydown', (e) => {
-            // Check for Ctrl (or Command on Mac)
-            if (e.ctrlKey || e.metaKey) {
-                switch (e.key.toLowerCase()) {
-                    case 'u': // View Source
-                    case 's': // Save Page
-                    case 'a': // Select All
-                    case 'c': // Copy
-                        e.preventDefault();
-                        return false;
-                }
-                // Check for Ctrl+Shift+I or J (Developer Tools)
-                if (e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j')) {
-                    e.preventDefault();
-                    return false;
-                }
-            }
-            
-            // Check for F12 (Developer Tools)
-            if (e.key === 'F12') {
-                e.preventDefault();
-                return false;
-            }
-        });
     </script>
 
 </body>
