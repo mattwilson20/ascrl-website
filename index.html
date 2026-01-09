@@ -330,13 +330,45 @@
             margin-top: 5px;
         }
 
-        /* --- POWER RANKINGS STYLES --- */
+        /* --- POWER RANKINGS STYLES (NEW) --- */
+        .ranking-filters {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .filter-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #333;
+            color: #aaa;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-family: 'Arial Black', sans-serif;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .filter-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+        /* Active States & Specific Colors */
+        .filter-btn.btn-overall.active { background: #00ff00; color: #000; border-color: #00ff00; box-shadow: 0 0 15px rgba(0,255,0,0.4); }
+        .filter-btn.btn-cup.active { background: var(--cup-blue); color: #fff; border-color: var(--cup-blue); box-shadow: 0 0 15px rgba(0, 119, 255, 0.4); }
+        .filter-btn.btn-xfinity.active { background: var(--xfinity-purple); color: #fff; border-color: var(--xfinity-purple); box-shadow: 0 0 15px rgba(128, 0, 176, 0.4); }
+        .filter-btn.btn-truck.active { background: var(--truck-red); color: #fff; border-color: var(--truck-red); box-shadow: 0 0 15px rgba(204, 0, 0, 0.4); }
+        .filter-btn.btn-menards.active { background: var(--menards-yellow); color: #000; border-color: var(--menards-yellow); box-shadow: 0 0 15px rgba(255, 242, 0, 0.4); }
+
         .power-grid {
             display: flex;
             flex-direction: column;
             gap: 10px;
             max-width: 800px;
             margin: 0 auto;
+            min-height: 300px;
         }
 
         .power-card {
@@ -349,65 +381,38 @@
             transition: 0.3s;
             position: relative;
             overflow: hidden;
-        }
-        .power-card:hover { 
-            transform: translateX(10px); 
-            border-color: #00ff00; 
-            background: rgba(0, 255, 0, 0.05); 
+            animation: fadeSlide 0.4s ease-out forwards;
+            opacity: 0;
+            transform: translateY(10px);
         }
 
-        .p-rank {
-            font-size: 2rem;
-            font-weight: 900;
-            color: #444;
-            width: 60px;
-            text-align: center;
-            font-style: italic;
-            z-index: 2;
-        }
+        @keyframes fadeSlide { to { opacity: 1; transform: translateY(0); } }
+
+        .power-card:hover { transform: translateX(5px); }
+
+        .p-rank { font-size: 1.8rem; font-weight: 900; color: #444; width: 50px; text-align: center; font-style: italic; z-index: 2; }
         .power-card:nth-child(1) .p-rank { color: #ffd700; text-shadow: 0 0 15px rgba(255, 215, 0, 0.4); }
         .power-card:nth-child(2) .p-rank { color: #c0c0c0; }
         .power-card:nth-child(3) .p-rank { color: #cd7f32; }
 
-        .p-driver {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            flex: 1;
-            z-index: 2;
-        }
-
-        .p-img {
-            width: 50px; height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #333;
-            background: #000;
-        }
-
+        .p-driver { display: flex; align-items: center; gap: 15px; flex: 1; z-index: 2; }
+        .p-img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid #333; background: #000; }
         .p-info { display: flex; flex-direction: column; }
-        .p-info h3 { margin: 0; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
-        .p-team { font-size: 0.7rem; color: #888; font-family: sans-serif; }
+        .p-info h3 { margin: 0; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; color: #fff; }
+        .p-team { font-size: 0.65rem; color: #888; font-family: sans-serif; }
 
-        .p-score-box {
-            text-align: right;
-            z-index: 2;
-        }
-        .p-score {
-            font-family: 'Arial Black', sans-serif;
-            font-size: 1.2rem;
-            color: #fff;
-        }
-        .p-label { font-size: 0.6rem; color: #00ff00; letter-spacing: 1px; text-transform: uppercase; }
+        .p-score-box { text-align: right; z-index: 2; }
+        .p-score { font-family: 'Arial Black', sans-serif; font-size: 1.2rem; color: #fff; line-height: 1; }
+        .p-label { font-size: 0.55rem; color: #666; letter-spacing: 1px; text-transform: uppercase; }
 
         .p-bar {
-            position: absolute;
-            top: 0; left: 0; bottom: 0;
-            background: linear-gradient(90deg, rgba(0,255,0,0.05), transparent);
+            position: absolute; top: 0; left: 0; bottom: 0;
+            background: linear-gradient(90deg, rgba(255,255,255,0.05), transparent);
             z-index: 1;
             transition: width 1s ease-out;
         }
 
+        /* --- MOBILE OVERRIDE --- */
         @media (max-width: 900px) {
             /* 1. Global Horizontal Layouts */
             .timer-container, 
@@ -418,17 +423,12 @@
                 flex-direction: row !important; 
                 flex-wrap: nowrap !important;
                 overflow-x: auto !important; 
-                
-                /* Left align fixes scroll clipping */
                 justify-content: flex-start !important;
-                
                 gap: 1rem;
                 width: 100%;
                 padding: 1rem 1rem 2rem 1rem; 
                 box-sizing: border-box;
                 align-items: flex-start;
-                
-                /* Standard mobile scrolling physics */
                 -webkit-overflow-scrolling: touch;
                 scroll-snap-type: x mandatory;
             }
@@ -459,8 +459,6 @@
                 left: auto !important; 
                 top: auto !important;
                 scroll-snap-align: center;
-                
-                /* Reset content positioning for 2D */
                 display: flex !important;
                 flex-direction: column !important;
                 justify-content: flex-end !important;
@@ -480,9 +478,11 @@
             .contact-btn span { font-size: 0.7rem !important; letter-spacing: 1px !important; }
 
             /* 6. Power Rankings Mobile */
+            .ranking-filters { gap: 8px; }
+            .filter-btn { padding: 8px 15px; font-size: 0.7rem; flex: 1 1 auto; }
             .p-team { display: none; }
-            .p-img { width: 40px; height: 40px; }
-            .p-rank { font-size: 1.5rem; width: 40px; }
+            .p-rank { font-size: 1.4rem; width: 30px; margin-right: 10px; }
+            .p-img { width: 35px; height: 35px; }
         }
     </style>
 </head>
@@ -576,9 +576,17 @@
             <div style="text-align: center; margin-bottom: 2rem;">
                 <span class="stat-label" style="color: #00ff00;">WEEKLY ANALYSIS</span>
                 <h2 style="font-size: 2.5rem; margin: 0.5rem 0; text-transform: uppercase;">Power Rankings</h2>
-                <p style="color: #888; font-size: 0.9rem; font-family: sans-serif;">
+                <p style="color: #888; font-size: 0.9rem; font-family: sans-serif; margin-bottom: 2rem;">
                     Algorithmic ranking based on Points, Wins, Consistency, and Momentum.
                 </p>
+
+                <div class="ranking-filters">
+                    <button class="filter-btn active btn-overall" onclick="renderRankings('Overall')">OVERALL</button>
+                    <button class="filter-btn btn-cup" onclick="renderRankings('Cup')">CUP</button>
+                    <button class="filter-btn btn-xfinity" onclick="renderRankings('Xfinity')">XFINITY</button>
+                    <button class="filter-btn btn-truck" onclick="renderRankings('Truck')">TRUCK</button>
+                    <button class="filter-btn btn-menards" onclick="renderRankings('Menards')">MENARDS</button>
+                </div>
             </div>
 
             <div class="power-grid" id="power-rankings-container">
@@ -824,135 +832,160 @@
         }
     });
 
-    // --- POWER RANKINGS ENGINE ---
-    function calculatePowerRankings(driversData, resultsData) {
+    // --- POWER RANKINGS ENGINE v2 (Multi-Series Support) ---
+    let rankingsCache = {}; // Stores the calculated lists for instant switching
+
+    async function calculatePowerRankings(driversData, resultsData) {
         
-        // 1. Process Results to find Momentum (Last 3 finishes per series)
-        // Map: DriverName -> { SeriesName: [finish1, finish2, ...] }
+        // 1. Process Momentum (Last 3 finishes per series)
         const momentumMap = {};
-        
-        // Results keys are like "Truck - Daytona", so we assume chronological order in file
         Object.keys(resultsData).forEach(raceKey => {
             const parts = raceKey.split(' - ');
-            const series = parts[0];
+            const series = parts[0]; 
             const results = resultsData[raceKey];
 
             results.forEach(r => {
-                // Clean driver name (remove #Number)
                 let name = r.driver;
-                if(name.includes('#')) {
-                    name = name.split(' ').slice(1).join(' '); // "#10 Name" -> "Name"
-                }
+                if(name.includes('#')) name = name.split(' ').slice(1).join(' '); // Clean #
                 name = name.trim();
 
                 if(!momentumMap[name]) momentumMap[name] = {};
                 if(!momentumMap[name][series]) momentumMap[name][series] = [];
-                
                 momentumMap[name][series].push(r.position);
             });
         });
 
-        // 2. Weights & Settings
+        // 2. Weights & Config
         const WEIGHTS = { points: 0.40, wins: 0.20, consistency: 0.25, momentum: 0.15 };
         const SERIES_MULT = { "Cup": 1.0, "Xfinity": 0.85, "Truck": 0.70, "Menards": 0.55 };
         
-        // Find Max Points per Series for normalization
-        const maxPointsMap = {};
-        Object.values(driversData).forEach(d => {
-            if(d.series) {
-                Object.keys(d.series).forEach(s => {
-                    const pts = d.series[s].stats.points || 0;
-                    if(!maxPointsMap[s] || pts > maxPointsMap[s]) maxPointsMap[s] = pts;
-                });
+        // Initialize Cache
+        rankingsCache = { "Overall": [], "Cup": [], "Xfinity": [], "Truck": [], "Menards": [] };
+
+        // --- HELPER: Calculate Score for a single series entry ---
+        function getSeriesScore(stats, seriesName, driverName) {
+            const pts = stats.points || 0;
+            const wins = stats.wins || 0;
+            const avg = stats.avg || 40;
+            
+            // Find max points for THIS series to normalize (Simplified 400 cap)
+            const maxPts = 400; 
+
+            const normPoints = Math.min(pts / maxPts, 1.0);
+            const normWins = Math.min(wins / 3, 1.0); // 3 wins = 100%
+            const normConsist = Math.max(0, (40 - avg) / 39);
+            
+            // Momentum
+            let normMom = 0;
+            const recents = momentumMap[driverName] ? momentumMap[driverName][seriesName] : null;
+            if(recents && recents.length > 0) {
+                const last3 = recents.slice(-3);
+                const avgRec = last3.reduce((a,b)=>a+b,0) / last3.length;
+                normMom = Math.max(0, (40 - avgRec) / 39);
+            } else {
+                normMom = normConsist; 
             }
-        });
 
-        // 3. Calculate Score per Driver
-        const powerList = [];
+            return ((normPoints * WEIGHTS.points) + (normWins * WEIGHTS.wins) + (normConsist * WEIGHTS.consistency) + (normMom * WEIGHTS.momentum)) * 100;
+        }
 
+        // 3. Main Loop
         Object.keys(driversData).forEach(id => {
             const d = driversData[id];
             const name = d.display_name;
-            let totalScore = 0;
+            
+            let overallScoreSum = 0;
             let seriesCount = 0;
             let totalWins = 0;
-            let mainTeam = "Independent";
+            let primaryTeam = "Independent";
 
             if(d.series) {
                 Object.keys(d.series).forEach(s => {
-                    if(!SERIES_MULT[s]) return; // Skip WOO if not in list
-
                     const stats = d.series[s].stats;
-                    const pts = stats.points || 0;
-                    const wins = stats.wins || 0;
-                    const avg = stats.avg || 40;
-                    if(d.series[s].team) mainTeam = d.series[s].team;
+                    if(!stats) return;
 
-                    // Metrics
-                    const normPoints = pts / (maxPointsMap[s] || 1);
-                    const normWins = Math.min(wins / 5, 1.0);
-                    const normConsist = Math.max(0, (40 - avg) / 39);
+                    // Series Specific Calculation
+                    const sScore = getSeriesScore(stats, s, name);
                     
-                    // Momentum
-                    let normMom = 0;
-                    const recentFinishes = momentumMap[name] ? momentumMap[name][s] : null;
-                    if(recentFinishes && recentFinishes.length > 0) {
-                        const last3 = recentFinishes.slice(-3);
-                        const avgRec = last3.reduce((a,b)=>a+b,0) / last3.length;
-                        normMom = Math.max(0, (40 - avgRec) / 39);
-                    } else {
-                        normMom = normConsist; // Fallback
+                    // Add to Series Specific List
+                    if(rankingsCache[s]) {
+                        rankingsCache[s].push({
+                            name: name,
+                            team: d.series[s].team || "Independent",
+                            wins: stats.wins || 0,
+                            score: sScore,
+                            img: getDriverImage(name)
+                        });
                     }
 
-                    // Series Score
-                    const sScore = (
-                        (normPoints * WEIGHTS.points) +
-                        (normWins * WEIGHTS.wins) +
-                        (normConsist * WEIGHTS.consistency) +
-                        (normMom * WEIGHTS.momentum)
-                    ) * 100;
-
-                    // Add to Total (Weighted by Series Difficulty)
-                    totalScore += sScore * SERIES_MULT[s];
-                    seriesCount++;
-                    totalWins += wins;
+                    // Add to Overall Sum (Weighted)
+                    if(SERIES_MULT[s]) {
+                        overallScoreSum += sScore * SERIES_MULT[s];
+                        seriesCount++;
+                        totalWins += (stats.wins || 0);
+                        if(d.series[s].team && d.series[s].team !== "Independent") primaryTeam = d.series[s].team;
+                    }
                 });
             }
 
             if(seriesCount > 0) {
-                // Normalize total score so multi-series drivers don't just win by default
-                // (Optional: You can keep additive scoring to reward busy drivers)
-                // Let's keep it additive but capped slightly? 
-                // Actually, the Python code sums them up: `global_scores[discord_id] += power_score * mult`
-                // So we do the same.
-                
-                powerList.push({
+                rankingsCache["Overall"].push({
                     name: name,
-                    team: mainTeam,
+                    team: primaryTeam,
                     wins: totalWins,
-                    score: totalScore,
+                    score: overallScoreSum, 
                     img: getDriverImage(name)
                 });
             }
         });
 
-        // 4. Sort & Render
-        powerList.sort((a,b) => b.score - a.score);
-        const top10 = powerList.slice(0, 10);
+        // 4. Sort All Lists
+        Object.keys(rankingsCache).forEach(key => {
+            rankingsCache[key].sort((a,b) => b.score - a.score);
+        });
 
+        // 5. Initial Render
+        renderRankings("Overall");
+    }
+
+    function renderRankings(category) {
         const container = document.getElementById('power-rankings-container');
+        const data = rankingsCache[category];
+        
+        // Update Buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        const btn = document.querySelector(`.filter-btn.btn-${category.toLowerCase()}`) || document.querySelector(`.filter-btn.btn-overall`);
+        if(btn) btn.classList.add('active');
+
+        if(!data || data.length === 0) {
+            container.innerHTML = `<p style="text-align:center; color:#666; padding:2rem;">No data available for ${category}.</p>`;
+            return;
+        }
+
         container.innerHTML = ''; 
 
-        top10.forEach((d, index) => {
-            const rank = index + 1;
-            // Visual bar width (capped relative to top score)
-            const topScore = top10[0].score;
-            const widthPct = (d.score / topScore) * 100;
+        // Show top 10 (or 15 for overall)
+        const limit = 10;
+        const topList = data.slice(0, limit);
+        const topScore = topList[0].score;
+
+        // Define bar color based on category
+        let barColor = "rgba(255,255,255,0.1)";
+        let scoreColor = "#fff";
+        if(category === "Overall") { barColor = "rgba(0,255,0,0.1)"; scoreColor = "#00ff00"; }
+        if(category === "Cup") { barColor = "rgba(0,119,255,0.1)"; scoreColor = "#0077ff"; }
+        if(category === "Xfinity") { barColor = "rgba(128,0,176,0.1)"; scoreColor = "#b042ff"; }
+        if(category === "Truck") { barColor = "rgba(204,0,0,0.1)"; scoreColor = "#ff4444"; }
+        if(category === "Menards") { barColor = "rgba(255,242,0,0.1)"; scoreColor = "#fff200"; }
+
+        topList.forEach((d, index) => {
+            const delay = index * 0.05; 
+            const widthPct = Math.max((d.score / topScore) * 100, 15);
 
             const html = `
-            <div class="power-card">
-                <div class="p-bar" style="width: ${widthPct}%;"></div>
-                <div class="p-rank">${rank}</div>
+            <div class="power-card" style="animation-delay: ${delay}s; border-color: ${scoreColor}44;">
+                <div class="p-bar" style="width: ${widthPct}%; background: ${barColor};"></div>
+                <div class="p-rank" style="color:${index<3 ? '' : '#666'}">${index + 1}</div>
                 <div class="p-driver">
                     <img src="${d.img}" class="p-img" onerror="this.src='https://via.placeholder.com/50'">
                     <div class="p-info">
@@ -961,8 +994,8 @@
                     </div>
                 </div>
                 <div class="p-score-box">
-                    <div class="p-score">${d.score.toFixed(1)}</div>
-                    <div class="p-label">POWER RATING</div>
+                    <div class="p-score" style="color:${scoreColor}">${d.score.toFixed(1)}</div>
+                    <div class="p-label" style="color:${scoreColor}">RATING</div>
                 </div>
             </div>`;
             container.innerHTML += html;
@@ -1017,38 +1050,6 @@
     }
     setInterval(updateCountdowns, 1000);
     updateCountdowns(); 
-    </script>
-    <script>
-        // 1. Disable Right Click
-        document.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-        });
-
-        // 2. Disable Keyboard Shortcuts (Ctrl+U, F12, Ctrl+Shift+I, etc.)
-        document.addEventListener('keydown', (e) => {
-            // Check for Ctrl (or Command on Mac)
-            if (e.ctrlKey || e.metaKey) {
-                switch (e.key.toLowerCase()) {
-                    case 'u': // View Source
-                    case 's': // Save Page
-                    case 'a': // Select All
-                    case 'c': // Copy
-                        e.preventDefault();
-                        return false;
-                }
-                // Check for Ctrl+Shift+I or J (Developer Tools)
-                if (e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j')) {
-                    e.preventDefault();
-                    return false;
-                }
-            }
-            
-            // Check for F12 (Developer Tools)
-            if (e.key === 'F12') {
-                e.preventDefault();
-                return false;
-            }
-        });
     </script>
 
 </body>
