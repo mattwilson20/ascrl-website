@@ -437,7 +437,7 @@
             "Cup": {
                 "number": "23",
                 "team": "Independent",
-                "manufacturer": "N/A",
+                "manufacturer": "Toyota",
                 "stats": {
                     "points": 129,
                     "wins": 0,
@@ -535,7 +535,7 @@
         "series": {
             "Cup": {
                 "number": "42",
-                "team": "Independent",
+                "team": "GAZOO MOTORSPORTS",
                 "manufacturer": "Toyota",
                 "stats": {
                     "points": 98,
@@ -574,11 +574,25 @@
                     "starts": 0,
                     "avg": 0
                 }
+            },
+            "World Of Outlaws": {
+                "number": "29",
+                "team": "Independent",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0
+                }
             }
         }
     },
     "719704149339537509": {
-        "display_name": "Ant_was_he",
+        "display_name": "A1\ud83e\udec6\ud83d\udcab \u201cTHE DREAM\u201d",
         "series": {
             "Cup": {
                 "number": "45",
@@ -1173,7 +1187,7 @@
         "series": {
             "Cup": {
                 "number": "9",
-                "team": "APEX RACING",
+                "team": "Independent",
                 "manufacturer": "Chevy",
                 "stats": {
                     "points": 130,
@@ -1216,7 +1230,7 @@
         }
     },
     "177174953014067200": {
-        "display_name": "zaptear",
+        "display_name": "Driver 177174953014067200",
         "series": {
             "Cup": {
                 "number": "003",
@@ -2270,20 +2284,6 @@
                     "starts": 0,
                     "avg": 0
                 }
-            },
-            "Menards": {
-                "number": "19",
-                "team": "Independent",
-                "manufacturer": "N/A",
-                "stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "starts": 0,
-                    "avg": 0
-                }
             }
         }
     },
@@ -2575,7 +2575,7 @@
         "series": {
             "Cup": {
                 "number": "57",
-                "team": "OUTLAW RACING",
+                "team": "APEX RACING",
                 "manufacturer": "Ford",
                 "stats": {
                     "points": 62,
@@ -2630,7 +2630,7 @@
                 }
             },
             "World Of Outlaws": {
-                "number": "57",
+                "number": "57j",
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "stats": {
@@ -3197,6 +3197,20 @@
                     "starts": 1,
                     "avg": 11.0
                 }
+            },
+            "World Of Outlaws": {
+                "number": "33",
+                "team": "Independent",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0
+                }
             }
         }
     },
@@ -3234,6 +3248,25 @@
                     "poles": 0,
                     "starts": 1,
                     "avg": 15.0
+                }
+            }
+        }
+    },
+    "425380795323252739": {
+        "display_name": "Nick2019champ_YT",
+        "series": {
+            "Menards": {
+                "number": "19",
+                "team": "Independent",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0
                 }
             }
         }
