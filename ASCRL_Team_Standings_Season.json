@@ -2,59 +2,59 @@
     "Cup": [
         {
             "rank": 1,
-            "team": "APEX RACING",
-            "points": 848,
-            "drivers_count": 4,
-            "roster": "#24 dakotathomas1994 | #26 MajorBlaz33 | #77 Dewshine_02 | #9 lnfvmous_-"
-        },
-        {
-            "rank": 2,
             "team": "TOO BROKE RACING",
-            "points": 798,
+            "points": 888,
             "drivers_count": 4,
             "roster": "#1 mattwilson20 | #71 HockeyDeckout | #8 ALESSI-20-11 | #94 DGibby17"
         },
         {
+            "rank": 2,
+            "team": "APEX RACING",
+            "points": 882,
+            "drivers_count": 5,
+            "roster": "#24 dakotathomas1994 | #26 MajorBlaz33 | #57 The_MadReaper53 | #57 the_fireman199 | #77 Dewshine_02"
+        },
+        {
             "rank": 3,
             "team": "BACKROW MOTORSPORTS",
-            "points": 640,
+            "points": 712,
             "drivers_count": 4,
             "roster": "#28 DaltonGregson | #41 SithWarriorUno | #58 On-A-Mission618 | #61 Singular_Nacho"
         },
         {
             "rank": 4,
             "team": "FAST AND LOOSE RACING",
-            "points": 545,
+            "points": 601,
             "drivers_count": 4,
             "roster": "#48 Orangeman_96 | #59 BanishedCrayon | #64 SOLID1915ONE | #88 xX8LRACINGXx"
         },
         {
             "rank": 5,
+            "team": "GAZOO MOTORSPORTS",
+            "points": 466,
+            "drivers_count": 3,
+            "roster": "#20 Fordemgators | #42 Dezzy_Wezzy_01 | #45 Ant_was_he"
+        },
+        {
+            "rank": 6,
             "team": "WHY IS IT SMOKING? MOTORSPORTS",
-            "points": 374,
+            "points": 411,
             "drivers_count": 4,
             "roster": "#0 ThirstTrapToby | #50 Duramax18gg | #63 Lostcozov | #74 TheReaperRhino"
         },
         {
-            "rank": 6,
-            "team": "GAZOO MOTORSPORTS",
-            "points": 366,
-            "drivers_count": 3,
-            "roster": "#20 Fordemgators | #45 Ant_was_he | #73 HatterMAD218"
-        },
-        {
             "rank": 7,
             "team": "REDLINE RACING",
-            "points": 216,
+            "points": 312,
             "drivers_count": 4,
-            "roster": "#11 American-Hero216 | #3 BIG_FELLAx2220 | #5 The_Stone07 | #83 C0mpl1c8ed"
+            "roster": "#3 BIG_FELLAx2220 | #5 The_Stone07 | #73 HatterMAD218 | #83 C0mpl1c8ed"
         },
         {
             "rank": 8,
             "team": "OUTLAW RACING",
-            "points": 50,
-            "drivers_count": 3,
-            "roster": "#39 K7_Dalton | #57 The_MadReaper53 | #57 the_fireman199"
+            "points": 10,
+            "drivers_count": 1,
+            "roster": "#39 K7_Dalton"
         }
     ]
 }
