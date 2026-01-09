@@ -330,7 +330,7 @@
             margin-top: 5px;
         }
 
-        /* --- POWER RANKINGS STYLES (NEW) --- */
+        /* --- POWER RANKINGS STYLES --- */
         .ranking-filters {
             display: flex;
             justify-content: center;
@@ -355,7 +355,7 @@
 
         .filter-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
 
-        /* Active States & Specific Colors */
+        /* Active States */
         .filter-btn.btn-overall.active { background: #00ff00; color: #000; border-color: #00ff00; box-shadow: 0 0 15px rgba(0,255,0,0.4); }
         .filter-btn.btn-cup.active { background: var(--cup-blue); color: #fff; border-color: var(--cup-blue); box-shadow: 0 0 15px rgba(0, 119, 255, 0.4); }
         .filter-btn.btn-xfinity.active { background: var(--xfinity-purple); color: #fff; border-color: var(--xfinity-purple); box-shadow: 0 0 15px rgba(128, 0, 176, 0.4); }
@@ -477,12 +477,25 @@
             .contact-btn { width: 100%; justify-content: center; padding: 15px; box-sizing: border-box; }
             .contact-btn span { font-size: 0.7rem !important; letter-spacing: 1px !important; }
 
-            /* 6. Power Rankings Mobile */
-            .ranking-filters { gap: 8px; }
-            .filter-btn { padding: 8px 15px; font-size: 0.7rem; flex: 1 1 auto; }
+            /* 6. Power Rankings Mobile - FIXED */
+            .ranking-filters { gap: 5px; }
+            .filter-btn { padding: 8px 10px; font-size: 0.65rem; flex: 1 1 auto; }
             .p-team { display: none; }
-            .p-rank { font-size: 1.4rem; width: 30px; margin-right: 10px; }
+            .p-rank { font-size: 1.1rem; width: 25px; margin-right: 5px; }
             .p-img { width: 35px; height: 35px; }
+            .p-info h3 { font-size: 0.8rem; }
+            .p-score { font-size: 0.9rem; }
+            .p-label { font-size: 0.4rem; }
+            .power-card { padding: 8px 10px; }
+
+            /* 7. Countdown Mobile - FIXED */
+            .countdown-wrapper { gap: 1rem; }
+            .cd-side { padding: 1.5rem 1rem; min-width: 0; width: 100%; box-sizing: border-box; }
+            .cd-title { font-size: 0.9rem; }
+            .cd-timer { gap: 0.5rem; justify-content: center; }
+            .cd-box { min-width: 50px; padding: 8px; }
+            .cd-num { font-size: 1.4rem; }
+            .cd-label { font-size: 0.5rem; }
         }
     </style>
 </head>
@@ -1050,38 +1063,6 @@
     }
     setInterval(updateCountdowns, 1000);
     updateCountdowns(); 
-    </script>
-    <script>
-        // 1. Disable Right Click
-        document.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-        });
-
-        // 2. Disable Keyboard Shortcuts (Ctrl+U, F12, Ctrl+Shift+I, etc.)
-        document.addEventListener('keydown', (e) => {
-            // Check for Ctrl (or Command on Mac)
-            if (e.ctrlKey || e.metaKey) {
-                switch (e.key.toLowerCase()) {
-                    case 'u': // View Source
-                    case 's': // Save Page
-                    case 'a': // Select All
-                    case 'c': // Copy
-                        e.preventDefault();
-                        return false;
-                }
-                // Check for Ctrl+Shift+I or J (Developer Tools)
-                if (e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j')) {
-                    e.preventDefault();
-                    return false;
-                }
-            }
-            
-            // Check for F12 (Developer Tools)
-            if (e.key === 'F12') {
-                e.preventDefault();
-                return false;
-            }
-        });
     </script>
 
 </body>
