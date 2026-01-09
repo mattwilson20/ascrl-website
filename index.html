@@ -488,14 +488,30 @@
             .p-label { font-size: 0.4rem; }
             .power-card { padding: 8px 10px; }
 
-            /* 7. Countdown Mobile - FIXED */
+            /* 7. Countdown Mobile - GRID LAYOUT FIX */
             .countdown-wrapper { gap: 1rem; }
-            .cd-side { padding: 1.5rem 1rem; min-width: 0; width: 100%; box-sizing: border-box; }
+            .cd-side { padding: 1.5rem 0.5rem; min-width: 0; width: 100%; box-sizing: border-box; }
             .cd-title { font-size: 0.9rem; }
-            .cd-timer { gap: 0.5rem; justify-content: center; }
-            .cd-box { min-width: 50px; padding: 8px; }
-            .cd-num { font-size: 1.4rem; }
-            .cd-label { font-size: 0.5rem; }
+            
+            /* FORCE 4 COLUMNS ON MOBILE FOR TIMERS */
+            .cd-timer { 
+                display: grid; 
+                grid-template-columns: repeat(4, 1fr); 
+                gap: 5px; 
+                width: 100%; 
+                padding: 0 10px;
+                box-sizing: border-box;
+            }
+            .cd-box { 
+                min-width: 0; /* Allow shrinking */
+                padding: 5px 2px; /* Minimal padding */
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            .cd-num { font-size: 1.1rem; }
+            .cd-label { font-size: 0.45rem; }
         }
     </style>
 </head>
@@ -1063,38 +1079,6 @@
     }
     setInterval(updateCountdowns, 1000);
     updateCountdowns(); 
-    </script>
-    <script>
-        // 1. Disable Right Click
-        document.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-        });
-
-        // 2. Disable Keyboard Shortcuts (Ctrl+U, F12, Ctrl+Shift+I, etc.)
-        document.addEventListener('keydown', (e) => {
-            // Check for Ctrl (or Command on Mac)
-            if (e.ctrlKey || e.metaKey) {
-                switch (e.key.toLowerCase()) {
-                    case 'u': // View Source
-                    case 's': // Save Page
-                    case 'a': // Select All
-                    case 'c': // Copy
-                        e.preventDefault();
-                        return false;
-                }
-                // Check for Ctrl+Shift+I or J (Developer Tools)
-                if (e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j')) {
-                    e.preventDefault();
-                    return false;
-                }
-            }
-            
-            // Check for F12 (Developer Tools)
-            if (e.key === 'F12') {
-                e.preventDefault();
-                return false;
-            }
-        });
     </script>
 
 </body>
