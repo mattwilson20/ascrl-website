@@ -15,9 +15,59 @@
                 "points": 103,
                 "wins": 0,
                 "avg": 2.67
+            },
+            {
+                "type": "Midget",
+                "starts": 3,
+                "points": 95,
+                "wins": 0,
+                "avg": 5.33
+            },
+            {
+                "type": "305 Sprint Car",
+                "starts": 3,
+                "points": 89,
+                "wins": 0,
+                "avg": 7.33
             }
         ],
         "race_log": [
+            {
+                "track": "Grant Park",
+                "car": "Midget",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "I-55 Raceway",
+                "car": "Midget",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Elm Creek",
+                "car": "Midget",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Sheep Mtn.",
+                "car": "305 Sprint Car",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Kokomo",
+                "car": "305 Sprint Car",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Prairie View",
+                "car": "305 Sprint Car",
+                "pos": 11,
+                "pts": 26
+            },
             {
                 "track": "Huset'S",
                 "car": "360 Sprint",
@@ -58,35 +108,85 @@
         "series": {
             "World Of Outlaws": {
                 "number": "1",
-                "team": null,
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 206,
+                    "points": 390,
                     "wins": 0,
-                    "top5": 6,
-                    "top10": 6,
-                    "starts": 6,
-                    "avg": 2.67
+                    "top5": 9,
+                    "top10": 11,
+                    "starts": 12,
+                    "avg": 4.5
                 }
             }
         }
     },
     "336189571991732226": {
         "display_name": "HatterMAD218",
-        "cars": [],
-        "race_log": [],
+        "cars": [
+            {
+                "type": "Midget",
+                "starts": 3,
+                "points": 83,
+                "wins": 0,
+                "avg": 9.33
+            },
+            {
+                "type": "305 Sprint Car",
+                "starts": 3,
+                "points": 79,
+                "wins": 0,
+                "avg": 10.67
+            }
+        ],
+        "race_log": [
+            {
+                "track": "Grant Park",
+                "car": "Midget",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "I-55 Raceway",
+                "car": "Midget",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Elm Creek",
+                "car": "Midget",
+                "pos": 14,
+                "pts": 23
+            },
+            {
+                "track": "Sheep Mtn.",
+                "car": "305 Sprint Car",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Kokomo",
+                "car": "305 Sprint Car",
+                "pos": 15,
+                "pts": 22
+            },
+            {
+                "track": "Prairie View",
+                "car": "305 Sprint Car",
+                "pos": 8,
+                "pts": 29
+            }
+        ],
         "series": {
             "World Of Outlaws": {
                 "number": "218",
-                "team": null,
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 0,
+                    "points": 162,
                     "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "starts": 0,
-                    "avg": 0
+                    "top5": 1,
+                    "top10": 4,
+                    "starts": 6,
+                    "avg": 10.0
                 }
             }
         }
@@ -107,9 +207,59 @@
                 "points": 84,
                 "wins": 0,
                 "avg": 9.0
+            },
+            {
+                "type": "305 Sprint Car",
+                "starts": 3,
+                "points": 70,
+                "wins": 0,
+                "avg": 13.67
+            },
+            {
+                "type": "Midget",
+                "starts": 3,
+                "points": 68,
+                "wins": 0,
+                "avg": 14.33
             }
         ],
         "race_log": [
+            {
+                "track": "Grant Park",
+                "car": "Midget",
+                "pos": 14,
+                "pts": 23
+            },
+            {
+                "track": "I-55 Raceway",
+                "car": "Midget",
+                "pos": 14,
+                "pts": 23
+            },
+            {
+                "track": "Elm Creek",
+                "car": "Midget",
+                "pos": 15,
+                "pts": 22
+            },
+            {
+                "track": "Sheep Mtn.",
+                "car": "305 Sprint Car",
+                "pos": 14,
+                "pts": 23
+            },
+            {
+                "track": "Kokomo",
+                "car": "305 Sprint Car",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Prairie View",
+                "car": "305 Sprint Car",
+                "pos": 16,
+                "pts": 21
+            },
             {
                 "track": "Huset'S",
                 "car": "360 Sprint",
@@ -150,15 +300,14 @@
         "series": {
             "World Of Outlaws": {
                 "number": "000",
-                "team": null,
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 170,
+                    "points": 308,
                     "wins": 0,
                     "top5": 0,
                     "top10": 6,
-                    "starts": 6,
-                    "avg": 8.67
+                    "starts": 12,
+                    "avg": 11.33
                 }
             }
         }
@@ -170,7 +319,6 @@
         "series": {
             "World Of Outlaws": {
                 "number": "64",
-                "team": null,
                 "manufacturer": "N/A",
                 "stats": {
                     "points": 0,
@@ -187,11 +335,25 @@
         "display_name": "ALESSI-20-11",
         "cars": [
             {
+                "type": "Midget",
+                "starts": 3,
+                "points": 108,
+                "wins": 1,
+                "avg": 2.33
+            },
+            {
                 "type": "360 Sprint",
                 "starts": 3,
                 "points": 93,
                 "wins": 0,
                 "avg": 6.0
+            },
+            {
+                "type": "305 Sprint Car",
+                "starts": 3,
+                "points": 92,
+                "wins": 0,
+                "avg": 6.33
             },
             {
                 "type": "Big Block Modified",
@@ -202,6 +364,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Grant Park",
+                "car": "Midget",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "I-55 Raceway",
+                "car": "Midget",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Elm Creek",
+                "car": "Midget",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Sheep Mtn.",
+                "car": "305 Sprint Car",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Kokomo",
+                "car": "305 Sprint Car",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Prairie View",
+                "car": "305 Sprint Car",
+                "pos": 2,
+                "pts": 35
+            },
             {
                 "track": "Huset'S",
                 "car": "360 Sprint",
@@ -242,15 +440,14 @@
         "series": {
             "World Of Outlaws": {
                 "number": "8",
-                "team": null,
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 181,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 6,
-                    "starts": 6,
-                    "avg": 6.83
+                    "points": 381,
+                    "wins": 1,
+                    "top5": 5,
+                    "top10": 12,
+                    "starts": 12,
+                    "avg": 5.58
                 }
             }
         }
@@ -266,14 +463,64 @@
                 "avg": 4.67
             },
             {
+                "type": "305 Sprint Car",
+                "starts": 3,
+                "points": 93,
+                "wins": 0,
+                "avg": 6.0
+            },
+            {
                 "type": "360 Sprint",
                 "starts": 3,
                 "points": 90,
                 "wins": 0,
                 "avg": 7.0
+            },
+            {
+                "type": "Midget",
+                "starts": 3,
+                "points": 86,
+                "wins": 0,
+                "avg": 8.33
             }
         ],
         "race_log": [
+            {
+                "track": "Grant Park",
+                "car": "Midget",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "I-55 Raceway",
+                "car": "Midget",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Elm Creek",
+                "car": "Midget",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Sheep Mtn.",
+                "car": "305 Sprint Car",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Kokomo",
+                "car": "305 Sprint Car",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Prairie View",
+                "car": "305 Sprint Car",
+                "pos": 4,
+                "pts": 33
+            },
             {
                 "track": "Huset'S",
                 "car": "360 Sprint",
@@ -314,15 +561,14 @@
         "series": {
             "World Of Outlaws": {
                 "number": "24a",
-                "team": null,
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 187,
+                    "points": 366,
                     "wins": 0,
-                    "top5": 4,
-                    "top10": 6,
-                    "starts": 6,
-                    "avg": 5.83
+                    "top5": 6,
+                    "top10": 11,
+                    "starts": 12,
+                    "avg": 6.5
                 }
             }
         }
@@ -343,9 +589,59 @@
                 "points": 94,
                 "wins": 0,
                 "avg": 5.67
+            },
+            {
+                "type": "Midget",
+                "starts": 3,
+                "points": 91,
+                "wins": 0,
+                "avg": 6.67
+            },
+            {
+                "type": "305 Sprint Car",
+                "starts": 3,
+                "points": 91,
+                "wins": 0,
+                "avg": 6.67
             }
         ],
         "race_log": [
+            {
+                "track": "Grant Park",
+                "car": "Midget",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "I-55 Raceway",
+                "car": "Midget",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Elm Creek",
+                "car": "Midget",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Sheep Mtn.",
+                "car": "305 Sprint Car",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Kokomo",
+                "car": "305 Sprint Car",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Prairie View",
+                "car": "305 Sprint Car",
+                "pos": 9,
+                "pts": 28
+            },
             {
                 "track": "Huset'S",
                 "car": "360 Sprint",
@@ -385,16 +681,15 @@
         ],
         "series": {
             "World Of Outlaws": {
-                "number": "57",
-                "team": null,
+                "number": "57j",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 190,
+                    "points": 372,
                     "wins": 0,
-                    "top5": 3,
-                    "top10": 6,
-                    "starts": 6,
-                    "avg": 5.33
+                    "top5": 4,
+                    "top10": 12,
+                    "starts": 12,
+                    "avg": 6.0
                 }
             }
         }
@@ -415,9 +710,47 @@
                 "points": 115,
                 "wins": 2,
                 "avg": 1.33
+            },
+            {
+                "type": "305 Sprint Car",
+                "starts": 3,
+                "points": 88,
+                "wins": 0,
+                "avg": 7.67
+            },
+            {
+                "type": "Midget",
+                "starts": 1,
+                "points": 20,
+                "wins": 0,
+                "avg": 17.0
             }
         ],
         "race_log": [
+            {
+                "track": "Elm Creek",
+                "car": "Midget",
+                "pos": 17,
+                "pts": 20
+            },
+            {
+                "track": "Sheep Mtn.",
+                "car": "305 Sprint Car",
+                "pos": 15,
+                "pts": 22
+            },
+            {
+                "track": "Kokomo",
+                "car": "305 Sprint Car",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Prairie View",
+                "car": "305 Sprint Car",
+                "pos": 6,
+                "pts": 31
+            },
             {
                 "track": "Huset'S",
                 "car": "360 Sprint",
@@ -458,15 +791,14 @@
         "series": {
             "World Of Outlaws": {
                 "number": "07",
-                "team": null,
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 235,
+                    "points": 343,
                     "wins": 5,
-                    "top5": 6,
-                    "top10": 6,
-                    "starts": 6,
-                    "avg": 1.17
+                    "top5": 7,
+                    "top10": 8,
+                    "starts": 10,
+                    "avg": 4.7
                 }
             }
         }
@@ -474,6 +806,20 @@
     "1452703742704222455": {
         "display_name": "Z71chevymanz71",
         "cars": [
+            {
+                "type": "305 Sprint Car",
+                "starts": 3,
+                "points": 93,
+                "wins": 0,
+                "avg": 6.0
+            },
+            {
+                "type": "Midget",
+                "starts": 3,
+                "points": 92,
+                "wins": 0,
+                "avg": 6.33
+            },
             {
                 "type": "360 Sprint",
                 "starts": 3,
@@ -483,6 +829,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Grant Park",
+                "car": "Midget",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "I-55 Raceway",
+                "car": "Midget",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Elm Creek",
+                "car": "Midget",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Sheep Mtn.",
+                "car": "305 Sprint Car",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Kokomo",
+                "car": "305 Sprint Car",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Prairie View",
+                "car": "305 Sprint Car",
+                "pos": 7,
+                "pts": 30
+            },
             {
                 "track": "Huset'S",
                 "car": "360 Sprint",
@@ -505,87 +887,14 @@
         "series": {
             "World Of Outlaws": {
                 "number": "85",
-                "team": null,
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 88,
+                    "points": 273,
                     "wins": 0,
-                    "top5": 1,
-                    "top10": 3,
-                    "starts": 3,
-                    "avg": 7.67
-                }
-            }
-        }
-    },
-    "725157771187716136": {
-        "display_name": "C0mpl1c8ed",
-        "cars": [
-            {
-                "type": "Big Block Modified",
-                "starts": 3,
-                "points": 91,
-                "wins": 0,
-                "avg": 6.67
-            },
-            {
-                "type": "360 Sprint",
-                "starts": 3,
-                "points": 86,
-                "wins": 0,
-                "avg": 8.33
-            }
-        ],
-        "race_log": [
-            {
-                "track": "Huset'S",
-                "car": "360 Sprint",
-                "pos": 8,
-                "pts": 29
-            },
-            {
-                "track": "Millstone Park",
-                "car": "360 Sprint",
-                "pos": 7,
-                "pts": 30
-            },
-            {
-                "track": "I-84 Raceway",
-                "car": "360 Sprint",
-                "pos": 10,
-                "pts": 27
-            },
-            {
-                "track": "Prairie View",
-                "car": "Big Block Modified",
-                "pos": 6,
-                "pts": 31
-            },
-            {
-                "track": "Sheep Mtn.",
-                "car": "Big Block Modified",
-                "pos": 7,
-                "pts": 30
-            },
-            {
-                "track": "Lucas Oil",
-                "car": "Big Block Modified",
-                "pos": 7,
-                "pts": 30
-            }
-        ],
-        "series": {
-            "World Of Outlaws": {
-                "number": "9",
-                "team": null,
-                "manufacturer": "N/A",
-                "stats": {
-                    "points": 177,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 6,
-                    "starts": 6,
-                    "avg": 7.5
+                    "top5": 4,
+                    "top10": 9,
+                    "starts": 9,
+                    "avg": 6.67
                 }
             }
         }
@@ -606,9 +915,59 @@
                 "points": 92,
                 "wins": 0,
                 "avg": 6.33
+            },
+            {
+                "type": "305 Sprint Car",
+                "starts": 3,
+                "points": 74,
+                "wins": 0,
+                "avg": 12.33
+            },
+            {
+                "type": "Midget",
+                "starts": 3,
+                "points": 70,
+                "wins": 0,
+                "avg": 13.67
             }
         ],
         "race_log": [
+            {
+                "track": "Grant Park",
+                "car": "Midget",
+                "pos": 15,
+                "pts": 22
+            },
+            {
+                "track": "I-55 Raceway",
+                "car": "Midget",
+                "pos": 13,
+                "pts": 24
+            },
+            {
+                "track": "Elm Creek",
+                "car": "Midget",
+                "pos": 13,
+                "pts": 24
+            },
+            {
+                "track": "Sheep Mtn.",
+                "car": "305 Sprint Car",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Kokomo",
+                "car": "305 Sprint Car",
+                "pos": 13,
+                "pts": 24
+            },
+            {
+                "track": "Prairie View",
+                "car": "305 Sprint Car",
+                "pos": 14,
+                "pts": 23
+            },
             {
                 "track": "Huset'S",
                 "car": "360 Sprint",
@@ -649,15 +1008,14 @@
         "series": {
             "World Of Outlaws": {
                 "number": "69",
-                "team": null,
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 187,
+                    "points": 331,
                     "wins": 0,
                     "top5": 3,
-                    "top10": 6,
-                    "starts": 6,
-                    "avg": 5.83
+                    "top10": 7,
+                    "starts": 12,
+                    "avg": 9.42
                 }
             }
         }
@@ -684,7 +1042,6 @@
         "series": {
             "World Of Outlaws": {
                 "number": "63",
-                "team": null,
                 "manufacturer": "N/A",
                 "stats": {
                     "points": 27,
@@ -701,11 +1058,25 @@
         "display_name": "HockeyDeckout",
         "cars": [
             {
+                "type": "Midget",
+                "starts": 3,
+                "points": 110,
+                "wins": 1,
+                "avg": 1.67
+            },
+            {
                 "type": "Big Block Modified",
                 "starts": 3,
                 "points": 108,
                 "wins": 1,
                 "avg": 2.33
+            },
+            {
+                "type": "305 Sprint Car",
+                "starts": 3,
+                "points": 107,
+                "wins": 2,
+                "avg": 4.0
             },
             {
                 "type": "360 Sprint",
@@ -716,6 +1087,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Grant Park",
+                "car": "Midget",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "I-55 Raceway",
+                "car": "Midget",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Elm Creek",
+                "car": "Midget",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Sheep Mtn.",
+                "car": "305 Sprint Car",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Kokomo",
+                "car": "305 Sprint Car",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Prairie View",
+                "car": "305 Sprint Car",
+                "pos": 10,
+                "pts": 27
+            },
             {
                 "track": "Huset'S",
                 "car": "360 Sprint",
@@ -756,35 +1163,524 @@
         "series": {
             "World Of Outlaws": {
                 "number": "12",
-                "team": "INDEPENDENT",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 212,
-                    "wins": 1,
-                    "top5": 6,
-                    "top10": 6,
-                    "starts": 6,
-                    "avg": 2.33
+                    "points": 429,
+                    "wins": 4,
+                    "top5": 11,
+                    "top10": 12,
+                    "starts": 12,
+                    "avg": 2.58
                 }
             }
         }
     },
     "1099189840840491068": {
         "display_name": "MajorBlaz33",
-        "cars": [],
-        "race_log": [],
+        "cars": [
+            {
+                "type": "305 Sprint Car",
+                "starts": 3,
+                "points": 106,
+                "wins": 1,
+                "avg": 3.0
+            },
+            {
+                "type": "Midget",
+                "starts": 3,
+                "points": 84,
+                "wins": 0,
+                "avg": 9.0
+            }
+        ],
+        "race_log": [
+            {
+                "track": "Grant Park",
+                "car": "Midget",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "I-55 Raceway",
+                "car": "Midget",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Elm Creek",
+                "car": "Midget",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Sheep Mtn.",
+                "car": "305 Sprint Car",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Kokomo",
+                "car": "305 Sprint Car",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Prairie View",
+                "car": "305 Sprint Car",
+                "pos": 1,
+                "pts": 40
+            }
+        ],
         "series": {
             "World Of Outlaws": {
                 "number": "13",
-                "team": "INDEPENDENT",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 0,
+                    "points": 190,
+                    "wins": 1,
+                    "top5": 4,
+                    "top10": 4,
+                    "starts": 6,
+                    "avg": 6.0
+                }
+            }
+        }
+    },
+    "209715669120319488": {
+        "display_name": "Dezzy_Wezzy_01",
+        "cars": [
+            {
+                "type": "Midget",
+                "starts": 3,
+                "points": 95,
+                "wins": 0,
+                "avg": 5.33
+            },
+            {
+                "type": "305 Sprint Car",
+                "starts": 3,
+                "points": 84,
+                "wins": 0,
+                "avg": 9.0
+            }
+        ],
+        "race_log": [
+            {
+                "track": "Grant Park",
+                "car": "Midget",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "I-55 Raceway",
+                "car": "Midget",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Elm Creek",
+                "car": "Midget",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Sheep Mtn.",
+                "car": "305 Sprint Car",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Kokomo",
+                "car": "305 Sprint Car",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Prairie View",
+                "car": "305 Sprint Car",
+                "pos": 15,
+                "pts": 22
+            }
+        ],
+        "series": {
+            "World Of Outlaws": {
+                "number": "29",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 179,
+                    "wins": 0,
+                    "top5": 2,
+                    "top10": 5,
+                    "starts": 6,
+                    "avg": 7.17
+                }
+            }
+        }
+    },
+    "755469616423108711": {
+        "display_name": "superace33",
+        "cars": [
+            {
+                "type": "Midget",
+                "starts": 3,
+                "points": 92,
+                "wins": 1,
+                "avg": 7.67
+            },
+            {
+                "type": "305 Sprint Car",
+                "starts": 3,
+                "points": 92,
+                "wins": 0,
+                "avg": 6.33
+            }
+        ],
+        "race_log": [
+            {
+                "track": "Grant Park",
+                "car": "Midget",
+                "pos": 13,
+                "pts": 24
+            },
+            {
+                "track": "I-55 Raceway",
+                "car": "Midget",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Elm Creek",
+                "car": "Midget",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Sheep Mtn.",
+                "car": "305 Sprint Car",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Kokomo",
+                "car": "305 Sprint Car",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Prairie View",
+                "car": "305 Sprint Car",
+                "pos": 5,
+                "pts": 32
+            }
+        ],
+        "series": {
+            "World Of Outlaws": {
+                "number": "33",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 184,
+                    "wins": 1,
+                    "top5": 3,
+                    "top10": 4,
+                    "starts": 6,
+                    "avg": 7.0
+                }
+            }
+        }
+    },
+    "725157771187716136": {
+        "display_name": "C0mpl1c8ed",
+        "cars": [
+            {
+                "type": "Big Block Modified",
+                "starts": 3,
+                "points": 91,
+                "wins": 0,
+                "avg": 6.67
+            },
+            {
+                "type": "360 Sprint",
+                "starts": 3,
+                "points": 86,
+                "wins": 0,
+                "avg": 8.33
+            },
+            {
+                "type": "Midget",
+                "starts": 3,
+                "points": 82,
+                "wins": 0,
+                "avg": 9.67
+            },
+            {
+                "type": "305 Sprint Car",
+                "starts": 3,
+                "points": 74,
+                "wins": 0,
+                "avg": 12.33
+            }
+        ],
+        "race_log": [
+            {
+                "track": "Grant Park",
+                "car": "Midget",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "I-55 Raceway",
+                "car": "Midget",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Elm Creek",
+                "car": "Midget",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Sheep Mtn.",
+                "car": "305 Sprint Car",
+                "pos": 13,
+                "pts": 24
+            },
+            {
+                "track": "Kokomo",
+                "car": "305 Sprint Car",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Prairie View",
+                "car": "305 Sprint Car",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Huset'S",
+                "car": "360 Sprint",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Millstone Park",
+                "car": "360 Sprint",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "I-84 Raceway",
+                "car": "360 Sprint",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Prairie View",
+                "car": "Big Block Modified",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Sheep Mtn.",
+                "car": "Big Block Modified",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Lucas Oil",
+                "car": "Big Block Modified",
+                "pos": 7,
+                "pts": 30
+            }
+        ],
+        "series": {
+            "World Of Outlaws": {
+                "number": "83",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 333,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 8,
+                    "starts": 12,
+                    "avg": 9.25
+                }
+            }
+        }
+    },
+    "690068671980371992": {
+        "display_name": "Dewshine_02",
+        "cars": [
+            {
+                "type": "305 Sprint Car",
+                "starts": 3,
+                "points": 72,
+                "wins": 0,
+                "avg": 13.0
+            },
+            {
+                "type": "Midget",
+                "starts": 2,
+                "points": 42,
+                "wins": 0,
+                "avg": 16.0
+            }
+        ],
+        "race_log": [
+            {
+                "track": "I-55 Raceway",
+                "car": "Midget",
+                "pos": 16,
+                "pts": 21
+            },
+            {
+                "track": "Elm Creek",
+                "car": "Midget",
+                "pos": 16,
+                "pts": 21
+            },
+            {
+                "track": "Sheep Mtn.",
+                "car": "305 Sprint Car",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Kokomo",
+                "car": "305 Sprint Car",
+                "pos": 14,
+                "pts": 23
+            },
+            {
+                "track": "Prairie View",
+                "car": "305 Sprint Car",
+                "pos": 13,
+                "pts": 24
+            }
+        ],
+        "series": {
+            "World Of Outlaws": {
+                "number": "3",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 114,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
-                    "starts": 0,
-                    "avg": 0
+                    "starts": 5,
+                    "avg": 14.2
+                }
+            }
+        }
+    },
+    "486147199621791745": {
+        "display_name": "ThatSquidGuy",
+        "cars": [
+            {
+                "type": "Midget",
+                "starts": 3,
+                "points": 89,
+                "wins": 0,
+                "avg": 7.33
+            },
+            {
+                "type": "305 Sprint Car",
+                "starts": 2,
+                "points": 55,
+                "wins": 0,
+                "avg": 9.5
+            }
+        ],
+        "race_log": [
+            {
+                "track": "Grant Park",
+                "car": "Midget",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "I-55 Raceway",
+                "car": "Midget",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Elm Creek",
+                "car": "Midget",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Kokomo",
+                "car": "305 Sprint Car",
+                "pos": 16,
+                "pts": 21
+            },
+            {
+                "track": "Prairie View",
+                "car": "305 Sprint Car",
+                "pos": 3,
+                "pts": 34
+            }
+        ],
+        "series": {
+            "World Of Outlaws": {
+                "number": "88E",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 144,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 4,
+                    "starts": 5,
+                    "avg": 8.2
+                }
+            }
+        }
+    },
+    "774425608293318666": {
+        "display_name": "lnfvmous_-",
+        "cars": [
+            {
+                "type": "Midget",
+                "starts": 3,
+                "points": 72,
+                "wins": 0,
+                "avg": 13.0
+            }
+        ],
+        "race_log": [
+            {
+                "track": "Grant Park",
+                "car": "Midget",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "I-55 Raceway",
+                "car": "Midget",
+                "pos": 15,
+                "pts": 22
+            },
+            {
+                "track": "Elm Creek",
+                "car": "Midget",
+                "pos": 12,
+                "pts": 25
+            }
+        ],
+        "series": {
+            "World Of Outlaws": {
+                "number": "777",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 72,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "starts": 3,
+                    "avg": 13.0
                 }
             }
         }
