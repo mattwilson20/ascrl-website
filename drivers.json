@@ -1177,7 +1177,7 @@
         "series": {
             "Cup": {
                 "number": "94",
-                "team": "TOO BROKE RACING",
+                "team": "Independent",
                 "manufacturer": "Chevy",
                 "stats": {
                     "points": 220,
@@ -1454,9 +1454,9 @@
                 }
             },
             "Cup": {
-                "number": "74",
-                "team": "WHY IS IT SMOKING? MOTORSPORTS",
-                "manufacturer": "Toyota",
+                "number": "13",
+                "team": "TOO BROKE RACING",
+                "manufacturer": "Chevy",
                 "stats": {
                     "points": 241,
                     "wins": 0,
@@ -2500,7 +2500,7 @@
             "Cup": {
                 "number": "91",
                 "team": "Independent",
-                "manufacturer": "N/A",
+                "manufacturer": "Chevy",
                 "stats": {
                     "points": 63,
                     "wins": 0,
@@ -2532,7 +2532,7 @@
         "series": {
             "Cup": {
                 "number": "87",
-                "team": "Independent",
+                "team": "WHY IS IT SMOKING? MOTORSPORTS",
                 "manufacturer": "N/A",
                 "stats": {
                     "points": 0,
@@ -3158,6 +3158,25 @@
                     "poles": 0,
                     "starts": 5,
                     "avg": 8.2
+                }
+            }
+        }
+    },
+    "892923551173185557": {
+        "display_name": "TampaxMaxx",
+        "series": {
+            "Cup": {
+                "number": "86",
+                "team": "DIRTY AIR RACING",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0
                 }
             }
         }
