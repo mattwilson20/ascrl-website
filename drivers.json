@@ -7,13 +7,13 @@
                 "team": "TOO BROKE RACING",
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 272,
+                    "points": 302,
                     "wins": 1,
                     "top5": 2,
-                    "top10": 4,
+                    "top10": 5,
                     "poles": 0,
-                    "starts": 10,
-                    "avg": 10.2
+                    "starts": 11,
+                    "avg": 9.91
                 }
             },
             "Truck": {
@@ -82,13 +82,13 @@
                 "team": "REDLINE RACING",
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 182,
+                    "points": 202,
                     "wins": 2,
                     "top5": 5,
                     "top10": 5,
                     "poles": 0,
-                    "starts": 5,
-                    "avg": 2.4
+                    "starts": 6,
+                    "avg": 4.83
                 }
             },
             "Truck": {
@@ -129,13 +129,13 @@
                 "team": "APEX RACING",
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 304,
+                    "points": 332,
                     "wins": 1,
                     "top5": 6,
-                    "top10": 6,
+                    "top10": 7,
                     "poles": 1,
-                    "starts": 10,
-                    "avg": 7.1
+                    "starts": 11,
+                    "avg": 7.27
                 }
             },
             "Truck": {
@@ -373,13 +373,13 @@
                 "team": "GAZOO MOTORSPORTS",
                 "manufacturer": "Toyota",
                 "stats": {
-                    "points": 129,
+                    "points": 156,
                     "wins": 0,
                     "top5": 2,
-                    "top10": 2,
+                    "top10": 3,
                     "poles": 0,
-                    "starts": 5,
-                    "avg": 11.2
+                    "starts": 6,
+                    "avg": 11.0
                 }
             }
         }
@@ -514,13 +514,13 @@
                 "team": "GAZOO MOTORSPORTS",
                 "manufacturer": "Toyota",
                 "stats": {
-                    "points": 181,
+                    "points": 195,
                     "wins": 0,
                     "top5": 1,
                     "top10": 3,
                     "poles": 0,
-                    "starts": 8,
-                    "avg": 14.38
+                    "starts": 9,
+                    "avg": 15.33
                 }
             },
             "Truck": {
@@ -575,13 +575,13 @@
                 "team": "BACKROW MOTORSPORTS",
                 "manufacturer": "Ford",
                 "stats": {
-                    "points": 174,
+                    "points": 189,
                     "wins": 0,
                     "top5": 0,
                     "top10": 1,
                     "poles": 0,
-                    "starts": 8,
-                    "avg": 15.25
+                    "starts": 9,
+                    "avg": 16.0
                 }
             },
             "Truck": {
@@ -697,13 +697,13 @@
                 "team": "WHY IS IT SMOKING? MOTORSPORTS",
                 "manufacturer": "Toyota",
                 "stats": {
-                    "points": 48,
+                    "points": 66,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "starts": 3,
-                    "avg": 21.0
+                    "starts": 4,
+                    "avg": 20.5
                 }
             },
             "Truck": {
@@ -772,13 +772,13 @@
                 "team": "FAST AND LOOSE RACING",
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 120,
+                    "points": 130,
                     "wins": 0,
                     "top5": 0,
                     "top10": 1,
                     "poles": 0,
-                    "starts": 6,
-                    "avg": 17.0
+                    "starts": 7,
+                    "avg": 18.43
                 }
             },
             "Truck": {
@@ -833,13 +833,13 @@
                 "team": "TOO BROKE RACING",
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 261,
+                    "points": 297,
                     "wins": 4,
-                    "top5": 5,
-                    "top10": 7,
-                    "poles": 3,
-                    "starts": 7,
-                    "avg": 3.14
+                    "top5": 6,
+                    "top10": 8,
+                    "poles": 4,
+                    "starts": 8,
+                    "avg": 3.0
                 }
             },
             "Xfinity": {
@@ -908,13 +908,13 @@
                 "team": "REDLINE RACING",
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 43,
+                    "points": 55,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "starts": 3,
-                    "avg": 22.67
+                    "starts": 4,
+                    "avg": 23.25
                 }
             },
             "Truck": {
@@ -983,13 +983,13 @@
                 "team": "APEX RACING",
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 229,
+                    "points": 251,
                     "wins": 0,
                     "top5": 3,
                     "top10": 5,
                     "poles": 2,
-                    "starts": 8,
-                    "avg": 8.62
+                    "starts": 9,
+                    "avg": 9.33
                 }
             },
             "Truck": {
@@ -1119,13 +1119,13 @@
                 "team": "FAST AND LOOSE RACING",
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 133,
+                    "points": 144,
                     "wins": 0,
                     "top5": 1,
                     "top10": 3,
                     "poles": 0,
-                    "starts": 6,
-                    "avg": 14.83
+                    "starts": 7,
+                    "avg": 16.43
                 }
             },
             "Truck": {
@@ -1458,13 +1458,13 @@
                 "team": "TOO BROKE RACING",
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 241,
+                    "points": 270,
                     "wins": 0,
                     "top5": 5,
-                    "top10": 6,
+                    "top10": 7,
                     "poles": 0,
-                    "starts": 8,
-                    "avg": 7.0
+                    "starts": 9,
+                    "avg": 7.11
                 }
             },
             "Xfinity": {
@@ -1632,13 +1632,13 @@
                 "team": "WHY IS IT SMOKING? MOTORSPORTS",
                 "manufacturer": "Toyota",
                 "stats": {
-                    "points": 84,
-                    "wins": 1,
-                    "top5": 2,
-                    "top10": 2,
+                    "points": 125,
+                    "wins": 2,
+                    "top5": 3,
+                    "top10": 3,
                     "poles": 1,
-                    "starts": 3,
-                    "avg": 11.0
+                    "starts": 4,
+                    "avg": 8.5
                 }
             }
         }
@@ -1693,13 +1693,13 @@
                 "team": "TOO BROKE RACING",
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 135,
+                    "points": 160,
                     "wins": 0,
                     "top5": 2,
                     "top10": 3,
                     "poles": 0,
-                    "starts": 5,
-                    "avg": 10.0
+                    "starts": 6,
+                    "avg": 10.33
                 }
             },
             "World Of Outlaws": {
@@ -1754,13 +1754,13 @@
                 "team": "BACKROW MOTORSPORTS",
                 "manufacturer": "Ford",
                 "stats": {
-                    "points": 65,
+                    "points": 96,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 1,
+                    "top10": 2,
                     "poles": 0,
-                    "starts": 3,
-                    "avg": 15.33
+                    "starts": 4,
+                    "avg": 13.0
                 }
             },
             "Truck": {
@@ -1809,6 +1809,20 @@
                     "starts": 1,
                     "avg": 17.0
                 }
+            },
+            "Cup": {
+                "number": "32",
+                "team": "Independent",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 26,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 2,
+                    "avg": 24.0
+                }
             }
         }
     },
@@ -1820,13 +1834,13 @@
                 "team": "WHY IS IT SMOKING? MOTORSPORTS",
                 "manufacturer": "Toyota",
                 "stats": {
-                    "points": 72,
+                    "points": 85,
                     "wins": 0,
                     "top5": 0,
                     "top10": 1,
                     "poles": 0,
-                    "starts": 3,
-                    "avg": 13.0
+                    "starts": 4,
+                    "avg": 15.75
                 }
             },
             "Truck": {
@@ -2083,13 +2097,13 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 27,
+                    "points": 48,
                     "wins": 0,
                     "top5": 0,
                     "top10": 1,
                     "poles": 0,
-                    "starts": 1,
-                    "avg": 10.0
+                    "starts": 2,
+                    "avg": 13.0
                 }
             },
             "Menards": {
@@ -2191,13 +2205,13 @@
                 "team": "REDLINE RACING",
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 47,
+                    "points": 66,
                     "wins": 0,
                     "top5": 0,
                     "top10": 1,
                     "poles": 0,
-                    "starts": 2,
-                    "avg": 13.5
+                    "starts": 3,
+                    "avg": 15.0
                 }
             },
             "Menards": {
@@ -2333,13 +2347,13 @@
                 "team": "DIRTY AIR RACING",
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 53,
+                    "points": 76,
                     "wins": 0,
                     "top5": 0,
                     "top10": 1,
                     "poles": 0,
-                    "starts": 2,
-                    "avg": 10.5
+                    "starts": 3,
+                    "avg": 11.67
                 }
             },
             "Truck": {
@@ -2427,13 +2441,13 @@
                 "team": "APEX RACING",
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 62,
+                    "points": 86,
                     "wins": 0,
                     "top5": 1,
                     "top10": 2,
                     "poles": 0,
-                    "starts": 2,
-                    "avg": 6.0
+                    "starts": 3,
+                    "avg": 8.33
                 }
             },
             "Truck": {
@@ -2499,16 +2513,16 @@
         "series": {
             "Cup": {
                 "number": "91",
-                "team": "Independent",
+                "team": "DIRTY AIR RACING",
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 63,
+                    "points": 89,
                     "wins": 0,
                     "top5": 1,
                     "top10": 2,
                     "poles": 0,
-                    "starts": 2,
-                    "avg": 5.5
+                    "starts": 3,
+                    "avg": 7.33
                 }
             },
             "Xfinity": {
@@ -2535,13 +2549,13 @@
                 "team": "WHY IS IT SMOKING? MOTORSPORTS",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 0,
+                    "points": 17,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "starts": 0,
-                    "avg": 0
+                    "starts": 1,
+                    "avg": 20.0
                 }
             },
             "Menards": {
@@ -2603,20 +2617,6 @@
                     "poles": 0,
                     "starts": 0,
                     "avg": 0
-                }
-            },
-            "Cup": {
-                "number": "32",
-                "team": "Independent",
-                "manufacturer": "N/A",
-                "stats": {
-                    "points": 12,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "starts": 1,
-                    "avg": 25.0
                 }
             },
             "Menards": {
@@ -2751,13 +2751,13 @@
                 "team": "FAST AND LOOSE RACING",
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 199,
+                    "points": 232,
                     "wins": 0,
-                    "top5": 1,
-                    "top10": 5,
+                    "top5": 2,
+                    "top10": 6,
                     "poles": 1,
-                    "starts": 8,
-                    "avg": 12.25
+                    "starts": 9,
+                    "avg": 11.33
                 }
             },
             "Menards": {
@@ -2812,13 +2812,13 @@
                 "team": "APEX RACING",
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 274,
+                    "points": 308,
                     "wins": 0,
-                    "top5": 2,
-                    "top10": 6,
+                    "top5": 3,
+                    "top10": 7,
                     "poles": 0,
-                    "starts": 10,
-                    "avg": 9.6
+                    "starts": 11,
+                    "avg": 9.0
                 }
             },
             "Xfinity": {
@@ -2887,13 +2887,13 @@
                 "team": "FAST AND LOOSE RACING",
                 "manufacturer": "Chevy",
                 "stats": {
-                    "points": 149,
+                    "points": 165,
                     "wins": 0,
                     "top5": 0,
                     "top10": 1,
                     "poles": 0,
-                    "starts": 7,
-                    "avg": 15.71
+                    "starts": 8,
+                    "avg": 16.38
                 }
             },
             "Xfinity": {
@@ -3170,13 +3170,13 @@
                 "team": "DIRTY AIR RACING",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 0,
+                    "points": 32,
                     "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
+                    "top5": 1,
+                    "top10": 1,
                     "poles": 0,
-                    "starts": 0,
-                    "avg": 0
+                    "starts": 1,
+                    "avg": 5.0
                 }
             }
         }
