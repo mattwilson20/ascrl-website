@@ -15,166 +15,209 @@
             --card-bg: #111;
             --border: #222;
             --text-muted: #888;
+            
+            /* Series Colors */
             --cup-blue: #0077ff;
             --xfinity-purple: #8000b0;
             --truck-red: #c00;
             --menards-yellow: #fff200;
-            --gold: #ffd700;
+            
+            /* Chase Gold Palette */
+            --gold-light: #fffacd;
+            --gold-mid: #ffd700;
+            --gold-dark: #b8860b;
         }
 
         body { 
             margin: 0; font-family: 'Arial Black', sans-serif; 
-            background-color: #111; color: #fff; overflow-x: hidden;
-            background-image: radial-gradient(circle at 50% 0%, #222 0%, #000 70%);
+            background-color: #080808; color: #fff; overflow-x: hidden;
+            background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
             background-attachment: fixed;
         }
 
-        /* --- NAV PLACEHOLDER --- */
         #nav-placeholder { position: relative; z-index: 2000; }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO --- */
         .hero {
-            padding: 8rem 1rem 4rem; text-align: center;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8), #050505), 
-                        url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
-            border-bottom: 4px solid var(--primary);
+            padding: 10rem 1rem 6rem; text-align: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), #080808), 
+                        url("https://www.transparenttextures.com/patterns/cubes.png");
+            border-bottom: 2px solid #222;
         }
-        h1 { font-size: clamp(3rem, 8vw, 5rem); margin: 0; letter-spacing: -2px; text-transform: uppercase; color: #fff; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
-        .subtitle { letter-spacing: 4px; color: var(--primary); text-transform: uppercase; margin-top: 10px; font-size: 0.9rem; }
+        h1 { font-size: clamp(3rem, 10vw, 6rem); margin: 0; letter-spacing: -3px; text-transform: uppercase; color: #fff; line-height: 0.9; }
+        .subtitle { letter-spacing: 6px; color: var(--primary); text-transform: uppercase; font-size: 0.8rem; margin-bottom: 10px; display: block; }
 
         /* --- CONTROLS --- */
         .controls-bar {
             position: sticky; top: 0; z-index: 100;
-            background: rgba(5, 5, 5, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem;
+            background: rgba(8, 8, 8, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid #222;
+            padding: 1rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .controls-inner {
+            max-width: 1200px; margin: 0 auto; padding: 0 1rem;
             display: flex; flex-direction: column; gap: 1rem; align-items: center;
         }
 
-        /* Season Selector (Dropdown) */
-        .season-select-wrapper { position: relative; width: 100%; max-width: 300px; }
         .season-select {
-            width: 100%; padding: 12px; background: #222; color: #fff;
-            border: 1px solid #444; border-radius: 4px;
-            font-family: 'Arial Black', sans-serif; font-size: 1rem;
-            appearance: none; cursor: pointer; text-align: center;
+            padding: 12px 25px; background: #151515; color: #fff;
+            border: 1px solid #333; border-radius: 50px;
+            font-family: 'Arial Black', sans-serif; font-size: 0.9rem;
+            cursor: pointer; text-align: center; width: 100%; max-width: 350px;
+            text-transform: uppercase; letter-spacing: 1px;
+            transition: 0.3s;
         }
-        .season-select:hover { border-color: var(--primary); }
+        .season-select:hover { border-color: var(--primary); background: #1a1a1a; }
 
-        /* Series Buttons */
-        .tabs-container { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+        .tabs-container { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
         .series-btn {
-            background: transparent; border: 1px solid #444; color: #aaa;
-            padding: 10px 20px; border-radius: 30px; cursor: pointer;
-            font-family: 'Arial Black', sans-serif; font-size: 0.8rem;
-            transition: 0.3s; text-transform: uppercase;
+            background: transparent; border: 1px solid #333; color: #666;
+            padding: 10px 20px; border-radius: 4px; cursor: pointer;
+            font-family: 'Arial Black', sans-serif; font-size: 0.75rem;
+            transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
         }
         .series-btn:hover { color: #fff; border-color: #fff; }
         
-        .series-btn[data-series="Cup"].active { background: var(--cup-blue); border-color: var(--cup-blue); color: #fff; box-shadow: 0 0 15px rgba(0,119,255,0.4); }
-        .series-btn[data-series="Xfinity"].active { background: var(--xfinity-purple); border-color: var(--xfinity-purple); color: #fff; box-shadow: 0 0 15px rgba(128,0,176,0.4); }
-        .series-btn[data-series="Truck"].active { background: var(--truck-red); border-color: var(--truck-red); color: #fff; box-shadow: 0 0 15px rgba(204,0,0,0.4); }
-        .series-btn[data-series="Menards"].active { background: var(--menards-yellow); border-color: var(--menards-yellow); color: #000; box-shadow: 0 0 15px rgba(255,242,0,0.4); }
+        .series-btn[data-series="Cup"].active { background: var(--cup-blue); border-color: var(--cup-blue); color: #fff; box-shadow: 0 0 20px rgba(0,119,255,0.3); }
+        .series-btn[data-series="Xfinity"].active { background: var(--xfinity-purple); border-color: var(--xfinity-purple); color: #fff; box-shadow: 0 0 20px rgba(128,0,176,0.3); }
+        .series-btn[data-series="Truck"].active { background: var(--truck-red); border-color: var(--truck-red); color: #fff; box-shadow: 0 0 20px rgba(204,0,0,0.3); }
+        .series-btn[data-series="Menards"].active { background: var(--menards-yellow); border-color: var(--menards-yellow); color: #000; box-shadow: 0 0 20px rgba(255,242,0,0.3); }
 
-        /* --- MAIN LAYOUT --- */
-        .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }
+        /* --- REGULAR SEASON (Clean, Technical Look) --- */
+        .container { max-width: 1300px; margin: 0 auto; padding: 4rem 2rem; }
         
         .section-header {
-            font-size: 2rem; color: #fff; margin: 3rem 0 1.5rem; 
-            border-left: 5px solid #444; padding-left: 15px; text-transform: uppercase;
+            font-size: 1.5rem; color: #444; margin: 0 0 2rem; 
+            text-transform: uppercase; letter-spacing: 2px;
+            display: flex; align-items: center; gap: 15px;
         }
+        .section-header::after { content:''; flex:1; height:1px; background:#222; }
 
-        /* --- TICKET CARD DESIGN --- */
-        .race-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+        .race-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
 
         .race-ticket {
-            background: #161616;
-            border: 1px solid #333;
-            border-left: 4px solid #444; /* Default Color */
+            background: #111;
+            border: 1px solid #222;
             position: relative;
-            display: flex;
-            flex-direction: column;
-            transition: 0.3s;
-            clip-path: polygon(
-                0 0, 100% 0, 
-                100% calc(50% - 10px), 95% 50%, 100% calc(50% + 10px), 
-                100% 100%, 0 100%
-            ); /* Notched Ticket Shape */
-            min-height: 180px;
-        }
-
-        .race-ticket:hover { transform: translateY(-5px); border-color: #666; }
-        .race-ticket.completed { opacity: 0.6; filter: grayscale(0.8); }
-
-        .ticket-header {
-            padding: 1.5rem;
-            border-bottom: 2px dashed #222;
-            display: flex; justify-content: space-between; align-items: flex-start;
-        }
-
-        .race-date-box { text-align: center; background: #000; padding: 5px 10px; border: 1px solid #333; border-radius: 4px; }
-        .rd-month { display: block; font-size: 0.7rem; color: var(--primary); letter-spacing: 1px; }
-        .rd-day { display: block; font-size: 1.8rem; line-height: 1; color: #fff; }
-
-        .ticket-body { padding: 1.5rem; flex-grow: 1; }
-        .track-name { font-size: 1.2rem; margin: 0; text-transform: uppercase; color: #fff; }
-        .race-sub { font-size: 0.8rem; color: #666; font-family: sans-serif; margin-top: 5px; }
-
-        .winner-pill {
-            margin-top: 15px; display: inline-flex; align-items: center; gap: 8px;
-            background: rgba(255,255,255,0.05); padding: 5px 10px; border-radius: 4px;
-            font-size: 0.75rem; color: #ddd; border: 1px solid #333;
-        }
-
-        /* --- THE CHASE (SPECIAL STYLING) --- */
-        .chase-section {
-            margin-top: 5rem;
-            padding: 2rem;
-            background: linear-gradient(135deg, #1a1a00 0%, #000 100%);
-            border: 1px solid #443300;
-            border-radius: 10px;
-            position: relative;
+            display: flex; flex-direction: column;
+            transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             overflow: hidden;
+            border-radius: 6px;
+        }
+        .race-ticket:hover { transform: translateY(-5px); border-color: #444; z-index: 10; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
+        
+        /* Series Colored Line */
+        .race-ticket::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+            background: #444; /* Default */
+        }
+
+        .ticket-top { padding: 1.5rem; display: flex; justify-content: space-between; align-items: flex-start; }
+        
+        .date-group { display: flex; flex-direction: column; }
+        .date-month { font-size: 0.7rem; color: #666; letter-spacing: 2px; font-weight: bold; }
+        .date-day { font-size: 2.5rem; line-height: 0.9; color: #fff; }
+
+        .ticket-body { padding: 1.5rem; padding-top: 0; flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-end; }
+        .track-name { font-size: 1.3rem; margin: 0 0 5px 0; text-transform: uppercase; color: #fff; line-height: 1; }
+        .race-type { font-size: 0.7rem; color: #555; font-family: sans-serif; text-transform: uppercase; letter-spacing: 1px; }
+
+        .status-pill {
+            margin-top: 15px; display: inline-block;
+            font-size: 0.65rem; padding: 6px 12px; border: 1px solid; border-radius: 4px;
+            text-transform: uppercase; font-weight: bold; align-self: flex-start;
+            letter-spacing: 1px;
+        }
+
+        /* --- THE CHASE (CINEMATIC GOLD THEME) --- */
+        .chase-wrapper {
+            margin-top: 8rem;
+            position: relative;
+            padding: 6rem 2rem;
+            border-top: 1px solid #333;
+            /* Luxurious Background */
+            background: 
+                radial-gradient(circle at center, rgba(255, 215, 0, 0.03) 0%, transparent 60%),
+                linear-gradient(to bottom, #080808 0%, #121000 50%, #080808 100%);
         }
         
-        /* Gold Glow Effect */
-        .chase-section::before {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.05) 0%, transparent 70%);
-            pointer-events: none;
+        /* Cinematic Glow Line */
+        .chase-wrapper::before {
+            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 60%; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-mid), transparent);
+            box-shadow: 0 0 30px var(--gold-mid);
         }
 
-        .chase-header {
-            text-align: center; margin-bottom: 3rem; position: relative; z-index: 2;
+        .chase-header { text-align: center; margin-bottom: 5rem; position: relative; z-index: 2; }
+        
+        .chase-logo {
+            font-size: clamp(3rem, 8vw, 6rem); 
+            margin: 0; letter-spacing: -2px; line-height: 0.9;
+            /* Metallic Gold Text */
+            background: linear-gradient(to bottom, #fff7cc, #ffd700 40%, #b8860b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
         }
-        .chase-header h2 { font-size: 3rem; color: var(--gold); text-shadow: 0 0 20px rgba(255, 215, 0, 0.3); margin: 0; }
-        .chase-header p { color: #aaa; letter-spacing: 3px; text-transform: uppercase; font-size: 0.9rem; }
+        .chase-sub { 
+            color: var(--gold-mid); font-size: 1rem; letter-spacing: 8px; text-transform: uppercase; margin-top: 15px; 
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
 
-        .chase-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; position: relative; z-index: 2; }
+        /* Chase Grid Overrides */
+        .chase-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; position: relative; z-index: 2; max-width: 1400px; margin: 0 auto; }
 
         .chase-ticket {
-            background: #0d0d0d;
+            background: rgba(20, 18, 5, 0.6);
             border: 1px solid #443300;
-            border-left: 4px solid var(--gold);
-            position: relative;
-            transition: 0.3s;
-            clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px); /* Angled corner */
+            backdrop-filter: blur(5px);
+            border-radius: 8px;
+            transition: 0.4s;
+            box-shadow: 0 0 0 rgba(0,0,0,0);
         }
         
-        .chase-ticket:hover { box-shadow: 0 0 15px rgba(255, 215, 0, 0.1); border-color: var(--gold); transform: scale(1.02); }
+        /* Gold Vertical Bar */
+        .chase-ticket::before {
+            background: linear-gradient(to bottom, var(--gold-mid), var(--gold-dark));
+            width: 6px;
+        }
 
-        .chase-ticket .track-name { color: var(--gold); }
-        .chase-ticket .race-date-box { border-color: #443300; background: #1a1a00; }
-        .chase-ticket .rd-month { color: #fff; }
+        .chase-ticket:hover { 
+            transform: scale(1.03); 
+            border-color: var(--gold-mid); 
+            box-shadow: 0 20px 50px rgba(255, 215, 0, 0.15); 
+            background: rgba(20, 18, 5, 0.9);
+        }
 
-        /* --- FOOTER --- */
+        .chase-ticket .date-month { color: var(--gold-mid); }
+        .chase-ticket .date-day { 
+            background: linear-gradient(to bottom, #fff, #ffd700); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .chase-ticket .track-name { 
+            font-size: 1.6rem; letter-spacing: 1px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.2); 
+        }
+        .chase-ticket .race-type { color: #886600; letter-spacing: 2px; }
+        
+        .chase-ticket .status-pill {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: var(--gold-dark);
+            color: var(--gold-mid);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.1);
+        }
+
         footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
 
         @media (max-width: 768px) {
-            .hero { padding-top: 10rem; }
-            h1 { font-size: 2.5rem; }
-            .chase-header h2 { font-size: 2rem; }
+            .hero { padding: 8rem 1rem 4rem; }
+            .section-header { justify-content: center; text-align: center; border: none; }
+            .section-header::after { display: none; }
+            .chase-wrapper { padding: 4rem 1rem; }
+            .chase-grid { gap: 15px; }
         }
     </style>
 </head>
@@ -183,38 +226,40 @@
     <div id="nav-placeholder"></div>
 
     <header class="hero">
-        <p class="subtitle">Official League Calendar</p>
-        <h1>Race Schedule</h1>
+        <span class="subtitle">Official League Calendar</span>
+        <h1>Schedule</h1>
     </header>
 
     <div class="controls-bar">
-        <div class="season-select-wrapper">
-            <select id="seasonSelect" class="season-select" onchange="loadSchedule()">
-                <option value="current">2025-2026 Season (Current)</option>
-                <option value="2026">2026 Season (Next)</option>
-            </select>
-        </div>
+        <div class="controls-inner">
+            <div class="season-select-wrapper">
+                <select id="seasonSelect" class="season-select" onchange="loadSchedule()">
+                    <option value="current">2025-2026 Season (Current)</option>
+                    <option value="2026">2026 Season (Next)</option>
+                </select>
+            </div>
 
-        <div class="tabs-container">
-            <button class="series-btn active" data-series="Cup" onclick="switchSeries('Cup')">Cup</button>
-            <button class="series-btn" data-series="Xfinity" onclick="switchSeries('Xfinity')">Xfinity</button>
-            <button class="series-btn" data-series="Truck" onclick="switchSeries('Truck')">Trucks</button>
-            <button class="series-btn" data-series="Menards" onclick="switchSeries('Menards')">Menards</button>
+            <div class="tabs-container">
+                <button class="series-btn active" data-series="Cup" onclick="switchSeries('Cup')">Cup</button>
+                <button class="series-btn" data-series="Xfinity" onclick="switchSeries('Xfinity')">Xfinity</button>
+                <button class="series-btn" data-series="Truck" onclick="switchSeries('Truck')">Trucks</button>
+                <button class="series-btn" data-series="Menards" onclick="switchSeries('Menards')">Menards</button>
+            </div>
         </div>
     </div>
 
     <main class="container">
         
-        <div id="regular-season-wrapper">
+        <div id="reg-section">
             <h2 class="section-header">Regular Season</h2>
             <div id="regular-grid" class="race-grid">
                 </div>
         </div>
 
-        <div id="chase-wrapper" class="chase-section" style="display:none;">
+        <div id="chase-section" class="chase-wrapper" style="display: none;">
             <div class="chase-header">
-                <p>The Playoffs</p>
-                <h2>THE CHASE FOR THE CUP</h2>
+                <h2 class="chase-logo">THE CHASE</h2>
+                <p class="chase-sub">For The Championship</p>
             </div>
             <div id="chase-grid" class="chase-grid">
                 </div>
@@ -228,43 +273,30 @@
 
     <script>
         // 1. NAV LOADER
-        fetch('nav.html')
-            .then(r => r.text())
-            .then(d => {
-                document.getElementById('nav-placeholder').innerHTML = d;
-                
-                // Highlight Current Page
-                const navSchedule = document.getElementById('nav-schedule');
-                if(navSchedule) {
-                    navSchedule.style.color = "var(--primary)";
-                    navSchedule.style.borderLeft = "4px solid var(--primary)";
-                    navSchedule.style.paddingLeft = "15px";
-                }
-            });
+        fetch('nav.html').then(r=>r.text()).then(d=>document.getElementById('nav-placeholder').innerHTML=d);
 
-        // 2. TOGGLE MENU FUNCTION (THE FIX)
+        // 2. TOGGLE MENU (Fixing the mobile menu)
         function toggleMenu() {
             const m = document.getElementById('nav-menu');
             if(m) m.classList.toggle('open');
         }
 
-        // 3. CONFIG
+        // 3. DATA CONFIG
         const FILES = {
-            "current": "schedule.json",
-            "2026": "ASCRL_2026_Schedule.json"
+            "current": "schedule.json",          // YOUR OLD FILE
+            "2026": "ASCRL_2026_Schedule.json"   // YOUR NEW FILE
         };
         
         let rawData = {};
         let currentSeries = 'Cup';
 
-        // 4. LOAD DATA
         function loadSchedule() {
             const seasonKey = document.getElementById('seasonSelect').value;
             const file = FILES[seasonKey];
 
-            document.getElementById('regular-grid').innerHTML = '<p style="color:#666;">Loading Data...</p>';
-            document.getElementById('chase-grid').innerHTML = '';
-            document.getElementById('chase-wrapper').style.display = 'none';
+            const regGrid = document.getElementById('regular-grid');
+            regGrid.innerHTML = '<p style="color:#666;">Loading...</p>';
+            document.getElementById('chase-section').style.display = 'none';
 
             fetch(file)
                 .then(r => r.json())
@@ -274,149 +306,117 @@
                 })
                 .catch(err => {
                     console.error(err);
-                    document.getElementById('regular-grid').innerHTML = '<p style="color:#c00;">Schedule data not found.</p>';
+                    regGrid.innerHTML = '<p style="color:#c00;">Data not found.</p>';
                 });
         }
 
-        // 5. SWITCH SERIES
         function switchSeries(seriesName) {
             currentSeries = seriesName;
-            
-            // Update Buttons
             document.querySelectorAll('.series-btn').forEach(btn => {
                 btn.classList.remove('active');
                 if(btn.dataset.series === seriesName) btn.classList.add('active');
             });
-
             renderSeries();
         }
 
-        // 6. RENDER LOGIC
         function renderSeries() {
-            const regContainer = document.getElementById('regular-grid');
-            const chaseContainer = document.getElementById('chase-grid');
-            const chaseWrapper = document.getElementById('chase-wrapper');
+            const regGrid = document.getElementById('regular-grid');
+            const chaseGrid = document.getElementById('chase-grid');
+            const chaseSection = document.getElementById('chase-section');
 
-            regContainer.innerHTML = '';
-            chaseContainer.innerHTML = '';
-            
+            regGrid.innerHTML = '';
+            chaseGrid.innerHTML = '';
+
             const sKey = Object.keys(rawData).find(k => k.toLowerCase() === currentSeries.toLowerCase());
             
             if(!sKey || !rawData[sKey]) {
-                regContainer.innerHTML = '<p>No races found for this series.</p>';
-                chaseWrapper.style.display = 'none';
+                regGrid.innerHTML = '<p>No schedule available.</p>';
+                chaseSection.style.display = 'none';
                 return;
             }
 
             const races = rawData[sKey];
-            let hasChase = false;
             const today = new Date();
             today.setHours(0,0,0,0);
+            let hasChase = false;
+
+            // Dynamic Accent Color
+            let accent = "#444";
+            if(currentSeries === 'Cup') accent = "var(--cup-blue)";
+            if(currentSeries === 'Xfinity') accent = "var(--xfinity-purple)";
+            if(currentSeries === 'Truck') accent = "var(--truck-red)";
+            if(currentSeries === 'Menards') accent = "var(--menards-yellow)";
 
             races.forEach(race => {
-                // Determine if Race is Past
                 const rDate = new Date(race.date + "T12:00:00");
-                const isCompleted = rDate < today;
-                
-                // Date Formatting
+                const isPast = rDate < today;
                 const month = rDate.toLocaleString('default', {month:'short'}).toUpperCase();
                 const day = rDate.getDate();
+
+                // Logic
+                let pillStyle = `border-color: ${accent}; color: ${accent};`;
+                let statusText = "UPCOMING";
+                let activeClass = "";
                 
-                // Winner HTML (If exists in JSON)
-                let footerHtml = isCompleted ? '<div class="winner-pill">Completed</div>' : '';
-                if(race.winner) {
-                    footerHtml = `<div class="winner-pill"><i class="fa-solid fa-trophy" style="color:var(--gold)"></i> ${race.winner}</div>`;
-                } else if (!isCompleted) {
-                     footerHtml = `<div class="winner-pill" style="border-color:var(--primary); color:var(--primary)">UPCOMING</div>`;
+                if(isPast) {
+                    pillStyle = `border-color: #333; color: #444;`;
+                    statusText = "COMPLETED";
+                    activeClass = "completed"; // Dimming class
+                    if(race.winner) {
+                        statusText = `<i class="fa-solid fa-trophy"></i> ${race.winner}`;
+                        pillStyle = `border-color: #444; color: #fff; background: #222;`;
+                    }
                 }
 
-                // --- TEMPLATE GENERATION ---
+                // CHASE VS REGULAR
                 if (race.is_chase) {
-                    // CHASE TICKET STYLE
                     hasChase = true;
+                    // Note: Chase tickets always use gold accent in CSS overrides
                     const html = `
-                    <div class="chase-ticket ${isCompleted ? 'completed' : ''}">
-                        <div class="ticket-header">
-                            <div class="race-date-box">
-                                <span class="rd-month">${month}</span>
-                                <span class="rd-day">${day}</span>
+                    <div class="race-ticket chase-ticket ${activeClass}">
+                        <div class="ticket-top">
+                            <div class="date-group">
+                                <span class="date-month">${month}</span>
+                                <span class="date-day">${day}</span>
                             </div>
-                            <i class="fa-solid fa-flag-checkered" style="color:#444; font-size:1.5rem;"></i>
+                            <i class="fa-solid fa-flag-checkered" style="color:var(--gold-mid); font-size:1.5rem; opacity:0.8;"></i>
                         </div>
                         <div class="ticket-body">
                             <h3 class="track-name">${race.track}</h3>
-                            <p class="race-sub">Playoff Round</p>
-                            ${footerHtml}
+                            <span class="race-type">PLAYOFF ROUND</span>
+                            <div class="status-pill">${statusText}</div>
                         </div>
                     </div>`;
-                    chaseContainer.innerHTML += html;
+                    chaseGrid.innerHTML += html;
 
                 } else {
-                    // REGULAR SEASON TICKET STYLE
-                    // Dynamic Border Color based on Series
-                    let accentColor = "#444";
-                    if(currentSeries === 'Cup') accentColor = "var(--cup-blue)";
-                    if(currentSeries === 'Xfinity') accentColor = "var(--xfinity-purple)";
-                    if(currentSeries === 'Truck') accentColor = "var(--truck-red)";
-                    if(currentSeries === 'Menards') accentColor = "var(--menards-yellow)";
-
+                    // Regular Season
                     const html = `
-                    <div class="race-ticket ${isCompleted ? 'completed' : ''}" style="border-left-color: ${accentColor}">
-                        <div class="ticket-header">
-                            <div class="race-date-box">
-                                <span class="rd-month">${month}</span>
-                                <span class="rd-day">${day}</span>
+                    <div class="race-ticket ${activeClass}">
+                        <style>.race-ticket:hover { border-color: ${accent}; }</style>
+                        <div class="ticket-top">
+                            <div class="date-group">
+                                <span class="date-month" style="color:${accent}">${month}</span>
+                                <span class="date-day">${day}</span>
                             </div>
                             <i class="fa-solid fa-flag" style="color:#333; font-size:1.5rem;"></i>
                         </div>
                         <div class="ticket-body">
                             <h3 class="track-name">${race.track}</h3>
-                            <p class="race-sub">Regular Season</p>
-                            ${footerHtml}
+                            <span class="race-type">REGULAR SEASON</span>
+                            <div class="status-pill" style="${pillStyle}">${statusText}</div>
                         </div>
+                        <div style="position:absolute; top:0; left:0; width:4px; height:100%; background:${accent};"></div>
                     </div>`;
-                    regContainer.innerHTML += html;
+                    regGrid.innerHTML += html;
                 }
             });
 
-            // Toggle Chase Visibility
-            chaseWrapper.style.display = hasChase ? 'block' : 'none';
+            chaseSection.style.display = hasChase ? 'block' : 'none';
         }
 
-        // Initialize
+        // Init
         loadSchedule();
-    </script>
-    <script>
-        // 1. Disable Right Click
-        document.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-        });
-
-        // 2. Disable Keyboard Shortcuts (Ctrl+U, F12, Ctrl+Shift+I, etc.)
-        document.addEventListener('keydown', (e) => {
-            // Check for Ctrl (or Command on Mac)
-            if (e.ctrlKey || e.metaKey) {
-                switch (e.key.toLowerCase()) {
-                    case 'u': // View Source
-                    case 's': // Save Page
-                    case 'a': // Select All
-                    case 'c': // Copy
-                        e.preventDefault();
-                        return false;
-                }
-                // Check for Ctrl+Shift+I or J (Developer Tools)
-                if (e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j')) {
-                    e.preventDefault();
-                    return false;
-                }
-            }
-            
-            // Check for F12 (Developer Tools)
-            if (e.key === 'F12') {
-                e.preventDefault();
-                return false;
-            }
-        });
     </script>
 </body>
 </html>
