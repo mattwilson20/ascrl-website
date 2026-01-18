@@ -11,137 +11,171 @@
         :root {
             --primary: #c00;
             --accent: #ff0;
-            --bg-dark: #000;
-            --card-bg: #0d0d0d;
-            --border: #1a1a1a;
-            --text-muted: #a0a0a0;
-            --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            
-            /* Series Colors */
+            --bg-dark: #050505;
+            --card-bg: #111;
+            --border: #222;
+            --text-muted: #888;
             --cup-blue: #0077ff;
             --xfinity-purple: #8000b0;
             --truck-red: #c00;
             --menards-yellow: #fff200;
+            --gold: #ffd700;
         }
 
         body { 
-            margin: 0; 
-            font-family: 'Arial Black', sans-serif; 
-            background-color: #333333; 
-            background-image: 
-                radial-gradient(transparent 0%, #000 100%),
-                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.35'/%3E%3C/svg%3E");
+            margin: 0; font-family: 'Arial Black', sans-serif; 
+            background-color: #111; color: #fff; overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 0%, #222 0%, #000 70%);
             background-attachment: fixed;
-            color: #fff; 
-            overflow-x: hidden; 
         }
 
-        /* --- MODULAR NAVIGATION STYLES --- */
+        /* --- NAV PLACEHOLDER --- */
         #nav-placeholder { position: relative; z-index: 2000; }
-        
-        .nav-overlay { 
-            position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; 
-            height: 100vh; background: #050505; transition: left 0.5s ease; 
-            z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); 
-        }
-        .nav-overlay.open { left: 0; }
-        .nav-links { display: flex; flex-direction: column; padding: 0 3rem; }
-        .nav-links a { 
-            color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; 
-            border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; 
-        }
-        .nav-links a:hover { color: var(--primary); padding-left: 10px; }
 
+        /* --- HERO SECTION --- */
+        .hero {
+            padding: 8rem 1rem 4rem; text-align: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), #050505), 
+                        url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+            border-bottom: 4px solid var(--primary);
+        }
+        h1 { font-size: clamp(3rem, 8vw, 5rem); margin: 0; letter-spacing: -2px; text-transform: uppercase; color: #fff; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
+        .subtitle { letter-spacing: 4px; color: var(--primary); text-transform: uppercase; margin-top: 10px; font-size: 0.9rem; }
 
-        /* --- HERO --- */
-        .hero { 
-            background: radial-gradient(circle at center, #222 0%, #000 100%); 
-            padding: 12rem 1rem 8rem; 
-            text-align: center; 
+        /* --- CONTROLS --- */
+        .controls-bar {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border);
+            padding: 1rem;
+            display: flex; flex-direction: column; gap: 1rem; align-items: center;
         }
-        h1 { font-size: clamp(3rem, 10vw, 5rem); margin: 0; letter-spacing: -2px; line-height: 0.9; }
-        .hero p { color: var(--primary); letter-spacing: 5px; text-transform: uppercase; font-size: 0.9rem; margin-top: 1rem; }
 
-        /* --- CONTROLS (TABS) --- */
-        .controls { background: #050505; padding: 2rem 1rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
-        .tabs-container { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+        /* Season Selector (Dropdown) */
+        .season-select-wrapper { position: relative; width: 100%; max-width: 300px; }
+        .season-select {
+            width: 100%; padding: 12px; background: #222; color: #fff;
+            border: 1px solid #444; border-radius: 4px;
+            font-family: 'Arial Black', sans-serif; font-size: 1rem;
+            appearance: none; cursor: pointer; text-align: center;
+        }
+        .season-select:hover { border-color: var(--primary); }
 
+        /* Series Buttons */
+        .tabs-container { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
         .series-btn {
-            background: #111; border: 1px solid #333; color: #fff; 
-            padding: 15px 30px; font-family: 'Arial Black', sans-serif; 
-            text-transform: uppercase; font-size: 1rem; letter-spacing: 1px;
-            cursor: pointer; transition: var(--transition); min-width: 150px;
-            position: relative; overflow: hidden;
+            background: transparent; border: 1px solid #444; color: #aaa;
+            padding: 10px 20px; border-radius: 30px; cursor: pointer;
+            font-family: 'Arial Black', sans-serif; font-size: 0.8rem;
+            transition: 0.3s; text-transform: uppercase;
         }
-        .series-btn:hover { transform: translateY(-3px); }
-        .series-btn.active { border-color: #fff; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
-        .series-btn[data-series="Cup"].active { background: var(--cup-blue); border-color: var(--cup-blue); }
-        .series-btn[data-series="Xfinity"].active { background: var(--xfinity-purple); border-color: var(--xfinity-purple); }
-        .series-btn[data-series="Truck"].active { background: var(--truck-red); border-color: var(--truck-red); }
-        .series-btn[data-series="Menards"].active { background: var(--menards-yellow); border-color: var(--menards-yellow); color: #000; }
+        .series-btn:hover { color: #fff; border-color: #fff; }
+        
+        .series-btn[data-series="Cup"].active { background: var(--cup-blue); border-color: var(--cup-blue); color: #fff; box-shadow: 0 0 15px rgba(0,119,255,0.4); }
+        .series-btn[data-series="Xfinity"].active { background: var(--xfinity-purple); border-color: var(--xfinity-purple); color: #fff; box-shadow: 0 0 15px rgba(128,0,176,0.4); }
+        .series-btn[data-series="Truck"].active { background: var(--truck-red); border-color: var(--truck-red); color: #fff; box-shadow: 0 0 15px rgba(204,0,0,0.4); }
+        .series-btn[data-series="Menards"].active { background: var(--menards-yellow); border-color: var(--menards-yellow); color: #000; box-shadow: 0 0 15px rgba(255,242,0,0.4); }
 
-        /* --- SCHEDULE LIST --- */
-        .container { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; }
+        /* --- MAIN LAYOUT --- */
+        .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }
         
-        .race-item { 
-            display: flex; align-items: center; justify-content: space-between;
-            background: var(--card-bg); border: 1px solid var(--border);
-            padding: 2rem; margin-bottom: 1rem; transition: var(--transition);
-            position: relative; overflow: hidden;
-        }
-        
-        .race-date { 
-            display: flex; flex-direction: column; align-items: center; 
-            min-width: 100px; padding-right: 2rem; border-right: 1px solid #222;
-        }
-        .month { color: var(--primary); font-size: 0.8rem; letter-spacing: 2px; }
-        .day { font-size: 2.5rem; line-height: 1; }
-        
-        .race-info { padding-left: 2rem; flex-grow: 1; text-align: left; z-index: 2; }
-        .race-info h3 { margin: 0; font-size: 1.5rem; text-transform: uppercase; letter-spacing: -1px; }
-        .race-info p { margin: 5px 0 0; color: var(--text-muted); font-family: sans-serif; font-size: 0.9rem; }
-
-        .race-status { text-align: right; z-index: 2; }
-        .status-badge { 
-            font-size: 0.7rem; padding: 5px 10px; border: 1px solid #333; 
-            border-radius: 4px; text-transform: uppercase; color: #666;
+        .section-header {
+            font-size: 2rem; color: #fff; margin: 3rem 0 1.5rem; 
+            border-left: 5px solid #444; padding-left: 15px; text-transform: uppercase;
         }
 
-        /* Winner Text */
-        .winner-display {
-            font-size: 0.9rem; color: #fff; margin-top: 5px;
-        }
-        .winner-display i { color: var(--accent); margin-right: 5px; }
+        /* --- TICKET CARD DESIGN --- */
+        .race-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
 
-        /* --- STATES --- */
-        .race-item.completed { 
-            border-color: #111; 
+        .race-ticket {
+            background: #161616;
+            border: 1px solid #333;
+            border-left: 4px solid #444; /* Default Color */
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            transition: 0.3s;
+            clip-path: polygon(
+                0 0, 100% 0, 
+                100% calc(50% - 10px), 95% 50%, 100% calc(50% + 10px), 
+                100% 100%, 0 100%
+            ); /* Notched Ticket Shape */
+            min-height: 180px;
         }
-        .race-item.completed .race-date { opacity: 0.5; }
+
+        .race-ticket:hover { transform: translateY(-5px); border-color: #666; }
+        .race-ticket.completed { opacity: 0.6; filter: grayscale(0.8); }
+
+        .ticket-header {
+            padding: 1.5rem;
+            border-bottom: 2px dashed #222;
+            display: flex; justify-content: space-between; align-items: flex-start;
+        }
+
+        .race-date-box { text-align: center; background: #000; padding: 5px 10px; border: 1px solid #333; border-radius: 4px; }
+        .rd-month { display: block; font-size: 0.7rem; color: var(--primary); letter-spacing: 1px; }
+        .rd-day { display: block; font-size: 1.8rem; line-height: 1; color: #fff; }
+
+        .ticket-body { padding: 1.5rem; flex-grow: 1; }
+        .track-name { font-size: 1.2rem; margin: 0; text-transform: uppercase; color: #fff; }
+        .race-sub { font-size: 0.8rem; color: #666; font-family: sans-serif; margin-top: 5px; }
+
+        .winner-pill {
+            margin-top: 15px; display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255,255,255,0.05); padding: 5px 10px; border-radius: 4px;
+            font-size: 0.75rem; color: #ddd; border: 1px solid #333;
+        }
+
+        /* --- THE CHASE (SPECIAL STYLING) --- */
+        .chase-section {
+            margin-top: 5rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #1a1a00 0%, #000 100%);
+            border: 1px solid #443300;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
         
-        .race-item.next { 
-            border: 1px solid var(--primary); 
-            background: linear-gradient(90deg, #0d0d0d 0%, #1a0000 100%);
-            transform: scale(1.02);
-            box-shadow: 0 10px 30px rgba(204, 0, 0, 0.15);
+        /* Gold Glow Effect */
+        .chase-section::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.05) 0%, transparent 70%);
+            pointer-events: none;
         }
-        .race-item.next .status-badge { 
-            background: var(--primary); color: #fff; border-color: var(--primary); 
+
+        .chase-header {
+            text-align: center; margin-bottom: 3rem; position: relative; z-index: 2;
         }
+        .chase-header h2 { font-size: 3rem; color: var(--gold); text-shadow: 0 0 20px rgba(255, 215, 0, 0.3); margin: 0; }
+        .chase-header p { color: #aaa; letter-spacing: 3px; text-transform: uppercase; font-size: 0.9rem; }
+
+        .chase-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; position: relative; z-index: 2; }
+
+        .chase-ticket {
+            background: #0d0d0d;
+            border: 1px solid #443300;
+            border-left: 4px solid var(--gold);
+            position: relative;
+            transition: 0.3s;
+            clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px); /* Angled corner */
+        }
+        
+        .chase-ticket:hover { box-shadow: 0 0 15px rgba(255, 215, 0, 0.1); border-color: var(--gold); transform: scale(1.02); }
+
+        .chase-ticket .track-name { color: var(--gold); }
+        .chase-ticket .race-date-box { border-color: #443300; background: #1a1a00; }
+        .chase-ticket .rd-month { color: #fff; }
 
         /* --- FOOTER --- */
-        footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
-        .social-links { display: flex; gap: 2rem; justify-content: center; }
-        .social-icon { color: #555; font-size: 1.8rem; transition: 0.3s ease; display: flex; align-items: center; justify-content: center; text-decoration: none; }
-        .social-icon:hover { transform: translateY(-3px); }
+        footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
 
         @media (max-width: 768px) {
-            .hero { padding: 10rem 1rem 4rem; }
-            .race-item { flex-direction: column; text-align: center; gap: 1rem; }
-            .race-date { border-right: none; border-bottom: 1px solid #222; padding-right: 0; padding-bottom: 1rem; width: 100%; }
-            .race-info { padding-left: 0; }
-            .race-status { width: 100%; text-align: center; }
+            .hero { padding-top: 10rem; }
+            h1 { font-size: 2.5rem; }
+            .chase-header h2 { font-size: 2rem; }
+            /* Remove fancy clip-paths on mobile if rendering issues occur, but usually fine */
         }
     </style>
 </head>
@@ -150,13 +184,20 @@
     <div id="nav-placeholder"></div>
 
     <header class="hero">
-        <p>Season Calendar</p>
-        <h1>SCHEDULE</h1>
+        <p class="subtitle">Official League Calendar</p>
+        <h1>Race Schedule</h1>
     </header>
 
-    <div class="controls">
+    <div class="controls-bar">
+        <div class="season-select-wrapper">
+            <select id="seasonSelect" class="season-select" onchange="loadSchedule()">
+                <option value="current">2025-2026 Season (Current)</option>
+                <option value="2026">2026 Season (Next)</option>
+            </select>
+        </div>
+
         <div class="tabs-container">
-            <button class="series-btn active" data-series="Cup" onclick="switchSeries('Cup')">Cup Series</button>
+            <button class="series-btn active" data-series="Cup" onclick="switchSeries('Cup')">Cup</button>
             <button class="series-btn" data-series="Xfinity" onclick="switchSeries('Xfinity')">Xfinity</button>
             <button class="series-btn" data-series="Truck" onclick="switchSeries('Truck')">Trucks</button>
             <button class="series-btn" data-series="Menards" onclick="switchSeries('Menards')">Menards</button>
@@ -164,73 +205,64 @@
     </div>
 
     <main class="container">
-        <div id="schedule-container">
-            <p style="text-align:center; padding:2rem; color:#666;">Loading Schedule...</p>
+        
+        <div id="regular-season-wrapper">
+            <h2 class="section-header">Regular Season</h2>
+            <div id="regular-grid" class="race-grid">
+                </div>
         </div>
+
+        <div id="chase-wrapper" class="chase-section" style="display:none;">
+            <div class="chase-header">
+                <p>The Playoffs</p>
+                <h2>THE CHASE FOR THE CUP</h2>
+            </div>
+            <div id="chase-grid" class="chase-grid">
+                </div>
+        </div>
+
     </main>
 
-     <footer>
-        <div style="margin-bottom: 0.5rem; letter-spacing: 2px; color: #fff;">
-            © 2025-2026 AMERICAN STOCK CAR RACING LEAGUE
-        </div>
-        
-        <div style="font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 2rem; text-transform: uppercase;">
-            OWNED AND OPERATED BY <span style="color: #fff; font-weight: bold;">A&M PRODUCTIONS LLC</span>
-        </div>
-
-        <div class="social-links">
-            <a href="https://www.facebook.com/share/14PeZVCH1hL/" target="_blank" class="social-icon facebook" aria-label="Facebook">
-                <i class="fa-brands fa-facebook"></i>
-            </a>
-            <a href="https://x.com/ASCRWeekly" target="_blank" class="social-icon x-twitter" aria-label="X (Twitter)">
-                <i class="fa-brands fa-x-twitter"></i>
-            </a>
-            
-            <a href="mailto:contact.ascrl@gmail.com" class="social-icon email" aria-label="Email A&M Productions">
-                <i class="fa-solid fa-envelope"></i>
-            </a>
-        </div>
-        
-        <div style="font-size: 0.6rem; color: #444; margin-top: 20px; font-style: italic;">*ai generated images may be used</div>
+    <footer>
+        <div>© 2025-2026 AMERICAN STOCK CAR RACING LEAGUE</div>
     </footer>
+
     <script>
-        // --- 1. MODULAR NAVIGATION ---
-        fetch('nav.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('nav-placeholder').innerHTML = data;
-                const activeLink = document.getElementById('nav-schedule'); // Ensure nav.html has this ID
-                if (activeLink) {
-                    activeLink.style.color = "var(--primary)";
-                    activeLink.style.borderLeft = "4px solid var(--primary)";
-                    activeLink.style.paddingLeft = "15px";
-                }
-            })
-            .catch(err => console.error("Nav Error:", err));
+        // 1. NAV LOADER
+        fetch('nav.html').then(r=>r.text()).then(d=>document.getElementById('nav-placeholder').innerHTML=d);
 
-        function toggleMenu() {
-            const menu = document.getElementById('nav-menu');
-            if (menu) menu.classList.toggle('open');
-        }
-
-        // --- 2. SCHEDULE LOGIC ---
-        const SCHEDULE_FILE = 'schedule.json';
-        let scheduleData = {};
+        // 2. CONFIG
+        // ** UPDATE THESE FILE NAMES TO MATCH YOUR REPO **
+        const FILES = {
+            "current": "schedule.json",          // The file you use now
+            "2026": "ASCRL_2026_Schedule.json"   // The new file you uploaded
+        };
+        
+        let rawData = {};
         let currentSeries = 'Cup';
 
-        document.addEventListener('DOMContentLoaded', () => {
-            fetch(SCHEDULE_FILE)
-                .then(res => res.json())
+        // 3. LOAD DATA
+        function loadSchedule() {
+            const seasonKey = document.getElementById('seasonSelect').value;
+            const file = FILES[seasonKey];
+
+            document.getElementById('regular-grid').innerHTML = '<p style="color:#666;">Loading Data...</p>';
+            document.getElementById('chase-grid').innerHTML = '';
+            document.getElementById('chase-wrapper').style.display = 'none';
+
+            fetch(file)
+                .then(r => r.json())
                 .then(data => {
-                    scheduleData = data;
-                    renderSchedule();
+                    rawData = data;
+                    renderSeries();
                 })
                 .catch(err => {
                     console.error(err);
-                    document.getElementById('schedule-container').innerHTML = '<p style="text-align:center;">Failed to load schedule.</p>';
+                    document.getElementById('regular-grid').innerHTML = '<p style="color:#c00;">Schedule data not found.</p>';
                 });
-        });
+        }
 
+        // 4. SWITCH SERIES
         function switchSeries(seriesName) {
             currentSeries = seriesName;
             
@@ -240,82 +272,104 @@
                 if(btn.dataset.series === seriesName) btn.classList.add('active');
             });
 
-            renderSchedule();
+            renderSeries();
         }
 
-        function renderSchedule() {
-            const container = document.getElementById('schedule-container');
-            container.innerHTML = '';
+        // 5. RENDER LOGIC
+        function renderSeries() {
+            const regContainer = document.getElementById('regular-grid');
+            const chaseContainer = document.getElementById('chase-grid');
+            const chaseWrapper = document.getElementById('chase-wrapper');
 
-            const seriesKey = Object.keys(scheduleData).find(k => k.toLowerCase() === currentSeries.toLowerCase());
-
-            if (!seriesKey || !scheduleData[seriesKey]) {
-                container.innerHTML = '<p style="text-align:center; color:#666; padding:2rem;">No schedule found for this series.</p>';
+            regContainer.innerHTML = '';
+            chaseContainer.innerHTML = '';
+            
+            // Handle case sensitivity keys in JSON
+            const sKey = Object.keys(rawData).find(k => k.toLowerCase() === currentSeries.toLowerCase());
+            
+            if(!sKey || !rawData[sKey]) {
+                regContainer.innerHTML = '<p>No races found for this series.</p>';
+                chaseWrapper.style.display = 'none';
                 return;
             }
 
+            const races = rawData[sKey];
+            let hasChase = false;
             const today = new Date();
             today.setHours(0,0,0,0);
-            let nextFound = false;
 
-            scheduleData[seriesKey].forEach(race => {
-                // Parse date assuming YYYY-MM-DD
-                const raceDate = new Date(race.date + 'T12:00:00'); 
-                const isPast = raceDate < today;
+            races.forEach(race => {
+                // Determine if Race is Past
+                const rDate = new Date(race.date + "T12:00:00");
+                const isCompleted = rDate < today;
                 
-                const month = raceDate.toLocaleString('default', { month: 'short' }).toUpperCase();
-                const day = raceDate.getDate();
-                const year = raceDate.getFullYear();
-
-                let statusClass = '';
-                let statusBadge = '<span class="status-badge">UPCOMING</span>';
-                let winnerHtml = '';
-
-                if (isPast) {
-                    statusClass = 'completed';
-                    statusBadge = '<span class="status-badge">COMPLETED</span>';
-                    
-                    // Show winner if available in JSON
-                    if (race.winner) {
-                        winnerHtml = `<div class="winner-display"><i class="fa-solid fa-trophy"></i> ${race.winner}</div>`;
-                    }
-                } else if (!nextFound) {
-                    statusClass = 'next';
-                    statusBadge = '<span class="status-badge" style="background:var(--primary); color:#fff; border:none;">NEXT RACE</span>';
-                    nextFound = true; 
+                // Date Formatting
+                const month = rDate.toLocaleString('default', {month:'short'}).toUpperCase();
+                const day = rDate.getDate();
+                
+                // Winner HTML (If exists in JSON)
+                let footerHtml = isCompleted ? '<div class="winner-pill">Completed</div>' : '';
+                if(race.winner) {
+                    footerHtml = `<div class="winner-pill"><i class="fa-solid fa-trophy" style="color:var(--gold)"></i> ${race.winner}</div>`;
+                } else if (!isCompleted) {
+                     footerHtml = `<div class="winner-pill" style="border-color:var(--primary); color:var(--primary)">UPCOMING</div>`;
                 }
 
-                const html = `
-                    <div class="race-item ${statusClass}">
-                        <div class="race-date">
-                            <span class="month">${month}</span>
-                            <span class="day">${day}</span>
+                // --- TEMPLATE GENERATION ---
+                if (race.is_chase) {
+                    // CHASE TICKET STYLE
+                    hasChase = true;
+                    const html = `
+                    <div class="chase-ticket ${isCompleted ? 'completed' : ''}">
+                        <div class="ticket-header">
+                            <div class="race-date-box">
+                                <span class="rd-month">${month}</span>
+                                <span class="rd-day">${day}</span>
+                            </div>
+                            <i class="fa-solid fa-flag-checkered" style="color:#444; font-size:1.5rem;"></i>
                         </div>
-                        <div class="race-info">
-                            <h3>${race.track}</h3>
-                            <p>${year} Season Event</p>
+                        <div class="ticket-body">
+                            <h3 class="track-name">${race.track}</h3>
+                            <p class="race-sub">Playoff Round</p>
+                            ${footerHtml}
                         </div>
-                        <div class="race-status">
-                            ${statusBadge}
-                            ${winnerHtml}
+                    </div>`;
+                    chaseContainer.innerHTML += html;
+
+                } else {
+                    // REGULAR SEASON TICKET STYLE
+                    // Dynamic Border Color based on Series
+                    let accentColor = "#444";
+                    if(currentSeries === 'Cup') accentColor = "var(--cup-blue)";
+                    if(currentSeries === 'Xfinity') accentColor = "var(--xfinity-purple)";
+                    if(currentSeries === 'Truck') accentColor = "var(--truck-red)";
+                    if(currentSeries === 'Menards') accentColor = "var(--menards-yellow)";
+
+                    const html = `
+                    <div class="race-ticket ${isCompleted ? 'completed' : ''}" style="border-left-color: ${accentColor}">
+                        <div class="ticket-header">
+                            <div class="race-date-box">
+                                <span class="rd-month">${month}</span>
+                                <span class="rd-day">${day}</span>
+                            </div>
+                            <i class="fa-solid fa-flag" style="color:#333; font-size:1.5rem;"></i>
                         </div>
-                    </div>
-                `;
-                container.innerHTML += html;
+                        <div class="ticket-body">
+                            <h3 class="track-name">${race.track}</h3>
+                            <p class="race-sub">Regular Season</p>
+                            ${footerHtml}
+                        </div>
+                    </div>`;
+                    regContainer.innerHTML += html;
+                }
             });
+
+            // Toggle Chase Visibility
+            chaseWrapper.style.display = hasChase ? 'block' : 'none';
         }
-    </script>
 
-    <script>
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('keydown', e => {
-            if (e.ctrlKey || e.metaKey) {
-                if (['u','s','a','c'].includes(e.key.toLowerCase())) return e.preventDefault();
-                if (e.shiftKey && ['i','j'].includes(e.key.toLowerCase())) return e.preventDefault();
-            }
-            if (e.key === 'F12') return e.preventDefault();
-        });
+        // Initialize
+        loadSchedule();
     </script>
-
 </body>
 </html>
