@@ -175,7 +175,6 @@
             .hero { padding-top: 10rem; }
             h1 { font-size: 2.5rem; }
             .chase-header h2 { font-size: 2rem; }
-            /* Remove fancy clip-paths on mobile if rendering issues occur, but usually fine */
         }
     </style>
 </head>
@@ -229,19 +228,36 @@
 
     <script>
         // 1. NAV LOADER
-        fetch('nav.html').then(r=>r.text()).then(d=>document.getElementById('nav-placeholder').innerHTML=d);
+        fetch('nav.html')
+            .then(r => r.text())
+            .then(d => {
+                document.getElementById('nav-placeholder').innerHTML = d;
+                
+                // Highlight Current Page
+                const navSchedule = document.getElementById('nav-schedule');
+                if(navSchedule) {
+                    navSchedule.style.color = "var(--primary)";
+                    navSchedule.style.borderLeft = "4px solid var(--primary)";
+                    navSchedule.style.paddingLeft = "15px";
+                }
+            });
 
-        // 2. CONFIG
-        // ** UPDATE THESE FILE NAMES TO MATCH YOUR REPO **
+        // 2. TOGGLE MENU FUNCTION (THE FIX)
+        function toggleMenu() {
+            const m = document.getElementById('nav-menu');
+            if(m) m.classList.toggle('open');
+        }
+
+        // 3. CONFIG
         const FILES = {
-            "current": "schedule.json",          // The file you use now
-            "2026": "ASCRL_2026_Schedule.json"   // The new file you uploaded
+            "current": "schedule.json",
+            "2026": "ASCRL_2026_Schedule.json"
         };
         
         let rawData = {};
         let currentSeries = 'Cup';
 
-        // 3. LOAD DATA
+        // 4. LOAD DATA
         function loadSchedule() {
             const seasonKey = document.getElementById('seasonSelect').value;
             const file = FILES[seasonKey];
@@ -262,7 +278,7 @@
                 });
         }
 
-        // 4. SWITCH SERIES
+        // 5. SWITCH SERIES
         function switchSeries(seriesName) {
             currentSeries = seriesName;
             
@@ -275,7 +291,7 @@
             renderSeries();
         }
 
-        // 5. RENDER LOGIC
+        // 6. RENDER LOGIC
         function renderSeries() {
             const regContainer = document.getElementById('regular-grid');
             const chaseContainer = document.getElementById('chase-grid');
@@ -284,7 +300,6 @@
             regContainer.innerHTML = '';
             chaseContainer.innerHTML = '';
             
-            // Handle case sensitivity keys in JSON
             const sKey = Object.keys(rawData).find(k => k.toLowerCase() === currentSeries.toLowerCase());
             
             if(!sKey || !rawData[sKey]) {
@@ -370,38 +385,6 @@
 
         // Initialize
         loadSchedule();
-    </script>
-    <script>
-        // 1. Disable Right Click
-        document.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-        });
-
-        // 2. Disable Keyboard Shortcuts (Ctrl+U, F12, Ctrl+Shift+I, etc.)
-        document.addEventListener('keydown', (e) => {
-            // Check for Ctrl (or Command on Mac)
-            if (e.ctrlKey || e.metaKey) {
-                switch (e.key.toLowerCase()) {
-                    case 'u': // View Source
-                    case 's': // Save Page
-                    case 'a': // Select All
-                    case 'c': // Copy
-                        e.preventDefault();
-                        return false;
-                }
-                // Check for Ctrl+Shift+I or J (Developer Tools)
-                if (e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j')) {
-                    e.preventDefault();
-                    return false;
-                }
-            }
-            
-            // Check for F12 (Developer Tools)
-            if (e.key === 'F12') {
-                e.preventDefault();
-                return false;
-            }
-        });
     </script>
 </body>
 </html>
