@@ -757,13 +757,6 @@
     ],
     "Truck - Nashville": [
         {
-            "driver": "#5 kevwood87",
-            "position": 2,
-            "points": 35,
-            "pole": "",
-            "fl": ""
-        },
-        {
             "driver": "#71 Dewshine_02",
             "position": 3,
             "points": 35,
@@ -1132,13 +1125,6 @@
             "fl": ""
         },
         {
-            "driver": "#91 kevwood87",
-            "position": 15,
-            "points": 23,
-            "pole": "",
-            "fl": "FL"
-        },
-        {
             "driver": "#82 Fordemgators",
             "position": 16,
             "points": 21,
@@ -1325,13 +1311,6 @@
             "fl": ""
         },
         {
-            "driver": "#5 kevwood87",
-            "position": 10,
-            "points": 27,
-            "pole": "",
-            "fl": ""
-        },
-        {
             "driver": "#96 Orangeman_96",
             "position": 11,
             "points": 26,
@@ -1500,23 +1479,9 @@
             "points": 20,
             "pole": "",
             "fl": ""
-        },
-        {
-            "driver": "kevwood87",
-            "position": 19,
-            "points": 18,
-            "pole": "",
-            "fl": ""
         }
     ],
     "Xfinity - Rockingham": [
-        {
-            "driver": "#91 kevwood87",
-            "position": 1,
-            "points": 40,
-            "pole": "",
-            "fl": ""
-        },
         {
             "driver": "#1 Duramax18gg",
             "position": 2,
@@ -2451,13 +2416,6 @@
             "fl": ""
         },
         {
-            "driver": "#91 kevwood87",
-            "position": 3,
-            "points": 34,
-            "pole": "",
-            "fl": ""
-        },
-        {
             "driver": "#99 HockeyDeckout",
             "position": 4,
             "points": 34,
@@ -2682,13 +2640,6 @@
             "driver": "#58 On-A-Mission618",
             "position": 2,
             "points": 35,
-            "pole": "",
-            "fl": ""
-        },
-        {
-            "driver": "#5 kevwood87",
-            "position": 3,
-            "points": 34,
             "pole": "",
             "fl": ""
         },
@@ -4975,9 +4926,193 @@
             "fl": ""
         }
     ],
+    "Menards - Charlotte": [
+        {
+            "driver": "TheReaperRhino",
+            "position": 1,
+            "points": 40,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#06 A54buickbandit",
+            "position": 2,
+            "points": 35,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "Duramax18gg",
+            "position": 3,
+            "points": 35,
+            "pole": "Yes",
+            "fl": ""
+        },
+        {
+            "driver": "Cratelate5",
+            "position": 4,
+            "points": 33,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#04 The_Stone07",
+            "position": 5,
+            "points": 32,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#59 BanishedCrayon",
+            "position": 6,
+            "points": 31,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#6 Scott247_",
+            "position": 7,
+            "points": 30,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#8 ALESSI-20-11",
+            "position": 8,
+            "points": 29,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#9 lnfvmous_-",
+            "position": 9,
+            "points": 28,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#21 superace33",
+            "position": 10,
+            "points": 27,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#35 Dewshine_02",
+            "position": 11,
+            "points": 26,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#77 dakotathomas1994",
+            "position": 12,
+            "points": 25,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#2 HockeyDeckout",
+            "position": 13,
+            "points": 24,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "xxHambone",
+            "position": 14,
+            "points": 23,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#11 Orangeman_96",
+            "position": 15,
+            "points": 23,
+            "pole": "",
+            "fl": "FL"
+        },
+        {
+            "driver": "#22 Pdub-316",
+            "position": 16,
+            "points": 21,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#41 SithWarriorUno",
+            "position": 17,
+            "points": 20,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#49 Lostcozov",
+            "position": 18,
+            "points": 19,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#28 DaltonGregson",
+            "position": 19,
+            "points": 18,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#14 MajorBlaz33",
+            "position": 20,
+            "points": 17,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#60 the_fireman199",
+            "position": 21,
+            "points": 16,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#78 mattwilson20",
+            "position": 22,
+            "points": 15,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#05 ThirstTrapToby",
+            "position": 23,
+            "points": 14,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#93 BIG_FELLAx2220",
+            "position": 24,
+            "points": 13,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#85 Z71chevymanz71",
+            "position": 25,
+            "points": 12,
+            "pole": "",
+            "fl": ""
+        }
+    ],
     "World Of Outlaws - Lucas Oil": [
         {
             "driver": "The_Stone07",
+            "position": 1,
+            "points": 40,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "HockeyDeckout",
             "position": 1,
             "points": 40,
             "pole": null,
@@ -4991,7 +5126,21 @@
             "fl": null
         },
         {
+            "driver": "MajorBlaz33",
+            "position": 2,
+            "points": 35,
+            "pole": null,
+            "fl": null
+        },
+        {
             "driver": "the_fireman199",
+            "position": 3,
+            "points": 34,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "superace33",
             "position": 3,
             "points": 34,
             "pole": null,
@@ -5005,7 +5154,21 @@
             "fl": null
         },
         {
+            "driver": "ThatSquidGuy",
+            "position": 4,
+            "points": 33,
+            "pole": null,
+            "fl": null
+        },
+        {
             "driver": "dakotathomas1994",
+            "position": 5,
+            "points": 32,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "Z71chevymanz71",
             "position": 5,
             "points": 32,
             "pole": null,
@@ -5019,7 +5182,21 @@
             "fl": null
         },
         {
+            "driver": "ThirstTrapToby",
+            "position": 6,
+            "points": 31,
+            "pole": null,
+            "fl": null
+        },
+        {
             "driver": "C0mpl1c8ed",
+            "position": 7,
+            "points": 30,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "mattwilson20",
             "position": 7,
             "points": 30,
             "pole": null,
@@ -5033,7 +5210,21 @@
             "fl": null
         },
         {
+            "driver": "the_fireman199",
+            "position": 8,
+            "points": 29,
+            "pole": null,
+            "fl": null
+        },
+        {
             "driver": "ThirstTrapToby",
+            "position": 9,
+            "points": 28,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "ALESSI-20-11",
             "position": 9,
             "points": 28,
             "pole": null,
@@ -5043,6 +5234,41 @@
             "driver": "Lostcozov",
             "position": 10,
             "points": 27,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "Cratelate5",
+            "position": 10,
+            "points": 27,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "HatterMAD218",
+            "position": 11,
+            "points": 26,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "\ud83e\udda5Strait_Rogue\ud83e\udda5",
+            "position": 12,
+            "points": 25,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "K7_Dalton",
+            "position": 13,
+            "points": 24,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "C0mpl1c8ed",
+            "position": 14,
+            "points": 23,
             "pole": null,
             "fl": null
         }
@@ -6060,6 +6286,513 @@
         },
         {
             "driver": "\ud83e\udda5Strait_Rogue\ud83e\udda5",
+            "position": 15,
+            "points": 22,
+            "pole": null,
+            "fl": null
+        }
+    ],
+    "World Of Outlaws - Prairie Creek": [
+        {
+            "driver": "HockeyDeckout",
+            "position": 1,
+            "points": 40,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "Cratelate5",
+            "position": 2,
+            "points": 35,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "HatterMAD218",
+            "position": 3,
+            "points": 34,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "superace33",
+            "position": 4,
+            "points": 33,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "the_fireman199",
+            "position": 5,
+            "points": 32,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "Z71chevymanz71",
+            "position": 6,
+            "points": 31,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "K7_Dalton",
+            "position": 7,
+            "points": 30,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "MajorBlaz33",
+            "position": 8,
+            "points": 29,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "C0mpl1c8ed",
+            "position": 9,
+            "points": 28,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "mattwilson20",
+            "position": 10,
+            "points": 27,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "ALESSI-20-11",
+            "position": 11,
+            "points": 26,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "\ud83e\udda5Strait_Rogue\ud83e\udda5",
+            "position": 12,
+            "points": 25,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "ThirstTrapToby",
+            "position": 13,
+            "points": 24,
+            "pole": null,
+            "fl": null
+        }
+    ],
+    "World Of Outlaws - Bristol": [
+        {
+            "driver": "HockeyDeckout",
+            "position": 1,
+            "points": 40,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "MajorBlaz33",
+            "position": 2,
+            "points": 35,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "Z71chevymanz71",
+            "position": 3,
+            "points": 34,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "ThirstTrapToby",
+            "position": 4,
+            "points": 33,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "ALESSI-20-11",
+            "position": 5,
+            "points": 32,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "HatterMAD218",
+            "position": 6,
+            "points": 31,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "Cratelate5",
+            "position": 7,
+            "points": 30,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "the_fireman199",
+            "position": 8,
+            "points": 29,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "mattwilson20",
+            "position": 9,
+            "points": 28,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "C0mpl1c8ed",
+            "position": 10,
+            "points": 27,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "ThirstTrapToby",
+            "position": 11,
+            "points": 26,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "superace33",
+            "position": 12,
+            "points": 25,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "\ud83e\udda5Strait_Rogue\ud83e\udda5",
+            "position": 13,
+            "points": 24,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "K7_Dalton",
+            "position": 14,
+            "points": 23,
+            "pole": null,
+            "fl": null
+        }
+    ],
+    "World Of Outlaws - Cedar Lake": [
+        {
+            "driver": "MajorBlaz33",
+            "position": 1,
+            "points": 40,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "HockeyDeckout",
+            "position": 2,
+            "points": 35,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "ThatSquidGuy",
+            "position": 3,
+            "points": 34,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "the_fireman199",
+            "position": 4,
+            "points": 33,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "ALESSI-20-11",
+            "position": 5,
+            "points": 32,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "ThirstTrapToby",
+            "position": 6,
+            "points": 31,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "mattwilson20",
+            "position": 7,
+            "points": 30,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "\ud83e\udda5Strait_Rogue\ud83e\udda5",
+            "position": 8,
+            "points": 29,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "HatterMAD218",
+            "position": 9,
+            "points": 28,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "Cratelate5",
+            "position": 10,
+            "points": 27,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "Z71chevymanz71",
+            "position": 11,
+            "points": 26,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "superace33",
+            "position": 12,
+            "points": 25,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "K7_Dalton",
+            "position": 13,
+            "points": 24,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "C0mpl1c8ed",
+            "position": 14,
+            "points": 23,
+            "pole": null,
+            "fl": null
+        }
+    ],
+    "World Of Outlaws - Millbridge": [
+        {
+            "driver": "the_fireman199",
+            "position": 1,
+            "points": 40,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "ALESSI-20-11",
+            "position": 2,
+            "points": 35,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "ThatSquidGuy",
+            "position": 3,
+            "points": 34,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "ThirstTrapToby",
+            "position": 4,
+            "points": 33,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "Cratelate5",
+            "position": 5,
+            "points": 32,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "Z71chevymanz71",
+            "position": 6,
+            "points": 31,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "C0mpl1c8ed",
+            "position": 7,
+            "points": 30,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "MajorBlaz33",
+            "position": 8,
+            "points": 29,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "mattwilson20",
+            "position": 9,
+            "points": 28,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "HockeyDeckout",
+            "position": 10,
+            "points": 27,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "superace33",
+            "position": 11,
+            "points": 26,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "HatterMAD218",
+            "position": 12,
+            "points": 25,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "lnfvmous_-",
+            "position": 13,
+            "points": 24,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "\ud83e\udda5Strait_Rogue\ud83e\udda5",
+            "position": 14,
+            "points": 23,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "K7_Dalton",
+            "position": 15,
+            "points": 22,
+            "pole": null,
+            "fl": null
+        }
+    ],
+    "World Of Outlaws - Sugarbush": [
+        {
+            "driver": "HockeyDeckout",
+            "position": 1,
+            "points": 40,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "ThatSquidGuy",
+            "position": 2,
+            "points": 35,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "MajorBlaz33",
+            "position": 3,
+            "points": 34,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "HatterMAD218",
+            "position": 4,
+            "points": 33,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "lnfvmous_-",
+            "position": 5,
+            "points": 32,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "ALESSI-20-11",
+            "position": 6,
+            "points": 31,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "\ud83e\udda5Strait_Rogue\ud83e\udda5",
+            "position": 7,
+            "points": 30,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "the_fireman199",
+            "position": 8,
+            "points": 29,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "Z71chevymanz71",
+            "position": 9,
+            "points": 28,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "ThirstTrapToby",
+            "position": 10,
+            "points": 27,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "mattwilson20",
+            "position": 11,
+            "points": 26,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "superace33",
+            "position": 12,
+            "points": 25,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "C0mpl1c8ed",
+            "position": 13,
+            "points": 24,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "Cratelate5",
+            "position": 14,
+            "points": 23,
+            "pole": null,
+            "fl": null
+        },
+        {
+            "driver": "K7_Dalton",
             "position": 15,
             "points": 22,
             "pole": null,
