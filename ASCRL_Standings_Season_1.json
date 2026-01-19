@@ -181,6 +181,15 @@
             "starts": 6
         },
         {
+            "driver": "#50 Duramax18gg",
+            "points": 127,
+            "wins": 2,
+            "top5": 3,
+            "top10": 3,
+            "avg": 8.0,
+            "starts": 4
+        },
+        {
             "driver": "#6 rickyspanish1500",
             "points": 112,
             "wins": 0,
@@ -206,15 +215,6 @@
             "top10": 2,
             "avg": 12.5,
             "starts": 4
-        },
-        {
-            "driver": "#50 Duramax18gg",
-            "points": 93,
-            "wins": 2,
-            "top5": 2,
-            "top10": 2,
-            "avg": 9.666666666666666,
-            "starts": 3
         },
         {
             "driver": "#91 TY50BMG",
@@ -323,15 +323,6 @@
             "top10": 0,
             "avg": 17.0,
             "starts": 2
-        },
-        {
-            "driver": "Duramax18gg",
-            "points": 34,
-            "wins": 0,
-            "top5": 1,
-            "top10": 1,
-            "avg": 3.0,
-            "starts": 1
         },
         {
             "driver": "#86 TampaxMaxx",
