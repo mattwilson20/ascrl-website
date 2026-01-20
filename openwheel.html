@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Wheel | ASCRL</title>
+    <link rel="icon" href="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            /* OPEN WHEEL PALETTE */
+            --f1-cyan: #00ffcc;
+            --f1-dark: #050a0e;
+            --f1-panel: rgba(10, 20, 30, 0.7);
+            --f1-border: rgba(0, 255, 204, 0.2);
+            --f1-glow: 0 0 20px rgba(0, 255, 204, 0.15);
+        }
+
+        body {
+            background-color: var(--f1-dark);
+            background-image: 
+                linear-gradient(rgba(0, 255, 204, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 204, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center top;
+            color: #fff;
+            font-family: 'Arial', sans-serif; /* Cleaner font for tech feel */
+        }
+
+        /* --- HERO SECTION --- */
+        .f1-hero {
+            position: relative;
+            padding: 10rem 1rem 6rem;
+            text-align: center;
+            overflow: hidden;
+            border-bottom: 1px solid var(--f1-cyan);
+        }
+        
+        .f1-hero::before {
+            content: ''; position: absolute; top:0; left:0; width:100%; height:100%;
+            background: radial-gradient(circle at center, rgba(0,0,0,0) 0%, var(--f1-dark) 90%);
+            z-index: 0;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            border: 1px solid var(--f1-cyan);
+            color: var(--f1-cyan);
+            padding: 5px 15px;
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            position: relative; z-index: 2;
+            background: rgba(0, 255, 204, 0.05);
+            backdrop-filter: blur(5px);
+        }
+
+        .f1-title {
+            font-family: 'Arial Black', sans-serif;
+            font-size: clamp(3rem, 10vw, 6rem);
+            margin: 0;
+            line-height: 0.9;
+            font-style: italic;
+            text-transform: uppercase;
+            position: relative; z-index: 2;
+            text-shadow: 0 0 30px rgba(0, 255, 204, 0.4);
+        }
+        
+        .f1-title span { color: var(--f1-cyan); }
+
+        /* --- THE PODIUM (Unique Standings) --- */
+        .podium-section {
+            padding: 4rem 1rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .section-label {
+            color: var(--f1-cyan);
+            border-left: 3px solid var(--f1-cyan);
+            padding-left: 15px;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .podium-container {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 2rem;
+        }
+
+        .podium-step {
+            display: flex; flex-direction: column; align-items: center;
+            width: 100%; max-width: 250px;
+            position: relative;
+        }
+
+        .p-card {
+            background: var(--f1-panel);
+            border: 1px solid var(--f1-border);
+            width: 100%;
+            text-align: center;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+            clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%);
+        }
+        
+        .p-card:hover { transform: translateY(-10px); border-color: var(--f1-cyan); box-shadow: var(--f1-glow); }
+
+        .p-rank {
+            font-size: 4rem; font-weight: 900; line-height: 1;
+            color: rgba(255,255,255,0.1); position: absolute; top: -20px; left: 10px;
+            font-style: italic;
+        }
+
+        .p-avatar {
+            width: 80px; height: 80px; border-radius: 50%;
+            border: 2px solid var(--f1-cyan);
+            margin: 0 auto 15px;
+            background: #000;
+            object-fit: cover;
+        }
+
+        .p-name { font-weight: bold; font-size: 1.2rem; margin: 0; text-transform: uppercase; }
+        .p-team { color: #888; font-size: 0.8rem; margin-bottom: 10px; }
+        .p-points { font-size: 1.5rem; color: var(--f1-cyan); font-family: 'Arial Black'; }
+
+        /* Step Heights */
+        .step-1 { order: 2; transform: scale(1.1); z-index: 2; }
+        .step-2 { order: 1; margin-bottom: -20px; }
+        .step-3 { order: 3; margin-bottom: -40px; }
+
+        /* --- THE GRID (Driver Roster) --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1200px; margin: 0 auto 6rem;
+            padding: 0 1rem;
+        }
+
+        .driver-module {
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+            border-left: 2px solid var(--f1-cyan);
+            border-top: 1px solid #333;
+            border-right: 1px solid #333;
+            border-bottom: 1px solid #333;
+            padding: 20px;
+            display: flex; align-items: center; gap: 20px;
+            transition: 0.3s;
+        }
+        .driver-module:hover { background: rgba(0, 255, 204, 0.05); }
+
+        .dm-num { font-size: 2.5rem; font-family: 'Arial Black'; color: rgba(255,255,255,0.1); font-style: italic; line-height: 1; width: 60px; text-align: center; }
+        
+        .dm-info h3 { margin: 0; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
+        .dm-team { color: var(--f1-cyan); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; }
+
+        .dm-stat { margin-left: auto; text-align: right; }
+        .dm-stat span { display: block; }
+        .ds-label { font-size: 0.5rem; color: #666; text-transform: uppercase; }
+        .ds-val { font-size: 1.2rem; font-weight: bold; color: #fff; }
+
+        /* --- CALENDAR STRIP --- */
+        .calendar-strip {
+            background: #000;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+            padding: 3rem 0;
+            overflow-x: auto;
+            display: flex;
+            gap: 2rem;
+            padding-left: 2rem; /* Initial Padding */
+        }
+        
+        .track-node {
+            min-width: 200px;
+            flex-shrink: 0;
+            opacity: 0.5;
+            transition: 0.3s;
+            border-top: 2px solid #333;
+            padding-top: 1rem;
+        }
+        .track-node:hover { opacity: 1; border-color: var(--f1-cyan); }
+        
+        .t-date { color: var(--f1-cyan); font-size: 0.8rem; font-family: monospace; }
+        .t-name { font-size: 1.2rem; font-weight: bold; text-transform: uppercase; margin: 5px 0; }
+        .t-loc { font-size: 0.7rem; color: #666; text-transform: uppercase; }
+
+        /* FOOTER OVERRIDE */
+        footer { border-top: 1px solid #222 !important; background: #050a0e; }
+
+        @media (max-width: 768px) {
+            .podium-container { flex-direction: column; align-items: center; gap: 2rem; }
+            .step-1, .step-2, .step-3 { order: initial; transform: none; margin-bottom: 0; width: 100%; }
+            .p-card { clip-path: none; border-radius: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="nav-placeholder"></div>
+
+    <header class="f1-hero">
+        <div class="hero-badge">OPEN WHEEL SERIES</div>
+        <h1 class="f1-title">ASCR <span>FORMULA 1</span></h1>
+        <p style="color:#888; margin-top:20px; font-family:monospace;">PRECISION // SPEED // STRATEGY</p>
+    </header>
+
+    <main>
+        
+        <section class="podium-section">
+            <div class="section-label">CHAMPIONSHIP STANDINGS</div>
+            
+            <div class="podium-container">
+                <div class="podium-step step-2">
+                    <div class="p-card">
+                        <div class="p-rank">2</div>
+                        <img src="https://via.placeholder.com/80" class="p-avatar" id="p2-img">
+                        <h3 class="p-name" id="p2-name">DRIVER</h3>
+                        <div class="p-team" id="p2-team">TEAM NAME</div>
+                        <div class="p-points" id="p2-pts">0</div>
+                    </div>
+                </div>
+
+                <div class="podium-step step-1">
+                    <div class="p-card" style="border-color:var(--f1-cyan); box-shadow:var(--f1-glow);">
+                        <div class="p-rank" style="color:var(--f1-cyan);">1</div>
+                        <img src="https://via.placeholder.com/80" class="p-avatar" id="p1-img" style="width:100px; height:100px;">
+                        <h3 class="p-name" id="p1-name" style="font-size:1.5rem;">LEADER</h3>
+                        <div class="p-team" id="p1-team">TEAM NAME</div>
+                        <div class="p-points" id="p1-pts">0</div>
+                    </div>
+                </div>
+
+                <div class="podium-step step-3">
+                    <div class="p-card">
+                        <div class="p-rank">3</div>
+                        <img src="https://via.placeholder.com/80" class="p-avatar" id="p3-img">
+                        <h3 class="p-name" id="p3-name">DRIVER</h3>
+                        <div class="p-team" id="p3-team">TEAM NAME</div>
+                        <div class="p-points" id="p3-pts">0</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-label" style="max-width:1000px; margin: 4rem auto 1rem; padding-left:2rem;">RACE CALENDAR</div>
+        <div class="calendar-strip">
+            <div class="track-node">
+                <div class="t-date">MAR 02</div>
+                <div class="t-name">BAHRAIN</div>
+                <div class="t-loc">Sakhir International</div>
+            </div>
+            <div class="track-node">
+                <div class="t-date">MAR 09</div>
+                <div class="t-name">SAUDI ARABIA</div>
+                <div class="t-loc">Jeddah Corniche</div>
+            </div>
+            <div class="track-node">
+                <div class="t-date">MAR 23</div>
+                <div class="t-name">AUSTRALIA</div>
+                <div class="t-loc">Albert Park</div>
+            </div>
+            <div class="track-node">
+                <div class="t-date">APR 06</div>
+                <div class="t-name">JAPAN</div>
+                <div class="t-loc">Suzuka Circuit</div>
+            </div>
+            <div class="track-node">
+                <div class="t-date">APR 20</div>
+                <div class="t-name">CHINA</div>
+                <div class="t-loc">Shanghai International</div>
+            </div>
+            <div class="track-node">
+                <div class="t-date">MAY 04</div>
+                <div class="t-name">MIAMI</div>
+                <div class="t-loc">Miami Autodrome</div>
+            </div>
+        </div>
+
+        <div class="section-label" style="max-width:1000px; margin: 4rem auto 2rem; padding-left:2rem;">THE GRID</div>
+        <div class="grid-container" id="driver-grid">
+            <p style="grid-column:1/-1; text-align:center; color:#666; font-family:monospace;">Initializing Telemetry...</p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div style="margin-bottom: 0.5rem; letter-spacing: 2px; color: #fff;">
+            © 2026 ASCR OPEN WHEEL DIVISION
+        </div>
+        <div class="social-links">
+            <a href="#" class="social-icon"><i class="fa-brands fa-discord"></i></a>
+            <a href="#" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Load Nav
+        fetch('nav.html').then(r=>r.text()).then(d=>{
+            document.getElementById('nav-placeholder').innerHTML=d;
+            // Highlight F1
+            setTimeout(() => {
+                const link = document.getElementById('nav-f1');
+                if(link) {
+                    link.style.background = "rgba(0, 255, 204, 0.1)";
+                    link.style.borderColor = "#00ffcc";
+                }
+            }, 100);
+        });
+
+        function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
+
+        // 2. Mock Data (Replace with real JSON fetch later)
+        // Since F1 is new, I'm putting placeholder data so the layout works immediately.
+        const f1Drivers = [
+            { name: "MattWilson", number: "44", team: "Mercedes-AMG", points: 25 },
+            { name: "DakotaThomas", number: "1", team: "Red Bull Racing", points: 18 },
+            { name: "Dewshine", number: "16", team: "Ferrari", points: 15 },
+            { name: "MajorBlaz", number: "4", team: "McLaren", points: 12 },
+            { name: "SithWarrior", number: "55", team: "Ferrari", points: 10 },
+            { name: "BanishedCrayon", number: "63", team: "Mercedes-AMG", points: 8 },
+            { name: "Orangeman", number: "11", team: "Red Bull Racing", points: 6 },
+            { name: "The_Stone", number: "14", team: "Aston Martin", points: 4 },
+        ];
+
+        function renderF1() {
+            // Sort by points
+            f1Drivers.sort((a,b) => b.points - a.points);
+
+            // Update Podium
+            if(f1Drivers[0]) updatePodium('p1', f1Drivers[0]);
+            if(f1Drivers[1]) updatePodium('p2', f1Drivers[1]);
+            if(f1Drivers[2]) updatePodium('p3', f1Drivers[2]);
+
+            // Render Grid
+            const grid = document.getElementById('driver-grid');
+            grid.innerHTML = '';
+            
+            f1Drivers.forEach(d => {
+                const html = `
+                <div class="driver-module">
+                    <div class="dm-num">${d.number}</div>
+                    <div class="dm-info">
+                        <h3>${d.name}</h3>
+                        <div class="dm-team">${d.team}</div>
+                    </div>
+                    <div class="dm-stat">
+                        <span class="ds-label">POINTS</span>
+                        <span class="ds-val">${d.points}</span>
+                    </div>
+                </div>`;
+                grid.innerHTML += html;
+            });
+        }
+
+        function updatePodium(idPrefix, data) {
+            document.getElementById(`${idPrefix}-name`).innerText = data.name;
+            document.getElementById(`${idPrefix}-team`).innerText = data.team;
+            document.getElementById(`${idPrefix}-pts`).innerText = data.points;
+            // Avatar Placeholder (You can add real images later)
+            // document.getElementById(`${idPrefix}-img`).src = "url...";
+        }
+
+        // Init
+        renderF1();
+
+    </script>
+    
+    <script>
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if(e.key === 'F12' || (e.ctrlKey && ['u','s','a'].includes(e.key.toLowerCase()))) e.preventDefault();
+        });
+    </script>
+
+</body>
+</html>
