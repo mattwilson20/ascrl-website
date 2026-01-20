@@ -584,11 +584,6 @@
     <div class="confetti c-black"></div><div class="confetti c-red"></div><div class="confetti c-black"></div>
 
     <div class="champ-container">
-        <div class="champ-visual">
-            <div class="gold-ring"></div>
-            <img src="https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg" alt="Champion" class="champ-img">
-        </div>
-
         <div class="champ-info">
             <div class="series-tag">
                 <i class="fa-solid fa-trophy"></i> SEASON 1 TRUCK SERIES CHAMPION
@@ -612,6 +607,11 @@
             
             <div class="champ-quote">"THE DOUBLE CHAMPION"</div>
         </div>
+
+        <div class="champ-visual">
+            <div class="gold-ring"></div>
+            <img src="https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg" alt="Champion" class="champ-img">
+        </div>
     </div>
 </section>
 
@@ -626,7 +626,7 @@
     .truck-theme {
         --champ-color: #c00; /* Red */
         --champ-glow: rgba(204, 0, 0, 0.6);
-        --bg-grad: radial-gradient(circle at top left, #220000 0%, #000 100%);
+        --bg-grad: radial-gradient(circle at top right, #220000 0%, #000 100%);
         border-top: 1px solid #333;
     }
 
@@ -663,11 +663,6 @@
 
     /* TEXT SIDE */
     .champ-info { text-align: left; flex: 1; min-width: 300px; }
-    
-    /* Reverse layout for the second banner on desktop for visual interest */
-    .truck-theme .champ-container { flex-direction: row-reverse; text-align: right; }
-    .truck-theme .champ-info { text-align: right; }
-    .truck-theme .champ-quote { border-left: none; border-right: 3px solid var(--champ-color); padding-left: 0; padding-right: 15px; }
 
     .series-tag {
         display: inline-flex; align-items: center; gap: 10px;
@@ -690,7 +685,6 @@
     .champ-stats-grid {
         display: flex; gap: 20px; margin-bottom: 2rem;
     }
-    .truck-theme .champ-stats-grid { justify-content: flex-end; }
     
     .c-stat-box {
         background: rgba(255,255,255,0.05);
@@ -706,7 +700,8 @@
     .cs-label { font-size: 0.6rem; color: #888; letter-spacing: 1px; margin-top: 5px; }
 
     .champ-quote {
-        font-family: sans-serif; font-style: italic; color: #aaa; border-left: 3px solid var(--champ-color);
+        font-family: sans-serif; font-style: italic; color: #aaa; 
+        border-left: 3px solid var(--champ-color);
         padding-left: 15px; font-size: 1.2rem; letter-spacing: 1px;
     }
 
@@ -760,7 +755,7 @@
         .champ-container { flex-direction: column-reverse !important; text-align: center !important; gap: 2rem; }
         .champ-info { text-align: center !important; }
         .champ-stats-grid { justify-content: center !important; }
-        .champ-quote { border: none !important; border-top: 3px solid var(--champ-color) !important; padding-top: 15px; padding-left: 0; padding-right: 0; }
+        .champ-quote { border: none !important; border-top: 3px solid var(--champ-color) !important; padding-top: 15px; padding-left: 0; }
         .champ-visual { width: 220px; height: 220px; }
         .champ-name { font-size: 3rem; }
     }
