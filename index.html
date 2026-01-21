@@ -543,7 +543,78 @@
         </div>
     </header>
 
-    <section class="champion-banner menards-theme">
+    <section class="champion-banner cup-theme">
+    <div class="confetti c-blue"></div><div class="confetti c-black"></div><div class="confetti c-silver"></div>
+    <div class="confetti c-blue"></div><div class="confetti c-silver"></div><div class="confetti c-black"></div>
+
+    <div class="champ-container">
+        <div class="champ-info">
+            <div class="series-tag">
+                <i class="fa-solid fa-trophy"></i> SEASON 1 CUP SERIES CHAMPION
+            </div>
+            <h1 class="champ-name">DAKOTA<br>THOMAS<br><span class="number-highlight">#24</span></h1>
+            
+            <div class="champ-stats-grid">
+                <div class="c-stat-box">
+                    <span class="cs-val">355</span>
+                    <span class="cs-label">TOTAL POINTS</span>
+                </div>
+                <div class="c-stat-box">
+                    <span class="cs-val">7.8</span>
+                    <span class="cs-label">AVG FINISH</span>
+                </div>
+                <div class="c-stat-box">
+                    <span class="cs-val">1</span>
+                    <span class="cs-label">WINS</span>
+                </div>
+            </div>
+            
+            <div class="champ-quote">"THE TRIPLE CROWN KING"</div>
+        </div>
+
+        <div class="champ-visual">
+            <div class="gold-ring"></div>
+            <img src="https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg" alt="Champion" class="champ-img">
+        </div>
+    </div>
+</section>
+
+<section class="champion-banner truck-theme">
+    <div class="confetti c-red"></div><div class="confetti c-black"></div><div class="confetti c-red"></div>
+    <div class="confetti c-black"></div><div class="confetti c-red"></div><div class="confetti c-black"></div>
+
+    <div class="champ-container">
+        <div class="champ-visual">
+            <div class="gold-ring"></div>
+            <img src="https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg" alt="Champion" class="champ-img">
+        </div>
+
+        <div class="champ-info">
+            <div class="series-tag">
+                <i class="fa-solid fa-trophy"></i> SEASON 1 TRUCK SERIES CHAMPION
+            </div>
+            <h1 class="champ-name">DAKOTA<br>THOMAS<br><span class="number-highlight">#9</span></h1>
+            
+            <div class="champ-stats-grid">
+                <div class="c-stat-box">
+                    <span class="cs-val">380</span>
+                    <span class="cs-label">TOTAL POINTS</span>
+                </div>
+                <div class="c-stat-box">
+                    <span class="cs-val">5.3</span>
+                    <span class="cs-label">AVG FINISH</span>
+                </div>
+                <div class="c-stat-box">
+                    <span class="cs-val">0</span>
+                    <span class="cs-label">WINS NEEDED</span>
+                </div>
+            </div>
+            <div class="champ-quote">"THE DOUBLE CHAMPION"</div>
+        </div>
+    </div>
+</section>
+
+<section class="champion-banner menards-theme">
     <div class="confetti c-yellow"></div><div class="confetti c-white"></div><div class="confetti c-yellow"></div>
     <div class="confetti c-white"></div><div class="confetti c-yellow"></div><div class="confetti c-white"></div>
 
@@ -568,44 +639,7 @@
                     <span class="cs-label">WINS NEEDED</span>
                 </div>
             </div>
-            
             <div class="champ-quote">"THE CONSISTENCY KING"</div>
-        </div>
-
-        <div class="champ-visual">
-            <div class="gold-ring"></div>
-            <img src="https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg" alt="Champion" class="champ-img">
-        </div>
-    </div>
-</section>
-
-<section class="champion-banner truck-theme">
-    <div class="confetti c-red"></div><div class="confetti c-black"></div><div class="confetti c-red"></div>
-    <div class="confetti c-black"></div><div class="confetti c-red"></div><div class="confetti c-black"></div>
-
-    <div class="champ-container">
-        <div class="champ-info">
-            <div class="series-tag">
-                <i class="fa-solid fa-trophy"></i> SEASON 1 TRUCK SERIES CHAMPION
-            </div>
-            <h1 class="champ-name">DAKOTA<br>THOMAS<br><span class="number-highlight">#9</span></h1>
-            
-            <div class="champ-stats-grid">
-                <div class="c-stat-box">
-                    <span class="cs-val">380</span>
-                    <span class="cs-label">TOTAL POINTS</span>
-                </div>
-                <div class="c-stat-box">
-                    <span class="cs-val">5.3</span>
-                    <span class="cs-label">AVG FINISH</span>
-                </div>
-                <div class="c-stat-box">
-                    <span class="cs-val">0</span>
-                    <span class="cs-label">WINS NEEDED</span>
-                </div>
-            </div>
-            
-            <div class="champ-quote">"THE DOUBLE CHAMPION"</div>
         </div>
 
         <div class="champ-visual">
@@ -617,20 +651,35 @@
 
 <style>
     /* --- THEMES --- */
+    
+    /* 1. CUP THEME (Blue + Black Glitter) */
+    .cup-theme {
+        --champ-color: #0077ff; /* Cup Blue */
+        --champ-glow: rgba(0, 119, 255, 0.6);
+        /* Blue Gradient + Black Glitter Dots */
+        --bg-grad: 
+            radial-gradient(circle, rgba(0,0,0,0.4) 1px, transparent 1px), 
+            radial-gradient(circle at top, #001a33 0%, #000 100%);
+        background-size: 20px 20px, 100% 100%; /* Texture Size, BG Size */
+        border-bottom: 1px solid #333;
+    }
+
+    /* 2. TRUCK THEME (Red + Dark) */
+    .truck-theme {
+        --champ-color: #c00; /* Red */
+        --champ-glow: rgba(204, 0, 0, 0.6);
+        --bg-grad: radial-gradient(circle at top left, #220000 0%, #000 100%);
+        border-bottom: 1px solid #333;
+    }
+
+    /* 3. MENARDS THEME (Yellow + Dark) */
     .menards-theme {
         --champ-color: #fff200; /* Yellow */
         --champ-glow: rgba(255, 242, 0, 0.5);
         --bg-grad: radial-gradient(circle at top right, #333 0%, #000 100%);
     }
 
-    .truck-theme {
-        --champ-color: #c00; /* Red */
-        --champ-glow: rgba(204, 0, 0, 0.6);
-        --bg-grad: radial-gradient(circle at top right, #220000 0%, #000 100%);
-        border-top: 1px solid #333;
-    }
-
-    /* --- CHAMPIONSHIP BANNER STYLES --- */
+    /* --- GLOBAL BANNER STYLES --- */
     .champion-banner {
         position: relative;
         background: var(--bg-grad);
@@ -642,11 +691,11 @@
         box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
-    /* Background Texture */
+    /* Subtle Carbon Fiber Texture Overlay on all */
     .champion-banner::before {
         content: ''; position: absolute; top:0; left:0; width:100%; height:100%;
         background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
-        opacity: 0.3; pointer-events: none;
+        opacity: 0.2; pointer-events: none;
     }
 
     .champ-container {
@@ -661,8 +710,12 @@
         flex-wrap: wrap;
     }
 
-    /* TEXT SIDE */
+    /* Layout Alternator: Truck series (Middle) flips layout for visual flow */
     .champ-info { text-align: left; flex: 1; min-width: 300px; }
+    
+    .truck-theme .champ-container { flex-direction: row-reverse; text-align: right; }
+    .truck-theme .champ-info { text-align: right; }
+    .truck-theme .champ-quote { border-left: none; border-right: 3px solid var(--champ-color); padding-left: 0; padding-right: 15px; }
 
     .series-tag {
         display: inline-flex; align-items: center; gap: 10px;
@@ -671,6 +724,8 @@
         padding: 8px 16px; border-radius: 4px; margin-bottom: 1rem;
         box-shadow: 0 0 20px var(--champ-glow);
     }
+    /* Cup Tag needs white text because background is dark blue */
+    .cup-theme .series-tag { color: #fff; text-shadow: 0 0 5px rgba(0,0,0,0.5); }
 
     .champ-name {
         font-size: 4rem; line-height: 0.9; margin: 0 0 2rem 0;
@@ -685,6 +740,7 @@
     .champ-stats-grid {
         display: flex; gap: 20px; margin-bottom: 2rem;
     }
+    .truck-theme .champ-stats-grid { justify-content: flex-end; }
     
     .c-stat-box {
         background: rgba(255,255,255,0.05);
@@ -700,8 +756,7 @@
     .cs-label { font-size: 0.6rem; color: #888; letter-spacing: 1px; margin-top: 5px; }
 
     .champ-quote {
-        font-family: sans-serif; font-style: italic; color: #aaa; 
-        border-left: 3px solid var(--champ-color);
+        font-family: sans-serif; font-style: italic; color: #aaa; border-left: 3px solid var(--champ-color);
         padding-left: 15px; font-size: 1.2rem; letter-spacing: 1px;
     }
 
@@ -727,18 +782,18 @@
     }
     @keyframes spinRing { 100% { transform: rotate(360deg); } }
 
-    /* CSS CONFETTI ANIMATION */
+    /* CSS CONFETTI */
     .confetti {
         position: absolute; width: 8px; height: 8px; 
         animation: fall 5s infinite linear; opacity: 0; pointer-events: none;
     }
-    /* Specific Colors */
     .c-yellow { background-color: #fff200; box-shadow: 0 0 10px #fff200; }
     .c-white { background-color: #fff; }
     .c-red { background-color: #c00; box-shadow: 0 0 10px #c00; }
     .c-black { background-color: #000; border: 1px solid #333; }
+    .c-blue { background-color: #0077ff; box-shadow: 0 0 10px #0077ff; }
+    .c-silver { background-color: #c0c0c0; box-shadow: 0 0 5px #fff; }
 
-    /* Positioning */
     .confetti:nth-child(1) { left: 10%; animation-duration: 4s; }
     .confetti:nth-child(2) { left: 30%; animation-duration: 6s; }
     .confetti:nth-child(3) { left: 50%; animation-duration: 5s; }
@@ -755,7 +810,7 @@
         .champ-container { flex-direction: column-reverse !important; text-align: center !important; gap: 2rem; }
         .champ-info { text-align: center !important; }
         .champ-stats-grid { justify-content: center !important; }
-        .champ-quote { border: none !important; border-top: 3px solid var(--champ-color) !important; padding-top: 15px; padding-left: 0; }
+        .champ-quote { border: none !important; border-top: 3px solid var(--champ-color) !important; padding-top: 15px; padding-left: 0; padding-right: 0; }
         .champ-visual { width: 220px; height: 220px; }
         .champ-name { font-size: 3rem; }
     }
