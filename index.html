@@ -6,7 +6,6 @@
     <title>Home | American Stock Car Racing League</title>
     
     <link rel="icon" href="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
@@ -40,19 +39,6 @@
 
         /* --- MODULAR NAVIGATION STYLES --- */
         #nav-placeholder { position: relative; z-index: 2000; }
-        
-        .nav-overlay { 
-            position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; 
-            height: 100vh; background: #050505; transition: left 0.5s ease; 
-            z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); 
-        }
-        .nav-overlay.open { left: 0; }
-        .nav-links { display: flex; flex-direction: column; padding: 0 3rem; }
-        .nav-links a { 
-            color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; 
-            border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; 
-        }
-        .nav-links a:hover { color: var(--primary); padding-left: 10px; }
         
         /* --- HOME HERO --- */
         .hero { 
@@ -97,111 +83,48 @@
         }
         .race-card:hover { border-color: var(--primary); transform: translateY(-5px); }
 
-        /* --- 3D CAROUSEL STYLES (SHARED) --- */
+        /* --- 3D CAROUSEL STYLES --- */
         .carousel-section {
             padding: 2rem 0 6rem 0; 
             overflow: hidden;
             perspective: 1000px;
         }
-
-        /* Scene 1: Normal Spin (Counter-Clockwise) */
         .carousel-scene {
-            width: 200px; 
-            height: 300px;
-            margin: 4rem auto 0;
-            position: relative;
-            transform-style: preserve-3d;
+            width: 200px; height: 300px; margin: 4rem auto 0;
+            position: relative; transform-style: preserve-3d;
             animation: carouselSpin 20s infinite linear;
         }
-
-        /* Scene 2: Reverse Spin (Clockwise) */
         .carousel-scene-reverse {
-            width: 200px; 
-            height: 300px;
-            margin: 4rem auto 0;
-            position: relative;
-            transform-style: preserve-3d;
+            width: 200px; height: 300px; margin: 4rem auto 0;
+            position: relative; transform-style: preserve-3d;
             animation: carouselSpinReverse 20s infinite linear;
         }
+        .carousel-scene:hover, .carousel-scene-reverse:hover { animation-play-state: paused; }
 
-        .carousel-scene:hover, .carousel-scene-reverse:hover { 
-            animation-play-state: paused; 
-        }
-
-        /* Desktop specific positions for 3D */
         .carousel-cell {
-            background-color: #000;
-            border: 1px solid #333;
-            border-radius: 8px;
-            position: absolute;
-            width: 200px; 
-            height: 300px; 
-            left: 0; top: 0;
-            backface-visibility: hidden;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
+            background-color: #000; border: 1px solid #333; border-radius: 8px;
+            position: absolute; width: 200px; height: 300px; left: 0; top: 0;
+            backface-visibility: hidden; overflow: hidden;
+            display: flex; flex-direction: column; justify-content: flex-end;
             transition: transform 0.3s, border-color 0.3s;
         }
+        
+        .card-layer-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center top; z-index: 1; }
+        .card-layer-gradient { position: absolute; bottom: 0; left: 0; width: 100%; height: 75%; background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 30%, transparent 100%); z-index: 2; }
+        .card-content { position: absolute; bottom: 0; left: 0; width: 100%; z-index: 3; padding: 1.5rem; box-sizing: border-box; text-align: center; display: flex; flex-direction: column; align-items: center; }
 
-        /* LAYER 1: The Image */
-        .card-layer-image {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-size: cover;
-            background-position: center top;
-            z-index: 1;
-        }
-
-        /* LAYER 2: The Gradient (Darkens bottom for text) */
-        .card-layer-gradient {
-            position: absolute;
-            bottom: 0; left: 0; width: 100%; height: 75%;
-            background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 30%, transparent 100%);
-            z-index: 2;
-        }
-
-        /* LAYER 3: The Content (Text) */
-        .card-content {
-            position: absolute; 
-            bottom: 0; left: 0; width: 100%;
-            z-index: 3; /* Topmost layer */
-            padding: 1.5rem;
-            box-sizing: border-box;
-            text-align: center;
-            display: flex; 
-            flex-direction: column; 
-            align-items: center;
-        }
-
-        /* 3D Transform Positions (4 Items) */
         .carousel-cell:nth-child(1) { transform: rotateY(0deg) translateZ(300px); }
         .carousel-cell:nth-child(2) { transform: rotateY(90deg) translateZ(300px); }
         .carousel-cell:nth-child(3) { transform: rotateY(180deg) translateZ(300px); }
         .carousel-cell:nth-child(4) { transform: rotateY(270deg) translateZ(300px); }
 
-        /* Animations */
-        @keyframes carouselSpin {
-            from { transform: rotateY(0deg); }
-            to { transform: rotateY(-360deg); }
-        }
+        @keyframes carouselSpin { from { transform: rotateY(0deg); } to { transform: rotateY(-360deg); } }
+        @keyframes carouselSpinReverse { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
 
-        @keyframes carouselSpinReverse {
-            from { transform: rotateY(0deg); }
-            to { transform: rotateY(360deg); } /* OPPOSITE DIRECTION */
-        }
-
-        /* Hover Styles */
         .carousel-cell:hover { border-color: var(--primary); }
-        .cup-hover:hover { border-color: var(--cup-blue) !important; }
-        .xfinity-hover:hover { border-color: var(--xfinity-purple) !important; }
-        .truck-hover:hover { border-color: var(--truck-red) !important; }
-        .menards-hover:hover { border-color: var(--menards-yellow) !important; }
-
-        /* Typography */
         .driver-name { font-size: 1.0rem; margin: 0 0 0.5rem; line-height: 1.1; text-shadow: 0 2px 10px rgba(0,0,0,1); }
         .bg-number { position: absolute; top: 10px; right: 15px; font-size: 2.2rem; font-weight: 900; color: rgba(255, 255, 255, 0.4); z-index: 2; pointer-events: none; }
+        
         .win-flags-container { display: flex; gap: 5px; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem; min-height: 24px; }
         .flag-icon { font-size: 1.0rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,1)); }
         .flag-cup { color: var(--cup-blue); }
@@ -209,323 +132,92 @@
         .flag-truck { color: var(--truck-red); }
         .flag-menards { color: var(--menards-yellow); }
         
-        .stats-pill {
-            display: inline-flex; align-items: center; gap: 10px;
-            border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.8);
-            padding: 4px 10px; border-radius: 20px; font-size: 0.65rem; color: #fff; backdrop-filter: blur(5px);
-        }
+        .stats-pill { display: inline-flex; align-items: center; gap: 10px; border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.8); padding: 4px 10px; border-radius: 20px; font-size: 0.65rem; color: #fff; backdrop-filter: blur(5px); }
         .stat-divider { width: 1px; height: 12px; background: #666; }
 
-        .series-badge-top {
-            position: absolute; top: 0; left: 0;
-            background: var(--primary); color: #fff;
-            font-size: 0.7rem; padding: 5px 15px;
-            text-transform: uppercase; font-weight: bold;
-            z-index: 5;
-            clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
-        }
+        .series-badge-top { position: absolute; top: 0; left: 0; background: var(--primary); color: #fff; font-size: 0.7rem; padding: 5px 15px; text-transform: uppercase; font-weight: bold; z-index: 5; clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%); }
         .badge-cup { background: var(--cup-blue); }
         .badge-xfinity { background: var(--xfinity-purple); }
         .badge-truck { background: var(--truck-red); }
         .badge-menards { background: var(--menards-yellow); color: #000; }
 
-        /* --- OTHER SECTIONS --- */
-        .highlight-box {
-            background: linear-gradient(90deg, #0d0d0d 0%, #000 100%);
-            border-left: 4px solid var(--primary);
-            padding: 4rem 3rem;
-            text-align: left;
-            margin: 4rem 0;
-        }
-
+        /* --- HIGHLIGHT BOX --- */
+        .highlight-box { background: linear-gradient(90deg, #0d0d0d 0%, #000 100%); border-left: 4px solid var(--primary); padding: 4rem 3rem; text-align: left; margin: 4rem 0; }
         .stat-label { color: var(--primary); font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; display: block; }
         .stat-value { font-size: 1.8rem; font-family: 'Arial Black', sans-serif; display: block; margin-top: 0.5rem; }
         
-        .contact-btn {
-            text-decoration: none; display: inline-flex; align-items: center; gap: 10px;
-            border: 1px solid var(--primary); padding: 15px 30px; color: #fff; transition: 0.3s;
-        }
+        .contact-btn { text-decoration: none; display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--primary); padding: 15px 30px; color: #fff; transition: 0.3s; }
         .contact-btn:hover { background: var(--primary); }
 
-        footer { 
-            padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); 
-            color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; 
-            display: flex; flex-direction: column; align-items: center; gap: 1.5rem; 
-        }
-        .social-links { display: flex; gap: 2rem; justify-content: center; }
-        .social-icon { color: #555; font-size: 1.8rem; transition: 0.3s ease; display: flex; align-items: center; justify-content: center; text-decoration: none; }
-        .social-icon:hover { transform: translateY(-3px); }
-
         /* --- DUAL COUNTDOWN STYLES --- */
-        .countdown-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: center;
-            width: 100%;
-        }
-
-        .cd-side {
-            flex: 1;
-            min-width: 300px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid #222;
-            padding: 2rem;
-            border-radius: 8px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
+        .countdown-wrapper { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; width: 100%; }
+        .cd-side { flex: 1; min-width: 300px; background: rgba(255,255,255,0.03); border: 1px solid #222; padding: 2rem; border-radius: 8px; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; text-align: center; }
         .cd-real { border-top: 4px solid var(--cup-blue); }
         .cd-league { border-top: 4px solid var(--primary); }
-
-        .cd-title {
-            font-size: 1rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-            color: #fff;
-            position: relative;
-            z-index: 2;
-        }
-        .cd-subtitle {
-            font-size: 0.7rem;
-            color: #888;
-            margin-bottom: 2rem;
-            font-family: sans-serif;
-            position: relative;
-            z-index: 2;
-        }
-
-        .cd-timer {
-            display: flex;
-            gap: 1rem;
-            font-family: 'Arial Black', sans-serif;
-            position: relative;
-            z-index: 2;
-        }
-
-        .cd-box {
-            background: rgba(0,0,0,0.5);
-            padding: 10px;
-            border-radius: 4px;
-            min-width: 60px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .cd-num {
-            display: block;
-            font-size: 2rem;
-            line-height: 1;
-            color: #fff;
-        }
-        .cd-label {
-            display: block;
-            font-size: 0.6rem;
-            color: #666;
-            margin-top: 5px;
-        }
+        .cd-title { font-size: 1rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.5rem; color: #fff; position: relative; z-index: 2; }
+        .cd-subtitle { font-size: 0.7rem; color: #888; margin-bottom: 2rem; font-family: sans-serif; position: relative; z-index: 2; }
+        .cd-timer { display: flex; gap: 1rem; font-family: 'Arial Black', sans-serif; position: relative; z-index: 2; }
+        .cd-box { background: rgba(0,0,0,0.5); padding: 10px; border-radius: 4px; min-width: 60px; border: 1px solid rgba(255,255,255,0.1); }
+        .cd-num { display: block; font-size: 2rem; line-height: 1; color: #fff; }
+        .cd-label { display: block; font-size: 0.6rem; color: #666; margin-top: 5px; }
 
         /* --- POWER RANKINGS STYLES --- */
-        .ranking-filters {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-
-        .filter-btn {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid #333;
-            color: #aaa;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-family: 'Arial Black', sans-serif;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
+        .ranking-filters { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+        .filter-btn { background: rgba(255,255,255,0.05); border: 1px solid #333; color: #aaa; padding: 10px 20px; border-radius: 30px; font-family: 'Arial Black', sans-serif; font-size: 0.8rem; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
         .filter-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
-
-        /* Active States */
         .filter-btn.btn-overall.active { background: #00ff00; color: #000; border-color: #00ff00; box-shadow: 0 0 15px rgba(0,255,0,0.4); }
         .filter-btn.btn-cup.active { background: var(--cup-blue); color: #fff; border-color: var(--cup-blue); box-shadow: 0 0 15px rgba(0, 119, 255, 0.4); }
         .filter-btn.btn-xfinity.active { background: var(--xfinity-purple); color: #fff; border-color: var(--xfinity-purple); box-shadow: 0 0 15px rgba(128, 0, 176, 0.4); }
         .filter-btn.btn-truck.active { background: var(--truck-red); color: #fff; border-color: var(--truck-red); box-shadow: 0 0 15px rgba(204, 0, 0, 0.4); }
         .filter-btn.btn-menards.active { background: var(--menards-yellow); color: #000; border-color: var(--menards-yellow); box-shadow: 0 0 15px rgba(255, 242, 0, 0.4); }
 
-        .power-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-width: 800px;
-            margin: 0 auto;
-            min-height: 300px;
-        }
-
-        .power-card {
-            display: flex;
-            align-items: center;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid #222;
-            padding: 10px 20px;
-            border-radius: 6px;
-            transition: 0.3s;
-            position: relative;
-            overflow: hidden;
-            animation: fadeSlide 0.4s ease-out forwards;
-            opacity: 0;
-            transform: translateY(10px);
-        }
-
+        .power-grid { display: flex; flex-direction: column; gap: 10px; max-width: 800px; margin: 0 auto; min-height: 300px; }
+        .power-card { display: flex; align-items: center; background: rgba(255,255,255,0.03); border: 1px solid #222; padding: 10px 20px; border-radius: 6px; transition: 0.3s; position: relative; overflow: hidden; animation: fadeSlide 0.4s ease-out forwards; opacity: 0; transform: translateY(10px); }
         @keyframes fadeSlide { to { opacity: 1; transform: translateY(0); } }
-
         .power-card:hover { transform: translateX(5px); }
-
         .p-rank { font-size: 1.8rem; font-weight: 900; color: #444; width: 50px; text-align: center; font-style: italic; z-index: 2; }
         .power-card:nth-child(1) .p-rank { color: #ffd700; text-shadow: 0 0 15px rgba(255, 215, 0, 0.4); }
         .power-card:nth-child(2) .p-rank { color: #c0c0c0; }
         .power-card:nth-child(3) .p-rank { color: #cd7f32; }
-
         .p-driver { display: flex; align-items: center; gap: 15px; flex: 1; z-index: 2; }
         .p-img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid #333; background: #000; }
         .p-info { display: flex; flex-direction: column; }
         .p-info h3 { margin: 0; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; color: #fff; }
         .p-team { font-size: 0.65rem; color: #888; font-family: sans-serif; }
-
         .p-score-box { text-align: right; z-index: 2; }
         .p-score { font-family: 'Arial Black', sans-serif; font-size: 1.2rem; color: #fff; line-height: 1; }
         .p-label { font-size: 0.55rem; color: #666; letter-spacing: 1px; text-transform: uppercase; }
+        .p-bar { position: absolute; top: 0; left: 0; bottom: 0; background: linear-gradient(90deg, rgba(255,255,255,0.05), transparent); z-index: 1; transition: width 1s ease-out; }
 
-        .p-bar {
-            position: absolute; top: 0; left: 0; bottom: 0;
-            background: linear-gradient(90deg, rgba(255,255,255,0.05), transparent);
-            z-index: 1;
-            transition: width 1s ease-out;
-        }
+        /* FOOTER */
+        footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+        .social-links { display: flex; gap: 2rem; justify-content: center; }
+        .social-icon { color: #555; font-size: 1.8rem; transition: 0.3s ease; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+        .social-icon:hover { transform: translateY(-3px); }
 
         /* --- MOBILE OVERRIDE --- */
         @media (max-width: 900px) {
-            /* 1. Global Horizontal Layouts */
-            .timer-container, 
-            .leader-strip, 
-            .carousel-scene,
-            .carousel-scene-reverse {
-                display: flex !important;
-                flex-direction: row !important; 
-                flex-wrap: nowrap !important;
-                overflow-x: auto !important; 
-                justify-content: flex-start !important;
-                gap: 1rem;
-                width: 100%;
-                padding: 1rem 1rem 2rem 1rem; 
-                box-sizing: border-box;
-                align-items: flex-start;
-                -webkit-overflow-scrolling: touch;
-                scroll-snap-type: x mandatory;
-            }
-            
-            /* Hide scrollbars */
-            .timer-container::-webkit-scrollbar, 
-            .leader-strip::-webkit-scrollbar,
-            .carousel-scene::-webkit-scrollbar,
-            .carousel-scene-reverse::-webkit-scrollbar { display: none; }
-
-            /* 2. Specific Tweaks */
+            .timer-container, .leader-strip, .carousel-scene, .carousel-scene-reverse { display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; overflow-x: auto !important; justify-content: flex-start !important; gap: 1rem; width: 100%; padding: 1rem 1rem 2rem 1rem; box-sizing: border-box; align-items: flex-start; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; }
+            .timer-container::-webkit-scrollbar, .leader-strip::-webkit-scrollbar, .carousel-scene::-webkit-scrollbar, .carousel-scene-reverse::-webkit-scrollbar { display: none; }
             .timer-container { margin-top: 0 !important; }
-
-            .race-card {
-                flex: 0 0 240px; 
-                width: 240px;
-                scroll-snap-align: start;
-            }
-
-            /* 3. Driver Cards (Winners & Leaders) */
-            .carousel-cell {
-                flex: 0 0 220px !important; 
-                width: 220px !important;
-                height: 320px !important; 
-                margin-bottom: 0 !important;
-                position: relative !important;
-                transform: none !important;
-                left: auto !important; 
-                top: auto !important;
-                scroll-snap-align: center;
-                display: flex !important;
-                flex-direction: column !important;
-                justify-content: flex-end !important;
-            }
-
-            /* 4. Fix 3D Carousel Container */
+            .race-card { flex: 0 0 240px; width: 240px; scroll-snap-align: start; }
+            .carousel-cell { flex: 0 0 220px !important; width: 220px !important; height: 320px !important; margin-bottom: 0 !important; position: relative !important; transform: none !important; left: auto !important; top: auto !important; scroll-snap-align: center; display: flex !important; flex-direction: column !important; justify-content: flex-end !important; }
             .carousel-section { perspective: none; padding-bottom: 1rem; }
-            .carousel-scene, .carousel-scene-reverse {
-                height: auto; 
-                animation: none; 
-                transform-style: flat;
-                margin-top: 1rem;
-            }
-
-            /* 5. Mobile Interactions */
+            .carousel-scene, .carousel-scene-reverse { height: auto; animation: none; transform-style: flat; margin-top: 1rem; }
             .contact-btn { width: 100%; justify-content: center; padding: 15px; box-sizing: border-box; }
-            .contact-btn span { font-size: 0.7rem !important; letter-spacing: 1px !important; }
-
-            /* 6. Power Rankings Mobile - FIXED GRID */
-            .ranking-filters { 
-                display: grid; 
-                grid-template-columns: 1fr 1fr; 
-                gap: 8px; 
-                width: 100%; 
-            }
-            .filter-btn { 
-                padding: 12px; 
-                font-size: 0.75rem; 
-                width: 100%;
-            }
-            .filter-btn.btn-overall {
-                grid-column: 1 / -1; /* Span Full Width */
-                font-size: 0.9rem;
-                padding: 14px;
-                margin-bottom: 5px;
-            }
-            
+            .ranking-filters { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
+            .filter-btn { padding: 12px; font-size: 0.75rem; width: 100%; }
+            .filter-btn.btn-overall { grid-column: 1 / -1; font-size: 0.9rem; padding: 14px; margin-bottom: 5px; }
             .p-team { display: none; }
             .p-rank { font-size: 1.1rem; width: 25px; margin-right: 5px; }
             .p-img { width: 35px; height: 35px; }
             .p-info h3 { font-size: 0.8rem; }
             .p-score { font-size: 0.9rem; }
-            .p-label { font-size: 0.4rem; }
             .power-card { padding: 8px 10px; }
-
-            /* 7. Countdown Mobile - GRID LAYOUT FIX */
             .countdown-wrapper { gap: 1rem; }
             .cd-side { padding: 1.5rem 0.5rem; min-width: 0; width: 100%; box-sizing: border-box; }
-            .cd-title { font-size: 0.9rem; }
-            
-            /* FORCE 4 COLUMNS ON MOBILE FOR TIMERS */
-            .cd-timer { 
-                display: grid; 
-                grid-template-columns: repeat(4, 1fr); 
-                gap: 5px; 
-                width: 100%; 
-                padding: 0 10px;
-                box-sizing: border-box;
-            }
-            .cd-box { 
-                min-width: 0; /* Allow shrinking */
-                padding: 5px 2px; /* Minimal padding */
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-            }
+            .cd-timer { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; width: 100%; padding: 0 10px; box-sizing: border-box; }
+            .cd-box { min-width: 0; padding: 5px 2px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
             .cd-num { font-size: 1.1rem; }
             .cd-label { font-size: 0.45rem; }
         }
@@ -543,419 +235,6 @@
         </div>
     </header>
 
-    <section class="champion-banner cup-theme">
-    <div class="confetti c-blue"></div><div class="confetti c-black"></div><div class="confetti c-silver"></div>
-    <div class="confetti c-blue"></div><div class="confetti c-silver"></div><div class="confetti c-black"></div>
-
-    <div class="champ-container">
-        <div class="champ-info">
-            <div class="series-tag">
-                <i class="fa-solid fa-trophy"></i> SEASON 1 CUP SERIES CHAMPION
-            </div>
-            <h1 class="champ-name">DAKOTA<br>THOMAS<br><span class="number-highlight">#24</span></h1>
-            
-            <div class="champ-stats-grid">
-                <div class="c-stat-box">
-                    <span class="cs-val">355</span>
-                    <span class="cs-label">POINTS</span>
-                </div>
-                <div class="c-stat-box">
-                    <span class="cs-val">7.8</span>
-                    <span class="cs-label">AVG FINISH</span>
-                </div>
-                <div class="c-stat-box">
-                    <span class="cs-val">1</span>
-                    <span class="cs-label">WINS</span>
-                </div>
-            </div>
-            <div class="champ-quote">"THE TRIPLE CROWN KING"</div>
-        </div>
-
-        <div class="champ-visual">
-            <div class="gold-ring"></div>
-            <img src="https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg" alt="Champion" class="champ-img">
-        </div>
-    </div>
-</section>
-
-<section class="champion-banner xfinity-theme co-champ-mode">
-    <div class="confetti c-purple"></div><div class="confetti c-silver"></div><div class="confetti c-purple"></div>
-    <div class="confetti c-white"></div><div class="confetti c-purple"></div><div class="confetti c-silver"></div>
-
-    <div class="champ-container">
-        
-        <div class="champ-info side-stats">
-            <h2 class="co-name">HOCKEY<br>DECKOUT<br><span class="number-highlight">#99</span></h2>
-            <div class="champ-stats-grid vertical-stack">
-                <div class="c-stat-box">
-                    <span class="cs-val">258</span>
-                    <span class="cs-label">POINTS</span>
-                </div>
-                <div class="c-stat-box">
-                    <span class="cs-val">3</span>
-                    <span class="cs-label">WINS</span>
-                </div>
-                <div class="c-stat-box">
-                    <span class="cs-val">6.8</span>
-                    <span class="cs-label">AVG FINISH</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="champ-visual center-stage">
-            <div class="series-tag">
-                <i class="fa-solid fa-trophy"></i> XFINITY CO-CHAMPIONS
-            </div>
-            <div class="gold-ring"></div>
-            <img src="https://raw.githubusercontent.com/mattwilson20/ascrl-website/afe0ca0364518958f60b998b59a05fcae9c724a5/CoChampions.jpg" alt="Co-Champions" class="champ-img">
-            <div class="champ-quote">"THE PERFECT TIE"</div>
-        </div>
-
-        <div class="champ-info side-stats right-align">
-            <h2 class="co-name">ORANGE<br>MAN<br><span class="number-highlight">#7</span></h2>
-            <div class="champ-stats-grid vertical-stack right-stack">
-                <div class="c-stat-box">
-                    <span class="cs-val">258</span>
-                    <span class="cs-label">POINTS</span>
-                </div>
-                <div class="c-stat-box">
-                    <span class="cs-val">0</span>
-                    <span class="cs-label">WINS</span>
-                </div>
-                <div class="c-stat-box">
-                    <span class="cs-val">8.3</span>
-                    <span class="cs-label">AVG FINISH</span>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<section class="champion-banner truck-theme">
-    <div class="confetti c-red"></div><div class="confetti c-black"></div><div class="confetti c-red"></div>
-    <div class="confetti c-black"></div><div class="confetti c-red"></div><div class="confetti c-black"></div>
-
-    <div class="champ-container">
-        <div class="champ-info">
-            <div class="series-tag">
-                <i class="fa-solid fa-trophy"></i> SEASON 1 TRUCK SERIES CHAMPION
-            </div>
-            <h1 class="champ-name">DAKOTA<br>THOMAS<br><span class="number-highlight">#9</span></h1>
-            
-            <div class="champ-stats-grid">
-                <div class="c-stat-box">
-                    <span class="cs-val">380</span>
-                    <span class="cs-label">POINTS</span>
-                </div>
-                <div class="c-stat-box">
-                    <span class="cs-val">5.3</span>
-                    <span class="cs-label">AVG FINISH</span>
-                </div>
-                <div class="c-stat-box">
-                    <span class="cs-val">0</span>
-                    <span class="cs-label">WINS NEEDED</span>
-                </div>
-            </div>
-            <div class="champ-quote">"THE DOUBLE CHAMPION"</div>
-        </div>
-
-        <div class="champ-visual">
-            <div class="gold-ring"></div>
-            <img src="https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg" alt="Champion" class="champ-img">
-        </div>
-    </div>
-</section>
-
-<section class="champion-banner menards-theme">
-    <div class="confetti c-yellow"></div><div class="confetti c-white"></div><div class="confetti c-yellow"></div>
-    <div class="confetti c-white"></div><div class="confetti c-yellow"></div><div class="confetti c-white"></div>
-
-    <div class="champ-container">
-        <div class="champ-info">
-            <div class="series-tag">
-                <i class="fa-solid fa-trophy"></i> SEASON 1 MENARDS SERIES CHAMPION
-            </div>
-            <h1 class="champ-name">DAKOTA<br>THOMAS<br><span class="number-highlight">#77</span></h1>
-            
-            <div class="champ-stats-grid">
-                <div class="c-stat-box">
-                    <span class="cs-val">269</span>
-                    <span class="cs-label">POINTS</span>
-                </div>
-                <div class="c-stat-box">
-                    <span class="cs-val">7.1</span>
-                    <span class="cs-label">AVG FINISH</span>
-                </div>
-                <div class="c-stat-box">
-                    <span class="cs-val">0</span>
-                    <span class="cs-label">WINS NEEDED</span>
-                </div>
-            </div>
-            <div class="champ-quote">"THE CONSISTENCY KING"</div>
-        </div>
-
-        <div class="champ-visual">
-            <div class="gold-ring"></div>
-            <img src="https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg" alt="Champion" class="champ-img">
-        </div>
-    </div>
-</section>
-
-<style>
-    /* --- THEMES --- */
-    .cup-theme {
-        --champ-color: #0077ff; 
-        --champ-glow: rgba(0, 119, 255, 0.6);
-        --bg-grad: radial-gradient(circle, rgba(0,0,0,0.4) 1px, transparent 1px), radial-gradient(circle at top, #001a33 0%, #000 100%);
-        border-bottom: 1px solid #333;
-    }
-
-    .xfinity-theme {
-        --champ-color: #8000b0; 
-        --champ-glow: rgba(128, 0, 176, 0.6);
-        --bg-grad: radial-gradient(circle at bottom, #2a0038 0%, #000 100%);
-        border-bottom: 1px solid #333;
-    }
-
-    .truck-theme {
-        --champ-color: #c00; 
-        --champ-glow: rgba(204, 0, 0, 0.6);
-        --bg-grad: radial-gradient(circle at top left, #220000 0%, #000 100%);
-        border-bottom: 1px solid #333;
-    }
-
-    .menards-theme {
-        --champ-color: #fff200; 
-        --champ-glow: rgba(255, 242, 0, 0.5);
-        --bg-grad: radial-gradient(circle at top right, #333 0%, #000 100%);
-    }
-
-    /* --- GLOBAL BANNER STYLES --- */
-    .champion-banner {
-        position: relative;
-        background: var(--bg-grad);
-        border-bottom: 4px solid var(--champ-color);
-        overflow: hidden;
-        padding: 5rem 1rem;
-        display: flex;
-        justify-content: center;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        background-size: 20px 20px, 100% 100%;
-    }
-
-    .champion-banner::before {
-        content: ''; position: absolute; top:0; left:0; width:100%; height:100%;
-        background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
-        opacity: 0.2; pointer-events: none;
-    }
-
-    /* --- FLEX CONTAINER --- */
-    .champ-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5rem;
-        max-width: 1200px;
-        width: 100%;
-        position: relative;
-        z-index: 2;
-        flex-wrap: wrap;
-    }
-
-    /* --- 1. STANDARD LAYOUT (Cup, Truck, Menards) --- */
-    .champ-container:not(.co-champ-mode) .champ-info { order: 1; text-align: left; flex: 1; min-width: 300px; }
-    .champ-container:not(.co-champ-mode) .champ-visual { order: 2; }
-
-    .champ-info { text-align: left; flex: 1; min-width: 300px; }
-
-    /* --- 2. CO-CHAMP LAYOUT (Xfinity - 3 Columns) --- */
-    .co-champ-mode .champ-container {
-        gap: 2rem;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: nowrap;
-    }
-    
-    .side-stats { flex: 1; min-width: 200px; text-align: left; }
-    .side-stats.right-align { text-align: right; }
-    .center-stage { flex: 0 0 350px; text-align: center; display: flex; flex-direction: column; align-items: center; }
-
-    /* Typography & Visuals */
-    .co-name {
-        font-size: 2.5rem; line-height: 0.9; margin: 0 0 1rem 0;
-        text-transform: uppercase; color: #fff; text-shadow: 0 5px 15px rgba(0,0,0,0.8);
-    }
-    
-    .vertical-stack { display: flex; flex-direction: column; gap: 15px; align-items: flex-start; }
-    .right-stack { align-items: flex-end; }
-    
-    .center-stage .champ-img { width: 350px; height: 350px; }
-    .center-stage .gold-ring { top: -15px; bottom: -15px; left: -15px; right: -15px; }
-    .center-stage .series-tag { margin-bottom: 2rem; }
-    .center-stage .champ-quote { 
-        border: none; margin-top: 2rem; padding: 0;
-        font-size: 1.5rem; color: var(--champ-color); 
-        text-shadow: 0 0 20px var(--champ-glow); 
-    }
-
-    /* --- SHARED COMPONENTS --- */
-    .series-tag {
-        display: inline-flex; align-items: center; gap: 10px;
-        background: var(--champ-color); color: #000;
-        font-family: 'Arial Black', sans-serif; font-size: 0.9rem;
-        padding: 8px 16px; border-radius: 4px; margin-bottom: 1rem;
-        box-shadow: 0 0 20px var(--champ-glow);
-    }
-    .cup-theme .series-tag, .xfinity-theme .series-tag { color: #fff; text-shadow: 0 0 5px rgba(0,0,0,0.5); }
-
-    .champ-name {
-        font-size: 4rem; line-height: 0.9; margin: 0 0 2rem 0;
-        text-transform: uppercase; color: #fff;
-        text-shadow: 0 5px 15px rgba(0,0,0,0.8);
-    }
-    .number-highlight { color: var(--champ-color); text-shadow: 0 0 25px var(--champ-glow); }
-
-    .champ-stats-grid { display: flex; gap: 20px; margin-bottom: 2rem; }
-    
-    .c-stat-box {
-        background: rgba(255,255,255,0.05);
-        border: 1px solid #333;
-        padding: 10px 15px; text-align: center;
-        border-radius: 8px; flex: 1;
-        transition: 0.3s;
-        min-width: 120px;
-    }
-    .c-stat-box:hover { border-color: var(--champ-color); background: rgba(255, 255, 255, 0.08); box-shadow: 0 0 15px var(--champ-glow); }
-
-    .cs-val { display: block; font-size: 1.5rem; font-family: 'Arial Black'; color: #fff; line-height: 1; }
-    .cs-label { font-size: 0.6rem; color: #888; letter-spacing: 1px; margin-top: 5px; }
-
-    .champ-quote {
-        font-family: sans-serif; font-style: italic; color: #aaa; border-left: 3px solid var(--champ-color);
-        padding-left: 15px; font-size: 1.2rem; letter-spacing: 1px;
-    }
-
-    .champ-visual { position: relative; width: 320px; height: 320px; flex-shrink: 0; }
-    
-    .champ-img {
-        width: 100%; height: 100%; object-fit: cover;
-        border-radius: 50%;
-        border: 6px solid #111;
-        position: relative; z-index: 2;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-    }
-
-    .gold-ring {
-        position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px;
-        border-radius: 50%;
-        background: conic-gradient(from 0deg, transparent, var(--champ-color), transparent 30%);
-        animation: spinRing 4s linear infinite;
-        z-index: 1;
-        filter: drop-shadow(0 0 10px var(--champ-color));
-    }
-    @keyframes spinRing { 100% { transform: rotate(360deg); } }
-
-    /* CONFETTI COLORS */
-    .c-yellow { background-color: #fff200; box-shadow: 0 0 10px #fff200; }
-    .c-white { background-color: #fff; }
-    .c-red { background-color: #c00; box-shadow: 0 0 10px #c00; }
-    .c-black { background-color: #000; border: 1px solid #333; }
-    .c-blue { background-color: #0077ff; box-shadow: 0 0 10px #0077ff; }
-    .c-purple { background-color: #8000b0; box-shadow: 0 0 10px #8000b0; }
-    .c-silver { background-color: #c0c0c0; box-shadow: 0 0 5px #fff; }
-
-    .confetti { position: absolute; width: 8px; height: 8px; animation: fall 5s infinite linear; opacity: 0; pointer-events: none; }
-    .confetti:nth-child(1) { left: 10%; animation-duration: 4s; }
-    .confetti:nth-child(2) { left: 30%; animation-duration: 6s; }
-    .confetti:nth-child(3) { left: 50%; animation-duration: 5s; }
-    .confetti:nth-child(4) { left: 70%; animation-duration: 7s; }
-    .confetti:nth-child(5) { left: 90%; animation-duration: 4.5s; }
-    .confetti:nth-child(6) { left: 20%; animation-duration: 5.5s; }
-
-    @keyframes fall {
-        0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
-        100% { transform: translateY(600px) rotate(720deg); opacity: 0; }
-    }
-
-    /* --- MOBILE STYLES (Fixed Centering) --- */
-    @media (max-width: 900px) {
-        
-        /* 1. Global Centering for All Banners */
-        .champ-container { 
-            flex-direction: column-reverse; 
-            text-align: center; 
-            gap: 2rem; 
-            align-items: center !important; /* Force Center */
-        }
-        
-        .champ-info { 
-            text-align: center !important; 
-            width: 100%; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .champ-stats-grid { 
-            justify-content: center !important; 
-            width: 100%;
-        }
-
-        .champ-quote { 
-            border: none !important; 
-            border-top: 3px solid var(--champ-color) !important; 
-            padding-top: 15px; 
-            padding-left: 0; 
-            margin-top: 10px;
-        }
-
-        .champ-visual { 
-            width: 100%; 
-            max-width: 250px; 
-            height: auto; 
-            aspect-ratio: 1/1; 
-            margin: 0 auto; 
-        }
-        .champ-img { width: 100%; height: 100%; }
-        .champ-name { font-size: 3rem; }
-
-        /* 2. Co-Champ Specific Mobile Fixes */
-        .co-champ-mode .champ-container { 
-            flex-direction: column !important; /* Image on Top */
-        }
-
-        .center-stage { 
-            order: 1; 
-            margin-bottom: 2rem; 
-            width: 100%;
-        }
-        .center-stage .champ-img { width: 250px; height: 250px; }
-
-        .side-stats { 
-            order: 2; 
-            width: 100%; 
-            text-align: center !important; 
-            margin-bottom: 2rem;
-        }
-        
-        .side-stats.right-align { text-align: center !important; }
-
-        .vertical-stack { 
-            flex-direction: row; 
-            flex-wrap: wrap; 
-            justify-content: center; 
-            align-items: center; 
-            width: 100%; 
-            gap: 10px;
-        }
-        
-        .right-stack { align-items: center; } 
-        .c-stat-box { min-width: 100px; flex: 1; }
-
-        .co-name { font-size: 2rem; margin-bottom: 1rem; }
-    }
-</style>      
     <main class="container" style="max-width: 1300px; margin: 0 auto; padding: 2rem;">
         <section>
             <h2 style="margin-bottom: 2rem; font-size: 1.2rem; color: var(--text-muted); letter-spacing: 4px; position: relative; z-index: 20; text-align: center;">UPCOMING ASCR RACES</h2>
@@ -1007,7 +286,6 @@
                 <div class="cd-side cd-real">
                     <span class="cd-title">DAYTONA 500</span>
                     <span class="cd-subtitle">FEBRUARY 15TH @ 2:30 PM EST</span>
-                    
                     <div class="cd-timer" id="timer-nascar">
                         <div class="cd-box"><span class="cd-num" id="n-d">00</span><span class="cd-label">DAYS</span></div>
                         <div class="cd-box"><span class="cd-num" id="n-h">00</span><span class="cd-label">HRS</span></div>
@@ -1015,11 +293,9 @@
                         <div class="cd-box"><span class="cd-num" id="n-s">00</span><span class="cd-label">SEC</span></div>
                     </div>
                 </div>
-
                 <div class="cd-side cd-league">
                     <span class="cd-title">ASCRL 500</span>
                     <span class="cd-subtitle">FEBRUARY 17TH @ 8:00 PM EST</span>
-                    
                     <div class="cd-timer" id="timer-ascrl">
                         <div class="cd-box"><span class="cd-num" id="a-d">00</span><span class="cd-label">DAYS</span></div>
                         <div class="cd-box"><span class="cd-num" id="a-h">00</span><span class="cd-label">HRS</span></div>
@@ -1029,6 +305,420 @@
                 </div>
             </div>
         </section>
+
+        <section class="champion-banner cup-theme">
+            <div class="confetti c-blue"></div><div class="confetti c-black"></div><div class="confetti c-silver"></div>
+            <div class="confetti c-blue"></div><div class="confetti c-silver"></div><div class="confetti c-black"></div>
+
+            <div class="champ-container">
+                <div class="champ-info">
+                    <div class="series-tag">
+                        <i class="fa-solid fa-trophy"></i> SEASON 1 CUP SERIES CHAMPION
+                    </div>
+                    <h1 class="champ-name">DAKOTA<br>THOMAS<br><span class="number-highlight">#24</span></h1>
+                    
+                    <div class="champ-stats-grid">
+                        <div class="c-stat-box">
+                            <span class="cs-val">355</span>
+                            <span class="cs-label">POINTS</span>
+                        </div>
+                        <div class="c-stat-box">
+                            <span class="cs-val">7.8</span>
+                            <span class="cs-label">AVG FINISH</span>
+                        </div>
+                        <div class="c-stat-box">
+                            <span class="cs-val">1</span>
+                            <span class="cs-label">WINS</span>
+                        </div>
+                    </div>
+                    <div class="champ-quote">"THE TRIPLE CROWN KING"</div>
+                </div>
+
+                <div class="champ-visual">
+                    <div class="gold-ring"></div>
+                    <img src="https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg" alt="Champion" class="champ-img">
+                </div>
+            </div>
+        </section>
+
+        <section class="champion-banner xfinity-theme co-champ-mode">
+            <div class="confetti c-purple"></div><div class="confetti c-silver"></div><div class="confetti c-purple"></div>
+            <div class="confetti c-white"></div><div class="confetti c-purple"></div><div class="confetti c-silver"></div>
+
+            <div class="champ-container">
+                
+                <div class="champ-info side-stats left-col">
+                    <h2 class="co-name">HOCKEY<br>DECKOUT<br><span class="number-highlight">#99</span></h2>
+                    <div class="champ-stats-grid vertical-stack">
+                        <div class="c-stat-box">
+                            <span class="cs-val">258</span>
+                            <span class="cs-label">POINTS</span>
+                        </div>
+                        <div class="c-stat-box">
+                            <span class="cs-val">3</span>
+                            <span class="cs-label">WINS</span>
+                        </div>
+                        <div class="c-stat-box">
+                            <span class="cs-val">6.8</span>
+                            <span class="cs-label">AVG FINISH</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="champ-visual center-stage middle-col">
+                    <div class="series-tag">
+                        <i class="fa-solid fa-trophy"></i> XFINITY CO-CHAMPIONS
+                    </div>
+                    <div class="gold-ring"></div>
+                    <img src="https://raw.githubusercontent.com/mattwilson20/ascrl-website/afe0ca0364518958f60b998b59a05fcae9c724a5/CoChampions.jpg" alt="Co-Champions" class="champ-img">
+                    <div class="champ-quote">"THE PERFECT TIE"</div>
+                </div>
+
+                <div class="champ-info side-stats right-align right-col">
+                    <h2 class="co-name">ORANGE<br>MAN<br><span class="number-highlight">#7</span></h2>
+                    <div class="champ-stats-grid vertical-stack right-stack">
+                        <div class="c-stat-box">
+                            <span class="cs-val">258</span>
+                            <span class="cs-label">POINTS</span>
+                        </div>
+                        <div class="c-stat-box">
+                            <span class="cs-val">0</span>
+                            <span class="cs-label">WINS</span>
+                        </div>
+                        <div class="c-stat-box">
+                            <span class="cs-val">8.3</span>
+                            <span class="cs-label">AVG FINISH</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="champion-banner truck-theme">
+            <div class="confetti c-red"></div><div class="confetti c-black"></div><div class="confetti c-red"></div>
+            <div class="confetti c-black"></div><div class="confetti c-red"></div><div class="confetti c-black"></div>
+
+            <div class="champ-container">
+                <div class="champ-info">
+                    <div class="series-tag">
+                        <i class="fa-solid fa-trophy"></i> SEASON 1 TRUCK SERIES CHAMPION
+                    </div>
+                    <h1 class="champ-name">DAKOTA<br>THOMAS<br><span class="number-highlight">#9</span></h1>
+                    
+                    <div class="champ-stats-grid">
+                        <div class="c-stat-box">
+                            <span class="cs-val">380</span>
+                            <span class="cs-label">POINTS</span>
+                        </div>
+                        <div class="c-stat-box">
+                            <span class="cs-val">5.3</span>
+                            <span class="cs-label">AVG FINISH</span>
+                        </div>
+                        <div class="c-stat-box">
+                            <span class="cs-val">0</span>
+                            <span class="cs-label">WINS NEEDED</span>
+                        </div>
+                    </div>
+                    <div class="champ-quote">"THE DOUBLE CHAMPION"</div>
+                </div>
+
+                <div class="champ-visual">
+                    <div class="gold-ring"></div>
+                    <img src="https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg" alt="Champion" class="champ-img">
+                </div>
+            </div>
+        </section>
+
+        <section class="champion-banner menards-theme">
+            <div class="confetti c-yellow"></div><div class="confetti c-white"></div><div class="confetti c-yellow"></div>
+            <div class="confetti c-white"></div><div class="confetti c-yellow"></div><div class="confetti c-white"></div>
+
+            <div class="champ-container">
+                <div class="champ-info">
+                    <div class="series-tag">
+                        <i class="fa-solid fa-trophy"></i> SEASON 1 MENARDS SERIES CHAMPION
+                    </div>
+                    <h1 class="champ-name">DAKOTA<br>THOMAS<br><span class="number-highlight">#77</span></h1>
+                    
+                    <div class="champ-stats-grid">
+                        <div class="c-stat-box">
+                            <span class="cs-val">269</span>
+                            <span class="cs-label">POINTS</span>
+                        </div>
+                        <div class="c-stat-box">
+                            <span class="cs-val">7.1</span>
+                            <span class="cs-label">AVG FINISH</span>
+                        </div>
+                        <div class="c-stat-box">
+                            <span class="cs-val">0</span>
+                            <span class="cs-label">WINS NEEDED</span>
+                        </div>
+                    </div>
+                    <div class="champ-quote">"THE CONSISTENCY KING"</div>
+                </div>
+
+                <div class="champ-visual">
+                    <div class="gold-ring"></div>
+                    <img src="https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg" alt="Champion" class="champ-img">
+                </div>
+            </div>
+        </section>
+
+        <style>
+            /* --- THEMES --- */
+            .cup-theme {
+                --champ-color: #0077ff; 
+                --champ-glow: rgba(0, 119, 255, 0.6);
+                --bg-grad: radial-gradient(circle, rgba(0,0,0,0.4) 1px, transparent 1px), radial-gradient(circle at top, #001a33 0%, #000 100%);
+                border-bottom: 1px solid #333;
+            }
+
+            .xfinity-theme {
+                --champ-color: #8000b0; 
+                --champ-glow: rgba(128, 0, 176, 0.6);
+                --bg-grad: radial-gradient(circle at bottom, #2a0038 0%, #000 100%);
+                border-bottom: 1px solid #333;
+            }
+
+            .truck-theme {
+                --champ-color: #c00; 
+                --champ-glow: rgba(204, 0, 0, 0.6);
+                --bg-grad: radial-gradient(circle at top left, #220000 0%, #000 100%);
+                border-bottom: 1px solid #333;
+            }
+
+            .menards-theme {
+                --champ-color: #fff200; 
+                --champ-glow: rgba(255, 242, 0, 0.5);
+                --bg-grad: radial-gradient(circle at top right, #333 0%, #000 100%);
+            }
+
+            /* --- GLOBAL BANNER STYLES --- */
+            .champion-banner {
+                position: relative;
+                background: var(--bg-grad);
+                border-bottom: 4px solid var(--champ-color);
+                overflow: hidden;
+                padding: 5rem 1rem;
+                display: flex;
+                justify-content: center;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+                background-size: 20px 20px, 100% 100%;
+            }
+
+            .champion-banner::before {
+                content: ''; position: absolute; top:0; left:0; width:100%; height:100%;
+                background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+                opacity: 0.2; pointer-events: none;
+            }
+
+            /* --- FLEX CONTAINER --- */
+            .champ-container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5rem;
+                max-width: 1200px;
+                width: 100%;
+                position: relative;
+                z-index: 2;
+                flex-wrap: wrap;
+            }
+
+            /* --- 1. STANDARD LAYOUT (Cup, Truck, Menards) --- */
+            /* Forces Text Left (Order 1) and Image Right (Order 2) */
+            .champ-container:not(.co-champ-mode) .champ-info { order: 1; text-align: left; flex: 1; min-width: 300px; }
+            .champ-container:not(.co-champ-mode) .champ-visual { order: 2; }
+
+            .champ-info { text-align: left; flex: 1; min-width: 300px; }
+
+            /* --- 2. CO-CHAMP LAYOUT (Xfinity - 3 Columns) --- */
+            .co-champ-mode .champ-container {
+                gap: 2rem;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: nowrap;
+            }
+            
+            /* Explicit Ordering to Fix Desktop Layout */
+            .co-champ-mode .left-col { order: 1 !important; flex: 1; text-align: left; }
+            .co-champ-mode .middle-col { order: 2 !important; flex: 0 0 400px; text-align: center; }
+            .co-champ-mode .right-col { order: 3 !important; flex: 1; text-align: right; }
+
+            /* Typography & Visuals */
+            .co-name {
+                font-size: 2.5rem; line-height: 0.9; margin: 0 0 1rem 0;
+                text-transform: uppercase; color: #fff; text-shadow: 0 5px 15px rgba(0,0,0,0.8);
+            }
+            
+            .vertical-stack { display: flex; flex-direction: column; gap: 15px; align-items: flex-start; }
+            .right-stack { align-items: flex-end; }
+            
+            .center-stage { display: flex; flex-direction: column; align-items: center; margin: 0 20px; }
+            .center-stage .champ-img { width: 350px; height: 350px; border-radius: 50%; object-fit: cover; border: 6px solid #111; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
+            .center-stage .gold-ring { top: -10px; bottom: -10px; left: -10px; right: -10px; }
+            .center-stage .series-tag { margin-bottom: 2rem; }
+            .center-stage .champ-quote { 
+                border: none; margin-top: 2rem; padding: 0;
+                font-size: 1.5rem; color: var(--champ-color); 
+                text-shadow: 0 0 20px var(--champ-glow); 
+            }
+
+            /* --- SHARED COMPONENTS --- */
+            .series-tag {
+                display: inline-flex; align-items: center; gap: 10px;
+                background: var(--champ-color); color: #000;
+                font-family: 'Arial Black', sans-serif; font-size: 0.9rem;
+                padding: 8px 16px; border-radius: 4px; margin-bottom: 1rem;
+                box-shadow: 0 0 20px var(--champ-glow);
+            }
+            .cup-theme .series-tag, .xfinity-theme .series-tag { color: #fff; text-shadow: 0 0 5px rgba(0,0,0,0.5); }
+
+            .champ-name {
+                font-size: 4rem; line-height: 0.9; margin: 0 0 2rem 0;
+                text-transform: uppercase; color: #fff;
+                text-shadow: 0 5px 15px rgba(0,0,0,0.8);
+            }
+            .number-highlight { color: var(--champ-color); text-shadow: 0 0 25px var(--champ-glow); }
+
+            .champ-stats-grid { display: flex; gap: 20px; margin-bottom: 2rem; }
+            
+            .c-stat-box {
+                background: rgba(255,255,255,0.05);
+                border: 1px solid #333;
+                padding: 10px 15px; text-align: center;
+                border-radius: 8px; flex: 1;
+                transition: 0.3s;
+                min-width: 120px;
+            }
+            .c-stat-box:hover { border-color: var(--champ-color); background: rgba(255, 255, 255, 0.08); box-shadow: 0 0 15px var(--champ-glow); }
+
+            .cs-val { display: block; font-size: 1.5rem; font-family: 'Arial Black'; color: #fff; line-height: 1; }
+            .cs-label { font-size: 0.6rem; color: #888; letter-spacing: 1px; margin-top: 5px; }
+
+            .champ-quote {
+                font-family: sans-serif; font-style: italic; color: #aaa; border-left: 3px solid var(--champ-color);
+                padding-left: 15px; font-size: 1.2rem; letter-spacing: 1px;
+            }
+
+            .champ-visual { position: relative; width: 320px; height: 320px; flex-shrink: 0; }
+            .champ-container:not(.co-champ-mode) .champ-img {
+                width: 100%; height: 100%; object-fit: cover;
+                border-radius: 50%; border: 6px solid #111;
+                position: relative; z-index: 2;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            }
+
+            .gold-ring {
+                position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px;
+                border-radius: 50%;
+                background: conic-gradient(from 0deg, transparent, var(--champ-color), transparent 30%);
+                animation: spinRing 4s linear infinite;
+                z-index: 1;
+                filter: drop-shadow(0 0 10px var(--champ-color));
+            }
+            @keyframes spinRing { 100% { transform: rotate(360deg); } }
+
+            /* CONFETTI COLORS */
+            .c-yellow { background-color: #fff200; box-shadow: 0 0 10px #fff200; }
+            .c-white { background-color: #fff; }
+            .c-red { background-color: #c00; box-shadow: 0 0 10px #c00; }
+            .c-black { background-color: #000; border: 1px solid #333; }
+            .c-blue { background-color: #0077ff; box-shadow: 0 0 10px #0077ff; }
+            .c-purple { background-color: #8000b0; box-shadow: 0 0 10px #8000b0; }
+            .c-silver { background-color: #c0c0c0; box-shadow: 0 0 5px #fff; }
+
+            .confetti { position: absolute; width: 8px; height: 8px; animation: fall 5s infinite linear; opacity: 0; pointer-events: none; }
+            .confetti:nth-child(1) { left: 10%; animation-duration: 4s; }
+            .confetti:nth-child(2) { left: 30%; animation-duration: 6s; }
+            .confetti:nth-child(3) { left: 50%; animation-duration: 5s; }
+            .confetti:nth-child(4) { left: 70%; animation-duration: 7s; }
+            .confetti:nth-child(5) { left: 90%; animation-duration: 4.5s; }
+            .confetti:nth-child(6) { left: 20%; animation-duration: 5.5s; }
+
+            @keyframes fall {
+                0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+                100% { transform: translateY(600px) rotate(720deg); opacity: 0; }
+            }
+
+            /* --- MOBILE OVERRIDE --- */
+            @media (max-width: 900px) {
+                /* Standard Layout Mobile (Cup, Truck, Menards) */
+                .champ-container:not(.co-champ-mode) { 
+                    flex-direction: column-reverse; 
+                    text-align: center; 
+                    gap: 2rem; 
+                    align-items: center !important; 
+                }
+                .champ-info { 
+                    text-align: center; 
+                    width: 100%; 
+                    display: flex; 
+                    flex-direction: column; 
+                    align-items: center; 
+                }
+                .champ-stats-grid { 
+                    justify-content: center; 
+                    width: 100%; 
+                }
+                .champ-quote { 
+                    border: none; 
+                    border-top: 3px solid var(--champ-color); 
+                    padding-top: 15px; 
+                    padding-left: 0; 
+                    margin-top: 10px; 
+                }
+                .champ-visual { 
+                    width: 220px; 
+                    height: 220px; 
+                    margin: 0 auto; 
+                }
+                .champ-name { font-size: 3rem; }
+
+                /* Co-Champ Mobile Fix (Xfinity) */
+                .co-champ-mode .champ-container { 
+                    flex-direction: column !important; 
+                    align-items: center !important;
+                }
+                /* Force Order: Image First, Then Left Guy, Then Right Guy */
+                .co-champ-mode .middle-col { 
+                    order: 1 !important; 
+                    margin-bottom: 2rem; 
+                    flex: initial; 
+                    width: auto; 
+                }
+                .co-champ-mode .left-col { 
+                    order: 2 !important; 
+                    width: 100%; 
+                    text-align: center; 
+                    align-items: center;
+                    display: flex;
+                    flex-direction: column;
+                }
+                .co-champ-mode .right-col { 
+                    order: 3 !important; 
+                    width: 100%; 
+                    text-align: center; 
+                    align-items: center;
+                    display: flex;
+                    flex-direction: column;
+                }
+                
+                .vertical-stack { 
+                    align-items: center; 
+                    flex-direction: row; 
+                    justify-content: center; 
+                    width: 100%; 
+                    flex-wrap: wrap; 
+                    gap: 10px; 
+                }
+                .right-stack { align-items: center; } 
+                .c-stat-box { min-width: 100px; flex: 1; }
+                .center-stage .champ-img { width: 220px; height: 220px; }
+                .co-name { font-size: 2rem; margin-bottom: 1rem; }
+            }
+        </style>
 
         <section class="highlight-box" style="padding: 3rem 1rem; background: linear-gradient(to right, #111, #080808); border-left: 4px solid #00ff00; margin-top: 4rem;">
             <div style="text-align: center; margin-bottom: 2rem;">
