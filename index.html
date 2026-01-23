@@ -583,6 +583,7 @@
     <div class="confetti c-white"></div><div class="confetti c-purple"></div><div class="confetti c-silver"></div>
 
     <div class="champ-container">
+        
         <div class="champ-info side-stats">
             <h2 class="co-name">HOCKEY<br>DECKOUT<br><span class="number-highlight">#99</span></h2>
             <div class="champ-stats-grid vertical-stack">
@@ -612,7 +613,7 @@
 
         <div class="champ-info side-stats right-align">
             <h2 class="co-name">ORANGE<br>MAN<br><span class="number-highlight">#7</span></h2>
-            <div class="champ-stats-grid vertical-stack">
+            <div class="champ-stats-grid vertical-stack right-stack">
                 <div class="c-stat-box">
                     <span class="cs-val">258</span>
                     <span class="cs-label">POINTS</span>
@@ -627,6 +628,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </section>
 
@@ -748,7 +750,7 @@
         opacity: 0.2; pointer-events: none;
     }
 
-    /* --- FLEX CONTAINER --- */
+    /* --- STANDARD CONTAINER (Text Left, Image Right) --- */
     .champ-container {
         display: flex;
         align-items: center;
@@ -761,21 +763,22 @@
         flex-wrap: wrap;
     }
 
-    /* --- 1. STANDARD LAYOUT (Cup, Truck, Menards) --- */
-    /* This makes sure the text is Left and Image is Right for normal champs */
-    .champ-container:not(.co-champ-mode) .champ-info { order: 1; text-align: left; flex: 1; min-width: 300px; }
-    .champ-container:not(.co-champ-mode) .champ-visual { order: 2; }
+    .champ-info { text-align: left; flex: 1; min-width: 300px; }
+    
+    /* Force visual to right for standard themes */
+    .champ-container:not(.co-champ-mode) .champ-visual { margin-left: auto; }
 
-    /* --- 2. CO-CHAMP LAYOUT (Xfinity - 3 Columns) --- */
+    /* --- CO-CHAMPION LAYOUT (3 Columns) --- */
     .co-champ-mode .champ-container {
         gap: 2rem;
         align-items: center;
         justify-content: space-between;
+        flex-wrap: nowrap; /* Keep side-by-side on desktop */
     }
     
     .side-stats { 
         flex: 1; 
-        min-width: 250px; 
+        min-width: 200px; 
         text-align: left; 
     }
     
@@ -784,16 +787,15 @@
     }
     
     .center-stage { 
-        flex: 0 0 350px; /* Fixed width for center image */
+        flex: 0 0 350px;
         text-align: center; 
         display: flex; 
         flex-direction: column; 
         align-items: center; 
     }
 
-    /* Co-Champ Specific Text Styling */
     .co-name {
-        font-size: 3rem; line-height: 0.9; margin: 0 0 1rem 0;
+        font-size: 2.5rem; line-height: 0.9; margin: 0 0 1rem 0;
         text-transform: uppercase; color: #fff; text-shadow: 0 5px 15px rgba(0,0,0,0.8);
     }
     
@@ -803,13 +805,13 @@
         align-items: flex-start;
     }
     
-    .right-align .vertical-stack { align-items: flex-end; }
+    .right-stack { align-items: flex-end; }
     
     .center-stage .champ-img { width: 350px; height: 350px; }
     .center-stage .gold-ring { top: -15px; bottom: -15px; left: -15px; right: -15px; }
     .center-stage .series-tag { margin-bottom: 2rem; }
     .center-stage .champ-quote { 
-        border: none; margin-top: 2rem; 
+        border: none; margin-top: 2rem; padding: 0;
         font-size: 1.5rem; color: var(--champ-color); 
         text-shadow: 0 0 20px var(--champ-glow); 
     }
@@ -894,21 +896,21 @@
     }
 
     @media (max-width: 900px) {
-        .champ-container { flex-direction: column-reverse !important; text-align: center !important; gap: 2rem; }
-        
-        /* Mobile Co-Champ Fixes */
-        .co-champ-mode .champ-container { flex-direction: column !important; }
+        /* Standard Layout Mobile */
+        .champ-container { flex-direction: column-reverse; text-align: center; gap: 2rem; }
+        .champ-info { text-align: center; }
+        .champ-stats-grid { justify-content: center; }
+        .champ-quote { border: none; border-top: 3px solid var(--champ-color); padding-top: 15px; padding-left: 0; }
+        .champ-visual { width: 220px; height: 220px; margin: 0 auto; }
+        .champ-name { font-size: 3rem; }
+
+        /* Co-Champ Layout Mobile Fix */
+        .co-champ-mode .champ-container { flex-direction: column; }
         .center-stage { order: 1; margin-bottom: 2rem; }
         .side-stats { order: 2; width: 100%; text-align: center; }
-        .side-stats.right-align { text-align: center; }
         .vertical-stack { align-items: center; flex-direction: row; justify-content: center; width: 100%; }
-        
-        .champ-info { text-align: center !important; }
-        .champ-stats-grid { justify-content: center !important; }
-        .champ-quote { border: none !important; border-top: 3px solid var(--champ-color) !important; padding-top: 15px; padding-left: 0; }
-        .champ-visual { width: 220px; height: 220px; }
+        .right-stack { align-items: center; } /* Reset right align on mobile */
         .center-stage .champ-img { width: 220px; height: 220px; }
-        .champ-name { font-size: 3rem; }
         .co-name { font-size: 2rem; }
     }
 </style>      
