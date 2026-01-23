@@ -748,6 +748,7 @@
         opacity: 0.2; pointer-events: none;
     }
 
+    /* --- FLEX CONTAINER --- */
     .champ-container {
         display: flex;
         align-items: center;
@@ -760,38 +761,58 @@
         flex-wrap: wrap;
     }
 
-    .champ-info { text-align: left; flex: 1; min-width: 300px; }
-    
-    /* STANDARD LAYOUT (Text Left, Image Right) - Default */
-    .champ-container:not(.co-champ-mode) .champ-info { order: 1; }
+    /* --- 1. STANDARD LAYOUT (Cup, Truck, Menards) --- */
+    /* This makes sure the text is Left and Image is Right for normal champs */
+    .champ-container:not(.co-champ-mode) .champ-info { order: 1; text-align: left; flex: 1; min-width: 300px; }
     .champ-container:not(.co-champ-mode) .champ-visual { order: 2; }
 
-    /* --- CO-CHAMPION LAYOUT (3 Columns) --- */
+    /* --- 2. CO-CHAMP LAYOUT (Xfinity - 3 Columns) --- */
     .co-champ-mode .champ-container {
         gap: 2rem;
         align-items: center;
+        justify-content: space-between;
     }
-    .side-stats { flex: 1; min-width: 200px; text-align: left; }
-    .side-stats.right-align { text-align: right; }
-    .center-stage { flex: 0 0 350px; text-align: center; display: flex; flex-direction: column; align-items: center; }
     
+    .side-stats { 
+        flex: 1; 
+        min-width: 250px; 
+        text-align: left; 
+    }
+    
+    .side-stats.right-align { 
+        text-align: right; 
+    }
+    
+    .center-stage { 
+        flex: 0 0 350px; /* Fixed width for center image */
+        text-align: center; 
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
+    }
+
+    /* Co-Champ Specific Text Styling */
     .co-name {
-        font-size: 2.5rem; line-height: 0.9; margin: 0 0 1rem 0;
+        font-size: 3rem; line-height: 0.9; margin: 0 0 1rem 0;
         text-transform: uppercase; color: #fff; text-shadow: 0 5px 15px rgba(0,0,0,0.8);
     }
     
     .vertical-stack {
         flex-direction: column; 
-        gap: 10px;
+        gap: 15px;
         align-items: flex-start;
     }
+    
     .right-align .vertical-stack { align-items: flex-end; }
-    .right-align .c-stat-box { text-align: right; }
-
+    
     .center-stage .champ-img { width: 350px; height: 350px; }
     .center-stage .gold-ring { top: -15px; bottom: -15px; left: -15px; right: -15px; }
     .center-stage .series-tag { margin-bottom: 2rem; }
-    .center-stage .champ-quote { border: none; margin-top: 2rem; font-size: 1.5rem; color: var(--champ-color); text-shadow: 0 0 20px var(--champ-glow); }
+    .center-stage .champ-quote { 
+        border: none; margin-top: 2rem; 
+        font-size: 1.5rem; color: var(--champ-color); 
+        text-shadow: 0 0 20px var(--champ-glow); 
+    }
 
     /* --- SHARED COMPONENTS --- */
     .series-tag {
