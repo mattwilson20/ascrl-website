@@ -557,7 +557,7 @@
             <div class="champ-stats-grid">
                 <div class="c-stat-box">
                     <span class="cs-val">355</span>
-                    <span class="cs-label">TOTAL POINTS</span>
+                    <span class="cs-label">POINTS</span>
                 </div>
                 <div class="c-stat-box">
                     <span class="cs-val">7.8</span>
@@ -578,6 +578,58 @@
     </div>
 </section>
 
+<section class="champion-banner xfinity-theme co-champ-mode">
+    <div class="confetti c-purple"></div><div class="confetti c-silver"></div><div class="confetti c-purple"></div>
+    <div class="confetti c-white"></div><div class="confetti c-purple"></div><div class="confetti c-silver"></div>
+
+    <div class="champ-container">
+        <div class="champ-info side-stats">
+            <h2 class="co-name">HOCKEY<br>DECKOUT<br><span class="number-highlight">#99</span></h2>
+            <div class="champ-stats-grid vertical-stack">
+                <div class="c-stat-box">
+                    <span class="cs-val">258</span>
+                    <span class="cs-label">POINTS</span>
+                </div>
+                <div class="c-stat-box">
+                    <span class="cs-val">3</span>
+                    <span class="cs-label">WINS</span>
+                </div>
+                <div class="c-stat-box">
+                    <span class="cs-val">6.8</span>
+                    <span class="cs-label">AVG FINISH</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="champ-visual center-stage">
+            <div class="series-tag">
+                <i class="fa-solid fa-trophy"></i> XFINITY CO-CHAMPIONS
+            </div>
+            <div class="gold-ring"></div>
+            <img src="https://raw.githubusercontent.com/mattwilson20/ascrl-website/afe0ca0364518958f60b998b59a05fcae9c724a5/CoChampions.jpg" alt="Co-Champions" class="champ-img">
+            <div class="champ-quote">"THE PERFECT TIE"</div>
+        </div>
+
+        <div class="champ-info side-stats right-align">
+            <h2 class="co-name">ORANGE<br>MAN<br><span class="number-highlight">#7</span></h2>
+            <div class="champ-stats-grid vertical-stack">
+                <div class="c-stat-box">
+                    <span class="cs-val">258</span>
+                    <span class="cs-label">POINTS</span>
+                </div>
+                <div class="c-stat-box">
+                    <span class="cs-val">0</span>
+                    <span class="cs-label">WINS</span>
+                </div>
+                <div class="c-stat-box">
+                    <span class="cs-val">8.3</span>
+                    <span class="cs-label">AVG FINISH</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="champion-banner truck-theme">
     <div class="confetti c-red"></div><div class="confetti c-black"></div><div class="confetti c-red"></div>
     <div class="confetti c-black"></div><div class="confetti c-red"></div><div class="confetti c-black"></div>
@@ -592,7 +644,7 @@
             <div class="champ-stats-grid">
                 <div class="c-stat-box">
                     <span class="cs-val">380</span>
-                    <span class="cs-label">TOTAL POINTS</span>
+                    <span class="cs-label">POINTS</span>
                 </div>
                 <div class="c-stat-box">
                     <span class="cs-val">5.3</span>
@@ -627,7 +679,7 @@
             <div class="champ-stats-grid">
                 <div class="c-stat-box">
                     <span class="cs-val">269</span>
-                    <span class="cs-label">TOTAL POINTS</span>
+                    <span class="cs-label">POINTS</span>
                 </div>
                 <div class="c-stat-box">
                     <span class="cs-val">7.1</span>
@@ -650,12 +702,17 @@
 
 <style>
     /* --- THEMES --- */
-    
     .cup-theme {
         --champ-color: #0077ff; 
         --champ-glow: rgba(0, 119, 255, 0.6);
         --bg-grad: radial-gradient(circle, rgba(0,0,0,0.4) 1px, transparent 1px), radial-gradient(circle at top, #001a33 0%, #000 100%);
-        background-size: 20px 20px, 100% 100%;
+        border-bottom: 1px solid #333;
+    }
+
+    .xfinity-theme {
+        --champ-color: #8000b0; 
+        --champ-glow: rgba(128, 0, 176, 0.6);
+        --bg-grad: radial-gradient(circle at bottom, #2a0038 0%, #000 100%);
         border-bottom: 1px solid #333;
     }
 
@@ -682,6 +739,7 @@
         display: flex;
         justify-content: center;
         box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        background-size: 20px 20px, 100% 100%;
     }
 
     .champion-banner::before {
@@ -702,9 +760,40 @@
         flex-wrap: wrap;
     }
 
-    /* UNIFIED LAYOUT: Text Left, Image Right for ALL banners */
     .champ-info { text-align: left; flex: 1; min-width: 300px; }
+    
+    /* STANDARD LAYOUT (Text Left, Image Right) - Default */
+    .champ-container:not(.co-champ-mode) .champ-info { order: 1; }
+    .champ-container:not(.co-champ-mode) .champ-visual { order: 2; }
 
+    /* --- CO-CHAMPION LAYOUT (3 Columns) --- */
+    .co-champ-mode .champ-container {
+        gap: 2rem;
+        align-items: center;
+    }
+    .side-stats { flex: 1; min-width: 200px; text-align: left; }
+    .side-stats.right-align { text-align: right; }
+    .center-stage { flex: 0 0 350px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+    
+    .co-name {
+        font-size: 2.5rem; line-height: 0.9; margin: 0 0 1rem 0;
+        text-transform: uppercase; color: #fff; text-shadow: 0 5px 15px rgba(0,0,0,0.8);
+    }
+    
+    .vertical-stack {
+        flex-direction: column; 
+        gap: 10px;
+        align-items: flex-start;
+    }
+    .right-align .vertical-stack { align-items: flex-end; }
+    .right-align .c-stat-box { text-align: right; }
+
+    .center-stage .champ-img { width: 350px; height: 350px; }
+    .center-stage .gold-ring { top: -15px; bottom: -15px; left: -15px; right: -15px; }
+    .center-stage .series-tag { margin-bottom: 2rem; }
+    .center-stage .champ-quote { border: none; margin-top: 2rem; font-size: 1.5rem; color: var(--champ-color); text-shadow: 0 0 20px var(--champ-glow); }
+
+    /* --- SHARED COMPONENTS --- */
     .series-tag {
         display: inline-flex; align-items: center; gap: 10px;
         background: var(--champ-color); color: #000;
@@ -712,7 +801,7 @@
         padding: 8px 16px; border-radius: 4px; margin-bottom: 1rem;
         box-shadow: 0 0 20px var(--champ-glow);
     }
-    .cup-theme .series-tag { color: #fff; text-shadow: 0 0 5px rgba(0,0,0,0.5); }
+    .cup-theme .series-tag, .xfinity-theme .series-tag { color: #fff; text-shadow: 0 0 5px rgba(0,0,0,0.5); }
 
     .champ-name {
         font-size: 4rem; line-height: 0.9; margin: 0 0 2rem 0;
@@ -726,14 +815,14 @@
     .c-stat-box {
         background: rgba(255,255,255,0.05);
         border: 1px solid #333;
-        padding: 15px; text-align: center;
+        padding: 10px 15px; text-align: center;
         border-radius: 8px; flex: 1;
         transition: 0.3s;
-        max-width: 150px;
+        min-width: 120px;
     }
     .c-stat-box:hover { border-color: var(--champ-color); background: rgba(255, 255, 255, 0.08); box-shadow: 0 0 15px var(--champ-glow); }
 
-    .cs-val { display: block; font-size: 1.8rem; font-family: 'Arial Black'; color: #fff; line-height: 1; }
+    .cs-val { display: block; font-size: 1.5rem; font-family: 'Arial Black'; color: #fff; line-height: 1; }
     .cs-label { font-size: 0.6rem; color: #888; letter-spacing: 1px; margin-top: 5px; }
 
     .champ-quote {
@@ -761,18 +850,16 @@
     }
     @keyframes spinRing { 100% { transform: rotate(360deg); } }
 
-    /* CONFETTI */
-    .confetti {
-        position: absolute; width: 8px; height: 8px; 
-        animation: fall 5s infinite linear; opacity: 0; pointer-events: none;
-    }
+    /* CONFETTI COLORS */
     .c-yellow { background-color: #fff200; box-shadow: 0 0 10px #fff200; }
     .c-white { background-color: #fff; }
     .c-red { background-color: #c00; box-shadow: 0 0 10px #c00; }
     .c-black { background-color: #000; border: 1px solid #333; }
     .c-blue { background-color: #0077ff; box-shadow: 0 0 10px #0077ff; }
+    .c-purple { background-color: #8000b0; box-shadow: 0 0 10px #8000b0; }
     .c-silver { background-color: #c0c0c0; box-shadow: 0 0 5px #fff; }
 
+    .confetti { position: absolute; width: 8px; height: 8px; animation: fall 5s infinite linear; opacity: 0; pointer-events: none; }
     .confetti:nth-child(1) { left: 10%; animation-duration: 4s; }
     .confetti:nth-child(2) { left: 30%; animation-duration: 6s; }
     .confetti:nth-child(3) { left: 50%; animation-duration: 5s; }
@@ -787,11 +874,21 @@
 
     @media (max-width: 900px) {
         .champ-container { flex-direction: column-reverse !important; text-align: center !important; gap: 2rem; }
+        
+        /* Mobile Co-Champ Fixes */
+        .co-champ-mode .champ-container { flex-direction: column !important; }
+        .center-stage { order: 1; margin-bottom: 2rem; }
+        .side-stats { order: 2; width: 100%; text-align: center; }
+        .side-stats.right-align { text-align: center; }
+        .vertical-stack { align-items: center; flex-direction: row; justify-content: center; width: 100%; }
+        
         .champ-info { text-align: center !important; }
         .champ-stats-grid { justify-content: center !important; }
         .champ-quote { border: none !important; border-top: 3px solid var(--champ-color) !important; padding-top: 15px; padding-left: 0; }
         .champ-visual { width: 220px; height: 220px; }
+        .center-stage .champ-img { width: 220px; height: 220px; }
         .champ-name { font-size: 3rem; }
+        .co-name { font-size: 2rem; }
     }
 </style>      
     <main class="container" style="max-width: 1300px; margin: 0 auto; padding: 2rem;">
