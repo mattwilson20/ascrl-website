@@ -10,6 +10,13 @@
                 "avg": 8.0
             },
             {
+                "type": "410 Wing Sprint",
+                "starts": 5,
+                "points": 133,
+                "wins": 0,
+                "avg": 10.4
+            },
+            {
                 "type": "Big Block Modified",
                 "starts": 3,
                 "points": 103,
@@ -31,14 +38,44 @@
                 "avg": 5.33
             },
             {
-                "type": "410 Wing Sprint",
+                "type": "WOO Late Model",
                 "starts": 3,
-                "points": 84,
+                "points": 64,
                 "wins": 0,
-                "avg": 9.0
+                "avg": 15.67
             }
         ],
         "race_log": [
+            {
+                "track": "Bristol",
+                "car": "410 Wing Sprint",
+                "pos": 15,
+                "pts": 22
+            },
+            {
+                "track": "Grant Park",
+                "car": "410 Wing Sprint",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Circle Lake",
+                "car": "WOO Late Model",
+                "pos": 15,
+                "pts": 22
+            },
+            {
+                "track": "Madison Lake",
+                "car": "WOO Late Model",
+                "pos": 16,
+                "pts": 21
+            },
+            {
+                "track": "Port Royal",
+                "car": "WOO Late Model",
+                "pos": 16,
+                "pts": 21
+            },
             {
                 "track": "Sugarbush",
                 "car": "410 Wing Sprint",
@@ -153,12 +190,12 @@
                 "number": "1",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 559,
+                    "points": 672,
                     "wins": 0,
                     "top5": 9,
-                    "top10": 16,
-                    "starts": 18,
-                    "avg": 5.94
+                    "top10": 17,
+                    "starts": 23,
+                    "avg": 7.78
                 }
             }
         }
@@ -167,6 +204,13 @@
         "display_name": "HatterMAD218",
         "cars": [
             {
+                "type": "410 Wing Sprint",
+                "starts": 6,
+                "points": 173,
+                "wins": 0,
+                "avg": 8.17
+            },
+            {
                 "type": "305 Sprint Car",
                 "starts": 6,
                 "points": 170,
@@ -174,11 +218,11 @@
                 "avg": 8.67
             },
             {
-                "type": "410 Wing Sprint",
+                "type": "WOO Late Model",
                 "starts": 3,
-                "points": 86,
+                "points": 85,
                 "wins": 0,
-                "avg": 8.33
+                "avg": 8.67
             },
             {
                 "type": "Midget",
@@ -189,6 +233,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Bristol",
+                "car": "410 Wing Sprint",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Williams Grove",
+                "car": "410 Wing Sprint",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Grant Park",
+                "car": "410 Wing Sprint",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Circle Lake",
+                "car": "WOO Late Model",
+                "pos": 14,
+                "pts": 23
+            },
+            {
+                "track": "Madison Lake",
+                "car": "WOO Late Model",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Port Royal",
+                "car": "WOO Late Model",
+                "pos": 7,
+                "pts": 30
+            },
             {
                 "track": "Sugarbush",
                 "car": "410 Wing Sprint",
@@ -267,12 +347,12 @@
                 "number": "218",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 339,
+                    "points": 511,
                     "wins": 0,
-                    "top5": 3,
-                    "top10": 8,
-                    "starts": 12,
-                    "avg": 8.75
+                    "top5": 5,
+                    "top10": 12,
+                    "starts": 18,
+                    "avg": 8.61
                 }
             }
         }
@@ -289,10 +369,17 @@
             },
             {
                 "type": "410 Wing Sprint",
-                "starts": 3,
-                "points": 91,
+                "starts": 6,
+                "points": 161,
                 "wins": 0,
-                "avg": 6.67
+                "avg": 10.17
+            },
+            {
+                "type": "WOO Late Model",
+                "starts": 3,
+                "points": 86,
+                "wins": 0,
+                "avg": 8.33
             },
             {
                 "type": "Big Block Modified",
@@ -317,6 +404,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Bristol",
+                "car": "410 Wing Sprint",
+                "pos": 13,
+                "pts": 24
+            },
+            {
+                "track": "Williams Grove",
+                "car": "410 Wing Sprint",
+                "pos": 14,
+                "pts": 23
+            },
+            {
+                "track": "Grant Park",
+                "car": "410 Wing Sprint",
+                "pos": 14,
+                "pts": 23
+            },
+            {
+                "track": "Circle Lake",
+                "car": "WOO Late Model",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Madison Lake",
+                "car": "WOO Late Model",
+                "pos": 14,
+                "pts": 23
+            },
+            {
+                "track": "Port Royal",
+                "car": "WOO Late Model",
+                "pos": 2,
+                "pts": 35
+            },
             {
                 "track": "Sugarbush",
                 "car": "410 Wing Sprint",
@@ -437,31 +560,83 @@
                 "number": "000",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 513,
+                    "points": 669,
                     "wins": 0,
-                    "top5": 2,
-                    "top10": 11,
-                    "starts": 19,
-                    "avg": 10.0
+                    "top5": 3,
+                    "top10": 13,
+                    "starts": 25,
+                    "avg": 10.24
                 }
             }
         }
     },
     "1323671887590592543": {
         "display_name": "SOLID1915ONE",
-        "cars": [],
-        "race_log": [],
+        "cars": [
+            {
+                "type": "410 Wing Sprint",
+                "starts": 3,
+                "points": 99,
+                "wins": 0,
+                "avg": 4.0
+            },
+            {
+                "type": "WOO Late Model",
+                "starts": 3,
+                "points": 93,
+                "wins": 0,
+                "avg": 6.0
+            }
+        ],
+        "race_log": [
+            {
+                "track": "Bristol",
+                "car": "410 Wing Sprint",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Williams Grove",
+                "car": "410 Wing Sprint",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Grant Park",
+                "car": "410 Wing Sprint",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Circle Lake",
+                "car": "WOO Late Model",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Madison Lake",
+                "car": "WOO Late Model",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Port Royal",
+                "car": "WOO Late Model",
+                "pos": 3,
+                "pts": 34
+            }
+        ],
         "series": {
             "World Of Outlaws": {
                 "number": "64",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 0,
+                    "points": 192,
                     "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "starts": 0,
-                    "avg": 0
+                    "top5": 5,
+                    "top10": 5,
+                    "starts": 6,
+                    "avg": 5.0
                 }
             }
         }
@@ -469,6 +644,13 @@
     "271508381506732032": {
         "display_name": "ALESSI-20-11",
         "cars": [
+            {
+                "type": "410 Wing Sprint",
+                "starts": 6,
+                "points": 194,
+                "wins": 0,
+                "avg": 4.67
+            },
             {
                 "type": "305 Sprint Car",
                 "starts": 6,
@@ -484,18 +666,18 @@
                 "avg": 2.33
             },
             {
-                "type": "410 Wing Sprint",
-                "starts": 3,
-                "points": 98,
-                "wins": 0,
-                "avg": 4.33
-            },
-            {
                 "type": "360 Sprint",
                 "starts": 3,
                 "points": 93,
                 "wins": 0,
                 "avg": 6.0
+            },
+            {
+                "type": "WOO Late Model",
+                "starts": 3,
+                "points": 89,
+                "wins": 0,
+                "avg": 7.33
             },
             {
                 "type": "Big Block Modified",
@@ -506,6 +688,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Bristol",
+                "car": "410 Wing Sprint",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Williams Grove",
+                "car": "410 Wing Sprint",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Grant Park",
+                "car": "410 Wing Sprint",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Circle Lake",
+                "car": "WOO Late Model",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Madison Lake",
+                "car": "WOO Late Model",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Port Royal",
+                "car": "WOO Late Model",
+                "pos": 9,
+                "pts": 28
+            },
             {
                 "track": "Sugarbush",
                 "car": "410 Wing Sprint",
@@ -620,12 +838,12 @@
                 "number": "8",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 565,
+                    "points": 750,
                     "wins": 1,
-                    "top5": 8,
-                    "top10": 17,
-                    "starts": 18,
-                    "avg": 5.83
+                    "top5": 10,
+                    "top10": 23,
+                    "starts": 24,
+                    "avg": 5.92
                 }
             }
         }
@@ -763,10 +981,10 @@
             },
             {
                 "type": "410 Wing Sprint",
-                "starts": 3,
-                "points": 102,
+                "starts": 6,
+                "points": 180,
                 "wins": 1,
-                "avg": 4.33
+                "avg": 7.67
             },
             {
                 "type": "Big Block Modified",
@@ -788,9 +1006,52 @@
                 "points": 91,
                 "wins": 0,
                 "avg": 6.67
+            },
+            {
+                "type": "WOO Late Model",
+                "starts": 3,
+                "points": 74,
+                "wins": 0,
+                "avg": 12.33
             }
         ],
         "race_log": [
+            {
+                "track": "Bristol",
+                "car": "410 Wing Sprint",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Williams Grove",
+                "car": "410 Wing Sprint",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Grant Park",
+                "car": "410 Wing Sprint",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Circle Lake",
+                "car": "WOO Late Model",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Madison Lake",
+                "car": "WOO Late Model",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Port Royal",
+                "car": "WOO Late Model",
+                "pos": 15,
+                "pts": 22
+            },
             {
                 "track": "Sugarbush",
                 "car": "410 Wing Sprint",
@@ -905,12 +1166,12 @@
                 "number": "57j",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 564,
+                    "points": 716,
                     "wins": 1,
                     "top5": 7,
                     "top10": 18,
-                    "starts": 18,
-                    "avg": 5.89
+                    "starts": 24,
+                    "avg": 7.33
                 }
             }
         }
@@ -918,6 +1179,20 @@
     "1092835109067034735": {
         "display_name": "The_Stone07",
         "cars": [
+            {
+                "type": "WOO Late Model",
+                "starts": 3,
+                "points": 120,
+                "wins": 3,
+                "avg": 1.0
+            },
+            {
+                "type": "410 Wing Sprint",
+                "starts": 3,
+                "points": 120,
+                "wins": 3,
+                "avg": 1.0
+            },
             {
                 "type": "360 Sprint",
                 "starts": 3,
@@ -948,6 +1223,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Bristol",
+                "car": "410 Wing Sprint",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Williams Grove",
+                "car": "410 Wing Sprint",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Grant Park",
+                "car": "410 Wing Sprint",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Circle Lake",
+                "car": "WOO Late Model",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Madison Lake",
+                "car": "WOO Late Model",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Port Royal",
+                "car": "WOO Late Model",
+                "pos": 1,
+                "pts": 40
+            },
             {
                 "track": "Elm Creek",
                 "car": "Midget",
@@ -1014,12 +1325,12 @@
                 "number": "07",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 343,
-                    "wins": 5,
-                    "top5": 7,
-                    "top10": 8,
-                    "starts": 10,
-                    "avg": 4.7
+                    "points": 583,
+                    "wins": 11,
+                    "top5": 13,
+                    "top10": 14,
+                    "starts": 16,
+                    "avg": 3.31
                 }
             }
         }
@@ -1537,10 +1848,17 @@
             },
             {
                 "type": "410 Wing Sprint",
-                "starts": 3,
-                "points": 103,
+                "starts": 6,
+                "points": 200,
                 "wins": 1,
-                "avg": 4.0
+                "avg": 4.33
+            },
+            {
+                "type": "WOO Late Model",
+                "starts": 3,
+                "points": 92,
+                "wins": 0,
+                "avg": 6.33
             },
             {
                 "type": "Midget",
@@ -1551,6 +1869,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Bristol",
+                "car": "410 Wing Sprint",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Williams Grove",
+                "car": "410 Wing Sprint",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Grant Park",
+                "car": "410 Wing Sprint",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Circle Lake",
+                "car": "WOO Late Model",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Madison Lake",
+                "car": "WOO Late Model",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Port Royal",
+                "car": "WOO Late Model",
+                "pos": 11,
+                "pts": 26
+            },
             {
                 "track": "Sugarbush",
                 "car": "410 Wing Sprint",
@@ -1629,12 +1983,12 @@
                 "number": "13",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 392,
+                    "points": 581,
                     "wins": 2,
-                    "top5": 8,
-                    "top10": 10,
-                    "starts": 12,
-                    "avg": 5.0
+                    "top5": 11,
+                    "top10": 15,
+                    "starts": 18,
+                    "avg": 5.17
                 }
             }
         }
@@ -1721,6 +2075,13 @@
                 "avg": 6.33
             },
             {
+                "type": "410 Wing Sprint",
+                "starts": 6,
+                "points": 155,
+                "wins": 0,
+                "avg": 11.17
+            },
+            {
                 "type": "Midget",
                 "starts": 3,
                 "points": 92,
@@ -1728,14 +2089,50 @@
                 "avg": 7.67
             },
             {
-                "type": "410 Wing Sprint",
+                "type": "WOO Late Model",
                 "starts": 3,
-                "points": 76,
+                "points": 74,
                 "wins": 0,
-                "avg": 11.67
+                "avg": 12.33
             }
         ],
         "race_log": [
+            {
+                "track": "Bristol",
+                "car": "410 Wing Sprint",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Williams Grove",
+                "car": "410 Wing Sprint",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Grant Park",
+                "car": "410 Wing Sprint",
+                "pos": 13,
+                "pts": 24
+            },
+            {
+                "track": "Circle Lake",
+                "car": "WOO Late Model",
+                "pos": 13,
+                "pts": 24
+            },
+            {
+                "track": "Madison Lake",
+                "car": "WOO Late Model",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Port Royal",
+                "car": "WOO Late Model",
+                "pos": 14,
+                "pts": 23
+            },
             {
                 "track": "Sugarbush",
                 "car": "410 Wing Sprint",
@@ -1814,12 +2211,12 @@
                 "number": "33",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 352,
+                    "points": 505,
                     "wins": 1,
                     "top5": 5,
-                    "top10": 6,
-                    "starts": 12,
-                    "avg": 8.0
+                    "top10": 9,
+                    "starts": 18,
+                    "avg": 9.17
                 }
             }
         }
@@ -1861,9 +2258,34 @@
                 "points": 77,
                 "wins": 0,
                 "avg": 11.33
+            },
+            {
+                "type": "WOO Late Model",
+                "starts": 3,
+                "points": 66,
+                "wins": 0,
+                "avg": 15.0
             }
         ],
         "race_log": [
+            {
+                "track": "Circle Lake",
+                "car": "WOO Late Model",
+                "pos": 17,
+                "pts": 20
+            },
+            {
+                "track": "Madison Lake",
+                "car": "WOO Late Model",
+                "pos": 15,
+                "pts": 22
+            },
+            {
+                "track": "Port Royal",
+                "car": "WOO Late Model",
+                "pos": 13,
+                "pts": 24
+            },
             {
                 "track": "Sugarbush",
                 "car": "410 Wing Sprint",
@@ -1978,12 +2400,12 @@
                 "number": "83",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 488,
+                    "points": 554,
                     "wins": 0,
                     "top5": 0,
                     "top10": 11,
-                    "starts": 18,
-                    "avg": 9.89
+                    "starts": 21,
+                    "avg": 10.62
                 }
             }
         }
@@ -2058,10 +2480,17 @@
         "cars": [
             {
                 "type": "410 Wing Sprint",
-                "starts": 3,
-                "points": 103,
+                "starts": 5,
+                "points": 173,
                 "wins": 0,
-                "avg": 2.67
+                "avg": 2.4
+            },
+            {
+                "type": "WOO Late Model",
+                "starts": 3,
+                "points": 95,
+                "wins": 0,
+                "avg": 5.33
             },
             {
                 "type": "Midget",
@@ -2079,6 +2508,36 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Bristol",
+                "car": "410 Wing Sprint",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Williams Grove",
+                "car": "410 Wing Sprint",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Circle Lake",
+                "car": "WOO Late Model",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Madison Lake",
+                "car": "WOO Late Model",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Port Royal",
+                "car": "WOO Late Model",
+                "pos": 10,
+                "pts": 27
+            },
             {
                 "track": "Sugarbush",
                 "car": "410 Wing Sprint",
@@ -2139,12 +2598,12 @@
                 "number": "88E",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 280,
+                    "points": 445,
                     "wins": 0,
-                    "top5": 5,
-                    "top10": 8,
-                    "starts": 9,
-                    "avg": 5.89
+                    "top5": 9,
+                    "top10": 13,
+                    "starts": 14,
+                    "avg": 5.21
                 }
             }
         }
@@ -2153,6 +2612,13 @@
         "display_name": "lnfvmous_-",
         "cars": [
             {
+                "type": "410 Wing Sprint",
+                "starts": 3,
+                "points": 78,
+                "wins": 0,
+                "avg": 11.0
+            },
+            {
                 "type": "Midget",
                 "starts": 3,
                 "points": 72,
@@ -2160,14 +2626,38 @@
                 "avg": 13.0
             },
             {
-                "type": "410 Wing Sprint",
-                "starts": 2,
-                "points": 56,
+                "type": "WOO Late Model",
+                "starts": 3,
+                "points": 67,
                 "wins": 0,
-                "avg": 9.0
+                "avg": 14.67
             }
         ],
         "race_log": [
+            {
+                "track": "Grant Park",
+                "car": "410 Wing Sprint",
+                "pos": 15,
+                "pts": 22
+            },
+            {
+                "track": "Circle Lake",
+                "car": "WOO Late Model",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Madison Lake",
+                "car": "WOO Late Model",
+                "pos": 17,
+                "pts": 20
+            },
+            {
+                "track": "Port Royal",
+                "car": "WOO Late Model",
+                "pos": 17,
+                "pts": 20
+            },
             {
                 "track": "Sugarbush",
                 "car": "410 Wing Sprint",
@@ -2204,12 +2694,12 @@
                 "number": "777",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 128,
+                    "points": 217,
                     "wins": 0,
                     "top5": 1,
-                    "top10": 1,
-                    "starts": 5,
-                    "avg": 11.4
+                    "top10": 2,
+                    "starts": 9,
+                    "avg": 12.89
                 }
             }
         }
@@ -2218,21 +2708,64 @@
         "display_name": "Cratelate5",
         "cars": [
             {
+                "type": "410 Wing Sprint",
+                "starts": 6,
+                "points": 161,
+                "wins": 0,
+                "avg": 10.17
+            },
+            {
+                "type": "WOO Late Model",
+                "starts": 3,
+                "points": 96,
+                "wins": 0,
+                "avg": 5.0
+            },
+            {
                 "type": "305 Sprint Car",
                 "starts": 3,
                 "points": 92,
                 "wins": 0,
                 "avg": 6.33
-            },
-            {
-                "type": "410 Wing Sprint",
-                "starts": 3,
-                "points": 82,
-                "wins": 0,
-                "avg": 9.67
             }
         ],
         "race_log": [
+            {
+                "track": "Bristol",
+                "car": "410 Wing Sprint",
+                "pos": 14,
+                "pts": 23
+            },
+            {
+                "track": "Williams Grove",
+                "car": "410 Wing Sprint",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Grant Park",
+                "car": "410 Wing Sprint",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Circle Lake",
+                "car": "WOO Late Model",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Madison Lake",
+                "car": "WOO Late Model",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Port Royal",
+                "car": "WOO Late Model",
+                "pos": 8,
+                "pts": 29
+            },
             {
                 "track": "Sugarbush",
                 "car": "410 Wing Sprint",
@@ -2275,12 +2808,315 @@
                 "number": "51",
                 "manufacturer": "N/A",
                 "stats": {
+                    "points": 349,
+                    "wins": 0,
+                    "top5": 4,
+                    "top10": 9,
+                    "starts": 12,
+                    "avg": 7.92
+                }
+            }
+        }
+    },
+    "463124702190239744": {
+        "display_name": "georgewright9182",
+        "cars": [],
+        "race_log": [],
+        "series": {
+            "World Of Outlaws": {
+                "number": "33x",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "starts": 0,
+                    "avg": 0
+                }
+            }
+        }
+    },
+    "851128129393131550": {
+        "display_name": "Mike_8762",
+        "cars": [
+            {
+                "type": "WOO Late Model",
+                "starts": 3,
+                "points": 86,
+                "wins": 0,
+                "avg": 8.33
+            },
+            {
+                "type": "410 Wing Sprint",
+                "starts": 3,
+                "points": 86,
+                "wins": 0,
+                "avg": 8.33
+            }
+        ],
+        "race_log": [
+            {
+                "track": "Bristol",
+                "car": "410 Wing Sprint",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Williams Grove",
+                "car": "410 Wing Sprint",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Grant Park",
+                "car": "410 Wing Sprint",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Circle Lake",
+                "car": "WOO Late Model",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Madison Lake",
+                "car": "WOO Late Model",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Port Royal",
+                "car": "WOO Late Model",
+                "pos": 6,
+                "pts": 31
+            }
+        ],
+        "series": {
+            "World Of Outlaws": {
+                "number": "05",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 172,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 5,
+                    "starts": 6,
+                    "avg": 8.33
+                }
+            }
+        }
+    },
+    "1276370402800566292": {
+        "display_name": "xxHambone",
+        "cars": [
+            {
+                "type": "410 Wing Sprint",
+                "starts": 3,
+                "points": 88,
+                "wins": 0,
+                "avg": 7.67
+            },
+            {
+                "type": "WOO Late Model",
+                "starts": 3,
+                "points": 86,
+                "wins": 0,
+                "avg": 8.33
+            }
+        ],
+        "race_log": [
+            {
+                "track": "Bristol",
+                "car": "410 Wing Sprint",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Williams Grove",
+                "car": "410 Wing Sprint",
+                "pos": 13,
+                "pts": 24
+            },
+            {
+                "track": "Grant Park",
+                "car": "410 Wing Sprint",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Circle Lake",
+                "car": "WOO Late Model",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Madison Lake",
+                "car": "WOO Late Model",
+                "pos": 13,
+                "pts": 24
+            },
+            {
+                "track": "Port Royal",
+                "car": "WOO Late Model",
+                "pos": 4,
+                "pts": 33
+            }
+        ],
+        "series": {
+            "World Of Outlaws": {
+                "number": "32",
+                "manufacturer": "N/A",
+                "stats": {
                     "points": 174,
                     "wins": 0,
                     "top5": 2,
-                    "top10": 5,
+                    "top10": 4,
                     "starts": 6,
                     "avg": 8.0
+                }
+            }
+        }
+    },
+    "503732466360778782": {
+        "display_name": "bschiltzjr",
+        "cars": [
+            {
+                "type": "410 Wing Sprint",
+                "starts": 3,
+                "points": 86,
+                "wins": 0,
+                "avg": 8.33
+            },
+            {
+                "type": "WOO Late Model",
+                "starts": 3,
+                "points": 74,
+                "wins": 0,
+                "avg": 12.33
+            }
+        ],
+        "race_log": [
+            {
+                "track": "Bristol",
+                "car": "410 Wing Sprint",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Williams Grove",
+                "car": "410 Wing Sprint",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Grant Park",
+                "car": "410 Wing Sprint",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Circle Lake",
+                "car": "WOO Late Model",
+                "pos": 16,
+                "pts": 21
+            },
+            {
+                "track": "Madison Lake",
+                "car": "WOO Late Model",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Port Royal",
+                "car": "WOO Late Model",
+                "pos": 12,
+                "pts": 25
+            }
+        ],
+        "series": {
+            "World Of Outlaws": {
+                "number": "5B",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 160,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 3,
+                    "starts": 6,
+                    "avg": 10.33
+                }
+            }
+        }
+    },
+    "1156655071451414601": {
+        "display_name": "DGibby17",
+        "cars": [
+            {
+                "type": "WOO Late Model",
+                "starts": 3,
+                "points": 93,
+                "wins": 0,
+                "avg": 6.0
+            },
+            {
+                "type": "410 Wing Sprint",
+                "starts": 3,
+                "points": 89,
+                "wins": 0,
+                "avg": 7.33
+            }
+        ],
+        "race_log": [
+            {
+                "track": "Bristol",
+                "car": "410 Wing Sprint",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Williams Grove",
+                "car": "410 Wing Sprint",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Grant Park",
+                "car": "410 Wing Sprint",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Circle Lake",
+                "car": "WOO Late Model",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Madison Lake",
+                "car": "WOO Late Model",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Port Royal",
+                "car": "WOO Late Model",
+                "pos": 5,
+                "pts": 32
+            }
+        ],
+        "series": {
+            "World Of Outlaws": {
+                "number": "17",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 182,
+                    "wins": 0,
+                    "top5": 2,
+                    "top10": 6,
+                    "starts": 6,
+                    "avg": 6.67
                 }
             }
         }
