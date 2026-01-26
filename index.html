@@ -718,14 +718,24 @@
         <div style="margin-bottom: 0.5rem; letter-spacing: 2px; color: #fff;">
             © 2025-2026 AMERICAN STOCK CAR RACING LEAGUE
         </div>
+        
         <div style="font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 2rem; text-transform: uppercase;">
             OWNED AND OPERATED BY <span style="color: #fff; font-weight: bold;">A&M PRODUCTIONS LLC</span>
         </div>
+
         <div class="social-links">
-            <a href="https://www.facebook.com/share/14PeZVCH1hL/" target="_blank" class="social-icon facebook" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
-            <a href="https://x.com/ASCRWeekly" target="_blank" class="social-icon x-twitter" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
-            <a href="mailto:contact.ascrl@gmail.com" class="social-icon email" aria-label="Email A&M Productions"><i class="fa-solid fa-envelope"></i></a>
+            <a href="https://www.facebook.com/share/14PeZVCH1hL/" target="_blank" class="social-icon facebook" aria-label="Facebook">
+                <i class="fa-brands fa-facebook"></i>
+            </a>
+            <a href="https://x.com/ASCRWeekly" target="_blank" class="social-icon x-twitter" aria-label="X (Twitter)">
+                <i class="fa-brands fa-x-twitter"></i>
+            </a>
+            
+            <a href="mailto:contact.ascrl@gmail.com" class="social-icon email" aria-label="Email A&M Productions">
+                <i class="fa-solid fa-envelope"></i>
+            </a>
         </div>
+        
         <div style="font-size: 0.6rem; color: #444; margin-top: 20px; font-style: italic;">*ai generated images may be used</div>
     </footer>
 
@@ -753,6 +763,8 @@
     // --- HELPER: GET DRIVER IMAGE ---
     function getDriverImage(driverName) {
         const nameLower = driverName.toLowerCase();
+
+        // --- NEW DRIVERS ADDED JAN 3, 2026 ---
         if (nameLower.includes('k7_dalton')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/9a7e63f44a37cedfdf0b85ddeb4968c3b0da8817/k7Dalton.jpg";
         if (nameLower.includes('isaac')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/d0f7c7e6480bc33317d4e7939036024f0dcff3dc/Isaac.jpg";
         if (nameLower.includes('z71chevyman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/869f4adefde19421e449f2e1e9ab7bd3a6ffaee5/ChevyMan.jpg";
@@ -762,6 +774,8 @@
         if (nameLower.includes('solid1915')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/7655f9eefe0cdd0d1809954233309718780d8925/SolidOne.jpg";
         if (nameLower.includes('the_fireman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6426c5de3657027051e18be3fae01a1c56faefbd/Fireman.jpg";
         if (nameLower.includes('the_stone')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/e81190c6bca706ca129f3413df56c7f2e375f74b/Stone.jpg";
+
+        // --- EXISTING DRIVERS ---
         if (nameLower.includes('alessi')) return "https://github.com/mattwilson20/ascrl-website/blob/main/Alessi.Hero.Card.jpg?raw=true";
         if (nameLower.includes('dakotathomas')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg";
         if (nameLower.includes('orangeman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/70b5243e68e9c7f7a596f6695677d8d3520e89e1/IMG_7160.jpg";
@@ -785,15 +799,19 @@
         if (nameLower.includes('kingg')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/9eb12bdb1b61a806ad951ae9a8bddc590622f35f/King.Hero.Card.jpg";
         if (nameLower.includes('hatter')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/34425dadb737bc4bc27aa9271be62909dc9a3e99/Hatter.Hero.Card.jpg";
         if (nameLower.includes('big_fella')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ced27a5d96e0d211f038b36e34a55bccf4a7e4de/BigFella.Hero.Card.jpg";
+
+        // Default Ghost
         return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg";
     }
 
-    const season = "Season_2"; 
-    const scheduleFile = `ASCRL_Schedule_${season}.json`; 
-    const scheduleFallback = `ASCRL_2026_Schedule.json`;
-    const driversFile = `drivers_${season}.json`;
-    const driversFallback = `drivers.json`;
-    const resultsFile = `ASCRL_Results_${season}.json`;
+    // 2. DATA LOADING
+    // --- 2026 SEASON UPDATE ---
+    const scheduleFile = "ASCRL_2026_Schedule.json";
+    
+    // NOTE: We keep these pointed to Season 1 data for now so the carousel isn't empty.
+    // When you have results for Season 2, change "Season_1" to "Season_2".
+    const driversFile = "drivers_Season_1.json"; 
+    const resultsFile = "ASCRL_Results_Season_1.json";
 
     async function fetchWithFallback(primary, secondary) {
         try {
@@ -804,14 +822,17 @@
     }
 
     Promise.all([
-        fetchWithFallback(scheduleFile, scheduleFallback),
-        fetchWithFallback(driversFile, driversFallback),
+        fetchWithFallback(scheduleFile, null),
+        fetchWithFallback(driversFile, null),
         fetchWithFallback(resultsFile, null)
     ]).then(([schedData, driversData, resultsData]) => {
+        
+        // A. SCHEDULE (2026)
         if(schedData) {
             ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(s => {
                 const sKey = Object.keys(schedData).find(k => k.toLowerCase() === s.toLowerCase());
                 if (sKey && schedData[sKey]) {
+                    // Find next race based on today's date
                     const next = schedData[sKey].find(r => new Date(r.date + "T23:59:00") >= new Date());
                     if(next) {
                         document.getElementById(s.toLowerCase() + '-next').innerText = next.track;
@@ -823,9 +844,11 @@
             });
         }
 
+        // B. LEADERS (Showing Season 1 Champions/Leaders until S2 starts)
         if(driversData) {
             let html = '';
             const allDrivers = Object.keys(driversData).map(key => ({ id: key, display_name: driversData[key].display_name || key, ...driversData[key] }));
+
             ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(seriesName => {
                 let bestDriver = null, maxPoints = -1, bestData = null;
                 allDrivers.forEach(driver => {
@@ -833,24 +856,32 @@
                     const sKey = Object.keys(driver.series).find(k => k.toLowerCase() === seriesName.toLowerCase());
                     if (sKey) {
                         const sData = driver.series[sKey];
-                        if ((sData.stats.points || 0) > maxPoints) {
-                            maxPoints = sData.stats.points || 0;
+                        // Fallback to old 'stats' object if 'current_stats' is missing or empty
+                        const stats = sData.current_stats || sData.stats || {points:0};
+                        
+                        if ((stats.points || 0) > maxPoints) {
+                            maxPoints = stats.points || 0;
                             bestDriver = driver;
                             bestData = sData;
                         }
                     }
                 });
+
                 if (bestDriver && bestData) {
                     let badgeClass = seriesName.toLowerCase() === 'cup' ? 'badge-cup' : seriesName.toLowerCase() === 'xfinity' ? 'badge-xfinity' : seriesName.toLowerCase() === 'truck' ? 'badge-truck' : 'badge-menards';
-                    const wins = bestData.stats.wins || 0;
+                    const stats = bestData.current_stats || bestData.stats || {wins:0};
+                    const wins = stats.wins || 0;
                     let flags = '';
                     for(let i=0; i<wins; i++) flags += `<i class="fa-solid fa-flag-checkered flag-icon ${badgeClass.replace('badge', 'flag')}"></i>`;
+
                     html += `
                         <div class="carousel-cell">
                             <div class="card-layer-image" style="background-image: url('${getDriverImage(bestDriver.display_name)}');"></div>
                             <div class="card-layer-gradient"></div>
+                            
                             <div class="series-badge-top ${badgeClass}" style="z-index: 5;">${seriesName} LEADER</div>
                             <div class="bg-number">${bestData.number || ''}</div>
+                            
                             <div class="card-content">
                                 <div class="win-flags-container">${flags}</div>
                                 <h3 class="driver-name">${bestDriver.display_name}</h3>
@@ -867,6 +898,7 @@
             document.getElementById('leaders-carousel').innerHTML = html;
         }
 
+        // C. WINNERS (Showing Season 1 Winners until S2 starts)
         if(resultsData) {
             let html = '';
             const keys = Object.keys(resultsData);
@@ -881,12 +913,15 @@
                         let badgeClass = seriesName.toLowerCase() === 'cup' ? 'badge-cup' : seriesName.toLowerCase() === 'xfinity' ? 'badge-xfinity' : seriesName.toLowerCase() === 'truck' ? 'badge-truck' : 'badge-menards';
                         let cleanName = winner.driver.replace(/^#\d+\s+/, '').trim();
                         let carNum = (winner.driver.match(/^#(\d+)/) || [])[1] || '';
+                        
                         html += `
                             <div class="carousel-cell">
                                 <div class="card-layer-image" style="background-image: url('${getDriverImage(cleanName)}');"></div>
                                 <div class="card-layer-gradient"></div>
+                                
                                 <div class="series-badge-top ${badgeClass}" style="right:0; left:auto; clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%); z-index:5;">${seriesName} WINNER</div>
                                 <div class="bg-number">${carNum}</div>
+                                
                                 <div class="card-content">
                                     <div style="font-size:0.8rem; color:var(--primary); font-weight:bold; margin-bottom:5px;">${lastKey.split('-')[1].trim()}</div>
                                     <h3 class="driver-name">${cleanName}</h3>
@@ -899,40 +934,56 @@
             document.getElementById('winners-carousel').innerHTML = html;
         }
 
+        // D. POWER RANKINGS CALCULATION
         if(driversData && resultsData) {
             calculatePowerRankings(driversData, resultsData);
         }
     });
 
-    let rankingsCache = {}; 
+    // --- POWER RANKINGS ENGINE v2 (Multi-Series Support) ---
+    let rankingsCache = {}; // Stores the calculated lists for instant switching
+
     async function calculatePowerRankings(driversData, resultsData) {
+        
+        // 1. Process Momentum (Last 3 finishes per series)
         const momentumMap = {};
         Object.keys(resultsData).forEach(raceKey => {
             const parts = raceKey.split(' - ');
             const series = parts[0]; 
             const results = resultsData[raceKey];
+
             results.forEach(r => {
                 let name = r.driver;
-                if(name.includes('#')) name = name.split(' ').slice(1).join(' ');
+                if(name.includes('#')) name = name.split(' ').slice(1).join(' '); // Clean #
                 name = name.trim();
+
                 if(!momentumMap[name]) momentumMap[name] = {};
                 if(!momentumMap[name][series]) momentumMap[name][series] = [];
                 momentumMap[name][series].push(r.position);
             });
         });
 
+        // 2. Weights & Config
         const WEIGHTS = { points: 0.40, wins: 0.20, consistency: 0.25, momentum: 0.15 };
         const SERIES_MULT = { "Cup": 1.0, "Xfinity": 0.85, "Truck": 0.70, "Menards": 0.55 };
+        
+        // Initialize Cache
         rankingsCache = { "Overall": [], "Cup": [], "Xfinity": [], "Truck": [], "Menards": [] };
 
+        // --- HELPER: Calculate Score for a single series entry ---
         function getSeriesScore(stats, seriesName, driverName) {
             const pts = stats.points || 0;
             const wins = stats.wins || 0;
             const avg = stats.avg || 40;
+            
+            // Find max points for THIS series to normalize (Simplified 400 cap)
             const maxPts = 400; 
+
             const normPoints = Math.min(pts / maxPts, 1.0);
-            const normWins = Math.min(wins / 3, 1.0); 
+            const normWins = Math.min(wins / 3, 1.0); // 3 wins = 100%
             const normConsist = Math.max(0, (40 - avg) / 39);
+            
+            // Momentum
             let normMom = 0;
             const recents = momentumMap[driverName] ? momentumMap[driverName][seriesName] : null;
             if(recents && recents.length > 0) {
@@ -942,21 +993,30 @@
             } else {
                 normMom = normConsist; 
             }
+
             return ((normPoints * WEIGHTS.points) + (normWins * WEIGHTS.wins) + (normConsist * WEIGHTS.consistency) + (normMom * WEIGHTS.momentum)) * 100;
         }
 
+        // 3. Main Loop
         Object.keys(driversData).forEach(id => {
             const d = driversData[id];
             const name = d.display_name;
+            
             let overallScoreSum = 0;
             let seriesCount = 0;
             let totalWins = 0;
             let primaryTeam = "Independent";
+
             if(d.series) {
                 Object.keys(d.series).forEach(s => {
-                    const stats = d.series[s].stats;
+                    // Fallback to legacy 'stats' if 'current_stats' doesn't exist
+                    const stats = d.series[s].current_stats || d.series[s].stats;
                     if(!stats) return;
+
+                    // Series Specific Calculation
                     const sScore = getSeriesScore(stats, s, name);
+                    
+                    // Add to Series Specific List
                     if(rankingsCache[s]) {
                         rankingsCache[s].push({
                             name: name,
@@ -966,6 +1026,8 @@
                             img: getDriverImage(name)
                         });
                     }
+
+                    // Add to Overall Sum (Weighted)
                     if(SERIES_MULT[s]) {
                         overallScoreSum += sScore * SERIES_MULT[s];
                         seriesCount++;
@@ -974,6 +1036,7 @@
                     }
                 });
             }
+
             if(seriesCount > 0) {
                 rankingsCache["Overall"].push({
                     name: name,
@@ -985,26 +1048,37 @@
             }
         });
 
+        // 4. Sort All Lists
         Object.keys(rankingsCache).forEach(key => {
             rankingsCache[key].sort((a,b) => b.score - a.score);
         });
+
+        // 5. Initial Render
         renderRankings("Overall");
     }
 
     function renderRankings(category) {
         const container = document.getElementById('power-rankings-container');
         const data = rankingsCache[category];
+        
+        // Update Buttons
         document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
         const btn = document.querySelector(`.filter-btn.btn-${category.toLowerCase()}`) || document.querySelector(`.filter-btn.btn-overall`);
         if(btn) btn.classList.add('active');
+
         if(!data || data.length === 0) {
             container.innerHTML = `<p style="text-align:center; color:#666; padding:2rem;">No data available for ${category}.</p>`;
             return;
         }
+
         container.innerHTML = ''; 
+
+        // Show top 10 (or 15 for overall)
         const limit = 10;
         const topList = data.slice(0, limit);
         const topScore = topList[0].score;
+
+        // Define bar color based on category
         let barColor = "rgba(255,255,255,0.1)";
         let scoreColor = "#fff";
         if(category === "Overall") { barColor = "rgba(0,255,0,0.1)"; scoreColor = "#00ff00"; }
@@ -1016,6 +1090,7 @@
         topList.forEach((d, index) => {
             const delay = index * 0.05; 
             const widthPct = Math.max((d.score / topScore) * 100, 15);
+
             const html = `
             <div class="power-card" style="animation-delay: ${delay}s; border-color: ${scoreColor}44;">
                 <div class="p-bar" style="width: ${widthPct}%; background: ${barColor};"></div>
@@ -1036,7 +1111,12 @@
         });
     }
 
-    document.addEventListener('contextmenu', (e) => { e.preventDefault(); });
+    // 1. Disable Right Click
+    document.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+    });
+
+    // 2. Disable Keyboard Shortcuts (Ctrl+U, F12, Ctrl+Shift+I, etc.)
     document.addEventListener('keydown', (e) => {
         if (e.ctrlKey || e.metaKey) {
             switch (e.key.toLowerCase()) {
@@ -1049,6 +1129,7 @@
         if (e.key === 'F12') { e.preventDefault(); return false; }
     });
 
+    // 3. DUAL COUNTDOWN LOGIC
     const nascarDate = new Date("February 15, 2026 14:30:00").getTime();
     const ascrlDate = new Date("February 17, 2026 20:00:00").getTime();
 
