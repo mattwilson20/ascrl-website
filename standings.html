@@ -29,7 +29,8 @@
             background-attachment: fixed;
         }
 
-        #nav-placeholder { position: relative; z-index: 2000; }
+        /* --- Z-INDEX FIX FOR HAMBURGER MENU --- */
+        #nav-placeholder { position: relative; z-index: 99999; }
 
         /* --- HERO --- */
         .hero {
@@ -137,9 +138,9 @@
 
     <div class="controls-bar">
         <div class="controls-inner">
-            <select id="seasonSelect" class="season-select" onchange="loadStats()">
-                <option value="season_2">Season 2 (Current)</option>
-                <option value="Season_1">Season 1 (Archive)</option>
+            <select id="seasonSelect" class="season-select" onchange="renderTable()">
+                <option value="2026">2026 Season (Current)</option>
+                <option value="2025-26">2025-26 Season (Archive)</option>
             </select>
 
             <div class="tabs-container">
@@ -186,27 +187,16 @@
         // 1. NAV LOADER
         fetch('nav.html').then(r=>r.text()).then(d=>document.getElementById('nav-placeholder').innerHTML=d);
 
-        // 2. CONFIG
-        // Ensure these filenames match your actual files!
-        const FILES = {
-            "season_2": "drivers.json",
-            "Season_1": "drivers.json"
-        };
-
         let rawData = {};
         let currentSeries = 'Cup';
 
-        // 3. LOAD DATA
+        // 2. LOAD SINGLE DATA SOURCE
         function loadStats() {
-            const seasonKey = document.getElementById('seasonSelect').value;
-            const file = FILES[seasonKey];
             const tbody = document.getElementById('stats-body');
-            
             tbody.innerHTML = '<tr><td colspan="9" style="padding:3rem;">Loading Data...</td></tr>';
 
-            // Fallback to generic drivers.json if season file missing
-            fetch(file)
-                .then(r => r.ok ? r : fetch('drivers.json'))
+            // Pointing directly to drivers.json as requested
+            fetch('drivers.json')
                 .then(r => r.json())
                 .then(data => {
                     rawData = data;
@@ -214,11 +204,11 @@
                 })
                 .catch(err => {
                     console.error(err);
-                    tbody.innerHTML = '<tr><td colspan="9" style="color:#c00; padding:3rem;">Data not found.</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="9" style="color:#c00; padding:3rem;">Data not found. (drivers.json)</td></tr>';
                 });
         }
 
-        // 4. RENDER TABLE
+        // 3. SWITCH SERIES
         function switchSeries(seriesName) {
             currentSeries = seriesName;
             document.querySelectorAll('.series-btn').forEach(btn => {
@@ -228,47 +218,67 @@
             renderTable();
         }
 
+        // 4. RENDER TABLE (The Brains)
         function renderTable() {
             const tbody = document.getElementById('stats-body');
+            const seasonKey = document.getElementById('seasonSelect').value; // "2026" or "2025-26"
             tbody.innerHTML = '';
 
             const list = [];
             
-            // Parse Dictionary
+            // Iterate through every driver in the JSON
             for (const [id, driver] of Object.entries(rawData)) {
                 if(driver.series) {
-                    // Match "Cup" to "Cup", etc.
+                    // Find matching series (case-insensitive)
                     const sKey = Object.keys(driver.series).find(k => k.toLowerCase() === currentSeries.toLowerCase());
+                    
                     if(sKey) {
                         const sData = driver.series[sKey];
-                        // Handle S1 vs S2 data structure differences
-                        // S2 has 'current_stats', S1 has 'stats'
-                        const stats = sData.current_stats || sData.stats || {points:0};
-                        
-                        list.push({
-                            name: driver.display_name || id,
-                            team: sData.team || "Independent",
-                            number: sData.number || "",
-                            stats: stats
-                        });
+                        let activeStats = null;
+
+                        // --- LOGIC: CHOOSE DATA BASED ON SEASON ---
+                        if (seasonKey === "2026") {
+                            // Current Season: Use current_stats (usually 0s)
+                            // Fallback to 'stats' if new format isn't fully propagated yet
+                            activeStats = sData.current_stats || sData.stats; 
+                        } else if (seasonKey === "2025-26") {
+                            // Archive Season: Look inside 'history' array
+                            if (sData.history && Array.isArray(sData.history)) {
+                                const historyEntry = sData.history.find(h => h.season === "2025-26");
+                                if (historyEntry) {
+                                    activeStats = historyEntry.stats;
+                                }
+                            }
+                        }
+
+                        // Only add to list if we found valid stats for this season
+                        if (activeStats) {
+                            list.push({
+                                name: driver.display_name || id,
+                                team: sData.team || "Independent",
+                                number: sData.number || "",
+                                stats: activeStats
+                            });
+                        }
                     }
                 }
             }
 
-            // Sort by Points
+            // Sort by Points (High to Low)
             list.sort((a,b) => (b.stats.points || 0) - (a.stats.points || 0));
 
+            // Handle Empty Data
             if(list.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="9" style="padding:3rem;">No drivers found for this series.</td></tr>';
+                tbody.innerHTML = `<tr><td colspan="9" style="padding:3rem;">No data available for ${seasonKey} - ${currentSeries} Series.</td></tr>`;
                 return;
             }
 
+            // Generate Rows
             list.forEach((d, index) => {
                 const s = d.stats;
                 const rank = index + 1;
                 const rowClass = rank <= 3 ? 'top3-row' : '';
                 
-                // Format Avg
                 let avg = s.avg || 0;
                 if(typeof avg === 'number') avg = avg.toFixed(1);
 
