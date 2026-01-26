@@ -1,595 +1,126 @@
 {
     "Cup": [
-        {
-            "track": "North Wilkesboro",
-            "date": "2026-02-03",
-            "is_chase": false
-        },
-        {
-            "track": "Daytona",
-            "date": "2026-02-17",
-            "is_chase": false
-        },
-        {
-            "track": "Echopark",
-            "date": "2026-02-24",
-            "is_chase": false
-        },
-        {
-            "track": "COTA",
-            "date": "2026-03-03",
-            "is_chase": false
-        },
-        {
-            "track": "Phoenix",
-            "date": "2026-03-10",
-            "is_chase": false
-        },
-        {
-            "track": "Las Vegas",
-            "date": "2026-03-17",
-            "is_chase": false
-        },
-        {
-            "track": "Darlington",
-            "date": "2026-03-24",
-            "is_chase": false
-        },
-        {
-            "track": "Martinsville",
-            "date": "2026-03-31",
-            "is_chase": false
-        },
-        {
-            "track": "Bristol",
-            "date": "2026-04-14",
-            "is_chase": false
-        },
-        {
-            "track": "Kansas",
-            "date": "2026-04-21",
-            "is_chase": false
-        },
-        {
-            "track": "Talladega",
-            "date": "2026-04-28",
-            "is_chase": false
-        },
-        {
-            "track": "Texas",
-            "date": "2026-05-05",
-            "is_chase": false
-        },
-        {
-            "track": "Watkins Glen",
-            "date": "2026-05-12",
-            "is_chase": false
-        },
-        {
-            "track": "Dover All-Star",
-            "date": "2026-05-19",
-            "is_chase": false
-        },
-        {
-            "track": "Charlotte",
-            "date": "2026-05-26",
-            "is_chase": false
-        },
-        {
-            "track": "Nashville",
-            "date": "2026-06-02",
-            "is_chase": false
-        },
-        {
-            "track": "Michigan",
-            "date": "2026-06-09",
-            "is_chase": false
-        },
-        {
-            "track": "Pocono",
-            "date": "2026-06-16",
-            "is_chase": false
-        },
-        {
-            "track": "Chicago Street",
-            "date": "2026-06-23",
-            "is_chase": false
-        },
-        {
-            "track": "Sonoma",
-            "date": "2026-06-30",
-            "is_chase": false
-        },
-        {
-            "track": "Dover",
-            "date": "2026-07-07",
-            "is_chase": false
-        },
-        {
-            "track": "Echopark 2",
-            "date": "2026-07-14",
-            "is_chase": false
-        },
-        {
-            "track": "North Wilkesboro 2",
-            "date": "2026-07-21",
-            "is_chase": false
-        },
-        {
-            "track": "Indianapolis",
-            "date": "2026-07-28",
-            "is_chase": false
-        },
-        {
-            "track": "Iowa",
-            "date": "2026-08-11",
-            "is_chase": false
-        },
-        {
-            "track": "Richmond",
-            "date": "2026-08-18",
-            "is_chase": false
-        },
-        {
-            "track": "New Hampshire",
-            "date": "2026-08-25",
-            "is_chase": false
-        },
-        {
-            "track": "Daytona 2",
-            "date": "2026-09-01",
-            "is_chase": false
-        },
-        {
-            "track": "Darlington 2",
-            "date": "2026-09-08",
-            "is_chase": true
-        },
-        {
-            "track": "WWT Raceway",
-            "date": "2026-09-15",
-            "is_chase": true
-        },
-        {
-            "track": "Bristol 2",
-            "date": "2026-09-22",
-            "is_chase": true
-        },
-        {
-            "track": "Kansas 2",
-            "date": "2026-09-29",
-            "is_chase": true
-        },
-        {
-            "track": "Las Vegas 2",
-            "date": "2026-10-06",
-            "is_chase": true
-        },
-        {
-            "track": "Charlotte Roval",
-            "date": "2026-10-13",
-            "is_chase": true
-        },
-        {
-            "track": "Phoenix 2",
-            "date": "2026-10-20",
-            "is_chase": true
-        },
-        {
-            "track": "Talladega 2",
-            "date": "2026-10-27",
-            "is_chase": true
-        },
-        {
-            "track": "Martinsville 2",
-            "date": "2026-11-03",
-            "is_chase": true
-        },
-        {
-            "track": "Homestead-Miami",
-            "date": "2026-11-10",
-            "is_chase": true
-        }
+        { "track": "North Wilkesboro", "date": "2026-02-03", "is_chase": false },
+        { "track": "Daytona", "date": "2026-02-17", "is_chase": false },
+        { "track": "EchoPark", "date": "2026-02-24", "is_chase": false },
+        { "track": "COTA", "date": "2026-03-03", "is_chase": false },
+        { "track": "Phoenix", "date": "2026-03-10", "is_chase": false },
+        { "track": "Las Vegas", "date": "2026-03-17", "is_chase": false },
+        { "track": "Darlington", "date": "2026-03-24", "is_chase": false },
+        { "track": "Martinsville", "date": "2026-03-31", "is_chase": false },
+        { "track": "Bristol", "date": "2026-04-14", "is_chase": false },
+        { "track": "Kansas", "date": "2026-04-21", "is_chase": false },
+        { "track": "Talladega", "date": "2026-04-28", "is_chase": false },
+        { "track": "Texas", "date": "2026-05-05", "is_chase": false },
+        { "track": "Watkins Glen", "date": "2026-05-12", "is_chase": false },
+        { "track": "Dover All-Star", "date": "2026-05-19", "is_chase": false },
+        { "track": "Charlotte", "date": "2026-05-26", "is_chase": false },
+        { "track": "Nashville", "date": "2026-06-02", "is_chase": false },
+        { "track": "Michigan", "date": "2026-06-09", "is_chase": false },
+        { "track": "Pocono", "date": "2026-06-16", "is_chase": false },
+        { "track": "Chicago Street", "date": "2026-06-23", "is_chase": false },
+        { "track": "Sonoma", "date": "2026-06-30", "is_chase": false },
+        { "track": "Dover", "date": "2026-07-07", "is_chase": false },
+        { "track": "EchoPark", "date": "2026-07-14", "is_chase": false },
+        { "track": "North Wilkesboro", "date": "2026-07-21", "is_chase": false },
+        { "track": "Indianapolis", "date": "2026-07-28", "is_chase": false },
+        { "track": "Iowa", "date": "2026-08-11", "is_chase": false },
+        { "track": "Richmond", "date": "2026-08-18", "is_chase": false },
+        { "track": "New Hampshire", "date": "2026-08-25", "is_chase": false },
+        { "track": "Daytona", "date": "2026-09-01", "is_chase": false },
+        { "track": "Darlington", "date": "2026-09-08", "is_chase": true },
+        { "track": "WWT Raceway", "date": "2026-09-15", "is_chase": true },
+        { "track": "Bristol", "date": "2026-09-22", "is_chase": true },
+        { "track": "Kansas", "date": "2026-09-29", "is_chase": true },
+        { "track": "Las Vegas", "date": "2026-10-06", "is_chase": true },
+        { "track": "Charlotte Roval", "date": "2026-10-13", "is_chase": true },
+        { "track": "Phoenix", "date": "2026-10-20", "is_chase": true },
+        { "track": "Talladega", "date": "2026-10-27", "is_chase": true },
+        { "track": "Martinsville", "date": "2026-11-03", "is_chase": true },
+        { "track": "Homestead-Miami", "date": "2026-11-10", "is_chase": true }
     ],
     "Xfinity": [
-        {
-            "track": "Daytona",
-            "date": "2026-02-12",
-            "is_chase": false
-        },
-        {
-            "track": "Echopark",
-            "date": "2026-02-19",
-            "is_chase": false
-        },
-        {
-            "track": "COTA",
-            "date": "2026-02-26",
-            "is_chase": false
-        },
-        {
-            "track": "Phoenix",
-            "date": "2026-03-05",
-            "is_chase": false
-        },
-        {
-            "track": "Las Vegas",
-            "date": "2026-03-12",
-            "is_chase": false
-        },
-        {
-            "track": "Darlington",
-            "date": "2026-03-19",
-            "is_chase": false
-        },
-        {
-            "track": "Martinsville",
-            "date": "2026-03-26",
-            "is_chase": false
-        },
-        {
-            "track": "Rockingham",
-            "date": "2026-04-02",
-            "is_chase": false
-        },
-        {
-            "track": "Bristol",
-            "date": "2026-04-09",
-            "is_chase": false
-        },
-        {
-            "track": "Kansas",
-            "date": "2026-04-16",
-            "is_chase": false
-        },
-        {
-            "track": "Talladega",
-            "date": "2026-04-23",
-            "is_chase": false
-        },
-        {
-            "track": "Texas",
-            "date": "2026-04-30",
-            "is_chase": false
-        },
-        {
-            "track": "Watkins Glen",
-            "date": "2026-05-07",
-            "is_chase": false
-        },
-        {
-            "track": "Dover",
-            "date": "2026-05-14",
-            "is_chase": false
-        },
-        {
-            "track": "Charlotte",
-            "date": "2026-05-21",
-            "is_chase": false
-        },
-        {
-            "track": "Nashville",
-            "date": "2026-05-28",
-            "is_chase": false
-        },
-        {
-            "track": "Pocono",
-            "date": "2026-06-11",
-            "is_chase": false
-        },
-        {
-            "track": "Chicago Street",
-            "date": "2026-06-18",
-            "is_chase": false
-        },
-        {
-            "track": "Sonoma",
-            "date": "2026-06-25",
-            "is_chase": false
-        },
-        {
-            "track": "Dover 2",
-            "date": "2026-07-02",
-            "is_chase": false
-        },
-        {
-            "track": "Echopark 2",
-            "date": "2026-07-09",
-            "is_chase": false
-        },
-        {
-            "track": "Indianapolis",
-            "date": "2026-07-23",
-            "is_chase": false
-        },
-        {
-            "track": "Iowa",
-            "date": "2026-08-06",
-            "is_chase": false
-        },
-        {
-            "track": "Daytona 2",
-            "date": "2026-08-27",
-            "is_chase": true
-        },
-        {
-            "track": "Darlington 2",
-            "date": "2026-09-03",
-            "is_chase": true
-        },
-        {
-            "track": "WWT Raceway",
-            "date": "2026-09-10",
-            "is_chase": true
-        },
-        {
-            "track": "Bristol 2",
-            "date": "2026-09-17",
-            "is_chase": true
-        },
-        {
-            "track": "Las Vegas 2",
-            "date": "2026-10-01",
-            "is_chase": true
-        },
-        {
-            "track": "Charlotte Roval",
-            "date": "2026-10-08",
-            "is_chase": true
-        },
-        {
-            "track": "Phoenix 2",
-            "date": "2026-10-15",
-            "is_chase": true
-        },
-        {
-            "track": "Talladega 2",
-            "date": "2026-10-22",
-            "is_chase": true
-        },
-        {
-            "track": "Martinsville 2",
-            "date": "2026-10-29",
-            "is_chase": true
-        },
-        {
-            "track": "Homestead-Miami",
-            "date": "2026-11-05",
-            "is_chase": true
-        }
+        { "track": "Daytona", "date": "2026-02-12", "is_chase": false },
+        { "track": "EchoPark", "date": "2026-02-19", "is_chase": false },
+        { "track": "COTA", "date": "2026-02-26", "is_chase": false },
+        { "track": "Phoenix", "date": "2026-03-05", "is_chase": false },
+        { "track": "Las Vegas", "date": "2026-03-12", "is_chase": false },
+        { "track": "Darlington", "date": "2026-03-19", "is_chase": false },
+        { "track": "Martinsville", "date": "2026-03-26", "is_chase": false },
+        { "track": "Rockingham", "date": "2026-04-02", "is_chase": false },
+        { "track": "Bristol", "date": "2026-04-09", "is_chase": false },
+        { "track": "Kansas", "date": "2026-04-16", "is_chase": false },
+        { "track": "Talladega", "date": "2026-04-23", "is_chase": false },
+        { "track": "Texas", "date": "2026-04-30", "is_chase": false },
+        { "track": "Watkins Glen", "date": "2026-05-07", "is_chase": false },
+        { "track": "Dover", "date": "2026-05-14", "is_chase": false },
+        { "track": "Charlotte", "date": "2026-05-21", "is_chase": false },
+        { "track": "Nashville", "date": "2026-05-28", "is_chase": false },
+        { "track": "Pocono", "date": "2026-06-11", "is_chase": false },
+        { "track": "Portland", "date": "2026-06-18", "is_chase": false },
+        { "track": "Sonoma", "date": "2026-06-25", "is_chase": false },
+        { "track": "Dover", "date": "2026-07-02", "is_chase": false },
+        { "track": "EchoPark", "date": "2026-07-09", "is_chase": false },
+        { "track": "Indianapolis", "date": "2026-07-23", "is_chase": false },
+        { "track": "Iowa", "date": "2026-08-06", "is_chase": false },
+        { "track": "Daytona", "date": "2026-08-27", "is_chase": false },
+        { "track": "Darlington", "date": "2026-09-03", "is_chase": true },
+        { "track": "WWT Raceway", "date": "2026-09-10", "is_chase": true },
+        { "track": "Bristol", "date": "2026-09-17", "is_chase": true },
+        { "track": "Las Vegas", "date": "2026-10-01", "is_chase": true },
+        { "track": "Charlotte Roval", "date": "2026-10-08", "is_chase": true },
+        { "track": "Phoenix", "date": "2026-10-15", "is_chase": true },
+        { "track": "Talladega", "date": "2026-10-22", "is_chase": true },
+        { "track": "Martinsville", "date": "2026-10-29", "is_chase": true },
+        { "track": "Homestead-Miami", "date": "2026-11-05", "is_chase": true }
     ],
     "Truck": [
-        {
-            "track": "Daytona",
-            "date": "2026-02-16",
-            "is_chase": false
-        },
-        {
-            "track": "Echopark",
-            "date": "2026-02-23",
-            "is_chase": false
-        },
-        {
-            "track": "Lime Rock",
-            "date": "2026-03-02",
-            "is_chase": false
-        },
-        {
-            "track": "Darlington",
-            "date": "2026-03-23",
-            "is_chase": false
-        },
-        {
-            "track": "Rockingham",
-            "date": "2026-04-06",
-            "is_chase": false
-        },
-        {
-            "track": "Bristol",
-            "date": "2026-04-13",
-            "is_chase": false
-        },
-        {
-            "track": "Texas",
-            "date": "2026-05-04",
-            "is_chase": false
-        },
-        {
-            "track": "Watkins Glen",
-            "date": "2026-05-11",
-            "is_chase": false
-        },
-        {
-            "track": "Dover",
-            "date": "2026-05-18",
-            "is_chase": false
-        },
-        {
-            "track": "Charlotte",
-            "date": "2026-05-25",
-            "is_chase": false
-        },
-        {
-            "track": "Nashville",
-            "date": "2026-06-01",
-            "is_chase": false
-        },
-        {
-            "track": "Michigan",
-            "date": "2026-06-08",
-            "is_chase": false
-        },
-        {
-            "track": "Charlotte Roval",
-            "date": "2026-06-22",
-            "is_chase": false
-        },
-        {
-            "track": "Lime Rock 2",
-            "date": "2026-07-13",
-            "is_chase": false
-        },
-        {
-            "track": "North Wilkesboro",
-            "date": "2026-07-20",
-            "is_chase": false
-        },
-        {
-            "track": "Lucas Oil IRP",
-            "date": "2026-07-27",
-            "is_chase": false
-        },
-        {
-            "track": "Richmond",
-            "date": "2026-08-17",
-            "is_chase": true
-        },
-        {
-            "track": "New Hampshire",
-            "date": "2026-08-24",
-            "is_chase": true
-        },
-        {
-            "track": "Bristol 2",
-            "date": "2026-09-21",
-            "is_chase": true
-        },
-        {
-            "track": "Kansas",
-            "date": "2026-09-28",
-            "is_chase": true
-        },
-        {
-            "track": "Charlotte 2",
-            "date": "2026-10-05",
-            "is_chase": true
-        },
-        {
-            "track": "Charlotte Roval 2",
-            "date": "2026-10-12",
-            "is_chase": true
-        },
-        {
-            "track": "Phoenix",
-            "date": "2026-10-19",
-            "is_chase": true
-        },
-        {
-            "track": "Talladega",
-            "date": "2026-10-26",
-            "is_chase": true
-        },
-        {
-            "track": "Martinsville",
-            "date": "2026-11-02",
-            "is_chase": true
-        },
-        {
-            "track": "Homestead-Miami",
-            "date": "2026-11-09",
-            "is_chase": true
-        }
+        { "track": "Daytona", "date": "2026-02-16", "is_chase": false },
+        { "track": "EchoPark", "date": "2026-02-23", "is_chase": false },
+        { "track": "Lime Rock", "date": "2026-03-02", "is_chase": false },
+        { "track": "Darlington", "date": "2026-03-23", "is_chase": false },
+        { "track": "Rockingham", "date": "2026-04-06", "is_chase": false },
+        { "track": "Bristol", "date": "2026-04-13", "is_chase": false },
+        { "track": "Texas", "date": "2026-05-04", "is_chase": false },
+        { "track": "Watkins Glen", "date": "2026-05-11", "is_chase": false },
+        { "track": "Dover", "date": "2026-05-18", "is_chase": false },
+        { "track": "Charlotte", "date": "2026-05-25", "is_chase": false },
+        { "track": "Nashville", "date": "2026-06-01", "is_chase": false },
+        { "track": "Michigan", "date": "2026-06-08", "is_chase": false },
+        { "track": "Charlotte Roval", "date": "2026-06-22", "is_chase": false },
+        { "track": "Lime Rock", "date": "2026-07-13", "is_chase": false },
+        { "track": "North Wilkesboro", "date": "2026-07-20", "is_chase": false },
+        { "track": "Lucas Oil IRP", "date": "2026-07-27", "is_chase": false },
+        { "track": "Richmond", "date": "2026-08-17", "is_chase": false },
+        { "track": "New Hampshire", "date": "2026-08-24", "is_chase": false },
+        { "track": "Bristol", "date": "2026-09-21", "is_chase": true },
+        { "track": "Kansas", "date": "2026-09-28", "is_chase": true },
+        { "track": "Charlotte Roval", "date": "2026-10-12", "is_chase": true },
+        { "track": "Phoenix", "date": "2026-10-19", "is_chase": true },
+        { "track": "Talladega", "date": "2026-10-26", "is_chase": true },
+        { "track": "Martinsville", "date": "2026-11-02", "is_chase": true },
+        { "track": "Homestead-Miami", "date": "2026-11-09", "is_chase": true }
     ],
     "Menards": [
-        {
-            "track": "Daytona",
-            "date": "2026-02-11",
-            "is_chase": false
-        },
-        {
-            "track": "Phoenix",
-            "date": "2026-03-09",
-            "is_chase": false
-        },
-        {
-            "track": "Kansas",
-            "date": "2026-04-20",
-            "is_chase": false
-        },
-        {
-            "track": "Talladega",
-            "date": "2026-04-27",
-            "is_chase": false
-        },
-        {
-            "track": "Watkins Glen",
-            "date": "2026-05-08",
-            "is_chase": false
-        },
-        {
-            "track": "North Wilkesboro",
-            "date": "2026-05-15",
-            "is_chase": false
-        },
-        {
-            "track": "Michigan",
-            "date": "2026-06-04",
-            "is_chase": false
-        },
-        {
-            "track": "Pocono",
-            "date": "2026-06-15",
-            "is_chase": false
-        },
-        {
-            "track": "Charlotte",
-            "date": "2026-06-19",
-            "is_chase": false
-        },
-        {
-            "track": "Martinsville",
-            "date": "2026-06-29",
-            "is_chase": false
-        },
-        {
-            "track": "Kansas 2",
-            "date": "2026-07-06",
-            "is_chase": false
-        },
-        {
-            "track": "Lime Rock",
-            "date": "2026-07-10",
-            "is_chase": false
-        },
-        {
-            "track": "Lucas Oil IRP",
-            "date": "2026-07-26",
-            "is_chase": false
-        },
-        {
-            "track": "Iowa",
-            "date": "2026-08-04",
-            "is_chase": false
-        },
-        {
-            "track": "Dover",
-            "date": "2026-08-10",
-            "is_chase": false
-        },
-        {
-            "track": "Richmond",
-            "date": "2026-08-20",
-            "is_chase": false
-        },
-        {
-            "track": "Rockingham",
-            "date": "2026-08-31",
-            "is_chase": false
-        },
-        {
-            "track": "Martinsville 2",
-            "date": "2026-09-07",
-            "is_chase": false
-        },
-        {
-            "track": "Bristol",
-            "date": "2026-09-14",
-            "is_chase": false
-        },
-        {
-            "track": "Kansas 3",
-            "date": "2026-09-24",
-            "is_chase": false
-        }
+        { "track": "Daytona", "date": "2026-02-11", "is_chase": false },
+        { "track": "Phoenix", "date": "2026-03-09", "is_chase": false },
+        { "track": "Kansas", "date": "2026-04-20", "is_chase": false },
+        { "track": "Talladega", "date": "2026-04-27", "is_chase": false },
+        { "track": "Watkins Glen", "date": "2026-05-08", "is_chase": false },
+        { "track": "North Wilkesboro", "date": "2026-05-15", "is_chase": false },
+        { "track": "Michigan", "date": "2026-06-04", "is_chase": false },
+        { "track": "Pocono", "date": "2026-06-15", "is_chase": false },
+        { "track": "Charlotte", "date": "2026-06-19", "is_chase": false },
+        { "track": "Martinsville", "date": "2026-06-29", "is_chase": false },
+        { "track": "Kansas", "date": "2026-07-06", "is_chase": false },
+        { "track": "Lime Rock", "date": "2026-07-10", "is_chase": false },
+        { "track": "Lucas Oil IRP", "date": "2026-07-26", "is_chase": false },
+        { "track": "Iowa", "date": "2026-08-04", "is_chase": false },
+        { "track": "Dover", "date": "2026-08-10", "is_chase": false },
+        { "track": "Richmond", "date": "2026-08-20", "is_chase": false },
+        { "track": "Rockingham", "date": "2026-08-31", "is_chase": false },
+        { "track": "Martinsville", "date": "2026-09-07", "is_chase": false },
+        { "track": "Bristol", "date": "2026-09-14", "is_chase": false },
+        { "track": "Kansas", "date": "2026-09-24", "is_chase": false }
     ]
 }
