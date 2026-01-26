@@ -195,32 +195,34 @@
         .social-icon { color: #555; font-size: 1.8rem; transition: 0.3s ease; display: flex; align-items: center; justify-content: center; text-decoration: none; }
         .social-icon:hover { transform: translateY(-3px); }
 
-        /* --- THEMES --- */
-        .cup-theme {
-            --champ-color: #0077ff; 
-            --champ-glow: rgba(0, 119, 255, 0.6);
-            --bg-grad: radial-gradient(circle, rgba(0,0,0,0.4) 1px, transparent 1px), radial-gradient(circle at top, #001a33 0%, #000 100%);
-            border-bottom: 1px solid #333;
+        /* --- MOBILE OVERRIDE --- */
+        @media (max-width: 900px) {
+            .timer-container, .leader-strip, .carousel-scene, .carousel-scene-reverse { display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; overflow-x: auto !important; justify-content: flex-start !important; gap: 1rem; width: 100%; padding: 1rem 1rem 2rem 1rem; box-sizing: border-box; align-items: flex-start; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; }
+            .timer-container::-webkit-scrollbar, .leader-strip::-webkit-scrollbar, .carousel-scene::-webkit-scrollbar, .carousel-scene-reverse::-webkit-scrollbar { display: none; }
+            .timer-container { margin-top: 0 !important; }
+            .race-card { flex: 0 0 240px; width: 240px; scroll-snap-align: start; }
+            .carousel-cell { flex: 0 0 220px !important; width: 220px !important; height: 320px !important; margin-bottom: 0 !important; position: relative !important; transform: none !important; left: auto !important; top: auto !important; scroll-snap-align: center; display: flex !important; flex-direction: column !important; justify-content: flex-end !important; }
+            .carousel-section { perspective: none; padding-bottom: 1rem; }
+            .carousel-scene, .carousel-scene-reverse { height: auto; animation: none; transform-style: flat; margin-top: 1rem; }
+            .contact-btn { width: 100%; justify-content: center; padding: 15px; box-sizing: border-box; }
+            .ranking-filters { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
+            .filter-btn { padding: 12px; font-size: 0.75rem; width: 100%; }
+            .filter-btn.btn-overall { grid-column: 1 / -1; font-size: 0.9rem; padding: 14px; margin-bottom: 5px; }
+            .p-team { display: none; }
+            .p-rank { font-size: 1.1rem; width: 25px; margin-right: 5px; }
+            .p-img { width: 35px; height: 35px; }
+            .p-info h3 { font-size: 0.8rem; }
+            .p-score { font-size: 0.9rem; }
+            .power-card { padding: 8px 10px; }
+            .countdown-wrapper { gap: 1rem; }
+            .cd-side { padding: 1.5rem 0.5rem; min-width: 0; width: 100%; box-sizing: border-box; }
+            .cd-timer { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; width: 100%; padding: 0 10px; box-sizing: border-box; }
+            .cd-box { min-width: 0; padding: 5px 2px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+            .cd-num { font-size: 1.1rem; }
+            .cd-label { font-size: 0.45rem; }
         }
-        .xfinity-theme {
-            --champ-color: #8000b0; 
-            --champ-glow: rgba(128, 0, 176, 0.6);
-            --bg-grad: radial-gradient(circle at bottom, #2a0038 0%, #000 100%);
-            border-bottom: 1px solid #333;
-        }
-        .truck-theme {
-            --champ-color: #c00; 
-            --champ-glow: rgba(204, 0, 0, 0.6);
-            --bg-grad: radial-gradient(circle at top left, #220000 0%, #000 100%);
-            border-bottom: 1px solid #333;
-        }
-        .menards-theme {
-            --champ-color: #fff200; 
-            --champ-glow: rgba(255, 242, 0, 0.5);
-            --bg-grad: radial-gradient(circle at top right, #333 0%, #000 100%);
-        }
-
-        /* --- GLOBAL BANNER STYLES --- */
+        
+        /* --- CHAMPIONSHIP LAYOUT STYLES --- */
         .champion-banner {
             position: relative;
             background: var(--bg-grad);
@@ -250,12 +252,11 @@
             flex-wrap: wrap;
         }
 
-        /* --- 1. STANDARD LAYOUT (Cup, Truck, Menards) --- */
-        /* Forces Text Left (Order 1) and Image Right (Order 2) */
+        /* 1. STANDARD LAYOUT (Cup, Truck, Menards) */
         .champ-container:not(.grid-layout) .champ-info { order: 1; text-align: left; flex: 1; min-width: 300px; }
         .champ-container:not(.grid-layout) .champ-visual { order: 2; margin-left: auto; }
 
-        /* --- 2. CO-CHAMP LAYOUT (Xfinity - 3 Columns) --- */
+        /* 2. CO-CHAMP LAYOUT (Xfinity - 3 Columns) */
         .grid-layout {
             display: grid;
             grid-template-columns: 1fr 400px 1fr; /* Rigid 3-Column Grid */
@@ -285,8 +286,7 @@
         }
         .co-name {
             font-size: 2.5rem; line-height: 0.9; margin: 0 0 1rem 0;
-            text-transform: uppercase; color: #fff;
-            text-shadow: 0 5px 15px rgba(0,0,0,0.8);
+            text-transform: uppercase; color: #fff; text-shadow: 0 5px 15px rgba(0,0,0,0.8);
         }
         .number-highlight { color: var(--champ-color); text-shadow: 0 0 25px var(--champ-glow); }
 
@@ -338,7 +338,7 @@
         }
         @keyframes spinRing { 100% { transform: rotate(360deg); } }
 
-        /* CONFETTI COLORS */
+        /* CONFETTI */
         .c-yellow { background-color: #fff200; box-shadow: 0 0 10px #fff200; }
         .c-white { background-color: #fff; }
         .c-red { background-color: #c00; box-shadow: 0 0 10px #c00; }
@@ -360,11 +360,8 @@
             100% { transform: translateY(600px) rotate(720deg); opacity: 0; }
         }
 
-        /* --- MOBILE OVERRIDE --- */
+        /* --- CHAMP MOBILE OVERRIDE --- */
         @media (max-width: 900px) {
-            /* GLOBAL: Ensure Padding to avoid edge cut-off */
-            main.container { padding: 1rem 1.5rem !important; }
-
             /* Standard Layout Mobile (Cup, Truck, Menards) */
             .champ-container:not(.grid-layout) { 
                 flex-direction: column-reverse; 
@@ -394,7 +391,7 @@
             .grid-layout { 
                 display: flex !important; /* Switch Grid to Flex on Mobile */
                 flex-direction: column;
-                gap: 2rem;
+                gap: 3rem;
             }
             
             .center-col { 
@@ -805,13 +802,17 @@
     }
 
     // 2. DATA LOADING
-    // --- 2026 SEASON UPDATE ---
-    const scheduleFile = "ASCRL_2026_Schedule.json";
+    const season = "Season_1"; 
     
-    // NOTE: We keep these pointed to Season 1 data for now so the carousel isn't empty.
-    // When you have results for Season 2, change "Season_1" to "Season_2".
-    const driversFile = "drivers_Season_1.json"; 
-    const resultsFile = "ASCRL_Results_Season_1.json";
+    // --- UPDATED: POINT TO 2026 SCHEDULE ---
+    const scheduleFile = `ASCRL_2026_Schedule.json`;  
+    const scheduleFallback = `schedule.json`; // Keep old as backup
+    
+    // UPDATED FILE NAMES
+    const driversFile = `drivers_${season}.json`; 
+    // Fallback logic for drivers so leader carousel doesn't break
+    const driversFallback = `drivers.json`; 
+    const resultsFile = `ASCRL_Results_${season}.json`;
 
     async function fetchWithFallback(primary, secondary) {
         try {
@@ -822,17 +823,16 @@
     }
 
     Promise.all([
-        fetchWithFallback(scheduleFile, null),
-        fetchWithFallback(driversFile, null),
+        fetchWithFallback(scheduleFile, scheduleFallback),
+        fetchWithFallback(driversFile, driversFallback), // Use fallback here!
         fetchWithFallback(resultsFile, null)
     ]).then(([schedData, driversData, resultsData]) => {
         
-        // A. SCHEDULE (2026)
+        // A. SCHEDULE
         if(schedData) {
             ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(s => {
                 const sKey = Object.keys(schedData).find(k => k.toLowerCase() === s.toLowerCase());
                 if (sKey && schedData[sKey]) {
-                    // Find next race based on today's date
                     const next = schedData[sKey].find(r => new Date(r.date + "T23:59:00") >= new Date());
                     if(next) {
                         document.getElementById(s.toLowerCase() + '-next').innerText = next.track;
@@ -844,7 +844,7 @@
             });
         }
 
-        // B. LEADERS (Showing Season 1 Champions/Leaders until S2 starts)
+        // B. LEADERS (CAROUSEL SPINS RIGHT)
         if(driversData) {
             let html = '';
             const allDrivers = Object.keys(driversData).map(key => ({ id: key, display_name: driversData[key].display_name || key, ...driversData[key] }));
@@ -856,10 +856,10 @@
                     const sKey = Object.keys(driver.series).find(k => k.toLowerCase() === seriesName.toLowerCase());
                     if (sKey) {
                         const sData = driver.series[sKey];
-                        // Fallback to old 'stats' object if 'current_stats' is missing or empty
-                        const stats = sData.current_stats || sData.stats || {points:0};
+                        // Support both Season 1 (stats) and Season 2 (current_stats) structures
+                        const stats = sData.current_stats || sData.stats;
                         
-                        if ((stats.points || 0) > maxPoints) {
+                        if (stats && (stats.points || 0) > maxPoints) {
                             maxPoints = stats.points || 0;
                             bestDriver = driver;
                             bestData = sData;
@@ -869,11 +869,12 @@
 
                 if (bestDriver && bestData) {
                     let badgeClass = seriesName.toLowerCase() === 'cup' ? 'badge-cup' : seriesName.toLowerCase() === 'xfinity' ? 'badge-xfinity' : seriesName.toLowerCase() === 'truck' ? 'badge-truck' : 'badge-menards';
-                    const stats = bestData.current_stats || bestData.stats || {wins:0};
+                    const stats = bestData.current_stats || bestData.stats;
                     const wins = stats.wins || 0;
                     let flags = '';
                     for(let i=0; i<wins; i++) flags += `<i class="fa-solid fa-flag-checkered flag-icon ${badgeClass.replace('badge', 'flag')}"></i>`;
 
+                    // UPDATED 3D CAROUSEL CELL FOR LEADERS
                     html += `
                         <div class="carousel-cell">
                             <div class="card-layer-image" style="background-image: url('${getDriverImage(bestDriver.display_name)}');"></div>
@@ -898,7 +899,7 @@
             document.getElementById('leaders-carousel').innerHTML = html;
         }
 
-        // C. WINNERS (Showing Season 1 Winners until S2 starts)
+        // C. WINNERS (CAROUSEL SPINS LEFT)
         if(resultsData) {
             let html = '';
             const keys = Object.keys(resultsData);
@@ -1009,7 +1010,7 @@
 
             if(d.series) {
                 Object.keys(d.series).forEach(s => {
-                    // Fallback to legacy 'stats' if 'current_stats' doesn't exist
+                    // Fallback support for legacy stats
                     const stats = d.series[s].current_stats || d.series[s].stats;
                     if(!stats) return;
 
