@@ -29,8 +29,9 @@
             background-attachment: fixed;
         }
 
-        /* --- Z-INDEX FIX FOR HAMBURGER MENU --- */
-        #nav-placeholder { position: relative; z-index: 99999; }
+        /* --- NAVIGATION FIX --- */
+        /* This ensures the menu is always on top of the sticky bar */
+        #nav-placeholder { position: relative; z-index: 9999; }
 
         /* --- HERO --- */
         .hero {
@@ -185,17 +186,38 @@
 
     <script>
         // 1. NAV LOADER
-        fetch('nav.html').then(r=>r.text()).then(d=>document.getElementById('nav-placeholder').innerHTML=d);
+        // Used fetch to load nav.html into the placeholder
+        fetch('nav.html')
+            .then(r => r.text())
+            .then(d => {
+                document.getElementById('nav-placeholder').innerHTML = d;
+                
+                // Highlight active link
+                const currentPage = window.location.pathname.split("/").pop() || "index.html";
+                const navID = "nav-" + currentPage.split(".")[0];
+                const activeLink = document.getElementById(navID);
+                if(activeLink) {
+                    activeLink.style.color = "var(--primary)";
+                    activeLink.style.borderLeft = "4px solid var(--primary)";
+                    activeLink.style.paddingLeft = "15px";
+                }
+            });
 
+        // 2. GLOBAL TOGGLE FUNCTION (Required by nav.html)
+        function toggleMenu() {
+            const m = document.getElementById('nav-menu');
+            if(m) m.classList.toggle('open');
+        }
+
+        // 3. DATA LOGIC
         let rawData = {};
         let currentSeries = 'Cup';
 
-        // 2. LOAD SINGLE DATA SOURCE
         function loadStats() {
             const tbody = document.getElementById('stats-body');
             tbody.innerHTML = '<tr><td colspan="9" style="padding:3rem;">Loading Data...</td></tr>';
 
-            // Pointing directly to drivers.json as requested
+            // Pointing specifically to drivers.json
             fetch('drivers.json')
                 .then(r => r.json())
                 .then(data => {
@@ -208,7 +230,6 @@
                 });
         }
 
-        // 3. SWITCH SERIES
         function switchSeries(seriesName) {
             currentSeries = seriesName;
             document.querySelectorAll('.series-btn').forEach(btn => {
@@ -218,31 +239,28 @@
             renderTable();
         }
 
-        // 4. RENDER TABLE (The Brains)
         function renderTable() {
             const tbody = document.getElementById('stats-body');
-            const seasonKey = document.getElementById('seasonSelect').value; // "2026" or "2025-26"
+            const seasonKey = document.getElementById('seasonSelect').value;
             tbody.innerHTML = '';
 
             const list = [];
             
-            // Iterate through every driver in the JSON
             for (const [id, driver] of Object.entries(rawData)) {
                 if(driver.series) {
-                    // Find matching series (case-insensitive)
+                    // Match Series Case Insensitive
                     const sKey = Object.keys(driver.series).find(k => k.toLowerCase() === currentSeries.toLowerCase());
                     
                     if(sKey) {
                         const sData = driver.series[sKey];
                         let activeStats = null;
 
-                        // --- LOGIC: CHOOSE DATA BASED ON SEASON ---
+                        // --- INTELLIGENT SEASON SWITCHING ---
                         if (seasonKey === "2026") {
-                            // Current Season: Use current_stats (usually 0s)
-                            // Fallback to 'stats' if new format isn't fully propagated yet
-                            activeStats = sData.current_stats || sData.stats; 
+                            // 2026: Use 'current_stats' (Default 0s)
+                            activeStats = sData.current_stats || sData.stats;
                         } else if (seasonKey === "2025-26") {
-                            // Archive Season: Look inside 'history' array
+                            // 2025-26: Dig into 'history' array
                             if (sData.history && Array.isArray(sData.history)) {
                                 const historyEntry = sData.history.find(h => h.season === "2025-26");
                                 if (historyEntry) {
@@ -251,7 +269,6 @@
                             }
                         }
 
-                        // Only add to list if we found valid stats for this season
                         if (activeStats) {
                             list.push({
                                 name: driver.display_name || id,
@@ -264,16 +281,14 @@
                 }
             }
 
-            // Sort by Points (High to Low)
+            // Sort by Points
             list.sort((a,b) => (b.stats.points || 0) - (a.stats.points || 0));
 
-            // Handle Empty Data
             if(list.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="9" style="padding:3rem;">No data available for ${seasonKey} - ${currentSeries} Series.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="9" style="padding:3rem;">No data available for ${seasonKey} - ${currentSeries}.</td></tr>`;
                 return;
             }
 
-            // Generate Rows
             list.forEach((d, index) => {
                 const s = d.stats;
                 const rank = index + 1;
@@ -307,7 +322,7 @@
         // Init
         loadStats();
 
-        // 5. UTILS
+        // Utils
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('keydown', e => { if(e.key === 'F12') e.preventDefault(); });
     </script>
