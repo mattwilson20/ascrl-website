@@ -3,24 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Championship Standings | American Stock Car Racing League</title>
-    
+    <title>Standings & Stats | American Stock Car Racing League</title>
     <link rel="icon" href="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="style.css">
-
     <style>
         :root {
             --primary: #c00;
             --accent: #ff0;
-            --bg-dark: #000;
-            --card-bg: #0d0d0d;
-            --border: #1a1a1a;
-            --text-muted: #a0a0a0;
-            --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --bg-dark: #050505;
+            --card-bg: #111;
+            --border: #222;
+            --text-muted: #888;
             
-            /* Series Colors */
             --cup-blue: #0077ff;
             --xfinity-purple: #8000b0;
             --truck-red: #c00;
@@ -28,765 +23,283 @@
         }
 
         body { 
-            margin: 0; 
-            font-family: 'Arial Black', sans-serif; 
-            background-color: #333333; 
-            background-image: 
-                radial-gradient(transparent 0%, #000 100%),
-                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.35'/%3E%3C/svg%3E");
+            margin: 0; font-family: 'Arial Black', sans-serif; 
+            background-color: #080808; color: #fff;
+            background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
             background-attachment: fixed;
-            color: #fff; 
-            overflow-x: hidden; 
         }
 
-        /* --- MODULAR NAVIGATION STYLES --- */
         #nav-placeholder { position: relative; z-index: 2000; }
-        
-        .nav-overlay { 
-            position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; 
-            height: 100vh; background: #050505; transition: left 0.5s ease; 
-            z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); 
-        }
-        .nav-overlay.open { left: 0; }
-        .nav-links { display: flex; flex-direction: column; padding: 0 3rem; }
-        .nav-links a { 
-            color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; 
-            border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; 
-        }
-        .nav-links a:hover { color: var(--primary); padding-left: 10px; }
-        
+
         /* --- HERO --- */
-        .hero { background: radial-gradient(circle at center, #222 0%, #000 100%); padding: 12rem 1rem 8rem; text-align: center; border-bottom: 1px solid var(--border); }
-        h1 { font-size: clamp(3rem, 10vw, 5rem); margin: 0; letter-spacing: -2px; line-height: 0.9; }
-        .hero p { color: var(--primary); letter-spacing: 5px; text-transform: uppercase; font-size: 0.9rem; margin-top: 1rem; }
+        .hero {
+            padding: 8rem 1rem 4rem; text-align: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), #080808), 
+                        url("https://www.transparenttextures.com/patterns/cubes.png");
+            border-bottom: 2px solid #222;
+        }
+        h1 { font-size: clamp(2.5rem, 8vw, 5rem); margin: 0; letter-spacing: -2px; text-transform: uppercase; color: #fff; }
+        .subtitle { letter-spacing: 4px; color: var(--primary); text-transform: uppercase; font-size: 0.8rem; display: block; margin-bottom: 10px; }
 
         /* --- CONTROLS --- */
-        .controls { background: #050505; padding: 2rem 1rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
-        .tabs-container { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
-
-        .series-btn {
-            background: #111; border: 1px solid #333; color: #fff; 
-            padding: 15px 30px; font-family: 'Arial Black', sans-serif; 
-            text-transform: uppercase; font-size: 1rem; letter-spacing: 1px;
-            cursor: pointer; transition: var(--transition); min-width: 150px;
-            position: relative; overflow: hidden;
+        .controls-bar {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(8, 8, 8, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid #222;
+            padding: 1rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .series-btn:hover { transform: translateY(-3px); }
-        .series-btn.active { border-color: #fff; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
-        .series-btn[data-series="Cup"].active { background: var(--cup-blue); border-color: var(--cup-blue); }
-        .series-btn[data-series="Xfinity"].active { background: var(--xfinity-purple); border-color: var(--xfinity-purple); }
-        .series-btn[data-series="Truck"].active { background: var(--truck-red); border-color: var(--truck-red); }
+        .controls-inner {
+            max-width: 1200px; margin: 0 auto; padding: 0 1rem;
+            display: flex; flex-direction: column; gap: 1rem; align-items: center;
+        }
+
+        .season-select {
+            padding: 10px 25px; background: #151515; color: #fff;
+            border: 1px solid #333; border-radius: 50px;
+            font-family: 'Arial Black', sans-serif; font-size: 0.8rem;
+            cursor: pointer; text-align: center; width: 100%; max-width: 300px;
+            text-transform: uppercase; letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        .season-select:hover { border-color: var(--primary); background: #1a1a1a; }
+
+        .tabs-container { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+        .series-btn {
+            background: transparent; border: 1px solid #333; color: #666;
+            padding: 8px 20px; border-radius: 4px; cursor: pointer;
+            font-family: 'Arial Black', sans-serif; font-size: 0.75rem;
+            transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .series-btn:hover { color: #fff; border-color: #fff; }
+        
+        .series-btn[data-series="Cup"].active { background: var(--cup-blue); border-color: var(--cup-blue); color: #fff; }
+        .series-btn[data-series="Xfinity"].active { background: var(--xfinity-purple); border-color: var(--xfinity-purple); color: #fff; }
+        .series-btn[data-series="Truck"].active { background: var(--truck-red); border-color: var(--truck-red); color: #fff; }
         .series-btn[data-series="Menards"].active { background: var(--menards-yellow); border-color: var(--menards-yellow); color: #000; }
 
-        #compareBtn {
-            display: none; padding: 12px 30px; background-color: #fff; color: #000;
-            border: 1px solid #fff; font-family: 'Arial Black'; text-transform: uppercase; letter-spacing: 1px;
-            cursor: pointer; transition: 0.3s; animation: popIn 0.3s ease;
-        }
-        #compareBtn:hover { background-color: var(--primary); color: #fff; }
-        @keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-        /* --- TABLE --- */
-        .standings-container { max-width: 1300px; margin: 0 auto; padding: 2rem 1rem; background: #000; }
-        .standings-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1rem; border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
-        .standings-header h2 { margin: 0; font-size: 1.5rem; letter-spacing: 2px; }
-        .last-updated { color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; }
-
-        .table-responsive { overflow-x: auto; }
-
-        .nascar-table { width: 100%; border-collapse: collapse; font-family: sans-serif; text-transform: uppercase; min-width: 900px; }
-        .nascar-table th { background-color: #111; color: #666; font-size: 0.75rem; padding: 15px 10px; text-align: center; letter-spacing: 1px; border-bottom: 1px solid #333; }
-        .nascar-table td { padding: 15px 10px; border-bottom: 1px solid #222; text-align: center; font-size: 0.9rem; color: #fff; }
-        .nascar-table tr:hover td { background-color: #1a1a1a; }
-
-        .nascar-table th.col-driver, .nascar-table td.col-driver { text-align: left; }
-
-        .pos-badge { display: inline-block; width: 30px; height: 30px; line-height: 30px; background-color: #333; color: #fff; font-weight: bold; border-radius: 3px; }
-        .pos-badge.first { background-color: var(--primary); color: #fff; }
-
-        .col-car { font-weight: 900; font-style: italic; font-size: 1.2rem; color: var(--accent); }
-
-        .driver-info { display: flex; flex-direction: column; cursor: pointer; transition: 0.2s; position: relative; }
-        .driver-info:hover .name { color: var(--primary); text-decoration: underline; }
+        /* --- STATS TABLE --- */
+        .container { max-width: 1300px; margin: 0 auto; padding: 3rem 1rem; }
         
-        /* Flex container for arrow + name */
-        .driver-name-block { display: flex; align-items: center; gap: 8px; }
+        .table-wrapper { overflow-x: auto; background: #111; border: 1px solid #222; border-radius: 8px; }
         
-        .driver-info .name { font-weight: bold; font-size: 1rem; color: #fff; }
-        .driver-info .team { font-size: 0.7rem; color: #888; margin-top: 2px; text-transform: uppercase; margin-left: 20px; /* Align with text not arrow */ }
-
-        /* Trend Icons */
-        .trend-icon { font-size: 0.8rem; width: 12px; text-align: center; }
-        .trend-up { color: #00ff00; }
-        .trend-down { color: #cc0000; }
-        .trend-neutral { color: #cc0000; font-size: 0.7rem; }
-
-        .col-points { font-weight: bold; color: #fff; }
-        .col-behind { color: #888; }
-        .select-box { width: 20px; height: 20px; cursor: pointer; accent-color: var(--primary); }
-
-        /* --- MOBILE DROPDOWN STYLES --- */
-        .mobile-toggle-btn { display: none; background: none; border: none; color: var(--primary); font-size: 1.2rem; cursor: pointer; transition: 0.3s; }
-        .mobile-details-row { display: none; background-color: #111; }
-        .mobile-details-content { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding: 20px; text-align: center; border-top: 1px solid #333; }
-        .mobile-stat-box { display: flex; flex-direction: column; }
-        .mobile-stat-label { font-size: 0.65rem; color: #888; letter-spacing: 1px; margin-bottom: 5px; }
-        .mobile-stat-value { font-size: 1.1rem; font-weight: bold; color: #fff; }
-
-        /* --- MODAL (Shared) --- */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 3000; justify-content: center; align-items: center; }
-        .modal-content { background: #0d0d0d; border: 1px solid #333; padding: 0; width: 90%; max-width: 500px; position: relative; border-radius: 8px; overflow: hidden; }
-        .close-modal { position: absolute; top: 15px; right: 15px; font-size: 1.5rem; color: #fff; cursor: pointer; z-index: 20; background: rgba(0,0,0,0.5); width: 40px; height: 40px; border-radius: 50%; text-align: center; line-height: 40px; transition: 0.3s; }
-        .close-modal:hover { background: var(--primary); }
-
-        /* --- HERO CARD MODAL --- */
-        .hero-card-modal { display: flex; flex-direction: column; position: relative; min-height: 650px; background-color: #000; }
-        .hero-card-header { position: absolute; top: 20px; left: 0; width: 100%; display: flex; justify-content: space-between; padding: 0 20px; z-index: 10; box-sizing: border-box; }
-        .hero-series-badge { background: var(--primary); color: #fff; font-size: 0.8rem; padding: 5px 15px; text-transform: uppercase; font-weight: bold; clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%); }
-        .hero-car-number { font-size: 4rem; font-weight: 900; color: rgba(255,255,255,0.2); font-style: italic; }
-        .hero-image-container { width: 100%; height: 400px; background-size: cover; background-position: center top; background-repeat: no-repeat; position: relative; margin-top: 50px; }
-        .hero-image-container::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(to top, #0d0d0d 0%, transparent 100%); }
-        .hero-details { padding: 1.5rem; text-align: center; background: #0d0d0d; position: relative; z-index: 5; margin-top: -50px; }
-        .hero-name { font-size: 1.8rem; margin: 0; line-height: 1; text-transform: uppercase; }
-        .hero-team { color: var(--primary); font-family: sans-serif; font-size: 0.9rem; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
-        .hero-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px 5px; margin-top: 1.5rem; border-top: 1px solid #333; padding-top: 1.5rem; }
-        .hero-stat-box { display: flex; flex-direction: column; }
-        .stat-val { font-size: 1.2rem; font-weight: bold; color: #fff; }
-        .stat-lbl { font-size: 0.6rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px; }
-
-        /* Series Colors for Modal */
-        .badge-Cup { background: var(--cup-blue); }
-        .badge-Xfinity { background: var(--xfinity-purple); }
-        .badge-Truck { background: var(--truck-red); }
-        .badge-Menards { background: var(--menards-yellow); color: #000; }
-
-        /* --- GRAPH MODAL SPECIFIC (FIXED FOR MOBILE) --- */
-        .chart-container { position: relative; height: 60vh; width: 100%; margin-top: 20px; }
-
-        /* --- MOBILE MEDIA QUERY (CRITICAL UPDATES) --- */
-        @media (max-width: 900px) {
-            .mobile-hide { display: none; }
-            .mobile-toggle-btn { display: block; margin: 0 auto; }
-            .nascar-table th, .nascar-table td { padding: 12px 5px; font-size: 0.8rem; }
-            .pos-badge { width: 24px; height: 24px; line-height: 24px; font-size: 0.8rem; }
-            .col-car { font-size: 1rem; }
-            .hero { padding: 10rem 1rem 4rem; }
-            .mobile-toggle-btn.active { transform: rotate(180deg); }
-
-            /* FIX: Full Screen Modal for Chart on Mobile */
-            #graphModal .modal-content {
-                width: 100% !important;
-                height: 100% !important;
-                max-width: 100% !important;
-                border-radius: 0 !important;
-                border: none !important;
-                padding: 1rem !important;
-                display: flex;
-                flex-direction: column;
-            }
-            #graphModal .chart-container {
-                flex-grow: 1; /* Take up all available space */
-                height: auto !important;
-            }
-
-            /* FIX: Floating Compare Button on Mobile */
-            #compareBtn {
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                z-index: 4000; /* Above everything */
-                box-shadow: 0 4px 15px rgba(0,0,0,0.8);
-                border: 2px solid var(--primary);
-            }
+        table { width: 100%; border-collapse: collapse; min-width: 800px; }
+        
+        th { 
+            background: #080808; color: #666; font-size: 0.7rem; 
+            text-transform: uppercase; letter-spacing: 2px; text-align: center;
+            padding: 20px 10px; border-bottom: 2px solid #222;
         }
+        th:nth-child(2) { text-align: left; } /* Driver Name Align Left */
 
-        /* Spinner */
-        #loading-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 5000; display: flex; justify-content: center; align-items: center; transition: opacity 0.5s ease; }
-        .spinner { width: 50px; height: 50px; border: 5px solid #333; border-top: 5px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        td { 
+            padding: 15px 10px; border-bottom: 1px solid #1a1a1a; 
+            text-align: center; font-family: sans-serif; font-size: 0.9rem; color: #ccc;
+        }
+        
+        tr:hover { background: rgba(255,255,255,0.03); }
+
+        .rank-cell { font-family: 'Arial Black'; font-size: 1.2rem; color: #444; width: 60px; }
+        .driver-cell { text-align: left; display: flex; align-items: center; gap: 15px; }
+        .driver-name { font-family: 'Arial Black'; color: #fff; font-size: 1rem; text-transform: uppercase; }
+        .team-tag { font-size: 0.7rem; color: #666; margin-left: 10px; font-weight: normal; }
+        
+        .pts-cell { font-family: 'Arial Black'; font-size: 1.1rem; color: var(--accent); }
+        .win-cell { color: #fff; font-weight: bold; }
+
+        .top3-row .rank-cell { color: var(--primary); }
+        .top3-row { background: linear-gradient(90deg, rgba(204,0,0,0.05), transparent); }
+
+        /* FOOTER */
+        footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+        .social-links { display: flex; gap: 2rem; justify-content: center; }
+        .social-icon { color: #555; font-size: 1.8rem; transition: 0.3s ease; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+        .social-icon:hover { transform: translateY(-3px); }
+
+        @media (max-width: 768px) {
+            .hero { padding: 6rem 1rem 3rem; }
+            .rank-cell { width: 40px; font-size: 1rem; }
+            .driver-name { font-size: 0.9rem; }
+            td, th { padding: 12px 5px; font-size: 0.8rem; }
+            .hide-mobile { display: none; }
+        }
     </style>
 </head>
 <body>
 
-    <div id="loading-screen"><div class="spinner"></div></div>
     <div id="nav-placeholder"></div>
 
     <header class="hero">
-        <p>Season 2025-26</p>
-        <h1>STANDINGS</h1>
+        <span class="subtitle">Official League Data</span>
+        <h1>Standings</h1>
     </header>
 
-    <div class="controls">
-        <div class="tabs-container">
-            <button class="series-btn active" data-series="Cup" onclick="switchSeries('Cup')">Cup Series</button>
-            <button class="series-btn" data-series="Xfinity" onclick="switchSeries('Xfinity')">Xfinity</button>
-            <button class="series-btn" data-series="Truck" onclick="switchSeries('Truck')">Trucks</button>
-            <button class="series-btn" data-series="Menards" onclick="switchSeries('Menards')">Menards</button>
+    <div class="controls-bar">
+        <div class="controls-inner">
+            <select id="seasonSelect" class="season-select" onchange="loadStats()">
+                <option value="season_2">Season 2 (Current)</option>
+                <option value="Season_1">Season 1 (Archive)</option>
+            </select>
+
+            <div class="tabs-container">
+                <button class="series-btn active" data-series="Cup" onclick="switchSeries('Cup')">Cup</button>
+                <button class="series-btn" data-series="Xfinity" onclick="switchSeries('Xfinity')">Xfinity</button>
+                <button class="series-btn" data-series="Truck" onclick="switchSeries('Truck')">Trucks</button>
+                <button class="series-btn" data-series="Menards" onclick="switchSeries('Menards')">Menards</button>
+            </div>
         </div>
-        
-        <button id="compareBtn" onclick="openGraph()">
-            COMPARE DRIVERS (<span id="selCount">0</span>/10)
-        </button>
     </div>
 
-    <main class="standings-container">
-        <div class="standings-header">
-            <h2 id="series-title">CUP SERIES STANDINGS</h2>
-            <div class="last-updated">Live Standings</div>
-        </div>
-
-        <div class="table-responsive">
-            <table class="nascar-table">
+    <main class="container">
+        <div class="table-wrapper">
+            <table>
                 <thead>
                     <tr>
-                        <th style="text-align:center;">COMPARE</th>
-                        <th class="col-pos">POS</th>
-                        <th class="col-car">NO.</th>
-                        <th class="col-driver">DRIVER</th>
-                        <th class="col-mfr">MFR</th>
-                        <th class="col-points">POINTS</th>
-                        <th class="col-behind">BEHIND</th>
-                        
-                        <th class="col-starts mobile-hide">STARTS</th>
-                        <th class="col-wins mobile-hide">WINS</th>
-                        <th class="col-top5 mobile-hide">TOP 5</th>
-                        <th class="col-top10 mobile-hide">TOP 10</th>
-                        <th class="col-avg mobile-hide">AVG</th>
-                        
-                        <th class="col-toggle mobile-only" style="width: 40px;"></th>
+                        <th>Rank</th>
+                        <th>Driver</th>
+                        <th>Points</th>
+                        <th>Wins</th>
+                        <th>Top 5</th>
+                        <th>Top 10</th>
+                        <th class="hide-mobile">Poles</th>
+                        <th class="hide-mobile">Starts</th>
+                        <th class="hide-mobile">Avg Fin</th>
                     </tr>
                 </thead>
-                <tbody id="standings-body">
+                <tbody id="stats-body">
                     </tbody>
             </table>
         </div>
     </main>
 
-    <div id="driverModal" class="modal" onclick="closeDriverModal(event)">
-        <div class="modal-content">
-            <div class="close-modal" onclick="document.getElementById('driverModal').style.display='none'">&times;</div>
-            <div class="hero-card-modal">
-                <div class="hero-card-header">
-                    <div id="modal-series-badge" class="hero-series-badge">SERIES</div>
-                    <div id="modal-number" class="hero-car-number">00</div>
-                </div>
-                
-                <div id="modal-image" class="hero-image-container"></div>
-                
-                <div class="hero-details">
-                    <h2 id="modal-name" class="hero-name">Driver Name</h2>
-                    <div id="modal-team" class="hero-team">Team Name</div>
-                    
-                    <div class="hero-stats-grid">
-                        <div class="hero-stat-box">
-                            <span id="modal-points" class="stat-val">0</span>
-                            <span class="stat-lbl">Points</span>
-                        </div>
-                        <div class="hero-stat-box">
-                            <span id="modal-behind" class="stat-val">--</span>
-                            <span class="stat-lbl">Behind</span>
-                        </div>
-                        <div class="hero-stat-box">
-                            <span id="modal-starts" class="stat-val">0</span>
-                            <span class="stat-lbl">Starts</span>
-                        </div>
-                        <div class="hero-stat-box">
-                            <span id="modal-wins" class="stat-val">0</span>
-                            <span class="stat-lbl">Wins</span>
-                        </div>
-                        <div class="hero-stat-box">
-                            <span id="modal-top5" class="stat-val">0</span>
-                            <span class="stat-lbl">Top 5</span>
-                        </div>
-                        <div class="hero-stat-box">
-                            <span id="modal-top10" class="stat-val">0</span>
-                            <span class="stat-lbl">Top 10</span>
-                        </div>
-                        <div class="hero-stat-box">
-                            <span id="modal-poles" class="stat-val">0</span>
-                            <span class="stat-lbl">Poles</span>
-                        </div>
-                        <div class="hero-stat-box">
-                            <span id="modal-avg" class="stat-val">0</span>
-                            <span class="stat-lbl">Avg Fin</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="graphModal" class="modal" onclick="closeGraphModal(event)">
-        <div class="modal-content">
-            <div class="close-modal" onclick="document.getElementById('graphModal').style.display='none'">&times;</div>
-            <h2 style="text-align:center; text-transform:uppercase; color:#fff; letter-spacing:2px; margin:0;">Season Trends</h2>
-            <div class="chart-container"><canvas id="trendChart"></canvas></div>
-        </div>
-    </div>
-
-     <footer>
-        <div style="margin-bottom: 0.5rem; letter-spacing: 2px; color: #fff;">
-            © 2025-2026 AMERICAN STOCK CAR RACING LEAGUE
-        </div>
-        
-        <div style="font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 2rem; text-transform: uppercase;">
-            OWNED AND OPERATED BY <span style="color: #fff; font-weight: bold;">A&M PRODUCTIONS LLC</span>
-        </div>
-
+    <footer>
+        <div>© 2025-2026 AMERICAN STOCK CAR RACING LEAGUE</div>
         <div class="social-links">
-            <a href="https://www.facebook.com/share/14PeZVCH1hL/" target="_blank" class="social-icon facebook" aria-label="Facebook">
-                <i class="fa-brands fa-facebook"></i>
-            </a>
-            <a href="https://x.com/ASCRWeekly" target="_blank" class="social-icon x-twitter" aria-label="X (Twitter)">
-                <i class="fa-brands fa-x-twitter"></i>
-            </a>
-            
-            <a href="mailto:contact.ascrl@gmail.com" class="social-icon email" aria-label="Email A&M Productions">
-                <i class="fa-solid fa-envelope"></i>
-            </a>
+            <a href="https://www.facebook.com/share/14PeZVCH1hL/" target="_blank" class="social-icon facebook"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://x.com/ASCRWeekly" target="_blank" class="social-icon x-twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="mailto:contact.ascrl@gmail.com" class="social-icon email"><i class="fa-solid fa-envelope"></i></a>
         </div>
-        
-        <div style="font-size: 0.6rem; color: #444; margin-top: 20px; font-style: italic;">*ai generated images may be used</div>
     </footer>
 
     <script>
-        const STANDINGS_FILE = 'drivers.json';
-        const TRENDS_FILE = 'ASCRL_Trends_Season_1.json';
+        // 1. NAV LOADER
+        fetch('nav.html').then(r=>r.text()).then(d=>document.getElementById('nav-placeholder').innerHTML=d);
 
-        let rawData = {}; 
-        let trendsData = {};
+        // 2. CONFIG
+        // Ensure these filenames match your actual files!
+        const FILES = {
+            "season_2": "drivers_season_2.json",
+            "Season_1": "drivers_Season_1.json"
+        };
+
+        let rawData = {};
         let currentSeries = 'Cup';
-        let selectedDrivers = new Set();
-        let myChart = null;
 
-        // 1. NAVIGATION LOADER
-        fetch('nav.html')
-            .then(res => res.text())
-            .then(data => {
-                document.getElementById('nav-placeholder').innerHTML = data;
-                const activeLink = document.getElementById('nav-standings');
-                if (activeLink) {
-                    activeLink.style.color = "var(--primary)";
-                    activeLink.style.borderLeft = "4px solid var(--primary)";
-                    activeLink.style.paddingLeft = "15px";
-                }
-            })
-            .catch(err => console.error("Nav load failed"));
-
-        function toggleMenu() {
-            const menu = document.getElementById('nav-menu');
-            if (menu) menu.classList.toggle('open');
-        }
-
-        // --- HELPER: GET DRIVER IMAGE (NOW SYNCHRONIZED WITH ROSTER PAGE) ---
-        function getDriverImage(driverName) {
-            const nameLower = driverName.toLowerCase();
-
-            // --- NEW DRIVERS ADDED JAN 3, 2026 ---
-            if (nameLower.includes('k7_dalton')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/9a7e63f44a37cedfdf0b85ddeb4968c3b0da8817/k7Dalton.jpg";
-            if (nameLower.includes('isaac')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/d0f7c7e6480bc33317d4e7939036024f0dcff3dc/Isaac.jpg";
-            if (nameLower.includes('z71chevyman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/869f4adefde19421e449f2e1e9ab7bd3a6ffaee5/ChevyMan.jpg";
-            if (nameLower.includes('a54buick')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/b0f5738c17ce63c442afaca0ad22da6998499e1b/BuickBandit.jpg";
-            if (nameLower.includes('duramax')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/548e18c0b3bc92b82f0af9fe09a2b0369d9b97ee/Duramax.jpg";
-            if (nameLower.includes('rickyspanish')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/a4eb1f155988eef725e62b9c29859db41c08a225/RickySpanish.jpg";
-            if (nameLower.includes('solid1915')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/7655f9eefe0cdd0d1809954233309718780d8925/SolidOne.jpg";
-            if (nameLower.includes('the_fireman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6426c5de3657027051e18be3fae01a1c56faefbd/Fireman.jpg";
-            if (nameLower.includes('the_stone')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/e81190c6bca706ca129f3413df56c7f2e375f74b/Stone.jpg";
-
-            // --- EXISTING DRIVERS ---
-            if (nameLower.includes('alessi')) return "https://github.com/mattwilson20/ascrl-website/blob/main/Alessi.Hero.Card.jpg?raw=true";
-            if (nameLower.includes('dakotathomas')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg";
-            if (nameLower.includes('orangeman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/70b5243e68e9c7f7a596f6695677d8d3520e89e1/IMG_7160.jpg";
-            if (nameLower.includes('ant_was_he')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/602e91f22a89c294308d1e79473121daa8e777e7/ant_was_he_hero_card.jpg";
-            if (nameLower.includes('c0mpl1c8')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/099805ff88fcc2ba2a1cc2e8b5aba8f515a716a6/C0mpl1c8ted_hero_card.jpg";
-            if (nameLower.includes('on-a-mission')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/446d56688b6fdf55420d2c5e52b6a764e873fab6/Mission_Hero_card.jpg";
-            if (nameLower.includes('banishedcrayon')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/d42bcd32df90441f1b5f24da75a77074ea2186fe/Banished_Crayon_hero_Card.jpg";
-            if (nameLower.includes('sithwarrior')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/3e992547a13fe5d73940648e83df80d97df41f90/SithWarriorUno_Hero_Card.jpg";
-            if (nameLower.includes('majorblaz')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/77807b78b078188862cb490d2b95d2f846d237bf/Blaze_Hero_Card.jpg";
-            if (nameLower.includes('thereaperrhino')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6ba07383a20109b63eec703c34fedc30f7a191bf/Rhino_Hero_Card.jpg";
-            if (nameLower.includes('daltongregson')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ec988478a8132f49d9d6b596e7ed258e2c2dd482/DaltonGregson_Hero_Card.jpg";
-            if (nameLower.includes('singular_nacho')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/f311b21127533ca6128a4408f36edaf9612d59b1/Singular_Nacho_Hero_Card.jpg";
-            if (nameLower.includes('callmemillion')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/e86926900f4957c57588db9a14beae7d6329a794/CallMeMillion_Hero_Card.jpg";
-            if (nameLower.includes('mattwilson20')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6686ee35c988cd1b0ae305d099ff4e31c652a49f/mattwilson20_Hero_Card.jpg";
-            if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/81df81de5161ea2f590ee32c370d3e99675cdbaa/Hockey_Hero_Card.png";
-            if (nameLower.includes('dewshine')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/c5319ac2110c0b89850cf83b5d93b1af677f8611/Dewshine_Hero_Card.jpg";
-            if (nameLower.includes('kevwood')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/07ccf5d79d881bf2047f439e25540dc380fec2d0/Kevwood.Hero.Card.jpg";
-            if (nameLower.includes('lnfvmous')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/acff9081bff808e0028c0ae22dada726083e7948/Infamous.hero.card.jpg";
-            if (nameLower.includes('fordemgators')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/58a3bfc691085c472f888d1c1d071fdf96b2ba20/Fordemgators.Hero.Card.jpg";
-            if (nameLower.includes('dgibby')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/a0de7269483b7e2ec5e1aaae549f739229008914/DGibby.hero.card.jpg";
-            if (nameLower.includes('kingg')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/9eb12bdb1b61a806ad951ae9a8bddc590622f35f/King.Hero.Card.jpg";
-            if (nameLower.includes('hatter')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/34425dadb737bc4bc27aa9271be62909dc9a3e99/Hatter.Hero.Card.jpg";
-            if (nameLower.includes('big_fella')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ced27a5d96e0d211f038b36e34a55bccf4a7e4de/BigFella.Hero.Card.jpg";
+        // 3. LOAD DATA
+        function loadStats() {
+            const seasonKey = document.getElementById('seasonSelect').value;
+            const file = FILES[seasonKey];
+            const tbody = document.getElementById('stats-body');
             
-            return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg";
+            tbody.innerHTML = '<tr><td colspan="9" style="padding:3rem;">Loading Data...</td></tr>';
+
+            // Fallback to generic drivers.json if season file missing
+            fetch(file)
+                .then(r => r.ok ? r : fetch('drivers.json'))
+                .then(r => r.json())
+                .then(data => {
+                    rawData = data;
+                    renderTable();
+                })
+                .catch(err => {
+                    console.error(err);
+                    tbody.innerHTML = '<tr><td colspan="9" style="color:#c00; padding:3rem;">Data not found.</td></tr>';
+                });
         }
 
-        // 2. INITIALIZE
-        async function init() {
-            try {
-                const [sRes, tRes] = await Promise.all([
-                    fetch(STANDINGS_FILE),
-                    fetch(TRENDS_FILE)
-                ]);
-
-                if (!sRes.ok) throw new Error("Drivers file not found.");
-                rawData = await sRes.json();
-                
-                if (tRes.ok) trendsData = await tRes.json();
-
-                renderTable();
-                
-                document.getElementById('loading-screen').style.opacity = 0;
-                setTimeout(() => document.getElementById('loading-screen').style.display = 'none', 500);
-
-            } catch (err) {
-                document.getElementById('loading-screen').style.display = 'none';
-                console.error(err);
-            }
-        }
-
-        // 3. SWITCH SERIES
+        // 4. RENDER TABLE
         function switchSeries(seriesName) {
             currentSeries = seriesName;
-            document.getElementById('series-title').innerText = seriesName.toUpperCase() + " SERIES STANDINGS";
-            
             document.querySelectorAll('.series-btn').forEach(btn => {
                 btn.classList.remove('active');
                 if(btn.dataset.series === seriesName) btn.classList.add('active');
             });
-            
-            selectedDrivers.clear();
-            updateCompareButton();
             renderTable();
         }
 
-        // 3.5 CALCULATE PREVIOUS RANKS
-        function getPreviousRanks() {
-            // Find trend data for current series
-            const tKey = Object.keys(trendsData).find(k => k.toLowerCase() === currentSeries.toLowerCase());
-            if (!tKey || !trendsData[tKey].drivers) return null;
+        function renderTable() {
+            const tbody = document.getElementById('stats-body');
+            tbody.innerHTML = '';
 
-            const trendDrivers = trendsData[tKey].drivers;
-            const prevRanks = [];
-
-            // Get points for the SECOND to last race (index: length - 2)
-            for (const [key, pointsArr] of Object.entries(trendDrivers)) {
-                if (pointsArr.length >= 2) {
-                    const prevPoints = pointsArr[pointsArr.length - 2];
-                    // Clean Name (remove #number)
-                    const cleanName = key.replace(/^#\d+\s+/, '').trim().toLowerCase();
-                    prevRanks.push({ name: cleanName, points: prevPoints });
+            const list = [];
+            
+            // Parse Dictionary
+            for (const [id, driver] of Object.entries(rawData)) {
+                if(driver.series) {
+                    // Match "Cup" to "Cup", etc.
+                    const sKey = Object.keys(driver.series).find(k => k.toLowerCase() === currentSeries.toLowerCase());
+                    if(sKey) {
+                        const sData = driver.series[sKey];
+                        // Handle S1 vs S2 data structure differences
+                        // S2 has 'current_stats', S1 has 'stats'
+                        const stats = sData.current_stats || sData.stats || {points:0};
+                        
+                        list.push({
+                            name: driver.display_name || id,
+                            team: sData.team || "Independent",
+                            number: sData.number || "",
+                            stats: stats
+                        });
+                    }
                 }
             }
 
-            // Sort descending by points
-            prevRanks.sort((a, b) => b.points - a.points);
+            // Sort by Points
+            list.sort((a,b) => (b.stats.points || 0) - (a.stats.points || 0));
 
-            // Create map: name -> rank (index + 1)
-            const rankMap = {};
-            prevRanks.forEach((d, index) => {
-                rankMap[d.name] = index + 1;
-            });
-
-            return rankMap;
-        }
-
-        // 4. RENDER TABLE
-        function renderTable() {
-            const tbody = document.getElementById('standings-body');
-            tbody.innerHTML = '';
-
-            let drivers = Object.entries(rawData).map(([id, data]) => ({ id, ...data }));
-            drivers = drivers.filter(d => d.series && d.series[currentSeries] && d.series[currentSeries].stats);
-            drivers.sort((a, b) => {
-                return (b.series[currentSeries].stats.points || 0) - (a.series[currentSeries].stats.points || 0);
-            });
-
-            if (drivers.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="12" style="text-align:center; padding:4rem; color:#666;">No data found.</td></tr>';
+            if(list.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="9" style="padding:3rem;">No drivers found for this series.</td></tr>';
                 return;
             }
 
-            const leaderPoints = drivers[0].series[currentSeries].stats.points || 0;
-            const prevRankMap = getPreviousRanks(); // Get previous ranks
-
-            drivers.forEach((driver, index) => {
-                const sData = driver.series[currentSeries];
-                const stats = sData.stats;
+            list.forEach((d, index) => {
+                const s = d.stats;
                 const rank = index + 1;
-                const rowId = `details-${index}`;
-
-                // --- MOMENTUM LOGIC ---
-                let trendIcon = '<i class="fa-solid fa-minus trend-neutral"></i>'; // Default red line
-                if (prevRankMap) {
-                    const dName = driver.display_name.toLowerCase().trim();
-                    const prevRank = prevRankMap[dName];
-                    
-                    if (prevRank) {
-                        if (prevRank > rank) {
-                            // Was 5th, Now 3rd -> Moved Up (Green Arrow)
-                            trendIcon = '<i class="fa-solid fa-caret-up trend-up"></i>';
-                        } else if (prevRank < rank) {
-                            // Was 1st, Now 4th -> Moved Down (Red Arrow)
-                            trendIcon = '<i class="fa-solid fa-caret-down trend-down"></i>';
-                        }
-                    }
-                }
-                // ----------------------
-
-                let behind = leaderPoints - stats.points;
-                if (rank === 1) behind = "--";
-                else behind = "-" + behind;
-
-                let teamName = sData.team;
-                if (!teamName || teamName === "" || teamName === "null") teamName = "Independent";
-
-                let mfrRaw = sData.manufacturer || '';
-                let mfrDisplay = 'N/A';
-                if (mfrRaw.toLowerCase().includes('chevy') || mfrRaw.toLowerCase().includes('chevrolet')) {
-                    mfrDisplay = '<img src="https://cdn.discordapp.com/emojis/1437922651401093182.webp?size=96" alt="Chevy" style="height: 24px; vertical-align: middle;">';
-                } else if (mfrRaw.toLowerCase().includes('toyota')) {
-                    mfrDisplay = '<img src="https://cdn.discordapp.com/emojis/1437923347370606653.webp?size=96" alt="Toyota" style="height: 24px; vertical-align: middle;">';
-                } else if (mfrRaw.toLowerCase().includes('ford')) {
-                    mfrDisplay = '<img src="https://cdn.discordapp.com/emojis/1437922912626544886.webp?size=96" alt="Ford" style="height: 24px; vertical-align: middle;">';
-                }
-
-                const avg = stats.avg ? stats.avg.toFixed(1) : '-';
-
-                // --- MAIN ROW ---
-                const tr = document.createElement('tr');
-                tr.classList.add('main-row');
-                tr.innerHTML = `
-                    <td class="checkbox-cell">
-                        <input type="checkbox" class="select-box" value="${driver.display_name}" onchange="toggleDriver(this)">
-                    </td>
-                    <td class="col-pos"><span class="pos-badge ${rank === 1 ? 'first' : ''}">${rank}</span></td>
-                    <td class="col-car">${sData.number}</td>
-                    <td class="col-driver">
-                        <div class="driver-info" onclick="openDriverModal('${driver.id}')">
-                            <div class="driver-name-block">
-                                <span class="trend-icon">${trendIcon}</span>
-                                <span class="name">${driver.display_name}</span>
-                            </div>
-                            <span class="team">${teamName}</span>
-                        </div>
-                    </td>
-                    <td class="col-mfr">${mfrDisplay}</td>
-                    <td class="col-points">${stats.points}</td>
-                    <td class="col-behind">${behind}</td>
-                    
-                    <td class="col-starts mobile-hide">${stats.starts}</td>
-                    <td class="col-wins mobile-hide">${stats.wins}</td>
-                    <td class="col-top5 mobile-hide">${stats.top5}</td>
-                    <td class="col-top10 mobile-hide">${stats.top10}</td>
-                    <td class="col-avg mobile-hide">${avg}</td>
-                    
-                    <td class="col-toggle mobile-only">
-                        <button class="mobile-toggle-btn" onclick="toggleMobileRow('${rowId}', this)">
-                            <i class="fa-solid fa-caret-down"></i>
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-
-                // --- MOBILE DROPDOWN ---
-                const hiddenRow = document.createElement('tr');
-                hiddenRow.id = rowId;
-                hiddenRow.classList.add('mobile-details-row');
-                hiddenRow.innerHTML = `
-                    <td colspan="12" style="padding:0; border:none;">
-                        <div class="mobile-details-content">
-                            <div class="mobile-stat-box"><span class="mobile-stat-label">STARTS</span><span class="mobile-stat-value">${stats.starts}</span></div>
-                            <div class="mobile-stat-box"><span class="mobile-stat-label">WINS</span><span class="mobile-stat-value">${stats.wins}</span></div>
-                            <div class="mobile-stat-box"><span class="mobile-stat-label">TOP 5</span><span class="mobile-stat-value">${stats.top5}</span></div>
-                            <div class="mobile-stat-box"><span class="mobile-stat-label">TOP 10</span><span class="mobile-stat-value">${stats.top10}</span></div>
-                            <div class="mobile-stat-box"><span class="mobile-stat-label">POLES</span><span class="mobile-stat-value">${stats.poles || 0}</span></div>
-                            <div class="mobile-stat-box"><span class="mobile-stat-label">AVG FIN</span><span class="mobile-stat-value">${avg}</span></div>
-                        </div>
-                    </td>
-                `;
-                tbody.appendChild(hiddenRow);
-            });
-        }
-
-        // --- MOBILE TOGGLE LOGIC ---
-        function toggleMobileRow(rowId, btn) {
-            const row = document.getElementById(rowId);
-            if (row.style.display === 'table-row') {
-                row.style.display = 'none';
-                btn.classList.remove('active');
-            } else {
-                row.style.display = 'table-row';
-                btn.classList.add('active');
-            }
-        }
-
-        // --- DRIVER POP-OUT LOGIC ---
-        function openDriverModal(driverId) {
-            const driver = rawData[driverId];
-            if (!driver) return;
-
-            const sData = driver.series[currentSeries];
-            if (!sData) return;
-
-            // Recalculate Leader Points to determine "Behind"
-            let driversList = Object.values(rawData).filter(d => d.series && d.series[currentSeries]);
-            driversList.sort((a, b) => (b.series[currentSeries].stats.points || 0) - (a.series[currentSeries].stats.points || 0));
-            const leaderPoints = driversList[0].series[currentSeries].stats.points || 0;
-            
-            let behind = leaderPoints - sData.stats.points;
-            if (behind === 0 && driversList[0].display_name === driver.display_name) behind = "--";
-            else behind = "-" + behind;
-
-            // Populate Modal
-            document.getElementById('modal-name').innerText = driver.display_name;
-            document.getElementById('modal-team').innerText = sData.team || "Independent";
-            document.getElementById('modal-number').innerText = sData.number;
-            document.getElementById('modal-series-badge').innerText = currentSeries + " SERIES";
-            const badge = document.getElementById('modal-series-badge');
-            badge.className = `hero-series-badge badge-${currentSeries}`;
-
-            // Populate Stats
-            document.getElementById('modal-points').innerText = sData.stats.points;
-            document.getElementById('modal-behind').innerText = behind;
-            document.getElementById('modal-starts').innerText = sData.stats.starts;
-            document.getElementById('modal-wins').innerText = sData.stats.wins;
-            document.getElementById('modal-top5').innerText = sData.stats.top5;
-            document.getElementById('modal-top10').innerText = sData.stats.top10;
-            document.getElementById('modal-poles').innerText = sData.stats.poles || 0;
-            document.getElementById('modal-avg').innerText = sData.stats.avg ? sData.stats.avg.toFixed(1) : '-';
-
-            // UPDATED IMAGE CALL
-            const imgUrl = getDriverImage(driver.display_name);
-            document.getElementById('modal-image').style.backgroundImage = `url('${imgUrl}')`;
-
-            document.getElementById('driverModal').style.display = 'flex';
-        }
-
-        function closeDriverModal(e) {
-            if (e.target.id === 'driverModal') document.getElementById('driverModal').style.display = 'none';
-        }
-
-        // 5. COMPARE LOGIC
-        function toggleDriver(cb) {
-            if (cb.checked) {
-                if (selectedDrivers.size >= 10) { alert("Maximum 10 drivers allowed."); cb.checked = false; return; }
-                selectedDrivers.add(cb.value);
-            } else {
-                selectedDrivers.delete(cb.value);
-            }
-            updateCompareButton();
-        }
-
-        function updateCompareButton() {
-            const btn = document.getElementById('compareBtn');
-            document.getElementById('selCount').innerText = selectedDrivers.size;
-            if (selectedDrivers.size >= 2) btn.style.display = 'block';
-            else btn.style.display = 'none';
-        }
-
-        // 6. GRAPH LOGIC
-        function openGraph() {
-            document.getElementById('graphModal').style.display = 'flex';
-            drawChart();
-        }
-
-        function closeGraphModal(e) {
-            if (e.target.id === 'graphModal') document.getElementById('graphModal').style.display = 'none';
-        }
-
-        function drawChart() {
-            // 1. Find the correct series object (Case-insensitive check)
-            const tKey = Object.keys(trendsData).find(k => k.toLowerCase() === currentSeries.toLowerCase());
-            
-            if (!tKey) { 
-                alert("Trend data not available for this series."); 
-                return; 
-            }
-
-            const sData = trendsData[tKey];
-            const ctx = document.getElementById('trendChart').getContext('2d');
-            const datasets = [];
-            let i = 0;
-
-            selectedDrivers.forEach(driverName => {
-                // 2. Normalize the driver name from the checkbox (lowercase, trimmed)
-                const searchName = driverName.toLowerCase().trim();
+                const rowClass = rank <= 3 ? 'top3-row' : '';
                 
-                let dataPoints = sData.drivers[driverName]; // Try exact match first
+                // Format Avg
+                let avg = s.avg || 0;
+                if(typeof avg === 'number') avg = avg.toFixed(1);
 
-                // 3. If no exact match, try a "Fuzzy" match ignoring Case and Numbers
-                if (!dataPoints) {
-                    const matchKey = Object.keys(sData.drivers).find(k => {
-                        const trendKeyLower = k.toLowerCase();
-                        // Check if the trend key includes the driver name (e.g., "#1 mattwilson20" includes "mattwilson20")
-                        return trendKeyLower.includes(searchName);
-                    });
-                    
-                    if(matchKey) dataPoints = sData.drivers[matchKey];
-                }
-
-                if (dataPoints) {
-                    const hue = (i * 360) / selectedDrivers.size;
-                    const color = `hsl(${hue}, 70%, 50%)`;
-                    datasets.push({
-                        label: driverName, // Use the Clean name for the Legend
-                        data: dataPoints,
-                        borderColor: color,
-                        backgroundColor: color,
-                        tension: 0.3,
-                        pointRadius: 4
-                    });
-                    i++;
-                } else {
-                    console.warn(`No trend data found for: ${driverName}`);
-                }
-            });
-
-            if (myChart) myChart.destroy();
-            
-            myChart = new Chart(ctx, {
-                type: 'line',
-                data: { labels: sData.labels, datasets: datasets },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    interaction: {
-                        mode: 'index',
-                        intersect: false,
-                    },
-                    plugins: { 
-                        legend: { labels: { color: '#fff' } },
-                        tooltip: {
-                            mode: 'index',
-                            intersect: false
-                        }
-                    },
-                    scales: {
-                        x: { ticks: { color: '#888' }, grid: { color: '#333' } },
-                        y: { 
-                            ticks: { color: '#888' }, 
-                            grid: { color: '#333' },
-                            reverse: false // FALSE for Points (Higher is better? Wait, racing points accumulate. Higher is top of graph)
-                        } 
-                    }
-                }
+                const html = `
+                    <tr class="${rowClass}">
+                        <td class="rank-cell">${rank}</td>
+                        <td class="driver-cell">
+                            <div>
+                                <div class="driver-name">${d.name} <span style="color:#666; font-size:0.8rem;">#${d.number}</span></div>
+                                <div class="team-tag">${d.team}</div>
+                            </div>
+                        </td>
+                        <td class="pts-cell">${s.points || 0}</td>
+                        <td class="win-cell">${s.wins || 0}</td>
+                        <td>${s.top5 || 0}</td>
+                        <td>${s.top10 || 0}</td>
+                        <td class="hide-mobile">${s.poles || 0}</td>
+                        <td class="hide-mobile">${s.starts || 0}</td>
+                        <td class="hide-mobile">${avg}</td>
+                    </tr>
+                `;
+                tbody.innerHTML += html;
             });
         }
 
-        init();
-    </script>
+        // Init
+        loadStats();
 
-    <script>
+        // 5. UTILS
         document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('keydown', e => {
-            if (e.ctrlKey || e.metaKey) {
-                if (['u','s','a','c'].includes(e.key.toLowerCase())) return e.preventDefault();
-                if (e.shiftKey && ['i','j'].includes(e.key.toLowerCase())) return e.preventDefault();
-            }
-            if (e.key === 'F12') return e.preventDefault();
-        });
+        document.addEventListener('keydown', e => { if(e.key === 'F12') e.preventDefault(); });
     </script>
-
 </body>
 </html>
