@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iRacing Standings | ASCRL</title>
+    <link rel="icon" href="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- IRACING SPECIFIC STYLES --- */
+        :root {
+            --table-header: #1a1a1a;
+            --table-row-even: #0d0d0d;
+            --table-row-odd: #141414;
+            --pos-gain: #00cc00;
+            --pos-loss: #cc0000;
+        }
+
+        /* --- HERO --- */
+        .iracing-hero {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), #000), 
+                        url("https://images-static.iracing.com/img/logos/tracks/120__light.png"); 
+            background-size: cover;
+            background-position: center;
+            padding: 8rem 1rem 4rem;
+            text-align: center;
+            border-bottom: 4px solid var(--primary);
+        }
+
+        /* --- TABS SYSTEM --- */
+        .data-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            background: #222;
+            padding: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #444;
+        }
+        .data-tab-btn {
+            background: #000;
+            border: 1px solid #444;
+            color: #888;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: 'Arial Black';
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            flex: 1;
+            max-width: 200px;
+            transition: 0.3s;
+        }
+        .data-tab-btn.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        /* --- DATA TABLES (The SimRacerHub Style) --- */
+        .data-container {
+            max-width: 1600px; /* Wide layout for data */
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            overflow-x: auto; /* Allow horizontal scroll on mobile */
+        }
+
+        .srh-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Roboto', sans-serif; /* Cleaner font for data */
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .srh-table th {
+            background-color: var(--table-header);
+            color: #aaa;
+            text-transform: uppercase;
+            padding: 12px 8px;
+            text-align: center;
+            border-bottom: 2px solid #444;
+            font-weight: bold;
+            letter-spacing: 1px;
+            position: sticky; /* Keep header visible */
+            top: 0;
+        }
+        
+        .srh-table th.align-left { text-align: left; }
+
+        .srh-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #222;
+            text-align: center;
+            color: #ddd;
+        }
+
+        .srh-table tr:nth-child(even) { background-color: var(--table-row-even); }
+        .srh-table tr:nth-child(odd) { background-color: var(--table-row-odd); }
+        .srh-table tr:hover { background-color: #222; }
+
+        /* Specific Columns */
+        .col-pos { font-family: 'Arial Black'; font-size: 1.1rem; width: 50px; }
+        .col-driver { text-align: left !important; font-weight: bold; color: #fff !important; }
+        .col-team { text-align: left !important; color: #888 !important; font-size: 0.75rem; }
+        .col-points { font-weight: bold; color: var(--accent) !important; font-size: 1rem; background: rgba(255, 255, 0, 0.05); }
+        
+        /* Stats Coloring */
+        .val-gain { color: var(--pos-gain); font-weight: bold; }
+        .val-loss { color: var(--pos-loss); font-weight: bold; }
+        .val-neutral { color: #444; }
+        .val-bonus { color: #00ff00; font-size: 0.75rem; }
+        .val-penalty { color: #ff0000; font-size: 0.75rem; }
+
+        /* Race Grid specific */
+        .race-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 4px;
+            font-weight: bold;
+            margin: 0 auto;
+        }
+        .rb-win { background: var(--primary); color: #fff; border-color: #fff; }
+        .rb-top5 { background: #003366; color: #fff; }
+        .rb-dnf { background: #330000; color: #999; }
+
+        /* Tab Content Logic */
+        .tab-pane { display: none; animation: fadeIn 0.5s; }
+        .tab-pane.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    </style>
+</head>
+<body>
+
+    <div id="nav-placeholder"></div>
+
+    <header class="iracing-hero">
+        <h1 style="margin:0; text-transform:uppercase; letter-spacing:-2px;">iRacing Series</h1>
+        <div style="color:var(--primary); font-size:0.9rem; letter-spacing:4px; text-transform:uppercase; margin-top:10px;">
+            Official Season Standings
+        </div>
+        <div style="margin-top:2rem;">
+            <select class="season-select" style="background:#000; color:#fff; border:1px solid #fff; padding:10px 20px;">
+                <option>2026 Season 1</option>
+                <option>2025 Season 4 (Archive)</option>
+            </select>
+        </div>
+    </header>
+
+    <div class="data-tabs">
+        <button class="data-tab-btn active" onclick="switchTab('drivers')">Driver Standings</button>
+        <button class="data-tab-btn" onclick="switchTab('teams')">Team Standings</button>
+        <button class="data-tab-btn" onclick="switchTab('grid')">Race Grid</button>
+    </div>
+
+    <main class="data-container">
+        
+        <div id="tab-drivers" class="tab-pane active">
+            <h2 style="border-left:4px solid var(--primary); padding-left:15px; margin-bottom:20px;">DRIVER CHAMPIONSHIP</h2>
+            <table class="srh-table">
+                <thead>
+                    <tr>
+                        <th>Pos</th>
+                        <th>Chg</th>
+                        <th class="align-left">Driver</th>
+                        <th class="align-left">Team</th>
+                        <th>Starts</th>
+                        <th>Wins</th>
+                        <th>Top 5</th>
+                        <th>Poles</th>
+                        <th>Laps</th>
+                        <th>Incs</th>
+                        <th>Avg Fin</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="col-pos">1</td>
+                        <td class="val-neutral">-</td>
+                        <td class="col-driver">Daniel Holloway</td>
+                        <td class="col-team">CandyShack Motorsports</td>
+                        <td>13</td>
+                        <td>1</td>
+                        <td>7</td>
+                        <td>1</td>
+                        <td>1,284</td>
+                        <td>150</td>
+                        <td>11.5</td>
+                        <td class="col-points">2,312</td>
+                    </tr>
+                    <tr>
+                        <td class="col-pos">2</td>
+                        <td class="val-neutral">-</td>
+                        <td class="col-driver">Chase Grier</td>
+                        <td class="col-team">TMS</td>
+                        <td>16</td>
+                        <td>3</td>
+                        <td>7</td>
+                        <td>2</td>
+                        <td>1,639</td>
+                        <td>215</td>
+                        <td>13.4</td>
+                        <td class="col-points">2,270</td>
+                    </tr>
+                    <tr>
+                        <td class="col-pos">3</td>
+                        <td class="val-gain">▲ 3</td>
+                        <td class="col-driver">Richard Caro</td>
+                        <td class="col-team">Shooter McGavin Motorsport</td>
+                        <td>16</td>
+                        <td>3</td>
+                        <td>5</td>
+                        <td>0</td>
+                        <td>1,473</td>
+                        <td>224</td>
+                        <td>14.0</td>
+                        <td class="col-points">2,241</td>
+                    </tr>
+                     <tr>
+                        <td class="col-pos">4</td>
+                        <td class="val-loss">▼ 1</td>
+                        <td class="col-driver">Dalton Gibson</td>
+                        <td class="col-team">Shake N' Bake Motorsports</td>
+                        <td>16</td>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>1,593</td>
+                        <td>274</td>
+                        <td>17.1</td>
+                        <td class="col-points">2,240</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="tab-teams" class="tab-pane">
+            <h2 style="border-left:4px solid var(--primary); padding-left:15px; margin-bottom:20px;">TEAM CHAMPIONSHIP</h2>
+            <table class="srh-table">
+                <thead>
+                    <tr>
+                        <th>Pos</th>
+                        <th class="align-left">Team Name</th>
+                        <th>Drivers</th>
+                        <th>Wins</th>
+                        <th>Bonus Pts</th>
+                        <th>Pen Pts</th>
+                        <th>Total Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="col-pos">1</td>
+                        <td class="col-driver">Shooter McGavin Motorsport</td>
+                        <td>3</td>
+                        <td>5</td>
+                        <td class="val-bonus">+303</td>
+                        <td class="val-neutral">0</td>
+                        <td class="col-points">1,446</td>
+                    </tr>
+                    <tr>
+                        <td class="col-pos">2</td>
+                        <td class="col-driver">CandyShack Motorsports</td>
+                        <td>3</td>
+                        <td>1</td>
+                        <td class="val-bonus">+342</td>
+                        <td class="val-penalty">-10</td>
+                        <td class="col-points">1,366</td>
+                    </tr>
+                    <tr>
+                        <td class="col-pos">3</td>
+                        <td class="col-driver">TMS</td>
+                        <td>4</td>
+                        <td>3</td>
+                        <td class="val-bonus">+283</td>
+                        <td class="val-penalty">-5</td>
+                        <td class="col-points">1,335</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="tab-grid" class="tab-pane">
+            <h2 style="border-left:4px solid var(--primary); padding-left:15px; margin-bottom:20px;">RACE RESULTS MATRIX</h2>
+            <div style="overflow-x: auto;">
+                <table class="srh-table">
+                    <thead>
+                        <tr>
+                            <th class="align-left" style="position:sticky; left:0; z-index:10;">Driver</th>
+                            <th>R1<br><small>DAY</small></th>
+                            <th>R2<br><small>TAL</small></th>
+                            <th>R3<br><small>ATL</small></th>
+                            <th>R4<br><small>TEX</small></th>
+                            <th>R5<br><small>BRI</small></th>
+                            <th>R6<br><small>MAR</small></th>
+                            <th>R7<br><small>CLT</small></th>
+                            <th>R8<br><small>DAR</small></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="col-driver" style="position:sticky; left:0; background:var(--table-row-even);">D. Holloway</td>
+                            <td><div class="race-box rb-win">1</div></td>
+                            <td><div class="race-box">12</div></td>
+                            <td><div class="race-box rb-top5">4</div></td>
+                            <td><div class="race-box">8</div></td>
+                            <td><div class="race-box rb-dnf">34</div></td>
+                            <td><div class="race-box">6</div></td>
+                            <td><div class="race-box">9</div></td>
+                            <td><div class="race-box">11</div></td>
+                        </tr>
+                        <tr>
+                            <td class="col-driver" style="position:sticky; left:0; background:var(--table-row-odd);">C. Grier</td>
+                            <td><div class="race-box">14</div></td>
+                            <td><div class="race-box rb-top5">2</div></td>
+                            <td><div class="race-box rb-win">1</div></td>
+                            <td><div class="race-box">15</div></td>
+                            <td><div class="race-box">20</div></td>
+                            <td><div class="race-box rb-win">1</div></td>
+                            <td><div class="race-box">7</div></td>
+                            <td><div class="race-box">22</div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div style="margin-bottom: 0.5rem; letter-spacing: 2px; color: #fff;">
+            © 2026 AMERICAN STOCK CAR RACING LEAGUE
+        </div>
+        <div style="font-size: 0.6rem; color: #666; margin-top: 10px;">
+            DATA PROVIDED BY ASCRL TELEMETRY
+        </div>
+    </footer>
+
+    <script>
+        // 1. Load Nav
+        fetch('nav.html').then(r=>r.text()).then(d=>document.getElementById('nav-placeholder').innerHTML=d);
+
+        // 2. Tab Logic
+        function switchTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-pane').forEach(el => {
+                el.classList.remove('active');
+            });
+            // Show selected
+            document.getElementById('tab-' + tabId).classList.add('active');
+
+            // Update Buttons
+            document.querySelectorAll('.data-tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // 3. Hamburger Menu Fix (Required for nav.html)
+        function toggleMenu() {
+            const m = document.getElementById('nav-menu');
+            if(m) m.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>
