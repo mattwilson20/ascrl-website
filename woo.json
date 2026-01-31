@@ -10,6 +10,13 @@
                 "avg": 8.0
             },
             {
+                "type": "WOO Late Model",
+                "starts": 6,
+                "points": 138,
+                "wins": 0,
+                "avg": 14.0
+            },
+            {
                 "type": "410 Wing Sprint",
                 "starts": 5,
                 "points": 133,
@@ -38,14 +45,50 @@
                 "avg": 5.33
             },
             {
-                "type": "WOO Late Model",
+                "type": "Street Stock",
                 "starts": 3,
-                "points": 64,
+                "points": 74,
                 "wins": 0,
-                "avg": 15.67
+                "avg": 12.33
             }
         ],
         "race_log": [
+            {
+                "track": "Texas",
+                "car": "Street Stock",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Lincoln",
+                "car": "Street Stock",
+                "pos": 14,
+                "pts": 23
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Street Stock",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Old Mill",
+                "car": "WOO Late Model",
+                "pos": 14,
+                "pts": 23
+            },
+            {
+                "track": "Eldora",
+                "car": "WOO Late Model",
+                "pos": 14,
+                "pts": 23
+            },
+            {
+                "track": "Five Forks",
+                "car": "WOO Late Model",
+                "pos": 9,
+                "pts": 28
+            },
             {
                 "track": "Bristol",
                 "car": "410 Wing Sprint",
@@ -190,12 +233,12 @@
                 "number": "1",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 672,
+                    "points": 820,
                     "wins": 0,
                     "top5": 9,
-                    "top10": 17,
-                    "starts": 23,
-                    "avg": 7.78
+                    "top10": 18,
+                    "starts": 29,
+                    "avg": 8.72
                 }
             }
         }
@@ -219,10 +262,10 @@
             },
             {
                 "type": "WOO Late Model",
-                "starts": 3,
-                "points": 85,
+                "starts": 6,
+                "points": 156,
                 "wins": 0,
-                "avg": 8.67
+                "avg": 11.0
             },
             {
                 "type": "Midget",
@@ -230,9 +273,52 @@
                 "points": 83,
                 "wins": 0,
                 "avg": 9.33
+            },
+            {
+                "type": "Street Stock",
+                "starts": 3,
+                "points": 80,
+                "wins": 0,
+                "avg": 10.33
             }
         ],
         "race_log": [
+            {
+                "track": "Texas",
+                "car": "Street Stock",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Lincoln",
+                "car": "Street Stock",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Street Stock",
+                "pos": 14,
+                "pts": 23
+            },
+            {
+                "track": "Old Mill",
+                "car": "WOO Late Model",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Eldora",
+                "car": "WOO Late Model",
+                "pos": 16,
+                "pts": 21
+            },
+            {
+                "track": "Five Forks",
+                "car": "WOO Late Model",
+                "pos": 14,
+                "pts": 23
+            },
             {
                 "track": "Bristol",
                 "car": "410 Wing Sprint",
@@ -347,12 +433,12 @@
                 "number": "218",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 511,
+                    "points": 662,
                     "wins": 0,
                     "top5": 5,
-                    "top10": 12,
-                    "starts": 18,
-                    "avg": 8.61
+                    "top10": 14,
+                    "starts": 24,
+                    "avg": 9.42
                 }
             }
         }
@@ -368,6 +454,13 @@
                 "avg": 10.71
             },
             {
+                "type": "WOO Late Model",
+                "starts": 6,
+                "points": 167,
+                "wins": 0,
+                "avg": 9.17
+            },
+            {
                 "type": "410 Wing Sprint",
                 "starts": 6,
                 "points": 161,
@@ -375,11 +468,11 @@
                 "avg": 10.17
             },
             {
-                "type": "WOO Late Model",
+                "type": "Street Stock",
                 "starts": 3,
-                "points": 86,
+                "points": 87,
                 "wins": 0,
-                "avg": 8.33
+                "avg": 8.0
             },
             {
                 "type": "Big Block Modified",
@@ -404,6 +497,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Texas",
+                "car": "Street Stock",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Lincoln",
+                "car": "Street Stock",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Street Stock",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Old Mill",
+                "car": "WOO Late Model",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Eldora",
+                "car": "WOO Late Model",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Five Forks",
+                "car": "WOO Late Model",
+                "pos": 11,
+                "pts": 26
+            },
             {
                 "track": "Bristol",
                 "car": "410 Wing Sprint",
@@ -560,12 +689,12 @@
                 "number": "000",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 669,
+                    "points": 837,
                     "wins": 0,
                     "top5": 3,
-                    "top10": 13,
-                    "starts": 25,
-                    "avg": 10.24
+                    "top10": 17,
+                    "starts": 31,
+                    "avg": 10.0
                 }
             }
         }
@@ -574,6 +703,13 @@
         "display_name": "SOLID1915ONE",
         "cars": [
             {
+                "type": "WOO Late Model",
+                "starts": 6,
+                "points": 186,
+                "wins": 0,
+                "avg": 6.0
+            },
+            {
                 "type": "410 Wing Sprint",
                 "starts": 3,
                 "points": 99,
@@ -581,14 +717,44 @@
                 "avg": 4.0
             },
             {
-                "type": "WOO Late Model",
-                "starts": 3,
-                "points": 93,
+                "type": "Street Stock",
+                "starts": 2,
+                "points": 67,
                 "wins": 0,
-                "avg": 6.0
+                "avg": 3.5
             }
         ],
         "race_log": [
+            {
+                "track": "Lincoln",
+                "car": "Street Stock",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Street Stock",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Old Mill",
+                "car": "WOO Late Model",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Eldora",
+                "car": "WOO Late Model",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Five Forks",
+                "car": "WOO Late Model",
+                "pos": 7,
+                "pts": 30
+            },
             {
                 "track": "Bristol",
                 "car": "410 Wing Sprint",
@@ -631,11 +797,11 @@
                 "number": "64",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 192,
+                    "points": 352,
                     "wins": 0,
-                    "top5": 5,
-                    "top10": 5,
-                    "starts": 6,
+                    "top5": 8,
+                    "top10": 10,
+                    "starts": 11,
                     "avg": 5.0
                 }
             }
@@ -652,6 +818,13 @@
                 "avg": 4.67
             },
             {
+                "type": "WOO Late Model",
+                "starts": 6,
+                "points": 182,
+                "wins": 0,
+                "avg": 6.67
+            },
+            {
                 "type": "305 Sprint Car",
                 "starts": 6,
                 "points": 178,
@@ -666,18 +839,18 @@
                 "avg": 2.33
             },
             {
+                "type": "Street Stock",
+                "starts": 3,
+                "points": 103,
+                "wins": 0,
+                "avg": 2.67
+            },
+            {
                 "type": "360 Sprint",
                 "starts": 3,
                 "points": 93,
                 "wins": 0,
                 "avg": 6.0
-            },
-            {
-                "type": "WOO Late Model",
-                "starts": 3,
-                "points": 89,
-                "wins": 0,
-                "avg": 7.33
             },
             {
                 "type": "Big Block Modified",
@@ -688,6 +861,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Texas",
+                "car": "Street Stock",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Lincoln",
+                "car": "Street Stock",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Street Stock",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Old Mill",
+                "car": "WOO Late Model",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Eldora",
+                "car": "WOO Late Model",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Five Forks",
+                "car": "WOO Late Model",
+                "pos": 5,
+                "pts": 32
+            },
             {
                 "track": "Bristol",
                 "car": "410 Wing Sprint",
@@ -838,12 +1047,12 @@
                 "number": "8",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 750,
+                    "points": 946,
                     "wins": 1,
-                    "top5": 10,
-                    "top10": 23,
-                    "starts": 24,
-                    "avg": 5.92
+                    "top5": 15,
+                    "top10": 29,
+                    "starts": 30,
+                    "avg": 5.6
                 }
             }
         }
@@ -987,6 +1196,13 @@
                 "avg": 7.67
             },
             {
+                "type": "WOO Late Model",
+                "starts": 6,
+                "points": 145,
+                "wins": 0,
+                "avg": 12.83
+            },
+            {
                 "type": "Big Block Modified",
                 "starts": 3,
                 "points": 96,
@@ -1008,14 +1224,50 @@
                 "avg": 6.67
             },
             {
-                "type": "WOO Late Model",
+                "type": "Street Stock",
                 "starts": 3,
-                "points": 74,
+                "points": 83,
                 "wins": 0,
-                "avg": 12.33
+                "avg": 9.33
             }
         ],
         "race_log": [
+            {
+                "track": "Texas",
+                "car": "Street Stock",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Lincoln",
+                "car": "Street Stock",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Street Stock",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Old Mill",
+                "car": "WOO Late Model",
+                "pos": 15,
+                "pts": 22
+            },
+            {
+                "track": "Eldora",
+                "car": "WOO Late Model",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Five Forks",
+                "car": "WOO Late Model",
+                "pos": 15,
+                "pts": 22
+            },
             {
                 "track": "Bristol",
                 "car": "410 Wing Sprint",
@@ -1166,12 +1418,12 @@
                 "number": "57j",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 716,
+                    "points": 870,
                     "wins": 1,
                     "top5": 7,
-                    "top10": 18,
-                    "starts": 24,
-                    "avg": 7.33
+                    "top10": 21,
+                    "starts": 30,
+                    "avg": 8.13
                 }
             }
         }
@@ -1181,6 +1433,13 @@
         "cars": [
             {
                 "type": "WOO Late Model",
+                "starts": 6,
+                "points": 210,
+                "wins": 3,
+                "avg": 4.0
+            },
+            {
+                "type": "Street Stock",
                 "starts": 3,
                 "points": 120,
                 "wins": 3,
@@ -1223,6 +1482,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Texas",
+                "car": "Street Stock",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Lincoln",
+                "car": "Street Stock",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Street Stock",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Old Mill",
+                "car": "WOO Late Model",
+                "pos": 17,
+                "pts": 20
+            },
+            {
+                "track": "Eldora",
+                "car": "WOO Late Model",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Five Forks",
+                "car": "WOO Late Model",
+                "pos": 2,
+                "pts": 35
+            },
             {
                 "track": "Bristol",
                 "car": "410 Wing Sprint",
@@ -1325,12 +1620,12 @@
                 "number": "07",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 583,
-                    "wins": 11,
-                    "top5": 13,
-                    "top10": 14,
-                    "starts": 16,
-                    "avg": 3.31
+                    "points": 793,
+                    "wins": 14,
+                    "top5": 18,
+                    "top10": 19,
+                    "starts": 22,
+                    "avg": 3.5
                 }
             }
         }
@@ -1506,14 +1801,64 @@
                 "avg": 9.67
             },
             {
+                "type": "WOO Late Model",
+                "starts": 3,
+                "points": 77,
+                "wins": 0,
+                "avg": 11.33
+            },
+            {
                 "type": "Midget",
                 "starts": 3,
                 "points": 70,
                 "wins": 0,
                 "avg": 13.67
+            },
+            {
+                "type": "Street Stock",
+                "starts": 3,
+                "points": 68,
+                "wins": 0,
+                "avg": 14.33
             }
         ],
         "race_log": [
+            {
+                "track": "Texas",
+                "car": "Street Stock",
+                "pos": 14,
+                "pts": 23
+            },
+            {
+                "track": "Lincoln",
+                "car": "Street Stock",
+                "pos": 16,
+                "pts": 21
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Street Stock",
+                "pos": 13,
+                "pts": 24
+            },
+            {
+                "track": "Old Mill",
+                "car": "WOO Late Model",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Eldora",
+                "car": "WOO Late Model",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Five Forks",
+                "car": "WOO Late Model",
+                "pos": 10,
+                "pts": 27
+            },
             {
                 "track": "Sugarbush",
                 "car": "410 Wing Sprint",
@@ -1628,12 +1973,12 @@
                 "number": "69",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 487,
+                    "points": 632,
                     "wins": 0,
                     "top5": 3,
-                    "top10": 9,
-                    "starts": 18,
-                    "avg": 9.94
+                    "top10": 10,
+                    "starts": 24,
+                    "avg": 10.67
                 }
             }
         }
@@ -1709,9 +2054,41 @@
                 "points": 102,
                 "wins": 1,
                 "avg": 4.33
+            },
+            {
+                "type": "Street Stock",
+                "starts": 2,
+                "points": 54,
+                "wins": 0,
+                "avg": 10.0
+            },
+            {
+                "type": "WOO Late Model",
+                "starts": 1,
+                "points": 34,
+                "wins": 0,
+                "avg": 3.0
             }
         ],
         "race_log": [
+            {
+                "track": "Lincoln",
+                "car": "Street Stock",
+                "pos": 17,
+                "pts": 20
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Street Stock",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Old Mill",
+                "car": "WOO Late Model",
+                "pos": 3,
+                "pts": 34
+            },
             {
                 "track": "Sugarbush",
                 "car": "410 Wing Sprint",
@@ -1826,12 +2203,12 @@
                 "number": "12",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 651,
+                    "points": 739,
                     "wins": 8,
-                    "top5": 16,
-                    "top10": 18,
-                    "starts": 18,
-                    "avg": 2.61
+                    "top5": 18,
+                    "top10": 20,
+                    "starts": 21,
+                    "avg": 3.33
                 }
             }
         }
@@ -1855,10 +2232,10 @@
             },
             {
                 "type": "WOO Late Model",
-                "starts": 3,
-                "points": 92,
+                "starts": 6,
+                "points": 188,
                 "wins": 0,
-                "avg": 6.33
+                "avg": 5.67
             },
             {
                 "type": "Midget",
@@ -1866,9 +2243,52 @@
                 "points": 84,
                 "wins": 0,
                 "avg": 9.0
+            },
+            {
+                "type": "Street Stock",
+                "starts": 3,
+                "points": 79,
+                "wins": 0,
+                "avg": 10.67
             }
         ],
         "race_log": [
+            {
+                "track": "Texas",
+                "car": "Street Stock",
+                "pos": 16,
+                "pts": 21
+            },
+            {
+                "track": "Lincoln",
+                "car": "Street Stock",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Street Stock",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Old Mill",
+                "car": "WOO Late Model",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Eldora",
+                "car": "WOO Late Model",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Five Forks",
+                "car": "WOO Late Model",
+                "pos": 4,
+                "pts": 33
+            },
             {
                 "track": "Bristol",
                 "car": "410 Wing Sprint",
@@ -1983,12 +2403,12 @@
                 "number": "13",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 581,
+                    "points": 756,
                     "wins": 2,
-                    "top5": 11,
-                    "top10": 15,
-                    "starts": 18,
-                    "avg": 5.17
+                    "top5": 13,
+                    "top10": 20,
+                    "starts": 24,
+                    "avg": 5.83
                 }
             }
         }
@@ -2075,6 +2495,13 @@
                 "avg": 6.33
             },
             {
+                "type": "WOO Late Model",
+                "starts": 6,
+                "points": 159,
+                "wins": 0,
+                "avg": 10.5
+            },
+            {
                 "type": "410 Wing Sprint",
                 "starts": 6,
                 "points": 155,
@@ -2082,21 +2509,57 @@
                 "avg": 11.17
             },
             {
+                "type": "Street Stock",
+                "starts": 3,
+                "points": 98,
+                "wins": 0,
+                "avg": 4.33
+            },
+            {
                 "type": "Midget",
                 "starts": 3,
                 "points": 92,
                 "wins": 1,
                 "avg": 7.67
-            },
-            {
-                "type": "WOO Late Model",
-                "starts": 3,
-                "points": 74,
-                "wins": 0,
-                "avg": 12.33
             }
         ],
         "race_log": [
+            {
+                "track": "Texas",
+                "car": "Street Stock",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Lincoln",
+                "car": "Street Stock",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Street Stock",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Old Mill",
+                "car": "WOO Late Model",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Eldora",
+                "car": "WOO Late Model",
+                "pos": 13,
+                "pts": 24
+            },
+            {
+                "track": "Five Forks",
+                "car": "WOO Late Model",
+                "pos": 6,
+                "pts": 31
+            },
             {
                 "track": "Bristol",
                 "car": "410 Wing Sprint",
@@ -2211,12 +2674,12 @@
                 "number": "33",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 505,
+                    "points": 688,
                     "wins": 1,
-                    "top5": 5,
-                    "top10": 9,
-                    "starts": 18,
-                    "avg": 9.17
+                    "top5": 8,
+                    "top10": 14,
+                    "starts": 24,
+                    "avg": 8.5
                 }
             }
         }
@@ -2230,6 +2693,13 @@
                 "points": 152,
                 "wins": 0,
                 "avg": 11.67
+            },
+            {
+                "type": "WOO Late Model",
+                "starts": 5,
+                "points": 107,
+                "wins": 0,
+                "avg": 15.6
             },
             {
                 "type": "Big Block Modified",
@@ -2260,14 +2730,44 @@
                 "avg": 11.33
             },
             {
-                "type": "WOO Late Model",
+                "type": "Street Stock",
                 "starts": 3,
-                "points": 66,
+                "points": 67,
                 "wins": 0,
-                "avg": 15.0
+                "avg": 14.67
             }
         ],
         "race_log": [
+            {
+                "track": "Texas",
+                "car": "Street Stock",
+                "pos": 15,
+                "pts": 22
+            },
+            {
+                "track": "Lincoln",
+                "car": "Street Stock",
+                "pos": 13,
+                "pts": 24
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Street Stock",
+                "pos": 16,
+                "pts": 21
+            },
+            {
+                "track": "Old Mill",
+                "car": "WOO Late Model",
+                "pos": 16,
+                "pts": 21
+            },
+            {
+                "track": "Five Forks",
+                "car": "WOO Late Model",
+                "pos": 17,
+                "pts": 20
+            },
             {
                 "track": "Circle Lake",
                 "car": "WOO Late Model",
@@ -2400,12 +2900,12 @@
                 "number": "83",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 554,
+                    "points": 662,
                     "wins": 0,
                     "top5": 0,
                     "top10": 11,
-                    "starts": 21,
-                    "avg": 10.62
+                    "starts": 26,
+                    "avg": 11.54
                 }
             }
         }
@@ -2708,6 +3208,13 @@
         "display_name": "Cratelate5",
         "cars": [
             {
+                "type": "WOO Late Model",
+                "starts": 6,
+                "points": 196,
+                "wins": 0,
+                "avg": 4.33
+            },
+            {
                 "type": "410 Wing Sprint",
                 "starts": 6,
                 "points": 161,
@@ -2715,21 +3222,57 @@
                 "avg": 10.17
             },
             {
-                "type": "WOO Late Model",
-                "starts": 3,
-                "points": 96,
-                "wins": 0,
-                "avg": 5.0
-            },
-            {
                 "type": "305 Sprint Car",
                 "starts": 3,
                 "points": 92,
                 "wins": 0,
                 "avg": 6.33
+            },
+            {
+                "type": "Street Stock",
+                "starts": 3,
+                "points": 88,
+                "wins": 0,
+                "avg": 7.67
             }
         ],
         "race_log": [
+            {
+                "track": "Texas",
+                "car": "Street Stock",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Lincoln",
+                "car": "Street Stock",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Street Stock",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Old Mill",
+                "car": "WOO Late Model",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Eldora",
+                "car": "WOO Late Model",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Five Forks",
+                "car": "WOO Late Model",
+                "pos": 3,
+                "pts": 34
+            },
             {
                 "track": "Bristol",
                 "car": "410 Wing Sprint",
@@ -2808,12 +3351,12 @@
                 "number": "51",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 349,
+                    "points": 537,
                     "wins": 0,
-                    "top5": 4,
-                    "top10": 9,
-                    "starts": 12,
-                    "avg": 7.92
+                    "top5": 6,
+                    "top10": 15,
+                    "starts": 18,
+                    "avg": 7.17
                 }
             }
         }
@@ -2842,10 +3385,17 @@
         "cars": [
             {
                 "type": "WOO Late Model",
-                "starts": 3,
-                "points": 86,
+                "starts": 6,
+                "points": 178,
                 "wins": 0,
-                "avg": 8.33
+                "avg": 7.33
+            },
+            {
+                "type": "Street Stock",
+                "starts": 3,
+                "points": 96,
+                "wins": 0,
+                "avg": 5.0
             },
             {
                 "type": "410 Wing Sprint",
@@ -2856,6 +3406,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Texas",
+                "car": "Street Stock",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Lincoln",
+                "car": "Street Stock",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Street Stock",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Old Mill",
+                "car": "WOO Late Model",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Eldora",
+                "car": "WOO Late Model",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Five Forks",
+                "car": "WOO Late Model",
+                "pos": 8,
+                "pts": 29
+            },
             {
                 "track": "Bristol",
                 "car": "410 Wing Sprint",
@@ -2898,12 +3484,12 @@
                 "number": "05",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 172,
+                    "points": 360,
                     "wins": 0,
-                    "top5": 0,
-                    "top10": 5,
-                    "starts": 6,
-                    "avg": 8.33
+                    "top5": 3,
+                    "top10": 11,
+                    "starts": 12,
+                    "avg": 7.0
                 }
             }
         }
@@ -2912,6 +3498,13 @@
         "display_name": "xxHambone",
         "cars": [
             {
+                "type": "WOO Late Model",
+                "starts": 6,
+                "points": 158,
+                "wins": 0,
+                "avg": 10.67
+            },
+            {
                 "type": "410 Wing Sprint",
                 "starts": 3,
                 "points": 88,
@@ -2919,14 +3512,44 @@
                 "avg": 7.67
             },
             {
-                "type": "WOO Late Model",
-                "starts": 3,
-                "points": 86,
+                "type": "Street Stock",
+                "starts": 2,
+                "points": 50,
                 "wins": 0,
-                "avg": 8.33
+                "avg": 12.0
             }
         ],
         "race_log": [
+            {
+                "track": "Texas",
+                "car": "Street Stock",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Street Stock",
+                "pos": 15,
+                "pts": 22
+            },
+            {
+                "track": "Old Mill",
+                "car": "WOO Late Model",
+                "pos": 18,
+                "pts": 19
+            },
+            {
+                "track": "Eldora",
+                "car": "WOO Late Model",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Five Forks",
+                "car": "WOO Late Model",
+                "pos": 12,
+                "pts": 25
+            },
             {
                 "track": "Bristol",
                 "car": "410 Wing Sprint",
@@ -2969,12 +3592,12 @@
                 "number": "32",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 174,
+                    "points": 296,
                     "wins": 0,
                     "top5": 2,
-                    "top10": 4,
-                    "starts": 6,
-                    "avg": 8.0
+                    "top10": 6,
+                    "starts": 11,
+                    "avg": 10.09
                 }
             }
         }
@@ -2983,6 +3606,13 @@
         "display_name": "bschiltzjr",
         "cars": [
             {
+                "type": "WOO Late Model",
+                "starts": 6,
+                "points": 152,
+                "wins": 0,
+                "avg": 11.67
+            },
+            {
                 "type": "410 Wing Sprint",
                 "starts": 3,
                 "points": 86,
@@ -2990,7 +3620,7 @@
                 "avg": 8.33
             },
             {
-                "type": "WOO Late Model",
+                "type": "Street Stock",
                 "starts": 3,
                 "points": 74,
                 "wins": 0,
@@ -2998,6 +3628,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Texas",
+                "car": "Street Stock",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Lincoln",
+                "car": "Street Stock",
+                "pos": 15,
+                "pts": 22
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Street Stock",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Old Mill",
+                "car": "WOO Late Model",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Eldora",
+                "car": "WOO Late Model",
+                "pos": 15,
+                "pts": 22
+            },
+            {
+                "track": "Five Forks",
+                "car": "WOO Late Model",
+                "pos": 13,
+                "pts": 24
+            },
             {
                 "track": "Bristol",
                 "car": "410 Wing Sprint",
@@ -3040,18 +3706,18 @@
                 "number": "5B",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 160,
+                    "points": 312,
                     "wins": 0,
-                    "top5": 1,
-                    "top10": 3,
-                    "starts": 6,
-                    "avg": 10.33
+                    "top5": 2,
+                    "top10": 5,
+                    "starts": 12,
+                    "avg": 11.0
                 }
             }
         }
     },
     "1156655071451414601": {
-        "display_name": "DGibby17",
+        "display_name": "Dalton Gibson #17",
         "cars": [
             {
                 "type": "WOO Late Model",
@@ -3117,6 +3783,71 @@
                     "top10": 6,
                     "starts": 6,
                     "avg": 6.67
+                }
+            }
+        }
+    },
+    "613170561333592144": {
+        "display_name": "MrSmooth-21",
+        "cars": [
+            {
+                "type": "WOO Late Model",
+                "starts": 3,
+                "points": 120,
+                "wins": 3,
+                "avg": 1.0
+            }
+        ],
+        "race_log": [
+            {
+                "track": "Old Mill",
+                "car": "WOO Late Model",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Eldora",
+                "car": "WOO Late Model",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Five Forks",
+                "car": "WOO Late Model",
+                "pos": 1,
+                "pts": 40
+            }
+        ],
+        "series": {
+            "World Of Outlaws": {
+                "number": "15B",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 120,
+                    "wins": 3,
+                    "top5": 3,
+                    "top10": 3,
+                    "starts": 3,
+                    "avg": 1.0
+                }
+            }
+        }
+    },
+    "1110268909745090560": {
+        "display_name": "DaltonGregson",
+        "cars": [],
+        "race_log": [],
+        "series": {
+            "World Of Outlaws": {
+                "number": "28",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "starts": 0,
+                    "avg": 0
                 }
             }
         }
