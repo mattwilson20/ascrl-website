@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Card Binder | ASCRL</title>
+    <link rel="icon" href="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css"> 
+
+    <style>
+        /* --- BINDER SPECIFIC STYLES --- */
+        :root {
+            --binder-cover: #0a0a0a;
+            --binder-texture: url("https://www.transparenttextures.com/patterns/leather.png");
+            --spine-color: #800000; /* Darker Red for spine */
+            --page-bg: #f0f0f0;
+            --slot-border: rgba(0, 0, 0, 0.15);
+            /* The plastic sleeve reflection effect */
+            --plastic-sheen: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.2) 100%);
+        }
+
+        body {
+            /* ASCRL Background */
+            background-color: #111;
+            background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+            margin: 0;
+            font-family: 'Arial Black', sans-serif;
+            overflow: hidden; /* Lock scroll for the 3D effect */
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Nav Container override to sit at top */
+        #nav-placeholder {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 10000;
+        }
+
+        /* Centering Wrapper */
+        .stage {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 2500px; /* Deep 3D perspective */
+            padding-top: 60px; /* Space for nav */
+        }
+
+        /* The Main Binder Container */
+        .binder {
+            position: relative;
+            width: 900px;
+            height: 650px;
+            transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        /* Binder States */
+        .binder.closed {
+            transform: rotateY(-20deg) rotateX(10deg) translateX(100px);
+        }
+
+        /* The Spine */
+        .spine {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 60px;
+            height: 100%;
+            background: var(--spine-color);
+            background-image: var(--binder-texture);
+            transform: translateX(-50%) translateZ(-25px);
+            border-radius: 5px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+        }
+        
+        /* Spine Text */
+        .spine::after {
+            content: "ASCRL 2026";
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(90deg);
+            color: rgba(255,215,0,0.7); /* Gold */
+            font-size: 3rem;
+            white-space: nowrap;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        /* Common Page Styling */
+        .page {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            background-color: var(--binder-cover);
+            background-image: var(--binder-texture);
+            top: 0;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            border: 2px solid #222;
+        }
+
+        .left-page {
+            left: 0;
+            transform-origin: right;
+            border-radius: 15px 0 0 15px;
+            z-index: 2;
+        }
+
+        /* Cover Art (Front of Left Page) */
+        .cover-art {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            transform: rotateY(0deg); /* Explicitly face front */
+            z-index: 5;
+            background: radial-gradient(circle, #222, #000);
+            border-radius: 15px 0 0 15px;
+        }
+
+        /* Inner Sheet (Back of Left Page) */
+        .left-page .sheet {
+            transform: rotateY(180deg); /* Face inward */
+        }
+
+        .right-page {
+            right: 0;
+            transform-origin: left;
+            border-radius: 0 15px 15px 0;
+            box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Closing Animation Logic */
+        .binder.closed .left-page {
+            transform: rotateY(175deg);
+        }
+
+        /* The Internal White Sheets */
+        .sheet {
+            position: absolute;
+            top: 10px; bottom: 10px;
+            width: calc(100% - 20px);
+            background: var(--page-bg);
+            backface-visibility: hidden; /* Hides content when flipped */
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+        }
+        
+        .left-page .sheet { right: 10px; border-radius: 5px 0 0 5px; }
+        .right-page .sheet { left: 10px; border-radius: 0 5px 5px 0; }
+
+        /* The Plastic Slots */
+        .slot {
+            border: 1px solid var(--slot-border);
+            border-radius: 2px;
+            background-color: #fff;
+            position: relative;
+            box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Card Images inside slots */
+        .slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+        }
+
+        /* Plastic Sheen Overlay */
+        .slot::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--plastic-sheen);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Holes for rings */
+        .hole {
+            width: 15px; height: 15px; background: #333; border-radius: 50%;
+            position: absolute; left: -25px; box-shadow: inset 1px 1px 3px #000;
+        }
+
+        .instruction {
+            position: absolute; bottom: 30px; width: 100%; text-align: center;
+            color: #666; font-size: 0.8rem; pointer-events: none;
+            text-transform: uppercase; letter-spacing: 2px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+
+        /* Mobile Disclaimer */
+        @media (max-width: 900px) {
+            .binder { transform: scale(0.6); }
+            .stage { overflow: hidden; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="nav-placeholder"></div>
+
+    <div class="stage">
+        <div class="binder closed" id="binder" onclick="toggleBinder()">
+            <div class="spine"></div>
+            
+            <div class="page left-page">
+                <div class="cover-art">
+                    <img src="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96" style="width:100px; margin-bottom:20px; filter: drop-shadow(0 0 10px #c00);">
+                    <h1 style="font-size: 2.5rem; margin:0; color:#fff; text-shadow:0 0 10px #c00;">ASCRL</h1>
+                    <h2 style="font-size: 1rem; color: gold; margin:0;">2026 COLLECTOR'S SERIES</h2>
+                    <p style="margin-top:20px; color:#aaa; font-size:0.7rem;">TAP TO OPEN</p>
+                </div>
+
+                <div class="sheet" id="sheet-left">
+                    </div>
+            </div>
+
+            <div class="page right-page">
+                <div class="sheet" id="sheet-right">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="instruction">Tap Binder to Open / Close</div>
+
+    <script>
+        // 1. Load Nav
+        fetch('nav.html').then(r=>r.text()).then(d=>document.getElementById('nav-placeholder').innerHTML=d);
+        function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
+
+        // 2. Binder Logic
+        function toggleBinder() {
+            document.getElementById('binder').classList.toggle('closed');
+        }
+
+        // 3. Load Cards
+        async function loadBinderCards() {
+            try {
+                // Fetch both files to get max data
+                const [r1, r2] = await Promise.all([
+                    fetch('drivers.json').then(r=>r.ok?r.json():{}),
+                    fetch('drivers_2026.json').then(r=>r.ok?r.json():{})
+                ]);
+                
+                // Merge data
+                const drivers = { ...r1, ...r2 };
+                const driverList = Object.values(drivers);
+
+                // Helper to get image
+                const getImage = (name) => {
+                    const n = name.toLowerCase();
+                    if (n.includes('dakotathomas')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg";
+                    // ... (Add your other specific mappings here if you want)
+                    return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg";
+                };
+
+                const leftSheet = document.getElementById('sheet-left');
+                const rightSheet = document.getElementById('sheet-right');
+
+                // Fill Left Sheet (First 9)
+                for(let i=0; i<9; i++) {
+                    const d = driverList[i];
+                    const imgUrl = d ? getImage(d.display_name) : ''; 
+                    const html = d ? `<img src="${imgUrl}" loading="lazy">` : '';
+                    const slot = document.createElement('div');
+                    slot.className = 'slot';
+                    slot.innerHTML = html;
+                    leftSheet.appendChild(slot);
+                }
+
+                // Fill Right Sheet (Next 9)
+                for(let i=9; i<18; i++) {
+                    const d = driverList[i];
+                    const imgUrl = d ? getImage(d.display_name) : '';
+                    const html = d ? `<img src="${imgUrl}" loading="lazy">` : '';
+                    const slot = document.createElement('div');
+                    slot.className = 'slot';
+                    slot.innerHTML = html;
+                    rightSheet.appendChild(slot);
+                }
+
+            } catch (e) {
+                console.error("Error loading binder:", e);
+            }
+        }
+
+        loadBinderCards();
+
+    </script>
+</body>
+</html>
