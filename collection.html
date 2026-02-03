@@ -3,54 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASCRL Collection</title>
+    <title>Collections | American Stock Car Racing League</title>
+    
+    <link rel="icon" href="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="style.css">
+    
     <style>
-        /* --- GLOBAL RESET --- */
+        /* --- 1. GLOBAL VARIABLES & BACKGROUND (From Index) --- */
+        :root {
+            --primary: #c00;
+            --accent: #ff0;
+            --bg-dark: #000;
+            --card-bg: #0d0d0d;
+            --border: #1a1a1a;
+            --text-muted: #a0a0a0;
+            
+            --cup-blue: #0077ff;
+            --xfinity-purple: #8000b0;
+            --truck-red: #c00;
+            --menards-yellow: #fff200;
+
+            --binder-texture: url("https://www.transparenttextures.com/patterns/leather.png");
+        }
+
         body { 
-            background-color: #111; 
-            background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
-            font-family: 'Arial Black', sans-serif; 
-            min-height: 100vh; 
-            display: flex; 
-            flex-direction: column; 
             margin: 0; 
-            overflow-x: hidden;
+            font-family: 'Arial Black', sans-serif; 
+            background-color: #333333; 
+            background-image: 
+                radial-gradient(transparent 0%, #000 100%),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.35'/%3E%3C/svg%3E");
+            background-attachment: fixed;
+            color: #fff; 
+            overflow-x: hidden; 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #nav-placeholder { position: relative; z-index: 2000; }
+
+        /* --- 2. HERO SECTION STYLES (From Index) --- */
+        .hero { 
+            position: relative; 
+            overflow: hidden; 
+            background: radial-gradient(circle at center, #222 0%, #000 100%); 
+            padding: 8rem 1rem 4rem; /* Adjusted padding slightly for inner page */
+            text-align: center; 
+            border-bottom: 1px solid var(--border);
+        }
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: repeating-conic-gradient(rgba(255,255,255,0.03) 0% 25%, transparent 0% 50%) 50% / 80px 80px;
+            pointer-events: none;
         }
         
-        #nav-placeholder { position: relative; z-index: 10000; }
-        
-        /* --- SHELF LAYOUT --- */
+        .hero h1 { font-size: clamp(3rem, 10vw, 6rem); margin: 0; letter-spacing: -2px; position: relative; z-index: 1; }
+        .text-gradient {
+            background: linear-gradient(to bottom, #fff 30%, #444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- 3. BINDER SHELF STYLES --- */
         .shelf { 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
             gap: 100px; 
-            padding: 50px 10px; /* Reduced padding for mobile */
+            padding: 50px 10px;
             perspective: 3000px;
         }
 
-        /* --- THE BINDER (RESPONSIVE) --- */
+        /* Binder Wrapper */
         .binder { 
             position: relative; 
-            width: 500px; /* Desktop Size */
+            width: 500px; 
             height: 650px; 
             transform-style: preserve-3d; 
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
             cursor: pointer; 
-            max-width: 90vw; /* MOBILE FIX: Never be wider than 90% of screen */
+            max-width: 90vw; 
         }
 
-        /* Opening Animation: Desktop (Shift Right) */
         .binder.open { transform: translateX(250px); }
 
-        /* COLORS & TEXTURES */
-        :root { --binder-texture: url("https://www.transparenttextures.com/patterns/leather.png"); }
+        /* Color Variants */
         .binder.winners .front, .binder.winners .spine { background-color: #D4AF37; }
         .binder.roster .front, .binder.roster .spine { background-color: #800000; }
 
-        /* --- MOVING PART (Cover + Inside Left) --- */
+        /* Moving Part (Cover + Inside Left) */
         .flip-wrapper {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             transform-style: preserve-3d;
@@ -61,14 +106,14 @@
         .binder.closed .flip-wrapper { transform: rotateY(-25deg); }
         .binder.open .flip-wrapper { transform: rotateY(-180deg); }
 
-        /* SHARED FACE STYLES */
+        /* Faces */
         .face {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             backface-visibility: hidden; border-radius: 5px 10px 10px 5px;
             border: 2px solid #222;
         }
 
-        /* FRONT COVER */
+        /* Front Cover */
         .front {
             background-image: var(--binder-texture);
             color: #fff;
@@ -79,14 +124,14 @@
         .front img { width: 30%; max-width: 100px; margin-bottom: 15px; }
         .front h1 { font-size: 2rem; text-align: center; }
 
-        /* INSIDE LEFT */
+        /* Inside Left */
         .back {
             background: #fff;
             transform: rotateY(180deg);
             display: flex; justify-content: center; align-items: center;
         }
 
-        /* STATIC RIGHT PAGE */
+        /* Static Right Page */
         .base-page {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: #fff;
@@ -97,7 +142,7 @@
             border: 2px solid #222;
         }
 
-        /* SPINE */
+        /* Spine */
         .spine {
             position: absolute; left: 0; top: 0; bottom: 0; width: 40px;
             background-image: var(--binder-texture);
@@ -111,7 +156,7 @@
             font-size: 1.5rem; letter-spacing: 5px; white-space: nowrap; 
         }
 
-        /* GRID SYSTEM */
+        /* Grid System */
         .sheet { 
             width: 92%; height: 96%; background: #f4f4f4; 
             display: grid; 
@@ -135,7 +180,7 @@
             pointer-events: none; z-index: 10; 
         }
 
-        /* --- MODAL --- */
+        /* Modal */
         #card-modal { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(0,0,0,0.95); z-index: 20000; 
@@ -146,7 +191,7 @@
         #big-card { 
             width: 400px; height: 560px; position: relative; 
             transform-style: preserve-3d; transition: 0.6s; cursor: pointer;
-            max-width: 90vw; max-height: 80vh; /* Mobile Modal Fix */
+            max-width: 90vw; max-height: 80vh;
         }
         #big-card.flipped { transform: rotateY(180deg); }
         
@@ -166,22 +211,11 @@
 
         .close-modal { position: absolute; top: 20px; right: 20px; color: #fff; font-size: 2rem; cursor: pointer; z-index: 20001; }
 
-        /* ========================================= */
-        /* MOBILE SPECIFIC RULES (The Magic Part)    */
-        /* ========================================= */
+        /* Mobile Rules */
         @media (max-width: 768px) {
             .shelf { padding-top: 50px; }
-            
-            .binder {
-                /* On phone, height is based on width to keep aspect ratio */
-                height: 125vw; 
-                max-height: 600px;
-            }
-
-            /* On mobile, we DON'T shift right (no room). We just open. */
+            .binder { height: 125vw; max-height: 600px; }
             .binder.open { transform: translateX(0); }
-            
-            /* Adjust font sizes for tiny screens */
             .front h1 { font-size: 1.5rem; }
             .spine span { font-size: 1.2rem; letter-spacing: 2px; }
         }
@@ -190,6 +224,16 @@
 <body>
 
     <div id="nav-placeholder"></div>
+
+    <header class="hero">
+        <p style="letter-spacing: 8px; color: var(--primary); text-transform: uppercase; font-size: 0.8rem;">Official League Portal</p>
+        <h1 class="text-gradient">COLLECTIONS</h1>
+        <div style="margin-top: 1rem; position: relative; z-index: 2;">
+            <p style="color: #ccc; font-family: sans-serif; font-size: 0.9rem; letter-spacing: 1px;">
+                TRADING CARDS • HISTORY • HALL OF FAME
+            </p>
+        </div>
+    </header>
 
     <div class="shelf">
         
@@ -250,7 +294,6 @@
             el.classList.toggle('closed');
             el.classList.toggle('open');
             if(el.classList.contains('open')) {
-                // Smooth scroll, but give the browser time to render the animation first
                 setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
             }
         }
