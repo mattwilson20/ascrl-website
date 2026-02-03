@@ -13,11 +13,21 @@
         /* --- 1. GLOBAL VARIABLES & BACKGROUND --- */
         :root {
             --primary: #c00;
+            --accent: #ff0;
+            --bg-dark: #000;
+            --card-bg: #0d0d0d;
+            --border: #1a1a1a;
+            --text-muted: #a0a0a0;
+            
+            --cup-blue: #0077ff;
+            --xfinity-purple: #8000b0;
+            --truck-red: #c00;
+            --menards-yellow: #fff200;
+
             --binder-texture: url("https://www.transparenttextures.com/patterns/leather.png");
             
             /* REALISM COLORS */
             --gold-foil: linear-gradient(45deg, #ffd700, #ffcc00, #ffeb3b, #d4af37);
-            --metal-gradient: linear-gradient(90deg, #999, #fff, #999);
             --stitch-color: rgba(255, 255, 255, 0.3);
         }
 
@@ -70,18 +80,13 @@
         .binder.open { transform: translateX(250px); }
 
         /* --- BINDER AESTHETICS --- */
-        
-        /* 1. Leather Texture & Lighting */
         .binder .front, .binder .spine {
             background-image: var(--binder-texture);
-            box-shadow: inset 0 0 40px rgba(0,0,0,0.5); /* Inner shadow for curve */
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.5); 
         }
-        
-        /* 2. Color Variants */
-        .binder.winners .front, .binder.winners .spine { background-color: #C5A028; } /* Darker Gold */
-        .binder.roster .front, .binder.roster .spine { background-color: #660000; } /* Darker Red */
+        .binder.winners .front, .binder.winners .spine { background-color: #C5A028; } 
+        .binder.roster .front, .binder.roster .spine { background-color: #660000; } 
 
-        /* 3. Stitching Effect */
         .front::after {
             content: ''; position: absolute; 
             top: 15px; left: 15px; right: 15px; bottom: 15px;
@@ -91,14 +96,12 @@
             box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
         }
 
-        /* 4. Gold Foil Text */
         .front h1 {
             font-family: 'Arial Black', sans-serif;
             font-size: 2.5rem; text-align: center; margin-top: 10px;
             background: var(--gold-foil);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5); /* Embossed look */
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5); 
             filter: drop-shadow(0 2px 0px rgba(0,0,0,0.3));
         }
 
@@ -126,7 +129,7 @@
         .back {
             background: #fff; transform: rotateY(180deg);
             display: flex; justify-content: center; align-items: center;
-            box-shadow: inset 10px 0 20px rgba(0,0,0,0.1); /* Paper shadow near spine */
+            box-shadow: inset 10px 0 20px rgba(0,0,0,0.1); 
         }
 
         .base-page {
@@ -147,10 +150,9 @@
         .spine span { 
             transform: rotate(90deg); color: rgba(255,255,255,0.4); 
             font-size: 1.5rem; letter-spacing: 5px; 
-            text-shadow: -1px -1px 0 rgba(0,0,0,0.5); /* Engraved look */
+            text-shadow: -1px -1px 0 rgba(0,0,0,0.5);
         }
 
-        /* The 3-Ring Mechanism Visuals */
         .ring-mechanisms {
             position: absolute; left: 5px; top: 0; bottom: 0; width: 20px;
             display: flex; flex-direction: column; justify-content: space-evenly;
@@ -169,7 +171,7 @@
             width: 90%; height: 94%; 
             background-color: #f8f8f8;
             background-image: radial-gradient(#ddd 1px, transparent 1px);
-            background-size: 10px 10px; /* Dot grid pattern */
+            background-size: 10px 10px; 
             display: grid; 
             grid-template-columns: repeat(3, 1fr); 
             grid-template-rows: repeat(3, 1fr); 
@@ -180,42 +182,49 @@
         }
         
         .slot { 
-            background: #fff; 
-            border: 1px solid #eee; 
-            position: relative; cursor: pointer; 
-            display: flex; align-items: center; justify-content: center; 
-            overflow: hidden; 
-            transition: 0.2s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            background: #fff; border: 1px solid #eee; position: relative; cursor: pointer; 
+            display: flex; align-items: center; justify-content: center; overflow: hidden; 
+            transition: 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
         .slot:hover { 
-            transform: scale(1.05) translateZ(10px); 
-            z-index: 20; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3); 
-            border-color: var(--primary);
+            transform: scale(1.05) translateZ(10px); z-index: 20; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3); border-color: var(--primary);
         }
         .slot img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
         
-        /* PLASTIC SLEEVE REFLECTION */
         .slot::after { 
             content: ''; position: absolute; top:0; left:0; width:100%; height:100%; 
             background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 30%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.1) 100%); 
             pointer-events: none; z-index: 10; 
         }
 
-        /* --- MODAL --- */
+        /* --- MODAL (CENTERING FIX) --- */
         #card-modal { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.95); z-index: 20000; 
-            display: none; justify-content: center; align-items: center; 
+            position: fixed; top: 0; left: 0; 
+            width: 100%; 
+            height: 100dvh; /* Mobile Fix: Ignores address bar height issues */
+            background: rgba(0,0,0,0.85); z-index: 20000; 
+            
+            /* GRID is superior for centering */
+            display: none; 
+            place-items: center; 
+            
             perspective: 1000px; cursor: pointer;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
         }
         
         #big-card { 
-            width: 400px; height: 560px; position: relative; 
-            transform-style: preserve-3d; transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer;
-            max-width: 90vw; max-height: 80vh;
+            width: 400px; height: 560px; 
+            position: relative; 
+            transform-style: preserve-3d; 
+            transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
+            
+            /* Prevent cursor from looking like a button on the card itself */
+            cursor: default;
+            
+            /* Safety constraints for small screens */
+            max-width: 90vw; 
+            max-height: 85vh;
         }
         #big-card.flipped { transform: rotateY(180deg); }
         
@@ -224,6 +233,13 @@
             backface-visibility: hidden; border-radius: 14px; 
             background: #fff; overflow: hidden; 
             box-shadow: 0 0 30px rgba(255,255,255,0.1);
+        }
+        
+        /* Updated to COVER to fix white bar alignment issues */
+        .card-face img { 
+            width: 100%; height: 100%; 
+            object-fit: cover; 
+            object-position: center;
         }
         
         .card-back { 
@@ -235,7 +251,7 @@
             background-size: 20px 20px;
         }
         
-        /* Mobile Rules */
+        /* --- MOBILE RULES --- */
         @media (max-width: 768px) {
             .shelf { padding-top: 50px; }
             .binder { width: 44vw; height: 60vw; }
@@ -391,7 +407,8 @@
             `;
             
             card.classList.remove('flipped');
-            modal.style.display = 'flex';
+            // Important: Use Grid display for centering
+            modal.style.display = 'grid'; 
         }
 
         fillBinder(winnersData, 'winners-L', 'winners-R');
