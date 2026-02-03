@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trading Card Collections | ASCRL</title>
+    <title>Trading Card Binder | ASCRL</title>
     <link rel="icon" href="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css"> 
@@ -32,12 +32,11 @@
 
         #nav-placeholder { position: relative; z-index: 10000; }
 
-        /* SHELF LAYOUT (VERTICAL STACK) */
         .shelf {
             display: flex;
             flex-direction: column; 
             align-items: center;
-            gap: 150px; /* Big gap to prevent overlap */
+            gap: 150px; 
             padding: 80px 20px 150px;
             perspective: 3000px;
         }
@@ -53,15 +52,12 @@
             z-index: 1; 
         }
 
-        /* States */
         .binder.closed { transform: rotateY(-25deg) rotateX(5deg); }
         .binder.open { transform: translateX(250px) rotateY(0deg); z-index: 10; }
 
-        /* Colors */
-        .binder.winners .cover, .binder.winners .spine { background-color: #D4AF37; } /* Gold */
-        .binder.roster .cover, .binder.roster .spine { background-color: #800000; } /* Red */
+        .binder.winners .cover, .binder.winners .spine { background-color: #D4AF37; }
+        .binder.roster .cover, .binder.roster .spine { background-color: #800000; }
 
-        /* SPINE */
         .spine {
             position: absolute; left: 0; top: 0; bottom: 0; width: 50px;
             background-image: var(--binder-texture);
@@ -74,13 +70,11 @@
             font-size: 2rem; letter-spacing: 5px;
         }
 
-        /* PAGES */
         .page {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             transform-style: preserve-3d; transition: transform 0.8s; border: 2px solid #222;
         }
 
-        /* Front Cover */
         .cover {
             background-image: var(--binder-texture); z-index: 10; transform-origin: left;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -89,7 +83,6 @@
         }
         .binder.open .cover { transform: rotateY(-180deg); }
 
-        /* Inside Left Page */
         .inside-cover {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #fff;
             transform-origin: left; transform: rotateY(-180deg); z-index: 5;
@@ -97,10 +90,8 @@
         }
         .binder.open .inside-cover { transform: rotateY(-180deg); z-index: 11; }
 
-        /* Right Page */
         .base-page { background: #fff; z-index: 1; border-radius: 0 10px 10px 0; box-shadow: 5px 5px 15px rgba(0,0,0,0.5); }
 
-        /* SHEET GRID */
         .sheet {
             width: 90%; height: 95%; background: var(--page-bg); margin: 2.5% auto;
             display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr);
@@ -110,18 +101,23 @@
         .left-page .sheet { right: 10px; border-radius: 5px 0 0 5px; }
         .right-page .sheet { left: 10px; border-radius: 0 5px 5px 0; }
 
-        /* CARD SLOTS */
         .slot {
             background: #fff; border: 1px solid var(--slot-border); position: relative;
             cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center;
             overflow: hidden;
         }
         .slot:hover { transform: scale(1.05); z-index: 20; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        
         .slot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+        
         .slot::after {
             content: ''; position: absolute; top:0; left:0; width:100%; height:100%;
             background: var(--plastic-sheen); pointer-events: none; z-index: 10;
         }
+
+        /* --- DEBUG ERROR STYLE --- */
+        .slot.error { background: #ffcccc !important; border: 2px solid red !important; }
+        .slot.error::after { display: none; } /* Remove sheen on error */
 
         /* --- MODAL --- */
         .card-modal {
@@ -202,8 +198,7 @@
             <div class="card-face card-front">
                 <img id="modal-img-front" src="">
             </div>
-            <div class="card-face card-back" id="modal-text-back">
-                </div>
+            <div class="card-face card-back" id="modal-text-back"></div>
         </div>
     </div>
 
@@ -214,27 +209,25 @@
 
         // --- DATA SECTION ---
         
-        const winnersData = []; // Add winners here later
-
-        // 2. ROSTER COLLECTION
+        // TEST DATA to diagnose the issue
         const rosterData = [
              { 
-                // FIX: Use the full website URL. 
-                // This is the specific address where your published site stores the image.
-                front: "https://mattwilson20.github.io/ascrl-website/DewshineTradingCard.jpg", 
+                // CARD 1: GLOBAL TEST IMAGE (This SHOULD work)
+                front: "https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png", 
+                title: "SYSTEM CHECK",
+                text: "If you see this red dice, the binder is working, but your ASCRL images are broken.",
+                stats: { "Status": "Online" }
+            },
+            { 
+                // CARD 2: YOUR CARD (Trying the exact link you gave)
+                front: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/f451603baa4aab641df00c3448af1462287dea06/DewshineTradingCard.jpg", 
                 title: "DEWSHINE",
                 text: "Apex Racing<br>Car #77<br>Cup Series",
                 stats: { "Wins": "0", "Top 5s": "3", "Avg Fin": "9.4" }
-            },
-            // This is a TEST CARD to prove the binder works. 
-            // If you see this cat, the code is fine, and your Dewshine image link is the only issue.
-            {
-                front: "https://placehold.co/400x600/1a1a1a/FFF/png?text=Test+Card",
-                title: "SYSTEM CHECK",
-                text: "If you see this card, the binder code is working perfectly.",
-                stats: { "Status": "Online" }
             }
         ];
+
+        const winnersData = [];
 
         // --- LOGIC ---
 
@@ -265,7 +258,15 @@
             if (cardData) {
                 const img = document.createElement('img');
                 img.src = cardData.front;
-                img.onerror = function() { this.style.display='none'; slot.innerHTML = '<span style="font-size:0.6rem; color:#ccc;">Image Error</span>'; }; // Fallback
+                
+                // NUCLEAR ERROR HANDLING
+                img.onerror = function() { 
+                    this.style.display='none'; 
+                    slot.classList.add('error'); // Make it red
+                    slot.innerHTML = `<div style="text-align:center; color:red; font-weight:bold; font-size:0.6rem; padding:5px;">BROKEN LINK<br><br>${cardData.title}</div>`; 
+                    console.error("FAILED TO LOAD:", cardData.front);
+                };
+                
                 slot.appendChild(img);
                 slot.onclick = (e) => {
                     e.stopPropagation(); 
