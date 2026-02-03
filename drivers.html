@@ -95,6 +95,9 @@
         .stats-pill { display: inline-flex; align-items: center; gap: 10px; border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.8); padding: 8px 15px; border-radius: 20px; font-size: 0.8rem; color: #fff; margin-top: auto; backdrop-filter: blur(5px); }
         .stat-divider { width: 1px; height: 12px; background: #666; }
 
+        .badge-container { display: flex; gap: 5px; margin-bottom: 1.5rem; flex-wrap: wrap; justify-content: center; }
+        .champ-badge { background: linear-gradient(45deg, #ffd700, #b8860b); color: #000; font-size: 0.6rem; font-weight: 900; padding: 4px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 0 10px rgba(255, 215, 0, 0.4); border: 1px solid #fff; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+
         /* --- MODAL STYLES --- */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 3000; overflow-y: auto; }
         .modal-content { background: #0d0d0d; margin: 2rem auto; width: 95%; max-width: 1000px; border: 1px solid var(--primary); position: relative; min-height: 500px; }
@@ -117,7 +120,10 @@
         /* Panels */
         .p-panel { display: none; padding: 30px; }
         .p-panel.active { display: block; animation: fadeIn 0.3s; }
-        .stat-table { width: 100%; border-collapse: collapse; font-family: sans-serif; font-size: 0.9rem; }
+        
+        /* TABLE STYLES (Fixed for Mobile) */
+        .table-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 20px; }
+        .stat-table { width: 100%; border-collapse: collapse; font-family: sans-serif; font-size: 0.9rem; min-width: 500px; /* Forces scroll on small screens */ }
         .stat-table th { text-align: left; color: #666; padding: 15px; border-bottom: 2px solid #333; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; }
         .stat-table td { padding: 15px; border-bottom: 1px solid #222; color: #ddd; }
         .stat-table tr:hover { background: #141414; }
@@ -125,7 +131,7 @@
         .st-points { color: var(--accent); font-weight: bold; }
 
         /* ================================================================= */
-        /* --- 3D BINDER CSS (Ported for Modal) --- */
+        /* --- 3D BINDER CSS --- */
         /* ================================================================= */
         .shelf-modal {
             perspective: 3000px;
@@ -143,7 +149,6 @@
             max-width: 85vw; /* Mobile Safe */
         }
 
-        /* Desktop Opening: Shift Right */
         .binder-modal.open { transform: translateX(200px); }
 
         /* FLIPPING MECHANISM */
@@ -236,27 +241,28 @@
         /* --- MOBILE ADJUSTMENTS (CRITICAL FIXES) --- */
         @media (max-width: 768px) {
             .hero { padding: 10rem 1rem 4rem; }
-            .p-hero { flex-direction: column; text-align: center; padding: 20px; }
+            
+            /* Profile Header Mobile */
+            .p-hero { flex-direction: column; text-align: center; padding: 20px 10px; }
             .p-img-container { margin: 0 auto; width: 150px; height: 180px; }
-            .p-panel { padding: 10px; } /* Reduce padding to give binder room */
+            .p-number { font-size: 4rem; top: 10px; right: 10px; opacity: 0.3; }
+            .p-name { font-size: 2rem; }
             
-            /* BINDER MOBILE LOGIC */
-            .binder-modal { 
-                width: 42vw;  /* Just under half screen width */
-                height: 60vw; /* Maintain ratio */
-            }
-            
-            /* CENTERING MATH:
-               When open, the binder consists of Left Page + Right Page.
-               Total Width = 84vw.
-               To center the SPINE, we shift the container (which holds the Right Page)
-               to the RIGHT by half its width.
-               42vw / 2 = 21vw.
-            */
-            .binder-modal.open { 
-                transform: translateX(21vw); 
-            }
+            /* Fix: Badge Wrapping */
+            .p-badges { flex-wrap: wrap; justify-content: center; }
+            .badge-container { justify-content: center; }
 
+            /* Fix: Tab Buttons */
+            .p-tab-btn { padding: 15px 5px; font-size: 0.7rem; }
+
+            /* Fix: Table Overflow */
+            .p-panel { padding: 15px 5px; }
+            .stat-table { font-size: 0.75rem; }
+            .stat-table th, .stat-table td { padding: 10px 5px; }
+            
+            /* Binder Logic */
+            .binder-modal { width: 42vw; height: 60vw; }
+            .binder-modal.open { transform: translateX(21vw); }
             .m-front h1 { font-size: 1rem; margin-top: 5px; }
             .m-front .col-label { font-size: 0.6rem; margin-top: 10px; }
             .m-sheet { gap: 5px; padding: 5px; }
@@ -381,8 +387,13 @@
                 if(seriesName.toLowerCase() === 'menards') flagClass = 'flag-menards';
                 for(let i=0; i<stats.wins; i++) flagsHtml += `<i class="fa-solid fa-flag-checkered flag-icon ${flagClass}"></i>`;
 
+                // Badge Container with Wrapping for Grid
                 let badgesHtml = '';
-                if(item.badges) item.badges.forEach(b => badgesHtml += `<div class="champ-badge"><i class="fa-solid fa-trophy"></i> ${b}</div>`);
+                if(item.badges && item.badges.length > 0) {
+                    badgesHtml = '<div class="badge-container">';
+                    item.badges.forEach(b => badgesHtml += `<div class="champ-badge"><i class="fa-solid fa-trophy"></i> ${b}</div>`);
+                    badgesHtml += '</div>';
+                }
 
                 const isLeader = (stats.points > 0 && stats.points === maxPoints);
                 const hoverClass = seriesName.toLowerCase() + '-hover';
@@ -411,7 +422,7 @@
             });
         }
 
-        // --- 3. PROFILE MODAL (WITH 3D BINDER) ---
+        // --- 3. PROFILE MODAL ---
         function openProfile(id, driverData) {
             const modal = document.getElementById('driver-modal');
             const dataDiv = document.getElementById('modal-inject');
@@ -420,14 +431,12 @@
             const sData = driverData.series[currentSeries];
             const currStats = sData.current_stats || {points:0, wins:0, top5:0, top10:0, poles:0, starts:0, avg:0};
             
-            // Build Badges
+            // Badges (Fixed for mobile wrapping)
             let badgesHtml = '';
-            // Collection: Achievements Grid
             let achievementSlots = '';
             if(driverData.badges) {
                 driverData.badges.forEach(b => {
                     badgesHtml += `<div class="champ-badge"><i class="fa-solid fa-trophy"></i> ${b}</div>`;
-                    // Add to Binder Right Page
                     achievementSlots += `
                         <div class="m-slot" style="background:#111; border:2px solid gold;">
                             <div style="text-align:center; padding:10px;">
@@ -438,7 +447,6 @@
                     `;
                 });
             }
-            // Fill rest of achievement slots with empty
             for(let k=0; k<(4 - (driverData.badges ? driverData.badges.length : 0)); k++) {
                 achievementSlots += `<div class="m-slot"></div>`;
             }
@@ -451,7 +459,7 @@
                     <div class="p-img-container"><img src="${getDriverImage(dName)}" class="p-img"></div>
                     <div class="p-info">
                         <div class="p-number">${sData.number}</div>
-                        <div style="margin-bottom:10px; display:flex; gap:5px;">${badgesHtml}</div>
+                        <div class="p-badges" style="margin-bottom:10px; display:flex; gap:5px; flex-wrap:wrap; justify-content:center;">${badgesHtml}</div>
                         <span class="p-team">${sData.team} // #${sData.number} ${sData.manufacturer || 'N/A'}</span>
                         <h1 class="p-name">${dName}</h1>
                     </div>
@@ -465,18 +473,22 @@
 
                 <div id="mod-tab-season" class="p-panel active">
                     <h3 style="border-bottom:1px solid #333; padding-bottom:10px; margin-bottom:20px; color:#fff;">2026 SEASON STATS</h3>
-                    <table class="stat-table">
-                        <tr><th>Starts</th><th>Wins</th><th>Top 5</th><th>Top 10</th><th>Poles</th><th>Avg Fin</th><th>Points</th></tr>
-                        <tr><td>${currStats.starts}</td><td>${currStats.wins}</td><td>${currStats.top5}</td><td>${currStats.top10}</td><td>${currStats.poles}</td><td>${currStats.avg}</td><td class="st-points" style="font-size:1.5rem;">${currStats.points}</td></tr>
-                    </table>
+                    <div class="table-wrapper">
+                        <table class="stat-table">
+                            <tr><th>Starts</th><th>Wins</th><th>Top 5</th><th>Top 10</th><th>Poles</th><th>Avg Fin</th><th>Points</th></tr>
+                            <tr><td>${currStats.starts}</td><td>${currStats.wins}</td><td>${currStats.top5}</td><td>${currStats.top10}</td><td>${currStats.poles}</td><td>${currStats.avg}</td><td class="st-points" style="font-size:1.5rem;">${currStats.points}</td></tr>
+                        </table>
+                    </div>
                 </div>
 
                 <div id="mod-tab-career" class="p-panel">
                     <h3 style="border-bottom:1px solid #333; padding-bottom:10px; margin-bottom:20px; color:#fff;">CAREER RESULTS</h3>
-                    <table class="stat-table">
-                        <thead><tr><th>Year</th><th>Series</th><th>Points</th><th>Wins</th><th>Top 5</th><th>Top 10</th><th>Avg Fin</th></tr></thead>
-                        <tbody><tr><td class="st-year">2026</td><td>${currentSeries}</td><td class="st-points">${currStats.points}</td><td>${currStats.wins}</td><td>${currStats.top5}</td><td>${currStats.top10}</td><td>${currStats.avg}</td></tr>${historyRows}</tbody>
-                    </table>
+                    <div class="table-wrapper">
+                        <table class="stat-table">
+                            <thead><tr><th>Year</th><th>Series</th><th>Points</th><th>Wins</th><th>Top 5</th><th>Top 10</th><th>Avg Fin</th></tr></thead>
+                            <tbody><tr><td class="st-year">2026</td><td>${currentSeries}</td><td class="st-points">${currStats.points}</td><td>${currStats.wins}</td><td>${currStats.top5}</td><td>${currStats.top10}</td><td>${currStats.avg}</td></tr>${historyRows}</tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <div id="mod-tab-collection" class="p-panel" style="text-align:center;">
@@ -499,9 +511,7 @@
                             </div>
                             <div class="m-base-page">
                                 <div class="m-rings"><div class="m-metal-ring"></div><div class="m-metal-ring"></div><div class="m-metal-ring"></div></div>
-                                <div class="m-sheet">
-                                    ${achievementSlots}
-                                </div>
+                                <div class="m-sheet">${achievementSlots}</div>
                             </div>
                         </div>
                     </div>
