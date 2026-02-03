@@ -102,10 +102,11 @@
         fetch('nav.html').then(r=>r.text()).then(d=>document.getElementById('nav-placeholder').innerHTML=d).catch(e=>console.log("Nav missing"));
         function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
 
-        // *** DATA (Using the link we proved works!) ***
+        // *** DATA SECTION ***
         const rosterData = [
             {
-                front: "DewshineTradingCard.jpg", 
+                // CORRECTED LINK: Now using the all-lowercase name you uploaded
+                front: "https://mattwilson20.github.io/ascrl-website/dewshinetradingcard.jpg", 
                 title: "DEWSHINE",
                 text: "Apex Racing<br>Car #77<br>Cup Series",
                 stats: { "Wins": "0", "Top 5s": "3", "Avg Fin": "9.4" }
