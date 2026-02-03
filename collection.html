@@ -13,169 +13,193 @@
         /* --- 1. GLOBAL VARIABLES & BACKGROUND --- */
         :root {
             --primary: #c00;
-            --accent: #ff0;
-            --bg-dark: #000;
-            --card-bg: #0d0d0d;
-            --border: #1a1a1a;
-            --text-muted: #a0a0a0;
-            
-            --cup-blue: #0077ff;
-            --xfinity-purple: #8000b0;
-            --truck-red: #c00;
-            --menards-yellow: #fff200;
-
             --binder-texture: url("https://www.transparenttextures.com/patterns/leather.png");
+            
+            /* REALISM COLORS */
+            --gold-foil: linear-gradient(45deg, #ffd700, #ffcc00, #ffeb3b, #d4af37);
+            --metal-gradient: linear-gradient(90deg, #999, #fff, #999);
+            --stitch-color: rgba(255, 255, 255, 0.3);
         }
 
         body { 
             margin: 0; 
             font-family: 'Arial Black', sans-serif; 
-            background-color: #333333; 
+            background-color: #222; 
             background-image: 
-                radial-gradient(transparent 0%, #000 100%),
-                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.35'/%3E%3C/svg%3E");
+                radial-gradient(circle at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%),
+                url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
             background-attachment: fixed;
             color: #fff; 
             overflow-x: hidden; 
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            display: flex; flex-direction: column;
         }
 
         #nav-placeholder { position: relative; z-index: 2000; }
 
-        /* --- 2. HERO SECTION STYLES --- */
+        /* --- HERO HEADER --- */
         .hero { 
-            position: relative; 
-            overflow: hidden; 
-            background: radial-gradient(circle at center, #222 0%, #000 100%); 
-            padding: 8rem 1rem 4rem; 
-            text-align: center; 
-            border-bottom: 1px solid var(--border);
+            position: relative; overflow: hidden; 
+            background: linear-gradient(to bottom, #1a1a1a, #000); 
+            padding: 8rem 1rem 4rem; text-align: center; 
+            border-bottom: 4px solid var(--primary);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .hero::after {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: repeating-conic-gradient(rgba(255,255,255,0.03) 0% 25%, transparent 0% 50%) 50% / 80px 80px;
-            pointer-events: none;
-        }
-        
-        .hero h1 { font-size: clamp(3rem, 10vw, 6rem); margin: 0; letter-spacing: -2px; position: relative; z-index: 1; }
-        .text-gradient {
-            background: linear-gradient(to bottom, #fff 30%, #444 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .hero h1 { 
+            font-size: clamp(3rem, 8vw, 5rem); margin: 0; letter-spacing: -2px; 
+            background: linear-gradient(to bottom, #fff, #888); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        /* --- 3. BINDER SHELF STYLES --- */
+        /* --- SHELF --- */
         .shelf { 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            gap: 100px; 
-            padding: 50px 10px;
-            perspective: 3000px;
+            display: flex; flex-direction: column; align-items: center; 
+            gap: 120px; padding: 80px 10px; perspective: 3000px;
         }
 
-        /* Binder Wrapper - DESKTOP DEFAULTS */
+        /* --- BINDER (PHYSICS ENGINE) --- */
         .binder { 
             position: relative; 
-            width: 500px; 
-            height: 650px; 
+            width: 500px; height: 650px; 
             transform-style: preserve-3d; 
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); 
             cursor: pointer; 
+            max-width: 90vw; 
         }
-
+        
         .binder.open { transform: translateX(250px); }
 
-        /* Color Variants */
-        .binder.winners .front, .binder.winners .spine { background-color: #D4AF37; }
-        .binder.roster .front, .binder.roster .spine { background-color: #800000; }
+        /* --- BINDER AESTHETICS --- */
+        
+        /* 1. Leather Texture & Lighting */
+        .binder .front, .binder .spine {
+            background-image: var(--binder-texture);
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.5); /* Inner shadow for curve */
+        }
+        
+        /* 2. Color Variants */
+        .binder.winners .front, .binder.winners .spine { background-color: #C5A028; } /* Darker Gold */
+        .binder.roster .front, .binder.roster .spine { background-color: #660000; } /* Darker Red */
 
-        /* Moving Part (Cover + Inside Left) */
+        /* 3. Stitching Effect */
+        .front::after {
+            content: ''; position: absolute; 
+            top: 15px; left: 15px; right: 15px; bottom: 15px;
+            border: 2px dashed var(--stitch-color);
+            border-radius: 5px;
+            pointer-events: none;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+        }
+
+        /* 4. Gold Foil Text */
+        .front h1 {
+            font-family: 'Arial Black', sans-serif;
+            font-size: 2.5rem; text-align: center; margin-top: 10px;
+            background: var(--gold-foil);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5); /* Embossed look */
+            filter: drop-shadow(0 2px 0px rgba(0,0,0,0.3));
+        }
+
+        /* --- FLIP MECHANICS --- */
         .flip-wrapper {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            transform-style: preserve-3d;
-            transform-origin: left;
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d; transform-origin: left;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
             z-index: 10;
         }
-        .binder.closed .flip-wrapper { transform: rotateY(-25deg); }
+        .binder.closed .flip-wrapper { transform: rotateY(-15deg); }
         .binder.open .flip-wrapper { transform: rotateY(-180deg); }
 
-        /* Faces */
         .face {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            backface-visibility: hidden; border-radius: 5px 10px 10px 5px;
-            border: 2px solid #222;
+            backface-visibility: hidden; border-radius: 5px 15px 15px 5px;
         }
 
-        /* Front Cover */
         .front {
-            background-image: var(--binder-texture);
-            color: #fff;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 2;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            z-index: 2; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; color: #fff;
+            border: 1px solid rgba(255,255,255,0.1);
         }
-        .front img { width: 30%; max-width: 100px; margin-bottom: 15px; }
-        .front h1 { font-size: 2rem; text-align: center; }
-
-        /* Inside Left */
+        
         .back {
-            background: #fff;
-            transform: rotateY(180deg);
+            background: #fff; transform: rotateY(180deg);
             display: flex; justify-content: center; align-items: center;
+            box-shadow: inset 10px 0 20px rgba(0,0,0,0.1); /* Paper shadow near spine */
         }
 
-        /* Static Right Page */
         .base-page {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: #fff;
-            border-radius: 0 10px 10px 0;
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
-            z-index: 1; 
-            display: flex; justify-content: center; align-items: center;
-            border: 2px solid #222;
+            background: #fff; border-radius: 0 15px 15px 0;
+            box-shadow: 10px 10px 30px rgba(0,0,0,0.6);
+            z-index: 1; display: flex; justify-content: center; align-items: center;
         }
 
-        /* Spine */
+        /* --- SPINE & RINGS --- */
         .spine {
-            position: absolute; left: 0; top: 0; bottom: 0; width: 40px;
-            background-image: var(--binder-texture);
-            transform-origin: left; 
-            transform: rotateY(-90deg);
+            position: absolute; left: 0; top: 0; bottom: 0; width: 50px;
+            transform-origin: left; transform: rotateY(-90deg);
             display: flex; align-items: center; justify-content: center;
             border-radius: 5px 0 0 5px;
+            border-left: 1px solid rgba(255,255,255,0.2);
         }
         .spine span { 
-            transform: rotate(90deg); color: rgba(255,255,255,0.7); 
-            font-size: 1.5rem; letter-spacing: 5px; white-space: nowrap; 
+            transform: rotate(90deg); color: rgba(255,255,255,0.4); 
+            font-size: 1.5rem; letter-spacing: 5px; 
+            text-shadow: -1px -1px 0 rgba(0,0,0,0.5); /* Engraved look */
         }
 
-        /* Grid System */
+        /* The 3-Ring Mechanism Visuals */
+        .ring-mechanisms {
+            position: absolute; left: 5px; top: 0; bottom: 0; width: 20px;
+            display: flex; flex-direction: column; justify-content: space-evenly;
+            z-index: 20; pointer-events: none;
+        }
+        .metal-ring {
+            width: 40px; height: 15px;
+            background: linear-gradient(to bottom, #ccc, #fff, #999);
+            border-radius: 10px;
+            box-shadow: 1px 2px 5px rgba(0,0,0,0.3);
+            position: relative; left: -10px;
+        }
+
+        /* --- GRID & SLOTS --- */
         .sheet { 
-            width: 92%; height: 96%; background: #f4f4f4; 
+            width: 90%; height: 94%; 
+            background-color: #f8f8f8;
+            background-image: radial-gradient(#ddd 1px, transparent 1px);
+            background-size: 10px 10px; /* Dot grid pattern */
             display: grid; 
             grid-template-columns: repeat(3, 1fr); 
             grid-template-rows: repeat(3, 1fr); 
-            gap: 5px; padding: 10px; 
+            gap: 8px; padding: 15px; 
             box-sizing: border-box; 
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.1); 
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+            border: 1px solid #ddd;
         }
         
         .slot { 
-            background: #fff; border: 1px solid rgba(0,0,0,0.1); 
+            background: #fff; 
+            border: 1px solid #eee; 
             position: relative; cursor: pointer; 
             display: flex; align-items: center; justify-content: center; 
             overflow: hidden; 
+            transition: 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .slot:hover { 
+            transform: scale(1.05) translateZ(10px); 
+            z-index: 20; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3); 
+            border-color: var(--primary);
         }
         .slot img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+        
+        /* PLASTIC SLEEVE REFLECTION */
         .slot::after { 
             content: ''; position: absolute; top:0; left:0; width:100%; height:100%; 
-            background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.1) 100%); 
+            background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 30%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.1) 100%); 
             pointer-events: none; z-index: 10; 
         }
 
@@ -184,55 +208,42 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(0,0,0,0.95); z-index: 20000; 
             display: none; justify-content: center; align-items: center; 
-            perspective: 1000px;
-            cursor: pointer;
+            perspective: 1000px; cursor: pointer;
+            backdrop-filter: blur(5px);
         }
         
         #big-card { 
             width: 400px; height: 560px; position: relative; 
-            transform-style: preserve-3d; transition: 0.6s; cursor: pointer;
+            transform-style: preserve-3d; transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer;
             max-width: 90vw; max-height: 80vh;
         }
         #big-card.flipped { transform: rotateY(180deg); }
         
         .card-face { 
             position: absolute; width: 100%; height: 100%; 
-            backface-visibility: hidden; border-radius: 10px; 
+            backface-visibility: hidden; border-radius: 14px; 
             background: #fff; overflow: hidden; 
+            box-shadow: 0 0 30px rgba(255,255,255,0.1);
         }
-        .card-face img { width: 100%; height: 100%; object-fit: contain; }
         
         .card-back { 
-            transform: rotateY(180deg); background: #e6e6e6; 
+            transform: rotateY(180deg); background: #f0f0f0; 
             padding: 20px; display: flex; flex-direction: column; 
             align-items: center; text-align: center; color: #111; 
             font-family: 'Arial', sans-serif; overflow-y: auto;
+            background-image: radial-gradient(#ccc 1px, transparent 1px);
+            background-size: 20px 20px;
         }
-
-        /* ========================================= */
-        /* MOBILE OPTIMIZATION RULES                 */
-        /* ========================================= */
+        
+        /* Mobile Rules */
         @media (max-width: 768px) {
             .shelf { padding-top: 50px; }
-            
-            /* 1. Make the CLOSED binder roughly half the screen width */
-            .binder { 
-                width: 44vw;  /* Just under half width */
-                height: 60vw; /* Keep aspect ratio */
-            }
-
-            /* 2. When OPEN, shift it so the spine is in the middle */
-            /* Since width is 44vw, opening it makes total width 88vw. Perfect for mobile. */
-            .binder.open { 
-                transform: translateX(22vw); 
-            }
-            
-            /* 3. Scale down text so it fits the smaller cover */
-            .front h1 { font-size: 1rem; }
+            .binder { width: 44vw; height: 60vw; }
+            .binder.open { transform: translateX(22vw); }
+            .front h1 { font-size: 1.2rem; margin-top: 5px; }
             .spine span { font-size: 0.9rem; letter-spacing: 2px; }
-            
-            /* 4. Adjust grid padding for small slots */
-            .sheet { gap: 2px; padding: 5px; }
+            .sheet { gap: 2px; padding: 4px; }
+            .front img { width: 40%; }
         }
     </style>
 </head>
@@ -241,11 +252,11 @@
     <div id="nav-placeholder"></div>
 
     <header class="hero">
-        <p style="letter-spacing: 8px; color: var(--primary); text-transform: uppercase; font-size: 0.8rem;">Official League Portal</p>
+        <p style="letter-spacing: 8px; color: var(--primary); text-transform: uppercase; font-size: 0.8rem; font-weight: bold;">Official League Portal</p>
         <h1 class="text-gradient">COLLECTIONS</h1>
         <div style="margin-top: 1rem; position: relative; z-index: 2;">
-            <p style="color: #ccc; font-family: sans-serif; font-size: 0.9rem; letter-spacing: 1px;">
-                TRADING CARDS • HISTORY • HALL OF FAME
+            <p style="color: #888; font-family: sans-serif; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase;">
+                Trading Cards • History • Hall of Fame
             </p>
         </div>
     </header>
@@ -256,24 +267,42 @@
             <div class="spine"><span>WINNERS</span></div>
             <div class="flip-wrapper">
                 <div class="face front">
-                    <img src="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
+                    <img src="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96" style="filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));">
                     <h1>VICTORY LANE</h1>
                 </div>
-                <div class="face back"><div class="sheet" id="winners-L"></div></div>
+                <div class="face back">
+                    <div class="sheet" id="winners-L"></div>
+                </div>
             </div>
-            <div class="base-page"><div class="sheet" id="winners-R"></div></div>
+            <div class="base-page">
+                <div class="ring-mechanisms">
+                    <div class="metal-ring"></div>
+                    <div class="metal-ring"></div>
+                    <div class="metal-ring"></div>
+                </div>
+                <div class="sheet" id="winners-R"></div>
+            </div>
         </div>
 
         <div class="binder closed roster" onclick="toggleBinder(this)">
             <div class="spine"><span>ROSTER</span></div>
             <div class="flip-wrapper">
                 <div class="face front">
-                    <img src="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
+                    <img src="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96" style="filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));">
                     <h1>THE ROSTER</h1>
                 </div>
-                <div class="face back"><div class="sheet" id="roster-L"></div></div>
+                <div class="face back">
+                    <div class="sheet" id="roster-L"></div>
+                </div>
             </div>
-            <div class="base-page"><div class="sheet" id="roster-R"></div></div>
+            <div class="base-page">
+                <div class="ring-mechanisms">
+                    <div class="metal-ring"></div>
+                    <div class="metal-ring"></div>
+                    <div class="metal-ring"></div>
+                </div>
+                <div class="sheet" id="roster-R"></div>
+            </div>
         </div>
 
     </div>
@@ -330,7 +359,7 @@
             if (data) {
                 const img = document.createElement('img');
                 img.src = data.front;
-                img.onerror = function() { this.style.display='none'; slot.style.background='#ffcccc'; slot.innerHTML = 'ERR'; };
+                img.onerror = function() { this.style.display='none'; slot.style.background='#eee'; slot.innerHTML = '<span style="font-size:0.6rem;color:#999;">MISSING</span>'; };
                 slot.appendChild(img);
                 slot.onclick = (e) => { e.stopPropagation(); openModal(data); };
             }
@@ -358,7 +387,7 @@
                 <h2 style="color:#c00; margin-bottom:5px;">${data.title}</h2>
                 <p>${data.text}</p>
                 ${statsHtml}
-                <div style="margin-top:auto; font-size:0.7rem; color:#888;">ASCRL OFFICIAL TRADING CARD</div>
+                <div style="margin-top:auto; font-size:0.6rem; color:#888; margin-bottom:10px;">OFFICIAL ASCRL TRADING CARD</div>
             `;
             
             card.classList.remove('flipped');
@@ -367,38 +396,6 @@
 
         fillBinder(winnersData, 'winners-L', 'winners-R');
         fillBinder(rosterData, 'roster-L', 'roster-R');
-    </script>
-    <script>
-        // 1. Disable Right Click
-        document.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-        });
-
-        // 2. Disable Keyboard Shortcuts (Ctrl+U, F12, Ctrl+Shift+I, etc.)
-        document.addEventListener('keydown', (e) => {
-            // Check for Ctrl (or Command on Mac)
-            if (e.ctrlKey || e.metaKey) {
-                switch (e.key.toLowerCase()) {
-                    case 'u': // View Source
-                    case 's': // Save Page
-                    case 'a': // Select All
-                    case 'c': // Copy
-                        e.preventDefault();
-                        return false;
-                }
-                // Check for Ctrl+Shift+I or J (Developer Tools)
-                if (e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j')) {
-                    e.preventDefault();
-                    return false;
-                }
-            }
-            
-            // Check for F12 (Developer Tools)
-            if (e.key === 'F12') {
-                e.preventDefault();
-                return false;
-            }
-        });
     </script>
 </body>
 </html>
