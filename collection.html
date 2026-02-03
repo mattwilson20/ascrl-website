@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCRL Collection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css"> 
+    <style>
+        body { background-color: #111; font-family: sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+        
+        /* LAYOUT */
+        .shelf { display: flex; flex-direction: column; align-items: center; gap: 100px; padding: 100px 20px; perspective: 3000px; }
+
+        /* BINDER */
+        .binder { position: relative; width: 500px; height: 650px; transform-style: preserve-3d; transition: 0.8s; cursor: pointer; }
+        .binder.closed { transform: rotateY(-25deg) rotateX(5deg); }
+        .binder.open { transform: translateX(250px) rotateY(0deg); z-index: 100; }
+        
+        /* COLORS */
+        .binder.winners .cover, .binder.winners .spine { background-color: #D4AF37; }
+        .binder.roster .cover, .binder.roster .spine { background-color: #800000; }
+
+        /* PARTS */
+        .spine { position: absolute; left: 0; top: 0; bottom: 0; width: 50px; transform-origin: left; transform: rotateY(-90deg); background: inherit; border-radius: 5px 0 0 5px; display: flex; align-items: center; justify-content: center; }
+        .spine span { transform: rotate(90deg); color: rgba(255,255,255,0.7); font-size: 2rem; letter-spacing: 5px; white-space: nowrap; }
+        
+        .page { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform-style: preserve-3d; transition: 0.8s; border: 2px solid #222; }
+        
+        .cover { z-index: 10; transform-origin: left; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff; border-radius: 5px 10px 10px 5px; backface-visibility: hidden; }
+        .binder.open .cover { transform: rotateY(-180deg); }
+
+        .inside-cover { background: #fff; transform-origin: left; transform: rotateY(-180deg); z-index: 5; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; }
+        .binder.open .inside-cover { transform: rotateY(-180deg); z-index: 11; }
+
+        .base-page { background: #fff; z-index: 1; border-radius: 0 10px 10px 0; }
+
+        /* SLOTS */
+        .sheet { width: 90%; height: 95%; background: #f4f4f4; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 10px; padding: 15px; box-sizing: border-box; }
+        
+        .slot { background: #fff; border: 1px solid #ddd; position: relative; cursor: pointer; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .slot img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+        
+        /* MODAL */
+        #card-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 20000; display: none; justify-content: center; align-items: center; }
+        #big-card { width: 400px; height: 560px; position: relative; transform-style: preserve-3d; transition: 0.6s; }
+        #big-card.flipped { transform: rotateY(180deg); }
+        .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 10px; background: #fff; overflow: hidden; }
+        .card-back { transform: rotateY(180deg); background: #e6e6e6; padding: 20px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <div id="nav-placeholder"></div>
+
+    <div class="shelf">
+        <div class="binder closed winners" onclick="toggleBinder(this)">
+            <div class="spine"><span>WINNERS</span></div>
+            <div class="page cover"><h1>WINNERS</h1></div>
+            <div class="page inside-cover"><div class="sheet" id="winners-L"></div></div>
+            <div class="page base-page"><div class="sheet" id="winners-R"></div></div>
+        </div>
+
+        <div class="binder closed roster" onclick="toggleBinder(this)">
+            <div class="spine"><span>ROSTER</span></div>
+            <div class="page cover"><h1>ROSTER</h1></div>
+            <div class="page inside-cover"><div class="sheet" id="roster-L"></div></div>
+            <div class="page base-page"><div class="sheet" id="roster-R"></div></div>
+        </div>
+    </div>
+
+    <div id="card-modal" onclick="this.style.display='none'">
+        <div id="big-card" onclick="event.stopPropagation(); this.classList.toggle('flipped')">
+            <div class="card-face"><img id="m-front"></div>
+            <div class="card-face card-back" id="m-back"></div>
+        </div>
+    </div>
+
+    <script>
+        fetch('nav.html').then(r=>r.text()).then(d=>document.getElementById('nav-placeholder').innerHTML=d);
+
+        // *** DATA ***
+        const rosterData = [
+            {
+                // RELATIVE LINK: This is the safest way. 
+                front: "DewshineTradingCard.jpg", 
+                title: "DEWSHINE",
+                text: "Apex Racing #77",
+                stats: { "Wins": "0" }
+            }
+        ];
+        
+        // *** LOGIC ***
+        function toggleBinder(el) {
+            document.querySelectorAll('.binder').forEach(b => b!==el ? b.classList.add('closed') : null);
+            el.classList.toggle('closed');
+            el.classList.toggle('open');
+        }
+
+        function fill(data, idL, idR) {
+            for(let i=0; i<9; i++) addSlot(data[i], document.getElementById(idL));
+            for(let i=9; i<18; i++) addSlot(data[i], document.getElementById(idR));
+        }
+
+        function addSlot(d, p) {
+            let s = document.createElement('div');
+            s.className = 'slot';
+            if(d) {
+                let img = document.createElement('img');
+                img.src = d.front;
+                s.appendChild(img);
+                s.onclick = (e) => { e.stopPropagation(); openModal(d); };
+            }
+            p.appendChild(s);
+        }
+
+        function openModal(d) {
+            document.getElementById('m-front').src = d.front;
+            document.getElementById('m-back').innerHTML = `<h2>${d.title}</h2><p>${d.text}</p>`;
+            document.getElementById('big-card').classList.remove('flipped');
+            document.getElementById('card-modal').style.display = 'flex';
+        }
+
+        fill([], 'winners-L', 'winners-R');
+        fill(rosterData, 'roster-L', 'roster-R');
+    </script>
+</body>
+</html>
