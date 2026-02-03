@@ -219,12 +219,20 @@
         // 2. ROSTER COLLECTION
         const rosterData = [
              { 
-                // SIMPLE FIX: Just use the filename. 
-                // This tells the browser "Look for this picture in the same folder I am in."
-                front: "DewshineTradingCard.jpg", 
+                // FIX: Use the full website URL. 
+                // This is the specific address where your published site stores the image.
+                front: "https://mattwilson20.github.io/ascrl-website/DewshineTradingCard.jpg", 
                 title: "DEWSHINE",
                 text: "Apex Racing<br>Car #77<br>Cup Series",
                 stats: { "Wins": "0", "Top 5s": "3", "Avg Fin": "9.4" }
+            },
+            // This is a TEST CARD to prove the binder works. 
+            // If you see this cat, the code is fine, and your Dewshine image link is the only issue.
+            {
+                front: "https://placehold.co/400x600/1a1a1a/FFF/png?text=Test+Card",
+                title: "SYSTEM CHECK",
+                text: "If you see this card, the binder code is working perfectly.",
+                stats: { "Status": "Online" }
             }
         ];
 
