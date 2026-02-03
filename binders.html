@@ -3,216 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trading Card Binder | ASCRL</title>
+    <title>Trading Card Collections | ASCRL</title>
     <link rel="icon" href="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css"> 
 
     <style>
-        /* --- BINDER SPECIFIC STYLES --- */
+        /* --- BINDER SYSTEM STYLES --- */
         :root {
-            --binder-cover: #0a0a0a;
             --binder-texture: url("https://www.transparenttextures.com/patterns/leather.png");
-            --spine-color: #800000; /* Darker Red for spine */
-            --page-bg: #f0f0f0;
-            --slot-border: rgba(0, 0, 0, 0.15);
-            /* The plastic sleeve reflection effect */
-            --plastic-sheen: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.2) 100%);
+            --page-bg: #f4f4f4;
+            --slot-border: rgba(0, 0, 0, 0.1);
+            --plastic-sheen: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.1) 100%);
         }
 
         body {
-            /* ASCRL Background */
             background-color: #111;
             background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
             margin: 0;
             font-family: 'Arial Black', sans-serif;
-            overflow: hidden; /* Lock scroll for the 3D effect */
+            overflow-x: hidden;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            height: 100vh;
         }
 
-        /* Nav Container override to sit at top */
-        #nav-placeholder {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            z-index: 10000;
-        }
+        #nav-placeholder { position: relative; z-index: 10000; }
 
-        /* Centering Wrapper */
-        .stage {
-            flex: 1;
+        /* SHELF LAYOUT */
+        .shelf {
             display: flex;
             justify-content: center;
             align-items: center;
-            perspective: 2500px; /* Deep 3D perspective */
-            padding-top: 60px; /* Space for nav */
+            gap: 50px;
+            padding: 50px 20px;
+            flex-wrap: wrap;
+            perspective: 2500px; /* Essential for 3D */
+            flex: 1;
         }
 
-        /* The Main Binder Container */
+        /* --- BINDER COMPONENT --- */
         .binder {
             position: relative;
-            width: 900px;
+            width: 500px; /* Folded width */
             height: 650px;
             transform-style: preserve-3d;
-            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
+            margin-bottom: 50px;
         }
 
-        /* Binder States */
+        /* Styling for specific binders */
+        .binder.winners .cover, .binder.winners .spine { background-color: #D4AF37; /* Gold */ }
+        .binder.roster .cover, .binder.roster .spine { background-color: #800000; /* Red */ }
+
+        /* Closed State */
         .binder.closed {
-            transform: rotateY(-20deg) rotateX(10deg) translateX(100px);
+            transform: rotateY(-25deg) rotateX(10deg);
+        }
+        /* Open State */
+        .binder.open {
+            transform: translateX(250px) rotateY(0deg); /* Shift right to center the open spread */
         }
 
-        /* The Spine */
+        /* SPINE */
         .spine {
             position: absolute;
-            left: 50%;
-            top: 0;
-            width: 60px;
-            height: 100%;
-            background: var(--spine-color);
+            left: 0; top: 0; bottom: 0;
+            width: 50px;
             background-image: var(--binder-texture);
-            transform: translateX(-50%) translateZ(-25px);
-            border-radius: 5px;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+            transform-origin: left;
+            transform: rotateY(-90deg);
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 5px 0 0 5px;
         }
-        
-        /* Spine Text */
-        .spine::after {
-            content: "ASCRL 2026";
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%) rotate(90deg);
-            color: rgba(255,215,0,0.7); /* Gold */
-            font-size: 3rem;
+        .spine span {
+            transform: rotate(90deg);
             white-space: nowrap;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            color: rgba(255,255,255,0.7);
+            font-size: 2rem;
+            letter-spacing: 5px;
         }
 
-        /* Common Page Styling */
+        /* PAGES */
         .page {
-            position: absolute;
-            width: 50%;
-            height: 100%;
-            background-color: var(--binder-cover);
-            background-image: var(--binder-texture);
-            top: 0;
-            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
             transform-style: preserve-3d;
+            transition: transform 0.8s;
             border: 2px solid #222;
         }
 
-        .left-page {
-            left: 0;
-            transform-origin: right;
-            border-radius: 15px 0 0 15px;
-            z-index: 2;
-        }
-
-        /* Cover Art (Front of Left Page) */
-        .cover-art {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            backface-visibility: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            transform: rotateY(0deg); /* Explicitly face front */
-            z-index: 5;
-            background: radial-gradient(circle, #222, #000);
-            border-radius: 15px 0 0 15px;
-        }
-
-        /* Inner Sheet (Back of Left Page) */
-        .left-page .sheet {
-            transform: rotateY(180deg); /* Face inward */
-        }
-
-        .right-page {
-            right: 0;
+        /* Front Cover */
+        .cover {
+            background-image: var(--binder-texture);
+            z-index: 10;
             transform-origin: left;
-            border-radius: 0 15px 15px 0;
-            box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
+            display: flex; flex-direction: column; 
+            justify-content: center; align-items: center;
+            color: #fff; text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            backface-visibility: hidden; /* Important */
+            border-radius: 5px 10px 10px 5px;
+        }
+        
+        .binder.open .cover { transform: rotateY(-180deg); }
+
+        /* The Inside Left Page (Back of Cover) */
+        .inside-cover {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: #fff;
+            transform-origin: left;
+            transform: rotateY(-180deg); /* Starts flipped */
+            z-index: 5;
+            backface-visibility: hidden; /* Hides when closed */
+            display: flex; justify-content: center; align-items: center;
+        }
+        .binder.open .inside-cover { 
+            transform: rotateY(-180deg); /* Stays put relative to spine, looks "flat" */
+            z-index: 11; /* Pop above right page */
         }
 
-        /* Closing Animation Logic */
-        .binder.closed .left-page {
-            transform: rotateY(175deg);
+        /* The Right Page (Base) */
+        .base-page {
+            background: #fff;
+            z-index: 1;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
         }
 
-        /* The Internal White Sheets */
+        /* SHEET GRID */
         .sheet {
-            position: absolute;
-            top: 10px; bottom: 10px;
-            width: calc(100% - 20px);
+            width: 90%; height: 95%;
             background: var(--page-bg);
-            backface-visibility: hidden; /* Hides content when flipped */
+            margin: 2.5% auto;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             grid-template-rows: repeat(3, 1fr);
             gap: 10px;
-            padding: 20px;
+            padding: 15px;
             box-sizing: border-box;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
         }
-        
-        .left-page .sheet { right: 10px; border-radius: 5px 0 0 5px; }
-        .right-page .sheet { left: 10px; border-radius: 0 5px 5px 0; }
 
-        /* The Plastic Slots */
+        /* CARD SLOTS */
         .slot {
+            background: #fff;
             border: 1px solid var(--slot-border);
-            border-radius: 2px;
-            background-color: #fff;
             position: relative;
-            box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex; align-items: center; justify-content: center;
             overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
+        .slot:hover { transform: scale(1.05); z-index: 20; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        
+        .slot img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
 
-        /* Card Images inside slots */
-        .slot img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: top center;
-        }
-
-        /* Plastic Sheen Overlay */
+        /* Plastic Sheen */
         .slot::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: var(--plastic-sheen);
-            pointer-events: none;
-            z-index: 10;
+            content: ''; position: absolute; top:0; left:0; width:100%; height:100%;
+            background: var(--plastic-sheen); pointer-events: none;
         }
 
-        /* Holes for rings */
-        .hole {
-            width: 15px; height: 15px; background: #333; border-radius: 50%;
-            position: absolute; left: -25px; box-shadow: inset 1px 1px 3px #000;
+        /* --- CARD INSPECTION MODAL --- */
+        .card-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 20000;
+            display: none;
+            justify-content: center; align-items: center;
+            perspective: 1000px;
         }
 
-        .instruction {
-            position: absolute; bottom: 30px; width: 100%; text-align: center;
-            color: #666; font-size: 0.8rem; pointer-events: none;
-            text-transform: uppercase; letter-spacing: 2px;
-            animation: pulse 2s infinite;
+        .big-card-container {
+            width: 400px; height: 560px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
         }
 
-        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+        .big-card-container.flipped { transform: rotateY(180deg); }
 
-        /* Mobile Disclaimer */
-        @media (max-width: 900px) {
-            .binder { transform: scale(0.6); }
-            .stage { overflow: hidden; }
+        .card-face {
+            position: absolute; width: 100%; height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(255,255,255,0.1);
+        }
+
+        .card-face img { width: 100%; height: 100%; object-fit: contain; border-radius: 10px; }
+        
+        .card-back { transform: rotateY(180deg); background: #111; display: flex; align-items: center; justify-content: center; color: #fff; }
+
+        .close-modal {
+            position: absolute; top: 30px; right: 30px;
+            color: #fff; font-size: 2rem; cursor: pointer;
+            z-index: 20001;
+        }
+
+        .instruction { text-align: center; color: #666; padding: 20px; }
+
+        @media (max-width: 1100px) {
+            .shelf { flex-direction: column; perspective: none; }
+            .binder { margin-bottom: 50px; width: 90vw; height: 120vw; max-width: 500px; max-height: 650px; }
+            .binder.open { transform: none; }
+            .binder.open .cover { display: none; } /* Hide cover on mobile open for simplicity */
+            .binder.open .inside-cover { transform: none; display: none; } /* Hide left page on mobile to show right */
+            .big-card-container { width: 90vw; height: 125vw; }
         }
     </style>
 </head>
@@ -220,93 +218,156 @@
 
     <div id="nav-placeholder"></div>
 
-    <div class="stage">
-        <div class="binder closed" id="binder" onclick="toggleBinder()">
-            <div class="spine"></div>
-            
-            <div class="page left-page">
-                <div class="cover-art">
-                    <img src="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96" style="width:100px; margin-bottom:20px; filter: drop-shadow(0 0 10px #c00);">
-                    <h1 style="font-size: 2.5rem; margin:0; color:#fff; text-shadow:0 0 10px #c00;">ASCRL</h1>
-                    <h2 style="font-size: 1rem; color: gold; margin:0;">2026 COLLECTOR'S SERIES</h2>
-                    <p style="margin-top:20px; color:#aaa; font-size:0.7rem;">TAP TO OPEN</p>
-                </div>
+    <div class="shelf">
 
-                <div class="sheet" id="sheet-left">
-                    </div>
+        <div class="binder closed winners" onclick="toggleBinder(this)">
+            <div class="spine"><span>WINNERS</span></div>
+            
+            <div class="page cover">
+                <img src="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96" style="width:80px; margin-bottom:15px; filter: drop-shadow(0 0 5px #000);">
+                <h1>VICTORY LANE</h1>
+                <p>2026 SEASON COLLECTION</p>
             </div>
 
-            <div class="page right-page">
-                <div class="sheet" id="sheet-right">
-                    </div>
+            <div class="page inside-cover">
+                <div class="sheet" id="winners-sheet-left"></div>
+            </div>
+
+            <div class="page base-page">
+                <div class="sheet" id="winners-sheet-right"></div>
             </div>
         </div>
+
+        <div class="binder closed roster" onclick="toggleBinder(this)">
+            <div class="spine"><span>ROSTER</span></div>
+            
+            <div class="page cover">
+                <img src="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96" style="width:80px; margin-bottom:15px; filter: drop-shadow(0 0 5px #000);">
+                <h1>THE ROSTER</h1>
+                <p>2026 OFFICIAL DRIVER CARDS</p>
+            </div>
+
+            <div class="page inside-cover">
+                <div class="sheet" id="roster-sheet-left"></div>
+            </div>
+
+            <div class="page base-page">
+                <div class="sheet" id="roster-sheet-right"></div>
+            </div>
+        </div>
+
     </div>
 
-    <div class="instruction">Tap Binder to Open / Close</div>
+    <div class="instruction">CLICK BINDER TO OPEN • CLICK CARD TO INSPECT • CLICK INSPECTED CARD TO FLIP</div>
+
+    <div id="card-modal" class="card-modal">
+        <div class="close-modal" onclick="closeCard()">&times;</div>
+        <div class="big-card-container" id="big-card" onclick="flipCard()">
+            <div class="card-face card-front">
+                <img id="modal-img-front" src="">
+            </div>
+            <div class="card-face card-back">
+                <img id="modal-img-back" src="">
+            </div>
+        </div>
+        <div style="position: absolute; bottom: 50px; color: #fff; font-size: 0.8rem; letter-spacing: 2px;">TAP CARD TO FLIP</div>
+    </div>
 
     <script>
         // 1. Load Nav
         fetch('nav.html').then(r=>r.text()).then(d=>document.getElementById('nav-placeholder').innerHTML=d);
         function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
 
-        // 2. Binder Logic
-        function toggleBinder() {
-            document.getElementById('binder').classList.toggle('closed');
+        // --- DATA SECTION: PASTE YOUR CARD LINKS HERE ---
+        
+        // BINDER 1: WINNERS COLLECTION
+        const winnersData = [
+            // { front: "URL", back: "URL" }
+            // Example:
+            // { front: "https://...win1.jpg", back: "https://...win1-back.jpg" },
+        ];
+
+        // BINDER 2: ROSTER COLLECTION
+        const rosterData = [
+             { 
+                front: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/4d823416402c0d2038c7dfa0646e69182fd8d624/DakotaThomas24.jpg", 
+                back: "https://placehold.co/400x600/000/FFF/png?text=Dakota+Stats" // Replace with real back image
+            },
+            { 
+                front: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/b10a9f64e5ac0b6874791209c8cd1f090df473d0/HockeyDeckOut71.jpg", 
+                back: "https://placehold.co/400x600/000/FFF/png?text=Hockey+Stats" 
+            },
+            // Add more drivers here...
+        ];
+
+        // --- LOGIC ---
+
+        function toggleBinder(el) {
+            // Close others first
+            document.querySelectorAll('.binder').forEach(b => {
+                if(b !== el) b.classList.add('closed');
+                if(b !== el) b.classList.remove('open');
+            });
+            el.classList.toggle('closed');
+            el.classList.toggle('open');
         }
 
-        // 3. Load Cards
-        async function loadBinderCards() {
-            try {
-                // Fetch both files to get max data
-                const [r1, r2] = await Promise.all([
-                    fetch('drivers.json').then(r=>r.ok?r.json():{}),
-                    fetch('drivers_2026.json').then(r=>r.ok?r.json():{})
-                ]);
-                
-                // Merge data
-                const drivers = { ...r1, ...r2 };
-                const driverList = Object.values(drivers);
-
-                // Helper to get image
-                const getImage = (name) => {
-                    const n = name.toLowerCase();
-                    if (n.includes('dakotathomas')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg";
-                    // ... (Add your other specific mappings here if you want)
-                    return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg";
-                };
-
-                const leftSheet = document.getElementById('sheet-left');
-                const rightSheet = document.getElementById('sheet-right');
-
-                // Fill Left Sheet (First 9)
-                for(let i=0; i<9; i++) {
-                    const d = driverList[i];
-                    const imgUrl = d ? getImage(d.display_name) : ''; 
-                    const html = d ? `<img src="${imgUrl}" loading="lazy">` : '';
-                    const slot = document.createElement('div');
-                    slot.className = 'slot';
-                    slot.innerHTML = html;
-                    leftSheet.appendChild(slot);
-                }
-
-                // Fill Right Sheet (Next 9)
-                for(let i=9; i<18; i++) {
-                    const d = driverList[i];
-                    const imgUrl = d ? getImage(d.display_name) : '';
-                    const html = d ? `<img src="${imgUrl}" loading="lazy">` : '';
-                    const slot = document.createElement('div');
-                    slot.className = 'slot';
-                    slot.innerHTML = html;
-                    rightSheet.appendChild(slot);
-                }
-
-            } catch (e) {
-                console.error("Error loading binder:", e);
+        function fillBinder(data, leftSheetId, rightSheetId) {
+            const leftEl = document.getElementById(leftSheetId);
+            const rightEl = document.getElementById(rightSheetId);
+            
+            // Fill Left (First 9)
+            for (let i = 0; i < 9; i++) {
+                createSlot(data[i], leftEl);
+            }
+            // Fill Right (Next 9)
+            for (let i = 9; i < 18; i++) {
+                createSlot(data[i], rightEl);
             }
         }
 
-        loadBinderCards();
+        function createSlot(cardData, parent) {
+            const slot = document.createElement('div');
+            slot.className = 'slot';
+            
+            if (cardData) {
+                const img = document.createElement('img');
+                img.src = cardData.front;
+                slot.appendChild(img);
+                slot.onclick = (e) => {
+                    e.stopPropagation(); // Prevent binder closing
+                    inspectCard(cardData);
+                };
+            }
+            parent.appendChild(slot);
+        }
+
+        // Modal Logic
+        function inspectCard(cardData) {
+            const modal = document.getElementById('card-modal');
+            const front = document.getElementById('modal-img-front');
+            const back = document.getElementById('modal-img-back');
+            const container = document.getElementById('big-card');
+
+            front.src = cardData.front;
+            // Use a default back image if none provided
+            back.src = cardData.back || "https://placehold.co/400x560/1a1a1a/FFF/png?text=ASCRL+2026"; 
+            
+            container.classList.remove('flipped'); // Reset flip
+            modal.style.display = 'flex';
+        }
+
+        function flipCard() {
+            document.getElementById('big-card').classList.toggle('flipped');
+        }
+
+        function closeCard() {
+            document.getElementById('card-modal').style.display = 'none';
+        }
+
+        // Initialize
+        fillBinder(winnersData, 'winners-sheet-left', 'winners-sheet-right');
+        fillBinder(rosterData, 'roster-sheet-left', 'roster-sheet-right');
 
     </script>
 </body>
