@@ -4,156 +4,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASCRL Collection</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css"> 
     <style>
-        /* RESET & BASICS */
+        /* RESET */
         body { background-color: #111; font-family: 'Arial Black', sans-serif; min-height: 100vh; display: flex; flex-direction: column; margin: 0; }
         
-        /* DEBUG BANNER */
-        .version-check { background: darkred; color: white; padding: 10px; text-align: center; font-family: monospace; letter-spacing: 2px; }
-
-        /* LAYOUT */
-        #nav-placeholder { position: relative; z-index: 10000; }
+        /* 3D FIX: This forces the entire binder to handle layers correctly */
         .shelf { display: flex; flex-direction: column; align-items: center; gap: 150px; padding: 100px 20px; perspective: 3000px; }
-
-        /* BINDER STRUCTURE */
-        .binder { position: relative; width: 500px; height: 650px; transform-style: preserve-3d; transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
+        
+        /* BINDER */
+        .binder { position: relative; width: 500px; height: 650px; transform-style: preserve-3d; transition: 0.8s; cursor: pointer; }
         .binder.closed { transform: rotateY(-25deg) rotateX(5deg); }
         .binder.open { transform: translateX(250px) rotateY(0deg); z-index: 100; }
         
-        /* COLORS */
-        :root { --binder-texture: url("https://www.transparenttextures.com/patterns/leather.png"); }
-        .binder.winners .cover, .binder.winners .spine { background-color: #D4AF37; background-image: var(--binder-texture); }
-        .binder.roster .cover, .binder.roster .spine { background-color: #800000; background-image: var(--binder-texture); }
+        .binder.roster .cover, .binder.roster .spine { background-color: #800000; }
 
-        /* SPINE & PAGES */
-        .spine { position: absolute; left: 0; top: 0; bottom: 0; width: 50px; transform-origin: left; transform: rotateY(-90deg); background: inherit; border-radius: 5px 0 0 5px; display: flex; align-items: center; justify-content: center; }
-        .spine span { transform: rotate(90deg); color: rgba(255,255,255,0.7); font-size: 2rem; letter-spacing: 5px; white-space: nowrap; }
-        
+        /* PAGES */
         .page { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform-style: preserve-3d; transition: 0.8s; border: 2px solid #222; }
-        
-        .cover { z-index: 10; transform-origin: left; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff; border-radius: 5px 10px 10px 5px; backface-visibility: hidden; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+        .cover { z-index: 10; background: #800000; transform-origin: left; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff; border-radius: 5px 10px 10px 5px; backface-visibility: hidden; }
         .binder.open .cover { transform: rotateY(-180deg); }
 
+        /* INSIDE PAGES */
         .inside-cover { background: #fff; transform-origin: left; transform: rotateY(-180deg); z-index: 5; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; }
         .binder.open .inside-cover { transform: rotateY(-180deg); z-index: 11; }
-
-        .base-page { background: #fff; z-index: 1; border-radius: 0 10px 10px 0; box-shadow: 5px 5px 15px rgba(0,0,0,0.5); }
-
-        /* GRID SYSTEM */
-        .sheet { width: 90%; height: 95%; background: #f4f4f4; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 10px; padding: 15px; box-sizing: border-box; box-shadow: inset 0 0 10px rgba(0,0,0,0.1); }
         
-        /* CARD SLOTS */
-        .slot { background: #fff; border: 1px solid #ccc; position: relative; cursor: pointer; display: flex; align-items: center; justify-content: center; overflow: hidden; transition: 0.2s; }
-        .slot:hover { transform: scale(1.05); z-index: 20; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .base-page { background: #fff; z-index: 1; border-radius: 0 10px 10px 0; }
         
-        /* IMAGE STYLING - FORCING VISIBILITY */
-        .slot img { 
-            width: 100%; height: 100%; 
-            object-fit: cover; object-position: top; 
-            display: block !important; /* Force show */
-            background: pink; /* Debug color: If image fails, slot turns pink */
+        /* SPINE */
+        .spine { position: absolute; left: 0; top: 0; bottom: 0; width: 50px; transform-origin: left; transform: rotateY(-90deg); background: inherit; border-radius: 5px 0 0 5px; }
+
+        /* GRID */
+        .sheet { width: 90%; height: 95%; background: #f4f4f4; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 10px; padding: 15px; box-sizing: border-box; }
+        
+        /* THE SLOT (Green for Debugging) */
+        .slot { 
+            background: #00ff00; /* NEON GREEN - If you see this, the slot exists */
+            border: 1px solid #000; 
+            position: relative; 
+            cursor: pointer; 
+            display: flex; align-items: center; justify-content: center; 
+            transform-style: preserve-3d; /* Crucial for 3D */
         }
-        
-        /* SHINY EFFECT */
-        .slot::after { content: ''; position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.1) 100%); pointer-events: none; z-index: 10; }
+
+        /* THE IMAGE FIX */
+        .slot img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            display: block;
+            /* THIS COMMAND FORCES THE IMAGE TO HOVER ABOVE THE PAPER */
+            transform: translateZ(2px); 
+            position: relative;
+            z-index: 50;
+        }
 
         /* MODAL */
-        #card-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 20000; display: none; justify-content: center; align-items: center; perspective: 1000px; }
-        #big-card { width: 400px; height: 560px; position: relative; transform-style: preserve-3d; transition: 0.6s; cursor: pointer; }
-        #big-card.flipped { transform: rotateY(180deg); }
-        .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 10px; background: #fff; overflow: hidden; box-shadow: 0 0 50px rgba(255,255,255,0.1); }
-        .card-face img { width: 100%; height: 100%; object-fit: contain; }
-        .card-back { transform: rotateY(180deg); background: #e6e6e6; padding: 30px; display: flex; flex-direction: column; align-items: center; text-align: center; color: #111; font-family: 'Arial', sans-serif; }
-        .close-modal { position: absolute; top: 30px; right: 30px; color: #fff; font-size: 2rem; cursor: pointer; z-index: 20001; }
-        
-        @media (max-width: 1100px) { .binder { width: 90vw; height: 120vw; } }
+        #card-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 20000; display: none; justify-content: center; align-items: center; }
+        #big-card { width: 400px; height: 560px; position: relative; }
+        .card-face img { width: 100%; }
+        .close-modal { position: absolute; top: 30px; right: 30px; color: #fff; font-size: 2rem; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <div class="version-check">VERSION 5.0 - MANUAL OVERRIDE</div>
+    <div style="background:orange; text-align:center; padding:5px;"><b>VERSION 6.0: Z-INDEX FIX</b></div>
     <div id="nav-placeholder"></div>
 
     <div class="shelf">
-        
-        <div class="binder closed winners" onclick="toggleBinder(this)">
-            <div class="spine"><span>WINNERS</span></div>
-            <div class="page cover">
-                <img src="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96" style="width:80px; margin-bottom:15px; filter: drop-shadow(0 0 5px #000);">
-                <h1>VICTORY LANE</h1>
-            </div>
-            <div class="page inside-cover"><div class="sheet"></div></div>
-            <div class="page base-page"><div class="sheet"></div></div>
-        </div>
-
         <div class="binder closed roster" onclick="toggleBinder(this)">
-            <div class="spine"><span>ROSTER</span></div>
-            <div class="page cover">
-                <img src="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96" style="width:80px; margin-bottom:15px; filter: drop-shadow(0 0 5px #000);">
-                <h1>THE ROSTER</h1>
-            </div>
+            <div class="spine"></div>
+            <div class="page cover"><h1>ROSTER</h1></div>
             
             <div class="page inside-cover">
                 <div class="sheet">
                     <div class="slot" onclick="event.stopPropagation(); inspectCard('dewshine')">
-                        <img src="https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/dewshinetradingcard.jpg" alt="Dewshine">
-                    </div>
-                    
-                    <div class="slot" onclick="event.stopPropagation(); inspectCard('dewshine')">
-                        <img src="dewshinetradingcard.jpg" alt="Relative">
+                        <img src="dewshinetradingcard.jpg">
                     </div>
 
+                    <div class="slot">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png">
+                    </div>
+                    
                     <div class="slot"></div><div class="slot"></div><div class="slot"></div>
                     <div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div>
                 </div>
             </div>
             
-            <div class="page base-page">
-                <div class="sheet">
-                    <div class="slot"></div><div class="slot"></div><div class="slot"></div>
-                    <div class="slot"></div><div class="slot"></div><div class="slot"></div>
-                    <div class="slot"></div><div class="slot"></div><div class="slot"></div>
-                </div>
-            </div>
+            <div class="page base-page"><div class="sheet"></div></div>
         </div>
-
     </div>
 
     <div id="card-modal">
         <div class="close-modal" onclick="document.getElementById('card-modal').style.display='none'">&times;</div>
-        <div id="big-card" onclick="this.classList.toggle('flipped')">
-            <div class="card-face"><img id="m-front" src=""></div>
-            <div class="card-face card-back" id="m-back">
-                <h2>DEWSHINE</h2>
-                <p>Apex Racing<br>Car #77</p>
-                <p style="margin-top:20px; color:#888;">(Stats coming soon)</p>
-            </div>
-        </div>
+        <div id="big-card"><div class="card-face"><img id="m-front" src=""></div></div>
     </div>
 
     <script>
-        // Load Nav
-        fetch('nav.html').then(r=>r.text()).then(d=>document.getElementById('nav-placeholder').innerHTML=d).catch(e=>console.log("Nav missing"));
-        function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
+        fetch('nav.html').then(r=>r.text()).then(d=>document.getElementById('nav-placeholder').innerHTML=d);
 
-        // Logic
         function toggleBinder(el) {
-            document.querySelectorAll('.binder').forEach(b => b!==el ? b.classList.add('closed') : null);
             el.classList.toggle('closed');
             el.classList.toggle('open');
             if(el.classList.contains('open')) setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
         }
 
-        // Simple Inspector
-        function inspectCard(id) {
-            // Hardcoded for this test
-            if(id === 'dewshine') {
-                document.getElementById('m-front').src = "https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/dewshinetradingcard.jpg";
-                document.getElementById('big-card').classList.remove('flipped');
-                document.getElementById('card-modal').style.display = 'flex';
-            }
+        function inspectCard() {
+            document.getElementById('m-front').src = "dewshinetradingcard.jpg";
+            document.getElementById('card-modal').style.display = 'flex';
         }
     </script>
 </body>
