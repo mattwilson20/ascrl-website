@@ -79,15 +79,50 @@
     <script>
         fetch('nav.html').then(r=>r.text()).then(d=>document.getElementById('nav-placeholder').innerHTML=d);
 
-        // *** DATA ***
+        // *** DATA SECTION ***
         const rosterData = [
             {
-                // RELATIVE LINK: This is the safest way. 
+                // GUESS 1: Exact Name you gave me
                 front: "DewshineTradingCard.jpg", 
-                title: "DEWSHINE",
-                text: "Apex Racing #77",
-                stats: { "Wins": "0" }
-            }
+                title: "OPTION 1",
+                text: "Original Name",
+                stats: { "Try": "1" }
+            },
+            {
+                // GUESS 2: All Lowercase (GitHub is sensitive!)
+                front: "dewshinetradingcard.jpg", 
+                title: "OPTION 2",
+                text: "Lowercase Name",
+                stats: { "Try": "2" }
+            },
+            {
+                // GUESS 3: Uppercase Extension
+                front: "DewshineTradingCard.JPG", 
+                title: "OPTION 3",
+                text: "Uppercase .JPG",
+                stats: { "Try": "3" }
+            },
+            {
+                // GUESS 4: .jpeg spelling (common mistake)
+                front: "DewshineTradingCard.jpeg", 
+                title: "OPTION 4",
+                text: ".jpeg extension",
+                stats: { "Try": "4" }
+            },
+             {
+                // GUESS 5: Full Path Test
+                front: "https://mattwilson20.github.io/ascrl-website/DewshineTradingCard.jpg", 
+                title: "OPTION 5",
+                text: "Full Website Link",
+                stats: { "Try": "5" }
+            },
+             {
+                // GUESS 6: The "Images" folder (Just in case)
+                front: "images/DewshineTradingCard.jpg", 
+                title: "OPTION 6",
+                text: "Inside images folder?",
+                stats: { "Try": "6" }
+            },
         ];
         
         // *** LOGIC ***
