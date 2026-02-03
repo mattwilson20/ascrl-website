@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="style.css">
     
     <style>
-        /* --- 1. GLOBAL VARIABLES & BACKGROUND (From Index) --- */
+        /* --- 1. GLOBAL VARIABLES & BACKGROUND --- */
         :root {
             --primary: #c00;
             --accent: #ff0;
@@ -44,12 +44,12 @@
 
         #nav-placeholder { position: relative; z-index: 2000; }
 
-        /* --- 2. HERO SECTION STYLES (From Index) --- */
+        /* --- 2. HERO SECTION STYLES --- */
         .hero { 
             position: relative; 
             overflow: hidden; 
             background: radial-gradient(circle at center, #222 0%, #000 100%); 
-            padding: 8rem 1rem 4rem; /* Adjusted padding slightly for inner page */
+            padding: 8rem 1rem 4rem; 
             text-align: center; 
             border-bottom: 1px solid var(--border);
         }
@@ -78,7 +78,7 @@
             perspective: 3000px;
         }
 
-        /* Binder Wrapper */
+        /* Binder Wrapper - DESKTOP DEFAULTS */
         .binder { 
             position: relative; 
             width: 500px; 
@@ -86,7 +86,6 @@
             transform-style: preserve-3d; 
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
             cursor: pointer; 
-            max-width: 90vw; 
         }
 
         .binder.open { transform: translateX(250px); }
@@ -180,12 +179,13 @@
             pointer-events: none; z-index: 10; 
         }
 
-        /* Modal */
+        /* --- MODAL --- */
         #card-modal { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(0,0,0,0.95); z-index: 20000; 
             display: none; justify-content: center; align-items: center; 
             perspective: 1000px;
+            cursor: pointer;
         }
         
         #big-card { 
@@ -209,15 +209,30 @@
             font-family: 'Arial', sans-serif; overflow-y: auto;
         }
 
-        .close-modal { position: absolute; top: 20px; right: 20px; color: #fff; font-size: 2rem; cursor: pointer; z-index: 20001; }
-
-        /* Mobile Rules */
+        /* ========================================= */
+        /* MOBILE OPTIMIZATION RULES                 */
+        /* ========================================= */
         @media (max-width: 768px) {
             .shelf { padding-top: 50px; }
-            .binder { height: 125vw; max-height: 600px; }
-            .binder.open { transform: translateX(0); }
-            .front h1 { font-size: 1.5rem; }
-            .spine span { font-size: 1.2rem; letter-spacing: 2px; }
+            
+            /* 1. Make the CLOSED binder roughly half the screen width */
+            .binder { 
+                width: 44vw;  /* Just under half width */
+                height: 60vw; /* Keep aspect ratio */
+            }
+
+            /* 2. When OPEN, shift it so the spine is in the middle */
+            /* Since width is 44vw, opening it makes total width 88vw. Perfect for mobile. */
+            .binder.open { 
+                transform: translateX(22vw); 
+            }
+            
+            /* 3. Scale down text so it fits the smaller cover */
+            .front h1 { font-size: 1rem; }
+            .spine span { font-size: 0.9rem; letter-spacing: 2px; }
+            
+            /* 4. Adjust grid padding for small slots */
+            .sheet { gap: 2px; padding: 5px; }
         }
     </style>
 </head>
@@ -263,9 +278,8 @@
 
     </div>
 
-    <div id="card-modal">
-        <div class="close-modal" onclick="document.getElementById('card-modal').style.display='none'">&times;</div>
-        <div id="big-card" onclick="this.classList.toggle('flipped')">
+    <div id="card-modal" onclick="this.style.display='none'">
+        <div id="big-card" onclick="event.stopPropagation(); this.classList.toggle('flipped')">
             <div class="card-face"><img id="m-front" src=""></div>
             <div class="card-face card-back" id="m-back"></div>
         </div>
