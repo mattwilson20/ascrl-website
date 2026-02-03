@@ -26,32 +26,31 @@
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            gap: 150px; 
-            padding: 100px 20px; 
-            perspective: 3000px; /* Deep 3D space */
+            gap: 100px; 
+            padding: 50px 10px; /* Reduced padding for mobile */
+            perspective: 3000px;
         }
 
-        /* --- THE BINDER (VERSION 7.0 STRUCTURE) --- */
+        /* --- THE BINDER (RESPONSIVE) --- */
         .binder { 
             position: relative; 
-            width: 500px; 
+            width: 500px; /* Desktop Size */
             height: 650px; 
             transform-style: preserve-3d; 
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
             cursor: pointer; 
+            max-width: 90vw; /* MOBILE FIX: Never be wider than 90% of screen */
         }
 
-        /* Opening Animation: Shift right to center the open book */
+        /* Opening Animation: Desktop (Shift Right) */
         .binder.open { transform: translateX(250px); }
 
         /* COLORS & TEXTURES */
         :root { --binder-texture: url("https://www.transparenttextures.com/patterns/leather.png"); }
-        
-        /* Color Variants */
-        .binder.winners .front, .binder.winners .spine { background-color: #D4AF37; } /* Gold */
-        .binder.roster .front, .binder.roster .spine { background-color: #800000; } /* Red */
+        .binder.winners .front, .binder.winners .spine { background-color: #D4AF37; }
+        .binder.roster .front, .binder.roster .spine { background-color: #800000; }
 
-        /* --- THE MOVING PART (Cover + Inside Left) --- */
+        /* --- MOVING PART (Cover + Inside Left) --- */
         .flip-wrapper {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             transform-style: preserve-3d;
@@ -59,16 +58,13 @@
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 10;
         }
-
-        /* ROTATION LOGIC */
         .binder.closed .flip-wrapper { transform: rotateY(-25deg); }
         .binder.open .flip-wrapper { transform: rotateY(-180deg); }
 
         /* SHARED FACE STYLES */
         .face {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            backface-visibility: hidden; /* Hides the back side automatically */
-            border-radius: 5px 10px 10px 5px;
+            backface-visibility: hidden; border-radius: 5px 10px 10px 5px;
             border: 2px solid #222;
         }
 
@@ -80,28 +76,30 @@
             z-index: 2;
             text-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
+        .front img { width: 30%; max-width: 100px; margin-bottom: 15px; }
+        .front h1 { font-size: 2rem; text-align: center; }
 
-        /* INSIDE LEFT PAGE (Back of Cover) */
+        /* INSIDE LEFT */
         .back {
             background: #fff;
-            transform: rotateY(180deg); /* Pre-rotated to face backwards */
+            transform: rotateY(180deg);
             display: flex; justify-content: center; align-items: center;
         }
 
-        /* --- THE STATIC PART (Inside Right) --- */
+        /* STATIC RIGHT PAGE */
         .base-page {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: #fff;
             border-radius: 0 10px 10px 0;
             box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
-            z-index: 1; /* Always on bottom */
+            z-index: 1; 
             display: flex; justify-content: center; align-items: center;
             border: 2px solid #222;
         }
 
-        /* --- SPINE --- */
+        /* SPINE */
         .spine {
-            position: absolute; left: 0; top: 0; bottom: 0; width: 50px;
+            position: absolute; left: 0; top: 0; bottom: 0; width: 40px;
             background-image: var(--binder-texture);
             transform-origin: left; 
             transform: rotateY(-90deg);
@@ -109,52 +107,35 @@
             border-radius: 5px 0 0 5px;
         }
         .spine span { 
-            transform: rotate(90deg); 
-            color: rgba(255,255,255,0.7); 
-            font-size: 2rem; 
-            letter-spacing: 5px; 
-            white-space: nowrap; 
+            transform: rotate(90deg); color: rgba(255,255,255,0.7); 
+            font-size: 1.5rem; letter-spacing: 5px; white-space: nowrap; 
         }
 
-        /* --- GRID SYSTEM --- */
+        /* GRID SYSTEM */
         .sheet { 
-            width: 90%; height: 95%; 
-            background: #f4f4f4; 
+            width: 92%; height: 96%; background: #f4f4f4; 
             display: grid; 
             grid-template-columns: repeat(3, 1fr); 
             grid-template-rows: repeat(3, 1fr); 
-            gap: 10px; 
-            padding: 15px; 
+            gap: 5px; padding: 10px; 
             box-sizing: border-box; 
             box-shadow: inset 0 0 10px rgba(0,0,0,0.1); 
         }
         
-        /* CARD SLOTS */
         .slot { 
-            background: #fff; 
-            border: 1px solid rgba(0,0,0,0.1); 
-            position: relative; 
-            cursor: pointer; 
+            background: #fff; border: 1px solid rgba(0,0,0,0.1); 
+            position: relative; cursor: pointer; 
             display: flex; align-items: center; justify-content: center; 
             overflow: hidden; 
-            transition: 0.2s;
         }
-        .slot:hover { 
-            transform: scale(1.05); 
-            z-index: 20; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3); 
-        }
-        
         .slot img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-        
-        /* Plastic Sheen Effect */
         .slot::after { 
             content: ''; position: absolute; top:0; left:0; width:100%; height:100%; 
             background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.1) 100%); 
             pointer-events: none; z-index: 10; 
         }
 
-        /* --- MODAL (POPUP) --- */
+        /* --- MODAL --- */
         #card-modal { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(0,0,0,0.95); z-index: 20000; 
@@ -165,6 +146,7 @@
         #big-card { 
             width: 400px; height: 560px; position: relative; 
             transform-style: preserve-3d; transition: 0.6s; cursor: pointer;
+            max-width: 90vw; max-height: 80vh; /* Mobile Modal Fix */
         }
         #big-card.flipped { transform: rotateY(180deg); }
         
@@ -172,26 +154,37 @@
             position: absolute; width: 100%; height: 100%; 
             backface-visibility: hidden; border-radius: 10px; 
             background: #fff; overflow: hidden; 
-            box-shadow: 0 0 50px rgba(255,255,255,0.1); 
         }
         .card-face img { width: 100%; height: 100%; object-fit: contain; }
         
         .card-back { 
-            transform: rotateY(180deg); 
-            background: #e6e6e6; 
-            padding: 30px; 
-            display: flex; flex-direction: column; align-items: center; 
-            text-align: center; color: #111; font-family: 'Arial', sans-serif; 
+            transform: rotateY(180deg); background: #e6e6e6; 
+            padding: 20px; display: flex; flex-direction: column; 
+            align-items: center; text-align: center; color: #111; 
+            font-family: 'Arial', sans-serif; overflow-y: auto;
         }
-        .card-back h2 { color: #c00; text-transform: uppercase; margin-bottom: 10px; font-family: 'Arial Black'; }
-        
-        /* Stats Table Style */
-        .stats-block { margin-top: 20px; border-top: 2px solid #ccc; padding-top: 20px; width: 100%; }
-        .stat-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: bold; border-bottom: 1px solid #ddd; padding-bottom: 3px;}
-        
-        .close-modal { position: absolute; top: 30px; right: 30px; color: #fff; font-size: 2rem; cursor: pointer; z-index: 20001; }
-        
-        @media (max-width: 1100px) { .binder { width: 90vw; height: 120vw; } }
+
+        .close-modal { position: absolute; top: 20px; right: 20px; color: #fff; font-size: 2rem; cursor: pointer; z-index: 20001; }
+
+        /* ========================================= */
+        /* MOBILE SPECIFIC RULES (The Magic Part)    */
+        /* ========================================= */
+        @media (max-width: 768px) {
+            .shelf { padding-top: 50px; }
+            
+            .binder {
+                /* On phone, height is based on width to keep aspect ratio */
+                height: 125vw; 
+                max-height: 600px;
+            }
+
+            /* On mobile, we DON'T shift right (no room). We just open. */
+            .binder.open { transform: translateX(0); }
+            
+            /* Adjust font sizes for tiny screens */
+            .front h1 { font-size: 1.5rem; }
+            .spine span { font-size: 1.2rem; letter-spacing: 2px; }
+        }
     </style>
 </head>
 <body>
@@ -204,32 +197,24 @@
             <div class="spine"><span>WINNERS</span></div>
             <div class="flip-wrapper">
                 <div class="face front">
-                    <img src="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96" style="width:80px; margin-bottom:15px; filter: drop-shadow(0 0 5px #000);">
+                    <img src="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
                     <h1>VICTORY LANE</h1>
                 </div>
-                <div class="face back">
-                    <div class="sheet" id="winners-L"></div>
-                </div>
+                <div class="face back"><div class="sheet" id="winners-L"></div></div>
             </div>
-            <div class="base-page">
-                <div class="sheet" id="winners-R"></div>
-            </div>
+            <div class="base-page"><div class="sheet" id="winners-R"></div></div>
         </div>
 
         <div class="binder closed roster" onclick="toggleBinder(this)">
             <div class="spine"><span>ROSTER</span></div>
             <div class="flip-wrapper">
                 <div class="face front">
-                    <img src="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96" style="width:80px; margin-bottom:15px; filter: drop-shadow(0 0 5px #000);">
+                    <img src="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
                     <h1>THE ROSTER</h1>
                 </div>
-                <div class="face back">
-                    <div class="sheet" id="roster-L"></div>
-                </div>
+                <div class="face back"><div class="sheet" id="roster-L"></div></div>
             </div>
-            <div class="base-page">
-                <div class="sheet" id="roster-R"></div>
-            </div>
+            <div class="base-page"><div class="sheet" id="roster-R"></div></div>
         </div>
 
     </div>
@@ -243,43 +228,29 @@
     </div>
 
     <script>
-        // Load Navigation (Safe Mode)
         fetch('nav.html').then(r=>r.text()).then(d=>document.getElementById('nav-placeholder').innerHTML=d).catch(e=>console.log("Nav missing"));
         function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
 
-        // ==========================================
-        //  USER DATA SECTION
-        // ==========================================
-        
-        // 1. ROSTER CARDS
+        // --- DATA ---
         const rosterData = [
             {
-                // This is the working card we just fixed!
                 front: "dewshinetradingcard.jpg", 
                 title: "DEWSHINE",
                 text: "Apex Racing<br>Car #77<br>Cup Series",
                 stats: { "Wins": "0", "Top 5s": "3", "Avg Fin": "9.4" }
-            },
-            // Add new drivers below here by copying the block above
+            }
         ];
-
-        // 2. WINNERS CARDS (Empty for now)
         const winnersData = [];
 
-        // ==========================================
-        //  AUTOMATION ENGINE
-        // ==========================================
-
+        // --- LOGIC ---
         function toggleBinder(el) {
-            // Close other binders
             document.querySelectorAll('.binder').forEach(b => {
                 if(b !== el) { b.classList.add('closed'); b.classList.remove('open'); }
             });
-            // Toggle clicked binder
             el.classList.toggle('closed');
             el.classList.toggle('open');
-            // Scroll to view
             if(el.classList.contains('open')) {
+                // Smooth scroll, but give the browser time to render the animation first
                 setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
             }
         }
@@ -287,17 +258,11 @@
         function fillBinder(data, leftSheetId, rightSheetId) {
             const leftEl = document.getElementById(leftSheetId);
             const rightEl = document.getElementById(rightSheetId);
-            
-            // We need exactly 18 slots (9 Left, 9 Right) to make the grid look good
             const totalSlots = 18;
 
             for (let i = 0; i < totalSlots; i++) {
-                // Determine if we should add to Left Page (0-8) or Right Page (9-17)
                 const targetPage = (i < 9) ? leftEl : rightEl;
-                
-                // Get the card data if it exists, otherwise use null (empty slot)
                 const cardInfo = (i < data.length) ? data[i] : null;
-                
                 createSlot(cardInfo, targetPage);
             }
         }
@@ -305,28 +270,13 @@
         function createSlot(data, parent) {
             const slot = document.createElement('div');
             slot.className = 'slot';
-            
             if (data) {
-                // Create Image
                 const img = document.createElement('img');
                 img.src = data.front;
-                
-                // Error Handler (Just in case)
-                img.onerror = function() { 
-                    this.style.display='none'; 
-                    slot.style.background='#ffcccc'; // Light red
-                    slot.innerHTML = '<span style="color:red;font-size:0.6rem;text-align:center;">IMG ERR</span>'; 
-                };
-                
+                img.onerror = function() { this.style.display='none'; slot.style.background='#ffcccc'; slot.innerHTML = 'ERR'; };
                 slot.appendChild(img);
-                
-                // Click Event to Open Modal
-                slot.onclick = (e) => {
-                    e.stopPropagation(); // Don't close the binder when clicking a card
-                    openModal(data);
-                };
+                slot.onclick = (e) => { e.stopPropagation(); openModal(data); };
             }
-            
             parent.appendChild(slot);
         }
 
@@ -336,36 +286,30 @@
             const back = document.getElementById('m-back');
             const card = document.getElementById('big-card');
 
-            // 1. Set Front Image
             front.src = data.front;
 
-            // 2. Build Back Stats HTML
             let statsHtml = '';
             if(data.stats) {
-                statsHtml = '<div class="stats-block">';
+                statsHtml = '<div class="stats-block" style="width:100%; margin-top:15px; border-top:1px solid #ccc; padding-top:10px;">';
                 for (const [key, value] of Object.entries(data.stats)) {
-                    statsHtml += `<div class="stat-row"><span>${key}</span><span>${value}</span></div>`;
+                    statsHtml += `<div style="display:flex; justify-content:space-between; margin-bottom:5px; font-weight:bold; border-bottom:1px solid #eee;"><span>${key}</span><span>${value}</span></div>`;
                 }
                 statsHtml += '</div>';
             }
 
-            // 3. Set Back Content
             back.innerHTML = `
-                <h2>${data.title}</h2>
+                <h2 style="color:#c00; margin-bottom:5px;">${data.title}</h2>
                 <p>${data.text}</p>
                 ${statsHtml}
                 <div style="margin-top:auto; font-size:0.7rem; color:#888;">ASCRL OFFICIAL TRADING CARD</div>
             `;
             
-            // 4. Show Modal
-            card.classList.remove('flipped'); // Reset flip
+            card.classList.remove('flipped');
             modal.style.display = 'flex';
         }
 
-        // Initialize Binders
         fillBinder(winnersData, 'winners-L', 'winners-R');
         fillBinder(rosterData, 'roster-L', 'roster-R');
-
     </script>
 </body>
 </html>
