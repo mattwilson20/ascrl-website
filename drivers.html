@@ -281,6 +281,67 @@
         .st-year { font-weight: bold; color: var(--primary); font-family: 'Arial Black'; }
         .st-points { color: var(--accent); font-weight: bold; }
 
+        /* --- BINDER COLLECTION STYLES (NEW) --- */
+        .binder-page {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 5px;
+            min-height: 400px;
+            display: flex;
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+        }
+        
+        .binder-holes {
+            width: 40px;
+            border-right: 1px solid #ccc;
+            margin-right: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .hole { width: 15px; height: 15px; background: #333; border-radius: 50%; box-shadow: inset 2px 2px 5px rgba(0,0,0,0.8); }
+
+        .binder-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            align-content: flex-start;
+        }
+
+        .mini-card {
+            aspect-ratio: 5/7;
+            background: #fff;
+            border: 1px solid #ccc;
+            position: relative;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+        .mini-card:hover { transform: scale(1.05); z-index: 10; box-shadow: 5px 5px 15px rgba(0,0,0,0.3); }
+        .mini-card img { width: 100%; height: 100%; object-fit: cover; }
+
+        .achievement-card {
+            background: linear-gradient(135deg, #000, #222);
+            border: 2px solid #ffd700;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 10px;
+            color: #ffd700;
+        }
+        .shiny-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+            pointer-events: none;
+        }
+
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- FOOTER & SOCIALS --- */
@@ -317,8 +378,10 @@
             .stat-table { font-size: 0.8rem; }
             .stat-table th, .stat-table td { padding: 10px 5px; }
             /* Hide less important columns on mobile */
-            .stat-table th:nth-child(5), .stat-table td:nth-child(5),
+            .stat-table th:nth-child(5), .stat-table td:nth-child(5), 
             .stat-table th:nth-child(6), .stat-table td:nth-child(6) { display: none; }
+            
+            .binder-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -554,7 +617,7 @@
             });
         }
 
-        // --- 3. PROFESSIONAL PROFILE MODAL LOGIC (New Feature) ---
+        // --- 3. PROFESSIONAL PROFILE MODAL LOGIC (With Collection Tab) ---
         function openProfile(id, driverData) {
             const modal = document.getElementById('driver-modal');
             const dataDiv = document.getElementById('modal-inject');
@@ -568,8 +631,30 @@
             
             // Build Badges
             let badgesHtml = '';
+            let collectionCards = '';
+
+            // 1. Add Main Hero Card to Collection
+            collectionCards += `
+                <div class="mini-card" title="${dName} - ${currentSeries} Card">
+                    <img src="${getDriverImage(dName)}">
+                    <div class="shiny-overlay"></div>
+                </div>
+            `;
+
             if(driverData.badges) {
-                driverData.badges.forEach(b => badgesHtml += `<div class="p-badge"><i class="fa-solid fa-trophy"></i> ${b}</div>`);
+                driverData.badges.forEach(b => {
+                    // Profile Header Badge
+                    badgesHtml += `<div class="champ-badge"><i class="fa-solid fa-trophy"></i> ${b}</div>`;
+                    
+                    // Collection "Achievement Card"
+                    collectionCards += `
+                        <div class="mini-card achievement-card" title="${b}">
+                            <i class="fa-solid fa-trophy" style="font-size:3rem; margin-bottom:15px; color:#ffd700;"></i>
+                            <div style="font-size:0.7rem; font-weight:bold; line-height:1.2; text-transform:uppercase;">${b}</div>
+                            <div class="shiny-overlay"></div>
+                        </div>
+                    `;
+                });
             }
 
             // Build History Rows
@@ -600,7 +685,7 @@
                     </div>
                     <div class="p-info">
                         <div class="p-number">${sData.number}</div>
-                        <div class="p-badges">${badgesHtml}</div>
+                        <div class="p-badges" style="margin-bottom:10px; display:flex; gap:5px;">${badgesHtml}</div>
                         <span class="p-team">${sData.team} // #${sData.number} ${sData.manufacturer || 'N/A'}</span>
                         <h1 class="p-name">${dName}</h1>
                     </div>
@@ -609,6 +694,7 @@
                 <div class="p-tabs">
                     <button class="p-tab-btn active" onclick="switchModalTab('season')">Current Season</button>
                     <button class="p-tab-btn" onclick="switchModalTab('career')">Career History</button>
+                    <button class="p-tab-btn" onclick="switchModalTab('collection')">Collection</button>
                 </div>
 
                 <div id="mod-tab-season" class="p-panel active">
@@ -662,6 +748,18 @@
                             ${historyRows}
                         </tbody>
                     </table>
+                </div>
+
+                <div id="mod-tab-collection" class="p-panel">
+                    <h3 style="border-bottom:1px solid #333; padding-bottom:10px; margin-bottom:20px; color:#fff;">DRIVER BINDER</h3>
+                    <div class="binder-page">
+                        <div class="binder-holes">
+                            <div class="hole"></div><div class="hole"></div><div class="hole"></div>
+                        </div>
+                        <div class="binder-grid">
+                            ${collectionCards}
+                        </div>
+                    </div>
                 </div>
             `;
 
