@@ -79,50 +79,41 @@
     <script>
         fetch('nav.html').then(r=>r.text()).then(d=>document.getElementById('nav-placeholder').innerHTML=d);
 
-        // *** DATA SECTION ***
+        // *** THE DETECTIVE DATA ***
+        // We are testing 4 different ways to find that image.
         const rosterData = [
             {
-                // GUESS 1: Exact Name you gave me
-                front: "DewshineTradingCard.jpg", 
-                title: "OPTION 1",
-                text: "Original Name",
-                stats: { "Try": "1" }
+                // TEST 1: The "Ghost" Link you just gave me
+                // If this works, the image exists but your main site isn't updating.
+                front: "https://raw.githubusercontent.com/mattwilson20/ascrl-website/f451603baa4aab641df00c3448af1462287dea06/DewshineTradingCard.jpg", 
+                title: "TEST 1",
+                text: "The Raw Link",
+                stats: { "Result": "?" }
             },
             {
-                // GUESS 2: All Lowercase (GitHub is sensitive!)
-                front: "dewshinetradingcard.jpg", 
-                title: "OPTION 2",
-                text: "Lowercase Name",
-                stats: { "Try": "2" }
-            },
-            {
-                // GUESS 3: Uppercase Extension
-                front: "DewshineTradingCard.JPG", 
-                title: "OPTION 3",
-                text: "Uppercase .JPG",
-                stats: { "Try": "3" }
-            },
-            {
-                // GUESS 4: .jpeg spelling (common mistake)
-                front: "DewshineTradingCard.jpeg", 
-                title: "OPTION 4",
-                text: ".jpeg extension",
-                stats: { "Try": "4" }
-            },
-             {
-                // GUESS 5: Full Path Test
+                // TEST 2: The Direct Website Link
+                // This is how it SHOULD work properly.
                 front: "https://mattwilson20.github.io/ascrl-website/DewshineTradingCard.jpg", 
-                title: "OPTION 5",
-                text: "Full Website Link",
-                stats: { "Try": "5" }
+                title: "TEST 2",
+                text: "Official Site Link",
+                stats: { "Result": "?" }
             },
-             {
-                // GUESS 6: The "Images" folder (Just in case)
-                front: "images/DewshineTradingCard.jpg", 
-                title: "OPTION 6",
-                text: "Inside images folder?",
-                stats: { "Try": "6" }
+            {
+                // TEST 3: Relative Filename
+                // This looks in the same folder as the HTML file.
+                front: "DewshineTradingCard.jpg", 
+                title: "TEST 3",
+                text: "Relative Path",
+                stats: { "Result": "?" }
             },
+            {
+                // TEST 4: Control Image (Wikicommons)
+                // If this fails, your internet or browser is blocking images.
+                front: "https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png",
+                title: "TEST 4",
+                text: "System Control",
+                stats: { "Result": "Should Work" }
+            }
         ];
         
         // *** LOGIC ***
@@ -133,8 +124,11 @@
         }
 
         function fill(data, idL, idR) {
-            for(let i=0; i<9; i++) addSlot(data[i], document.getElementById(idL));
-            for(let i=9; i<18; i++) addSlot(data[i], document.getElementById(idR));
+            // Fill the first 4 slots with our tests
+            for(let i=0; i<data.length; i++) {
+                if(i < 9) addSlot(data[i], document.getElementById(idL));
+                else addSlot(data[i], document.getElementById(idR));
+            }
         }
 
         function addSlot(d, p) {
@@ -143,6 +137,14 @@
             if(d) {
                 let img = document.createElement('img');
                 img.src = d.front;
+                
+                // RED BOX IF FAILED
+                img.onerror = function() {
+                    this.style.display = 'none';
+                    s.style.background = 'red';
+                    s.innerHTML = `<div style="text-align:center; color:white; font-weight:bold; font-size:0.8rem;">FAILED:<br>${d.title}</div>`;
+                };
+
                 s.appendChild(img);
                 s.onclick = (e) => { e.stopPropagation(); openModal(d); };
             }
@@ -156,7 +158,7 @@
             document.getElementById('card-modal').style.display = 'flex';
         }
 
-        fill([], 'winners-L', 'winners-R');
+        // Load the tests into the Roster Binder
         fill(rosterData, 'roster-L', 'roster-R');
     </script>
 </body>
