@@ -143,8 +143,8 @@
             max-width: 85vw; /* Mobile Safe */
         }
 
+        /* Desktop Opening: Shift Right */
         .binder-modal.open { transform: translateX(200px); }
-        @media(max-width:768px) { .binder-modal.open { transform: translateX(42vw); } .binder-modal { width: 44vw; height: 60vw; } }
 
         /* FLIPPING MECHANISM */
         .m-flip-wrapper {
@@ -233,12 +233,32 @@
         }
         .m-slot img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
         
-        /* Mobile Adjustments for Modal */
+        /* --- MOBILE ADJUSTMENTS (CRITICAL FIXES) --- */
         @media (max-width: 768px) {
             .hero { padding: 10rem 1rem 4rem; }
             .p-hero { flex-direction: column; text-align: center; padding: 20px; }
             .p-img-container { margin: 0 auto; width: 150px; height: 180px; }
-            .m-front h1 { font-size: 1.2rem; }
+            .p-panel { padding: 10px; } /* Reduce padding to give binder room */
+            
+            /* BINDER MOBILE LOGIC */
+            .binder-modal { 
+                width: 42vw;  /* Just under half screen width */
+                height: 60vw; /* Maintain ratio */
+            }
+            
+            /* CENTERING MATH:
+               When open, the binder consists of Left Page + Right Page.
+               Total Width = 84vw.
+               To center the SPINE, we shift the container (which holds the Right Page)
+               to the RIGHT by half its width.
+               42vw / 2 = 21vw.
+            */
+            .binder-modal.open { 
+                transform: translateX(21vw); 
+            }
+
+            .m-front h1 { font-size: 1rem; margin-top: 5px; }
+            .m-front .col-label { font-size: 0.6rem; margin-top: 10px; }
             .m-sheet { gap: 5px; padding: 5px; }
         }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
