@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCRL Cards | 2026 Collection</title>
+    <link rel="icon" href="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css"> 
+
+    <style>
+        /* --- BINDER STYLES --- */
+        :root {
+            --binder-texture: url("https://www.transparenttextures.com/patterns/leather.png");
+            --page-bg: #f4f4f4;
+            --slot-border: rgba(0, 0, 0, 0.1);
+            --plastic-sheen: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.1) 100%);
+            --card-back-bg: #e6e6e6; 
+            --card-text-color: #111;
+        }
+
+        body {
+            background-color: #111;
+            background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+            margin: 0;
+            font-family: 'Arial Black', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #nav-placeholder { position: relative; z-index: 10000; }
+
+        .shelf {
+            display: flex;
+            flex-direction: column; 
+            align-items: center;
+            gap: 150px; 
+            padding: 80px 20px 150px;
+            perspective: 3000px;
+        }
+
+        .binder {
+            position: relative;
+            width: 500px;
+            height: 650px;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            z-index: 1; 
+        }
+
+        .binder.closed { transform: rotateY(-25deg) rotateX(5deg); }
+        .binder.open { transform: translateX(250px) rotateY(0deg); z-index: 10; }
+
+        .binder.winners .cover, .binder.winners .spine { background-color: #D4AF37; }
+        .binder.roster .cover, .binder.roster .spine { background-color: #800000; }
+
+        .spine {
+            position: absolute; left: 0; top: 0; bottom: 0; width: 50px;
+            background-image: var(--binder-texture);
+            transform-origin: left; transform: rotateY(-90deg);
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 5px 0 0 5px;
+        }
+        .spine span {
+            transform: rotate(90deg); white-space: nowrap; color: rgba(255,255,255,0.7);
+            font-size: 2rem; letter-spacing: 5px;
+        }
+
+        .page {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            transform-style: preserve-3d; transition: transform 0.8s; border: 2px solid #222;
+        }
+
+        .cover {
+            background-image: var(--binder-texture); z-index: 10; transform-origin: left;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: #fff; text-shadow: 0 2px 5px rgba(0,0,0,0.5); backface-visibility: hidden;
+            border-radius: 5px 10px 10px 5px;
+        }
+        .binder.open .cover { transform: rotateY(-180deg); }
+
+        .inside-cover {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #fff;
+            transform-origin: left; transform: rotateY(-180deg); z-index: 5;
+            backface-visibility: hidden; display: flex; justify-content: center; align-items: center;
+        }
+        .binder.open .inside-cover { transform: rotateY(-180deg); z-index: 11; }
+
+        .base-page { background: #fff; z-index: 1; border-radius: 0 10px 10px 0; box-shadow: 5px 5px 15px rgba(0,0,0,0.5); }
+
+        .sheet {
+            width: 90%; height: 95%; background: var(--page-bg); margin: 2.5% auto;
+            display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr);
+            gap: 10px; padding: 15px; box-sizing: border-box; box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .left-page .sheet { right: 10px; border-radius: 5px 0 0 5px; }
+        .right-page .sheet { left: 10px; border-radius: 0 5px 5px 0; }
+
+        .slot {
+            background: #fff; border: 1px solid var(--slot-border); position: relative;
+            cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+        }
+        .slot:hover { transform: scale(1.05); z-index: 20; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .slot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+        .slot::after {
+            content: ''; position: absolute; top:0; left:0; width:100%; height:100%;
+            background: var(--plastic-sheen); pointer-events: none; z-index: 10;
+        }
+
+        /* Error Styling */
+        .slot.error { background: #ffcccc !important; border: 2px solid red !important; }
+        .slot.error::after { display: none; }
+
+        /* --- MODAL --- */
+        .card-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 20000; display: none;
+            justify-content: center; align-items: center; perspective: 1000px;
+        }
+
+        .big-card-container {
+            width: 400px; height: 560px; position: relative;
+            transform-style: preserve-3d; transition: transform 0.6s; cursor: pointer;
+        }
+        .big-card-container.flipped { transform: rotateY(180deg); }
+
+        .card-face {
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+            border-radius: 10px; box-shadow: 0 0 50px rgba(255,255,255,0.1); background: #fff; overflow: hidden;
+        }
+        .card-face img { width: 100%; height: 100%; object-fit: contain; }
+        
+        .card-back { 
+            transform: rotateY(180deg); background: var(--card-back-bg); color: var(--card-text-color);
+            padding: 30px; box-sizing: border-box; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center; font-family: 'Arial', sans-serif;
+        }
+        .card-back h2 { font-family: 'Arial Black'; text-transform: uppercase; margin-bottom: 10px; color: #c00; font-size: 1.8rem;}
+        .card-back p { font-size: 1rem; line-height: 1.5; color: #333; }
+        .stats-block { margin-top: 20px; border-top: 2px solid #ccc; padding-top: 20px; width: 100%; }
+        .stat-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: bold; }
+
+        .close-modal { position: absolute; top: 30px; right: 30px; color: #fff; font-size: 2rem; cursor: pointer; z-index: 20001; }
+        .instruction { position: fixed; bottom: 20px; left:0; width:100%; text-align: center; color: #aaa; padding: 10px; background: rgba(0,0,0,0.8); z-index: 50; pointer-events: none; }
+
+        @media (max-width: 1100px) {
+            .binder { width: 90vw; height: 120vw; max-width: 500px; max-height: 650px; }
+            .binder.open { transform: none; }
+            .binder.open .cover { display: none; }
+            .binder.open .inside-cover { transform: none; display: none; }
+            .big-card-container { width: 90vw; height: 125vw; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="nav-placeholder"></div>
+
+    <div class="shelf">
+
+        <div class="binder closed winners" onclick="toggleBinder(this)">
+            <div class="spine"><span>WINNERS</span></div>
+            <div class="page cover">
+                <img src="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96" style="width:80px; margin-bottom:15px; filter: drop-shadow(0 0 5px #000);">
+                <h1>VICTORY LANE</h1>
+                <p>2026 SEASON COLLECTION</p>
+            </div>
+            <div class="page inside-cover"><div class="sheet" id="winners-sheet-left"></div></div>
+            <div class="page base-page"><div class="sheet" id="winners-sheet-right"></div></div>
+        </div>
+
+        <div class="binder closed roster" onclick="toggleBinder(this)">
+            <div class="spine"><span>ROSTER</span></div>
+            <div class="page cover">
+                <img src="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96" style="width:80px; margin-bottom:15px; filter: drop-shadow(0 0 5px #000);">
+                <h1>THE ROSTER</h1>
+                <p>2026 OFFICIAL DRIVER CARDS</p>
+            </div>
+            <div class="page inside-cover"><div class="sheet" id="roster-sheet-left"></div></div>
+            <div class="page base-page"><div class="sheet" id="roster-sheet-right"></div></div>
+        </div>
+
+    </div>
+
+    <div class="instruction">CLICK BINDER TO OPEN • CLICK CARD TO INSPECT • CLICK CARD TO FLIP</div>
+
+    <div id="card-modal" class="card-modal">
+        <div class="close-modal" onclick="closeCard()">&times;</div>
+        <div class="big-card-container" id="big-card" onclick="flipCard()">
+            <div class="card-face card-front">
+                <img id="modal-img-front" src="">
+            </div>
+            <div class="card-face card-back" id="modal-text-back"></div>
+        </div>
+    </div>
+
+    <script>
+        // 1. Load Nav
+        fetch('nav.html').then(r=>r.text()).then(d=>document.getElementById('nav-placeholder').innerHTML=d);
+        function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
+
+        // --- CARD DATA SECTION ---
+        
+        const winnersData = []; 
+
+        const rosterData = [
+             { 
+                // THIS IS THE SAFEST LINK STYLE FOR GITHUB PAGES
+                front: "https://mattwilson20.github.io/ascrl-website/DewshineTradingCard.jpg", 
+                title: "DEWSHINE",
+                text: "Apex Racing<br>Car #77<br>Cup Series",
+                stats: { "Wins": "0", "Top 5s": "3", "Avg Fin": "9.4" }
+            }
+        ];
+
+        // --- LOGIC ---
+
+        function toggleBinder(el) {
+            document.querySelectorAll('.binder').forEach(b => {
+                if(b !== el) { b.classList.add('closed'); b.classList.remove('open'); }
+            });
+            el.classList.toggle('closed');
+            el.classList.toggle('open');
+            if(el.classList.contains('open')) {
+                setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
+            }
+        }
+
+        function fillBinder(data, leftSheetId, rightSheetId) {
+            const leftEl = document.getElementById(leftSheetId);
+            const rightEl = document.getElementById(rightSheetId);
+            for (let i = 0; i < 9; i++) createSlot(data[i], leftEl);
+            for (let i = 9; i < 18; i++) createSlot(data[i], rightEl);
+        }
+
+        function createSlot(cardData, parent) {
+            const slot = document.createElement('div');
+            slot.className = 'slot';
+            
+            if (cardData) {
+                const img = document.createElement('img');
+                img.src = cardData.front;
+                
+                // ERROR HANDLING
+                img.onerror = function() { 
+                    this.style.display='none'; 
+                    slot.classList.add('error'); 
+                    slot.innerHTML = '<div style="text-align:center; color:red; font-weight:bold; font-size:0.6rem; padding:5px;">IMAGE NOT FOUND</div>'; 
+                };
+                
+                slot.appendChild(img);
+                slot.onclick = (e) => {
+                    e.stopPropagation(); 
+                    inspectCard(cardData);
+                };
+            }
+            parent.appendChild(slot);
+        }
+
+        function inspectCard(cardData) {
+            const modal = document.getElementById('card-modal');
+            const front = document.getElementById('modal-img-front');
+            const back = document.getElementById('modal-text-back');
+            const container = document.getElementById('big-card');
+
+            front.src = cardData.front;
+
+            let statsHtml = '';
+            if(cardData.stats) {
+                statsHtml = '<div class="stats-block">';
+                for (const [key, value] of Object.entries(cardData.stats)) {
+                    statsHtml += `<div class="stat-row"><span>${key}</span><span>${value}</span></div>`;
+                }
+                statsHtml += '</div>';
+            }
+
+            back.innerHTML = `
+                <h2>${cardData.title}</h2>
+                <p>${cardData.text}</p>
+                ${statsHtml}
+                <div style="margin-top:auto; font-size:0.7rem; color:#888;">ASCRL OFFICIAL TRADING CARD</div>
+            `;
+            
+            container.classList.remove('flipped');
+            modal.style.display = 'flex';
+        }
+
+        function flipCard() { document.getElementById('big-card').classList.toggle('flipped'); }
+        function closeCard() { document.getElementById('card-modal').style.display = 'none'; }
+
+        fillBinder(winnersData, 'winners-sheet-left', 'winners-sheet-right');
+        fillBinder(rosterData, 'roster-sheet-left', 'roster-sheet-right');
+
+    </script>
+</body>
+</html>
