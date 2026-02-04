@@ -251,7 +251,6 @@
         }
 
         /* --- 1. STANDARD LAYOUT (Cup, Truck, Menards) --- */
-        /* Forces Text Left (Order 1) and Image Right (Order 2) */
         .champ-container:not(.grid-layout) .champ-info { order: 1; text-align: left; flex: 1; min-width: 300px; }
         .champ-container:not(.grid-layout) .champ-visual { order: 2; margin-left: auto; }
 
@@ -362,10 +361,8 @@
 
         /* --- MOBILE OVERRIDE --- */
         @media (max-width: 900px) {
-            /* GLOBAL: Ensure Padding to avoid edge cut-off */
             main.container { padding: 1rem 1.5rem !important; }
 
-            /* Standard Layout Mobile (Cup, Truck, Menards) */
             .champ-container:not(.grid-layout) { 
                 flex-direction: column-reverse; 
                 text-align: center; 
@@ -392,27 +389,25 @@
 
             /* Co-Champ Mobile Fix (Xfinity) */
             .grid-layout { 
-                display: flex !important; /* Switch Grid to Flex on Mobile */
+                display: flex !important;
                 flex-direction: column;
                 gap: 2rem;
             }
             
             .center-col { 
-                order: 1; /* Image First */
+                order: 1; 
                 width: 100%; 
-                margin-bottom: 40px !important; /* FORCE SPACE BELOW IMAGE/QUOTE */
+                margin-bottom: 40px !important;
             }
-            .center-col .champ-quote {
-                margin-top: 20px; /* Space between Image and "Perfect Tie" */
-            }
+            .center-col .champ-quote { margin-top: 20px; }
 
             .left-col { 
-                order: 2; /* Hockey Second */
+                order: 2; 
                 width: 100%; text-align: center; 
                 margin-bottom: 2rem;
             }
             .right-col { 
-                order: 3; /* Orange Third */
+                order: 3; 
                 width: 100%; text-align: center; 
             }
             
@@ -808,10 +803,9 @@
     // --- 2026 SEASON UPDATE ---
     const scheduleFile = "ASCRL_2026_Schedule.json";
     
-    // NOTE: We keep these pointed to Season 1 data for now so the carousel isn't empty.
-    // When you have results for Season 2, change "Season_1" to "Season_2".
-    const driversFile = "drivers_Season_1.json"; 
-    const resultsFile = "ASCRL_Results_Season_1.json";
+    // UPDATED: Now pointing to MASTER drivers file and 2026 RESULTS file
+    const driversFile = "drivers.json"; 
+    const resultsFile = "ASCRL_Results_2026.json";
 
     async function fetchWithFallback(primary, secondary) {
         try {
@@ -844,7 +838,7 @@
             });
         }
 
-        // B. LEADERS (Showing Season 1 Champions/Leaders until S2 starts)
+        // B. LEADERS (Using 2026 Data)
         if(driversData) {
             let html = '';
             const allDrivers = Object.keys(driversData).map(key => ({ id: key, display_name: driversData[key].display_name || key, ...driversData[key] }));
@@ -856,7 +850,7 @@
                     const sKey = Object.keys(driver.series).find(k => k.toLowerCase() === seriesName.toLowerCase());
                     if (sKey) {
                         const sData = driver.series[sKey];
-                        // Fallback to old 'stats' object if 'current_stats' is missing or empty
+                        // Use current_stats for 2026
                         const stats = sData.current_stats || sData.stats || {points:0};
                         
                         if ((stats.points || 0) > maxPoints) {
@@ -898,7 +892,7 @@
             document.getElementById('leaders-carousel').innerHTML = html;
         }
 
-        // C. WINNERS (Showing Season 1 Winners until S2 starts)
+        // C. WINNERS (Using 2026 Data)
         if(resultsData) {
             let html = '';
             const keys = Object.keys(resultsData);
@@ -934,7 +928,7 @@
             document.getElementById('winners-carousel').innerHTML = html;
         }
 
-        // D. POWER RANKINGS CALCULATION
+        // D. POWER RANKINGS CALCULATION (Using 2026 Data)
         if(driversData && resultsData) {
             calculatePowerRankings(driversData, resultsData);
         }
