@@ -347,7 +347,7 @@
             if(currentSeries === 'Truck') accent = "var(--truck-red)";
             if(currentSeries === 'Menards') accent = "var(--menards-yellow)";
 
-            races.forEach(race => {
+            races.forEach((race, index) => {
                 const rDate = new Date(race.date + "T12:00:00");
                 const isPast = rDate < today;
                 const month = rDate.toLocaleString('default', {month:'short'}).toUpperCase();
@@ -391,6 +391,11 @@
 
                 } else {
                     // Regular Season
+                    let raceType = "REGULAR SEASON";
+                    if(currentSeries === 'Cup' && index === 0) {
+                        raceType = "EXHIBITION (0 POINTS)";
+                    }
+
                     const html = `
                     <div class="race-ticket ${activeClass}">
                         <style>.race-ticket:hover { border-color: ${accent}; }</style>
@@ -403,7 +408,7 @@
                         </div>
                         <div class="ticket-body">
                             <h3 class="track-name">${race.track}</h3>
-                            <span class="race-type">REGULAR SEASON</span>
+                            <span class="race-type">${raceType}</span>
                             <div class="status-pill" style="${pillStyle}">${statusText}</div>
                         </div>
                         <div style="position:absolute; top:0; left:0; width:4px; height:100%; background:${accent};"></div>
