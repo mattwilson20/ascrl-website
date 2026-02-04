@@ -144,8 +144,8 @@
     <div class="controls-bar">
         <div class="filters-left">
             <select id="season-select" onchange="loadRaceData(this.value)">
-                <option value="Season_1" selected>Season 1 (2025-26)</option>
-                <option value="Season_2">Season 2</option>
+                <option value="2026" selected>2026 Season</option>
+                <option value="Season_1">2025 Season (Archive)</option>
             </select>
             <select id="track-select" onchange="displayResults()">
                 <option value="">Loading...</option>
@@ -246,8 +246,8 @@
                     console.error("Failed to load drivers.json");
                 }
 
-                // Step 2: Load Race Data
-                await loadRaceData("Season_1");
+                // Step 2: Load Race Data (Default to 2026)
+                await loadRaceData("2026");
 
             } catch (err) {
                 console.error("Initialization Error:", err);
