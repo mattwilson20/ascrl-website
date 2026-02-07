@@ -10,6 +10,20 @@
                 "avg": 8.0
             },
             {
+                "type": "Midget",
+                "starts": 6,
+                "points": 172,
+                "wins": 0,
+                "avg": 8.33
+            },
+            {
+                "type": "Street Stock",
+                "starts": 6,
+                "points": 155,
+                "wins": 0,
+                "avg": 11.17
+            },
+            {
                 "type": "WOO Late Model",
                 "starts": 6,
                 "points": 138,
@@ -36,23 +50,45 @@
                 "points": 103,
                 "wins": 0,
                 "avg": 2.67
-            },
-            {
-                "type": "Midget",
-                "starts": 3,
-                "points": 95,
-                "wins": 0,
-                "avg": 5.33
-            },
-            {
-                "type": "Street Stock",
-                "starts": 3,
-                "points": 74,
-                "wins": 0,
-                "avg": 12.33
             }
         ],
         "race_log": [
+            {
+                "track": "Prairie View",
+                "car": "Street Stock",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Faribury",
+                "car": "Street Stock",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Norris County",
+                "car": "Street Stock",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Volusia",
+                "car": "Midget",
+                "pos": 13,
+                "pts": 24
+            },
+            {
+                "track": "Sawtooth",
+                "car": "Midget",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Willow Creek",
+                "car": "Midget",
+                "pos": 11,
+                "pts": 26
+            },
             {
                 "track": "Texas",
                 "car": "Street Stock",
@@ -233,12 +269,12 @@
                 "number": "1",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 820,
+                    "points": 978,
                     "wins": 0,
                     "top5": 9,
-                    "top10": 18,
-                    "starts": 29,
-                    "avg": 8.72
+                    "top10": 20,
+                    "starts": 35,
+                    "avg": 9.06
                 }
             }
         }
@@ -246,6 +282,13 @@
     "336189571991732226": {
         "display_name": "HatterMAD218",
         "cars": [
+            {
+                "type": "Midget",
+                "starts": 6,
+                "points": 176,
+                "wins": 0,
+                "avg": 7.67
+            },
             {
                 "type": "410 Wing Sprint",
                 "starts": 6,
@@ -268,21 +311,50 @@
                 "avg": 11.0
             },
             {
-                "type": "Midget",
-                "starts": 3,
-                "points": 83,
-                "wins": 0,
-                "avg": 9.33
-            },
-            {
                 "type": "Street Stock",
-                "starts": 3,
-                "points": 80,
+                "starts": 6,
+                "points": 156,
                 "wins": 0,
-                "avg": 10.33
+                "avg": 11.0
             }
         ],
         "race_log": [
+            {
+                "track": "Prairie View",
+                "car": "Street Stock",
+                "pos": 13,
+                "pts": 24
+            },
+            {
+                "track": "Faribury",
+                "car": "Street Stock",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Norris County",
+                "car": "Street Stock",
+                "pos": 13,
+                "pts": 24
+            },
+            {
+                "track": "Volusia",
+                "car": "Midget",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Sawtooth",
+                "car": "Midget",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Willow Creek",
+                "car": "Midget",
+                "pos": 8,
+                "pts": 29
+            },
             {
                 "track": "Texas",
                 "car": "Street Stock",
@@ -433,12 +505,12 @@
                 "number": "218",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 662,
+                    "points": 831,
                     "wins": 0,
-                    "top5": 5,
-                    "top10": 14,
-                    "starts": 24,
-                    "avg": 9.42
+                    "top5": 6,
+                    "top10": 18,
+                    "starts": 30,
+                    "avg": 9.3
                 }
             }
         }
@@ -452,6 +524,13 @@
                 "points": 184,
                 "wins": 0,
                 "avg": 10.71
+            },
+            {
+                "type": "Street Stock",
+                "starts": 6,
+                "points": 179,
+                "wins": 0,
+                "avg": 7.17
             },
             {
                 "type": "WOO Late Model",
@@ -468,11 +547,11 @@
                 "avg": 10.17
             },
             {
-                "type": "Street Stock",
-                "starts": 3,
-                "points": 87,
+                "type": "Midget",
+                "starts": 6,
+                "points": 148,
                 "wins": 0,
-                "avg": 8.0
+                "avg": 12.33
             },
             {
                 "type": "Big Block Modified",
@@ -487,16 +566,45 @@
                 "points": 84,
                 "wins": 0,
                 "avg": 9.0
-            },
-            {
-                "type": "Midget",
-                "starts": 3,
-                "points": 68,
-                "wins": 0,
-                "avg": 14.33
             }
         ],
         "race_log": [
+            {
+                "track": "Prairie View",
+                "car": "Street Stock",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Faribury",
+                "car": "Street Stock",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Norris County",
+                "car": "Street Stock",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Volusia",
+                "car": "Midget",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Sawtooth",
+                "car": "Midget",
+                "pos": 14,
+                "pts": 23
+            },
+            {
+                "track": "Willow Creek",
+                "car": "Midget",
+                "pos": 9,
+                "pts": 28
+            },
             {
                 "track": "Texas",
                 "car": "Street Stock",
@@ -689,12 +797,12 @@
                 "number": "000",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 837,
+                    "points": 1009,
                     "wins": 0,
-                    "top5": 3,
-                    "top10": 17,
-                    "starts": 31,
-                    "avg": 10.0
+                    "top5": 4,
+                    "top10": 22,
+                    "starts": 37,
+                    "avg": 9.73
                 }
             }
         }
@@ -811,11 +919,25 @@
         "display_name": "ALESSI-20-11",
         "cars": [
             {
+                "type": "Midget",
+                "starts": 6,
+                "points": 209,
+                "wins": 1,
+                "avg": 2.83
+            },
+            {
                 "type": "410 Wing Sprint",
                 "starts": 6,
                 "points": 194,
                 "wins": 0,
                 "avg": 4.67
+            },
+            {
+                "type": "Street Stock",
+                "starts": 6,
+                "points": 191,
+                "wins": 0,
+                "avg": 5.17
             },
             {
                 "type": "WOO Late Model",
@@ -830,20 +952,6 @@
                 "points": 178,
                 "wins": 0,
                 "avg": 7.33
-            },
-            {
-                "type": "Midget",
-                "starts": 3,
-                "points": 108,
-                "wins": 1,
-                "avg": 2.33
-            },
-            {
-                "type": "Street Stock",
-                "starts": 3,
-                "points": 103,
-                "wins": 0,
-                "avg": 2.67
             },
             {
                 "type": "360 Sprint",
@@ -861,6 +969,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Prairie View",
+                "car": "Street Stock",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Faribury",
+                "car": "Street Stock",
+                "pos": 13,
+                "pts": 24
+            },
+            {
+                "track": "Norris County",
+                "car": "Street Stock",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Volusia",
+                "car": "Midget",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Sawtooth",
+                "car": "Midget",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Willow Creek",
+                "car": "Midget",
+                "pos": 2,
+                "pts": 35
+            },
             {
                 "track": "Texas",
                 "car": "Street Stock",
@@ -1047,12 +1191,12 @@
                 "number": "8",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 946,
+                    "points": 1135,
                     "wins": 1,
-                    "top5": 15,
-                    "top10": 29,
-                    "starts": 30,
-                    "avg": 5.6
+                    "top5": 19,
+                    "top10": 34,
+                    "starts": 36,
+                    "avg": 5.58
                 }
             }
         }
@@ -1182,6 +1326,20 @@
         "display_name": "the_fireman199",
         "cars": [
             {
+                "type": "Midget",
+                "starts": 6,
+                "points": 192,
+                "wins": 0,
+                "avg": 5.0
+            },
+            {
+                "type": "Street Stock",
+                "starts": 6,
+                "points": 182,
+                "wins": 0,
+                "avg": 6.67
+            },
+            {
                 "type": "305 Sprint Car",
                 "starts": 6,
                 "points": 181,
@@ -1215,23 +1373,45 @@
                 "points": 94,
                 "wins": 0,
                 "avg": 5.67
-            },
-            {
-                "type": "Midget",
-                "starts": 3,
-                "points": 91,
-                "wins": 0,
-                "avg": 6.67
-            },
-            {
-                "type": "Street Stock",
-                "starts": 3,
-                "points": 83,
-                "wins": 0,
-                "avg": 9.33
             }
         ],
         "race_log": [
+            {
+                "track": "Prairie View",
+                "car": "Street Stock",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Faribury",
+                "car": "Street Stock",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Norris County",
+                "car": "Street Stock",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Volusia",
+                "car": "Midget",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Sawtooth",
+                "car": "Midget",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Willow Creek",
+                "car": "Midget",
+                "pos": 3,
+                "pts": 34
+            },
             {
                 "track": "Texas",
                 "car": "Street Stock",
@@ -1418,12 +1598,12 @@
                 "number": "57j",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 870,
+                    "points": 1070,
                     "wins": 1,
-                    "top5": 7,
-                    "top10": 21,
-                    "starts": 30,
-                    "avg": 8.13
+                    "top5": 12,
+                    "top10": 27,
+                    "starts": 36,
+                    "avg": 7.39
                 }
             }
         }
@@ -1432,6 +1612,13 @@
         "display_name": "The_Stone07",
         "cars": [
             {
+                "type": "Street Stock",
+                "starts": 6,
+                "points": 240,
+                "wins": 6,
+                "avg": 1.0
+            },
+            {
                 "type": "WOO Late Model",
                 "starts": 6,
                 "points": 210,
@@ -1439,11 +1626,11 @@
                 "avg": 4.0
             },
             {
-                "type": "Street Stock",
-                "starts": 3,
-                "points": 120,
+                "type": "Midget",
+                "starts": 4,
+                "points": 140,
                 "wins": 3,
-                "avg": 1.0
+                "avg": 5.0
             },
             {
                 "type": "410 Wing Sprint",
@@ -1472,16 +1659,45 @@
                 "points": 88,
                 "wins": 0,
                 "avg": 7.67
-            },
-            {
-                "type": "Midget",
-                "starts": 1,
-                "points": 20,
-                "wins": 0,
-                "avg": 17.0
             }
         ],
         "race_log": [
+            {
+                "track": "Prairie View",
+                "car": "Street Stock",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Faribury",
+                "car": "Street Stock",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Norris County",
+                "car": "Street Stock",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Volusia",
+                "car": "Midget",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Sawtooth",
+                "car": "Midget",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Willow Creek",
+                "car": "Midget",
+                "pos": 1,
+                "pts": 40
+            },
             {
                 "track": "Texas",
                 "car": "Street Stock",
@@ -1620,12 +1836,12 @@
                 "number": "07",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 793,
-                    "wins": 14,
-                    "top5": 18,
-                    "top10": 19,
-                    "starts": 22,
-                    "avg": 3.5
+                    "points": 1033,
+                    "wins": 20,
+                    "top5": 24,
+                    "top10": 25,
+                    "starts": 28,
+                    "avg": 2.96
                 }
             }
         }
@@ -1773,6 +1989,20 @@
         "display_name": "\ud83e\udda5Strait_Rogue\ud83e\udda5",
         "cars": [
             {
+                "type": "Midget",
+                "starts": 6,
+                "points": 156,
+                "wins": 0,
+                "avg": 11.0
+            },
+            {
+                "type": "Street Stock",
+                "starts": 6,
+                "points": 152,
+                "wins": 0,
+                "avg": 11.67
+            },
+            {
                 "type": "305 Sprint Car",
                 "starts": 6,
                 "points": 148,
@@ -1806,23 +2036,45 @@
                 "points": 77,
                 "wins": 0,
                 "avg": 11.33
-            },
-            {
-                "type": "Midget",
-                "starts": 3,
-                "points": 70,
-                "wins": 0,
-                "avg": 13.67
-            },
-            {
-                "type": "Street Stock",
-                "starts": 3,
-                "points": 68,
-                "wins": 0,
-                "avg": 14.33
             }
         ],
         "race_log": [
+            {
+                "track": "Prairie View",
+                "car": "Street Stock",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Faribury",
+                "car": "Street Stock",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Norris County",
+                "car": "Street Stock",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Volusia",
+                "car": "Midget",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Sawtooth",
+                "car": "Midget",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Willow Creek",
+                "car": "Midget",
+                "pos": 7,
+                "pts": 30
+            },
             {
                 "track": "Texas",
                 "car": "Street Stock",
@@ -1973,12 +2225,12 @@
                 "number": "69",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 632,
+                    "points": 802,
                     "wins": 0,
                     "top5": 3,
-                    "top10": 10,
-                    "starts": 24,
-                    "avg": 10.67
+                    "top10": 15,
+                    "starts": 30,
+                    "avg": 10.27
                 }
             }
         }
@@ -1986,6 +2238,20 @@
     "1432485477834817607": {
         "display_name": "Lostcozov",
         "cars": [
+            {
+                "type": "Street Stock",
+                "starts": 3,
+                "points": 76,
+                "wins": 0,
+                "avg": 11.67
+            },
+            {
+                "type": "Midget",
+                "starts": 3,
+                "points": 75,
+                "wins": 0,
+                "avg": 12.0
+            },
             {
                 "type": "Big Block Modified",
                 "starts": 1,
@@ -1995,6 +2261,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Prairie View",
+                "car": "Street Stock",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Faribury",
+                "car": "Street Stock",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Norris County",
+                "car": "Street Stock",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Volusia",
+                "car": "Midget",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Sawtooth",
+                "car": "Midget",
+                "pos": 13,
+                "pts": 24
+            },
+            {
+                "track": "Willow Creek",
+                "car": "Midget",
+                "pos": 12,
+                "pts": 25
+            },
             {
                 "track": "Lucas Oil",
                 "car": "Big Block Modified",
@@ -2007,18 +2309,18 @@
                 "number": "63",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 27,
+                    "points": 178,
                     "wins": 0,
                     "top5": 0,
                     "top10": 1,
-                    "starts": 1,
-                    "avg": 10.0
+                    "starts": 7,
+                    "avg": 11.57
                 }
             }
         }
     },
     "766025588217085952": {
-        "display_name": "HockeyDeckout",
+        "display_name": "Mrs. Puff - Hockey",
         "cars": [
             {
                 "type": "305 Sprint Car",
@@ -2057,10 +2359,10 @@
             },
             {
                 "type": "Street Stock",
-                "starts": 2,
-                "points": 54,
+                "starts": 3,
+                "points": 77,
                 "wins": 0,
-                "avg": 10.0
+                "avg": 11.33
             },
             {
                 "type": "WOO Late Model",
@@ -2071,6 +2373,12 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Prairie View",
+                "car": "Street Stock",
+                "pos": 14,
+                "pts": 23
+            },
             {
                 "track": "Lincoln",
                 "car": "Street Stock",
@@ -2203,12 +2511,12 @@
                 "number": "12",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 739,
+                    "points": 762,
                     "wins": 8,
                     "top5": 18,
                     "top10": 20,
-                    "starts": 21,
-                    "avg": 3.33
+                    "starts": 22,
+                    "avg": 3.82
                 }
             }
         }
@@ -2238,21 +2546,57 @@
                 "avg": 5.67
             },
             {
-                "type": "Midget",
-                "starts": 3,
-                "points": 84,
+                "type": "Street Stock",
+                "starts": 6,
+                "points": 182,
                 "wins": 0,
-                "avg": 9.0
+                "avg": 6.67
             },
             {
-                "type": "Street Stock",
-                "starts": 3,
-                "points": 79,
+                "type": "Midget",
+                "starts": 6,
+                "points": 181,
                 "wins": 0,
-                "avg": 10.67
+                "avg": 6.83
             }
         ],
         "race_log": [
+            {
+                "track": "Prairie View",
+                "car": "Street Stock",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Faribury",
+                "car": "Street Stock",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Norris County",
+                "car": "Street Stock",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Volusia",
+                "car": "Midget",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Sawtooth",
+                "car": "Midget",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Willow Creek",
+                "car": "Midget",
+                "pos": 5,
+                "pts": 32
+            },
             {
                 "track": "Texas",
                 "car": "Street Stock",
@@ -2403,12 +2747,12 @@
                 "number": "13",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 756,
+                    "points": 956,
                     "wins": 2,
-                    "top5": 13,
-                    "top10": 20,
-                    "starts": 24,
-                    "avg": 5.83
+                    "top5": 18,
+                    "top10": 26,
+                    "starts": 30,
+                    "avg": 5.4
                 }
             }
         }
@@ -2488,6 +2832,20 @@
         "display_name": "superace33",
         "cars": [
             {
+                "type": "Street Stock",
+                "starts": 6,
+                "points": 198,
+                "wins": 0,
+                "avg": 4.0
+            },
+            {
+                "type": "Midget",
+                "starts": 6,
+                "points": 190,
+                "wins": 1,
+                "avg": 6.0
+            },
+            {
                 "type": "305 Sprint Car",
                 "starts": 6,
                 "points": 184,
@@ -2507,23 +2865,45 @@
                 "points": 155,
                 "wins": 0,
                 "avg": 11.17
-            },
-            {
-                "type": "Street Stock",
-                "starts": 3,
-                "points": 98,
-                "wins": 0,
-                "avg": 4.33
-            },
-            {
-                "type": "Midget",
-                "starts": 3,
-                "points": 92,
-                "wins": 1,
-                "avg": 7.67
             }
         ],
         "race_log": [
+            {
+                "track": "Prairie View",
+                "car": "Street Stock",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Faribury",
+                "car": "Street Stock",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Norris County",
+                "car": "Street Stock",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Volusia",
+                "car": "Midget",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Sawtooth",
+                "car": "Midget",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Willow Creek",
+                "car": "Midget",
+                "pos": 4,
+                "pts": 33
+            },
             {
                 "track": "Texas",
                 "car": "Street Stock",
@@ -2674,12 +3054,12 @@
                 "number": "33",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 688,
+                    "points": 886,
                     "wins": 1,
-                    "top5": 8,
-                    "top10": 14,
-                    "starts": 24,
-                    "avg": 8.5
+                    "top5": 13,
+                    "top10": 20,
+                    "starts": 30,
+                    "avg": 7.6
                 }
             }
         }
@@ -3384,6 +3764,13 @@
         "display_name": "Mike_8762",
         "cars": [
             {
+                "type": "Street Stock",
+                "starts": 6,
+                "points": 182,
+                "wins": 0,
+                "avg": 6.67
+            },
+            {
                 "type": "WOO Late Model",
                 "starts": 6,
                 "points": 178,
@@ -3391,21 +3778,57 @@
                 "avg": 7.33
             },
             {
-                "type": "Street Stock",
-                "starts": 3,
-                "points": 96,
-                "wins": 0,
-                "avg": 5.0
-            },
-            {
                 "type": "410 Wing Sprint",
                 "starts": 3,
                 "points": 86,
                 "wins": 0,
                 "avg": 8.33
+            },
+            {
+                "type": "Midget",
+                "starts": 3,
+                "points": 78,
+                "wins": 0,
+                "avg": 11.0
             }
         ],
         "race_log": [
+            {
+                "track": "Prairie View",
+                "car": "Street Stock",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Faribury",
+                "car": "Street Stock",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Norris County",
+                "car": "Street Stock",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Volusia",
+                "car": "Midget",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Sawtooth",
+                "car": "Midget",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Willow Creek",
+                "car": "Midget",
+                "pos": 10,
+                "pts": 27
+            },
             {
                 "track": "Texas",
                 "car": "Street Stock",
@@ -3484,12 +3907,12 @@
                 "number": "05",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 360,
+                    "points": 524,
                     "wins": 0,
                     "top5": 3,
-                    "top10": 11,
-                    "starts": 12,
-                    "avg": 7.0
+                    "top10": 15,
+                    "starts": 18,
+                    "avg": 7.89
                 }
             }
         }
@@ -3505,6 +3928,13 @@
                 "avg": 10.67
             },
             {
+                "type": "Street Stock",
+                "starts": 5,
+                "points": 136,
+                "wins": 0,
+                "avg": 9.8
+            },
+            {
                 "type": "410 Wing Sprint",
                 "starts": 3,
                 "points": 88,
@@ -3512,14 +3942,50 @@
                 "avg": 7.67
             },
             {
-                "type": "Street Stock",
-                "starts": 2,
-                "points": 50,
+                "type": "Midget",
+                "starts": 3,
+                "points": 87,
                 "wins": 0,
-                "avg": 12.0
+                "avg": 8.0
             }
         ],
         "race_log": [
+            {
+                "track": "Prairie View",
+                "car": "Street Stock",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Faribury",
+                "car": "Street Stock",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Norris County",
+                "car": "Street Stock",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Volusia",
+                "car": "Midget",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Sawtooth",
+                "car": "Midget",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Willow Creek",
+                "car": "Midget",
+                "pos": 6,
+                "pts": 31
+            },
             {
                 "track": "Texas",
                 "car": "Street Stock",
@@ -3592,12 +4058,12 @@
                 "number": "32",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 296,
+                    "points": 469,
                     "wins": 0,
-                    "top5": 2,
-                    "top10": 6,
-                    "starts": 11,
-                    "avg": 10.09
+                    "top5": 3,
+                    "top10": 12,
+                    "starts": 17,
+                    "avg": 9.41
                 }
             }
         }
@@ -3625,9 +4091,22 @@
                 "points": 74,
                 "wins": 0,
                 "avg": 12.33
+            },
+            {
+                "type": "Midget",
+                "starts": 1,
+                "points": 25,
+                "wins": 0,
+                "avg": 12.0
             }
         ],
         "race_log": [
+            {
+                "track": "Sawtooth",
+                "car": "Midget",
+                "pos": 12,
+                "pts": 25
+            },
             {
                 "track": "Texas",
                 "car": "Street Stock",
@@ -3706,12 +4185,12 @@
                 "number": "5B",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 312,
+                    "points": 337,
                     "wins": 0,
                     "top5": 2,
                     "top10": 5,
-                    "starts": 12,
-                    "avg": 11.0
+                    "starts": 13,
+                    "avg": 11.08
                 }
             }
         }
@@ -3848,6 +4327,133 @@
                     "top10": 0,
                     "starts": 0,
                     "avg": 0
+                }
+            }
+        }
+    },
+    "1324901158971637825": {
+        "display_name": "Orangeman96",
+        "cars": [],
+        "race_log": [],
+        "series": {
+            "World Of Outlaws": {
+                "number": "88",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "starts": 0,
+                    "avg": 0
+                }
+            }
+        }
+    },
+    "1343100447703040000": {
+        "display_name": "A54buickbandit",
+        "cars": [
+            {
+                "type": "Street Stock",
+                "starts": 5,
+                "points": 154,
+                "wins": 0,
+                "avg": 6.2
+            },
+            {
+                "type": "Midget",
+                "starts": 3,
+                "points": 87,
+                "wins": 0,
+                "avg": 8.0
+            },
+            {
+                "type": "WOO Late Model",
+                "starts": 3,
+                "points": 71,
+                "wins": 0,
+                "avg": 13.33
+            }
+        ],
+        "race_log": [
+            {
+                "track": "Prairie View",
+                "car": "Street Stock",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Faribury",
+                "car": "Street Stock",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Norris County",
+                "car": "Street Stock",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Volusia",
+                "car": "Midget",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Sawtooth",
+                "car": "Midget",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Willow Creek",
+                "car": "Midget",
+                "pos": 13,
+                "pts": 24
+            },
+            {
+                "track": "Texas",
+                "car": "Street Stock",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Lincoln",
+                "car": "Street Stock",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Old Mill",
+                "car": "WOO Late Model",
+                "pos": 13,
+                "pts": 24
+            },
+            {
+                "track": "Eldora",
+                "car": "WOO Late Model",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Five Forks",
+                "car": "WOO Late Model",
+                "pos": 16,
+                "pts": 21
+            }
+        ],
+        "series": {
+            "World Of Outlaws": {
+                "number": "59a",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 312,
+                    "wins": 0,
+                    "top5": 3,
+                    "top10": 7,
+                    "starts": 11,
+                    "avg": 8.64
                 }
             }
         }
