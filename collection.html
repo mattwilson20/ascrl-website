@@ -452,5 +452,23 @@
         fillBinder(winnersData, 'winners-L', 'winners-R');
         fillBinder(rosterData, 'roster-L', 'roster-R');
     </script>
+    <script>
+        // 1. Disable Right Click
+        document.addEventListener('contextmenu', (e) => { e.preventDefault(); });
+
+        // 2. Disable Keyboard Shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey || e.metaKey) {
+                switch (e.key.toLowerCase()) {
+                    case 'u': case 's': case 'a': case 'c':
+                        e.preventDefault(); return false;
+                }
+                if (e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j')) {
+                    e.preventDefault(); return false;
+                }
+            }
+            if (e.key === 'F12') { e.preventDefault(); return false; }
+        });
+    </script>
 </body>
 </html>
