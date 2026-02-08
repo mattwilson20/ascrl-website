@@ -323,15 +323,15 @@
         // =========================================================================
         const BINDER_LEFT_PAGES = {
             "HockeyDeckout": "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6fe18b047b96a5d30e1de8ee2050caf384b6d168/HockyDriverCard.jpg",
-            "DakotaThomas": "https://example.com/dakota-card.jpg" 
+            "DakotaThomas": "" 
         };
 
         // =========================================================================
-        //  2. BINDER RIGHT PAGE (GALLERY SLOTS)
+        //  2. BINDER GALLERY (RIGHT PAGE IMAGES)
         //  Add extra images/trophies here. These appear in the grid on the right.
         // =========================================================================
         const BINDER_GALLERY = {
-            "HockeyDeckout": ["https://raw.githubusercontent.com/mattwilson20/ascrl-website/b4134b230f304b311d38d0e8e46a570773fbaa9c/CUPNorthWilkesboro.jpg"],
+            "HockeyDeckout": [], 
             "K7_Dalton": [],
             "Isaac": [],
             "Z71ChevyMan": [],
@@ -573,9 +573,9 @@
                                     <div class="col-label">COLLECTION</div>
                                 </div>
                                 <div class="m-face m-back">
-                                    <div class="m-sheet" style="display:flex; justify-content:center; align-items:center;">
-                                        <div style="width:90%; height:90%; border:none; background:transparent; overflow:hidden; padding:5px;">
-                                            <img src="${leftPageImg}" style="width:100%; height:100%; object-fit:contain;">
+                                    <div class="m-sheet" style="display:flex; justify-content:center; align-items:center; padding:0; overflow:hidden;">
+                                        <div style="width:100%; height:100%; border:none; background:transparent;">
+                                            <img src="${leftPageImg}" style="width:100%; height:100%; object-fit:cover; object-position: center top;">
                                         </div>
                                     </div>
                                 </div>
@@ -608,9 +608,10 @@
         function getDriverImage(driverName) {
             const nameLower = driverName.toLowerCase();
             
-            // Hockey's Original Hero Card
+            // Hero Card
             if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/8e6c91687a3fd67cc8d9771eec28321a154a56ce/UpdatedHockeyHero.jpg";
 
+            // Standard List
             if (nameLower.includes('k7_dalton')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/9a7e63f44a37cedfdf0b85ddeb4968c3b0da8817/k7Dalton.jpg";
             if (nameLower.includes('isaac')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/d0f7c7e6480bc33317d4e7939036024f0dcff3dc/Isaac.jpg";
             if (nameLower.includes('z71chevyman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/869f4adefde19421e449f2e1e9ab7bd3a6ffaee5/ChevyMan.jpg";
@@ -634,6 +635,7 @@
             if (nameLower.includes('singular_nacho')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/f311b21127533ca6128a4408f36edaf9612d59b1/Singular_Nacho_Hero_Card.jpg";
             if (nameLower.includes('callmemillion')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/e86926900f4957c57588db9a14beae7d6329a794/CallMeMillion_Hero_Card.jpg";
             if (nameLower.includes('mattwilson20')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6686ee35c988cd1b0ae305d099ff4e31c652a49f/mattwilson20_Hero_Card.jpg";
+            if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/81df81de5161ea2f590ee32c370d3e99675cdbaa/Hockey_Hero_Card.png";
             if (nameLower.includes('dewshine')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/c5319ac2110c0b89850cf83b5d93b1af677f8611/Dewshine_Hero_Card.jpg";
             if (nameLower.includes('kevwood')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/07ccf5d79d881bf2047f439e25540dc380fec2d0/Kevwood.Hero.Card.jpg";
             if (nameLower.includes('lnfvmous')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/acff9081bff808e0028c0ae22dada726083e7948/Infamous.hero.card.jpg";
@@ -649,6 +651,8 @@
         document.addEventListener('contextmenu', (e) => { e.preventDefault(); });
         document.addEventListener('keydown', (e) => { if (e.ctrlKey || e.metaKey || e.key === 'F12') { e.preventDefault(); } });
     </script>
+</body>
+</html>
 </body>
 </html>
 </body>
