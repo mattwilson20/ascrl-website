@@ -222,45 +222,41 @@
             position: relative; left: -10px;
         }
 
-        /* SHEET CONTENT */
+        /* SHEET CONTENT (FIXED FOR TRADING CARDS) */
         .m-sheet { 
             width: 90%; height: 94%; background: #f8f8f8;
             background-image: radial-gradient(#ddd 1px, transparent 1px); background-size: 10px 10px;
-            display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr);
+            display: flex; flex-wrap: wrap; align-content: flex-start;
             gap: 10px; padding: 15px; box-sizing: border-box; 
             border: 1px solid #ddd;
+            overflow-y: auto; /* Scroll if multiple rows */
         }
         
         .m-slot { 
-            background: #fff; border: 1px solid #eee; position: relative; 
+            width: 45%; /* Fits 2 cards per row */
+            aspect-ratio: 5 / 7; /* Forces Standard Trading Card Shape */
+            background: transparent; /* NO WHITE BOX BEHIND IMAGES */
+            position: relative; 
             display: flex; align-items: center; justify-content: center; overflow: hidden; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: default;
+            cursor: pointer;
+            transition: 0.2s;
         }
+        .m-slot:hover { transform: scale(1.05); z-index: 5; }
         .m-slot img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
         
-        /* --- MOBILE ADJUSTMENTS (CRITICAL FIXES) --- */
+        /* --- MOBILE ADJUSTMENTS --- */
         @media (max-width: 768px) {
             .hero { padding: 10rem 1rem 4rem; }
-            
-            /* Profile Header Mobile */
             .p-hero { flex-direction: column; text-align: center; padding: 20px 10px; }
             .p-img-container { margin: 0 auto; width: 150px; height: 180px; }
             .p-number { font-size: 4rem; top: 10px; right: 10px; opacity: 0.3; }
             .p-name { font-size: 2rem; }
-            
-            /* Fix: Badge Wrapping */
             .p-badges { flex-wrap: wrap; justify-content: center; }
             .badge-container { justify-content: center; }
-
-            /* Fix: Tab Buttons */
             .p-tab-btn { padding: 15px 5px; font-size: 0.7rem; }
-
-            /* Fix: Table Overflow */
             .p-panel { padding: 15px 5px; }
             .stat-table { font-size: 0.75rem; }
             .stat-table th, .stat-table td { padding: 10px 5px; }
-            
-            /* Binder Logic */
             .binder-modal { width: 42vw; height: 60vw; }
             .binder-modal.open { transform: translateX(21vw); }
             .m-front h1 { font-size: 1rem; margin-top: 5px; }
@@ -320,10 +316,10 @@
         fetch('nav.html').then(r=>r.text()).then(d=>document.getElementById('nav-placeholder').innerHTML=d).catch(e=>console.log(e));
         function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
 
-        // =============================================================
-        //  BINDER GALLERY (RIGHT PAGE IMAGES)
-        //  The new card goes HERE. It will show up in the slots on the right.
-        // =============================================================
+        // =========================================================================
+        //  BINDER GALLERY - MANUAL IMAGE LIST
+        //  The code will look here first for Right-Page images.
+        // =========================================================================
         const BINDER_GALLERY = {
             "HockeyDeckout": [
                 "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6fe18b047b96a5d30e1de8ee2050caf384b6d168/HockyDriverCard.jpg"
@@ -370,7 +366,6 @@
         function loadDrivers() {
             const grid = document.getElementById('roster-grid');
             grid.innerHTML = '<p style="text-align:center; padding:2rem; color:#666;">Accessing Data Feed...</p>';
-            
             fetch("drivers.json").then(r => r.json()).then(data => {
                 allDriversData = data; 
                 filterSeries('Cup'); 
@@ -429,7 +424,7 @@
                 if(seriesName.toLowerCase() === 'menards') flagClass = 'flag-menards';
                 for(let i=0; i<stats.wins; i++) flagsHtml += `<i class="fa-solid fa-flag-checkered flag-icon ${flagClass}"></i>`;
 
-                // Badge Container
+                // Badge Container (Only Text Badges for Grid)
                 let badgesHtml = '';
                 if(item.badges) {
                     badgesHtml = '<div class="badge-container">';
@@ -490,9 +485,10 @@
             let galleryImages = BINDER_GALLERY[dName] || BINDER_GALLERY[dName.replace(/\s/g, '')] || [];
             
             galleryImages.forEach(imgLink => {
+                // FIXED: Removed white background, added correct Aspect Ratio
                 achievementSlots += `
-                    <div class="m-slot" style="background:#fff; border:1px solid #ccc;">
-                        <img src="${imgLink}" style="width:100%; height:100%; object-fit:contain;">
+                    <div class="m-slot" style="background:transparent; border:none;">
+                        <img src="${imgLink}">
                     </div>
                 `;
             });
@@ -502,9 +498,9 @@
                 driverData.badges.forEach(b => {
                     achievementSlots += `
                         <div class="m-slot" style="background:#111; border:2px solid gold;">
-                            <div style="text-align:center; padding:10px;">
-                                <i class="fa-solid fa-trophy" style="color:gold; font-size:2rem; margin-bottom:5px;"></i>
-                                <div style="color:gold; font-size:0.5rem; text-transform:uppercase; font-weight:bold;">${b}</div>
+                            <div style="text-align:center; padding:5px;">
+                                <i class="fa-solid fa-trophy" style="color:gold; font-size:1.5rem; margin-bottom:5px;"></i>
+                                <div style="color:gold; font-size:0.4rem; text-transform:uppercase; font-weight:bold; line-height:1.2;">${b}</div>
                             </div>
                         </div>
                     `;
@@ -516,7 +512,7 @@
             const fillCount = Math.max(0, 4 - totalItems);
             
             for(let k=0; k<fillCount; k++) {
-                achievementSlots += `<div class="m-slot"></div>`;
+                achievementSlots += `<div class="m-slot" style="border:1px dashed #444; box-shadow:none; cursor:default;"></div>`;
             }
 
             // Build History
@@ -570,9 +566,9 @@
                                     <div class="col-label">COLLECTION</div>
                                 </div>
                                 <div class="m-face m-back">
-                                    <div class="m-sheet">
-                                        <div class="m-slot" style="grid-column: span 2; grid-row: span 2; background:#fff;">
-                                            <img src="${getDriverImage(dName)}" style="object-fit:contain;">
+                                    <div class="m-sheet" style="display:flex; justify-content:center; align-items:center;">
+                                        <div style="width:90%; height:90%; border:1px solid #ccc; background:#fff; overflow:hidden; padding:5px; box-shadow: 2px 2px 5px rgba(0,0,0,0.2);">
+                                            <img src="${getDriverImage(dName)}" style="width:100%; height:100%; object-fit:cover;">
                                         </div>
                                     </div>
                                 </div>
@@ -601,13 +597,12 @@
         }
         window.onclick = function(e) { if (e.target.className === 'modal') closeModal(); }
 
-        // --- HELPER: DRIVER IMAGES (MAIN PROFILE PIC) ---
-        // This function controls the Roster Grid and the Left Binder Page.
-        // It has been reverted to the OLD image for Hockey.
+        // --- HELPER: DRIVER IMAGES (For Grid & Left Binder Page) ---
+        // This is where you set the main Hero card image.
         function getDriverImage(driverName) {
             const nameLower = driverName.toLowerCase();
             
-            // --- REVERTED HOCKEY HERO CARD ---
+            // Reverted Hockey's Main Picture to the OLD one
             if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/8e6c91687a3fd67cc8d9771eec28321a154a56ce/UpdatedHockeyHero.jpg";
 
             // Standard List
@@ -634,7 +629,7 @@
             if (nameLower.includes('singular_nacho')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/f311b21127533ca6128a4408f36edaf9612d59b1/Singular_Nacho_Hero_Card.jpg";
             if (nameLower.includes('callmemillion')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/e86926900f4957c57588db9a14beae7d6329a794/CallMeMillion_Hero_Card.jpg";
             if (nameLower.includes('mattwilson20')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6686ee35c988cd1b0ae305d099ff4e31c652a49f/mattwilson20_Hero_Card.jpg";
-            if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/81df81de5161ea2f590ee32c370d3e99675cdbaa/Hockey_Hero_Card.png";
+            if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/8e6c91687a3fd67cc8d9771eec28321a154a56ce/UpdatedHockeyHero.jpg";
             if (nameLower.includes('dewshine')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/c5319ac2110c0b89850cf83b5d93b1af677f8611/Dewshine_Hero_Card.jpg";
             if (nameLower.includes('kevwood')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/07ccf5d79d881bf2047f439e25540dc380fec2d0/Kevwood.Hero.Card.jpg";
             if (nameLower.includes('lnfvmous')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/acff9081bff808e0028c0ae22dada726083e7948/Infamous.hero.card.jpg";
