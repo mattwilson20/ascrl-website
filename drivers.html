@@ -320,6 +320,47 @@
         fetch('nav.html').then(r=>r.text()).then(d=>document.getElementById('nav-placeholder').innerHTML=d).catch(e=>console.log(e));
         function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
 
+        // =============================================================
+        //  BINDER GALLERY (RIGHT PAGE IMAGES)
+        //  The new card goes HERE. It will show up in the slots on the right.
+        // =============================================================
+        const BINDER_GALLERY = {
+            "HockeyDeckout": [
+                "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6fe18b047b96a5d30e1de8ee2050caf384b6d168/HockyDriverCard.jpg"
+            ],
+            "K7_Dalton": [],
+            "Isaac": [],
+            "Z71ChevyMan": [],
+            "A54Buick": [],
+            "Duramax": [],
+            "RickySpanish": [],
+            "Solid1915": [],
+            "The_Fireman": [],
+            "The_Stone": [],
+            "Alessi": [],
+            "DakotaThomas": [],
+            "OrangeMan": [],
+            "Ant_Was_He": [],
+            "C0mpl1c8": [],
+            "On-A-Mission": [],
+            "BanishedCrayon": [],
+            "SithWarrior": [],
+            "MajorBlaz": [],
+            "TheReaperRhino": [],
+            "DaltonGregson": [],
+            "Singular_Nacho": [],
+            "CallMeMillion": [],
+            "MattWilson20": [],
+            "Dewshine": [],
+            "Kevwood": [],
+            "Lnfvmous": [],
+            "Fordemgators": [],
+            "DGibby": [],
+            "Kingg": [],
+            "Hatter": [],
+            "Big_Fella": []
+        };
+
         // --- 2. ROSTER LOGIC ---
         let allDriversData = {}; 
         let currentSeries = 'Cup';
@@ -329,6 +370,7 @@
         function loadDrivers() {
             const grid = document.getElementById('roster-grid');
             grid.innerHTML = '<p style="text-align:center; padding:2rem; color:#666;">Accessing Data Feed...</p>';
+            
             fetch("drivers.json").then(r => r.json()).then(data => {
                 allDriversData = data; 
                 filterSeries('Cup'); 
@@ -387,11 +429,13 @@
                 if(seriesName.toLowerCase() === 'menards') flagClass = 'flag-menards';
                 for(let i=0; i<stats.wins; i++) flagsHtml += `<i class="fa-solid fa-flag-checkered flag-icon ${flagClass}"></i>`;
 
-                // Badge Container with Wrapping for Grid
+                // Badge Container
                 let badgesHtml = '';
-                if(item.badges && item.badges.length > 0) {
+                if(item.badges) {
                     badgesHtml = '<div class="badge-container">';
-                    item.badges.forEach(b => badgesHtml += `<div class="champ-badge"><i class="fa-solid fa-trophy"></i> ${b}</div>`);
+                    item.badges.forEach(b => {
+                        badgesHtml += `<div class="champ-badge"><i class="fa-solid fa-trophy"></i> ${b}</div>`;
+                    });
                     badgesHtml += '</div>';
                 }
 
@@ -431,12 +475,31 @@
             const sData = driverData.series[currentSeries];
             const currStats = sData.current_stats || {points:0, wins:0, top5:0, top10:0, poles:0, starts:0, avg:0};
             
-            // Badges (Fixed for mobile wrapping)
+            // Build Badges (Header)
             let badgesHtml = '';
-            let achievementSlots = '';
             if(driverData.badges) {
                 driverData.badges.forEach(b => {
                     badgesHtml += `<div class="champ-badge"><i class="fa-solid fa-trophy"></i> ${b}</div>`;
+                });
+            }
+
+            // Build Binder Slots (Right Page)
+            let achievementSlots = '';
+            
+            // A. Manual Images from BINDER_GALLERY
+            let galleryImages = BINDER_GALLERY[dName] || BINDER_GALLERY[dName.replace(/\s/g, '')] || [];
+            
+            galleryImages.forEach(imgLink => {
+                achievementSlots += `
+                    <div class="m-slot" style="background:#fff; border:1px solid #ccc;">
+                        <img src="${imgLink}" style="width:100%; height:100%; object-fit:contain;">
+                    </div>
+                `;
+            });
+
+            // B. Bot Text Badges as Gold Cards
+            if(driverData.badges) {
+                driverData.badges.forEach(b => {
                     achievementSlots += `
                         <div class="m-slot" style="background:#111; border:2px solid gold;">
                             <div style="text-align:center; padding:10px;">
@@ -447,7 +510,12 @@
                     `;
                 });
             }
-            for(let k=0; k<(4 - (driverData.badges ? driverData.badges.length : 0)); k++) {
+
+            // C. Fill Empty Slots
+            const totalItems = galleryImages.length + (driverData.badges ? driverData.badges.length : 0);
+            const fillCount = Math.max(0, 4 - totalItems);
+            
+            for(let k=0; k<fillCount; k++) {
                 achievementSlots += `<div class="m-slot"></div>`;
             }
 
@@ -503,8 +571,8 @@
                                 </div>
                                 <div class="m-face m-back">
                                     <div class="m-sheet">
-                                        <div class="m-slot" style="grid-column: span 2; grid-row: span 2;">
-                                            <img src="${getDriverImage(dName)}">
+                                        <div class="m-slot" style="grid-column: span 2; grid-row: span 2; background:#fff;">
+                                            <img src="${getDriverImage(dName)}" style="object-fit:contain;">
                                         </div>
                                     </div>
                                 </div>
@@ -533,9 +601,16 @@
         }
         window.onclick = function(e) { if (e.target.className === 'modal') closeModal(); }
 
-        // --- HELPER: DRIVER IMAGES ---
+        // --- HELPER: DRIVER IMAGES (MAIN PROFILE PIC) ---
+        // This function controls the Roster Grid and the Left Binder Page.
+        // It has been reverted to the OLD image for Hockey.
         function getDriverImage(driverName) {
             const nameLower = driverName.toLowerCase();
+            
+            // --- REVERTED HOCKEY HERO CARD ---
+            if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/8e6c91687a3fd67cc8d9771eec28321a154a56ce/UpdatedHockeyHero.jpg";
+
+            // Standard List
             if (nameLower.includes('k7_dalton')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/9a7e63f44a37cedfdf0b85ddeb4968c3b0da8817/k7Dalton.jpg";
             if (nameLower.includes('isaac')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/d0f7c7e6480bc33317d4e7939036024f0dcff3dc/Isaac.jpg";
             if (nameLower.includes('z71chevyman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/869f4adefde19421e449f2e1e9ab7bd3a6ffaee5/ChevyMan.jpg";
@@ -559,7 +634,7 @@
             if (nameLower.includes('singular_nacho')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/f311b21127533ca6128a4408f36edaf9612d59b1/Singular_Nacho_Hero_Card.jpg";
             if (nameLower.includes('callmemillion')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/e86926900f4957c57588db9a14beae7d6329a794/CallMeMillion_Hero_Card.jpg";
             if (nameLower.includes('mattwilson20')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6686ee35c988cd1b0ae305d099ff4e31c652a49f/mattwilson20_Hero_Card.jpg";
-            if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/8e6c91687a3fd67cc8d9771eec28321a154a56ce/UpdatedHockeyHero.jpg";
+            if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/81df81de5161ea2f590ee32c370d3e99675cdbaa/Hockey_Hero_Card.png";
             if (nameLower.includes('dewshine')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/c5319ac2110c0b89850cf83b5d93b1af677f8611/Dewshine_Hero_Card.jpg";
             if (nameLower.includes('kevwood')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/07ccf5d79d881bf2047f439e25540dc380fec2d0/Kevwood.Hero.Card.jpg";
             if (nameLower.includes('lnfvmous')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/acff9081bff808e0028c0ae22dada726083e7948/Infamous.hero.card.jpg";
