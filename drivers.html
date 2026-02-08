@@ -10,59 +10,28 @@
     <link rel="stylesheet" href="style.css">
     <style>
         :root {
-            --primary: #c00;
-            --accent: #ff0;
-            --bg-dark: #000;
-            --card-bg: #0d0d0d;
-            --border: #1a1a1a;
-            --text-muted: #a0a0a0;
-            --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-
-            /* Series Colors */
-            --cup-blue: #0077ff;
-            --xfinity-purple: #8000b0;
-            --truck-red: #c00;
-            --menards-yellow: #fff200;
-
-            /* 3D BINDER ASSETS */
+            --primary: #c00; --accent: #ff0; --bg-dark: #000; --card-bg: #0d0d0d; --border: #1a1a1a;
+            --text-muted: #a0a0a0; --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --cup-blue: #0077ff; --xfinity-purple: #8000b0; --truck-red: #c00; --menards-yellow: #fff200;
             --binder-texture: url("https://www.transparenttextures.com/patterns/leather.png");
             --gold-foil: linear-gradient(45deg, #ffd700, #ffcc00, #ffeb3b, #d4af37);
             --stitch-color: rgba(255, 255, 255, 0.3);
         }
 
         body { 
-            margin: 0; 
-            font-family: 'Arial Black', sans-serif; 
-            background-color: #333333; 
-            background-image: 
-                radial-gradient(transparent 0%, #000 100%),
-                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.35'/%3E%3C/svg%3E");
-            background-attachment: fixed;
-            color: #fff; 
-            overflow-x: hidden; 
+            margin: 0; font-family: 'Arial Black', sans-serif; background-color: #333333; 
+            background-image: radial-gradient(transparent 0%, #000 100%), url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.35'/%3E%3C/svg%3E");
+            background-attachment: fixed; color: #fff; overflow-x: hidden; 
         }
 
         #nav-placeholder { position: relative; z-index: 99999; }
-
-        /* --- HERO --- */
-        .hero { 
-            background: radial-gradient(circle at center, #222 0%, #000 100%); 
-            padding: 12rem 1rem 8rem; 
-            text-align: center; 
-            border-bottom: 1px solid var(--border);
-        }
+        .hero { background: radial-gradient(circle at center, #222 0%, #000 100%); padding: 12rem 1rem 8rem; text-align: center; border-bottom: 1px solid var(--border); }
         h1 { font-size: clamp(3rem, 10vw, 5rem); margin: 0; letter-spacing: -2px; line-height: 0.9; }
         .hero p { color: var(--primary); letter-spacing: 5px; text-transform: uppercase; font-size: 0.9rem; margin-top: 1rem; }
 
-        /* --- CONTROLS --- */
         .controls { background: #050505; padding: 2rem 1rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
         .tabs-container { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; max-width: 1000px; margin: 0 auto; }
-        
-        .series-btn {
-            background: #111; border: 1px solid #333; color: #fff; padding: 15px 30px;
-            font-family: 'Arial Black', sans-serif; text-transform: uppercase; font-size: 1rem;
-            letter-spacing: 1px; cursor: pointer; transition: var(--transition); min-width: 150px;
-        }
+        .series-btn { background: #111; border: 1px solid #333; color: #fff; padding: 15px 30px; font-family: 'Arial Black', sans-serif; text-transform: uppercase; font-size: 1rem; letter-spacing: 1px; cursor: pointer; transition: var(--transition); min-width: 150px; }
         .series-btn:hover { transform: translateY(-3px); }
         .series-btn.active { border-color: #fff; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
         .series-btn[data-series="Cup"].active { background: var(--cup-blue); border-color: var(--cup-blue); }
@@ -70,21 +39,13 @@
         .series-btn[data-series="Truck"].active { background: var(--truck-red); border-color: var(--truck-red); }
         .series-btn[data-series="Menards"].active { background: var(--menards-yellow); border-color: var(--menards-yellow); color: #000; }
 
-        /* --- ROSTER GRID --- */
         .container { max-width: 1400px; margin: 0 auto; padding: 4rem 2rem; }
         .roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
 
-        .driver-card {
-            background-color: #111; border: 1px solid #222; padding: 2rem; position: relative;
-            overflow: hidden; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-            display: flex; flex-direction: column; align-items: center; justify-content: flex-end; 
-            min-height: 450px; cursor: pointer;
-        }
+        .driver-card { background-color: #111; border: 1px solid #222; padding: 2rem; position: relative; overflow: hidden; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; min-height: 450px; cursor: pointer; }
         .card-bg-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; z-index: 0; }
         .driver-card::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.95) 90%); z-index: 1; }
         .driver-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 10px 30px rgba(204, 0, 0, 0.2); }
-        
-        /* Card Internals */
         .bg-number { position: absolute; top: 10px; right: 15px; font-size: 3.5rem; font-weight: 900; color: rgba(255, 255, 255, 0.25); z-index: 2; pointer-events: none; }
         .card-content { position: relative; z-index: 3; text-align: center; width: 100%; display: flex; flex-direction: column; align-items: center; }
         .win-flags-container { display: flex; gap: 5px; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem; min-height: 24px; }
@@ -94,15 +55,15 @@
         .team-name { font-family: sans-serif; font-size: 0.85rem; color: #ddd; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; text-shadow: 0 2px 5px rgba(0,0,0,1); }
         .stats-pill { display: inline-flex; align-items: center; gap: 10px; border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.8); padding: 8px 15px; border-radius: 20px; font-size: 0.8rem; color: #fff; margin-top: auto; backdrop-filter: blur(5px); }
         .stat-divider { width: 1px; height: 12px; background: #666; }
-
         .badge-container { display: flex; gap: 5px; margin-bottom: 1.5rem; flex-wrap: wrap; justify-content: center; }
         .champ-badge { background: linear-gradient(45deg, #ffd700, #b8860b); color: #000; font-size: 0.6rem; font-weight: 900; padding: 4px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 0 10px rgba(255, 215, 0, 0.4); border: 1px solid #fff; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
 
-        /* --- MODAL STYLES --- */
+        /* Modal */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 3000; overflow-y: auto; }
         .modal-content { background: #0d0d0d; margin: 2rem auto; width: 95%; max-width: 1000px; border: 1px solid var(--primary); position: relative; min-height: 500px; }
         .close { position: absolute; top: 20px; right: 20px; color: #fff; font-size: 2rem; cursor: pointer; z-index: 20; text-shadow: 0 0 10px #000; }
         
+        /* Profile Layout */
         .p-hero { display: flex; flex-wrap: wrap; background: linear-gradient(135deg, #111, #000); border-bottom: 4px solid var(--primary); padding: 40px; align-items: center; gap: 40px; }
         .p-img-container { width: 200px; height: 260px; position: relative; flex-shrink: 0; border: 1px solid #333; overflow: hidden; background: #000; }
         .p-img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
@@ -110,157 +71,53 @@
         .p-number { font-size: 6rem; line-height: 1; color: rgba(255,255,255,0.05); font-weight: 900; position: absolute; right: 10px; top: -20px; z-index: 0; }
         .p-name { font-size: 3rem; line-height: 1; margin: 0; text-transform: uppercase; position: relative; z-index: 1; }
         .p-team { font-size: 1rem; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; display: block; position: relative; z-index: 1; font-weight: bold; }
-        
-        /* Stats Tabs */
         .p-tabs { display: flex; background: #1a1a1a; border-bottom: 1px solid #333; }
         .p-tab-btn { flex: 1; background: transparent; border: none; color: #888; padding: 20px; cursor: pointer; font-family: 'Arial Black'; font-size: 0.9rem; text-transform: uppercase; transition: 0.3s; }
         .p-tab-btn:hover { background: #222; color: #fff; }
         .p-tab-btn.active { background: #0d0d0d; color: #fff; border-bottom: 3px solid var(--primary); }
-
-        /* Panels */
         .p-panel { display: none; padding: 30px; }
         .p-panel.active { display: block; animation: fadeIn 0.3s; }
-        
-        /* TABLE STYLES (Fixed for Mobile) */
-        .table-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 20px; }
-        .stat-table { width: 100%; border-collapse: collapse; font-family: sans-serif; font-size: 0.9rem; min-width: 500px; /* Forces scroll on small screens */ }
+        .stat-table { width: 100%; border-collapse: collapse; font-family: sans-serif; font-size: 0.9rem; min-width: 500px; }
         .stat-table th { text-align: left; color: #666; padding: 15px; border-bottom: 2px solid #333; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; }
         .stat-table td { padding: 15px; border-bottom: 1px solid #222; color: #ddd; }
         .stat-table tr:hover { background: #141414; }
         .st-year { font-weight: bold; color: var(--primary); font-family: 'Arial Black'; }
         .st-points { color: var(--accent); font-weight: bold; }
+        .table-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 20px; }
 
-        /* ================================================================= */
-        /* --- 3D BINDER CSS --- */
-        /* ================================================================= */
-        .shelf-modal {
-            perspective: 3000px;
-            display: flex; justify-content: center;
-            padding: 40px 0;
-            overflow: visible;
-        }
-
-        .binder-modal {
-            position: relative;
-            width: 400px; height: 560px; /* Slightly smaller for modal */
-            transform-style: preserve-3d;
-            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-            cursor: pointer;
-            max-width: 85vw; /* Mobile Safe */
-        }
-
+        /* 3D Binder CSS */
+        .shelf-modal { perspective: 3000px; display: flex; justify-content: center; padding: 40px 0; overflow: visible; }
+        .binder-modal { position: relative; width: 400px; height: 560px; transform-style: preserve-3d; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); cursor: pointer; max-width: 85vw; }
         .binder-modal.open { transform: translateX(200px); }
-
-        /* FLIPPING MECHANISM */
-        .m-flip-wrapper {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            transform-style: preserve-3d; transform-origin: left;
-            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-            z-index: 10;
-        }
+        .m-flip-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform-style: preserve-3d; transform-origin: left; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); z-index: 10; }
         .binder-modal.closed .m-flip-wrapper { transform: rotateY(-15deg); }
         .binder-modal.open .m-flip-wrapper { transform: rotateY(-180deg); }
-
-        /* FACES */
         .m-face { position: absolute; top: 0; left: 0; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 5px 15px 15px 5px; }
-        
-        .m-front {
-            z-index: 2; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff;
-            background-color: #800000; /* Default Red */
-            background-image: var(--binder-texture);
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: inset 0 0 40px rgba(0,0,0,0.5);
-        }
-        /* Stitching */
-        .m-front::after {
-            content: ''; position: absolute; top: 15px; left: 15px; right: 15px; bottom: 15px;
-            border: 2px dashed var(--stitch-color); border-radius: 5px; pointer-events: none;
-        }
-        
-        /* Gold Text */
-        .m-front h1 {
-            font-family: 'Arial Black', sans-serif; font-size: 2rem; text-align: center; margin-top: 10px;
-            background: var(--gold-foil); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5); filter: drop-shadow(0 2px 0px rgba(0,0,0,0.3));
-        }
-        .m-front .col-label {
-            font-size: 0.8rem; letter-spacing: 4px; color: #ccc; margin-top: 20px; font-family: sans-serif;
-        }
-
-        .m-back {
-            background: #fff; transform: rotateY(180deg);
-            display: flex; justify-content: center; align-items: center;
-            box-shadow: inset 10px 0 20px rgba(0,0,0,0.1);
-        }
-
-        .m-base-page {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: #fff; border-radius: 0 15px 15px 0;
-            box-shadow: 10px 10px 30px rgba(0,0,0,0.6);
-            z-index: 1; display: flex; justify-content: center; align-items: center;
-        }
-
-        /* SPINE */
-        .m-spine {
-            position: absolute; left: 0; top: 0; bottom: 0; width: 40px;
-            transform-origin: left; transform: rotateY(-90deg);
-            background-color: #800000; background-image: var(--binder-texture);
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 5px 0 0 5px;
-        }
-
-        /* RINGS */
-        .m-rings {
-            position: absolute; left: 5px; top: 0; bottom: 0; width: 20px;
-            display: flex; flex-direction: column; justify-content: space-evenly;
-            z-index: 20; pointer-events: none;
-        }
-        .m-metal-ring {
-            width: 30px; height: 12px;
-            background: linear-gradient(to bottom, #ccc, #fff, #999);
-            border-radius: 10px; box-shadow: 1px 2px 5px rgba(0,0,0,0.3);
-            position: relative; left: -10px;
-        }
-
-        /* SHEET CONTENT */
-        .m-sheet { 
-            width: 90%; height: 94%; background: #f8f8f8;
-            background-image: radial-gradient(#ddd 1px, transparent 1px); background-size: 10px 10px;
-            display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr);
-            gap: 10px; padding: 15px; box-sizing: border-box; 
-            border: 1px solid #ddd;
-        }
-        
-        .m-slot { 
-            background: #fff; border: 1px solid #eee; position: relative; 
-            display: flex; align-items: center; justify-content: center; overflow: hidden; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: default;
-        }
+        .m-front { z-index: 2; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff; background-color: #800000; background-image: var(--binder-texture); border: 1px solid rgba(255,255,255,0.1); box-shadow: inset 0 0 40px rgba(0,0,0,0.5); }
+        .m-front::after { content: ''; position: absolute; top: 15px; left: 15px; right: 15px; bottom: 15px; border: 2px dashed var(--stitch-color); border-radius: 5px; pointer-events: none; }
+        .m-front h1 { font-family: 'Arial Black', sans-serif; font-size: 2rem; text-align: center; margin-top: 10px; background: var(--gold-foil); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 1px 2px rgba(0,0,0,0.5); filter: drop-shadow(0 2px 0px rgba(0,0,0,0.3)); }
+        .m-front .col-label { font-size: 0.8rem; letter-spacing: 4px; color: #ccc; margin-top: 20px; font-family: sans-serif; }
+        .m-back { background: #fff; transform: rotateY(180deg); display: flex; justify-content: center; align-items: center; box-shadow: inset 10px 0 20px rgba(0,0,0,0.1); }
+        .m-base-page { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #fff; border-radius: 0 15px 15px 0; box-shadow: 10px 10px 30px rgba(0,0,0,0.6); z-index: 1; display: flex; justify-content: center; align-items: center; }
+        .m-spine { position: absolute; left: 0; top: 0; bottom: 0; width: 40px; transform-origin: left; transform: rotateY(-90deg); background-color: #800000; background-image: var(--binder-texture); display: flex; align-items: center; justify-content: center; border-radius: 5px 0 0 5px; }
+        .m-rings { position: absolute; left: 5px; top: 0; bottom: 0; width: 20px; display: flex; flex-direction: column; justify-content: space-evenly; z-index: 20; pointer-events: none; }
+        .m-metal-ring { width: 30px; height: 12px; background: linear-gradient(to bottom, #ccc, #fff, #999); border-radius: 10px; box-shadow: 1px 2px 5px rgba(0,0,0,0.3); position: relative; left: -10px; }
+        .m-sheet { width: 90%; height: 94%; background: #f8f8f8; background-image: radial-gradient(#ddd 1px, transparent 1px); background-size: 10px 10px; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 10px; padding: 15px; box-sizing: border-box; border: 1px solid #ddd; }
+        .m-slot { background: #fff; border: 1px solid #eee; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: default; }
         .m-slot img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-        
-        /* --- MOBILE ADJUSTMENTS (CRITICAL FIXES) --- */
+
         @media (max-width: 768px) {
             .hero { padding: 10rem 1rem 4rem; }
-            
-            /* Profile Header Mobile */
             .p-hero { flex-direction: column; text-align: center; padding: 20px 10px; }
             .p-img-container { margin: 0 auto; width: 150px; height: 180px; }
             .p-number { font-size: 4rem; top: 10px; right: 10px; opacity: 0.3; }
             .p-name { font-size: 2rem; }
-            
-            /* Fix: Badge Wrapping */
             .p-badges { flex-wrap: wrap; justify-content: center; }
             .badge-container { justify-content: center; }
-
-            /* Fix: Tab Buttons */
             .p-tab-btn { padding: 15px 5px; font-size: 0.7rem; }
-
-            /* Fix: Table Overflow */
             .p-panel { padding: 15px 5px; }
             .stat-table { font-size: 0.75rem; }
             .stat-table th, .stat-table td { padding: 10px 5px; }
-            
-            /* Binder Logic */
             .binder-modal { width: 42vw; height: 60vw; }
             .binder-modal.open { transform: translateX(21vw); }
             .m-front h1 { font-size: 1rem; margin-top: 5px; }
@@ -319,6 +176,21 @@
         // --- 1. NAV ---
         fetch('nav.html').then(r=>r.text()).then(d=>document.getElementById('nav-placeholder').innerHTML=d).catch(e=>console.log(e));
         function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
+
+        // =========================================================================
+        //  BINDER GALLERY - MANUAL IMAGE LIST
+        //  Add images for the RIGHT page of the binder here.
+        //  Format: "DriverName": ["URL1", "URL2"],
+        // =========================================================================
+        const BINDER_GALLERY = {
+            "HockeyDeckout": [
+                "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6fe18b047b96a5d30e1de8ee2050caf384b6d168/HockyDriverCard.jpg"
+            ],
+            "DakotaThomas": [
+                // Add Dakota's card links here
+            ],
+            // You can add more names here as you need them
+        };
 
         // --- 2. ROSTER LOGIC ---
         let allDriversData = {}; 
@@ -387,11 +259,13 @@
                 if(seriesName.toLowerCase() === 'menards') flagClass = 'flag-menards';
                 for(let i=0; i<stats.wins; i++) flagsHtml += `<i class="fa-solid fa-flag-checkered flag-icon ${flagClass}"></i>`;
 
-                // Badge Container with Wrapping for Grid
+                // Badge Container (Only Text for Grid)
                 let badgesHtml = '';
-                if(item.badges && item.badges.length > 0) {
+                if(item.badges) {
                     badgesHtml = '<div class="badge-container">';
-                    item.badges.forEach(b => badgesHtml += `<div class="champ-badge"><i class="fa-solid fa-trophy"></i> ${b}</div>`);
+                    item.badges.forEach(b => {
+                        badgesHtml += `<div class="champ-badge"><i class="fa-solid fa-trophy"></i> ${b}</div>`;
+                    });
                     badgesHtml += '</div>';
                 }
 
@@ -422,7 +296,7 @@
             });
         }
 
-        // --- 3. PROFILE MODAL ---
+        // --- 3. PROFILE MODAL (MERGE LOGIC) ---
         function openProfile(id, driverData) {
             const modal = document.getElementById('driver-modal');
             const dataDiv = document.getElementById('modal-inject');
@@ -431,12 +305,32 @@
             const sData = driverData.series[currentSeries];
             const currStats = sData.current_stats || {points:0, wins:0, top5:0, top10:0, poles:0, starts:0, avg:0};
             
-            // Badges (Fixed for mobile wrapping)
+            // 1. Build Badges (Header)
             let badgesHtml = '';
-            let achievementSlots = '';
             if(driverData.badges) {
                 driverData.badges.forEach(b => {
                     badgesHtml += `<div class="champ-badge"><i class="fa-solid fa-trophy"></i> ${b}</div>`;
+                });
+            }
+
+            // 2. Build Binder Slots (Right Page)
+            let achievementSlots = '';
+            
+            // A. Manual Images from BINDER_GALLERY
+            // Use regex to remove spaces for key matching if needed
+            let galleryImages = BINDER_GALLERY[dName] || BINDER_GALLERY[dName.replace(/\s/g, '')] || [];
+            
+            galleryImages.forEach(imgLink => {
+                achievementSlots += `
+                    <div class="m-slot" style="background:#fff; border:1px solid #ccc;">
+                        <img src="${imgLink}" style="width:100%; height:100%; object-fit:contain;">
+                    </div>
+                `;
+            });
+
+            // B. Bot Text Badges as Gold Cards
+            if(driverData.badges) {
+                driverData.badges.forEach(b => {
                     achievementSlots += `
                         <div class="m-slot" style="background:#111; border:2px solid gold;">
                             <div style="text-align:center; padding:10px;">
@@ -447,9 +341,11 @@
                     `;
                 });
             }
-            for(let k=0; k<(4 - (driverData.badges ? driverData.badges.length : 0)); k++) {
-                achievementSlots += `<div class="m-slot"></div>`;
-            }
+
+            // C. Fill Empty Slots (up to 4 minimum)
+            const totalItems = galleryImages.length + (driverData.badges ? driverData.badges.length : 0);
+            const fillCount = Math.max(0, 4 - totalItems);
+            for(let k=0; k<fillCount; k++) achievementSlots += `<div class="m-slot"></div>`;
 
             // Build History
             let historyRows = sData.history ? sData.history.map(h => `<tr><td class="st-year">${h.season}</td><td>${currentSeries}</td><td class="st-points">${h.stats.points}</td><td>${h.stats.wins}</td><td>${h.stats.top5}</td><td>${h.stats.top10}</td><td>${h.stats.avg}</td></tr>`).join('') : `<tr><td colspan="7" style="text-align:center; color:#666;">No data.</td></tr>`;
@@ -503,8 +399,8 @@
                                 </div>
                                 <div class="m-face m-back">
                                     <div class="m-sheet">
-                                        <div class="m-slot" style="grid-column: span 2; grid-row: span 2;">
-                                            <img src="${getDriverImage(dName)}">
+                                        <div class="m-slot" style="grid-column: span 2; grid-row: span 2; background:#fff;">
+                                            <img src="${getDriverImage(dName)}" style="object-fit:contain;">
                                         </div>
                                     </div>
                                 </div>
@@ -533,9 +429,14 @@
         }
         window.onclick = function(e) { if (e.target.className === 'modal') closeModal(); }
 
-        // --- HELPER: DRIVER IMAGES ---
+        // --- HELPER: DRIVER IMAGES (LEFT SIDE) ---
         function getDriverImage(driverName) {
             const nameLower = driverName.toLowerCase();
+            
+            // --- UPDATED HOCKEY HERO CARD ---
+            if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6fe18b047b96a5d30e1de8ee2050caf384b6d168/HockyDriverCard.jpg";
+
+            // Standard List
             if (nameLower.includes('k7_dalton')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/9a7e63f44a37cedfdf0b85ddeb4968c3b0da8817/k7Dalton.jpg";
             if (nameLower.includes('isaac')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/d0f7c7e6480bc33317d4e7939036024f0dcff3dc/Isaac.jpg";
             if (nameLower.includes('z71chevyman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/869f4adefde19421e449f2e1e9ab7bd3a6ffaee5/ChevyMan.jpg";
@@ -559,7 +460,7 @@
             if (nameLower.includes('singular_nacho')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/f311b21127533ca6128a4408f36edaf9612d59b1/Singular_Nacho_Hero_Card.jpg";
             if (nameLower.includes('callmemillion')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/e86926900f4957c57588db9a14beae7d6329a794/CallMeMillion_Hero_Card.jpg";
             if (nameLower.includes('mattwilson20')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6686ee35c988cd1b0ae305d099ff4e31c652a49f/mattwilson20_Hero_Card.jpg";
-            if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/8e6c91687a3fd67cc8d9771eec28321a154a56ce/UpdatedHockeyHero.jpg";
+            if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/81df81de5161ea2f590ee32c370d3e99675cdbaa/Hockey_Hero_Card.png";
             if (nameLower.includes('dewshine')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/c5319ac2110c0b89850cf83b5d93b1af677f8611/Dewshine_Hero_Card.jpg";
             if (nameLower.includes('kevwood')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/07ccf5d79d881bf2047f439e25540dc380fec2d0/Kevwood.Hero.Card.jpg";
             if (nameLower.includes('lnfvmous')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/acff9081bff808e0028c0ae22dada726083e7948/Infamous.hero.card.jpg";
