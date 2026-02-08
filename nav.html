@@ -14,6 +14,7 @@
                 <a href="news.html" id="nav-news">LATEST NEWS</a>
                 <a href="standings.html" id="nav-standings">STANDINGS</a>
                 <a href="results.html" id="nav-results">RESULTS</a>
+                <a href="collections.html" id="nav-collections">COLLECTIONS</a>
                 <a href="schedule.html" id="nav-schedule">CALENDAR</a>
                 <a href="teams.html" id="nav-teams">TEAMS</a>
                 <a href="drivers.html" id="nav-drivers">ROSTER</a>
@@ -76,43 +77,7 @@
         color: #c00; border-left-color: #c00; 
     }
     
-    /* 2. NEW: OPEN WHEEL GROUP (F1) */
-    .open-wheel-group {
-        /* High-Tech Cyan/Dark Gradient */
-        background: linear-gradient(180deg, #050a0a 0%, #001a1a 100%);
-        padding: 2rem;
-        border-top: 1px solid #00ffcc; /* Neon Cyan Border */
-        border-bottom: 1px solid #222;
-        display: flex; flex-direction: column; justify-content: center;
-    }
-    .open-wheel-group .group-label {
-        color: #00ffcc; margin-left: 0; text-align: center; 
-        text-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
-    }
-    
-    .f1-btn {
-        display: flex; align-items: center; justify-content: center; gap: 15px;
-        background: rgba(0, 255, 204, 0.05); 
-        color: #fff; text-decoration: none; padding: 1.5rem;
-        border: 1px solid #00ffcc; border-radius: 4px; 
-        transition: 0.3s; text-align: center;
-        box-shadow: 0 0 15px rgba(0, 255, 204, 0.1); margin-top: 10px;
-    }
-    .f1-btn:hover {
-        background: #00ffcc; color: #000; transform: scale(1.02);
-        box-shadow: 0 0 25px rgba(0, 255, 204, 0.4);
-    }
-    
-    .f1-text { 
-        font-family: 'Arial Black', sans-serif; font-size: 1.1rem; 
-        letter-spacing: -1px; text-transform: uppercase;
-    }
-    .f1-subtext {
-        text-align: center; color: #00a383; font-size: 0.75rem; margin-top: 1rem; 
-        font-family: sans-serif; letter-spacing: 1px; text-transform: uppercase;
-    }
-
-    /* 3. DIRT GROUP (WOO) */
+    /* 2. DIRT GROUP (WOO) */
     .dirt-group { 
         background: linear-gradient(180deg, #0a0a0a 0%, #1a0505 100%); 
         padding: 2rem; flex-grow: 1; border-top: 1px solid #330000; 
@@ -144,6 +109,6 @@
 
     @media (max-width: 480px) { 
         .nav-overlay { width: 100%; max-width: 100%; } 
-        .dirt-group, .open-wheel-group { padding: 3rem 1rem; } 
+        .dirt-group { padding: 3rem 1rem; } 
     }
 </style>
