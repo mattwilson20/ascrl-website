@@ -51,6 +51,16 @@
         h1 { font-size: clamp(3rem, 10vw, 6rem); margin: 0; letter-spacing: -3px; text-transform: uppercase; color: #fff; line-height: 0.9; }
         .subtitle { letter-spacing: 6px; color: var(--primary); text-transform: uppercase; font-size: 0.8rem; margin-bottom: 10px; display: block; }
 
+        /* --- FLOATING CALENDAR BUTTON --- */
+        .floating-cal-btn {
+            position: fixed; top: 1.5rem; right: 1.5rem; z-index: 2001;
+            background: var(--primary); color: #fff; width: 50px; height: 50px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 15px rgba(204, 0, 0, 0.6);
+            transition: 0.3s; border: 2px solid #fff;
+        }
+        .floating-cal-btn:hover { transform: scale(1.1) rotate(10deg); background: #fff; color: var(--primary); box-shadow: 0 6px 20px rgba(255, 255, 255, 0.6); }
+
         /* --- CONTROLS --- */
         .controls-bar {
             position: sticky; top: 0; z-index: 100;
@@ -227,6 +237,96 @@
             color: var(--gold-mid); box-shadow: 0 0 10px rgba(255, 215, 0, 0.1);
         }
 
+        /* ========================================================= */
+        /* --- 3D INTERACTIVE CALENDAR MODAL STYLES --- */
+        /* ========================================================= */
+        #interactive-calendar-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 5000; backdrop-filter: blur(10px);
+            justify-content: center; align-items: center; perspective: 1500px;
+        }
+        
+        .master-calendar {
+            background: #fff; width: 90%; max-width: 600px;
+            border-radius: 8px; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            position: relative; transform-style: preserve-3d;
+            background-image: radial-gradient(#ddd 1px, transparent 1px); background-size: 10px 10px;
+        }
+
+        /* Spiral Rings at top */
+        .cal-binder-rings {
+            position: absolute; top: -15px; left: 0; width: 100%;
+            display: flex; justify-content: space-evenly; z-index: 10;
+        }
+        .cal-ring {
+            width: 10px; height: 30px; border-radius: 5px;
+            background: linear-gradient(to right, #666, #ccc, #fff, #666);
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .cal-header {
+            background: #c00; color: #fff; padding: 25px 20px 15px; border-radius: 8px 8px 0 0;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 3px solid #900;
+        }
+        .cal-header button {
+            background: transparent; border: none; color: #fff; font-size: 1.5rem;
+            cursor: pointer; transition: 0.2s;
+        }
+        .cal-header button:hover { transform: scale(1.2); color: #ffeb3b; }
+        .cal-header h2 { margin: 0; font-size: 1.8rem; letter-spacing: 2px; text-transform: uppercase; font-family: 'Arial Black'; text-shadow: 0 2px 4px rgba(0,0,0,0.4); }
+
+        .cal-body-wrapper {
+            position: relative;
+            transform-style: preserve-3d;
+            perspective: 1500px;
+        }
+
+        /* The page that flips */
+        .cal-page {
+            padding: 20px; transform-origin: top; background: #fff;
+            border-radius: 0 0 8px 8px; backface-visibility: hidden;
+        }
+
+        .cal-weekdays {
+            display: grid; grid-template-columns: repeat(7, 1fr); text-align: center;
+            font-family: sans-serif; font-weight: bold; color: #555; margin-bottom: 10px; font-size: 0.8rem;
+        }
+        .cal-days-grid {
+            display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px;
+        }
+        
+        .cal-day {
+            aspect-ratio: 1; border: 1px solid #eee; display: flex; flex-direction: column;
+            justify-content: flex-start; align-items: flex-start; padding: 5px;
+            font-family: 'Arial Black'; font-size: 1rem; color: #333; position: relative;
+            border-radius: 4px; box-shadow: inset 0 0 5px rgba(0,0,0,0.02);
+            transition: 0.2s; overflow: hidden;
+        }
+        .cal-day:hover { border-color: #999; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 5; }
+        .cal-day.empty { background: #f9f9f9; color: #ccc; border: none; box-shadow: none; }
+        .cal-day.today { border: 2px solid #c00; color: #c00; }
+
+        /* Series Color Backgrounds */
+        .cal-date-num { position: relative; z-index: 2; text-shadow: 0px 0px 3px rgba(255,255,255,0.8); }
+        .series-bg-layer {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.85; z-index: 1; pointer-events: none;
+        }
+
+        /* Animations for flipping */
+        .flip-up { animation: flipUpAnim 0.5s ease-in forwards; }
+        .flip-down { animation: flipDownAnim 0.5s ease-out forwards; }
+
+        @keyframes flipUpAnim {
+            0% { transform: rotateX(0deg); opacity: 1; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+            100% { transform: rotateX(90deg); opacity: 0; box-shadow: 0 -20px 20px rgba(0,0,0,0.2); }
+        }
+        @keyframes flipDownAnim {
+            0% { transform: rotateX(-90deg); opacity: 0; box-shadow: 0 -20px 20px rgba(0,0,0,0.2); }
+            100% { transform: rotateX(0deg); opacity: 1; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        }
+
         footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
 
         @media (max-width: 768px) {
@@ -235,10 +335,43 @@
             .section-header::after { display: none; }
             .chase-wrapper { padding: 4rem 1rem; }
             .chase-grid { gap: 15px; }
+            .master-calendar { width: 95%; }
+            .cal-day { font-size: 0.8rem; padding: 2px; }
+            .floating-cal-btn { top: auto; bottom: 1.5rem; right: 1.5rem; } /* Move to bottom right on mobile so it doesn't block menu */
         }
     </style>
 </head>
 <body>
+
+    <div class="floating-cal-btn" onclick="openInteractiveCalendar()">
+        <i class="fa-regular fa-calendar-days"></i>
+    </div>
+
+    <div id="interactive-calendar-overlay" onclick="closeInteractiveCalendar(event)">
+        <div class="master-calendar" onclick="event.stopPropagation()">
+            <div class="cal-binder-rings">
+                <div class="cal-ring"></div><div class="cal-ring"></div><div class="cal-ring"></div>
+                <div class="cal-ring"></div><div class="cal-ring"></div><div class="cal-ring"></div>
+                <div class="cal-ring"></div><div class="cal-ring"></div><div class="cal-ring"></div>
+            </div>
+            
+            <div class="cal-header">
+                <button onclick="changeCalMonth(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+                <h2 id="cal-month-title">FEB 2026</h2>
+                <button onclick="changeCalMonth(1)"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+            
+            <div class="cal-body-wrapper">
+                <div id="cal-page" class="cal-page">
+                    <div class="cal-weekdays">
+                        <div>SUN</div><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div>SAT</div>
+                    </div>
+                    <div id="cal-grid" class="cal-days-grid">
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="nav-placeholder"></div>
 
@@ -320,6 +453,10 @@
                 .then(data => {
                     rawData = data;
                     renderSeries();
+                    // If modal is open, re-render to catch changes
+                    if(document.getElementById('interactive-calendar-overlay').style.display === 'flex') {
+                        renderInteractiveCalendar();
+                    }
                 })
                 .catch(err => {
                     console.error(err);
@@ -483,7 +620,131 @@
             chaseSection.style.display = hasChase ? 'block' : 'none';
         }
 
-        // Init
+        // =========================================================
+        //  3D INTERACTIVE CALENDAR LOGIC
+        // =========================================================
+        let currentCalDate = new Date();
+        // Since Season 1 starts Feb 2026, let's default to that if it's currently earlier
+        if(currentCalDate.getFullYear() < 2026) {
+            currentCalDate = new Date(2026, 1, 1); // Feb 2026
+        }
+
+        function openInteractiveCalendar() {
+            document.getElementById('interactive-calendar-overlay').style.display = 'flex';
+            renderInteractiveCalendar();
+        }
+
+        function closeInteractiveCalendar(e) {
+            if(e.target.id === 'interactive-calendar-overlay') {
+                document.getElementById('interactive-calendar-overlay').style.display = 'none';
+            }
+        }
+
+        function changeCalMonth(offset) {
+            const page = document.getElementById('cal-page');
+            
+            // Flip Up Animation
+            page.classList.remove('flip-down');
+            page.classList.add('flip-up');
+
+            setTimeout(() => {
+                // Change Date behind the scenes
+                currentCalDate.setMonth(currentCalDate.getMonth() + offset);
+                renderInteractiveCalendar();
+                
+                // Flip Down Animation
+                page.classList.remove('flip-up');
+                page.classList.add('flip-down');
+            }, 500); // Wait for half the flip
+        }
+
+        function getSeriesColorsForDate(dateStr) {
+            let colors = [];
+            if(!rawData) return colors;
+
+            Object.keys(rawData).forEach(key => {
+                const series = key.split(' ')[0].toLowerCase();
+                const races = rawData[key];
+                
+                if(races && races.some(r => r.date === dateStr)) {
+                    if(series === 'cup' && !colors.includes('var(--cup-blue)')) colors.push('var(--cup-blue)');
+                    if(series === 'xfinity' && !colors.includes('var(--xfinity-purple)')) colors.push('var(--xfinity-purple)');
+                    if(series === 'truck' && !colors.includes('var(--truck-red)')) colors.push('var(--truck-red)');
+                    if(series === 'menards' && !colors.includes('var(--menards-yellow)')) colors.push('var(--menards-yellow)');
+                }
+            });
+            return colors;
+        }
+
+        function renderInteractiveCalendar() {
+            const year = currentCalDate.getFullYear();
+            const month = currentCalDate.getMonth();
+            
+            // Set Header
+            const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+            document.getElementById('cal-month-title').innerText = `${monthNames[month]} ${year}`;
+
+            const grid = document.getElementById('cal-grid');
+            grid.innerHTML = '';
+
+            // Calculate days
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const today = new Date();
+
+            // Fill empty days before start of month
+            for(let i = 0; i < firstDay; i++) {
+                grid.innerHTML += `<div class="cal-day empty"></div>`;
+            }
+
+            // Fill days
+            for(let i = 1; i <= daysInMonth; i++) {
+                const dString = `${year}-${(month+1).toString().padStart(2, '0')}-${i.toString().padStart(2, '0')}`;
+                
+                let classList = "cal-day";
+                if(year === today.getFullYear() && month === today.getMonth() && i === today.getDate()) {
+                    classList += " today";
+                }
+
+                // Check for races
+                const colors = getSeriesColorsForDate(dString);
+                let bgStyle = "";
+                let fontColor = "";
+
+                if(colors.length === 1) {
+                    // One race = solid color
+                    bgStyle = `background: ${colors[0]};`;
+                    fontColor = `color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.8);`;
+                } else if(colors.length > 1) {
+                    // Multiple races = split gradient
+                    let stops = [];
+                    const step = 100 / colors.length;
+                    colors.forEach((c, idx) => {
+                        stops.push(`${c} ${idx * step}%`, `${c} ${(idx + 1) * step}%`);
+                    });
+                    bgStyle = `background: linear-gradient(135deg, ${stops.join(', ')});`;
+                    fontColor = `color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.8);`;
+                }
+
+                grid.innerHTML += `
+                    <div class="${classList}">
+                        ${bgStyle ? `<div class="series-bg-layer" style="${bgStyle}"></div>` : ''}
+                        <span class="cal-date-num" style="${fontColor}">${i}</span>
+                    </div>
+                `;
+            }
+
+            // Fill empty days after end to keep grid square
+            const totalCells = firstDay + daysInMonth;
+            const remainder = totalCells % 7;
+            if(remainder !== 0) {
+                for(let i = 0; i < (7 - remainder); i++) {
+                    grid.innerHTML += `<div class="cal-day empty"></div>`;
+                }
+            }
+        }
+
+        // Init Data Load
         loadSchedule();
     </script>
     <script>
