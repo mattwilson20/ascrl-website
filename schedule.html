@@ -26,6 +26,10 @@
             --clash-orange: #ff4500;
             --gold-mid: #ffd700;
             --gold-dark: #b8860b;
+            
+            /* In-Season Tournament Colors */
+            --tourney-neon: #00ffcc;
+            --tourney-dark: #004d40;
         }
 
         body { 
@@ -120,17 +124,28 @@
             background: linear-gradient(135deg, #1a0500 0%, #000 100%);
             box-shadow: 0 0 20px rgba(255, 69, 0, 0.2);
         }
-        .clash-card::before {
-            background: linear-gradient(to bottom, #ff8c00, #ff0000);
-            width: 6px;
+        .clash-card::before { background: linear-gradient(to bottom, #ff8c00, #ff0000); width: 6px; }
+        .clash-card:hover { box-shadow: 0 0 40px rgba(255, 69, 0, 0.4); border-color: #ff8c00; }
+        .clash-card .track-name { background: linear-gradient(to right, #ff8c00, #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* --- IN-SEASON TOURNAMENT STYLES --- */
+        .tourney-card {
+            border: 1px solid var(--tourney-neon);
+            background: linear-gradient(135deg, var(--tourney-dark) 0%, #000 100%);
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.1);
         }
-        .clash-card:hover {
-            box-shadow: 0 0 40px rgba(255, 69, 0, 0.4);
-            border-color: #ff8c00;
-        }
-        .clash-card .track-name {
-            background: linear-gradient(to right, #ff8c00, #fff);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        .tourney-card::before { background: linear-gradient(to bottom, #fff, var(--tourney-neon)); width: 6px; }
+        .tourney-card:hover { box-shadow: 0 0 30px rgba(0, 255, 204, 0.4); border-color: #fff; }
+        .tourney-card .track-name { color: #fff; text-shadow: 0 0 10px var(--tourney-neon); }
+        .tourney-card .race-type { color: var(--tourney-neon); font-weight: bold; letter-spacing: 2px; }
+        .tourney-card .status-pill { border-color: var(--tourney-neon); color: var(--tourney-neon); background: rgba(0, 255, 204, 0.1); }
+        
+        .tourney-badge {
+            position: absolute; top: 10px; right: -30px;
+            background: var(--tourney-neon); color: #000;
+            font-size: 0.6rem; font-weight: bold; letter-spacing: 2px;
+            padding: 5px 30px; transform: rotate(45deg);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
         .ticket-top { padding: 1.5rem; display: flex; justify-content: space-between; align-items: flex-start; }
@@ -354,6 +369,7 @@
                 const isPast = rDate < today;
                 const month = rDate.toLocaleString('default', {month:'short'}).toUpperCase();
                 const day = rDate.getDate();
+                const dateString = `${rDate.getFullYear()}-${(rDate.getMonth()+1).toString().padStart(2, '0')}-${rDate.getDate().toString().padStart(2, '0')}`;
 
                 // Logic
                 let pillStyle = `border-color: ${accent}; color: ${accent};`;
@@ -393,35 +409,72 @@
                 } else {
                     // Regular Season
                     let raceType = "REGULAR SEASON";
-                    let clashClass = "";
+                    let customClass = "";
+                    let customBadge = "";
+                    let iconColor = "#333";
                     
                     // CHECK FOR CLASH (First Race of Cup)
                     if(currentSeries === 'Cup' && index === 0) {
                         raceType = "THE CLASH // EXHIBITION";
-                        clashClass = "clash-card";
-                        // Override pill style for Clash if it hasn't happened yet
+                        customClass = "clash-card";
                         if(!isPast) {
                             pillStyle = `border-color: #ff4500; color: #ff4500; font-weight:900; letter-spacing:2px;`;
                             statusText = "NON-POINTS EVENT";
                         }
                     }
 
+                    // --- IN-SEASON TOURNAMENT LOGIC (CUP SERIES ONLY) ---
+                    if (currentSeries === 'Cup') {
+                        if (dateString === "2026-06-30") { // Sonoma
+                            raceType = "TOURNAMENT: ROUND OF 32";
+                            customClass = "tourney-card";
+                            customBadge = `<div class="tourney-badge">RND 1</div>`;
+                            iconColor = "var(--tourney-neon)";
+                        } else if (dateString === "2026-07-07") { // Dover
+                            raceType = "TOURNAMENT: ROUND OF 16";
+                            customClass = "tourney-card";
+                            customBadge = `<div class="tourney-badge">RND 2</div>`;
+                            iconColor = "var(--tourney-neon)";
+                        } else if (dateString === "2026-07-14") { // Echopark
+                            raceType = "TOURNAMENT: ROUND OF 8";
+                            customClass = "tourney-card";
+                            customBadge = `<div class="tourney-badge">RND 3</div>`;
+                            iconColor = "var(--tourney-neon)";
+                        } else if (dateString === "2026-07-21") { // North Wilkesboro
+                            raceType = "TOURNAMENT: SEMI-FINAL";
+                            customClass = "tourney-card";
+                            customBadge = `<div class="tourney-badge">RND 4</div>`;
+                            iconColor = "var(--tourney-neon)";
+                        } else if (dateString === "2026-07-28") { // Indianapolis
+                            raceType = "TOURNAMENT: CHAMPIONSHIP";
+                            customClass = "tourney-card";
+                            customBadge = `<div class="tourney-badge">FINAL</div>`;
+                            iconColor = "var(--tourney-neon)";
+                        }
+                    }
+
+                    // Force text color for Month depending on card type
+                    let monthColor = accent;
+                    if(customClass === 'clash-card') monthColor = '#ff4500';
+                    if(customClass === 'tourney-card') monthColor = 'var(--tourney-neon)';
+
                     const html = `
-                    <div class="race-ticket ${activeClass} ${clashClass}">
-                        <style>.race-ticket:not(.clash-card):hover { border-color: ${accent}; }</style>
+                    <div class="race-ticket ${activeClass} ${customClass}">
+                        <style>.race-ticket:not(.clash-card):not(.tourney-card):hover { border-color: ${accent}; }</style>
+                        ${customBadge}
                         <div class="ticket-top">
                             <div class="date-group">
-                                <span class="date-month" style="color:${clashClass ? '#ff4500' : accent}">${month}</span>
+                                <span class="date-month" style="color:${monthColor}">${month}</span>
                                 <span class="date-day">${day}</span>
                             </div>
-                            <i class="fa-solid fa-flag" style="color:#333; font-size:1.5rem;"></i>
+                            <i class="fa-solid fa-flag" style="color:${iconColor}; font-size:1.5rem;"></i>
                         </div>
                         <div class="ticket-body">
                             <h3 class="track-name">${race.track}</h3>
-                            <span class="race-type" style="${clashClass ? 'color:#ff4500; font-weight:bold;' : ''}">${raceType}</span>
+                            <span class="race-type">${raceType}</span>
                             <div class="status-pill" style="${pillStyle}">${statusText}</div>
                         </div>
-                        ${clashClass ? '' : `<div style="position:absolute; top:0; left:0; width:4px; height:100%; background:${accent};"></div>`}
+                        ${(customClass) ? '' : `<div style="position:absolute; top:0; left:0; width:4px; height:100%; background:${accent};"></div>`}
                     </div>`;
                     regGrid.innerHTML += html;
                 }
