@@ -9,27 +9,10 @@
     <link rel="stylesheet" href="style.css">
     <style>
         :root {
-            --primary: #c00;
-            --accent: #ff0;
-            --bg-dark: #050505;
-            --card-bg: #111;
-            --border: #222;
-            --text-muted: #888;
-            
-            /* Series Colors */
-            --cup-blue: #0077ff;
-            --xfinity-purple: #8000b0;
-            --truck-red: #c00;
-            --menards-yellow: #fff200;
-            
-            /* Special Event Colors */
-            --clash-orange: #ff4500;
-            --gold-mid: #ffd700;
-            --gold-dark: #b8860b;
-            
-            /* In-Season Tournament Colors */
-            --tourney-neon: #00ffcc;
-            --tourney-dark: #004d40;
+            --primary: #c00; --accent: #ff0; --bg-dark: #050505; --card-bg: #111; --border: #222; --text-muted: #888;
+            --cup-blue: #0077ff; --xfinity-purple: #8000b0; --truck-red: #c00; --menards-yellow: #fff200;
+            --clash-orange: #ff4500; --gold-mid: #ffd700; --gold-dark: #b8860b;
+            --tourney-neon: #00ffcc; --tourney-dark: #004d40;
         }
 
         body { 
@@ -44,8 +27,7 @@
         /* --- HERO --- */
         .hero {
             padding: 10rem 1rem 6rem; text-align: center;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.9), #080808), 
-                        url("https://www.transparenttextures.com/patterns/cubes.png");
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), #080808), url("https://www.transparenttextures.com/patterns/cubes.png");
             border-bottom: 2px solid #222;
         }
         h1 { font-size: clamp(3rem, 10vw, 6rem); margin: 0; letter-spacing: -3px; text-transform: uppercase; color: #fff; line-height: 0.9; }
@@ -64,36 +46,19 @@
         /* --- CONTROLS --- */
         .controls-bar {
             position: sticky; top: 0; z-index: 100;
-            background: rgba(8, 8, 8, 0.95);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid #222;
-            padding: 1rem 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: rgba(8, 8, 8, 0.95); backdrop-filter: blur(15px); border-bottom: 1px solid #222; padding: 1rem 0; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .controls-inner {
-            max-width: 1200px; margin: 0 auto; padding: 0 1rem;
-            display: flex; flex-direction: column; gap: 1rem; align-items: center;
-        }
+        .controls-inner { max-width: 1200px; margin: 0 auto; padding: 0 1rem; display: flex; flex-direction: column; gap: 1rem; align-items: center; }
 
         .season-select {
-            padding: 12px 25px; background: #151515; color: #fff;
-            border: 1px solid #333; border-radius: 50px;
-            font-family: 'Arial Black', sans-serif; font-size: 0.9rem;
-            cursor: pointer; text-align: center; width: 100%; max-width: 350px;
-            text-transform: uppercase; letter-spacing: 1px;
-            transition: 0.3s;
+            padding: 12px 25px; background: #151515; color: #fff; border: 1px solid #333; border-radius: 50px;
+            font-family: 'Arial Black', sans-serif; font-size: 0.9rem; cursor: pointer; text-align: center; width: 100%; max-width: 350px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
         }
         .season-select:hover { border-color: var(--primary); background: #1a1a1a; }
 
         .tabs-container { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
-        .series-btn {
-            background: transparent; border: 1px solid #333; color: #666;
-            padding: 10px 20px; border-radius: 4px; cursor: pointer;
-            font-family: 'Arial Black', sans-serif; font-size: 0.75rem;
-            transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
-        }
+        .series-btn { background: transparent; border: 1px solid #333; color: #666; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-family: 'Arial Black', sans-serif; font-size: 0.75rem; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
         .series-btn:hover { color: #fff; border-color: #fff; }
-        
         .series-btn[data-series="Cup"].active { background: var(--cup-blue); border-color: var(--cup-blue); color: #fff; box-shadow: 0 0 20px rgba(0,119,255,0.3); }
         .series-btn[data-series="Xfinity"].active { background: var(--xfinity-purple); border-color: var(--xfinity-purple); color: #fff; box-shadow: 0 0 20px rgba(128,0,176,0.3); }
         .series-btn[data-series="Truck"].active { background: var(--truck-red); border-color: var(--truck-red); color: #fff; box-shadow: 0 0 20px rgba(204,0,0,0.3); }
@@ -107,148 +72,113 @@
 
         /* --- REGULAR SEASON --- */
         .container { max-width: 1300px; margin: 0 auto; padding: 2rem 2rem 4rem; }
-        
-        .section-header {
-            font-size: 1.5rem; color: #444; margin: 0 0 2rem; 
-            text-transform: uppercase; letter-spacing: 2px;
-            display: flex; align-items: center; gap: 15px;
-        }
+        .section-header { font-size: 1.5rem; color: #444; margin: 0 0 2rem; text-transform: uppercase; letter-spacing: 2px; display: flex; align-items: center; gap: 15px; }
         .section-header::after { content:''; flex:1; height:1px; background:#222; }
 
         .race-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
 
-        .race-ticket {
-            background: #111;
-            border: 1px solid #222;
-            position: relative;
+        /* --- RACE TICKETS & 3D FLIP --- */
+        .race-ticket { perspective: 1000px; min-height: 230px; border-radius: 6px; }
+        .ticket-inner { 
+            position: relative; width: 100%; height: 100%; 
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
+            transform-style: preserve-3d; border-radius: 6px;
+        }
+        .race-ticket.flipped .ticket-inner { transform: rotateY(180deg); }
+        
+        .ticket-front, .ticket-back { 
+            backface-visibility: hidden; border-radius: 6px; overflow: hidden;
             display: flex; flex-direction: column;
-            transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            overflow: hidden;
-            border-radius: 6px;
+            border: 1px solid #222; background: #111;
         }
-        .race-ticket:hover { transform: translateY(-5px); border-color: #444; z-index: 10; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
         
-        /* Default Series Line */
-        .race-ticket::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-            background: #444; 
+        .ticket-front { position: relative; z-index: 2; height: 100%; }
+        .ticket-front:hover { border-color: #444; box-shadow: 0 10px 40px rgba(0,0,0,0.8); transform: translateY(-3px); transition: 0.3s; }
+        .ticket-front::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #444; z-index: 3; }
+        
+        .ticket-back { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            transform: rotateY(180deg); background: #0a0a0a; border-color: var(--gold-mid);
+            justify-content: center; align-items: center; padding: 1.5rem; text-align: center;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.15);
         }
 
-        /* --- CLASH SPECIAL STYLES --- */
-        .clash-card {
-            border: 1px solid var(--clash-orange);
-            background: linear-gradient(135deg, #1a0500 0%, #000 100%);
-            box-shadow: 0 0 20px rgba(255, 69, 0, 0.2);
-        }
-        .clash-card::before { background: linear-gradient(to bottom, #ff8c00, #ff0000); width: 6px; }
-        .clash-card:hover { box-shadow: 0 0 40px rgba(255, 69, 0, 0.4); border-color: #ff8c00; }
-        .clash-card .track-name { background: linear-gradient(to right, #ff8c00, #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        /* Watermarks */
+        .track-watermark { position: absolute; right: -20px; bottom: -20px; width: 150px; height: 150px; opacity: 0.05; background-size: contain; background-repeat: no-repeat; background-position: center; pointer-events: none; z-index: 1; }
 
-        /* --- IN-SEASON TOURNAMENT STYLES --- */
-        .tourney-card {
-            border: 1px solid var(--tourney-neon);
-            background: linear-gradient(135deg, var(--tourney-dark) 0%, #000 100%);
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.1);
+        /* --- NEXT RACE SPOTLIGHT --- */
+        .next-race-spotlight { grid-column: span 2; }
+        .next-race-spotlight .ticket-front { 
+            background: linear-gradient(135deg, #1a0505 0%, #000 100%); 
+            border-color: var(--primary); box-shadow: 0 0 30px rgba(204, 0, 0, 0.2); 
         }
-        .tourney-card::before { background: linear-gradient(to bottom, #fff, var(--tourney-neon)); width: 6px; }
-        .tourney-card:hover { box-shadow: 0 0 30px rgba(0, 255, 204, 0.4); border-color: #fff; }
-        .tourney-card .track-name { color: #fff; text-shadow: 0 0 10px var(--tourney-neon); }
-        .tourney-card .race-type { color: var(--tourney-neon); font-weight: bold; letter-spacing: 2px; }
-        .tourney-card .status-pill { border-color: var(--tourney-neon); color: var(--tourney-neon); background: rgba(0, 255, 204, 0.1); }
+        .next-race-spotlight .ticket-top { padding: 2rem 2rem 1rem; }
+        .next-race-spotlight .ticket-body { padding: 0 2rem 2rem; flex-direction: row; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;}
+        .next-race-spotlight .track-name { font-size: 2.2rem; }
         
-        .tourney-badge {
-            position: absolute; top: 10px; right: -30px;
-            background: var(--tourney-neon); color: #000;
-            font-size: 0.6rem; font-weight: bold; letter-spacing: 2px;
-            padding: 5px 30px; transform: rotate(45deg);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        }
+        .spotlight-info { flex: 1; }
+        .spotlight-action { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; z-index: 5; }
+        
+        .spotlight-timer { font-family: 'Arial Black'; font-size: 1.2rem; color: #fff; text-shadow: 0 0 10px var(--primary); display: flex; gap: 10px; }
+        .st-box { background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); }
+        
+        .btn-live { background: #222; color: #fff; padding: 8px 15px; text-decoration: none; font-size: 0.75rem; border-radius: 4px; border: 1px solid #444; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; text-transform: uppercase; }
+        .btn-live:hover { background: #333; border-color: var(--primary); }
+        .btn-live.is-live { background: #c00; border-color: #f00; animation: flash-live 1.5s infinite; }
+        @keyframes flash-live { 0% { opacity: 1; box-shadow: 0 0 15px #f00; } 50% { opacity: 0.5; box-shadow: 0 0 0px #f00; } 100% { opacity: 1; box-shadow: 0 0 15px #f00; } }
 
-        .ticket-top { padding: 1.5rem; display: flex; justify-content: space-between; align-items: flex-start; }
-        
+        /* Card Content Styles */
+        .ticket-top { padding: 1.5rem; display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 2; }
         .date-group { display: flex; flex-direction: column; }
         .date-month { font-size: 0.7rem; color: #666; letter-spacing: 2px; font-weight: bold; }
         .date-day { font-size: 2.5rem; line-height: 0.9; color: #fff; }
-
-        .ticket-body { padding: 1.5rem; padding-top: 0; flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-end; }
+        .ticket-body { padding: 1.5rem; padding-top: 0; flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-end; position: relative; z-index: 2; }
         .track-name { font-size: 1.3rem; margin: 0 0 5px 0; text-transform: uppercase; color: #fff; line-height: 1; }
         .race-type { font-size: 0.7rem; color: #555; font-family: sans-serif; text-transform: uppercase; letter-spacing: 1px; }
+        .defending-winner { font-size: 0.65rem; color: var(--gold-mid); font-family: sans-serif; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
 
-        /* Race Times Block */
-        .race-times { 
-            margin-top: 10px; display: flex; flex-direction: column; gap: 4px;
-            font-family: sans-serif; font-size: 0.75rem; color: #aaa;
-        }
+        .race-times { margin-top: 10px; display: flex; flex-direction: column; gap: 4px; font-family: sans-serif; font-size: 0.75rem; color: #aaa; }
         .race-times i { width: 14px; color: var(--primary); text-align: center; }
 
-        .status-pill {
-            margin-top: 15px; display: inline-block;
-            font-size: 0.65rem; padding: 6px 12px; border: 1px solid; border-radius: 4px;
-            text-transform: uppercase; font-weight: bold; align-self: flex-start;
-            letter-spacing: 1px;
-        }
+        .status-pill { margin-top: 15px; display: inline-flex; align-items: center; gap: 5px; font-size: 0.65rem; padding: 6px 12px; border: 1px solid; border-radius: 4px; text-transform: uppercase; font-weight: bold; align-self: flex-start; letter-spacing: 1px; }
+        .flip-hint { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 0.6rem; color: #666; letter-spacing: 1px; font-weight: bold; animation: pulse-text 2s infinite; cursor: pointer; z-index: 10; }
+        @keyframes pulse-text { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+
+        /* Podium Backface */
+        .podium-list { display: flex; flex-direction: column; gap: 8px; margin: 15px 0; width: 100%; font-size: 0.9rem; text-transform: uppercase; text-align: left; }
+        .p-slot { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.05); padding: 8px 15px; border-radius: 4px; border-left: 3px solid; }
+        .btn-view-results { background: transparent; border: 1px solid var(--primary); color: #fff; padding: 8px 20px; font-family: 'Arial Black'; font-size: 0.7rem; text-decoration: none; border-radius: 4px; transition: 0.3s; margin-top: auto; }
+        .btn-view-results:hover { background: var(--primary); }
+
+        /* Special Event Overrides */
+        .clash-card .ticket-front { border-color: var(--clash-orange); background: linear-gradient(135deg, #1a0500 0%, #000 100%); }
+        .clash-card .ticket-front::before { background: linear-gradient(to bottom, #ff8c00, #ff0000); }
+        .clash-card .track-name { background: linear-gradient(to right, #ff8c00, #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .tourney-card .ticket-front { border-color: var(--tourney-neon); background: linear-gradient(135deg, var(--tourney-dark) 0%, #000 100%); }
+        .tourney-card .ticket-front::before { background: linear-gradient(to bottom, #fff, var(--tourney-neon)); }
+        .tourney-card .track-name { color: #fff; text-shadow: 0 0 10px var(--tourney-neon); }
+        .tourney-card .race-type { color: var(--tourney-neon); font-weight: bold; }
+        .tourney-badge { position: absolute; top: 10px; right: -30px; background: var(--tourney-neon); color: #000; font-size: 0.6rem; font-weight: bold; letter-spacing: 2px; padding: 5px 30px; transform: rotate(45deg); z-index: 10; box-shadow: 0 2px 10px rgba(0,0,0,0.5); }
 
         /* --- THE CHASE --- */
         .chase-wrapper {
-            margin-top: 8rem;
-            position: relative;
-            padding: 6rem 2rem;
-            border-top: 1px solid #333;
-            background: 
-                radial-gradient(circle at center, rgba(255, 215, 0, 0.03) 0%, transparent 60%),
-                linear-gradient(to bottom, #080808 0%, #121000 50%, #080808 100%);
+            margin-top: 8rem; position: relative; padding: 6rem 2rem; border-top: 1px solid #333;
+            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.03) 0%, transparent 60%), linear-gradient(to bottom, #080808 0%, #121000 50%, #080808 100%);
         }
-        
-        .chase-wrapper::before {
-            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-            width: 60%; height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gold-mid), transparent);
-            box-shadow: 0 0 30px var(--gold-mid);
-        }
-
+        .chase-wrapper::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 60%; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-mid), transparent); box-shadow: 0 0 30px var(--gold-mid); }
         .chase-header { text-align: center; margin-bottom: 5rem; position: relative; z-index: 2; }
-        
-        .chase-logo {
-            font-size: clamp(3rem, 8vw, 6rem); 
-            margin: 0; letter-spacing: -2px; line-height: 0.9;
-            background: linear-gradient(to bottom, #fff7cc, #ffd700 40%, #b8860b);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
-        }
-        .chase-sub { 
-            color: var(--gold-mid); font-size: 1rem; letter-spacing: 8px; text-transform: uppercase; margin-top: 15px; 
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-        }
+        .chase-logo { font-size: clamp(3rem, 8vw, 6rem); margin: 0; letter-spacing: -2px; line-height: 0.9; background: linear-gradient(to bottom, #fff7cc, #ffd700 40%, #b8860b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8)); }
+        .chase-sub { color: var(--gold-mid); font-size: 1rem; letter-spacing: 8px; text-transform: uppercase; margin-top: 15px; text-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
 
         .chase-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; position: relative; z-index: 2; max-width: 1400px; margin: 0 auto; }
-
-        .chase-ticket {
-            background: rgba(20, 18, 5, 0.6);
-            border: 1px solid #443300;
-            backdrop-filter: blur(5px);
-            border-radius: 8px;
-            transition: 0.4s;
-        }
-        .chase-ticket::before {
-            background: linear-gradient(to bottom, var(--gold-mid), var(--gold-dark)); width: 6px;
-        }
-        .chase-ticket:hover { 
-            transform: scale(1.03); border-color: var(--gold-mid); 
-            box-shadow: 0 20px 50px rgba(255, 215, 0, 0.15); background: rgba(20, 18, 5, 0.9);
-        }
-
+        
+        .chase-ticket .ticket-front { background: rgba(20, 18, 5, 0.6); border: 1px solid #443300; backdrop-filter: blur(5px); }
+        .chase-ticket .ticket-front::before { background: linear-gradient(to bottom, var(--gold-mid), var(--gold-dark)); }
         .chase-ticket .date-month { color: var(--gold-mid); }
-        .chase-ticket .date-day { 
-            background: linear-gradient(to bottom, #fff, #ffd700); 
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
+        .chase-ticket .date-day { background: linear-gradient(to bottom, #fff, #ffd700); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .chase-ticket .track-name { font-size: 1.6rem; letter-spacing: 1px; text-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
         .chase-ticket .race-type { color: #886600; letter-spacing: 2px; }
-        
-        .chase-ticket .status-pill {
-            background: rgba(255, 215, 0, 0.1); border-color: var(--gold-dark);
-            color: var(--gold-mid); box-shadow: 0 0 10px rgba(255, 215, 0, 0.1);
-        }
 
         /* ========================================================= */
         /* --- 3D INTERACTIVE CALENDAR MODAL STYLES --- */
@@ -258,87 +188,46 @@
             background: rgba(0,0,0,0.9); z-index: 5000; backdrop-filter: blur(10px);
             justify-content: center; align-items: center; perspective: 1500px;
         }
-        
-        .master-calendar {
-            background: #fff; width: 90%; max-width: 600px;
-            border-radius: 8px; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            position: relative; transform-style: preserve-3d;
-            background-image: radial-gradient(#ddd 1px, transparent 1px); background-size: 10px 10px;
-        }
-
-        /* Spiral Rings at top */
-        .cal-binder-rings {
-            position: absolute; top: -15px; left: 0; width: 100%;
-            display: flex; justify-content: space-evenly; z-index: 10;
-        }
-        .cal-ring {
-            width: 10px; height: 30px; border-radius: 5px;
-            background: linear-gradient(to right, #666, #ccc, #fff, #666);
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
-        }
-
-        .cal-header {
-            background: #c00; color: #fff; padding: 25px 20px 15px; border-radius: 8px 8px 0 0;
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 3px solid #900;
-        }
-        .cal-header button {
-            background: transparent; border: none; color: #fff; font-size: 1.5rem;
-            cursor: pointer; transition: 0.2s;
-        }
+        .master-calendar { background: #fff; width: 95%; max-width: 800px; border-radius: 8px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); position: relative; transform-style: preserve-3d; background-image: radial-gradient(#ddd 1px, transparent 1px); background-size: 10px 10px; }
+        .cal-binder-rings { position: absolute; top: -15px; left: 0; width: 100%; display: flex; justify-content: space-evenly; z-index: 10; }
+        .cal-ring { width: 10px; height: 30px; border-radius: 5px; background: linear-gradient(to right, #666, #ccc, #fff, #666); box-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
+        .cal-header { background: #c00; color: #fff; padding: 25px 20px 15px; border-radius: 8px 8px 0 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #900; }
+        .cal-header button { background: transparent; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; transition: 0.2s; }
         .cal-header button:hover { transform: scale(1.2); color: #ffeb3b; }
         .cal-header h2 { margin: 0; font-size: 1.8rem; letter-spacing: 2px; text-transform: uppercase; font-family: 'Arial Black'; text-shadow: 0 2px 4px rgba(0,0,0,0.4); }
-
-        .cal-body-wrapper {
-            position: relative;
-            transform-style: preserve-3d;
-            perspective: 1500px;
-        }
-
-        /* The page that flips */
-        .cal-page {
-            padding: 20px; transform-origin: top; background: #fff;
-            border-radius: 0 0 8px 8px; backface-visibility: hidden;
-        }
-
-        .cal-weekdays {
-            display: grid; grid-template-columns: repeat(7, 1fr); text-align: center;
-            font-family: sans-serif; font-weight: bold; color: #555; margin-bottom: 10px; font-size: 0.8rem;
-        }
-        .cal-days-grid {
-            display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px;
-        }
-        
-        .cal-day {
-            aspect-ratio: 1; border: 1px solid #eee; display: flex; flex-direction: column;
-            justify-content: flex-start; align-items: flex-start; padding: 5px;
-            font-family: 'Arial Black'; font-size: 1rem; color: #333; position: relative;
-            border-radius: 4px; box-shadow: inset 0 0 5px rgba(0,0,0,0.02);
-            transition: 0.2s; overflow: hidden;
-        }
-        .cal-day:hover { border-color: #999; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 5; }
+        .cal-body-wrapper { position: relative; transform-style: preserve-3d; perspective: 1500px; }
+        .cal-page { padding: 20px; transform-origin: top; background: #fff; border-radius: 0 0 8px 8px; backface-visibility: hidden; }
+        .cal-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-family: sans-serif; font-weight: bold; color: #555; margin-bottom: 10px; font-size: 0.8rem; }
+        .cal-days-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+        .cal-day { aspect-ratio: 1; border: 1px solid #eee; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; padding: 5px; font-family: 'Arial Black'; font-size: 1rem; color: #333; position: relative; border-radius: 4px; box-shadow: inset 0 0 5px rgba(0,0,0,0.02); transition: 0.2s; overflow: hidden; }
+        .cal-day.has-events { cursor: pointer; }
+        .cal-day.has-events:hover { border-color: #333; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 5; transform: scale(1.05); }
         .cal-day.empty { background: #f9f9f9; color: #ccc; border: none; box-shadow: none; }
         .cal-day.today { border: 2px solid #c00; color: #c00; }
-
-        /* Series Color Backgrounds */
         .cal-date-num { position: relative; z-index: 2; text-shadow: 0px 0px 3px rgba(255,255,255,0.8); }
-        .series-bg-layer {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0.85; z-index: 1; pointer-events: none;
-        }
-
-        /* Animations for flipping */
+        .series-bg-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.9; z-index: 1; pointer-events: none; }
+        .cal-event-list { position: relative; z-index: 2; width: 100%; margin-top: 2px; display: flex; flex-direction: column; gap: 2px; }
+        .cal-event-text { font-family: sans-serif; font-size: 0.45rem; line-height: 1.1; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.9); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .cal-event-text strong { font-family: 'Arial Black'; font-size: 0.5rem; letter-spacing: 0.5px; display: block; }
         .flip-up { animation: flipUpAnim 0.5s ease-in forwards; }
         .flip-down { animation: flipDownAnim 0.5s ease-out forwards; }
+        @keyframes flipUpAnim { 0% { transform: rotateX(0deg); opacity: 1; box-shadow: 0 10px 20px rgba(0,0,0,0.1); } 100% { transform: rotateX(90deg); opacity: 0; box-shadow: 0 -20px 20px rgba(0,0,0,0.2); } }
+        @keyframes flipDownAnim { 0% { transform: rotateX(-90deg); opacity: 0; box-shadow: 0 -20px 20px rgba(0,0,0,0.2); } 100% { transform: rotateX(0deg); opacity: 1; box-shadow: 0 10px 20px rgba(0,0,0,0.1); } }
 
-        @keyframes flipUpAnim {
-            0% { transform: rotateX(0deg); opacity: 1; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-            100% { transform: rotateX(90deg); opacity: 0; box-shadow: 0 -20px 20px rgba(0,0,0,0.2); }
-        }
-        @keyframes flipDownAnim {
-            0% { transform: rotateX(-90deg); opacity: 0; box-shadow: 0 -20px 20px rgba(0,0,0,0.2); }
-            100% { transform: rotateX(0deg); opacity: 1; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        }
+        /* Day Details Pop-out Modal */
+        #day-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 6000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+        .day-modal-box { background: #111; border: 1px solid #333; width: 90%; max-width: 400px; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,1); position: relative; overflow: hidden; animation: fadeIn 0.2s ease-out; }
+        .day-modal-header { background: #222; padding: 15px 20px; border-bottom: 1px solid #333; display: flex; justify-content: space-between; align-items: center; }
+        .day-modal-header h2 { margin: 0; font-size: 1.2rem; color: #fff; letter-spacing: 1px; }
+        .day-modal-close { cursor: pointer; color: #888; font-size: 1.5rem; transition: 0.2s; }
+        .day-modal-close:hover { color: #fff; }
+        .day-modal-body { padding: 20px; display: flex; flex-direction: column; gap: 15px; }
+        .day-event-card { background: #000; border: 1px solid #222; padding: 15px; border-radius: 6px; border-left-width: 4px; text-align: left; }
+        .day-event-series { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; }
+        .day-event-track { font-size: 1.2rem; margin: 0 0 10px 0; color: #fff; line-height: 1.1; }
+        .day-event-time { font-family: sans-serif; font-size: 0.85rem; color: #aaa; display: flex; flex-direction: column; gap: 5px; }
+        .day-event-time i { width: 20px; text-align: center; color: #666; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
         footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
 
@@ -348,9 +237,14 @@
             .section-header::after { display: none; }
             .chase-wrapper { padding: 4rem 1rem; }
             .chase-grid { gap: 15px; }
-            .master-calendar { width: 95%; }
+            .master-calendar { width: 98%; }
             .cal-day { font-size: 0.8rem; padding: 2px; }
-            .floating-cal-btn { top: auto; bottom: 1.5rem; right: 1.5rem; } /* Move to bottom right on mobile so it doesn't block menu */
+            .cal-event-text { font-size: 0.35rem; }
+            .cal-event-text strong { font-size: 0.4rem; }
+            .floating-cal-btn { top: auto; bottom: 1.5rem; right: 1.5rem; }
+            .next-race-spotlight { grid-column: span 1; }
+            .next-race-spotlight .ticket-body { flex-direction: column; align-items: flex-start; }
+            .spotlight-action { width: 100%; text-align: left; align-items: flex-start; margin-top: 1rem; border-top: 1px solid #333; padding-top: 1rem; }
         }
     </style>
 </head>
@@ -656,7 +550,7 @@
                                         <div class="p-slot" style="border-color:#c0c0c0; color:#c0c0c0;"><i class="fa-solid fa-2"></i> ${race.second || 'TBD'}</div>
                                         <div class="p-slot" style="border-color:#cd7f32; color:#cd7f32;"><i class="fa-solid fa-3"></i> ${race.third || 'TBD'}</div>
                                     </div>
-                                    <a href="results.html?series=${currentSeries}&race=${encodeURIComponent(currentSeries + ' - ' + race.track)}" class="btn-view-results">VIEW FULL RESULTS</a>
+                                    <a href="results.html" class="btn-view-results">VIEW FULL RESULTS</a>
                                 </div>
                             </div>
                         </div>`;
@@ -745,7 +639,7 @@
                                         <div class="p-slot" style="border-color:#c0c0c0; color:#c0c0c0;"><i class="fa-solid fa-2"></i> ${race.second || 'TBD'}</div>
                                         <div class="p-slot" style="border-color:#cd7f32; color:#cd7f32;"><i class="fa-solid fa-3"></i> ${race.third || 'TBD'}</div>
                                     </div>
-                                    <a href="results.html?series=${currentSeries}&race=${encodeURIComponent(currentSeries + ' - ' + race.track)}" class="btn-view-results">VIEW FULL RESULTS</a>
+                                    <a href="results.html" class="btn-view-results">VIEW FULL RESULTS</a>
                                 </div>
                             </div>
                         </div>`;
