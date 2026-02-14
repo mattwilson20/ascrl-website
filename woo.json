@@ -4,10 +4,17 @@
         "cars": [
             {
                 "type": "305 Sprint Car",
-                "starts": 6,
-                "points": 174,
+                "starts": 9,
+                "points": 261,
                 "wins": 0,
                 "avg": 8.0
+            },
+            {
+                "type": "Big Block Modified",
+                "starts": 6,
+                "points": 194,
+                "wins": 0,
+                "avg": 4.67
             },
             {
                 "type": "Midget",
@@ -38,13 +45,6 @@
                 "avg": 10.4
             },
             {
-                "type": "Big Block Modified",
-                "starts": 3,
-                "points": 103,
-                "wins": 0,
-                "avg": 2.67
-            },
-            {
                 "type": "360 Sprint",
                 "starts": 3,
                 "points": 103,
@@ -53,6 +53,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "I-55 Raceway",
+                "car": "305 Sprint Car",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Kern",
+                "car": "305 Sprint Car",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Charlotte",
+                "car": "305 Sprint Car",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Lernerville",
+                "car": "Big Block Modified",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Huset'S",
+                "car": "Big Block Modified",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "I-84 Raceway",
+                "car": "Big Block Modified",
+                "pos": 8,
+                "pts": 29
+            },
             {
                 "track": "Prairie View",
                 "car": "Street Stock",
@@ -269,12 +305,12 @@
                 "number": "1",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 978,
+                    "points": 1156,
                     "wins": 0,
-                    "top5": 9,
-                    "top10": 20,
-                    "starts": 35,
-                    "avg": 9.06
+                    "top5": 11,
+                    "top10": 25,
+                    "starts": 41,
+                    "avg": 8.8
                 }
             }
         }
@@ -282,6 +318,13 @@
     "336189571991732226": {
         "display_name": "HatterMAD218",
         "cars": [
+            {
+                "type": "305 Sprint Car",
+                "starts": 9,
+                "points": 243,
+                "wins": 0,
+                "avg": 10.0
+            },
             {
                 "type": "Midget",
                 "starts": 6,
@@ -297,13 +340,6 @@
                 "avg": 8.17
             },
             {
-                "type": "305 Sprint Car",
-                "starts": 6,
-                "points": 170,
-                "wins": 0,
-                "avg": 8.67
-            },
-            {
                 "type": "WOO Late Model",
                 "starts": 6,
                 "points": 156,
@@ -316,9 +352,52 @@
                 "points": 156,
                 "wins": 0,
                 "avg": 11.0
+            },
+            {
+                "type": "Big Block Modified",
+                "starts": 3,
+                "points": 81,
+                "wins": 0,
+                "avg": 10.0
             }
         ],
         "race_log": [
+            {
+                "track": "I-55 Raceway",
+                "car": "305 Sprint Car",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Kern",
+                "car": "305 Sprint Car",
+                "pos": 13,
+                "pts": 24
+            },
+            {
+                "track": "Charlotte",
+                "car": "305 Sprint Car",
+                "pos": 13,
+                "pts": 24
+            },
+            {
+                "track": "Lernerville",
+                "car": "Big Block Modified",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Huset'S",
+                "car": "Big Block Modified",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "I-84 Raceway",
+                "car": "Big Block Modified",
+                "pos": 11,
+                "pts": 26
+            },
             {
                 "track": "Prairie View",
                 "car": "Street Stock",
@@ -505,12 +584,12 @@
                 "number": "218",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 831,
+                    "points": 985,
                     "wins": 0,
                     "top5": 6,
-                    "top10": 18,
-                    "starts": 30,
-                    "avg": 9.3
+                    "top10": 19,
+                    "starts": 36,
+                    "avg": 9.64
                 }
             }
         }
@@ -520,10 +599,10 @@
         "cars": [
             {
                 "type": "305 Sprint Car",
-                "starts": 7,
-                "points": 184,
+                "starts": 10,
+                "points": 273,
                 "wins": 0,
-                "avg": 10.71
+                "avg": 9.7
             },
             {
                 "type": "Street Stock",
@@ -531,6 +610,13 @@
                 "points": 179,
                 "wins": 0,
                 "avg": 7.17
+            },
+            {
+                "type": "Big Block Modified",
+                "starts": 6,
+                "points": 172,
+                "wins": 0,
+                "avg": 8.33
             },
             {
                 "type": "WOO Late Model",
@@ -554,13 +640,6 @@
                 "avg": 12.33
             },
             {
-                "type": "Big Block Modified",
-                "starts": 3,
-                "points": 86,
-                "wins": 0,
-                "avg": 8.33
-            },
-            {
                 "type": "360 Sprint",
                 "starts": 3,
                 "points": 84,
@@ -569,6 +648,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "I-55 Raceway",
+                "car": "305 Sprint Car",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Kern",
+                "car": "305 Sprint Car",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Charlotte",
+                "car": "305 Sprint Car",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Lernerville",
+                "car": "Big Block Modified",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Huset'S",
+                "car": "Big Block Modified",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "I-84 Raceway",
+                "car": "Big Block Modified",
+                "pos": 5,
+                "pts": 32
+            },
             {
                 "track": "Prairie View",
                 "car": "Street Stock",
@@ -797,12 +912,12 @@
                 "number": "000",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1009,
+                    "points": 1184,
                     "wins": 0,
-                    "top5": 4,
-                    "top10": 22,
-                    "starts": 37,
-                    "avg": 9.73
+                    "top5": 5,
+                    "top10": 27,
+                    "starts": 43,
+                    "avg": 9.47
                 }
             }
         }
@@ -919,6 +1034,13 @@
         "display_name": "ALESSI-20-11",
         "cars": [
             {
+                "type": "305 Sprint Car",
+                "starts": 9,
+                "points": 278,
+                "wins": 0,
+                "avg": 6.11
+            },
+            {
                 "type": "Midget",
                 "starts": 6,
                 "points": 209,
@@ -940,6 +1062,13 @@
                 "avg": 5.17
             },
             {
+                "type": "Big Block Modified",
+                "starts": 6,
+                "points": 187,
+                "wins": 0,
+                "avg": 5.83
+            },
+            {
                 "type": "WOO Late Model",
                 "starts": 6,
                 "points": 182,
@@ -947,28 +1076,50 @@
                 "avg": 6.67
             },
             {
-                "type": "305 Sprint Car",
-                "starts": 6,
-                "points": 178,
-                "wins": 0,
-                "avg": 7.33
-            },
-            {
                 "type": "360 Sprint",
                 "starts": 3,
                 "points": 93,
                 "wins": 0,
                 "avg": 6.0
-            },
-            {
-                "type": "Big Block Modified",
-                "starts": 3,
-                "points": 88,
-                "wins": 0,
-                "avg": 7.67
             }
         ],
         "race_log": [
+            {
+                "track": "I-55 Raceway",
+                "car": "305 Sprint Car",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Kern",
+                "car": "305 Sprint Car",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Charlotte",
+                "car": "305 Sprint Car",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Lernerville",
+                "car": "Big Block Modified",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Huset'S",
+                "car": "Big Block Modified",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "I-84 Raceway",
+                "car": "Big Block Modified",
+                "pos": 6,
+                "pts": 31
+            },
             {
                 "track": "Prairie View",
                 "car": "Street Stock",
@@ -1191,12 +1342,12 @@
                 "number": "8",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1135,
+                    "points": 1334,
                     "wins": 1,
-                    "top5": 19,
-                    "top10": 34,
-                    "starts": 36,
-                    "avg": 5.58
+                    "top5": 24,
+                    "top10": 40,
+                    "starts": 42,
+                    "avg": 5.33
                 }
             }
         }
@@ -1205,18 +1356,18 @@
         "display_name": "dakotathomas1994",
         "cars": [
             {
-                "type": "Big Block Modified",
-                "starts": 3,
-                "points": 97,
+                "type": "305 Sprint Car",
+                "starts": 6,
+                "points": 195,
                 "wins": 0,
-                "avg": 4.67
+                "avg": 4.5
             },
             {
-                "type": "305 Sprint Car",
-                "starts": 3,
-                "points": 93,
+                "type": "Big Block Modified",
+                "starts": 6,
+                "points": 175,
                 "wins": 0,
-                "avg": 6.0
+                "avg": 7.83
             },
             {
                 "type": "360 Sprint",
@@ -1234,6 +1385,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "I-55 Raceway",
+                "car": "305 Sprint Car",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Kern",
+                "car": "305 Sprint Car",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Charlotte",
+                "car": "305 Sprint Car",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Lernerville",
+                "car": "Big Block Modified",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Huset'S",
+                "car": "Big Block Modified",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "I-84 Raceway",
+                "car": "Big Block Modified",
+                "pos": 12,
+                "pts": 25
+            },
             {
                 "track": "Grant Park",
                 "car": "Midget",
@@ -1312,12 +1499,12 @@
                 "number": "24a",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 366,
+                    "points": 546,
                     "wins": 0,
-                    "top5": 6,
-                    "top10": 11,
-                    "starts": 12,
-                    "avg": 6.5
+                    "top5": 9,
+                    "top10": 15,
+                    "starts": 18,
+                    "avg": 6.67
                 }
             }
         }
@@ -1325,6 +1512,13 @@
     "1176703700887146518": {
         "display_name": "the_fireman199",
         "cars": [
+            {
+                "type": "305 Sprint Car",
+                "starts": 9,
+                "points": 266,
+                "wins": 0,
+                "avg": 7.44
+            },
             {
                 "type": "Midget",
                 "starts": 6,
@@ -1340,13 +1534,6 @@
                 "avg": 6.67
             },
             {
-                "type": "305 Sprint Car",
-                "starts": 6,
-                "points": 181,
-                "wins": 0,
-                "avg": 6.83
-            },
-            {
                 "type": "410 Wing Sprint",
                 "starts": 6,
                 "points": 180,
@@ -1354,18 +1541,18 @@
                 "avg": 7.67
             },
             {
+                "type": "Big Block Modified",
+                "starts": 6,
+                "points": 178,
+                "wins": 0,
+                "avg": 7.33
+            },
+            {
                 "type": "WOO Late Model",
                 "starts": 6,
                 "points": 145,
                 "wins": 0,
                 "avg": 12.83
-            },
-            {
-                "type": "Big Block Modified",
-                "starts": 3,
-                "points": 96,
-                "wins": 0,
-                "avg": 5.0
             },
             {
                 "type": "360 Sprint",
@@ -1376,6 +1563,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "I-55 Raceway",
+                "car": "305 Sprint Car",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Kern",
+                "car": "305 Sprint Car",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Charlotte",
+                "car": "305 Sprint Car",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Lernerville",
+                "car": "Big Block Modified",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Huset'S",
+                "car": "Big Block Modified",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "I-84 Raceway",
+                "car": "Big Block Modified",
+                "pos": 10,
+                "pts": 27
+            },
             {
                 "track": "Prairie View",
                 "car": "Street Stock",
@@ -1598,12 +1821,12 @@
                 "number": "57j",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1070,
+                    "points": 1237,
                     "wins": 1,
-                    "top5": 12,
-                    "top10": 27,
-                    "starts": 36,
-                    "avg": 7.39
+                    "top5": 13,
+                    "top10": 32,
+                    "starts": 42,
+                    "avg": 7.64
                 }
             }
         }
@@ -1619,11 +1842,25 @@
                 "avg": 1.0
             },
             {
+                "type": "Big Block Modified",
+                "starts": 6,
+                "points": 235,
+                "wins": 5,
+                "avg": 1.17
+            },
+            {
                 "type": "WOO Late Model",
                 "starts": 6,
                 "points": 210,
                 "wins": 3,
                 "avg": 4.0
+            },
+            {
+                "type": "305 Sprint Car",
+                "starts": 6,
+                "points": 208,
+                "wins": 3,
+                "avg": 4.33
             },
             {
                 "type": "Midget",
@@ -1645,23 +1882,45 @@
                 "points": 120,
                 "wins": 3,
                 "avg": 1.0
-            },
-            {
-                "type": "Big Block Modified",
-                "starts": 3,
-                "points": 115,
-                "wins": 2,
-                "avg": 1.33
-            },
-            {
-                "type": "305 Sprint Car",
-                "starts": 3,
-                "points": 88,
-                "wins": 0,
-                "avg": 7.67
             }
         ],
         "race_log": [
+            {
+                "track": "I-55 Raceway",
+                "car": "305 Sprint Car",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Kern",
+                "car": "305 Sprint Car",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Charlotte",
+                "car": "305 Sprint Car",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Lernerville",
+                "car": "Big Block Modified",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Huset'S",
+                "car": "Big Block Modified",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "I-84 Raceway",
+                "car": "Big Block Modified",
+                "pos": 1,
+                "pts": 40
+            },
             {
                 "track": "Prairie View",
                 "car": "Street Stock",
@@ -1836,18 +2095,18 @@
                 "number": "07",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1033,
-                    "wins": 20,
-                    "top5": 24,
-                    "top10": 25,
-                    "starts": 28,
-                    "avg": 2.96
+                    "points": 1273,
+                    "wins": 26,
+                    "top5": 30,
+                    "top10": 31,
+                    "starts": 34,
+                    "avg": 2.62
                 }
             }
         }
     },
     "1452703742704222455": {
-        "display_name": "Z71chevymanz71",
+        "display_name": "z71chevymanz71",
         "cars": [
             {
                 "type": "305 Sprint Car",
@@ -2526,10 +2785,10 @@
         "cars": [
             {
                 "type": "305 Sprint Car",
-                "starts": 6,
-                "points": 205,
+                "starts": 9,
+                "points": 293,
                 "wins": 1,
-                "avg": 3.5
+                "avg": 4.89
             },
             {
                 "type": "410 Wing Sprint",
@@ -2558,9 +2817,52 @@
                 "points": 181,
                 "wins": 0,
                 "avg": 6.83
+            },
+            {
+                "type": "Big Block Modified",
+                "starts": 3,
+                "points": 96,
+                "wins": 0,
+                "avg": 5.0
             }
         ],
         "race_log": [
+            {
+                "track": "I-55 Raceway",
+                "car": "305 Sprint Car",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Kern",
+                "car": "305 Sprint Car",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Charlotte",
+                "car": "305 Sprint Car",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Lernerville",
+                "car": "Big Block Modified",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Huset'S",
+                "car": "Big Block Modified",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "I-84 Raceway",
+                "car": "Big Block Modified",
+                "pos": 3,
+                "pts": 34
+            },
             {
                 "track": "Prairie View",
                 "car": "Street Stock",
@@ -2747,12 +3049,12 @@
                 "number": "13",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 956,
+                    "points": 1140,
                     "wins": 2,
-                    "top5": 18,
-                    "top10": 26,
-                    "starts": 30,
-                    "avg": 5.4
+                    "top5": 21,
+                    "top10": 32,
+                    "starts": 36,
+                    "avg": 5.56
                 }
             }
         }
@@ -2832,6 +3134,13 @@
         "display_name": "superace33",
         "cars": [
             {
+                "type": "305 Sprint Car",
+                "starts": 9,
+                "points": 271,
+                "wins": 0,
+                "avg": 6.89
+            },
+            {
                 "type": "Street Stock",
                 "starts": 6,
                 "points": 198,
@@ -2846,13 +3155,6 @@
                 "avg": 6.0
             },
             {
-                "type": "305 Sprint Car",
-                "starts": 6,
-                "points": 184,
-                "wins": 0,
-                "avg": 6.33
-            },
-            {
                 "type": "WOO Late Model",
                 "starts": 6,
                 "points": 159,
@@ -2865,9 +3167,52 @@
                 "points": 155,
                 "wins": 0,
                 "avg": 11.17
+            },
+            {
+                "type": "Big Block Modified",
+                "starts": 3,
+                "points": 95,
+                "wins": 0,
+                "avg": 5.33
             }
         ],
         "race_log": [
+            {
+                "track": "I-55 Raceway",
+                "car": "305 Sprint Car",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Kern",
+                "car": "305 Sprint Car",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Charlotte",
+                "car": "305 Sprint Car",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Lernerville",
+                "car": "Big Block Modified",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Huset'S",
+                "car": "Big Block Modified",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "I-84 Raceway",
+                "car": "Big Block Modified",
+                "pos": 4,
+                "pts": 33
+            },
             {
                 "track": "Prairie View",
                 "car": "Street Stock",
@@ -3054,12 +3399,12 @@
                 "number": "33",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 886,
+                    "points": 1068,
                     "wins": 1,
-                    "top5": 13,
-                    "top10": 20,
-                    "starts": 30,
-                    "avg": 7.6
+                    "top5": 14,
+                    "top10": 25,
+                    "starts": 36,
+                    "avg": 7.44
                 }
             }
         }
@@ -3359,11 +3704,25 @@
         "display_name": "ThatSquidGuy",
         "cars": [
             {
+                "type": "305 Sprint Car",
+                "starts": 6,
+                "points": 192,
+                "wins": 0,
+                "avg": 5.0
+            },
+            {
                 "type": "410 Wing Sprint",
                 "starts": 5,
                 "points": 173,
                 "wins": 0,
                 "avg": 2.4
+            },
+            {
+                "type": "Big Block Modified",
+                "starts": 3,
+                "points": 102,
+                "wins": 0,
+                "avg": 3.0
             },
             {
                 "type": "WOO Late Model",
@@ -3378,16 +3737,45 @@
                 "points": 89,
                 "wins": 0,
                 "avg": 7.33
-            },
-            {
-                "type": "305 Sprint Car",
-                "starts": 3,
-                "points": 88,
-                "wins": 0,
-                "avg": 7.67
             }
         ],
         "race_log": [
+            {
+                "track": "I-55 Raceway",
+                "car": "305 Sprint Car",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Kern",
+                "car": "305 Sprint Car",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Charlotte",
+                "car": "305 Sprint Car",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Lernerville",
+                "car": "Big Block Modified",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Huset'S",
+                "car": "Big Block Modified",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "I-84 Raceway",
+                "car": "Big Block Modified",
+                "pos": 2,
+                "pts": 35
+            },
             {
                 "track": "Bristol",
                 "car": "410 Wing Sprint",
@@ -3478,12 +3866,12 @@
                 "number": "88E",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 445,
+                    "points": 651,
                     "wins": 0,
-                    "top5": 9,
-                    "top10": 13,
-                    "starts": 14,
-                    "avg": 5.21
+                    "top5": 15,
+                    "top10": 19,
+                    "starts": 20,
+                    "avg": 4.45
                 }
             }
         }
@@ -3778,7 +4166,21 @@
                 "avg": 7.33
             },
             {
+                "type": "Big Block Modified",
+                "starts": 3,
+                "points": 98,
+                "wins": 0,
+                "avg": 4.33
+            },
+            {
                 "type": "410 Wing Sprint",
+                "starts": 3,
+                "points": 86,
+                "wins": 0,
+                "avg": 8.33
+            },
+            {
+                "type": "305 Sprint Car",
                 "starts": 3,
                 "points": 86,
                 "wins": 0,
@@ -3793,6 +4195,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "I-55 Raceway",
+                "car": "305 Sprint Car",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Kern",
+                "car": "305 Sprint Car",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Charlotte",
+                "car": "305 Sprint Car",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Lernerville",
+                "car": "Big Block Modified",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Huset'S",
+                "car": "Big Block Modified",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "I-84 Raceway",
+                "car": "Big Block Modified",
+                "pos": 7,
+                "pts": 30
+            },
             {
                 "track": "Prairie View",
                 "car": "Street Stock",
@@ -3907,12 +4345,12 @@
                 "number": "05",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 524,
+                    "points": 708,
                     "wins": 0,
-                    "top5": 3,
-                    "top10": 15,
-                    "starts": 18,
-                    "avg": 7.89
+                    "top5": 5,
+                    "top10": 20,
+                    "starts": 24,
+                    "avg": 7.5
                 }
             }
         }
@@ -3947,9 +4385,59 @@
                 "points": 87,
                 "wins": 0,
                 "avg": 8.0
+            },
+            {
+                "type": "Big Block Modified",
+                "starts": 3,
+                "points": 82,
+                "wins": 0,
+                "avg": 9.67
+            },
+            {
+                "type": "305 Sprint Car",
+                "starts": 3,
+                "points": 78,
+                "wins": 0,
+                "avg": 11.0
             }
         ],
         "race_log": [
+            {
+                "track": "I-55 Raceway",
+                "car": "305 Sprint Car",
+                "pos": 13,
+                "pts": 24
+            },
+            {
+                "track": "Kern",
+                "car": "305 Sprint Car",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Charlotte",
+                "car": "305 Sprint Car",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Lernerville",
+                "car": "Big Block Modified",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Huset'S",
+                "car": "Big Block Modified",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "I-84 Raceway",
+                "car": "Big Block Modified",
+                "pos": 9,
+                "pts": 28
+            },
             {
                 "track": "Prairie View",
                 "car": "Street Stock",
@@ -4058,12 +4546,12 @@
                 "number": "32",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 469,
+                    "points": 629,
                     "wins": 0,
                     "top5": 3,
-                    "top10": 12,
-                    "starts": 17,
-                    "avg": 9.41
+                    "top10": 15,
+                    "starts": 23,
+                    "avg": 9.65
                 }
             }
         }
@@ -4368,6 +4856,13 @@
                 "avg": 8.0
             },
             {
+                "type": "305 Sprint Car",
+                "starts": 3,
+                "points": 83,
+                "wins": 0,
+                "avg": 9.33
+            },
+            {
                 "type": "WOO Late Model",
                 "starts": 3,
                 "points": 71,
@@ -4376,6 +4871,24 @@
             }
         ],
         "race_log": [
+            {
+                "track": "I-55 Raceway",
+                "car": "305 Sprint Car",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Kern",
+                "car": "305 Sprint Car",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Charlotte",
+                "car": "305 Sprint Car",
+                "pos": 10,
+                "pts": 27
+            },
             {
                 "track": "Prairie View",
                 "car": "Street Stock",
@@ -4448,12 +4961,31 @@
                 "number": "59a",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 312,
+                    "points": 395,
                     "wins": 0,
                     "top5": 3,
-                    "top10": 7,
-                    "starts": 11,
-                    "avg": 8.64
+                    "top10": 10,
+                    "starts": 14,
+                    "avg": 8.79
+                }
+            }
+        }
+    },
+    "1371700421261000785": {
+        "display_name": "QuickPro\ud83d\udc22",
+        "cars": [],
+        "race_log": [],
+        "series": {
+            "World Of Outlaws": {
+                "number": "#77",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "starts": 0,
+                    "avg": 0
                 }
             }
         }
