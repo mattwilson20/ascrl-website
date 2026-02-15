@@ -1,831 +1,1065 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Season Calendar | American Stock Car Racing League</title>
-    <link rel="icon" href="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        :root {
-            --primary: #c00; --accent: #ff0; --bg-dark: #050505; --card-bg: #111; --border: #222; --text-muted: #888;
-            --cup-blue: #0077ff; --xfinity-purple: #8000b0; --truck-red: #c00; --menards-yellow: #fff200;
-            --clash-orange: #ff4500; --gold-mid: #ffd700; --gold-dark: #b8860b;
-            --tourney-neon: #00ffcc; --tourney-dark: #004d40;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Season Calendar | American Stock Car Racing League</title>
+    <link rel="icon" href="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary: #c00;
+            --accent: #ff0;
+            --bg-dark: #050505;
+            --card-bg: #111;
+            --border: #222;
+            --text-muted: #888;
+            
+            /* Series Colors */
+            --cup-blue: #0077ff;
+            --xfinity-purple: #8000b0;
+            --truck-red: #c00;
+            --menards-yellow: #fff200;
+            
+            /* Special Event Colors */
+            --clash-orange: #ff4500;
+            --gold-mid: #ffd700;
+            --gold-dark: #b8860b;
+            
+            /* In-Season Tournament Colors */
+            --tourney-neon: #00ffcc;
+            --tourney-dark: #004d40;
+        }
 
-        body { 
-            margin: 0; font-family: 'Arial Black', sans-serif; 
-            background-color: #080808; color: #fff; overflow-x: hidden;
-            background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
-            background-attachment: fixed;
-        }
+        body { 
+            margin: 0; font-family: 'Arial Black', sans-serif; 
+            background-color: #080808; color: #fff; overflow-x: hidden;
+            background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+            background-attachment: fixed;
+        }
 
-        #nav-placeholder { position: relative; z-index: 2000; }
+        #nav-placeholder { position: relative; z-index: 2000; }
 
-        /* --- HERO --- */
-        .hero {
-            padding: 10rem 1rem 6rem; text-align: center;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.9), #080808), 
-                        url("https://www.transparenttextures.com/patterns/cubes.png");
-            border-bottom: 2px solid #222;
-        }
-        h1 { font-size: clamp(3rem, 10vw, 6rem); margin: 0; letter-spacing: -3px; text-transform: uppercase; color: #fff; line-height: 0.9; }
-        .subtitle { letter-spacing: 6px; color: var(--primary); text-transform: uppercase; font-size: 0.8rem; margin-bottom: 10px; display: block; }
+        /* --- HERO --- */
+        .hero {
+            padding: 10rem 1rem 6rem; text-align: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), #080808), 
+                        url("https://www.transparenttextures.com/patterns/cubes.png");
+            border-bottom: 2px solid #222;
+        }
+        h1 { font-size: clamp(3rem, 10vw, 6rem); margin: 0; letter-spacing: -3px; text-transform: uppercase; color: #fff; line-height: 0.9; }
+        .subtitle { letter-spacing: 6px; color: var(--primary); text-transform: uppercase; font-size: 0.8rem; margin-bottom: 10px; display: block; }
 
-        /* --- FLOATING CALENDAR BUTTON --- */
-        .floating-cal-btn {
-            position: fixed; top: 1.5rem; right: 1.5rem; z-index: 2001;
-            background: var(--primary); color: #fff; width: 50px; height: 50px;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 15px rgba(204, 0, 0, 0.6);
-            transition: 0.3s; border: 2px solid #fff;
-        }
-        .floating-cal-btn:hover { transform: scale(1.1) rotate(10deg); background: #fff; color: var(--primary); box-shadow: 0 6px 20px rgba(255, 255, 255, 0.6); }
+        /* --- FLOATING CALENDAR BUTTON --- */
+        .floating-cal-btn {
+            position: fixed; top: 1.5rem; right: 1.5rem; z-index: 2001;
+            background: var(--primary); color: #fff; width: 50px; height: 50px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 15px rgba(204, 0, 0, 0.6);
+            transition: 0.3s; border: 2px solid #fff;
+        }
+        .floating-cal-btn:hover { transform: scale(1.1) rotate(10deg); background: #fff; color: var(--primary); box-shadow: 0 6px 20px rgba(255, 255, 255, 0.6); }
 
-        /* --- CONTROLS --- */
-        .controls-bar {
-            position: sticky; top: 0; z-index: 100;
-            background: rgba(8, 8, 8, 0.95);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid #222;
-            padding: 1rem 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .controls-inner {
-            max-width: 1200px; margin: 0 auto; padding: 0 1rem;
-            display: flex; flex-direction: column; gap: 1rem; align-items: center;
-        }
+        /* --- CONTROLS --- */
+        .controls-bar {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(8, 8, 8, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid #222;
+            padding: 1rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .controls-inner {
+            max-width: 1200px; margin: 0 auto; padding: 0 1rem;
+            display: flex; flex-direction: column; gap: 1rem; align-items: center;
+        }
 
-        .season-select {
-            padding: 12px 25px; background: #151515; color: #fff;
-            border: 1px solid #333; border-radius: 50px;
-            font-family: 'Arial Black', sans-serif; font-size: 0.9rem;
-            cursor: pointer; text-align: center; width: 100%; max-width: 350px;
-            text-transform: uppercase; letter-spacing: 1px;
-            transition: 0.3s;
-        }
-        .season-select:hover { border-color: var(--primary); background: #1a1a1a; }
+        .season-select {
+            padding: 12px 25px; background: #151515; color: #fff;
+            border: 1px solid #333; border-radius: 50px;
+            font-family: 'Arial Black', sans-serif; font-size: 0.9rem;
+            cursor: pointer; text-align: center; width: 100%; max-width: 350px;
+            text-transform: uppercase; letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        .season-select:hover { border-color: var(--primary); background: #1a1a1a; }
 
-        .tabs-container { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
-        .series-btn {
-            background: transparent; border: 1px solid #333; color: #666;
-            padding: 10px 20px; border-radius: 4px; cursor: pointer;
-            font-family: 'Arial Black', sans-serif; font-size: 0.75rem;
-            transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
-        }
-        .series-btn:hover { color: #fff; border-color: #fff; }
-        
-        .series-btn[data-series="Cup"].active { background: var(--cup-blue); border-color: var(--cup-blue); color: #fff; box-shadow: 0 0 20px rgba(0,119,255,0.3); }
-        .series-btn[data-series="Xfinity"].active { background: var(--xfinity-purple); border-color: var(--xfinity-purple); color: #fff; box-shadow: 0 0 20px rgba(128,0,176,0.3); }
-        .series-btn[data-series="Truck"].active { background: var(--truck-red); border-color: var(--truck-red); color: #fff; box-shadow: 0 0 20px rgba(204,0,0,0.3); }
-        .series-btn[data-series="Menards"].active { background: var(--menards-yellow); border-color: var(--menards-yellow); color: #000; box-shadow: 0 0 20px rgba(255,242,0,0.3); }
+        .tabs-container { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+        .series-btn {
+            background: transparent; border: 1px solid #333; color: #666;
+            padding: 10px 20px; border-radius: 4px; cursor: pointer;
+            font-family: 'Arial Black', sans-serif; font-size: 0.75rem;
+            transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .series-btn:hover { color: #fff; border-color: #fff; }
+        
+        .series-btn[data-series="Cup"].active { background: var(--cup-blue); border-color: var(--cup-blue); color: #fff; box-shadow: 0 0 20px rgba(0,119,255,0.3); }
+        .series-btn[data-series="Xfinity"].active { background: var(--xfinity-purple); border-color: var(--xfinity-purple); color: #fff; box-shadow: 0 0 20px rgba(128,0,176,0.3); }
+        .series-btn[data-series="Truck"].active { background: var(--truck-red); border-color: var(--truck-red); color: #fff; box-shadow: 0 0 20px rgba(204,0,0,0.3); }
+        .series-btn[data-series="Menards"].active { background: var(--menards-yellow); border-color: var(--menards-yellow); color: #000; box-shadow: 0 0 20px rgba(255,242,0,0.3); }
 
-        /* --- SEASON PROGRESS BAR --- */
-        .season-progress-container { max-width: 1300px; margin: 2rem auto 0; padding: 0 2rem; }
-        .progress-text { display: flex; justify-content: space-between; font-size: 0.7rem; color: #888; font-weight: bold; letter-spacing: 2px; margin-bottom: 8px; text-transform: uppercase; }
-        .progress-bar-bg { width: 100%; height: 6px; background: #222; border-radius: 4px; overflow: hidden; box-shadow: inset 0 1px 3px rgba(0,0,0,0.8); }
-        .progress-bar-fill { height: 100%; background: var(--primary); width: 0%; transition: width 1s cubic-bezier(0.25, 0.8, 0.25, 1); box-shadow: 0 0 10px var(--primary); }
+        /* --- SEASON PROGRESS BAR --- */
+        .season-progress-container { max-width: 1300px; margin: 2rem auto 0; padding: 0 2rem; }
+        .progress-text { display: flex; justify-content: space-between; font-size: 0.7rem; color: #888; font-weight: bold; letter-spacing: 2px; margin-bottom: 8px; text-transform: uppercase; }
+        .progress-bar-bg { width: 100%; height: 6px; background: #222; border-radius: 4px; overflow: hidden; box-shadow: inset 0 1px 3px rgba(0,0,0,0.8); }
+        .progress-bar-fill { height: 100%; background: var(--primary); width: 0%; transition: width 1s cubic-bezier(0.25, 0.8, 0.25, 1); box-shadow: 0 0 10px var(--primary); }
 
-        /* --- REGULAR SEASON --- */
-        .container { max-width: 1300px; margin: 0 auto; padding: 2rem 2rem 4rem; }
-        .section-header { font-size: 1.5rem; color: #444; margin: 0 0 2rem; text-transform: uppercase; letter-spacing: 2px; display: flex; align-items: center; gap: 15px; }
-        .section-header::after { content:''; flex:1; height:1px; background:#222; }
+        /* --- REGULAR SEASON --- */
+        .container { max-width: 1300px; margin: 0 auto; padding: 2rem 2rem 4rem; }
+        
+        .section-header {
+            font-size: 1.5rem; color: #444; margin: 0 0 2rem; 
+            text-transform: uppercase; letter-spacing: 2px;
+            display: flex; align-items: center; gap: 15px;
+        }
+        .section-header::after { content:''; flex:1; height:1px; background:#222; }
 
-        .race-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .race-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
 
-        /* --- RACE TICKETS & 3D FLIP --- */
-        .race-ticket { perspective: 1000px; min-height: 230px; border-radius: 6px; }
-        .ticket-inner { 
-            position: relative; width: 100%; height: 100%; 
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
-            transform-style: preserve-3d; border-radius: 6px;
-        }
-        .race-ticket.flipped .ticket-inner { transform: rotateY(180deg); }
-        
-        .ticket-front, .ticket-back { 
-            backface-visibility: hidden; border-radius: 6px; overflow: hidden;
-            display: flex; flex-direction: column;
-            border: 1px solid #222; background: #111;
-        }
-        .ticket-front { position: relative; z-index: 2; height: 100%; }
-        .ticket-front:hover { border-color: #444; box-shadow: 0 10px 40px rgba(0,0,0,0.8); transform: translateY(-3px); transition: 0.3s; }
-        .ticket-front::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #444; z-index: 3; }
-        
-        .ticket-back { 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            transform: rotateY(180deg); background: #0a0a0a; border-color: var(--primary);
-            justify-content: center; align-items: center; padding: 0; text-align: center;
-            box-shadow: 0 0 30px rgba(204, 0, 0, 0.15);
-        }
+        .race-ticket {
+            background: #111;
+            border: 1px solid #222;
+            position: relative;
+            display: flex; flex-direction: column;
+            transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            overflow: hidden;
+            border-radius: 6px;
+        }
+        .race-ticket:hover { transform: translateY(-5px); border-color: #444; z-index: 10; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
+        
+        /* Default Series Line */
+        .race-ticket::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+            background: #444; 
+        }
 
-        /* WINNER CARD BACK STYLE */
-        .winner-back-content {
-            width: 100%; height: 100%; position: relative;
-            background-size: cover; background-position: top center;
-        }
-        .winner-back-gradient {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to top, #000 0%, rgba(0,0,0,0.7) 40%, rgba(0,0,0,0.2) 100%);
-            z-index: 1;
-        }
-        .winner-back-info {
-            position: absolute; bottom: 0; left: 0; width: 100%; z-index: 2; padding: 1.5rem;
-            display: flex; flex-direction: column; align-items: center;
-        }
-        .w-label { color: var(--gold-mid); font-size: 0.8rem; letter-spacing: 2px; font-weight: bold; margin-bottom: 5px; }
-        .w-name { font-size: 1.5rem; text-transform: uppercase; line-height: 1; text-shadow: 0 2px 5px rgba(0,0,0,0.8); margin-bottom: 1rem; }
+        /* --- CLASH SPECIAL STYLES --- */
+        .clash-card {
+            border: 1px solid var(--clash-orange);
+            background: linear-gradient(135deg, #1a0500 0%, #000 100%);
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.2);
+        }
+        .clash-card::before { background: linear-gradient(to bottom, #ff8c00, #ff0000); width: 6px; }
+        .clash-card:hover { box-shadow: 0 0 40px rgba(255, 69, 0, 0.4); border-color: #ff8c00; }
+        .clash-card .track-name { background: linear-gradient(to right, #ff8c00, #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* Watermarks */
-        .track-watermark { position: absolute; right: -20px; bottom: -20px; width: 150px; height: 150px; opacity: 0.05; background-size: contain; background-repeat: no-repeat; background-position: center; pointer-events: none; z-index: 1; }
+        /* --- IN-SEASON TOURNAMENT STYLES --- */
+        .tourney-card {
+            border: 1px solid var(--tourney-neon);
+            background: linear-gradient(135deg, var(--tourney-dark) 0%, #000 100%);
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.1);
+        }
+        .tourney-card::before { background: linear-gradient(to bottom, #fff, var(--tourney-neon)); width: 6px; }
+        .tourney-card:hover { box-shadow: 0 0 30px rgba(0, 255, 204, 0.4); border-color: #fff; }
+        .tourney-card .track-name { color: #fff; text-shadow: 0 0 10px var(--tourney-neon); }
+        .tourney-card .race-type { color: var(--tourney-neon); font-weight: bold; letter-spacing: 2px; }
+        .tourney-card .status-pill { border-color: var(--tourney-neon); color: var(--tourney-neon); background: rgba(0, 255, 204, 0.1); }
+        
+        .tourney-badge {
+            position: absolute; top: 10px; right: -30px;
+            background: var(--tourney-neon); color: #000;
+            font-size: 0.6rem; font-weight: bold; letter-spacing: 2px;
+            padding: 5px 30px; transform: rotate(45deg);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
 
-        /* --- NEXT RACE SPOTLIGHT --- */
-        .next-race-spotlight { grid-column: span 2; }
-        .next-race-spotlight .ticket-front { 
-            background: linear-gradient(135deg, #1a0505 0%, #000 100%); 
-            border-color: var(--primary); box-shadow: 0 0 30px rgba(204, 0, 0, 0.2); 
-        }
-        .next-race-spotlight .ticket-top { padding: 2rem 2rem 1rem; }
-        .next-race-spotlight .ticket-body { padding: 0 2rem 2rem; flex-direction: row; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;}
-        .next-race-spotlight .track-name { font-size: 2.2rem; }
-        
-        .spotlight-info { flex: 1; }
-        .spotlight-action { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; z-index: 5; }
-        
-        .spotlight-timer { font-family: 'Arial Black'; font-size: 1.2rem; color: #fff; text-shadow: 0 0 10px var(--primary); display: flex; gap: 10px; }
-        .st-box { background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); }
-        
-        .btn-live { background: #222; color: #fff; padding: 8px 15px; text-decoration: none; font-size: 0.75rem; border-radius: 4px; border: 1px solid #444; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; text-transform: uppercase; }
-        .btn-live:hover { background: #333; border-color: var(--primary); }
-        .btn-live.is-live { background: #c00; border-color: #f00; animation: flash-live 1.5s infinite; }
-        @keyframes flash-live { 0% { opacity: 1; box-shadow: 0 0 15px #f00; } 50% { opacity: 0.5; box-shadow: 0 0 0px #f00; } 100% { opacity: 1; box-shadow: 0 0 15px #f00; } }
+        /* --- 3D FLIP STYLES --- */
+        .race-ticket { perspective: 1000px; min-height: 230px; border-radius: 6px; }
+        .ticket-inner { 
+            position: relative; width: 100%; height: 100%; 
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
+            transform-style: preserve-3d; border-radius: 6px;
+        }
+        .race-ticket.flipped .ticket-inner { transform: rotateY(180deg); }
+        
+        .ticket-front, .ticket-back { 
+            backface-visibility: hidden; border-radius: 6px; overflow: hidden;
+            display: flex; flex-direction: column;
+            border: 1px solid #222; background: #111;
+        }
+        .ticket-front { position: relative; z-index: 2; height: 100%; }
+        .ticket-front::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #444; z-index: 3; }
+        
+        .ticket-back { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            transform: rotateY(180deg); background: #0a0a0a; border-color: var(--primary);
+            justify-content: center; align-items: center; padding: 0; text-align: center;
+            box-shadow: 0 0 30px rgba(204, 0, 0, 0.15);
+        }
 
-        /* Card Content Styles */
-        .ticket-top { padding: 1.5rem; display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 2; }
-        .date-group { display: flex; flex-direction: column; }
-        .date-month { font-size: 0.7rem; color: #666; letter-spacing: 2px; font-weight: bold; }
-        .date-day { font-size: 2.5rem; line-height: 0.9; color: #fff; }
-        .ticket-body { padding: 1.5rem; padding-top: 0; flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-end; position: relative; z-index: 2; }
-        .track-name { font-size: 1.3rem; margin: 0 0 5px 0; text-transform: uppercase; color: #fff; line-height: 1; }
-        .race-type { font-size: 0.7rem; color: #555; font-family: sans-serif; text-transform: uppercase; letter-spacing: 1px; }
-        .defending-winner { font-size: 0.65rem; color: var(--gold-mid); font-family: sans-serif; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+        /* WINNER CARD BACK STYLE */
+        .winner-back-content {
+            width: 100%; height: 100%; position: relative;
+            background-size: cover; background-position: top center;
+        }
+        .winner-back-gradient {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, #000 0%, rgba(0,0,0,0.7) 40%, rgba(0,0,0,0.2) 100%);
+            z-index: 1;
+        }
+        .winner-back-info {
+            position: absolute; bottom: 0; left: 0; width: 100%; z-index: 2; padding: 1.5rem;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .w-label { color: var(--gold-mid); font-size: 0.8rem; letter-spacing: 2px; font-weight: bold; margin-bottom: 5px; }
+        .w-name { font-size: 1.5rem; text-transform: uppercase; line-height: 1; text-shadow: 0 2px 5px rgba(0,0,0,0.8); margin-bottom: 1rem; }
 
-        .race-times { margin-top: 10px; display: flex; flex-direction: column; gap: 4px; font-family: sans-serif; font-size: 0.75rem; color: #aaa; }
-        .race-times i { width: 14px; color: var(--primary); text-align: center; }
+        /* Card Content Styles */
+        .ticket-top { padding: 1.5rem; display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 2; }
+        .date-group { display: flex; flex-direction: column; }
+        .date-month { font-size: 0.7rem; color: #666; letter-spacing: 2px; font-weight: bold; }
+        .date-day { font-size: 2.5rem; line-height: 0.9; color: #fff; }
+        .ticket-body { padding: 1.5rem; padding-top: 0; flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-end; position: relative; z-index: 2; }
+        .track-name { font-size: 1.3rem; margin: 0 0 5px 0; text-transform: uppercase; color: #fff; line-height: 1; }
+        .race-type { font-size: 0.7rem; color: #555; font-family: sans-serif; text-transform: uppercase; letter-spacing: 1px; }
+        .defending-winner { font-size: 0.65rem; color: var(--gold-mid); font-family: sans-serif; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
 
-        .status-pill { margin-top: 15px; display: inline-flex; align-items: center; gap: 5px; font-size: 0.65rem; padding: 6px 12px; border: 1px solid; border-radius: 4px; text-transform: uppercase; font-weight: bold; align-self: flex-start; letter-spacing: 1px; }
-        .flip-hint { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 0.6rem; color: #666; letter-spacing: 1px; font-weight: bold; animation: pulse-text 2s infinite; cursor: pointer; z-index: 10; }
-        .flip-hint-back { position: absolute; top: 10px; left: 10px; font-size: 1.5rem; color: rgba(255,255,255,0.5); cursor: pointer; z-index: 10; }
-        @keyframes pulse-text { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+        .race-times { margin-top: 10px; display: flex; flex-direction: column; gap: 4px; font-family: sans-serif; font-size: 0.75rem; color: #aaa; }
+        .race-times i { width: 14px; color: var(--primary); text-align: center; }
 
-        /* Podium Backface */
-        .podium-list { display: flex; flex-direction: column; gap: 8px; margin: 15px 0; width: 100%; font-size: 0.9rem; text-transform: uppercase; text-align: left; }
-        .p-slot { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.05); padding: 8px 15px; border-radius: 4px; border-left: 3px solid; }
-        .btn-view-results { background: transparent; border: 1px solid var(--primary); color: #fff; padding: 8px 20px; font-family: 'Arial Black'; font-size: 0.7rem; text-decoration: none; border-radius: 4px; transition: 0.3s; margin-top: auto; }
-        .btn-view-results:hover { background: var(--primary); }
+        .status-pill { margin-top: 15px; display: inline-flex; align-items: center; gap: 5px; font-size: 0.65rem; padding: 6px 12px; border: 1px solid; border-radius: 4px; text-transform: uppercase; font-weight: bold; align-self: flex-start; letter-spacing: 1px; }
+        .flip-hint { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 0.6rem; color: #666; letter-spacing: 1px; font-weight: bold; animation: pulse-text 2s infinite; cursor: pointer; z-index: 10; }
+        .flip-hint-back { position: absolute; top: 10px; left: 10px; font-size: 1.5rem; color: rgba(255,255,255,0.5); cursor: pointer; z-index: 10; }
+        @keyframes pulse-text { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
 
-        /* Special Event Overrides */
-        .clash-card .ticket-front { border-color: var(--clash-orange); background: linear-gradient(135deg, #1a0500 0%, #000 100%); }
-        .clash-card .ticket-front::before { background: linear-gradient(to bottom, #ff8c00, #ff0000); }
-        .clash-card .track-name { background: linear-gradient(to right, #ff8c00, #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        /* Watermarks */
+        .track-watermark { position: absolute; right: -20px; bottom: -20px; width: 150px; height: 150px; opacity: 0.05; background-size: contain; background-repeat: no-repeat; background-position: center; pointer-events: none; z-index: 1; }
 
-        .tourney-card .ticket-front { border-color: var(--tourney-neon); background: linear-gradient(135deg, var(--tourney-dark) 0%, #000 100%); }
-        .tourney-card .ticket-front::before { background: linear-gradient(to bottom, #fff, var(--tourney-neon)); width: 6px; }
-        .tourney-card .track-name { color: #fff; text-shadow: 0 0 10px var(--tourney-neon); }
-        .tourney-card .race-type { color: var(--tourney-neon); font-weight: bold; }
-        .tourney-badge { position: absolute; top: 10px; right: -30px; background: var(--tourney-neon); color: #000; font-size: 0.6rem; font-weight: bold; letter-spacing: 2px; padding: 5px 30px; transform: rotate(45deg); z-index: 10; box-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        /* --- NEXT RACE SPOTLIGHT --- */
+        .next-race-spotlight { grid-column: span 2; }
+        .next-race-spotlight .ticket-front { 
+            background: linear-gradient(135deg, #1a0505 0%, #000 100%); 
+            border-color: var(--primary); box-shadow: 0 0 30px rgba(204, 0, 0, 0.2); 
+        }
+        .next-race-spotlight .ticket-top { padding: 2rem 2rem 1rem; }
+        .next-race-spotlight .ticket-body { padding: 0 2rem 2rem; flex-direction: row; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;}
+        .next-race-spotlight .track-name { font-size: 2.2rem; }
+        
+        .spotlight-info { flex: 1; }
+        .spotlight-action { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; z-index: 5; }
+        .spotlight-timer { font-family: 'Arial Black'; font-size: 1.2rem; color: #fff; text-shadow: 0 0 10px var(--primary); display: flex; gap: 10px; }
+        .st-box { background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); }
+        .btn-live { background: #222; color: #fff; padding: 8px 15px; text-decoration: none; font-size: 0.75rem; border-radius: 4px; border: 1px solid #444; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; text-transform: uppercase; }
+        .btn-live:hover { background: #333; border-color: var(--primary); }
+        .btn-live.is-live { background: #c00; border-color: #f00; animation: flash-live 1.5s infinite; }
+        @keyframes flash-live { 0% { opacity: 1; box-shadow: 0 0 15px #f00; } 50% { opacity: 0.5; box-shadow: 0 0 0px #f00; } 100% { opacity: 1; box-shadow: 0 0 15px #f00; } }
 
-        /* --- THE CHASE --- */
-        .chase-wrapper {
-            margin-top: 8rem; position: relative; padding: 6rem 2rem; border-top: 1px solid #333;
-            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.03) 0%, transparent 60%), linear-gradient(to bottom, #080808 0%, #121000 50%, #080808 100%);
-        }
-        .chase-wrapper::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 60%; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-mid), transparent); box-shadow: 0 0 30px var(--gold-mid); }
-        .chase-header { text-align: center; margin-bottom: 5rem; position: relative; z-index: 2; }
-        .chase-logo { font-size: clamp(3rem, 8vw, 6rem); margin: 0; letter-spacing: -2px; line-height: 0.9; background: linear-gradient(to bottom, #fff7cc, #ffd700 40%, #b8860b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8)); }
-        .chase-sub { color: var(--gold-mid); font-size: 1rem; letter-spacing: 8px; text-transform: uppercase; margin-top: 15px; text-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
+        /* --- THE CHASE --- */
+        .chase-wrapper {
+            margin-top: 8rem; position: relative; padding: 6rem 2rem; border-top: 1px solid #333;
+            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.03) 0%, transparent 60%), linear-gradient(to bottom, #080808 0%, #121000 50%, #080808 100%);
+        }
+        .chase-wrapper::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 60%; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-mid), transparent); box-shadow: 0 0 30px var(--gold-mid); }
+        .chase-header { text-align: center; margin-bottom: 5rem; position: relative; z-index: 2; }
+        .chase-logo { font-size: clamp(3rem, 8vw, 6rem); margin: 0; letter-spacing: -2px; line-height: 0.9; background: linear-gradient(to bottom, #fff7cc, #ffd700 40%, #b8860b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8)); }
+        .chase-sub { color: var(--gold-mid); font-size: 1rem; letter-spacing: 8px; text-transform: uppercase; margin-top: 15px; text-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
 
-        .chase-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; position: relative; z-index: 2; max-width: 1400px; margin: 0 auto; }
-        .chase-ticket .ticket-front { background: rgba(20, 18, 5, 0.6); border: 1px solid #443300; backdrop-filter: blur(5px); }
-        .chase-ticket .ticket-front::before { background: linear-gradient(to bottom, var(--gold-mid), var(--gold-dark)); }
-        .chase-ticket .date-month { color: var(--gold-mid); }
-        .chase-ticket .date-day { background: linear-gradient(to bottom, #fff, #ffd700); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .chase-ticket .track-name { font-size: 1.6rem; letter-spacing: 1px; text-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
-        .chase-ticket .race-type { color: #886600; letter-spacing: 2px; }
-        .chase-ticket .status-pill { background: rgba(255, 215, 0, 0.1); border-color: var(--gold-dark); color: var(--gold-mid); box-shadow: 0 0 10px rgba(255, 215, 0, 0.1); }
+        .chase-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; position: relative; z-index: 2; max-width: 1400px; margin: 0 auto; }
+        .chase-ticket .ticket-front { background: rgba(20, 18, 5, 0.6); border: 1px solid #443300; backdrop-filter: blur(5px); }
+        .chase-ticket .ticket-front::before { background: linear-gradient(to bottom, var(--gold-mid), var(--gold-dark)); }
+        .chase-ticket .date-month { color: var(--gold-mid); }
+        .chase-ticket .date-day { background: linear-gradient(to bottom, #fff, #ffd700); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .chase-ticket .track-name { font-size: 1.6rem; letter-spacing: 1px; text-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
+        .chase-ticket .race-type { color: #886600; letter-spacing: 2px; }
+        .chase-ticket .status-pill { background: rgba(255, 215, 0, 0.1); border-color: var(--gold-dark); color: var(--gold-mid); box-shadow: 0 0 10px rgba(255, 215, 0, 0.1); }
 
-        /* ========================================================= */
-        /* --- 3D INTERACTIVE CALENDAR MODAL STYLES --- */
-        /* ========================================================= */
-        #interactive-calendar-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); z-index: 5000; backdrop-filter: blur(10px);
-            justify-content: center; align-items: center; perspective: 1500px;
-        }
-        .master-calendar { background: #fff; width: 95%; max-width: 800px; border-radius: 8px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); position: relative; transform-style: preserve-3d; background-image: radial-gradient(#ddd 1px, transparent 1px); background-size: 10px 10px; }
-        .cal-binder-rings { position: absolute; top: -15px; left: 0; width: 100%; display: flex; justify-content: space-evenly; z-index: 10; }
-        .cal-ring { width: 10px; height: 30px; border-radius: 5px; background: linear-gradient(to right, #666, #ccc, #fff, #666); box-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
-        .cal-header { background: #c00; color: #fff; padding: 25px 20px 15px; border-radius: 8px 8px 0 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #900; }
-        .cal-header button { background: transparent; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; transition: 0.2s; }
-        .cal-header button:hover { transform: scale(1.2); color: #ffeb3b; }
-        .cal-header h2 { margin: 0; font-size: 1.8rem; letter-spacing: 2px; text-transform: uppercase; font-family: 'Arial Black'; text-shadow: 0 2px 4px rgba(0,0,0,0.4); }
-        .cal-body-wrapper { position: relative; transform-style: preserve-3d; perspective: 1500px; }
-        .cal-page { padding: 20px; transform-origin: top; background: #fff; border-radius: 0 0 8px 8px; backface-visibility: hidden; }
-        .cal-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-family: sans-serif; font-weight: bold; color: #555; margin-bottom: 10px; font-size: 0.8rem; }
-        .cal-days-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
-        .cal-day { aspect-ratio: 1; border: 1px solid #eee; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; padding: 5px; font-family: 'Arial Black'; font-size: 1rem; color: #333; position: relative; border-radius: 4px; box-shadow: inset 0 0 5px rgba(0,0,0,0.02); transition: 0.2s; overflow: hidden; }
-        .cal-day.has-events { cursor: pointer; }
-        .cal-day.has-events:hover { border-color: #333; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 5; transform: scale(1.05); }
-        .cal-day.empty { background: #f9f9f9; color: #ccc; border: none; box-shadow: none; }
-        .cal-day.today { border: 2px solid #c00; color: #c00; }
-        .cal-date-num { position: relative; z-index: 2; text-shadow: 0px 0px 3px rgba(255,255,255,0.8); }
-        .series-bg-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.9; z-index: 1; pointer-events: none; }
-        .cal-event-list { position: relative; z-index: 2; width: 100%; margin-top: 2px; display: flex; flex-direction: column; gap: 2px; }
-        .cal-event-text { font-family: sans-serif; font-size: 0.45rem; line-height: 1.1; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.9); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .cal-event-text strong { font-family: 'Arial Black'; font-size: 0.5rem; letter-spacing: 0.5px; display: block; }
-        .flip-up { animation: flipUpAnim 0.5s ease-in forwards; }
-        .flip-down { animation: flipDownAnim 0.5s ease-out forwards; }
-        @keyframes flipUpAnim { 0% { transform: rotateX(0deg); opacity: 1; box-shadow: 0 10px 20px rgba(0,0,0,0.1); } 100% { transform: rotateX(90deg); opacity: 0; box-shadow: 0 -20px 20px rgba(0,0,0,0.2); } }
-        @keyframes flipDownAnim { 0% { transform: rotateX(-90deg); opacity: 0; box-shadow: 0 -20px 20px rgba(0,0,0,0.2); } 100% { transform: rotateX(0deg); opacity: 1; box-shadow: 0 10px 20px rgba(0,0,0,0.1); } }
+        /* ========================================================= */
+        /* --- 3D INTERACTIVE CALENDAR MODAL STYLES --- */
+        /* ========================================================= */
+        #interactive-calendar-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 5000; backdrop-filter: blur(10px);
+            justify-content: center; align-items: center; perspective: 1500px;
+        }
+        .master-calendar { background: #fff; width: 95%; max-width: 800px; border-radius: 8px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); position: relative; transform-style: preserve-3d; background-image: radial-gradient(#ddd 1px, transparent 1px); background-size: 10px 10px; }
+        .cal-binder-rings { position: absolute; top: -15px; left: 0; width: 100%; display: flex; justify-content: space-evenly; z-index: 10; }
+        .cal-ring { width: 10px; height: 30px; border-radius: 5px; background: linear-gradient(to right, #666, #ccc, #fff, #666); box-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
+        .cal-header { background: #c00; color: #fff; padding: 25px 20px 15px; border-radius: 8px 8px 0 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #900; }
+        .cal-header button { background: transparent; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; transition: 0.2s; }
+        .cal-header button:hover { transform: scale(1.2); color: #ffeb3b; }
+        .cal-header h2 { margin: 0; font-size: 1.8rem; letter-spacing: 2px; text-transform: uppercase; font-family: 'Arial Black'; text-shadow: 0 2px 4px rgba(0,0,0,0.4); }
+        .cal-body-wrapper { position: relative; transform-style: preserve-3d; perspective: 1500px; }
+        .cal-page { padding: 20px; transform-origin: top; background: #fff; border-radius: 0 0 8px 8px; backface-visibility: hidden; }
+        .cal-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-family: sans-serif; font-weight: bold; color: #555; margin-bottom: 10px; font-size: 0.8rem; }
+        .cal-days-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+        .cal-day { aspect-ratio: 1; border: 1px solid #eee; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; padding: 5px; font-family: 'Arial Black'; font-size: 1rem; color: #333; position: relative; border-radius: 4px; box-shadow: inset 0 0 5px rgba(0,0,0,0.02); transition: 0.2s; overflow: hidden; }
+        .cal-day.has-events { cursor: pointer; }
+        .cal-day.has-events:hover { border-color: #333; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 5; transform: scale(1.05); }
+        .cal-day.empty { background: #f9f9f9; color: #ccc; border: none; box-shadow: none; }
+        .cal-day.today { border: 2px solid #c00; color: #c00; }
+        .cal-date-num { position: relative; z-index: 2; text-shadow: 0px 0px 3px rgba(255,255,255,0.8); }
+        .series-bg-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.9; z-index: 1; pointer-events: none; }
+        .cal-event-list { position: relative; z-index: 2; width: 100%; margin-top: 2px; display: flex; flex-direction: column; gap: 2px; }
+        .cal-event-text { font-family: sans-serif; font-size: 0.45rem; line-height: 1.1; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.9); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .cal-event-text strong { font-family: 'Arial Black'; font-size: 0.5rem; letter-spacing: 0.5px; display: block; }
+        .flip-up { animation: flipUpAnim 0.5s ease-in forwards; }
+        .flip-down { animation: flipDownAnim 0.5s ease-out forwards; }
+        @keyframes flipUpAnim { 0% { transform: rotateX(0deg); opacity: 1; box-shadow: 0 10px 20px rgba(0,0,0,0.1); } 100% { transform: rotateX(90deg); opacity: 0; box-shadow: 0 -20px 20px rgba(0,0,0,0.2); } }
+        @keyframes flipDownAnim { 0% { transform: rotateX(-90deg); opacity: 0; box-shadow: 0 -20px 20px rgba(0,0,0,0.2); } 100% { transform: rotateX(0deg); opacity: 1; box-shadow: 0 10px 20px rgba(0,0,0,0.1); } }
 
-        /* Day Details Pop-out Modal */
-        #day-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 6000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
-        .day-modal-box { background: #111; border: 1px solid #333; width: 90%; max-width: 400px; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,1); position: relative; overflow: hidden; animation: fadeIn 0.2s ease-out; }
-        .day-modal-header { background: #222; padding: 15px 20px; border-bottom: 1px solid #333; display: flex; justify-content: space-between; align-items: center; }
-        .day-modal-header h2 { margin: 0; font-size: 1.2rem; color: #fff; letter-spacing: 1px; }
-        .day-modal-close { cursor: pointer; color: #888; font-size: 1.5rem; transition: 0.2s; }
-        .day-modal-close:hover { color: #fff; }
-        .day-modal-body { padding: 20px; display: flex; flex-direction: column; gap: 15px; }
-        .day-event-card { background: #000; border: 1px solid #222; padding: 15px; border-radius: 6px; border-left-width: 4px; text-align: left; }
-        .day-event-series { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; }
-        .day-event-track { font-size: 1.2rem; margin: 0 0 10px 0; color: #fff; line-height: 1.1; }
-        .day-event-time { font-family: sans-serif; font-size: 0.85rem; color: #aaa; display: flex; flex-direction: column; gap: 5px; }
-        .day-event-time i { width: 20px; text-align: center; color: #666; }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        /* Day Details Pop-out Modal */
+        #day-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 6000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+        .day-modal-box { background: #111; border: 1px solid #333; width: 90%; max-width: 400px; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,1); position: relative; overflow: hidden; animation: fadeIn 0.2s ease-out; }
+        .day-modal-header { background: #222; padding: 15px 20px; border-bottom: 1px solid #333; display: flex; justify-content: space-between; align-items: center; }
+        .day-modal-header h2 { margin: 0; font-size: 1.2rem; color: #fff; letter-spacing: 1px; }
+        .day-modal-close { cursor: pointer; color: #888; font-size: 1.5rem; transition: 0.2s; }
+        .day-modal-close:hover { color: #fff; }
+        .day-modal-body { padding: 20px; display: flex; flex-direction: column; gap: 15px; }
+        .day-event-card { background: #000; border: 1px solid #222; padding: 15px; border-radius: 6px; border-left-width: 4px; text-align: left; }
+        .day-event-series { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; }
+        .day-event-track { font-size: 1.2rem; margin: 0 0 10px 0; color: #fff; line-height: 1.1; }
+        .day-event-time { font-family: sans-serif; font-size: 0.85rem; color: #aaa; display: flex; flex-direction: column; gap: 5px; }
+        .day-event-time i { width: 20px; text-align: center; color: #666; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
-        footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
+        footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
 
-        @media (max-width: 768px) {
-            .hero { padding: 8rem 1rem 4rem; }
-            .section-header { justify-content: center; text-align: center; border: none; }
-            .section-header::after { display: none; }
-            .chase-wrapper { padding: 4rem 1rem; }
-            .chase-grid { gap: 15px; }
-            .master-calendar { width: 98%; }
-            .cal-day { font-size: 0.8rem; padding: 2px; }
-            .cal-event-text { font-size: 0.35rem; }
-            .cal-event-text strong { font-size: 0.4rem; }
-            .floating-cal-btn { top: auto; bottom: 1.5rem; right: 1.5rem; }
-            .next-race-spotlight { grid-column: span 1; }
-            .next-race-spotlight .ticket-body { flex-direction: column; align-items: flex-start; }
-            .spotlight-action { width: 100%; text-align: left; align-items: flex-start; margin-top: 1rem; border-top: 1px solid #333; padding-top: 1rem; }
-        }
-    </style>
+        @media (max-width: 768px) {
+            .hero { padding: 8rem 1rem 4rem; }
+            .section-header { justify-content: center; text-align: center; border: none; }
+            .section-header::after { display: none; }
+            .chase-wrapper { padding: 4rem 1rem; }
+            .chase-grid { gap: 15px; }
+            .master-calendar { width: 98%; }
+            .cal-day { font-size: 0.8rem; padding: 2px; }
+            .cal-event-text { font-size: 0.35rem; }
+            .cal-event-text strong { font-size: 0.4rem; }
+            .floating-cal-btn { top: auto; bottom: 1.5rem; right: 1.5rem; }
+            .next-race-spotlight { grid-column: span 1; }
+            .next-race-spotlight .ticket-body { flex-direction: column; align-items: flex-start; }
+            .spotlight-action { width: 100%; text-align: left; align-items: flex-start; margin-top: 1rem; border-top: 1px solid #333; padding-top: 1rem; }
+        }
+    </style>
 </head>
 <body>
 
-    <div class="floating-cal-btn" onclick="openInteractiveCalendar()">
-        <i class="fa-regular fa-calendar-days"></i>
-    </div>
+    <div class="floating-cal-btn" onclick="openInteractiveCalendar()">
+        <i class="fa-regular fa-calendar-days"></i>
+    </div>
 
-    <div id="interactive-calendar-overlay" onclick="closeInteractiveCalendar(event)">
-        <div class="master-calendar" onclick="event.stopPropagation()">
-            <div class="cal-binder-rings">
-                <div class="cal-ring"></div><div class="cal-ring"></div><div class="cal-ring"></div>
-                <div class="cal-ring"></div><div class="cal-ring"></div><div class="cal-ring"></div>
-                <div class="cal-ring"></div><div class="cal-ring"></div><div class="cal-ring"></div>
-            </div>
-            
-            <div class="cal-header">
-                <button onclick="changeCalMonth(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-                <h2 id="cal-month-title">FEB 2026</h2>
-                <button onclick="changeCalMonth(1)"><i class="fa-solid fa-chevron-right"></i></button>
-            </div>
-            
-            <div class="cal-body-wrapper">
-                <div id="cal-page" class="cal-page">
-                    <div class="cal-weekdays">
-                        <div>SUN</div><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div>SAT</div>
-                    </div>
-                    <div id="cal-grid" class="cal-days-grid">
-                        </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div id="interactive-calendar-overlay" onclick="closeInteractiveCalendar(event)">
+        <div class="master-calendar" onclick="event.stopPropagation()">
+            <div class="cal-binder-rings">
+                <div class="cal-ring"></div><div class="cal-ring"></div><div class="cal-ring"></div>
+                <div class="cal-ring"></div><div class="cal-ring"></div><div class="cal-ring"></div>
+                <div class="cal-ring"></div><div class="cal-ring"></div><div class="cal-ring"></div>
+            </div>
+            
+            <div class="cal-header">
+                <button onclick="changeCalMonth(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+                <h2 id="cal-month-title">FEB 2026</h2>
+                <button onclick="changeCalMonth(1)"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+            
+            <div class="cal-body-wrapper">
+                <div id="cal-page" class="cal-page">
+                    <div class="cal-weekdays">
+                        <div>SUN</div><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div>SAT</div>
+                    </div>
+                    <div id="cal-grid" class="cal-days-grid">
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <div id="day-modal-overlay" onclick="closeDayModal(event)">
-        <div class="day-modal-box" onclick="event.stopPropagation()">
-            <div class="day-modal-header">
-                <h2 id="day-modal-title">DATE</h2>
-                <div class="day-modal-close" onclick="closeDayModal(event)"><i class="fa-solid fa-xmark"></i></div>
-            </div>
-            <div class="day-modal-body" id="day-modal-content">
-                </div>
-        </div>
-    </div>
+    <div id="day-modal-overlay" onclick="closeDayModal(event)">
+        <div class="day-modal-box" onclick="event.stopPropagation()">
+            <div class="day-modal-header">
+                <h2 id="day-modal-title">DATE</h2>
+                <div class="day-modal-close" onclick="closeDayModal(event)"><i class="fa-solid fa-xmark"></i></div>
+            </div>
+            <div class="day-modal-body" id="day-modal-content">
+                </div>
+        </div>
+    </div>
 
-    <div id="nav-placeholder"></div>
+    <div id="nav-placeholder"></div>
 
-    <header class="hero">
-        <span class="subtitle">Official League Calendar</span>
-        <h1>Schedule</h1>
-    </header>
+    <header class="hero">
+        <span class="subtitle">Official League Calendar</span>
+        <h1>Schedule</h1>
+    </header>
 
-    <div class="controls-bar">
-        <div class="controls-inner">
-            <div class="season-select-wrapper">
-                <select id="seasonSelect" class="season-select" onchange="loadSchedule()">
-                    <option value="current">2026 Season (Current)</option>
-                    <option value="2025">2025 Season (Archive)</option>
-                </select>
-            </div>
+    <div class="controls-bar">
+        <div class="controls-inner">
+            <div class="season-select-wrapper">
+                <select id="seasonSelect" class="season-select" onchange="loadSchedule()">
+                    <option value="current">2026 Season (Current)</option>
+                    <option value="2025">2025 Season (Archive)</option>
+                </select>
+            </div>
 
-            <div class="tabs-container">
-                <button class="series-btn active" data-series="Cup" onclick="switchSeries('Cup')">Cup</button>
-                <button class="series-btn" data-series="Xfinity" onclick="switchSeries('Xfinity')">Xfinity</button>
-                <button class="series-btn" data-series="Truck" onclick="switchSeries('Truck')">Trucks</button>
-                <button class="series-btn" data-series="Menards" onclick="switchSeries('Menards')">Menards</button>
-            </div>
-        </div>
-    </div>
+            <div class="tabs-container">
+                <button class="series-btn active" data-series="Cup" onclick="switchSeries('Cup')">Cup</button>
+                <button class="series-btn" data-series="Xfinity" onclick="switchSeries('Xfinity')">Xfinity</button>
+                <button class="series-btn" data-series="Truck" onclick="switchSeries('Truck')">Trucks</button>
+                <button class="series-btn" data-series="Menards" onclick="switchSeries('Menards')">Menards</button>
+            </div>
+        </div>
+    </div>
 
-    <div class="season-progress-container" id="progress-container">
-        <div class="progress-text">
-            <span id="progress-label">SEASON PROGRESS</span>
-            <span id="progress-percent">0%</span>
-        </div>
-        <div class="progress-bar-bg">
-            <div class="progress-bar-fill" id="progress-fill"></div>
-        </div>
-    </div>
+    <div class="season-progress-container" id="progress-container">
+        <div class="progress-text">
+            <span id="progress-label">SEASON PROGRESS</span>
+            <span id="progress-percent">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progress-fill"></div>
+        </div>
+    </div>
 
-    <main class="container">
-        
-        <div id="reg-section">
-            <h2 class="section-header">Regular Season</h2>
-            <div id="regular-grid" class="race-grid">
-                </div>
-        </div>
+    <main class="container">
+        
+        <div id="reg-section">
+            <h2 class="section-header">Regular Season</h2>
+            <div id="regular-grid" class="race-grid">
+                </div>
+        </div>
 
-        <div id="chase-section" class="chase-wrapper" style="display: none;">
-            <div class="chase-header">
-                <h2 class="chase-logo">THE CHASE</h2>
-                <p class="chase-sub">For The Championship</p>
-            </div>
-            <div id="chase-grid" class="chase-grid">
-                </div>
-        </div>
+        <div id="chase-section" class="chase-wrapper" style="display: none;">
+            <div class="chase-header">
+                <h2 class="chase-logo">THE CHASE</h2>
+                <p class="chase-sub">For The Championship</p>
+            </div>
+            <div id="chase-grid" class="chase-grid">
+                </div>
+        </div>
 
-    </main>
+    </main>
 
-    <footer>
-        <div>© 2025-2026 AMERICAN STOCK CAR RACING LEAGUE</div>
-    </footer>
+    <footer>
+        <div>© 2025-2026 AMERICAN STOCK CAR RACING LEAGUE</div>
+    </footer>
 
-    <script>
-        // 1. NAV LOADER
-        fetch('nav.html').then(r=>r.text()).then(d=>document.getElementById('nav-placeholder').innerHTML=d);
+    <script>
+        // 1. NAV LOADER
+        fetch('nav.html').then(r=>r.text()).then(d=>document.getElementById('nav-placeholder').innerHTML=d);
 
-        // 2. MENU TOGGLE
-        function toggleMenu() {
-            const m = document.getElementById('nav-menu');
-            if(m) m.classList.toggle('open');
-        }
+        // 2. MENU TOGGLE
+        function toggleMenu() {
+            const m = document.getElementById('nav-menu');
+            if(m) m.classList.toggle('open');
+        }
 
-        // 3. DATA CONFIG & HELPERS
-        const FILES = {
-            "current": "ASCRL_2026_Schedule.json", 
-            "2025": "schedule.json"
-        };
-        
-        let rawData = {};
-        let archiveData = {};
-        // Add driversData to store the fetched driver info
-        let driversData = {};
-        let currentSeries = 'Cup';
-        let countdownInterval = null;
+        // 3. DATA CONFIG & HELPERS
+        const FILES = {
+            "current": "ASCRL_2026_Schedule.json", 
+            "2025": "schedule.json"
+        };
+        
+        let rawData = {};
+        let archiveData = {};
+        let currentSeries = 'Cup';
+        let countdownInterval = null;
 
-        // Track Shape SVG Helper
-        function getTrackSVG(trackName) {
-            const t = trackName.toLowerCase();
-            if(t.includes('daytona') || t.includes('talladega') || t.includes('pocono')) {
-                return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50"><path d="M10,25 C10,5 50,5 50,5 C50,5 90,5 90,25 C90,45 50,45 50,45 C50,45 10,45 10,25" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="5"/></svg>`;
-            } else if(t.includes('bristol') || t.includes('martinsville') || t.includes('richmond') || t.includes('wilkesboro')) {
-                return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 40"><rect x="10" y="10" width="80" height="20" rx="10" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="5"/></svg>`;
-            } else if(t.includes('sonoma') || t.includes('glen') || t.includes('roval') || t.includes('cota') || t.includes('chicago')) {
-                return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 80"><path d="M20,20 L80,20 L90,40 L60,70 L40,50 L20,60 Z" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="5" stroke-linejoin="round"/></svg>`;
-            } else {
-                return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50"><ellipse cx="50" cy="25" rx="40" ry="15" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="5"/></svg>`;
-            }
-        }
+        // Track Shape SVG Helper
+        function getTrackSVG(trackName) {
+            const t = trackName.toLowerCase();
+            if(t.includes('daytona') || t.includes('talladega') || t.includes('pocono')) {
+                return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50"><path d="M10,25 C10,5 50,5 50,5 C50,5 90,5 90,25 C90,45 50,45 50,45 C50,45 10,45 10,25" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="5"/></svg>`;
+            } else if(t.includes('bristol') || t.includes('martinsville') || t.includes('richmond') || t.includes('wilkesboro')) {
+                return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 40"><rect x="10" y="10" width="80" height="20" rx="10" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="5"/></svg>`;
+            } else if(t.includes('sonoma') || t.includes('glen') || t.includes('roval') || t.includes('cota') || t.includes('chicago')) {
+                return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 80"><path d="M20,20 L80,20 L90,40 L60,70 L40,50 L20,60 Z" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="5" stroke-linejoin="round"/></svg>`;
+            } else {
+                return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50"><ellipse cx="50" cy="25" rx="40" ry="15" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="5"/></svg>`;
+            }
+        }
 
-        // --- HELPER: DRIVER HERO IMAGES ---
-        function getDriverImage(driverName) {
-            const nameLower = driverName.toLowerCase();
-            // FIX IS HERE: Changed namelower to nameLower
-            if (nameLower.includes('thirsttraptoby')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/7bc95544293252379df0a7693e5770b80e8ca8bf/ThirstTrapTobyHeroCard.jpg";
-            
-            if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/8e6c91687a3fd67cc8d9771eec28321a154a56ce/UpdatedHockeyHero.jpg";
-            if (nameLower.includes('k7_dalton')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/9a7e63f44a37cedfdf0b85ddeb4968c3b0da8817/k7Dalton.jpg";
-            if (nameLower.includes('isaac')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/d0f7c7e6480bc33317d4e7939036024f0dcff3dc/Isaac.jpg";
-            if (nameLower.includes('z71chevyman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/869f4adefde19421e449f2e1e9ab7bd3a6ffaee5/ChevyMan.jpg";
-            if (nameLower.includes('a54buick')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/b0f5738c17ce63c442afaca0ad22da6998499e1b/BuickBandit.jpg";
-            if (nameLower.includes('duramax')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/548e18c0b3bc92b82f0af9fe09a2b0369d9b97ee/Duramax.jpg";
-            if (nameLower.includes('rickyspanish')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/a4eb1f155988eef725e62b9c29859db41c08a225/RickySpanish.jpg";
-            if (nameLower.includes('solid1915')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/7655f9eefe0cdd0d1809954233309718780d8925/SolidOne.jpg";
-            if (nameLower.includes('the_fireman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6426c5de3657027051e18be3fae01a1c56faefbd/Fireman.jpg";
-            if (nameLower.includes('the_stone')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/e81190c6bca706ca129f3413df56c7f2e375f74b/Stone.jpg";
-            if (nameLower.includes('alessi')) return "https://github.com/mattwilson20/ascrl-website/blob/main/Alessi.Hero.Card.jpg?raw=true";
-            if (nameLower.includes('dakotathomas')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg";
-            if (nameLower.includes('orangeman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/70b5243e68e9c7f7a596f6695677d8d3520e89e1/IMG_7160.jpg";
-            if (nameLower.includes('ant_was_he')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/602e91f22a89c294308d1e79473121daa8e777e7/ant_was_he_hero_card.jpg";
-            if (nameLower.includes('c0mpl1c8')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/099805ff88fcc2ba2a1cc2e8b5aba8f515a716a6/C0mpl1c8ted_hero_card.jpg";
-            if (nameLower.includes('on-a-mission')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/446d56688b6fdf55420d2c5e52b6a764e873fab6/Mission_Hero_card.jpg";
-            if (nameLower.includes('banishedcrayon')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/d42bcd32df90441f1b5f24da75a77074ea2186fe/Banished_Crayon_hero_Card.jpg";
-            if (nameLower.includes('sithwarrior')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/3e992547a13fe5d73940648e83df80d97df41f90/SithWarriorUno_Hero_Card.jpg";
-            if (nameLower.includes('majorblaz')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/77807b78b078188862cb490d2b95d2f846d237bf/Blaze_Hero_Card.jpg";
-            if (nameLower.includes('thereaperrhino')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6ba07383a20109b63eec703c34fedc30f7a191bf/Rhino_Hero_Card.jpg";
-            if (nameLower.includes('daltongregson')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ec988478a8132f49d9d6b596e7ed258e2c2dd482/DaltonGregson_Hero_Card.jpg";
-            if (nameLower.includes('singular_nacho')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/f311b21127533ca6128a4408f36edaf9612d59b1/Singular_Nacho_Hero_Card.jpg";
-            if (nameLower.includes('callmemillion')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/e86926900f4957c57588db9a14beae7d6329a794/CallMeMillion_Hero_Card.jpg";
-            if (nameLower.includes('mattwilson20')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6686ee35c988cd1b0ae305d099ff4e31c652a49f/mattwilson20_Hero_Card.jpg";
-            if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/81df81de5161ea2f590ee32c370d3e99675cdbaa/Hockey_Hero_Card.png";
-            if (nameLower.includes('dewshine')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/c5319ac2110c0b89850cf83b5d93b1af677f8611/Dewshine_Hero_Card.jpg";
-            if (nameLower.includes('kevwood')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/07ccf5d79d881bf2047f439e25540dc380fec2d0/Kevwood.Hero.Card.jpg";
-            if (nameLower.includes('lnfvmous')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/acff9081bff808e0028c0ae22dada726083e7948/Infamous.hero.card.jpg";
-            if (nameLower.includes('fordemgators')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/58a3bfc691085c472f888d1c1d071fdf96b2ba20/Fordemgators.Hero.Card.jpg";
-            if (nameLower.includes('dgibby')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/a0de7269483b7e2ec5e1aaae549f739229008914/DGibby.hero.card.jpg";
-            if (nameLower.includes('kingg')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/9eb12bdb1b61a806ad951ae9a8bddc590622f35f/King.Hero.Card.jpg";
-            if (nameLower.includes('hatter')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/34425dadb737bc4bc27aa9271be62909dc9a3e99/Hatter.Hero.Card.jpg";
-            if (nameLower.includes('big_fella')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ced27a5d96e0d211f038b36e34a55bccf4a7e4de/BigFella.Hero.Card.jpg";
-            
-            // Default Ghost Image
-            return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg";
-        }
+        // --- HELPER: DRIVER HERO IMAGES ---
+        function getDriverImage(driverName) {
+            const nameLower = driverName.toLowerCase();
+            // FIX IS HERE: Changed namelower to nameLower
+            if (nameLower.includes('thirsttraptoby')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/7bc95544293252379df0a7693e5770b80e8ca8bf/ThirstTrapTobyHeroCard.jpg";
+            
+            if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/8e6c91687a3fd67cc8d9771eec28321a154a56ce/UpdatedHockeyHero.jpg";
+            if (nameLower.includes('k7_dalton')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/9a7e63f44a37cedfdf0b85ddeb4968c3b0da8817/k7Dalton.jpg";
+            if (nameLower.includes('isaac')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/d0f7c7e6480bc33317d4e7939036024f0dcff3dc/Isaac.jpg";
+            if (nameLower.includes('z71chevyman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/869f4adefde19421e449f2e1e9ab7bd3a6ffaee5/ChevyMan.jpg";
+            if (nameLower.includes('a54buick')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/b0f5738c17ce63c442afaca0ad22da6998499e1b/BuickBandit.jpg";
+            if (nameLower.includes('duramax')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/548e18c0b3bc92b82f0af9fe09a2b0369d9b97ee/Duramax.jpg";
+            if (nameLower.includes('rickyspanish')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/a4eb1f155988eef725e62b9c29859db41c08a225/RickySpanish.jpg";
+            if (nameLower.includes('solid1915')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/7655f9eefe0cdd0d1809954233309718780d8925/SolidOne.jpg";
+            if (nameLower.includes('the_fireman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6426c5de3657027051e18be3fae01a1c56faefbd/Fireman.jpg";
+            if (nameLower.includes('the_stone')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/e81190c6bca706ca129f3413df56c7f2e375f74b/Stone.jpg";
+            if (nameLower.includes('alessi')) return "https://github.com/mattwilson20/ascrl-website/blob/main/Alessi.Hero.Card.jpg?raw=true";
+            if (nameLower.includes('dakotathomas')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg";
+            if (nameLower.includes('orangeman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/70b5243e68e9c7f7a596f6695677d8d3520e89e1/IMG_7160.jpg";
+            if (nameLower.includes('ant_was_he')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/602e91f22a89c294308d1e79473121daa8e777e7/ant_was_he_hero_card.jpg";
+            if (nameLower.includes('c0mpl1c8')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/099805ff88fcc2ba2a1cc2e8b5aba8f515a716a6/C0mpl1c8ted_hero_card.jpg";
+            if (nameLower.includes('on-a-mission')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/446d56688b6fdf55420d2c5e52b6a764e873fab6/Mission_Hero_card.jpg";
+            if (nameLower.includes('banishedcrayon')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/d42bcd32df90441f1b5f24da75a77074ea2186fe/Banished_Crayon_hero_Card.jpg";
+            if (nameLower.includes('sithwarrior')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/3e992547a13fe5d73940648e83df80d97df41f90/SithWarriorUno_Hero_Card.jpg";
+            if (nameLower.includes('majorblaz')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/77807b78b078188862cb490d2b95d2f846d237bf/Blaze_Hero_Card.jpg";
+            if (nameLower.includes('thereaperrhino')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6ba07383a20109b63eec703c34fedc30f7a191bf/Rhino_Hero_Card.jpg";
+            if (nameLower.includes('daltongregson')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ec988478a8132f49d9d6b596e7ed258e2c2dd482/DaltonGregson_Hero_Card.jpg";
+            if (nameLower.includes('singular_nacho')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/f311b21127533ca6128a4408f36edaf9612d59b1/Singular_Nacho_Hero_Card.jpg";
+            if (nameLower.includes('callmemillion')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/e86926900f4957c57588db9a14beae7d6329a794/CallMeMillion_Hero_Card.jpg";
+            if (nameLower.includes('mattwilson20')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6686ee35c988cd1b0ae305d099ff4e31c652a49f/mattwilson20_Hero_Card.jpg";
+            if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/81df81de5161ea2f590ee32c370d3e99675cdbaa/Hockey_Hero_Card.png";
+            if (nameLower.includes('dewshine')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/c5319ac2110c0b89850cf83b5d93b1af677f8611/Dewshine_Hero_Card.jpg";
+            if (nameLower.includes('kevwood')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/07ccf5d79d881bf2047f439e25540dc380fec2d0/Kevwood.Hero.Card.jpg";
+            if (nameLower.includes('lnfvmous')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/acff9081bff808e0028c0ae22dada726083e7948/Infamous.hero.card.jpg";
+            if (nameLower.includes('fordemgators')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/58a3bfc691085c472f888d1c1d071fdf96b2ba20/Fordemgators.Hero.Card.jpg";
+            if (nameLower.includes('dgibby')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/a0de7269483b7e2ec5e1aaae549f739229008914/DGibby.hero.card.jpg";
+            if (nameLower.includes('kingg')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/9eb12bdb1b61a806ad951ae9a8bddc590622f35f/King.Hero.Card.jpg";
+            if (nameLower.includes('hatter')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/34425dadb737bc4bc27aa9271be62909dc9a3e99/Hatter.Hero.Card.jpg";
+            if (nameLower.includes('big_fella')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ced27a5d96e0d211f038b36e34a55bccf4a7e4de/BigFella.Hero.Card.jpg";
+            
+            // Default Ghost Image
+            return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg";
+        }
 
-        // Master Load Function
-        function loadSchedule() {
-            const seasonKey = document.getElementById('seasonSelect').value;
-            const file = FILES[seasonKey];
+        // Master Load Function
+        function loadSchedule() {
+            const seasonKey = document.getElementById('seasonSelect').value;
+            const file = FILES[seasonKey];
 
-            const regGrid = document.getElementById('regular-grid');
-            regGrid.innerHTML = '<p style="color:#666;">Loading...</p>';
-            document.getElementById('chase-section').style.display = 'none';
+            const regGrid = document.getElementById('regular-grid');
+            regGrid.innerHTML = '<p style="color:#666;">Loading...</p>';
+            document.getElementById('chase-section').style.display = 'none';
 
-            // Fetch current selection AND the 2025 archive (for Defending Winners)
-            // UPDATED: Now also fetching drivers.json
-            Promise.all([
-                fetch(file).then(r => r.ok ? r.json() : {}),
-                fetch(FILES["2025"]).then(r => r.ok ? r.json() : {}),
-                fetch("drivers.json").then(r => r.ok ? r.json() : {})
-            ]).then(([mainSet, archiveSet, driverSet]) => {
-                rawData = mainSet;
-                archiveData = archiveSet;
-                driversData = driverSet; // Store drivers data for lookups
-                renderSeries();
-                
-                // If modal is open, re-render to catch changes
-                if(document.getElementById('interactive-calendar-overlay').style.display === 'flex') {
-                    renderInteractiveCalendar();
-                }
-            }).catch(err => {
-                console.error(err);
-                regGrid.innerHTML = '<p style="color:#c00;">Data not found.</p>';
-            });
-        }
+            // Fetch current selection AND the 2025 archive (for Defending Winners)
+            Promise.all([
+                fetch(file).then(r => r.ok ? r.json() : {}),
+                fetch(FILES["2025"]).then(r => r.ok ? r.json() : {})
+            ]).then(([mainSet, archiveSet]) => {
+                rawData = mainSet;
+                archiveData = archiveSet;
+                renderSeries();
+                
+                // If modal is open, re-render to catch changes
+                if(document.getElementById('interactive-calendar-overlay').style.display === 'flex') {
+                    renderInteractiveCalendar();
+                }
+            }).catch(err => {
+                console.error(err);
+                regGrid.innerHTML = '<p style="color:#c00;">Data not found.</p>';
+            });
+        }
 
-        function switchSeries(seriesName) {
-            currentSeries = seriesName;
-            document.querySelectorAll('.series-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if(btn.dataset.series === seriesName) btn.classList.add('active');
-            });
-            renderSeries();
-        }
+        function switchSeries(seriesName) {
+            currentSeries = seriesName;
+            document.querySelectorAll('.series-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.dataset.series === seriesName) btn.classList.add('active');
+            });
+            renderSeries();
+        }
 
-        function renderSeries() {
-            // Clear old countdowns
-            if(countdownInterval) clearInterval(countdownInterval);
+        function renderSeries() {
+            // Clear old countdowns
+            if(countdownInterval) clearInterval(countdownInterval);
 
-            const regGrid = document.getElementById('regular-grid');
-            const chaseGrid = document.getElementById('chase-grid');
-            const chaseSection = document.getElementById('chase-section');
+            const regGrid = document.getElementById('regular-grid');
+            const chaseGrid = document.getElementById('chase-grid');
+            const chaseSection = document.getElementById('chase-section');
 
-            regGrid.innerHTML = '';
-            chaseGrid.innerHTML = '';
+            regGrid.innerHTML = '';
+            chaseGrid.innerHTML = '';
 
-            const sKey = Object.keys(rawData).find(k => k.toLowerCase() === currentSeries.toLowerCase());
-            
-            if(!sKey || !rawData[sKey]) {
-                regGrid.innerHTML = '<p>No schedule available.</p>';
-                chaseSection.style.display = 'none';
-                document.getElementById('progress-container').style.display = 'none';
-                return;
-            }
+            const sKey = Object.keys(rawData).find(k => k.toLowerCase() === currentSeries.toLowerCase());
+            
+            if(!sKey || !rawData[sKey]) {
+                regGrid.innerHTML = '<p>No schedule available.</p>';
+                chaseSection.style.display = 'none';
+                document.getElementById('progress-container').style.display = 'none';
+                return;
+            }
 
-            document.getElementById('progress-container').style.display = 'block';
+            document.getElementById('progress-container').style.display = 'block';
 
-            const races = rawData[sKey];
-            const today = new Date();
-            today.setHours(0,0,0,0);
-            
-            let hasChase = false;
-            let nextRaceFound = false;
-            let nextRaceTimestamp = null;
-            let completedRaces = 0;
+            const races = rawData[sKey];
+            const today = new Date();
+            today.setHours(0,0,0,0);
+            
+            let hasChase = false;
+            let nextRaceFound = false;
+            let nextRaceTimestamp = null;
+            let completedRaces = 0;
 
-            // Dynamic Colors & Times
-            let accent = "#444";
-            let qualTime = "9:00 PM EST";
-            let raceTime = "9:20 PM EST";
-            let raceHour24 = "21:20:00"; // For countdown math
+            // Dynamic Colors & Times
+            let accent = "#444";
+            let qualTime = "9:00 PM EST";
+            let raceTime = "9:20 PM EST";
+            let raceHour24 = "21:20:00"; // For countdown math
 
-            if(currentSeries === 'Cup') {
-                accent = "var(--cup-blue)";
-                qualTime = "8:00 PM EST";
-                raceTime = "8:30 PM EST";
-                raceHour24 = "20:30:00";
-            }
-            if(currentSeries === 'Xfinity') accent = "var(--xfinity-purple)";
-            if(currentSeries === 'Truck') accent = "var(--truck-red)";
-            if(currentSeries === 'Menards') accent = "var(--menards-yellow)";
+            if(currentSeries === 'Cup') {
+                accent = "var(--cup-blue)";
+                qualTime = "8:00 PM EST";
+                raceTime = "8:30 PM EST";
+                raceHour24 = "20:30:00";
+            }
+            if(currentSeries === 'Xfinity') accent = "var(--xfinity-purple)";
+            if(currentSeries === 'Truck') accent = "var(--truck-red)";
+            if(currentSeries === 'Menards') accent = "var(--menards-yellow)";
 
-            races.forEach((race, index) => {
-                const rDate = new Date(race.date + "T12:00:00");
-                const isPast = rDate < today;
-                const isToday = rDate.toDateString() === today.toDateString();
-                
-                if (isPast || isToday) completedRaces++; // Advance progress bar
+            races.forEach((race, index) => {
+                const rDate = new Date(race.date + "T12:00:00");
+                const isPast = rDate < today;
+                const isToday = rDate.toDateString() === today.toDateString();
+                
+                if (isPast || isToday) completedRaces++; // Advance progress bar
 
-                const month = rDate.toLocaleString('default', {month:'short'}).toUpperCase();
-                const day = rDate.getDate();
-                const dateString = `${rDate.getFullYear()}-${(rDate.getMonth()+1).toString().padStart(2, '0')}-${rDate.getDate().toString().padStart(2, '0')}`;
+                const month = rDate.toLocaleString('default', {month:'short'}).toUpperCase();
+                const day = rDate.getDate();
+                const dateString = `${rDate.getFullYear()}-${(rDate.getMonth()+1).toString().padStart(2, '0')}-${rDate.getDate().toString().padStart(2, '0')}`;
 
-                // --- Look up Defending Winner (if upcoming) ---
-                let defendingHtml = '';
-                if (!isPast && archiveData[sKey]) {
-                    const pastRace = archiveData[sKey].find(pr => pr.track.toLowerCase() === race.track.toLowerCase());
-                    if (pastRace && pastRace.winner) {
-                        defendingHtml = `<div class="defending-winner">2025 Winner: ${pastRace.winner}</div>`;
-                    }
-                }
+                // --- Look up Defending Winner (if upcoming) ---
+                let defendingHtml = '';
+                if (!isPast && archiveData[sKey]) {
+                    const pastRace = archiveData[sKey].find(pr => pr.track.toLowerCase() === race.track.toLowerCase());
+                    if (pastRace && pastRace.winner) {
+                        defendingHtml = `<div class="defending-winner">2025 Winner: ${pastRace.winner}</div>`;
+                    }
+                }
 
-                // --- Status & Classes ---
-                let pillStyle = `border-color: ${accent}; color: ${accent};`;
-                let statusText = "UPCOMING";
-                let isNextRace = false;
-                let winnerImage = ""; // Placeholder for winner image
-                let winnerNameClean = ""; // Clean winner name for display
+                // --- Status & Classes ---
+                let pillStyle = `border-color: ${accent}; color: ${accent};`;
+                let statusText = "UPCOMING";
+                let isNextRace = false;
+                let winnerImage = ""; // Placeholder for winner image
 
-                if(isPast && !isToday) {
-                    pillStyle = `border-color: #333; color: #444;`;
-                    statusText = "COMPLETED";
-                    if(race.winner) {
-                        // CLEAN WINNER NAME
-                        // Remove # and numbers from front: "#71 HockeyDeckout" -> "HockeyDeckout"
-                        winnerNameClean = race.winner.replace(/^#\d+\s*/, '').trim(); 
-                        statusText = `<i class="fa-solid fa-trophy"></i> WINNER: ${winnerNameClean}`;
-                        pillStyle = `border-color: #444; color: #fff; background: #222;`;
-                        
-                        // GET WINNER IMAGE
-                        // 1. Try to find match in drivers.json to normalize the name
-                        let officialName = winnerNameClean;
-                        
-                        // Find driver in drivers.json (case-insensitive)
-                        const driverEntry = Object.values(driversData).find(d => 
-                            d.display_name && d.display_name.toLowerCase() === winnerNameClean.toLowerCase()
-                        );
-                        
-                        if (driverEntry) {
-                           officialName = driverEntry.display_name; // Use official casing if found
-                        }
+                if(isPast && !isToday) {
+                    pillStyle = `border-color: #333; color: #444;`;
+                    statusText = "COMPLETED";
+                    if(race.winner) {
+                        statusText = `<i class="fa-solid fa-trophy"></i> WINNER: ${race.winner}`;
+                        pillStyle = `border-color: #444; color: #fff; background: #222;`;
+                        
+                        // GET WINNER IMAGE
+                        const cleanWinnerName = race.winner.replace(/^#\d+\s+/, '').trim();
+                        winnerImage = getDriverImage(cleanWinnerName);
+                    }
+                } else if (!nextRaceFound) {
+                    isNextRace = true;
+                    nextRaceFound = true;
+                    nextRaceTimestamp = new Date(race.date + "T" + raceHour24).getTime();
+                }
 
-                        // 2. Get image URL using the helper function (which has the hardcoded list)
-                        winnerImage = getDriverImage(officialName);
-                    }
-                } else if (!nextRaceFound) {
-                    isNextRace = true;
-                    nextRaceFound = true;
-                    nextRaceTimestamp = new Date(race.date + "T" + raceHour24).getTime();
-                }
+                // Time Block HTML
+                const timeHtml = `
+                    <div class="race-times">
+                        <span><i class="fa-solid fa-stopwatch"></i> QUAL: ${qualTime}</span>
+                        <span><i class="fa-solid fa-flag-checkered"></i> RACE: ${raceTime}</span>
+                    </div>
+                `;
 
-                // Time Block HTML
-                const timeHtml = `
-                    <div class="race-times">
-                        <span><i class="fa-solid fa-stopwatch"></i> QUAL: ${qualTime}</span>
-                        <span><i class="fa-solid fa-flag-checkered"></i> RACE: ${raceTime}</span>
-                    </div>
-                `;
+                // SVG Watermark
+                const watermarkHtml = `<div class="track-watermark" style="background-image: url('${getTrackSVG(race.track)}');"></div>`;
 
-                // SVG Watermark
-                const watermarkHtml = `<div class="track-watermark" style="background-image: url('${getTrackSVG(race.track)}');"></div>`;
+                // ==========================================
+                // CHASE / PLAYOFF RACES
+                // ==========================================
+                if (race.is_chase) {
+                    hasChase = true;
+                    
+                    if (isPast && !isToday) {
+                        // COMPLETED FLIP CARD (CHASE)
+                        const html = `
+                        <div class="race-ticket flip-card-container">
+                            <div class="ticket-inner">
+                                <div class="ticket-front chase-ticket completed" style="background: rgba(20, 18, 5, 0.6); border-color:#443300;">
+                                    ${watermarkHtml}
+                                    <div class="flip-hint" onclick="this.closest('.flip-card-container').classList.add('flipped')"><i class="fa-solid fa-rotate"></i> CLICK FOR WINNER</div>
+                                    <div class="ticket-top">
+                                        <div class="date-group"><span class="date-month" style="color:var(--gold-mid)">${month}</span><span class="date-day" style="background: linear-gradient(to bottom, #fff, #ffd700); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">${day}</span></div>
+                                        <i class="fa-solid fa-flag-checkered" style="color:var(--gold-mid); font-size:1.5rem; opacity:0.8;"></i>
+                                    </div>
+                                    <div class="ticket-body">
+                                        <h3 class="track-name" style="text-shadow: 0 0 20px rgba(255, 215, 0, 0.2);">${race.track}</h3>
+                                        <span class="race-type" style="color: #886600;">PLAYOFF ROUND</span>
+                                        ${timeHtml}
+                                        <div class="status-pill" style="${pillStyle}">${statusText}</div>
+                                    </div>
+                                </div>
+                                <div class="ticket-back">
+                                    <div class="winner-back-content" style="background-image: url('${winnerImage}');">
+                                        <div class="winner-back-gradient"></div>
+                                        <div class="flip-hint-back" onclick="this.closest('.flip-card-container').classList.remove('flipped')"><i class="fa-solid fa-rotate-left"></i></div>
+                                        <div class="winner-back-info">
+                                            <div class="w-label">RACE WINNER</div>
+                                            <div class="w-name">${race.winner || 'TBD'}</div>
+                                            <a href="results.html?series=${currentSeries}&race=${encodeURIComponent(currentSeries + ' - ' + race.track)}" class="btn-view-results">FULL RESULTS</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+                        chaseGrid.innerHTML += html;
+                    } else {
+                        // UPCOMING CHASE (Cannot flip yet)
+                        const html = `
+                        <div class="race-ticket chase-ticket">
+                            <div class="ticket-inner">
+                                <div class="ticket-front" style="background: rgba(20, 18, 5, 0.6); border-color:#443300;">
+                                    ${watermarkHtml}
+                                    <div class="ticket-top">
+                                        <div class="date-group"><span class="date-month" style="color:var(--gold-mid)">${month}</span><span class="date-day" style="background: linear-gradient(to bottom, #fff, #ffd700); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">${day}</span></div>
+                                        <i class="fa-solid fa-flag-checkered" style="color:var(--gold-mid); font-size:1.5rem; opacity:0.8;"></i>
+                                    </div>
+                                    <div class="ticket-body">
+                                        <h3 class="track-name" style="text-shadow: 0 0 20px rgba(255, 215, 0, 0.2);">${race.track}</h3>
+                                        <span class="race-type" style="color: #886600;">PLAYOFF ROUND</span>
+                                        ${defendingHtml}
+                                        ${timeHtml}
+                                        <div class="status-pill" style="${pillStyle}">${statusText}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+                        chaseGrid.innerHTML += html;
+                    }
 
-                // ==========================================
-                // CHASE / PLAYOFF RACES
-                // ==========================================
-                if (race.is_chase) {
-                    hasChase = true;
-                    
-                    if (isPast && !isToday) {
-                        // COMPLETED FLIP CARD (CHASE)
-                        const html = `
-                        <div class="race-ticket flip-card-container">
-                            <div class="ticket-inner">
-                                <div class="ticket-front chase-ticket completed" style="background: rgba(20, 18, 5, 0.6); border-color:#443300;">
-                                    ${watermarkHtml}
-                                    <div class="flip-hint" onclick="this.closest('.flip-card-container').classList.add('flipped')"><i class="fa-solid fa-rotate"></i> CLICK FOR WINNER</div>
-                                    <div class="ticket-top">
-                                        <div class="date-group"><span class="date-month" style="color:var(--gold-mid)">${month}</span><span class="date-day" style="background: linear-gradient(to bottom, #fff, #ffd700); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">${day}</span></div>
-                                        <i class="fa-solid fa-flag-checkered" style="color:var(--gold-mid); font-size:1.5rem; opacity:0.8;"></i>
-                                    </div>
-                                    <div class="ticket-body">
-                                        <h3 class="track-name" style="text-shadow: 0 0 20px rgba(255, 215, 0, 0.2);">${race.track}</h3>
-                                        <span class="race-type" style="color: #886600;">PLAYOFF ROUND</span>
-                                        ${timeHtml}
-                                        <div class="status-pill" style="${pillStyle}">${statusText}</div>
-                                    </div>
-                                </div>
-                                <div class="ticket-back">
-                                    <div class="winner-back-content" style="background-image: url('${winnerImage}');">
-                                        <div class="winner-back-gradient"></div>
-                                        <div class="flip-hint-back" onclick="this.closest('.flip-card-container').classList.remove('flipped')"><i class="fa-solid fa-rotate-left"></i></div>
-                                        <div class="winner-back-info">
-                                            <div class="w-label">RACE WINNER</div>
-                                            <div class="w-name">${winnerNameClean || 'TBD'}</div>
-                                            <a href="results.html?series=${currentSeries}&race=${encodeURIComponent(currentSeries + ' - ' + race.track)}" class="btn-view-results">FULL RESULTS</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>`;
-                        chaseGrid.innerHTML += html;
-                    } else {
-                        // UPCOMING CHASE (Cannot flip yet)
-                        const html = `
-                        <div class="race-ticket chase-ticket">
-                            <div class="ticket-inner">
-                                <div class="ticket-front" style="background: rgba(20, 18, 5, 0.6); border-color:#443300;">
-                                    ${watermarkHtml}
-                                    <div class="ticket-top">
-                                        <div class="date-group"><span class="date-month" style="color:var(--gold-mid)">${month}</span><span class="date-day" style="background: linear-gradient(to bottom, #fff, #ffd700); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">${day}</span></div>
-                                        <i class="fa-solid fa-flag-checkered" style="color:var(--gold-mid); font-size:1.5rem; opacity:0.8;"></i>
-                                    </div>
-                                    <div class="ticket-body">
-                                        <h3 class="track-name" style="text-shadow: 0 0 20px rgba(255, 215, 0, 0.2);">${race.track}</h3>
-                                        <span class="race-type" style="color: #886600;">PLAYOFF ROUND</span>
-                                        ${defendingHtml}
-                                        ${timeHtml}
-                                        <div class="status-pill" style="${pillStyle}">${statusText}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>`;
-                        chaseGrid.innerHTML += html;
-                    }
+                // ==========================================
+                // REGULAR SEASON RACES
+                // ==========================================
+                } else {
+                    let raceType = "REGULAR SEASON";
+                    let customClass = "";
+                    let customBadge = "";
+                    let iconColor = "#333";
+                    
+                    // CLASH
+                    if(currentSeries === 'Cup' && index === 0) {
+                        raceType = "THE CLASH // EXHIBITION";
+                        customClass = "clash-card";
+                        if(!isPast) {
+                            pillStyle = `border-color: #ff4500; color: #ff4500; font-weight:900; letter-spacing:2px;`;
+                            statusText = "NON-POINTS EVENT";
+                        }
+                    }
 
-                // ==========================================
-                // REGULAR SEASON RACES
-                // ==========================================
-                } else {
-                    let raceType = "REGULAR SEASON";
-                    let customClass = "";
-                    let customBadge = "";
-                    let iconColor = "#333";
-                    
-                    // CLASH
-                    if(currentSeries === 'Cup' && index === 0) {
-                        raceType = "THE CLASH // EXHIBITION";
-                        customClass = "clash-card";
-                        if(!isPast) {
-                            pillStyle = `border-color: #ff4500; color: #ff4500; font-weight:900; letter-spacing:2px;`;
-                            statusText = "NON-POINTS EVENT";
-                        }
-                    }
+                    // TOURNAMENT (Cup Only)
+                    if (currentSeries === 'Cup') {
+                        if (dateString === "2026-06-30") { raceType = "TOURNAMENT: ROUND OF 32"; customClass = "tourney-card"; customBadge = `<div class="tourney-badge">RND 1</div>`; iconColor = "var(--tourney-neon)"; } 
+                        else if (dateString === "2026-07-07") { raceType = "TOURNAMENT: ROUND OF 16"; customClass = "tourney-card"; customBadge = `<div class="tourney-badge">RND 2</div>`; iconColor = "var(--tourney-neon)"; } 
+                        else if (dateString === "2026-07-14") { raceType = "TOURNAMENT: ROUND OF 8"; customClass = "tourney-card"; customBadge = `<div class="tourney-badge">RND 3</div>`; iconColor = "var(--tourney-neon)"; } 
+                        else if (dateString === "2026-07-21") { raceType = "TOURNAMENT: SEMI-FINAL"; customClass = "tourney-card"; customBadge = `<div class="tourney-badge">RND 4</div>`; iconColor = "var(--tourney-neon)"; } 
+                        else if (dateString === "2026-07-28") { raceType = "TOURNAMENT: CHAMPIONSHIP"; customClass = "tourney-card"; customBadge = `<div class="tourney-badge">FINAL</div>`; iconColor = "var(--tourney-neon)"; }
+                    }
 
-                    // TOURNAMENT (Cup Only)
-                    if (currentSeries === 'Cup') {
-                        if (dateString === "2026-06-30") { raceType = "TOURNAMENT: ROUND OF 32"; customClass = "tourney-card"; customBadge = `<div class="tourney-badge">RND 1</div>`; iconColor = "var(--tourney-neon)"; } 
-                        else if (dateString === "2026-07-07") { raceType = "TOURNAMENT: ROUND OF 16"; customClass = "tourney-card"; customBadge = `<div class="tourney-badge">RND 2</div>`; iconColor = "var(--tourney-neon)"; } 
-                        else if (dateString === "2026-07-14") { raceType = "TOURNAMENT: ROUND OF 8"; customClass = "tourney-card"; customBadge = `<div class="tourney-badge">RND 3</div>`; iconColor = "var(--tourney-neon)"; } 
-                        else if (dateString === "2026-07-21") { raceType = "TOURNAMENT: SEMI-FINAL"; customClass = "tourney-card"; customBadge = `<div class="tourney-badge">RND 4</div>`; iconColor = "var(--tourney-neon)"; } 
-                        else if (dateString === "2026-07-28") { raceType = "TOURNAMENT: CHAMPIONSHIP"; customClass = "tourney-card"; customBadge = `<div class="tourney-badge">FINAL</div>`; iconColor = "var(--tourney-neon)"; }
-                    }
+                    let monthColor = accent;
+                    if(customClass === 'clash-card') monthColor = '#ff4500';
+                    if(customClass === 'tourney-card') monthColor = 'var(--tourney-neon)';
 
-                    let monthColor = accent;
-                    if(customClass === 'clash-card') monthColor = '#ff4500';
-                    if(customClass === 'tourney-card') monthColor = 'var(--tourney-neon)';
+                    // --- RENDER 1: COMPLETED (FLIP CARD - HERO CARD BACK) ---
+                    if (isPast && !isToday) {
+                        const html = `
+                        <div class="race-ticket flip-card-container ${customClass}">
+                            <div class="ticket-inner">
+                                <div class="ticket-front completed">
+                                    ${watermarkHtml}
+                                    ${customBadge}
+                                    <div class="flip-hint" onclick="this.closest('.flip-card-container').classList.add('flipped')"><i class="fa-solid fa-rotate"></i> CLICK FOR WINNER</div>
+                                    <div class="ticket-top">
+                                        <div class="date-group"><span class="date-month" style="color:${monthColor}">${month}</span><span class="date-day">${day}</span></div>
+                                        <i class="fa-solid fa-flag" style="color:${iconColor}; font-size:1.5rem;"></i>
+                                    </div>
+                                    <div class="ticket-body">
+                                        <h3 class="track-name">${race.track}</h3>
+                                        <span class="race-type" style="${customClass==='clash-card'?'color:#ff4500; font-weight:bold;':''}">${raceType}</span>
+                                        ${timeHtml}
+                                        <div class="status-pill" style="${pillStyle}">${statusText}</div>
+                                    </div>
+                                </div>
+                                <div class="ticket-back">
+                                    <div class="winner-back-content" style="background-image: url('${winnerImage}');">
+                                        <div class="winner-back-gradient"></div>
+                                        <div class="flip-hint-back" onclick="this.closest('.flip-card-container').classList.remove('flipped')"><i class="fa-solid fa-rotate-left"></i></div>
+                                        <div class="winner-back-info">
+                                            <div class="w-label">RACE WINNER</div>
+                                            <div class="w-name">${race.winner || 'TBD'}</div>
+                                            <a href="results.html?series=${currentSeries}&race=${encodeURIComponent(currentSeries + ' - ' + race.track)}" class="btn-view-results">FULL RESULTS</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+                        regGrid.innerHTML += html;
+                    
+                    // --- RENDER 2: NEXT RACE SPOTLIGHT ---
+                    } else if (isNextRace) {
+                        let liveHtml = `<a href="https://discord.gg/RgYEY5F3Kf" target="_blank" class="btn-live"><i class="fa-brands fa-twitch"></i> BROADCAST</a>`;
+                        if (isToday) liveHtml = `<a href="https://discord.gg/RgYEY5F3Kf" target="_blank" class="btn-live is-live">🔴 LIVE NOW</a>`;
 
-                    // --- RENDER 1: COMPLETED (FLIP CARD - HERO CARD BACK) ---
-                    if (isPast && !isToday) {
-                        const html = `
-                        <div class="race-ticket flip-card-container ${customClass}">
-                            <div class="ticket-inner">
-                                <div class="ticket-front completed">
-                                    ${watermarkHtml}
-                                    ${customBadge}
-                                    <div class="flip-hint" onclick="this.closest('.flip-card-container').classList.add('flipped')"><i class="fa-solid fa-rotate"></i> CLICK FOR WINNER</div>
-                                    <div class="ticket-top">
-                                        <div class="date-group"><span class="date-month" style="color:${monthColor}">${month}</span><span class="date-day">${day}</span></div>
-                                        <i class="fa-solid fa-flag" style="color:${iconColor}; font-size:1.5rem;"></i>
-                                    </div>
-                                    <div class="ticket-body">
-                                        <h3 class="track-name">${race.track}</h3>
-                                        <span class="race-type" style="${customClass==='clash-card'?'color:#ff4500; font-weight:bold;':''}">${raceType}</span>
-                                        ${timeHtml}
-                                        <div class="status-pill" style="${pillStyle}">${statusText}</div>
-                                    </div>
-                                </div>
-                                <div class="ticket-back">
-                                    <div class="winner-back-content" style="background-image: url('${winnerImage}');">
-                                        <div class="winner-back-gradient"></div>
-                                        <div class="flip-hint-back" onclick="this.closest('.flip-card-container').classList.remove('flipped')"><i class="fa-solid fa-rotate-left"></i></div>
-                                        <div class="winner-back-info">
-                                            <div class="w-label">RACE WINNER</div>
-                                            <div class="w-name">${winnerNameClean || 'TBD'}</div>
-                                            <a href="results.html?series=${currentSeries}&race=${encodeURIComponent(currentSeries + ' - ' + race.track)}" class="btn-view-results">FULL RESULTS</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>`;
-                        regGrid.innerHTML += html;
-                    
-                    // --- RENDER 2: NEXT RACE SPOTLIGHT ---
-                    } else if (isNextRace) {
-                        let liveHtml = `<a href="https://discord.gg/RgYEY5F3Kf" target="_blank" class="btn-live"><i class="fa-brands fa-twitch"></i> BROADCAST</a>`;
-                        if (isToday) liveHtml = `<a href="https://discord.gg/RgYEY5F3Kf" target="_blank" class="btn-live is-live">🔴 LIVE NOW</a>`;
+                        const html = `
+                        <div class="race-ticket next-race-spotlight ${customClass}">
+                            <div class="ticket-inner">
+                                <div class="ticket-front">
+                                    ${watermarkHtml}
+                                    ${customBadge}
+                                    <div class="ticket-top">
+                                        <div class="date-group"><span class="date-month" style="color:${monthColor}">${month}</span><span class="date-day">${day}</span></div>
+                                        <div style="background:var(--primary); color:#fff; font-size:0.7rem; padding:5px 15px; border-radius:30px; font-weight:bold; letter-spacing:1px; animation:pulse-text 2s infinite;"><i class="fa-solid fa-fire"></i> NEXT UP</div>
+                                    </div>
+                                    <div class="ticket-body">
+                                        <div class="spotlight-info">
+                                            <h3 class="track-name">${race.track}</h3>
+                                            <span class="race-type" style="${customClass==='clash-card'?'color:#ff4500; font-weight:bold;':''}">${raceType}</span>
+                                            ${defendingHtml}
+                                            ${timeHtml}
+                                        </div>
+                                        <div class="spotlight-action">
+                                            <div class="spotlight-timer" id="next-race-cd">
+                                                <div class="st-box"><span id="nr-d">00</span>d</div>
+                                                <div class="st-box"><span id="nr-h">00</span>h</div>
+                                                <div class="st-box"><span id="nr-m">00</span>m</div>
+                                            </div>
+                                            ${liveHtml}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+                        regGrid.innerHTML += html;
+                    
+                    // --- RENDER 3: STANDARD UPCOMING ---
+                    } else {
+                        const html = `
+                        <div class="race-ticket ${customClass}">
+                            <style>.race-ticket:not(.clash-card):not(.tourney-card):hover .ticket-front { border-color: ${accent}; }</style>
+                            <div class="ticket-inner">
+                                <div class="ticket-front">
+                                    ${watermarkHtml}
+                                    ${customBadge}
+                                    <div class="ticket-top">
+                                        <div class="date-group"><span class="date-month" style="color:${monthColor}">${month}</span><span class="date-day">${day}</span></div>
+                                        <i class="fa-solid fa-flag" style="color:${iconColor}; font-size:1.5rem;"></i>
+                                    </div>
+                                    <div class="ticket-body">
+                                        <h3 class="track-name">${race.track}</h3>
+                                        <span class="race-type" style="${customClass==='clash-card'?'color:#ff4500; font-weight:bold;':''}">${raceType}</span>
+                                        ${defendingHtml}
+                                        ${timeHtml}
+                                        <div class="status-pill" style="${pillStyle}">${statusText}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+                        regGrid.innerHTML += html;
+                    }
+                }
+            });
 
-                        const html = `
-                        <div class="race-ticket next-race-spotlight ${customClass}">
-                            <div class="ticket-inner">
-                                <div class="ticket-front">
-                                    ${watermarkHtml}
-                                    ${customBadge}
-                                    <div class="ticket-top">
-                                        <div class="date-group"><span class="date-month" style="color:${monthColor}">${month}</span><span class="date-day">${day}</span></div>
-                                        <div style="background:var(--primary); color:#fff; font-size:0.7rem; padding:5px 15px; border-radius:30px; font-weight:bold; letter-spacing:1px; animation:pulse-text 2s infinite;"><i class="fa-solid fa-fire"></i> NEXT UP</div>
-                                    </div>
-                                    <div class="ticket-body">
-                                        <div class="spotlight-info">
-                                            <h3 class="track-name">${race.track}</h3>
-                                            <span class="race-type" style="${customClass==='clash-card'?'color:#ff4500; font-weight:bold;':''}">${raceType}</span>
-                                            ${defendingHtml}
-                                            ${timeHtml}
-                                        </div>
-                                        <div class="spotlight-action">
-                                            <div class="spotlight-timer" id="next-race-cd">
-                                                <div class="st-box"><span id="nr-d">00</span>d</div>
-                                                <div class="st-box"><span id="nr-h">00</span>h</div>
-                                                <div class="st-box"><span id="nr-m">00</span>m</div>
-                                            </div>
-                                            ${liveHtml}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>`;
-                        regGrid.innerHTML += html;
-                    
-                    // --- RENDER 3: STANDARD UPCOMING ---
-                    } else {
-                        const html = `
-                        <div class="race-ticket ${customClass}">
-                            <style>.race-ticket:not(.clash-card):not(.tourney-card):hover .ticket-front { border-color: ${accent}; }</style>
-                            <div class="ticket-inner">
-                                <div class="ticket-front">
-                                    ${watermarkHtml}
-                                    ${customBadge}
-                                    <div class="ticket-top">
-                                        <div class="date-group"><span class="date-month" style="color:${monthColor}">${month}</span><span class="date-day">${day}</span></div>
-                                        <i class="fa-solid fa-flag" style="color:${iconColor}; font-size:1.5rem;"></i>
-                                    </div>
-                                    <div class="ticket-body">
-                                        <h3 class="track-name">${race.track}</h3>
-                                        <span class="race-type" style="${customClass==='clash-card'?'color:#ff4500; font-weight:bold;':''}">${raceType}</span>
-                                        ${defendingHtml}
-                                        ${timeHtml}
-                                        <div class="status-pill" style="${pillStyle}">${statusText}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>`;
-                        regGrid.innerHTML += html;
-                    }
-                }
-            });
+            // Update Progress Bar
+            const pct = Math.round((completedRaces / races.length) * 100);
+            document.getElementById('progress-label').innerText = `SEASON PROGRESS // ${completedRaces} OF ${races.length} RACES`;
+            document.getElementById('progress-percent').innerText = `${pct}%`;
+            document.getElementById('progress-fill').style.width = `${pct}%`;
 
-            // Update Progress Bar
-            const pct = Math.round((completedRaces / races.length) * 100);
-            document.getElementById('progress-label').innerText = `SEASON PROGRESS // ${completedRaces} OF ${races.length} RACES`;
-            document.getElementById('progress-percent').innerText = `${pct}%`;
-            document.getElementById('progress-fill').style.width = `${pct}%`;
+            chaseSection.style.display = hasChase ? 'block' : 'none';
 
-            chaseSection.style.display = hasChase ? 'block' : 'none';
+            // Start Countdown if Next Race exists
+            if (nextRaceTimestamp) {
+                startNextRaceCountdown(nextRaceTimestamp);
+            }
+        }
 
-            // Start Countdown if Next Race exists
-            if (nextRaceTimestamp) {
-                startNextRaceCountdown(nextRaceTimestamp);
-            }
-        }
+        // Timer Function
+        function startNextRaceCountdown(targetTime) {
+            function update() {
+                const now = new Date().getTime();
+                const dist = targetTime - now;
+                if (dist < 0) {
+                    if(document.getElementById("nr-d")) {
+                        document.getElementById("nr-d").innerText = "00";
+                        document.getElementById("nr-h").innerText = "00";
+                        document.getElementById("nr-m").innerText = "00";
+                    }
+                    return;
+                }
+                const d = Math.floor(dist / (1000 * 60 * 60 * 24));
+                const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+                
+                if(document.getElementById("nr-d")) {
+                    document.getElementById("nr-d").innerText = d < 10 ? "0" + d : d;
+                    document.getElementById("nr-h").innerText = h < 10 ? "0" + h : h;
+                    document.getElementById("nr-m").innerText = m < 10 ? "0" + m : m;
+                }
+            }
+            update();
+            countdownInterval = setInterval(update, 60000); // Update every minute is fine for this UI
+        }
+
+        // =========================================================
+        //  3D INTERACTIVE CALENDAR LOGIC
+        // =========================================================
+        let currentCalDate = new Date();
+        if(currentCalDate.getFullYear() < 2026) currentCalDate = new Date(2026, 1, 1); 
+
+        function openInteractiveCalendar() {
+            document.getElementById('interactive-calendar-overlay').style.display = 'flex';
+            renderInteractiveCalendar();
+        }
+
+        function closeInteractiveCalendar(e) {
+            if(e.target.id === 'interactive-calendar-overlay') {
+                document.getElementById('interactive-calendar-overlay').style.display = 'none';
+            }
+        }
+
+        function changeCalMonth(offset) {
+            const page = document.getElementById('cal-page');
+            page.classList.remove('flip-down');
+            page.classList.add('flip-up');
+
+            setTimeout(() => {
+                currentCalDate.setMonth(currentCalDate.getMonth() + offset);
+                renderInteractiveCalendar();
+                page.classList.remove('flip-up');
+                page.classList.add('flip-down');
+            }, 500);
+        }
+
+        function getRacesForDate(dateStr) {
+            let dayRaces = [];
+            if(!rawData) return dayRaces;
+
+            Object.keys(rawData).forEach(key => {
+                const seriesName = key.split(' ')[0]; 
+                const races = rawData[key];
+                const foundRaces = races.filter(r => r.date === dateStr);
+                foundRaces.forEach(r => {
+                    dayRaces.push({ series: seriesName, track: r.track, winner: r.winner, is_chase: r.is_chase });
+                });
+            });
+            return dayRaces;
+        }
+
+        function getSeriesColorVar(seriesName) {
+            const s = seriesName.toLowerCase();
+            if(s === 'cup') return 'var(--cup-blue)';
+            if(s === 'xfinity') return 'var(--xfinity-purple)';
+            if(s === 'truck') return 'var(--truck-red)';
+            if(s === 'menards') return 'var(--menards-yellow)';
+            return '#666';
+        }
+
+        function renderInteractiveCalendar() {
+            const year = currentCalDate.getFullYear();
+            const month = currentCalDate.getMonth();
+            const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+            document.getElementById('cal-month-title').innerText = `${monthNames[month]} ${year}`;
+
+            const grid = document.getElementById('cal-grid');
+            grid.innerHTML = '';
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const today = new Date();
+
+            for(let i = 0; i < firstDay; i++) grid.innerHTML += `<div class="cal-day empty"></div>`;
+
+            for(let i = 1; i <= daysInMonth; i++) {
+                const dString = `${year}-${(month+1).toString().padStart(2, '0')}-${i.toString().padStart(2, '0')}`;
+                
+                let classList = "cal-day";
+                if(year === today.getFullYear() && month === today.getMonth() && i === today.getDate()) classList += " today";
+
+                const races = getRacesForDate(dString);
+                let bgStyle = "";
+                let fontColor = "";
+                let contentHtml = "";
+                let clickHandler = "";
+
+                if (races.length > 0) {
+                    classList += " has-events";
+                    clickHandler = `onclick="openDayModal('${dString}')"`;
+                    const colors = races.map(r => getSeriesColorVar(r.series));
+
+                    if(colors.length === 1) {
+                        bgStyle = `background: ${colors[0]};`;
+                        fontColor = `color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.8);`;
+                    } else if(colors.length > 1) {
+                        let stops = [];
+                        const step = 100 / colors.length;
+                        colors.forEach((c, idx) => { stops.push(`${c} ${idx * step}%`, `${c} ${(idx + 1) * step}%`); });
+                        bgStyle = `background: linear-gradient(135deg, ${stops.join(', ')});`;
+                        fontColor = `color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.8);`;
+                    }
+
+                    contentHtml = `<div class="cal-event-list">`;
+                    races.forEach(r => {
+                        let shortTime = r.series.toLowerCase() === 'cup' ? '8:30p' : '9:20p';
+                        let shortTrack = r.track.split(' ')[0]; 
+                        contentHtml += `<div class="cal-event-text"><strong>${r.series.toUpperCase()}</strong> ${shortTrack} - ${shortTime}</div>`;
+                    });
+                    contentHtml += `</div>`;
+                }
+
+                grid.innerHTML += `
+                    <div class="${classList}" ${clickHandler}>
+                        ${bgStyle ? `<div class="series-bg-layer" style="${bgStyle}"></div>` : ''}
+                        <span class="cal-date-num" style="${fontColor}">${i}</span>
+                        ${contentHtml}
+                    </div>
+                `;
+            }
+
+            const totalCells = firstDay + daysInMonth;
+            const remainder = totalCells % 7;
+            if(remainder !== 0) {
+                for(let i = 0; i < (7 - remainder); i++) grid.innerHTML += `<div class="cal-day empty"></div>`;
+            }
+        }
+
+        // =========================================================
+        //  DAY DETAILS POP-UP MODAL LOGIC
+        // =========================================================
+        function openDayModal(dateStr) {
+            const races = getRacesForDate(dateStr);
+            if (races.length === 0) return;
+
+            const d = new Date(dateStr + "T12:00:00");
+            const niceDate = d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+            
+            document.getElementById('day-modal-title').innerText = niceDate;
+            
+            let html = '';
+            races.forEach(r => {
+                let qTime = r.series.toLowerCase() === 'cup' ? '8:00 PM EST' : '9:00 PM EST';
+                let rTime = r.series.toLowerCase() === 'cup' ? '8:30 PM EST' : '9:20 PM EST';
+                let sColor = getSeriesColorVar(r.series);
+                let winBadge = r.winner ? `<div style="margin-top:10px; color:#ffd700; font-size:0.8rem;"><i class="fa-solid fa-trophy"></i> Winner: ${r.winner}</div>` : '';
+
+                html += `
+                    <div class="day-event-card" style="border-left-color: ${sColor};">
+                        <div class="day-event-series" style="color: ${sColor};">${r.series} SERIES</div>
+                        <h3 class="day-event-track">${r.track}</h3>
+                        <div class="day-event-time">
+                            <span><i class="fa-solid fa-stopwatch"></i> Qual: ${qTime}</span>
+                            <span><i class="fa-solid fa-flag-checkered"></i> Race: ${rTime}</span>
+                        </div>
+                        ${winBadge}
+                    </div>
+                `;
+            });
+
+            document.getElementById('day-modal-content').innerHTML = html;
+            document.getElementById('day-modal-overlay').style.display = 'flex';
+        }
+
+        function closeDayModal(e) {
+            if(e) e.stopPropagation();
+            document.getElementById('day-modal-overlay').style.display = 'none';
+        }
+
+        // Init Data Load
+        loadSchedule();
+    </script>
+    <script>
+        document.addEventListener('contextmenu', (e) => { e.preventDefault(); });
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey || e.metaKey) {
+                switch (e.key.toLowerCase()) { case 'u': case 's': case 'a': case 'c': e.preventDefault(); return false; }
+                if (e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j')) { e.preventDefault(); return false; }
+            }
+            if (e.key === 'F12') { e.preventDefault(); return false; }
+        });
+    </script>
+</body>
+</html>
