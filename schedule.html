@@ -9,10 +9,27 @@
     <link rel="stylesheet" href="style.css">
     <style>
         :root {
-            --primary: #c00; --accent: #ff0; --bg-dark: #050505; --card-bg: #111; --border: #222; --text-muted: #888;
-            --cup-blue: #0077ff; --xfinity-purple: #8000b0; --truck-red: #c00; --menards-yellow: #fff200;
-            --clash-orange: #ff4500; --gold-mid: #ffd700; --gold-dark: #b8860b;
-            --tourney-neon: #00ffcc; --tourney-dark: #004d40;
+            --primary: #c00;
+            --accent: #ff0;
+            --bg-dark: #050505;
+            --card-bg: #111;
+            --border: #222;
+            --text-muted: #888;
+            
+            /* Series Colors */
+            --cup-blue: #0077ff;
+            --xfinity-purple: #8000b0;
+            --truck-red: #c00;
+            --menards-yellow: #fff200;
+            
+            /* Special Event Colors */
+            --clash-orange: #ff4500;
+            --gold-mid: #ffd700;
+            --gold-dark: #b8860b;
+            
+            /* In-Season Tournament Colors */
+            --tourney-neon: #00ffcc;
+            --tourney-dark: #004d40;
         }
 
         body { 
@@ -27,7 +44,8 @@
         /* --- HERO --- */
         .hero {
             padding: 10rem 1rem 6rem; text-align: center;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.9), #080808), url("https://www.transparenttextures.com/patterns/cubes.png");
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), #080808), 
+                        url("https://www.transparenttextures.com/patterns/cubes.png");
             border-bottom: 2px solid #222;
         }
         h1 { font-size: clamp(3rem, 10vw, 6rem); margin: 0; letter-spacing: -3px; text-transform: uppercase; color: #fff; line-height: 0.9; }
@@ -46,19 +64,36 @@
         /* --- CONTROLS --- */
         .controls-bar {
             position: sticky; top: 0; z-index: 100;
-            background: rgba(8, 8, 8, 0.95); backdrop-filter: blur(15px); border-bottom: 1px solid #222; padding: 1rem 0; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: rgba(8, 8, 8, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid #222;
+            padding: 1rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .controls-inner { max-width: 1200px; margin: 0 auto; padding: 0 1rem; display: flex; flex-direction: column; gap: 1rem; align-items: center; }
+        .controls-inner {
+            max-width: 1200px; margin: 0 auto; padding: 0 1rem;
+            display: flex; flex-direction: column; gap: 1rem; align-items: center;
+        }
 
         .season-select {
-            padding: 12px 25px; background: #151515; color: #fff; border: 1px solid #333; border-radius: 50px;
-            font-family: 'Arial Black', sans-serif; font-size: 0.9rem; cursor: pointer; text-align: center; width: 100%; max-width: 350px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
+            padding: 12px 25px; background: #151515; color: #fff;
+            border: 1px solid #333; border-radius: 50px;
+            font-family: 'Arial Black', sans-serif; font-size: 0.9rem;
+            cursor: pointer; text-align: center; width: 100%; max-width: 350px;
+            text-transform: uppercase; letter-spacing: 1px;
+            transition: 0.3s;
         }
         .season-select:hover { border-color: var(--primary); background: #1a1a1a; }
 
         .tabs-container { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
-        .series-btn { background: transparent; border: 1px solid #333; color: #666; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-family: 'Arial Black', sans-serif; font-size: 0.75rem; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .series-btn {
+            background: transparent; border: 1px solid #333; color: #666;
+            padding: 10px 20px; border-radius: 4px; cursor: pointer;
+            font-family: 'Arial Black', sans-serif; font-size: 0.75rem;
+            transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
+        }
         .series-btn:hover { color: #fff; border-color: #fff; }
+        
         .series-btn[data-series="Cup"].active { background: var(--cup-blue); border-color: var(--cup-blue); color: #fff; box-shadow: 0 0 20px rgba(0,119,255,0.3); }
         .series-btn[data-series="Xfinity"].active { background: var(--xfinity-purple); border-color: var(--xfinity-purple); color: #fff; box-shadow: 0 0 20px rgba(128,0,176,0.3); }
         .series-btn[data-series="Truck"].active { background: var(--truck-red); border-color: var(--truck-red); color: #fff; box-shadow: 0 0 20px rgba(204,0,0,0.3); }
@@ -72,12 +107,64 @@
 
         /* --- REGULAR SEASON --- */
         .container { max-width: 1300px; margin: 0 auto; padding: 2rem 2rem 4rem; }
-        .section-header { font-size: 1.5rem; color: #444; margin: 0 0 2rem; text-transform: uppercase; letter-spacing: 2px; display: flex; align-items: center; gap: 15px; }
+        
+        .section-header {
+            font-size: 1.5rem; color: #444; margin: 0 0 2rem; 
+            text-transform: uppercase; letter-spacing: 2px;
+            display: flex; align-items: center; gap: 15px;
+        }
         .section-header::after { content:''; flex:1; height:1px; background:#222; }
 
         .race-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
 
-        /* --- RACE TICKETS & 3D FLIP --- */
+        .race-ticket {
+            background: #111;
+            border: 1px solid #222;
+            position: relative;
+            display: flex; flex-direction: column;
+            transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            overflow: hidden;
+            border-radius: 6px;
+        }
+        .race-ticket:hover { transform: translateY(-5px); border-color: #444; z-index: 10; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
+        
+        /* Default Series Line */
+        .race-ticket::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+            background: #444; 
+        }
+
+        /* --- CLASH SPECIAL STYLES --- */
+        .clash-card {
+            border: 1px solid var(--clash-orange);
+            background: linear-gradient(135deg, #1a0500 0%, #000 100%);
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.2);
+        }
+        .clash-card::before { background: linear-gradient(to bottom, #ff8c00, #ff0000); width: 6px; }
+        .clash-card:hover { box-shadow: 0 0 40px rgba(255, 69, 0, 0.4); border-color: #ff8c00; }
+        .clash-card .track-name { background: linear-gradient(to right, #ff8c00, #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* --- IN-SEASON TOURNAMENT STYLES --- */
+        .tourney-card {
+            border: 1px solid var(--tourney-neon);
+            background: linear-gradient(135deg, var(--tourney-dark) 0%, #000 100%);
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.1);
+        }
+        .tourney-card::before { background: linear-gradient(to bottom, #fff, var(--tourney-neon)); width: 6px; }
+        .tourney-card:hover { box-shadow: 0 0 30px rgba(0, 255, 204, 0.4); border-color: #fff; }
+        .tourney-card .track-name { color: #fff; text-shadow: 0 0 10px var(--tourney-neon); }
+        .tourney-card .race-type { color: var(--tourney-neon); font-weight: bold; letter-spacing: 2px; }
+        .tourney-card .status-pill { border-color: var(--tourney-neon); color: var(--tourney-neon); background: rgba(0, 255, 204, 0.1); }
+        
+        .tourney-badge {
+            position: absolute; top: 10px; right: -30px;
+            background: var(--tourney-neon); color: #000;
+            font-size: 0.6rem; font-weight: bold; letter-spacing: 2px;
+            padding: 5px 30px; transform: rotate(45deg);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        /* --- 3D FLIP STYLES --- */
         .race-ticket { perspective: 1000px; min-height: 230px; border-radius: 6px; }
         .ticket-inner { 
             position: relative; width: 100%; height: 100%; 
@@ -91,41 +178,32 @@
             display: flex; flex-direction: column;
             border: 1px solid #222; background: #111;
         }
-        
         .ticket-front { position: relative; z-index: 2; height: 100%; }
-        .ticket-front:hover { border-color: #444; box-shadow: 0 10px 40px rgba(0,0,0,0.8); transform: translateY(-3px); transition: 0.3s; }
         .ticket-front::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #444; z-index: 3; }
         
         .ticket-back { 
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            transform: rotateY(180deg); background: #0a0a0a; border-color: var(--gold-mid);
-            justify-content: center; align-items: center; padding: 1.5rem; text-align: center;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.15);
+            transform: rotateY(180deg); background: #0a0a0a; border-color: var(--primary);
+            justify-content: center; align-items: center; padding: 0; text-align: center;
+            box-shadow: 0 0 30px rgba(204, 0, 0, 0.15);
         }
 
-        /* Watermarks */
-        .track-watermark { position: absolute; right: -20px; bottom: -20px; width: 150px; height: 150px; opacity: 0.05; background-size: contain; background-repeat: no-repeat; background-position: center; pointer-events: none; z-index: 1; }
-
-        /* --- NEXT RACE SPOTLIGHT --- */
-        .next-race-spotlight { grid-column: span 2; }
-        .next-race-spotlight .ticket-front { 
-            background: linear-gradient(135deg, #1a0505 0%, #000 100%); 
-            border-color: var(--primary); box-shadow: 0 0 30px rgba(204, 0, 0, 0.2); 
+        /* WINNER CARD BACK STYLE */
+        .winner-back-content {
+            width: 100%; height: 100%; position: relative;
+            background-size: cover; background-position: top center;
         }
-        .next-race-spotlight .ticket-top { padding: 2rem 2rem 1rem; }
-        .next-race-spotlight .ticket-body { padding: 0 2rem 2rem; flex-direction: row; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;}
-        .next-race-spotlight .track-name { font-size: 2.2rem; }
-        
-        .spotlight-info { flex: 1; }
-        .spotlight-action { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; z-index: 5; }
-        
-        .spotlight-timer { font-family: 'Arial Black'; font-size: 1.2rem; color: #fff; text-shadow: 0 0 10px var(--primary); display: flex; gap: 10px; }
-        .st-box { background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); }
-        
-        .btn-live { background: #222; color: #fff; padding: 8px 15px; text-decoration: none; font-size: 0.75rem; border-radius: 4px; border: 1px solid #444; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; text-transform: uppercase; }
-        .btn-live:hover { background: #333; border-color: var(--primary); }
-        .btn-live.is-live { background: #c00; border-color: #f00; animation: flash-live 1.5s infinite; }
-        @keyframes flash-live { 0% { opacity: 1; box-shadow: 0 0 15px #f00; } 50% { opacity: 0.5; box-shadow: 0 0 0px #f00; } 100% { opacity: 1; box-shadow: 0 0 15px #f00; } }
+        .winner-back-gradient {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, #000 0%, rgba(0,0,0,0.7) 40%, rgba(0,0,0,0.2) 100%);
+            z-index: 1;
+        }
+        .winner-back-info {
+            position: absolute; bottom: 0; left: 0; width: 100%; z-index: 2; padding: 1.5rem;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .w-label { color: var(--gold-mid); font-size: 0.8rem; letter-spacing: 2px; font-weight: bold; margin-bottom: 5px; }
+        .w-name { font-size: 1.5rem; text-transform: uppercase; line-height: 1; text-shadow: 0 2px 5px rgba(0,0,0,0.8); margin-bottom: 1rem; }
 
         /* Card Content Styles */
         .ticket-top { padding: 1.5rem; display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 2; }
@@ -142,24 +220,30 @@
 
         .status-pill { margin-top: 15px; display: inline-flex; align-items: center; gap: 5px; font-size: 0.65rem; padding: 6px 12px; border: 1px solid; border-radius: 4px; text-transform: uppercase; font-weight: bold; align-self: flex-start; letter-spacing: 1px; }
         .flip-hint { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 0.6rem; color: #666; letter-spacing: 1px; font-weight: bold; animation: pulse-text 2s infinite; cursor: pointer; z-index: 10; }
+        .flip-hint-back { position: absolute; top: 10px; left: 10px; font-size: 1.5rem; color: rgba(255,255,255,0.5); cursor: pointer; z-index: 10; }
         @keyframes pulse-text { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
 
-        /* Podium Backface */
-        .podium-list { display: flex; flex-direction: column; gap: 8px; margin: 15px 0; width: 100%; font-size: 0.9rem; text-transform: uppercase; text-align: left; }
-        .p-slot { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.05); padding: 8px 15px; border-radius: 4px; border-left: 3px solid; }
-        .btn-view-results { background: transparent; border: 1px solid var(--primary); color: #fff; padding: 8px 20px; font-family: 'Arial Black'; font-size: 0.7rem; text-decoration: none; border-radius: 4px; transition: 0.3s; margin-top: auto; }
-        .btn-view-results:hover { background: var(--primary); }
+        /* Watermarks */
+        .track-watermark { position: absolute; right: -20px; bottom: -20px; width: 150px; height: 150px; opacity: 0.05; background-size: contain; background-repeat: no-repeat; background-position: center; pointer-events: none; z-index: 1; }
 
-        /* Special Event Overrides */
-        .clash-card .ticket-front { border-color: var(--clash-orange); background: linear-gradient(135deg, #1a0500 0%, #000 100%); }
-        .clash-card .ticket-front::before { background: linear-gradient(to bottom, #ff8c00, #ff0000); }
-        .clash-card .track-name { background: linear-gradient(to right, #ff8c00, #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-        .tourney-card .ticket-front { border-color: var(--tourney-neon); background: linear-gradient(135deg, var(--tourney-dark) 0%, #000 100%); }
-        .tourney-card .ticket-front::before { background: linear-gradient(to bottom, #fff, var(--tourney-neon)); }
-        .tourney-card .track-name { color: #fff; text-shadow: 0 0 10px var(--tourney-neon); }
-        .tourney-card .race-type { color: var(--tourney-neon); font-weight: bold; }
-        .tourney-badge { position: absolute; top: 10px; right: -30px; background: var(--tourney-neon); color: #000; font-size: 0.6rem; font-weight: bold; letter-spacing: 2px; padding: 5px 30px; transform: rotate(45deg); z-index: 10; box-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        /* --- NEXT RACE SPOTLIGHT --- */
+        .next-race-spotlight { grid-column: span 2; }
+        .next-race-spotlight .ticket-front { 
+            background: linear-gradient(135deg, #1a0505 0%, #000 100%); 
+            border-color: var(--primary); box-shadow: 0 0 30px rgba(204, 0, 0, 0.2); 
+        }
+        .next-race-spotlight .ticket-top { padding: 2rem 2rem 1rem; }
+        .next-race-spotlight .ticket-body { padding: 0 2rem 2rem; flex-direction: row; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;}
+        .next-race-spotlight .track-name { font-size: 2.2rem; }
+        
+        .spotlight-info { flex: 1; }
+        .spotlight-action { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; z-index: 5; }
+        .spotlight-timer { font-family: 'Arial Black'; font-size: 1.2rem; color: #fff; text-shadow: 0 0 10px var(--primary); display: flex; gap: 10px; }
+        .st-box { background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); }
+        .btn-live { background: #222; color: #fff; padding: 8px 15px; text-decoration: none; font-size: 0.75rem; border-radius: 4px; border: 1px solid #444; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; text-transform: uppercase; }
+        .btn-live:hover { background: #333; border-color: var(--primary); }
+        .btn-live.is-live { background: #c00; border-color: #f00; animation: flash-live 1.5s infinite; }
+        @keyframes flash-live { 0% { opacity: 1; box-shadow: 0 0 15px #f00; } 50% { opacity: 0.5; box-shadow: 0 0 0px #f00; } 100% { opacity: 1; box-shadow: 0 0 15px #f00; } }
 
         /* --- THE CHASE --- */
         .chase-wrapper {
@@ -172,13 +256,13 @@
         .chase-sub { color: var(--gold-mid); font-size: 1rem; letter-spacing: 8px; text-transform: uppercase; margin-top: 15px; text-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
 
         .chase-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; position: relative; z-index: 2; max-width: 1400px; margin: 0 auto; }
-        
         .chase-ticket .ticket-front { background: rgba(20, 18, 5, 0.6); border: 1px solid #443300; backdrop-filter: blur(5px); }
         .chase-ticket .ticket-front::before { background: linear-gradient(to bottom, var(--gold-mid), var(--gold-dark)); }
         .chase-ticket .date-month { color: var(--gold-mid); }
         .chase-ticket .date-day { background: linear-gradient(to bottom, #fff, #ffd700); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .chase-ticket .track-name { font-size: 1.6rem; letter-spacing: 1px; text-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
         .chase-ticket .race-type { color: #886600; letter-spacing: 2px; }
+        .chase-ticket .status-pill { background: rgba(255, 215, 0, 0.1); border-color: var(--gold-dark); color: var(--gold-mid); box-shadow: 0 0 10px rgba(255, 215, 0, 0.1); }
 
         /* ========================================================= */
         /* --- 3D INTERACTIVE CALENDAR MODAL STYLES --- */
@@ -384,6 +468,50 @@
             }
         }
 
+        // --- HELPER: DRIVER HERO IMAGES ---
+        function getDriverImage(driverName) {
+            const nameLower = driverName.toLowerCase();
+            // FIX IS HERE: Changed namelower to nameLower
+            if (nameLower.includes('thirsttraptoby')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/7bc95544293252379df0a7693e5770b80e8ca8bf/ThirstTrapTobyHeroCard.jpg";
+            
+            if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/8e6c91687a3fd67cc8d9771eec28321a154a56ce/UpdatedHockeyHero.jpg";
+            if (nameLower.includes('k7_dalton')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/9a7e63f44a37cedfdf0b85ddeb4968c3b0da8817/k7Dalton.jpg";
+            if (nameLower.includes('isaac')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/d0f7c7e6480bc33317d4e7939036024f0dcff3dc/Isaac.jpg";
+            if (nameLower.includes('z71chevyman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/869f4adefde19421e449f2e1e9ab7bd3a6ffaee5/ChevyMan.jpg";
+            if (nameLower.includes('a54buick')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/b0f5738c17ce63c442afaca0ad22da6998499e1b/BuickBandit.jpg";
+            if (nameLower.includes('duramax')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/548e18c0b3bc92b82f0af9fe09a2b0369d9b97ee/Duramax.jpg";
+            if (nameLower.includes('rickyspanish')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/a4eb1f155988eef725e62b9c29859db41c08a225/RickySpanish.jpg";
+            if (nameLower.includes('solid1915')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/7655f9eefe0cdd0d1809954233309718780d8925/SolidOne.jpg";
+            if (nameLower.includes('the_fireman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6426c5de3657027051e18be3fae01a1c56faefbd/Fireman.jpg";
+            if (nameLower.includes('the_stone')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/e81190c6bca706ca129f3413df56c7f2e375f74b/Stone.jpg";
+            if (nameLower.includes('alessi')) return "https://github.com/mattwilson20/ascrl-website/blob/main/Alessi.Hero.Card.jpg?raw=true";
+            if (nameLower.includes('dakotathomas')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg";
+            if (nameLower.includes('orangeman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/70b5243e68e9c7f7a596f6695677d8d3520e89e1/IMG_7160.jpg";
+            if (nameLower.includes('ant_was_he')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/602e91f22a89c294308d1e79473121daa8e777e7/ant_was_he_hero_card.jpg";
+            if (nameLower.includes('c0mpl1c8')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/099805ff88fcc2ba2a1cc2e8b5aba8f515a716a6/C0mpl1c8ted_hero_card.jpg";
+            if (nameLower.includes('on-a-mission')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/446d56688b6fdf55420d2c5e52b6a764e873fab6/Mission_Hero_card.jpg";
+            if (nameLower.includes('banishedcrayon')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/d42bcd32df90441f1b5f24da75a77074ea2186fe/Banished_Crayon_hero_Card.jpg";
+            if (nameLower.includes('sithwarrior')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/3e992547a13fe5d73940648e83df80d97df41f90/SithWarriorUno_Hero_Card.jpg";
+            if (nameLower.includes('majorblaz')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/77807b78b078188862cb490d2b95d2f846d237bf/Blaze_Hero_Card.jpg";
+            if (nameLower.includes('thereaperrhino')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6ba07383a20109b63eec703c34fedc30f7a191bf/Rhino_Hero_Card.jpg";
+            if (nameLower.includes('daltongregson')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ec988478a8132f49d9d6b596e7ed258e2c2dd482/DaltonGregson_Hero_Card.jpg";
+            if (nameLower.includes('singular_nacho')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/f311b21127533ca6128a4408f36edaf9612d59b1/Singular_Nacho_Hero_Card.jpg";
+            if (nameLower.includes('callmemillion')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/e86926900f4957c57588db9a14beae7d6329a794/CallMeMillion_Hero_Card.jpg";
+            if (nameLower.includes('mattwilson20')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6686ee35c988cd1b0ae305d099ff4e31c652a49f/mattwilson20_Hero_Card.jpg";
+            if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/81df81de5161ea2f590ee32c370d3e99675cdbaa/Hockey_Hero_Card.png";
+            if (nameLower.includes('dewshine')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/c5319ac2110c0b89850cf83b5d93b1af677f8611/Dewshine_Hero_Card.jpg";
+            if (nameLower.includes('kevwood')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/07ccf5d79d881bf2047f439e25540dc380fec2d0/Kevwood.Hero.Card.jpg";
+            if (nameLower.includes('lnfvmous')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/acff9081bff808e0028c0ae22dada726083e7948/Infamous.hero.card.jpg";
+            if (nameLower.includes('fordemgators')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/58a3bfc691085c472f888d1c1d071fdf96b2ba20/Fordemgators.Hero.Card.jpg";
+            if (nameLower.includes('dgibby')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/a0de7269483b7e2ec5e1aaae549f739229008914/DGibby.hero.card.jpg";
+            if (nameLower.includes('kingg')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/9eb12bdb1b61a806ad951ae9a8bddc590622f35f/King.Hero.Card.jpg";
+            if (nameLower.includes('hatter')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/34425dadb737bc4bc27aa9271be62909dc9a3e99/Hatter.Hero.Card.jpg";
+            if (nameLower.includes('big_fella')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ced27a5d96e0d211f038b36e34a55bccf4a7e4de/BigFella.Hero.Card.jpg";
+            
+            // Default Ghost Image
+            return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg";
+        }
+
         // Master Load Function
         function loadSchedule() {
             const seasonKey = document.getElementById('seasonSelect').value;
@@ -492,13 +620,18 @@
                 let pillStyle = `border-color: ${accent}; color: ${accent};`;
                 let statusText = "UPCOMING";
                 let isNextRace = false;
-                
+                let winnerImage = ""; // Placeholder for winner image
+
                 if(isPast && !isToday) {
                     pillStyle = `border-color: #333; color: #444;`;
                     statusText = "COMPLETED";
                     if(race.winner) {
                         statusText = `<i class="fa-solid fa-trophy"></i> WINNER: ${race.winner}`;
                         pillStyle = `border-color: #444; color: #fff; background: #222;`;
+                        
+                        // GET WINNER IMAGE
+                        const cleanWinnerName = race.winner.replace(/^#\d+\s+/, '').trim();
+                        winnerImage = getDriverImage(cleanWinnerName);
                     }
                 } else if (!nextRaceFound) {
                     isNextRace = true;
@@ -530,7 +663,7 @@
                             <div class="ticket-inner">
                                 <div class="ticket-front chase-ticket completed" style="background: rgba(20, 18, 5, 0.6); border-color:#443300;">
                                     ${watermarkHtml}
-                                    <div class="flip-hint" onclick="this.closest('.flip-card-container').classList.add('flipped')"><i class="fa-solid fa-rotate"></i> CLICK FOR RESULTS</div>
+                                    <div class="flip-hint" onclick="this.closest('.flip-card-container').classList.add('flipped')"><i class="fa-solid fa-rotate"></i> CLICK FOR WINNER</div>
                                     <div class="ticket-top">
                                         <div class="date-group"><span class="date-month" style="color:var(--gold-mid)">${month}</span><span class="date-day" style="background: linear-gradient(to bottom, #fff, #ffd700); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">${day}</span></div>
                                         <i class="fa-solid fa-flag-checkered" style="color:var(--gold-mid); font-size:1.5rem; opacity:0.8;"></i>
@@ -543,14 +676,15 @@
                                     </div>
                                 </div>
                                 <div class="ticket-back">
-                                    <div class="flip-hint" onclick="this.closest('.flip-card-container').classList.remove('flipped')"><i class="fa-solid fa-rotate-left"></i> BACK</div>
-                                    <h4 style="color:var(--gold-mid); margin:0 0 10px; font-family:'Arial Black'; font-size:1.2rem;">PODIUM</h4>
-                                    <div class="podium-list">
-                                        <div class="p-slot" style="border-color:#ffd700; color:#ffd700;"><i class="fa-solid fa-1"></i> ${race.winner || 'TBD'}</div>
-                                        <div class="p-slot" style="border-color:#c0c0c0; color:#c0c0c0;"><i class="fa-solid fa-2"></i> ${race.second || 'TBD'}</div>
-                                        <div class="p-slot" style="border-color:#cd7f32; color:#cd7f32;"><i class="fa-solid fa-3"></i> ${race.third || 'TBD'}</div>
+                                    <div class="winner-back-content" style="background-image: url('${winnerImage}');">
+                                        <div class="winner-back-gradient"></div>
+                                        <div class="flip-hint-back" onclick="this.closest('.flip-card-container').classList.remove('flipped')"><i class="fa-solid fa-rotate-left"></i></div>
+                                        <div class="winner-back-info">
+                                            <div class="w-label">RACE WINNER</div>
+                                            <div class="w-name">${race.winner || 'TBD'}</div>
+                                            <a href="results.html?series=${currentSeries}&race=${encodeURIComponent(currentSeries + ' - ' + race.track)}" class="btn-view-results">FULL RESULTS</a>
+                                        </div>
                                     </div>
-                                    <a href="results.html" class="btn-view-results">VIEW FULL RESULTS</a>
                                 </div>
                             </div>
                         </div>`;
@@ -611,7 +745,7 @@
                     if(customClass === 'clash-card') monthColor = '#ff4500';
                     if(customClass === 'tourney-card') monthColor = 'var(--tourney-neon)';
 
-                    // --- RENDER 1: COMPLETED (FLIP CARD) ---
+                    // --- RENDER 1: COMPLETED (FLIP CARD - HERO CARD BACK) ---
                     if (isPast && !isToday) {
                         const html = `
                         <div class="race-ticket flip-card-container ${customClass}">
@@ -619,7 +753,7 @@
                                 <div class="ticket-front completed">
                                     ${watermarkHtml}
                                     ${customBadge}
-                                    <div class="flip-hint" onclick="this.closest('.flip-card-container').classList.add('flipped')"><i class="fa-solid fa-rotate"></i> CLICK FOR RESULTS</div>
+                                    <div class="flip-hint" onclick="this.closest('.flip-card-container').classList.add('flipped')"><i class="fa-solid fa-rotate"></i> CLICK FOR WINNER</div>
                                     <div class="ticket-top">
                                         <div class="date-group"><span class="date-month" style="color:${monthColor}">${month}</span><span class="date-day">${day}</span></div>
                                         <i class="fa-solid fa-flag" style="color:${iconColor}; font-size:1.5rem;"></i>
@@ -632,14 +766,15 @@
                                     </div>
                                 </div>
                                 <div class="ticket-back">
-                                    <div class="flip-hint" onclick="this.closest('.flip-card-container').classList.remove('flipped')"><i class="fa-solid fa-rotate-left"></i> BACK</div>
-                                    <h4 style="color:var(--gold-mid); margin:0 0 10px; font-family:'Arial Black'; font-size:1.2rem;">PODIUM</h4>
-                                    <div class="podium-list">
-                                        <div class="p-slot" style="border-color:#ffd700; color:#ffd700;"><i class="fa-solid fa-1"></i> ${race.winner || 'TBD'}</div>
-                                        <div class="p-slot" style="border-color:#c0c0c0; color:#c0c0c0;"><i class="fa-solid fa-2"></i> ${race.second || 'TBD'}</div>
-                                        <div class="p-slot" style="border-color:#cd7f32; color:#cd7f32;"><i class="fa-solid fa-3"></i> ${race.third || 'TBD'}</div>
+                                    <div class="winner-back-content" style="background-image: url('${winnerImage}');">
+                                        <div class="winner-back-gradient"></div>
+                                        <div class="flip-hint-back" onclick="this.closest('.flip-card-container').classList.remove('flipped')"><i class="fa-solid fa-rotate-left"></i></div>
+                                        <div class="winner-back-info">
+                                            <div class="w-label">RACE WINNER</div>
+                                            <div class="w-name">${race.winner || 'TBD'}</div>
+                                            <a href="results.html?series=${currentSeries}&race=${encodeURIComponent(currentSeries + ' - ' + race.track)}" class="btn-view-results">FULL RESULTS</a>
+                                        </div>
                                     </div>
-                                    <a href="results.html" class="btn-view-results">VIEW FULL RESULTS</a>
                                 </div>
                             </div>
                         </div>`;
