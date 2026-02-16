@@ -9,27 +9,10 @@
     <link rel="stylesheet" href="style.css">
     <style>
         :root {
-            --primary: #c00;
-            --accent: #ff0;
-            --bg-dark: #050505;
-            --card-bg: #111;
-            --border: #222;
-            --text-muted: #888;
-            
-            /* Series Colors */
-            --cup-blue: #0077ff;
-            --xfinity-purple: #8000b0;
-            --truck-red: #c00;
-            --menards-yellow: #fff200;
-            
-            /* Special Event Colors */
-            --clash-orange: #ff4500;
-            --gold-mid: #ffd700;
-            --gold-dark: #b8860b;
-            
-            /* In-Season Tournament Colors */
-            --tourney-neon: #00ffcc;
-            --tourney-dark: #004d40;
+            --primary: #c00; --accent: #ff0; --bg-dark: #050505; --card-bg: #111; --border: #222; --text-muted: #888;
+            --cup-blue: #0077ff; --xfinity-purple: #8000b0; --truck-red: #c00; --menards-yellow: #fff200;
+            --clash-orange: #ff4500; --gold-mid: #ffd700; --gold-dark: #b8860b;
+            --tourney-neon: #00ffcc; --tourney-dark: #004d40;
         }
 
         body { 
@@ -107,105 +90,56 @@
 
         /* --- REGULAR SEASON --- */
         .container { max-width: 1300px; margin: 0 auto; padding: 2rem 2rem 4rem; }
-        
-        .section-header {
-            font-size: 1.5rem; color: #444; margin: 0 0 2rem; 
-            text-transform: uppercase; letter-spacing: 2px;
-            display: flex; align-items: center; gap: 15px;
-        }
+        .section-header { font-size: 1.5rem; color: #444; margin: 0 0 2rem; text-transform: uppercase; letter-spacing: 2px; display: flex; align-items: center; gap: 15px; }
         .section-header::after { content:''; flex:1; height:1px; background:#222; }
 
         .race-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
 
-        .race-ticket {
-            background: #111;
-            border: 1px solid #222;
-            position: relative;
-            display: flex; flex-direction: column;
-            transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            overflow: hidden;
-            border-radius: 6px;
+        /* --- RACE TICKETS --- */
+        .race-ticket { 
+            background: #111; border: 1px solid #222; border-radius: 6px; overflow: hidden;
+            display: flex; flex-direction: column; min-height: 230px; position: relative;
+            transition: 0.3s;
         }
-        .race-ticket:hover { transform: translateY(-5px); border-color: #444; z-index: 10; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
+        .race-ticket:hover { transform: translateY(-5px); border-color: #444; box-shadow: 0 10px 40px rgba(0,0,0,0.8); z-index: 10; }
         
-        /* Default Series Line */
-        .race-ticket::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-            background: #444; 
+        .race-ticket::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #444; z-index: 3; }
+
+        /* Completed Race Styles (Winner Background) */
+        .race-ticket.completed {
+            background-size: cover; background-position: top center; border-color: var(--gold-mid);
+        }
+        .race-ticket.completed .ticket-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.4) 100%);
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+        }
+        .race-ticket.completed .ticket-content {
+            position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem;
+        }
+        .race-ticket.completed .track-name { text-shadow: 0 2px 10px rgba(0,0,0,1); font-size: 1.5rem; margin-bottom: 5px;}
+        .race-ticket.completed .status-pill {
+            background: #ffd700; color: #000; border: none; box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+            margin-top: 5px;
         }
 
-        /* --- CLASH SPECIAL STYLES --- */
-        .clash-card {
-            border: 1px solid var(--clash-orange);
-            background: linear-gradient(135deg, #1a0500 0%, #000 100%);
-            box-shadow: 0 0 20px rgba(255, 69, 0, 0.2);
-        }
-        .clash-card::before { background: linear-gradient(to bottom, #ff8c00, #ff0000); width: 6px; }
-        .clash-card:hover { box-shadow: 0 0 40px rgba(255, 69, 0, 0.4); border-color: #ff8c00; }
-        .clash-card .track-name { background: linear-gradient(to right, #ff8c00, #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        /* Watermarks (only for non-completed) */
+        .track-watermark { position: absolute; right: -20px; bottom: -20px; width: 150px; height: 150px; opacity: 0.05; background-size: contain; background-repeat: no-repeat; background-position: center; pointer-events: none; z-index: 1; }
 
-        /* --- IN-SEASON TOURNAMENT STYLES --- */
-        .tourney-card {
-            border: 1px solid var(--tourney-neon);
-            background: linear-gradient(135deg, var(--tourney-dark) 0%, #000 100%);
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.1);
-        }
-        .tourney-card::before { background: linear-gradient(to bottom, #fff, var(--tourney-neon)); width: 6px; }
-        .tourney-card:hover { box-shadow: 0 0 30px rgba(0, 255, 204, 0.4); border-color: #fff; }
-        .tourney-card .track-name { color: #fff; text-shadow: 0 0 10px var(--tourney-neon); }
-        .tourney-card .race-type { color: var(--tourney-neon); font-weight: bold; letter-spacing: 2px; }
-        .tourney-card .status-pill { border-color: var(--tourney-neon); color: var(--tourney-neon); background: rgba(0, 255, 204, 0.1); }
+        /* --- NEXT RACE SPOTLIGHT --- */
+        .next-race-spotlight { grid-column: span 2; background: linear-gradient(135deg, #1a0505 0%, #000 100%); border-color: var(--primary); box-shadow: 0 0 30px rgba(204, 0, 0, 0.2); }
+        .next-race-spotlight .ticket-body { padding: 0 2rem 2rem; flex-direction: row; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;}
+        .next-race-spotlight .track-name { font-size: 2.2rem; }
         
-        .tourney-badge {
-            position: absolute; top: 10px; right: -30px;
-            background: var(--tourney-neon); color: #000;
-            font-size: 0.6rem; font-weight: bold; letter-spacing: 2px;
-            padding: 5px 30px; transform: rotate(45deg);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        }
+        .spotlight-info { flex: 1; }
+        .spotlight-action { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; z-index: 5; }
+        .spotlight-timer { font-family: 'Arial Black'; font-size: 1.2rem; color: #fff; text-shadow: 0 0 10px var(--primary); display: flex; gap: 10px; }
+        .st-box { background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); }
+        .btn-live { background: #222; color: #fff; padding: 8px 15px; text-decoration: none; font-size: 0.75rem; border-radius: 4px; border: 1px solid #444; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; text-transform: uppercase; }
+        .btn-live:hover { background: #333; border-color: var(--primary); }
+        .btn-live.is-live { background: #c00; border-color: #f00; animation: flash-live 1.5s infinite; }
+        @keyframes flash-live { 0% { opacity: 1; box-shadow: 0 0 15px #f00; } 50% { opacity: 0.5; box-shadow: 0 0 0px #f00; } 100% { opacity: 1; box-shadow: 0 0 15px #f00; } }
 
-        /* --- 3D FLIP STYLES --- */
-        .race-ticket { perspective: 1000px; min-height: 230px; border-radius: 6px; }
-        .ticket-inner { 
-            position: relative; width: 100%; height: 100%; 
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
-            transform-style: preserve-3d; border-radius: 6px;
-        }
-        .race-ticket.flipped .ticket-inner { transform: rotateY(180deg); }
-        
-        .ticket-front, .ticket-back { 
-            backface-visibility: hidden; border-radius: 6px; overflow: hidden;
-            display: flex; flex-direction: column;
-            border: 1px solid #222; background: #111;
-        }
-        .ticket-front { position: relative; z-index: 2; height: 100%; }
-        .ticket-front::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #444; z-index: 3; }
-        
-        .ticket-back { 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            transform: rotateY(180deg); background: #0a0a0a; border-color: var(--primary);
-            justify-content: center; align-items: center; padding: 0; text-align: center;
-            box-shadow: 0 0 30px rgba(204, 0, 0, 0.15);
-        }
-
-        /* WINNER CARD BACK STYLE */
-        .winner-back-content {
-            width: 100%; height: 100%; position: relative;
-            background-size: cover; background-position: top center;
-        }
-        .winner-back-gradient {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to top, #000 0%, rgba(0,0,0,0.7) 40%, rgba(0,0,0,0.2) 100%);
-            z-index: 1;
-        }
-        .winner-back-info {
-            position: absolute; bottom: 0; left: 0; width: 100%; z-index: 2; padding: 1.5rem;
-            display: flex; flex-direction: column; align-items: center;
-        }
-        .w-label { color: var(--gold-mid); font-size: 0.8rem; letter-spacing: 2px; font-weight: bold; margin-bottom: 5px; }
-        .w-name { font-size: 1.5rem; text-transform: uppercase; line-height: 1; text-shadow: 0 2px 5px rgba(0,0,0,0.8); margin-bottom: 1rem; }
-
-        /* Card Content Styles */
+        /* Card Content Styles (Regular) */
         .ticket-top { padding: 1.5rem; display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 2; }
         .date-group { display: flex; flex-direction: column; }
         .date-month { font-size: 0.7rem; color: #666; letter-spacing: 2px; font-weight: bold; }
@@ -219,31 +153,18 @@
         .race-times i { width: 14px; color: var(--primary); text-align: center; }
 
         .status-pill { margin-top: 15px; display: inline-flex; align-items: center; gap: 5px; font-size: 0.65rem; padding: 6px 12px; border: 1px solid; border-radius: 4px; text-transform: uppercase; font-weight: bold; align-self: flex-start; letter-spacing: 1px; }
-        .flip-hint { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 0.6rem; color: #666; letter-spacing: 1px; font-weight: bold; animation: pulse-text 2s infinite; cursor: pointer; z-index: 10; }
-        .flip-hint-back { position: absolute; top: 10px; left: 10px; font-size: 1.5rem; color: rgba(255,255,255,0.5); cursor: pointer; z-index: 10; }
-        @keyframes pulse-text { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
-
-        /* Watermarks */
-        .track-watermark { position: absolute; right: -20px; bottom: -20px; width: 150px; height: 150px; opacity: 0.05; background-size: contain; background-repeat: no-repeat; background-position: center; pointer-events: none; z-index: 1; }
-
-        /* --- NEXT RACE SPOTLIGHT --- */
-        .next-race-spotlight { grid-column: span 2; }
-        .next-race-spotlight .ticket-front { 
-            background: linear-gradient(135deg, #1a0505 0%, #000 100%); 
-            border-color: var(--primary); box-shadow: 0 0 30px rgba(204, 0, 0, 0.2); 
-        }
-        .next-race-spotlight .ticket-top { padding: 2rem 2rem 1rem; }
-        .next-race-spotlight .ticket-body { padding: 0 2rem 2rem; flex-direction: row; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;}
-        .next-race-spotlight .track-name { font-size: 2.2rem; }
         
-        .spotlight-info { flex: 1; }
-        .spotlight-action { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; z-index: 5; }
-        .spotlight-timer { font-family: 'Arial Black'; font-size: 1.2rem; color: #fff; text-shadow: 0 0 10px var(--primary); display: flex; gap: 10px; }
-        .st-box { background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); }
-        .btn-live { background: #222; color: #fff; padding: 8px 15px; text-decoration: none; font-size: 0.75rem; border-radius: 4px; border: 1px solid #444; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; text-transform: uppercase; }
-        .btn-live:hover { background: #333; border-color: var(--primary); }
-        .btn-live.is-live { background: #c00; border-color: #f00; animation: flash-live 1.5s infinite; }
-        @keyframes flash-live { 0% { opacity: 1; box-shadow: 0 0 15px #f00; } 50% { opacity: 0.5; box-shadow: 0 0 0px #f00; } 100% { opacity: 1; box-shadow: 0 0 15px #f00; } }
+        /* Special Event Overrides */
+        .clash-card { border-color: var(--clash-orange); background: linear-gradient(135deg, #1a0500 0%, #000 100%); }
+        .clash-card::before { background: linear-gradient(to bottom, #ff8c00, #ff0000); }
+        .clash-card .track-name { background: linear-gradient(to right, #ff8c00, #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .tourney-card { border-color: var(--tourney-neon); background: linear-gradient(135deg, var(--tourney-dark) 0%, #000 100%); box-shadow: 0 0 15px rgba(0, 255, 204, 0.1); }
+        .tourney-card::before { background: linear-gradient(to bottom, #fff, var(--tourney-neon)); width: 6px; }
+        .tourney-card:hover { box-shadow: 0 0 30px rgba(0, 255, 204, 0.4); border-color: #fff; }
+        .tourney-card .track-name { color: #fff; text-shadow: 0 0 10px var(--tourney-neon); }
+        .tourney-card .race-type { color: var(--tourney-neon); font-weight: bold; }
+        .tourney-badge { position: absolute; top: 10px; right: -30px; background: var(--tourney-neon); color: #000; font-size: 0.6rem; font-weight: bold; letter-spacing: 2px; padding: 5px 30px; transform: rotate(45deg); z-index: 10; box-shadow: 0 2px 10px rgba(0,0,0,0.5); }
 
         /* --- THE CHASE --- */
         .chase-wrapper {
@@ -256,8 +177,8 @@
         .chase-sub { color: var(--gold-mid); font-size: 1rem; letter-spacing: 8px; text-transform: uppercase; margin-top: 15px; text-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
 
         .chase-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; position: relative; z-index: 2; max-width: 1400px; margin: 0 auto; }
-        .chase-ticket .ticket-front { background: rgba(20, 18, 5, 0.6); border: 1px solid #443300; backdrop-filter: blur(5px); }
-        .chase-ticket .ticket-front::before { background: linear-gradient(to bottom, var(--gold-mid), var(--gold-dark)); }
+        .chase-ticket { background: rgba(20, 18, 5, 0.6); border: 1px solid #443300; backdrop-filter: blur(5px); }
+        .chase-ticket::before { background: linear-gradient(to bottom, var(--gold-mid), var(--gold-dark)); }
         .chase-ticket .date-month { color: var(--gold-mid); }
         .chase-ticket .date-day { background: linear-gradient(to bottom, #fff, #ffd700); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .chase-ticket .track-name { font-size: 1.6rem; letter-spacing: 1px; text-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
@@ -448,15 +369,21 @@
             "current": "ASCRL_2026_Schedule.json", 
             "2025": "schedule.json"
         };
+        const RESULT_FILES = {
+            "current": "ASCRL_Results_2026.json",
+            "2025": "ASCRL_Results_Season_1.json"
+        };
         
         let rawData = {};
         let archiveData = {};
+        let driversData = {};
+        let resultsData = {}; 
         let currentSeries = 'Cup';
         let countdownInterval = null;
 
         // Track Shape SVG Helper
         function getTrackSVG(trackName) {
-            const t = trackName.toLowerCase();
+            const t = (trackName || "").toLowerCase();
             if(t.includes('daytona') || t.includes('talladega') || t.includes('pocono')) {
                 return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50"><path d="M10,25 C10,5 50,5 50,5 C50,5 90,5 90,25 C90,45 50,45 50,45 C50,45 10,45 10,25" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="5"/></svg>`;
             } else if(t.includes('bristol') || t.includes('martinsville') || t.includes('richmond') || t.includes('wilkesboro')) {
@@ -470,11 +397,10 @@
 
         // --- HELPER: DRIVER HERO IMAGES ---
         function getDriverImage(driverName) {
-            const nameLower = driverName.toLowerCase();
-            // FIX IS HERE: Changed namelower to nameLower
-            if (nameLower.includes('thirsttraptoby')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/7bc95544293252379df0a7693e5770b80e8ca8bf/ThirstTrapTobyHeroCard.jpg";
+            const nameLower = (driverName || "").toLowerCase();
             
-            if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/8e6c91687a3fd67cc8d9771eec28321a154a56ce/UpdatedHockeyHero.jpg";
+            if (nameLower.includes('thirsttraptoby')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/7bc95544293252379df0a7693e5770b80e8ca8bf/ThirstTrapTobyHeroCard.jpg";
+            if (nameLower.includes('hockey')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/8e6c91687a3fd67cc8d9771eec28321a154a56ce/UpdatedHockeyHero.jpg";
             if (nameLower.includes('k7_dalton')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/9a7e63f44a37cedfdf0b85ddeb4968c3b0da8817/k7Dalton.jpg";
             if (nameLower.includes('isaac')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/d0f7c7e6480bc33317d4e7939036024f0dcff3dc/Isaac.jpg";
             if (nameLower.includes('z71chevyman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/869f4adefde19421e449f2e1e9ab7bd3a6ffaee5/ChevyMan.jpg";
@@ -516,18 +442,23 @@
         function loadSchedule() {
             const seasonKey = document.getElementById('seasonSelect').value;
             const file = FILES[seasonKey];
+            const resultFile = RESULT_FILES[seasonKey]; // LOAD THE CORRECT RESULTS FILE
 
             const regGrid = document.getElementById('regular-grid');
             regGrid.innerHTML = '<p style="color:#666;">Loading...</p>';
             document.getElementById('chase-section').style.display = 'none';
 
-            // Fetch current selection AND the 2025 archive (for Defending Winners)
+            // Fetch ALL data needed
             Promise.all([
                 fetch(file).then(r => r.ok ? r.json() : {}),
-                fetch(FILES["2025"]).then(r => r.ok ? r.json() : {})
-            ]).then(([mainSet, archiveSet]) => {
+                fetch(FILES["2025"]).then(r => r.ok ? r.json() : {}), // Keep for defending winner check
+                fetch("drivers.json").then(r => r.ok ? r.json() : {}),
+                fetch(resultFile).then(r => r.ok ? r.json() : {}) // DYNAMIC RESULT FILE
+            ]).then(([mainSet, archiveSet, driverSet, resultSet]) => {
                 rawData = mainSet;
                 archiveData = archiveSet;
+                driversData = driverSet; 
+                resultsData = resultSet;
                 renderSeries();
                 
                 // If modal is open, re-render to catch changes
@@ -550,7 +481,6 @@
         }
 
         function renderSeries() {
-            // Clear old countdowns
             if(countdownInterval) clearInterval(countdownInterval);
 
             const regGrid = document.getElementById('regular-grid');
@@ -580,11 +510,10 @@
             let nextRaceTimestamp = null;
             let completedRaces = 0;
 
-            // Dynamic Colors & Times
             let accent = "#444";
             let qualTime = "9:00 PM EST";
             let raceTime = "9:20 PM EST";
-            let raceHour24 = "21:20:00"; // For countdown math
+            let raceHour24 = "21:20:00"; 
 
             if(currentSeries === 'Cup') {
                 accent = "var(--cup-blue)";
@@ -601,7 +530,7 @@
                 const isPast = rDate < today;
                 const isToday = rDate.toDateString() === today.toDateString();
                 
-                if (isPast || isToday) completedRaces++; // Advance progress bar
+                if (isPast || isToday) completedRaces++;
 
                 const month = rDate.toLocaleString('default', {month:'short'}).toUpperCase();
                 const day = rDate.getDate();
@@ -620,18 +549,43 @@
                 let pillStyle = `border-color: ${accent}; color: ${accent};`;
                 let statusText = "UPCOMING";
                 let isNextRace = false;
-                let winnerImage = ""; // Placeholder for winner image
+                let winnerImage = ""; 
+                let winnerNameClean = ""; 
+                let winnerStyle = ""; // For background image
 
                 if(isPast && !isToday) {
                     pillStyle = `border-color: #333; color: #444;`;
                     statusText = "COMPLETED";
-                    if(race.winner) {
-                        statusText = `<i class="fa-solid fa-trophy"></i> WINNER: ${race.winner}`;
-                        pillStyle = `border-color: #444; color: #fff; background: #222;`;
+                    
+                    // 1. Try to find match in Results JSON
+                    // Match "Series - Track" (e.g., Cup - Daytona)
+                    const raceKey = `${currentSeries} - ${race.track}`;
+                    const raceResults = resultsData[raceKey];
+                    let winnerFromResults = null;
+
+                    if (raceResults && raceResults.length > 0) {
+                        // Find position 1
+                        const winnerObj = raceResults.find(r => r.position === 1);
+                        if (winnerObj) winnerFromResults = winnerObj.driver;
+                    }
+
+                    // 2. Use found winner OR fallback to Schedule JSON 'winner' field
+                    const winnerRaw = winnerFromResults || race.winner;
+
+                    if(winnerRaw) {
+                        winnerNameClean = winnerRaw.replace(/^#\d+\s*/, '').trim(); 
+                        statusText = `<i class="fa-solid fa-trophy"></i> WINNER: ${winnerNameClean}`;
+                        pillStyle = `border-color: #ffd700; color: #000; background: #ffd700; font-weight:900;`;
                         
-                        // GET WINNER IMAGE
-                        const cleanWinnerName = race.winner.replace(/^#\d+\s+/, '').trim();
-                        winnerImage = getDriverImage(cleanWinnerName);
+                        // 3. Get Image using drivers.json lookup if possible
+                        let officialName = winnerNameClean;
+                        const driverEntry = Object.values(driversData).find(d => 
+                            d.display_name && d.display_name.toLowerCase() === winnerNameClean.toLowerCase()
+                        );
+                        if (driverEntry) officialName = driverEntry.display_name;
+
+                        winnerImage = getDriverImage(officialName);
+                        winnerStyle = `background-image: url('${winnerImage}');`; // Set winner image as bg
                     }
                 } else if (!nextRaceFound) {
                     isNextRace = true;
@@ -639,7 +593,6 @@
                     nextRaceTimestamp = new Date(race.date + "T" + raceHour24).getTime();
                 }
 
-                // Time Block HTML
                 const timeHtml = `
                     <div class="race-times">
                         <span><i class="fa-solid fa-stopwatch"></i> QUAL: ${qualTime}</span>
@@ -647,82 +600,58 @@
                     </div>
                 `;
 
-                // SVG Watermark
                 const watermarkHtml = `<div class="track-watermark" style="background-image: url('${getTrackSVG(race.track)}');"></div>`;
 
-                // ==========================================
-                // CHASE / PLAYOFF RACES
-                // ==========================================
+                // --- RENDER CARD HTML ---
                 if (race.is_chase) {
                     hasChase = true;
                     
                     if (isPast && !isToday) {
-                        // COMPLETED FLIP CARD (CHASE)
-                        const html = `
-                        <div class="race-ticket flip-card-container">
-                            <div class="ticket-inner">
-                                <div class="ticket-front chase-ticket completed" style="background: rgba(20, 18, 5, 0.6); border-color:#443300;">
-                                    ${watermarkHtml}
-                                    <div class="flip-hint" onclick="this.closest('.flip-card-container').classList.add('flipped')"><i class="fa-solid fa-rotate"></i> CLICK FOR WINNER</div>
-                                    <div class="ticket-top">
-                                        <div class="date-group"><span class="date-month" style="color:var(--gold-mid)">${month}</span><span class="date-day" style="background: linear-gradient(to bottom, #fff, #ffd700); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">${day}</span></div>
-                                        <i class="fa-solid fa-flag-checkered" style="color:var(--gold-mid); font-size:1.5rem; opacity:0.8;"></i>
-                                    </div>
-                                    <div class="ticket-body">
-                                        <h3 class="track-name" style="text-shadow: 0 0 20px rgba(255, 215, 0, 0.2);">${race.track}</h3>
-                                        <span class="race-type" style="color: #886600;">PLAYOFF ROUND</span>
-                                        ${timeHtml}
-                                        <div class="status-pill" style="${pillStyle}">${statusText}</div>
-                                    </div>
+                        // COMPLETED CHASE (NO FLIP - WINNER ON FRONT)
+                         const html = `
+                        <div class="race-ticket chase-ticket completed" style="${winnerStyle}">
+                            <div class="ticket-overlay"></div>
+                            <div class="ticket-content">
+                                <div class="ticket-top">
+                                    <div class="date-group"><span class="date-month" style="color:var(--gold-mid)">${month}</span><span class="date-day" style="background: linear-gradient(to bottom, #fff, #ffd700); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">${day}</span></div>
+                                    <i class="fa-solid fa-flag-checkered" style="color:var(--gold-mid); font-size:1.5rem; opacity:0.8;"></i>
                                 </div>
-                                <div class="ticket-back">
-                                    <div class="winner-back-content" style="background-image: url('${winnerImage}');">
-                                        <div class="winner-back-gradient"></div>
-                                        <div class="flip-hint-back" onclick="this.closest('.flip-card-container').classList.remove('flipped')"><i class="fa-solid fa-rotate-left"></i></div>
-                                        <div class="winner-back-info">
-                                            <div class="w-label">RACE WINNER</div>
-                                            <div class="w-name">${race.winner || 'TBD'}</div>
-                                            <a href="results.html?series=${currentSeries}&race=${encodeURIComponent(currentSeries + ' - ' + race.track)}" class="btn-view-results">FULL RESULTS</a>
-                                        </div>
-                                    </div>
+                                <div class="ticket-body">
+                                    <h3 class="track-name" style="text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);">${race.track}</h3>
+                                    <span class="race-type" style="color: #ffd700;">PLAYOFF ROUND</span>
+                                    <div class="status-pill">${statusText}</div>
                                 </div>
                             </div>
                         </div>`;
                         chaseGrid.innerHTML += html;
                     } else {
-                        // UPCOMING CHASE (Cannot flip yet)
+                        // UPCOMING CHASE
                         const html = `
                         <div class="race-ticket chase-ticket">
-                            <div class="ticket-inner">
-                                <div class="ticket-front" style="background: rgba(20, 18, 5, 0.6); border-color:#443300;">
-                                    ${watermarkHtml}
-                                    <div class="ticket-top">
-                                        <div class="date-group"><span class="date-month" style="color:var(--gold-mid)">${month}</span><span class="date-day" style="background: linear-gradient(to bottom, #fff, #ffd700); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">${day}</span></div>
-                                        <i class="fa-solid fa-flag-checkered" style="color:var(--gold-mid); font-size:1.5rem; opacity:0.8;"></i>
-                                    </div>
-                                    <div class="ticket-body">
-                                        <h3 class="track-name" style="text-shadow: 0 0 20px rgba(255, 215, 0, 0.2);">${race.track}</h3>
-                                        <span class="race-type" style="color: #886600;">PLAYOFF ROUND</span>
-                                        ${defendingHtml}
-                                        ${timeHtml}
-                                        <div class="status-pill" style="${pillStyle}">${statusText}</div>
-                                    </div>
+                             <div class="ticket-front" style="background: rgba(20, 18, 5, 0.6); border-color:#443300;">
+                                ${watermarkHtml}
+                                <div class="ticket-top">
+                                    <div class="date-group"><span class="date-month" style="color:var(--gold-mid)">${month}</span><span class="date-day" style="background: linear-gradient(to bottom, #fff, #ffd700); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">${day}</span></div>
+                                    <i class="fa-solid fa-flag-checkered" style="color:var(--gold-mid); font-size:1.5rem; opacity:0.8;"></i>
+                                </div>
+                                <div class="ticket-body">
+                                    <h3 class="track-name" style="text-shadow: 0 0 20px rgba(255, 215, 0, 0.2);">${race.track}</h3>
+                                    <span class="race-type" style="color: #886600;">PLAYOFF ROUND</span>
+                                    ${defendingHtml}
+                                    ${timeHtml}
+                                    <div class="status-pill" style="${pillStyle}">${statusText}</div>
                                 </div>
                             </div>
                         </div>`;
                         chaseGrid.innerHTML += html;
                     }
-
-                // ==========================================
-                // REGULAR SEASON RACES
-                // ==========================================
                 } else {
+                    // REGULAR SEASON
                     let raceType = "REGULAR SEASON";
                     let customClass = "";
                     let customBadge = "";
                     let iconColor = "#333";
                     
-                    // CLASH
                     if(currentSeries === 'Cup' && index === 0) {
                         raceType = "THE CLASH // EXHIBITION";
                         customClass = "clash-card";
@@ -732,7 +661,6 @@
                         }
                     }
 
-                    // TOURNAMENT (Cup Only)
                     if (currentSeries === 'Cup') {
                         if (dateString === "2026-06-30") { raceType = "TOURNAMENT: ROUND OF 32"; customClass = "tourney-card"; customBadge = `<div class="tourney-badge">RND 1</div>`; iconColor = "var(--tourney-neon)"; } 
                         else if (dateString === "2026-07-07") { raceType = "TOURNAMENT: ROUND OF 16"; customClass = "tourney-card"; customBadge = `<div class="tourney-badge">RND 2</div>`; iconColor = "var(--tourney-neon)"; } 
@@ -745,43 +673,28 @@
                     if(customClass === 'clash-card') monthColor = '#ff4500';
                     if(customClass === 'tourney-card') monthColor = 'var(--tourney-neon)';
 
-                    // --- RENDER 1: COMPLETED (FLIP CARD - HERO CARD BACK) ---
                     if (isPast && !isToday) {
+                        // COMPLETED REGULAR (NO FLIP - WINNER ON FRONT)
                         const html = `
-                        <div class="race-ticket flip-card-container ${customClass}">
-                            <div class="ticket-inner">
-                                <div class="ticket-front completed">
-                                    ${watermarkHtml}
-                                    ${customBadge}
-                                    <div class="flip-hint" onclick="this.closest('.flip-card-container').classList.add('flipped')"><i class="fa-solid fa-rotate"></i> CLICK FOR WINNER</div>
-                                    <div class="ticket-top">
-                                        <div class="date-group"><span class="date-month" style="color:${monthColor}">${month}</span><span class="date-day">${day}</span></div>
-                                        <i class="fa-solid fa-flag" style="color:${iconColor}; font-size:1.5rem;"></i>
-                                    </div>
-                                    <div class="ticket-body">
-                                        <h3 class="track-name">${race.track}</h3>
-                                        <span class="race-type" style="${customClass==='clash-card'?'color:#ff4500; font-weight:bold;':''}">${raceType}</span>
-                                        ${timeHtml}
-                                        <div class="status-pill" style="${pillStyle}">${statusText}</div>
-                                    </div>
+                        <div class="race-ticket completed ${customClass}" style="${winnerStyle}">
+                            <div class="ticket-overlay"></div>
+                            <div class="ticket-content">
+                                ${customBadge}
+                                <div class="ticket-top">
+                                    <div class="date-group"><span class="date-month" style="color:${monthColor}">${month}</span><span class="date-day">${day}</span></div>
+                                    <i class="fa-solid fa-flag" style="color:#fff; font-size:1.5rem;"></i>
                                 </div>
-                                <div class="ticket-back">
-                                    <div class="winner-back-content" style="background-image: url('${winnerImage}');">
-                                        <div class="winner-back-gradient"></div>
-                                        <div class="flip-hint-back" onclick="this.closest('.flip-card-container').classList.remove('flipped')"><i class="fa-solid fa-rotate-left"></i></div>
-                                        <div class="winner-back-info">
-                                            <div class="w-label">RACE WINNER</div>
-                                            <div class="w-name">${race.winner || 'TBD'}</div>
-                                            <a href="results.html?series=${currentSeries}&race=${encodeURIComponent(currentSeries + ' - ' + race.track)}" class="btn-view-results">FULL RESULTS</a>
-                                        </div>
-                                    </div>
+                                <div class="ticket-body">
+                                    <h3 class="track-name" style="text-shadow: 0 2px 10px rgba(0,0,0,1);">${race.track}</h3>
+                                    <span class="race-type" style="color:#ddd; ${customClass==='clash-card'?'color:#ff4500; font-weight:bold;':''}">${raceType}</span>
+                                    <div class="status-pill">${statusText}</div>
                                 </div>
                             </div>
                         </div>`;
                         regGrid.innerHTML += html;
                     
-                    // --- RENDER 2: NEXT RACE SPOTLIGHT ---
                     } else if (isNextRace) {
+                        // NEXT RACE
                         let liveHtml = `<a href="https://discord.gg/RgYEY5F3Kf" target="_blank" class="btn-live"><i class="fa-brands fa-twitch"></i> BROADCAST</a>`;
                         if (isToday) liveHtml = `<a href="https://discord.gg/RgYEY5F3Kf" target="_blank" class="btn-live is-live">🔴 LIVE NOW</a>`;
 
@@ -815,9 +728,8 @@
                             </div>
                         </div>`;
                         regGrid.innerHTML += html;
-                    
-                    // --- RENDER 3: STANDARD UPCOMING ---
                     } else {
+                        // STANDARD UPCOMING
                         const html = `
                         <div class="race-ticket ${customClass}">
                             <style>.race-ticket:not(.clash-card):not(.tourney-card):hover .ticket-front { border-color: ${accent}; }</style>
@@ -844,7 +756,6 @@
                 }
             });
 
-            // Update Progress Bar
             const pct = Math.round((completedRaces / races.length) * 100);
             document.getElementById('progress-label').innerText = `SEASON PROGRESS // ${completedRaces} OF ${races.length} RACES`;
             document.getElementById('progress-percent').innerText = `${pct}%`;
@@ -852,12 +763,10 @@
 
             chaseSection.style.display = hasChase ? 'block' : 'none';
 
-            // Start Countdown if Next Race exists
             if (nextRaceTimestamp) {
                 startNextRaceCountdown(nextRaceTimestamp);
             }
         }
-
         // Timer Function
         function startNextRaceCountdown(targetTime) {
             function update() {
@@ -1024,7 +933,16 @@
                 let qTime = r.series.toLowerCase() === 'cup' ? '8:00 PM EST' : '9:00 PM EST';
                 let rTime = r.series.toLowerCase() === 'cup' ? '8:30 PM EST' : '9:20 PM EST';
                 let sColor = getSeriesColorVar(r.series);
-                let winBadge = r.winner ? `<div style="margin-top:10px; color:#ffd700; font-size:0.8rem;"><i class="fa-solid fa-trophy"></i> Winner: ${r.winner}</div>` : '';
+                
+                // --- WINNER LOGIC FOR MODAL ---
+                let winBadge = "";
+                if(r.winner) {
+                     // Clean Winner Name
+                     let cleanW = r.winner.replace(/^#\d+\s*/, '').trim();
+                     winBadge = `<div style="margin-top:10px; color:#ffd700; font-size:0.8rem; font-weight:bold; letter-spacing:1px; border-top:1px solid #333; padding-top:5px;">
+                                    <i class="fa-solid fa-trophy"></i> WINNER: ${cleanW}
+                                 </div>`;
+                }
 
                 html += `
                     <div class="day-event-card" style="border-left-color: ${sColor};">
