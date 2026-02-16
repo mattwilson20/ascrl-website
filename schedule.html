@@ -152,10 +152,8 @@
         
         .spotlight-info { flex: 1; }
         .spotlight-action { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; z-index: 5; }
-        
         .spotlight-timer { font-family: 'Arial Black'; font-size: 1.2rem; color: #fff; text-shadow: 0 0 10px var(--primary); display: flex; gap: 10px; }
         .st-box { background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); }
-        
         .btn-live { background: #222; color: #fff; padding: 8px 15px; text-decoration: none; font-size: 0.75rem; border-radius: 4px; border: 1px solid #444; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; text-transform: uppercase; }
         .btn-live:hover { background: #333; border-color: var(--primary); }
         .btn-live.is-live { background: #c00; border-color: #f00; animation: flash-live 1.5s infinite; }
@@ -402,17 +400,14 @@
         
         let rawData = {};
         let archiveData = {};
-        // Add driversData to store the fetched driver info
         let driversData = {};
+        let resultsData = {}; // Store results data
         let currentSeries = 'Cup';
         let countdownInterval = null;
-        
-        // Add resultsData to store the race results
-        let resultsData = {};
 
         // Track Shape SVG Helper
         function getTrackSVG(trackName) {
-            const t = trackName.toLowerCase();
+            const t = (trackName || "").toLowerCase();
             if(t.includes('daytona') || t.includes('talladega') || t.includes('pocono')) {
                 return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50"><path d="M10,25 C10,5 50,5 50,5 C50,5 90,5 90,25 C90,45 50,45 50,45 C50,45 10,45 10,25" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="5"/></svg>`;
             } else if(t.includes('bristol') || t.includes('martinsville') || t.includes('richmond') || t.includes('wilkesboro')) {
@@ -426,11 +421,11 @@
 
         // --- HELPER: DRIVER HERO IMAGES ---
         function getDriverImage(driverName) {
-            const nameLower = driverName.toLowerCase();
-            // FIX IS HERE: Changed namelower to nameLower
+            const nameLower = (driverName || "").toLowerCase();
+            
             if (nameLower.includes('thirsttraptoby')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/7bc95544293252379df0a7693e5770b80e8ca8bf/ThirstTrapTobyHeroCard.jpg";
             
-            if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/8e6c91687a3fd67cc8d9771eec28321a154a56ce/UpdatedHockeyHero.jpg";
+            if (nameLower.includes('hockey')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/8e6c91687a3fd67cc8d9771eec28321a154a56ce/UpdatedHockeyHero.jpg";
             if (nameLower.includes('k7_dalton')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/9a7e63f44a37cedfdf0b85ddeb4968c3b0da8817/k7Dalton.jpg";
             if (nameLower.includes('isaac')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/d0f7c7e6480bc33317d4e7939036024f0dcff3dc/Isaac.jpg";
             if (nameLower.includes('z71chevyman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/869f4adefde19421e449f2e1e9ab7bd3a6ffaee5/ChevyMan.jpg";
@@ -464,7 +459,6 @@
             if (nameLower.includes('hatter')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/34425dadb737bc4bc27aa9271be62909dc9a3e99/Hatter.Hero.Card.jpg";
             if (nameLower.includes('big_fella')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ced27a5d96e0d211f038b36e34a55bccf4a7e4de/BigFella.Hero.Card.jpg";
             
-            // Default Ghost Image
             return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg";
         }
 
@@ -477,8 +471,7 @@
             regGrid.innerHTML = '<p style="color:#666;">Loading...</p>';
             document.getElementById('chase-section').style.display = 'none';
 
-            // Fetch current selection AND the 2025 archive (for Defending Winners)
-            // UPDATED: Now also fetching drivers.json
+            // Fetch ALL data needed
             Promise.all([
                 fetch(file).then(r => r.ok ? r.json() : {}),
                 fetch(FILES["2025"]).then(r => r.ok ? r.json() : {}),
@@ -487,11 +480,10 @@
             ]).then(([mainSet, archiveSet, driverSet, resultSet]) => {
                 rawData = mainSet;
                 archiveData = archiveSet;
-                driversData = driverSet; // Store drivers data for lookups
+                driversData = driverSet; 
                 resultsData = resultSet;
                 renderSeries();
                 
-                // If modal is open, re-render to catch changes
                 if(document.getElementById('interactive-calendar-overlay').style.display === 'flex') {
                     renderInteractiveCalendar();
                 }
@@ -511,7 +503,6 @@
         }
 
         function renderSeries() {
-            // Clear old countdowns
             if(countdownInterval) clearInterval(countdownInterval);
 
             const regGrid = document.getElementById('regular-grid');
@@ -541,11 +532,10 @@
             let nextRaceTimestamp = null;
             let completedRaces = 0;
 
-            // Dynamic Colors & Times
             let accent = "#444";
             let qualTime = "9:00 PM EST";
             let raceTime = "9:20 PM EST";
-            let raceHour24 = "21:20:00"; // For countdown math
+            let raceHour24 = "21:20:00"; 
 
             if(currentSeries === 'Cup') {
                 accent = "var(--cup-blue)";
@@ -562,7 +552,7 @@
                 const isPast = rDate < today;
                 const isToday = rDate.toDateString() === today.toDateString();
                 
-                if (isPast || isToday) completedRaces++; // Advance progress bar
+                if (isPast || isToday) completedRaces++;
 
                 const month = rDate.toLocaleString('default', {month:'short'}).toUpperCase();
                 const day = rDate.getDate();
@@ -581,40 +571,39 @@
                 let pillStyle = `border-color: ${accent}; color: ${accent};`;
                 let statusText = "UPCOMING";
                 let isNextRace = false;
-                let winnerImage = ""; // Placeholder for winner image
-                let winnerNameClean = ""; // Clean winner name for display
+                let winnerImage = ""; 
+                let winnerNameClean = ""; 
 
                 if(isPast && !isToday) {
                     pillStyle = `border-color: #333; color: #444;`;
                     statusText = "COMPLETED";
                     
-                    // Look up Winner from ASCRL_Results_Season_1.json
+                    // 1. Try to find match in Results JSON
                     const raceKey = `${currentSeries} - ${race.track}`;
                     const raceResults = resultsData[raceKey];
-                    
+                    let winnerFromResults = null;
+
                     if (raceResults && raceResults.length > 0) {
                         const winnerObj = raceResults.find(r => r.position === 1);
-                        if (winnerObj) {
-                            winnerNameClean = winnerObj.driver.replace(/^#\d+\s*/, '').trim();
-                            statusText = `<i class="fa-solid fa-trophy"></i> WINNER: ${winnerNameClean}`;
-                            pillStyle = `border-color: #444; color: #fff; background: #222;`;
-                            
-                             // GET WINNER IMAGE
-                            // 1. Try to find match in drivers.json to normalize the name
-                            let officialName = winnerNameClean;
-                            
-                            // Find driver in drivers.json (case-insensitive)
-                            const driverEntry = Object.values(driversData).find(d => 
-                                d.display_name && d.display_name.toLowerCase() === winnerNameClean.toLowerCase()
-                            );
-                            
-                            if (driverEntry) {
-                               officialName = driverEntry.display_name; // Use official casing if found
-                            }
+                        if (winnerObj) winnerFromResults = winnerObj.driver;
+                    }
 
-                            // 2. Get image URL using the helper function (which has the hardcoded list)
-                            winnerImage = getDriverImage(officialName);
-                        }
+                    // 2. Fallback to Schedule JSON 'winner' field
+                    const winnerRaw = winnerFromResults || race.winner;
+
+                    if(winnerRaw) {
+                        winnerNameClean = winnerRaw.replace(/^#\d+\s*/, '').trim(); 
+                        statusText = `<i class="fa-solid fa-trophy"></i> WINNER: ${winnerNameClean}`;
+                        pillStyle = `border-color: #444; color: #fff; background: #222;`;
+                        
+                        // 3. Get Image using drivers.json lookup if possible
+                        let officialName = winnerNameClean;
+                        const driverEntry = Object.values(driversData).find(d => 
+                            d.display_name && d.display_name.toLowerCase() === winnerNameClean.toLowerCase()
+                        );
+                        if (driverEntry) officialName = driverEntry.display_name;
+
+                        winnerImage = getDriverImage(officialName);
                     }
                 } else if (!nextRaceFound) {
                     isNextRace = true;
@@ -622,7 +611,6 @@
                     nextRaceTimestamp = new Date(race.date + "T" + raceHour24).getTime();
                 }
 
-                // Time Block HTML
                 const timeHtml = `
                     <div class="race-times">
                         <span><i class="fa-solid fa-stopwatch"></i> QUAL: ${qualTime}</span>
@@ -630,17 +618,14 @@
                     </div>
                 `;
 
-                // SVG Watermark
                 const watermarkHtml = `<div class="track-watermark" style="background-image: url('${getTrackSVG(race.track)}');"></div>`;
 
-                // ==========================================
-                // CHASE / PLAYOFF RACES
-                // ==========================================
+                // --- RENDER CARD HTML ---
                 if (race.is_chase) {
                     hasChase = true;
                     
                     if (isPast && !isToday) {
-                        // COMPLETED FLIP CARD (CHASE)
+                        // COMPLETED CHASE
                         const html = `
                         <div class="race-ticket flip-card-container">
                             <div class="ticket-inner">
@@ -673,7 +658,7 @@
                         </div>`;
                         chaseGrid.innerHTML += html;
                     } else {
-                        // UPCOMING CHASE (Cannot flip yet)
+                        // UPCOMING CHASE
                         const html = `
                         <div class="race-ticket chase-ticket">
                             <div class="ticket-inner">
@@ -695,17 +680,13 @@
                         </div>`;
                         chaseGrid.innerHTML += html;
                     }
-
-                // ==========================================
-                // REGULAR SEASON RACES
-                // ==========================================
                 } else {
+                    // REGULAR SEASON
                     let raceType = "REGULAR SEASON";
                     let customClass = "";
                     let customBadge = "";
                     let iconColor = "#333";
                     
-                    // CLASH
                     if(currentSeries === 'Cup' && index === 0) {
                         raceType = "THE CLASH // EXHIBITION";
                         customClass = "clash-card";
@@ -715,7 +696,6 @@
                         }
                     }
 
-                    // TOURNAMENT (Cup Only)
                     if (currentSeries === 'Cup') {
                         if (dateString === "2026-06-30") { raceType = "TOURNAMENT: ROUND OF 32"; customClass = "tourney-card"; customBadge = `<div class="tourney-badge">RND 1</div>`; iconColor = "var(--tourney-neon)"; } 
                         else if (dateString === "2026-07-07") { raceType = "TOURNAMENT: ROUND OF 16"; customClass = "tourney-card"; customBadge = `<div class="tourney-badge">RND 2</div>`; iconColor = "var(--tourney-neon)"; } 
@@ -728,8 +708,8 @@
                     if(customClass === 'clash-card') monthColor = '#ff4500';
                     if(customClass === 'tourney-card') monthColor = 'var(--tourney-neon)';
 
-                    // --- RENDER 1: COMPLETED (FLIP CARD - HERO CARD BACK) ---
                     if (isPast && !isToday) {
+                        // COMPLETED REGULAR
                         const html = `
                         <div class="race-ticket flip-card-container ${customClass}">
                             <div class="ticket-inner">
@@ -763,8 +743,8 @@
                         </div>`;
                         regGrid.innerHTML += html;
                     
-                    // --- RENDER 2: NEXT RACE SPOTLIGHT ---
                     } else if (isNextRace) {
+                        // NEXT RACE
                         let liveHtml = `<a href="https://discord.gg/RgYEY5F3Kf" target="_blank" class="btn-live"><i class="fa-brands fa-twitch"></i> BROADCAST</a>`;
                         if (isToday) liveHtml = `<a href="https://discord.gg/RgYEY5F3Kf" target="_blank" class="btn-live is-live">🔴 LIVE NOW</a>`;
 
@@ -798,9 +778,8 @@
                             </div>
                         </div>`;
                         regGrid.innerHTML += html;
-                    
-                    // --- RENDER 3: STANDARD UPCOMING ---
                     } else {
+                        // STANDARD UPCOMING
                         const html = `
                         <div class="race-ticket ${customClass}">
                             <style>.race-ticket:not(.clash-card):not(.tourney-card):hover .ticket-front { border-color: ${accent}; }</style>
@@ -827,7 +806,6 @@
                 }
             });
 
-            // Update Progress Bar
             const pct = Math.round((completedRaces / races.length) * 100);
             document.getElementById('progress-label').innerText = `SEASON PROGRESS // ${completedRaces} OF ${races.length} RACES`;
             document.getElementById('progress-percent').innerText = `${pct}%`;
@@ -835,7 +813,6 @@
 
             chaseSection.style.display = hasChase ? 'block' : 'none';
 
-            // Start Countdown if Next Race exists
             if (nextRaceTimestamp) {
                 startNextRaceCountdown(nextRaceTimestamp);
             }
