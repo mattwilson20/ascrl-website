@@ -9,27 +9,10 @@
     <link rel="stylesheet" href="style.css">
     <style>
         :root {
-            --primary: #c00;
-            --accent: #ff0;
-            --bg-dark: #050505;
-            --card-bg: #111;
-            --border: #222;
-            --text-muted: #888;
-            
-            /* Series Colors */
-            --cup-blue: #0077ff;
-            --xfinity-purple: #8000b0;
-            --truck-red: #c00;
-            --menards-yellow: #fff200;
-            
-            /* Special Event Colors */
-            --clash-orange: #ff4500;
-            --gold-mid: #ffd700;
-            --gold-dark: #b8860b;
-            
-            /* In-Season Tournament Colors */
-            --tourney-neon: #00ffcc;
-            --tourney-dark: #004d40;
+            --primary: #c00; --accent: #ff0; --bg-dark: #050505; --card-bg: #111; --border: #222; --text-muted: #888;
+            --cup-blue: #0077ff; --xfinity-purple: #8000b0; --truck-red: #c00; --menards-yellow: #fff200;
+            --clash-orange: #ff4500; --gold-mid: #ffd700; --gold-dark: #b8860b;
+            --tourney-neon: #00ffcc; --tourney-dark: #004d40;
         }
 
         body { 
@@ -107,64 +90,12 @@
 
         /* --- REGULAR SEASON --- */
         .container { max-width: 1300px; margin: 0 auto; padding: 2rem 2rem 4rem; }
-        
-        .section-header {
-            font-size: 1.5rem; color: #444; margin: 0 0 2rem; 
-            text-transform: uppercase; letter-spacing: 2px;
-            display: flex; align-items: center; gap: 15px;
-        }
+        .section-header { font-size: 1.5rem; color: #444; margin: 0 0 2rem; text-transform: uppercase; letter-spacing: 2px; display: flex; align-items: center; gap: 15px; }
         .section-header::after { content:''; flex:1; height:1px; background:#222; }
 
         .race-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
 
-        .race-ticket {
-            background: #111;
-            border: 1px solid #222;
-            position: relative;
-            display: flex; flex-direction: column;
-            transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            overflow: hidden;
-            border-radius: 6px;
-        }
-        .race-ticket:hover { transform: translateY(-5px); border-color: #444; z-index: 10; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
-        
-        /* Default Series Line */
-        .race-ticket::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-            background: #444; 
-        }
-
-        /* --- CLASH SPECIAL STYLES --- */
-        .clash-card {
-            border: 1px solid var(--clash-orange);
-            background: linear-gradient(135deg, #1a0500 0%, #000 100%);
-            box-shadow: 0 0 20px rgba(255, 69, 0, 0.2);
-        }
-        .clash-card::before { background: linear-gradient(to bottom, #ff8c00, #ff0000); width: 6px; }
-        .clash-card:hover { box-shadow: 0 0 40px rgba(255, 69, 0, 0.4); border-color: #ff8c00; }
-        .clash-card .track-name { background: linear-gradient(to right, #ff8c00, #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-        /* --- IN-SEASON TOURNAMENT STYLES --- */
-        .tourney-card {
-            border: 1px solid var(--tourney-neon);
-            background: linear-gradient(135deg, var(--tourney-dark) 0%, #000 100%);
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.1);
-        }
-        .tourney-card::before { background: linear-gradient(to bottom, #fff, var(--tourney-neon)); width: 6px; }
-        .tourney-card:hover { box-shadow: 0 0 30px rgba(0, 255, 204, 0.4); border-color: #fff; }
-        .tourney-card .track-name { color: #fff; text-shadow: 0 0 10px var(--tourney-neon); }
-        .tourney-card .race-type { color: var(--tourney-neon); font-weight: bold; letter-spacing: 2px; }
-        .tourney-card .status-pill { border-color: var(--tourney-neon); color: var(--tourney-neon); background: rgba(0, 255, 204, 0.1); }
-        
-        .tourney-badge {
-            position: absolute; top: 10px; right: -30px;
-            background: var(--tourney-neon); color: #000;
-            font-size: 0.6rem; font-weight: bold; letter-spacing: 2px;
-            padding: 5px 30px; transform: rotate(45deg);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        }
-
-        /* --- 3D FLIP STYLES --- */
+        /* --- RACE TICKETS & 3D FLIP --- */
         .race-ticket { perspective: 1000px; min-height: 230px; border-radius: 6px; }
         .ticket-inner { 
             position: relative; width: 100%; height: 100%; 
@@ -179,6 +110,7 @@
             border: 1px solid #222; background: #111;
         }
         .ticket-front { position: relative; z-index: 2; height: 100%; }
+        .ticket-front:hover { border-color: #444; box-shadow: 0 10px 40px rgba(0,0,0,0.8); transform: translateY(-3px); transition: 0.3s; }
         .ticket-front::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #444; z-index: 3; }
         
         .ticket-back { 
@@ -203,7 +135,31 @@
             display: flex; flex-direction: column; align-items: center;
         }
         .w-label { color: var(--gold-mid); font-size: 0.8rem; letter-spacing: 2px; font-weight: bold; margin-bottom: 5px; }
-        .w-name { font-size: 1.5rem; text-transform: uppercase; line-height: 1; text-shadow: 0 2px 5px rgba(0,0,0,0.8); margin-bottom: 1rem; }
+        .w-name { font-size: 1.5rem; text-transform: uppercase; line-height: 1; text-shadow: 0 2px 5px rgba(0,0,0,0.8); margin-bottom: 1rem; color: #fff; }
+
+        /* Watermarks */
+        .track-watermark { position: absolute; right: -20px; bottom: -20px; width: 150px; height: 150px; opacity: 0.05; background-size: contain; background-repeat: no-repeat; background-position: center; pointer-events: none; z-index: 1; }
+
+        /* --- NEXT RACE SPOTLIGHT --- */
+        .next-race-spotlight { grid-column: span 2; }
+        .next-race-spotlight .ticket-front { 
+            background: linear-gradient(135deg, #1a0505 0%, #000 100%); 
+            border-color: var(--primary); box-shadow: 0 0 30px rgba(204, 0, 0, 0.2); 
+        }
+        .next-race-spotlight .ticket-top { padding: 2rem 2rem 1rem; }
+        .next-race-spotlight .ticket-body { padding: 0 2rem 2rem; flex-direction: row; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;}
+        .next-race-spotlight .track-name { font-size: 2.2rem; }
+        
+        .spotlight-info { flex: 1; }
+        .spotlight-action { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; z-index: 5; }
+        
+        .spotlight-timer { font-family: 'Arial Black'; font-size: 1.2rem; color: #fff; text-shadow: 0 0 10px var(--primary); display: flex; gap: 10px; }
+        .st-box { background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); }
+        
+        .btn-live { background: #222; color: #fff; padding: 8px 15px; text-decoration: none; font-size: 0.75rem; border-radius: 4px; border: 1px solid #444; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; text-transform: uppercase; }
+        .btn-live:hover { background: #333; border-color: var(--primary); }
+        .btn-live.is-live { background: #c00; border-color: #f00; animation: flash-live 1.5s infinite; }
+        @keyframes flash-live { 0% { opacity: 1; box-shadow: 0 0 15px #f00; } 50% { opacity: 0.5; box-shadow: 0 0 0px #f00; } 100% { opacity: 1; box-shadow: 0 0 15px #f00; } }
 
         /* Card Content Styles */
         .ticket-top { padding: 1.5rem; display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 2; }
@@ -223,27 +179,22 @@
         .flip-hint-back { position: absolute; top: 10px; left: 10px; font-size: 1.5rem; color: rgba(255,255,255,0.5); cursor: pointer; z-index: 10; }
         @keyframes pulse-text { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
 
-        /* Watermarks */
-        .track-watermark { position: absolute; right: -20px; bottom: -20px; width: 150px; height: 150px; opacity: 0.05; background-size: contain; background-repeat: no-repeat; background-position: center; pointer-events: none; z-index: 1; }
+        /* Podium Backface */
+        .podium-list { display: flex; flex-direction: column; gap: 8px; margin: 15px 0; width: 100%; font-size: 0.9rem; text-transform: uppercase; text-align: left; }
+        .p-slot { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.05); padding: 8px 15px; border-radius: 4px; border-left: 3px solid; }
+        .btn-view-results { background: transparent; border: 1px solid var(--primary); color: #fff; padding: 8px 20px; font-family: 'Arial Black'; font-size: 0.7rem; text-decoration: none; border-radius: 4px; transition: 0.3s; margin-top: auto; }
+        .btn-view-results:hover { background: var(--primary); }
 
-        /* --- NEXT RACE SPOTLIGHT --- */
-        .next-race-spotlight { grid-column: span 2; }
-        .next-race-spotlight .ticket-front { 
-            background: linear-gradient(135deg, #1a0505 0%, #000 100%); 
-            border-color: var(--primary); box-shadow: 0 0 30px rgba(204, 0, 0, 0.2); 
-        }
-        .next-race-spotlight .ticket-top { padding: 2rem 2rem 1rem; }
-        .next-race-spotlight .ticket-body { padding: 0 2rem 2rem; flex-direction: row; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;}
-        .next-race-spotlight .track-name { font-size: 2.2rem; }
-        
-        .spotlight-info { flex: 1; }
-        .spotlight-action { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; z-index: 5; }
-        .spotlight-timer { font-family: 'Arial Black'; font-size: 1.2rem; color: #fff; text-shadow: 0 0 10px var(--primary); display: flex; gap: 10px; }
-        .st-box { background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); }
-        .btn-live { background: #222; color: #fff; padding: 8px 15px; text-decoration: none; font-size: 0.75rem; border-radius: 4px; border: 1px solid #444; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; text-transform: uppercase; }
-        .btn-live:hover { background: #333; border-color: var(--primary); }
-        .btn-live.is-live { background: #c00; border-color: #f00; animation: flash-live 1.5s infinite; }
-        @keyframes flash-live { 0% { opacity: 1; box-shadow: 0 0 15px #f00; } 50% { opacity: 0.5; box-shadow: 0 0 0px #f00; } 100% { opacity: 1; box-shadow: 0 0 15px #f00; } }
+        /* Special Event Overrides */
+        .clash-card .ticket-front { border-color: var(--clash-orange); background: linear-gradient(135deg, #1a0500 0%, #000 100%); }
+        .clash-card .ticket-front::before { background: linear-gradient(to bottom, #ff8c00, #ff0000); }
+        .clash-card .track-name { background: linear-gradient(to right, #ff8c00, #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .tourney-card .ticket-front { border-color: var(--tourney-neon); background: linear-gradient(135deg, var(--tourney-dark) 0%, #000 100%); }
+        .tourney-card .ticket-front::before { background: linear-gradient(to bottom, #fff, var(--tourney-neon)); width: 6px; }
+        .tourney-card .track-name { color: #fff; text-shadow: 0 0 10px var(--tourney-neon); }
+        .tourney-card .race-type { color: var(--tourney-neon); font-weight: bold; }
+        .tourney-badge { position: absolute; top: 10px; right: -30px; background: var(--tourney-neon); color: #000; font-size: 0.6rem; font-weight: bold; letter-spacing: 2px; padding: 5px 30px; transform: rotate(45deg); z-index: 10; box-shadow: 0 2px 10px rgba(0,0,0,0.5); }
 
         /* --- THE CHASE --- */
         .chase-wrapper {
@@ -451,8 +402,13 @@
         
         let rawData = {};
         let archiveData = {};
+        // Add driversData to store the fetched driver info
+        let driversData = {};
         let currentSeries = 'Cup';
         let countdownInterval = null;
+        
+        // Add resultsData to store the race results
+        let resultsData = {};
 
         // Track Shape SVG Helper
         function getTrackSVG(trackName) {
@@ -522,12 +478,17 @@
             document.getElementById('chase-section').style.display = 'none';
 
             // Fetch current selection AND the 2025 archive (for Defending Winners)
+            // UPDATED: Now also fetching drivers.json
             Promise.all([
                 fetch(file).then(r => r.ok ? r.json() : {}),
-                fetch(FILES["2025"]).then(r => r.ok ? r.json() : {})
-            ]).then(([mainSet, archiveSet]) => {
+                fetch(FILES["2025"]).then(r => r.ok ? r.json() : {}),
+                fetch("drivers.json").then(r => r.ok ? r.json() : {}),
+                fetch("ASCRL_Results_Season_1.json").then(r => r.ok ? r.json() : {})
+            ]).then(([mainSet, archiveSet, driverSet, resultSet]) => {
                 rawData = mainSet;
                 archiveData = archiveSet;
+                driversData = driverSet; // Store drivers data for lookups
+                resultsData = resultSet;
                 renderSeries();
                 
                 // If modal is open, re-render to catch changes
@@ -621,17 +582,39 @@
                 let statusText = "UPCOMING";
                 let isNextRace = false;
                 let winnerImage = ""; // Placeholder for winner image
+                let winnerNameClean = ""; // Clean winner name for display
 
                 if(isPast && !isToday) {
                     pillStyle = `border-color: #333; color: #444;`;
                     statusText = "COMPLETED";
-                    if(race.winner) {
-                        statusText = `<i class="fa-solid fa-trophy"></i> WINNER: ${race.winner}`;
-                        pillStyle = `border-color: #444; color: #fff; background: #222;`;
-                        
-                        // GET WINNER IMAGE
-                        const cleanWinnerName = race.winner.replace(/^#\d+\s+/, '').trim();
-                        winnerImage = getDriverImage(cleanWinnerName);
+                    
+                    // Look up Winner from ASCRL_Results_Season_1.json
+                    const raceKey = `${currentSeries} - ${race.track}`;
+                    const raceResults = resultsData[raceKey];
+                    
+                    if (raceResults && raceResults.length > 0) {
+                        const winnerObj = raceResults.find(r => r.position === 1);
+                        if (winnerObj) {
+                            winnerNameClean = winnerObj.driver.replace(/^#\d+\s*/, '').trim();
+                            statusText = `<i class="fa-solid fa-trophy"></i> WINNER: ${winnerNameClean}`;
+                            pillStyle = `border-color: #444; color: #fff; background: #222;`;
+                            
+                             // GET WINNER IMAGE
+                            // 1. Try to find match in drivers.json to normalize the name
+                            let officialName = winnerNameClean;
+                            
+                            // Find driver in drivers.json (case-insensitive)
+                            const driverEntry = Object.values(driversData).find(d => 
+                                d.display_name && d.display_name.toLowerCase() === winnerNameClean.toLowerCase()
+                            );
+                            
+                            if (driverEntry) {
+                               officialName = driverEntry.display_name; // Use official casing if found
+                            }
+
+                            // 2. Get image URL using the helper function (which has the hardcoded list)
+                            winnerImage = getDriverImage(officialName);
+                        }
                     }
                 } else if (!nextRaceFound) {
                     isNextRace = true;
@@ -681,7 +664,7 @@
                                         <div class="flip-hint-back" onclick="this.closest('.flip-card-container').classList.remove('flipped')"><i class="fa-solid fa-rotate-left"></i></div>
                                         <div class="winner-back-info">
                                             <div class="w-label">RACE WINNER</div>
-                                            <div class="w-name">${race.winner || 'TBD'}</div>
+                                            <div class="w-name">${winnerNameClean || 'TBD'}</div>
                                             <a href="results.html?series=${currentSeries}&race=${encodeURIComponent(currentSeries + ' - ' + race.track)}" class="btn-view-results">FULL RESULTS</a>
                                         </div>
                                     </div>
@@ -771,7 +754,7 @@
                                         <div class="flip-hint-back" onclick="this.closest('.flip-card-container').classList.remove('flipped')"><i class="fa-solid fa-rotate-left"></i></div>
                                         <div class="winner-back-info">
                                             <div class="w-label">RACE WINNER</div>
-                                            <div class="w-name">${race.winner || 'TBD'}</div>
+                                            <div class="w-name">${winnerNameClean || 'TBD'}</div>
                                             <a href="results.html?series=${currentSeries}&race=${encodeURIComponent(currentSeries + ' - ' + race.track)}" class="btn-view-results">FULL RESULTS</a>
                                         </div>
                                     </div>
@@ -857,209 +840,3 @@
                 startNextRaceCountdown(nextRaceTimestamp);
             }
         }
-
-        // Timer Function
-        function startNextRaceCountdown(targetTime) {
-            function update() {
-                const now = new Date().getTime();
-                const dist = targetTime - now;
-                if (dist < 0) {
-                    if(document.getElementById("nr-d")) {
-                        document.getElementById("nr-d").innerText = "00";
-                        document.getElementById("nr-h").innerText = "00";
-                        document.getElementById("nr-m").innerText = "00";
-                    }
-                    return;
-                }
-                const d = Math.floor(dist / (1000 * 60 * 60 * 24));
-                const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
-                
-                if(document.getElementById("nr-d")) {
-                    document.getElementById("nr-d").innerText = d < 10 ? "0" + d : d;
-                    document.getElementById("nr-h").innerText = h < 10 ? "0" + h : h;
-                    document.getElementById("nr-m").innerText = m < 10 ? "0" + m : m;
-                }
-            }
-            update();
-            countdownInterval = setInterval(update, 60000); // Update every minute is fine for this UI
-        }
-
-        // =========================================================
-        //  3D INTERACTIVE CALENDAR LOGIC
-        // =========================================================
-        let currentCalDate = new Date();
-        if(currentCalDate.getFullYear() < 2026) currentCalDate = new Date(2026, 1, 1); 
-
-        function openInteractiveCalendar() {
-            document.getElementById('interactive-calendar-overlay').style.display = 'flex';
-            renderInteractiveCalendar();
-        }
-
-        function closeInteractiveCalendar(e) {
-            if(e.target.id === 'interactive-calendar-overlay') {
-                document.getElementById('interactive-calendar-overlay').style.display = 'none';
-            }
-        }
-
-        function changeCalMonth(offset) {
-            const page = document.getElementById('cal-page');
-            page.classList.remove('flip-down');
-            page.classList.add('flip-up');
-
-            setTimeout(() => {
-                currentCalDate.setMonth(currentCalDate.getMonth() + offset);
-                renderInteractiveCalendar();
-                page.classList.remove('flip-up');
-                page.classList.add('flip-down');
-            }, 500);
-        }
-
-        function getRacesForDate(dateStr) {
-            let dayRaces = [];
-            if(!rawData) return dayRaces;
-
-            Object.keys(rawData).forEach(key => {
-                const seriesName = key.split(' ')[0]; 
-                const races = rawData[key];
-                const foundRaces = races.filter(r => r.date === dateStr);
-                foundRaces.forEach(r => {
-                    dayRaces.push({ series: seriesName, track: r.track, winner: r.winner, is_chase: r.is_chase });
-                });
-            });
-            return dayRaces;
-        }
-
-        function getSeriesColorVar(seriesName) {
-            const s = seriesName.toLowerCase();
-            if(s === 'cup') return 'var(--cup-blue)';
-            if(s === 'xfinity') return 'var(--xfinity-purple)';
-            if(s === 'truck') return 'var(--truck-red)';
-            if(s === 'menards') return 'var(--menards-yellow)';
-            return '#666';
-        }
-
-        function renderInteractiveCalendar() {
-            const year = currentCalDate.getFullYear();
-            const month = currentCalDate.getMonth();
-            const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-            document.getElementById('cal-month-title').innerText = `${monthNames[month]} ${year}`;
-
-            const grid = document.getElementById('cal-grid');
-            grid.innerHTML = '';
-
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            const today = new Date();
-
-            for(let i = 0; i < firstDay; i++) grid.innerHTML += `<div class="cal-day empty"></div>`;
-
-            for(let i = 1; i <= daysInMonth; i++) {
-                const dString = `${year}-${(month+1).toString().padStart(2, '0')}-${i.toString().padStart(2, '0')}`;
-                
-                let classList = "cal-day";
-                if(year === today.getFullYear() && month === today.getMonth() && i === today.getDate()) classList += " today";
-
-                const races = getRacesForDate(dString);
-                let bgStyle = "";
-                let fontColor = "";
-                let contentHtml = "";
-                let clickHandler = "";
-
-                if (races.length > 0) {
-                    classList += " has-events";
-                    clickHandler = `onclick="openDayModal('${dString}')"`;
-                    const colors = races.map(r => getSeriesColorVar(r.series));
-
-                    if(colors.length === 1) {
-                        bgStyle = `background: ${colors[0]};`;
-                        fontColor = `color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.8);`;
-                    } else if(colors.length > 1) {
-                        let stops = [];
-                        const step = 100 / colors.length;
-                        colors.forEach((c, idx) => { stops.push(`${c} ${idx * step}%`, `${c} ${(idx + 1) * step}%`); });
-                        bgStyle = `background: linear-gradient(135deg, ${stops.join(', ')});`;
-                        fontColor = `color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.8);`;
-                    }
-
-                    contentHtml = `<div class="cal-event-list">`;
-                    races.forEach(r => {
-                        let shortTime = r.series.toLowerCase() === 'cup' ? '8:30p' : '9:20p';
-                        let shortTrack = r.track.split(' ')[0]; 
-                        contentHtml += `<div class="cal-event-text"><strong>${r.series.toUpperCase()}</strong> ${shortTrack} - ${shortTime}</div>`;
-                    });
-                    contentHtml += `</div>`;
-                }
-
-                grid.innerHTML += `
-                    <div class="${classList}" ${clickHandler}>
-                        ${bgStyle ? `<div class="series-bg-layer" style="${bgStyle}"></div>` : ''}
-                        <span class="cal-date-num" style="${fontColor}">${i}</span>
-                        ${contentHtml}
-                    </div>
-                `;
-            }
-
-            const totalCells = firstDay + daysInMonth;
-            const remainder = totalCells % 7;
-            if(remainder !== 0) {
-                for(let i = 0; i < (7 - remainder); i++) grid.innerHTML += `<div class="cal-day empty"></div>`;
-            }
-        }
-
-        // =========================================================
-        //  DAY DETAILS POP-UP MODAL LOGIC
-        // =========================================================
-        function openDayModal(dateStr) {
-            const races = getRacesForDate(dateStr);
-            if (races.length === 0) return;
-
-            const d = new Date(dateStr + "T12:00:00");
-            const niceDate = d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
-            
-            document.getElementById('day-modal-title').innerText = niceDate;
-            
-            let html = '';
-            races.forEach(r => {
-                let qTime = r.series.toLowerCase() === 'cup' ? '8:00 PM EST' : '9:00 PM EST';
-                let rTime = r.series.toLowerCase() === 'cup' ? '8:30 PM EST' : '9:20 PM EST';
-                let sColor = getSeriesColorVar(r.series);
-                let winBadge = r.winner ? `<div style="margin-top:10px; color:#ffd700; font-size:0.8rem;"><i class="fa-solid fa-trophy"></i> Winner: ${r.winner}</div>` : '';
-
-                html += `
-                    <div class="day-event-card" style="border-left-color: ${sColor};">
-                        <div class="day-event-series" style="color: ${sColor};">${r.series} SERIES</div>
-                        <h3 class="day-event-track">${r.track}</h3>
-                        <div class="day-event-time">
-                            <span><i class="fa-solid fa-stopwatch"></i> Qual: ${qTime}</span>
-                            <span><i class="fa-solid fa-flag-checkered"></i> Race: ${rTime}</span>
-                        </div>
-                        ${winBadge}
-                    </div>
-                `;
-            });
-
-            document.getElementById('day-modal-content').innerHTML = html;
-            document.getElementById('day-modal-overlay').style.display = 'flex';
-        }
-
-        function closeDayModal(e) {
-            if(e) e.stopPropagation();
-            document.getElementById('day-modal-overlay').style.display = 'none';
-        }
-
-        // Init Data Load
-        loadSchedule();
-    </script>
-    <script>
-        document.addEventListener('contextmenu', (e) => { e.preventDefault(); });
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey || e.metaKey) {
-                switch (e.key.toLowerCase()) { case 'u': case 's': case 'a': case 'c': e.preventDefault(); return false; }
-                if (e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j')) { e.preventDefault(); return false; }
-            }
-            if (e.key === 'F12') { e.preventDefault(); return false; }
-        });
-    </script>
-</body>
-</html>
