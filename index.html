@@ -304,25 +304,28 @@
 
         <section class="highlight-box" style="padding: 3rem 1rem; border-left: 4px solid #fff; background: linear-gradient(135deg, #0d0d0d, #111);">
             <div style="text-align: center; margin-bottom: 2rem;">
-                <span class="stat-label" style="color: #fff;">THE ROAD TO DAYTONA</span>
-                <h2 style="font-size: 2.5rem; margin: 0.5rem 0; line-height: 1;">SPEEDWEEKS 2026</h2>
+                <span class="stat-label" style="color: #fff;">THE ROAD TO THE CHAMPIONSHIP</span>
+                <h2 style="font-size: 2.5rem; margin: 0.5rem 0; line-height: 1;">NEXT EVENTS</h2>
             </div>
 
             <div class="countdown-wrapper">
                 <div class="cd-side cd-real">
-                    <span class="cd-title">DAYTONA 500</span>
-                    <span class="cd-subtitle">FEBRUARY 15TH @ 2:30 PM EST</span>
-                    <div class="cd-timer" id="timer-nascar">
+                    <span class="stat-label" style="color:var(--cup-blue); margin-bottom:5px;">REAL LIFE CUP SERIES</span>
+                    <span class="cd-title" id="real-race-name">LOADING...</span>
+                    <span class="cd-subtitle" id="real-race-time">--/--</span>
+                    <div class="cd-timer">
                         <div class="cd-box"><span class="cd-num" id="n-d">00</span><span class="cd-label">DAYS</span></div>
                         <div class="cd-box"><span class="cd-num" id="n-h">00</span><span class="cd-label">HRS</span></div>
                         <div class="cd-box"><span class="cd-num" id="n-m">00</span><span class="cd-label">MIN</span></div>
                         <div class="cd-box"><span class="cd-num" id="n-s">00</span><span class="cd-label">SEC</span></div>
                     </div>
                 </div>
+
                 <div class="cd-side cd-league">
-                    <span class="cd-title">ASCRL 500</span>
-                    <span class="cd-subtitle">FEBRUARY 17TH @ 8:00 PM EST</span>
-                    <div class="cd-timer" id="timer-ascrl">
+                    <span class="stat-label" style="color:var(--primary); margin-bottom:5px;">ASCRL CUP SERIES</span>
+                    <span class="cd-title" id="league-race-name">LOADING...</span>
+                    <span class="cd-subtitle" id="league-race-time">--/--</span>
+                    <div class="cd-timer">
                         <div class="cd-box"><span class="cd-num" id="a-d">00</span><span class="cd-label">DAYS</span></div>
                         <div class="cd-box"><span class="cd-num" id="a-h">00</span><span class="cd-label">HRS</span></div>
                         <div class="cd-box"><span class="cd-num" id="a-m">00</span><span class="cd-label">MIN</span></div>
@@ -418,9 +421,9 @@
     // --- HELPER: GET DRIVER IMAGE ---
     function getDriverImage(driverName) {
         const nameLower = driverName.toLowerCase();
-
-        // --- NEW DRIVERS ADDED JAN 3, 2026 ---
+        
         if (nameLower.includes('thirsttraptoby')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/7bc95544293252379df0a7693e5770b80e8ca8bf/ThirstTrapTobyHeroCard.jpg";
+        if (nameLower.includes('hockey')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/8e6c91687a3fd67cc8d9771eec28321a154a56ce/UpdatedHockeyHero.jpg";
         if (nameLower.includes('k7_dalton')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/9a7e63f44a37cedfdf0b85ddeb4968c3b0da8817/k7Dalton.jpg";
         if (nameLower.includes('isaac')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/d0f7c7e6480bc33317d4e7939036024f0dcff3dc/Isaac.jpg";
         if (nameLower.includes('z71chevyman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/869f4adefde19421e449f2e1e9ab7bd3a6ffaee5/ChevyMan.jpg";
@@ -430,8 +433,6 @@
         if (nameLower.includes('solid1915')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/7655f9eefe0cdd0d1809954233309718780d8925/SolidOne.jpg";
         if (nameLower.includes('the_fireman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6426c5de3657027051e18be3fae01a1c56faefbd/Fireman.jpg";
         if (nameLower.includes('the_stone')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/e81190c6bca706ca129f3413df56c7f2e375f74b/Stone.jpg";
-
-        // --- EXISTING DRIVERS ---
         if (nameLower.includes('alessi')) return "https://github.com/mattwilson20/ascrl-website/blob/main/Alessi.Hero.Card.jpg?raw=true";
         if (nameLower.includes('dakotathomas')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg";
         if (nameLower.includes('orangeman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/70b5243e68e9c7f7a596f6695677d8d3520e89e1/IMG_7160.jpg";
@@ -441,12 +442,12 @@
         if (nameLower.includes('banishedcrayon')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/d42bcd32df90441f1b5f24da75a77074ea2186fe/Banished_Crayon_hero_Card.jpg";
         if (nameLower.includes('sithwarrior')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/3e992547a13fe5d73940648e83df80d97df41f90/SithWarriorUno_Hero_Card.jpg";
         if (nameLower.includes('majorblaz')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/77807b78b078188862cb490d2b95d2f846d237bf/Blaze_Hero_Card.jpg";
-        if (nameLower.includes('reaper')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6ba07383a20109b63eec703c34fedc30f7a191bf/Rhino_Hero_Card.jpg";
+        if (nameLower.includes('thereaperrhino')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6ba07383a20109b63eec703c34fedc30f7a191bf/Rhino_Hero_Card.jpg";
         if (nameLower.includes('daltongregson')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ec988478a8132f49d9d6b596e7ed258e2c2dd482/DaltonGregson_Hero_Card.jpg";
         if (nameLower.includes('singular_nacho')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/f311b21127533ca6128a4408f36edaf9612d59b1/Singular_Nacho_Hero_Card.jpg";
         if (nameLower.includes('callmemillion')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/e86926900f4957c57588db9a14beae7d6329a794/CallMeMillion_Hero_Card.jpg";
         if (nameLower.includes('mattwilson20')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6686ee35c988cd1b0ae305d099ff4e31c652a49f/mattwilson20_Hero_Card.jpg";
-        if (nameLower.includes('hockey')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/8e6c91687a3fd67cc8d9771eec28321a154a56ce/UpdatedHockeyHero.jpg";
+        if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/81df81de5161ea2f590ee32c370d3e99675cdbaa/Hockey_Hero_Card.png";
         if (nameLower.includes('dewshine')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/c5319ac2110c0b89850cf83b5d93b1af677f8611/Dewshine_Hero_Card.jpg";
         if (nameLower.includes('kevwood')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/07ccf5d79d881bf2047f439e25540dc380fec2d0/Kevwood.Hero.Card.jpg";
         if (nameLower.includes('lnfvmous')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/acff9081bff808e0028c0ae22dada726083e7948/Infamous.hero.card.jpg";
@@ -455,18 +456,26 @@
         if (nameLower.includes('kingg')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/9eb12bdb1b61a806ad951ae9a8bddc590622f35f/King.Hero.Card.jpg";
         if (nameLower.includes('hatter')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/34425dadb737bc4bc27aa9271be62909dc9a3e99/Hatter.Hero.Card.jpg";
         if (nameLower.includes('big_fella')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ced27a5d96e0d211f038b36e34a55bccf4a7e4de/BigFella.Hero.Card.jpg";
-
-        // Default Ghost
+        
         return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg";
     }
 
-    // 2. DATA LOADING
-    // --- 2026 SEASON UPDATE ---
+    // 2. DATA LOADING & COUNTDOWN LOGIC
     const scheduleFile = "ASCRL_2026_Schedule.json";
-    
-    // UPDATED: Now pointing to MASTER drivers file and 2026 RESULTS file
     const driversFile = "drivers.json"; 
     const resultsFile = "ASCRL_Results_2026.json";
+
+    // --- MANUAL REAL NASCAR SCHEDULE ---
+    const realNascarSchedule = [
+        { name: "ATLANTA", date: "2026-02-22T15:00:00" },
+        { name: "COTA", date: "2026-03-01T15:30:00" },
+        { name: "PHOENIX", date: "2026-03-08T15:30:00" },
+        { name: "LAS VEGAS", date: "2026-03-15T15:30:00" },
+        { name: "HOMESTEAD", date: "2026-03-22T15:00:00" }
+    ];
+
+    let targetRealDate = 0;
+    let targetLeagueDate = 0;
 
     async function fetchWithFallback(primary, secondary) {
         try {
@@ -482,28 +491,100 @@
         fetchWithFallback(resultsFile, null)
     ]).then(([schedData, driversData, resultsData]) => {
         
-        // A. SCHEDULE (2026)
+        const now = new Date();
+
+        // A. SETUP REAL NASCAR COUNTDOWN
+        const nextReal = realNascarSchedule.find(r => new Date(r.date) > now);
+        if(nextReal) {
+            document.getElementById('real-race-name').innerText = nextReal.name;
+            const d = new Date(nextReal.date);
+            const dateStr = d.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+            const timeStr = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
+            document.getElementById('real-race-time').innerText = `${dateStr} @ ${timeStr}`;
+            targetRealDate = d.getTime();
+        } else {
+            document.getElementById('real-race-name').innerText = "SEASON ENDED";
+        }
+
+        // B. SETUP LEAGUE COUNTDOWN
+        if(schedData && schedData['Cup']) {
+            const nextLeague = schedData['Cup'].find(r => {
+                const specificDate = new Date(r.date + "T20:30:00"); 
+                return specificDate > now;
+            });
+
+            if(nextLeague) {
+                document.getElementById('league-race-name').innerText = nextLeague.track;
+                const d = new Date(nextLeague.date + "T20:30:00");
+                const dateStr = d.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+                document.getElementById('league-race-time').innerText = `${dateStr} @ 8:30 PM EST`;
+                targetLeagueDate = d.getTime();
+            } else {
+                document.getElementById('league-race-name').innerText = "SEASON ENDED";
+            }
+        }
+
+        // C. LOAD CAROUSELS
+        loadCarousels(driversData, resultsData, schedData);
+        
+        // D. POWER RANKINGS
+        if(driversData && resultsData) {
+            calculatePowerRankings(driversData, resultsData);
+        }
+    });
+
+    // --- COUNTDOWN TICKER ---
+    function updateCountdowns() {
+        const now = new Date().getTime();
+
+        function updateTimer(target, prefix) {
+            if(!target) return;
+            const distance = target - now;
+            
+            if (distance < 0) {
+                document.getElementById(prefix + "-d").innerText = "00";
+                document.getElementById(prefix + "-h").innerText = "00";
+                document.getElementById(prefix + "-m").innerText = "00";
+                document.getElementById(prefix + "-s").innerText = "00";
+                return;
+            }
+
+            const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById(prefix + "-d").innerText = d < 10 ? "0" + d : d;
+            document.getElementById(prefix + "-h").innerText = h < 10 ? "0" + h : h;
+            document.getElementById(prefix + "-m").innerText = m < 10 ? "0" + m : m;
+            document.getElementById(prefix + "-s").innerText = s < 10 ? "0" + s : s;
+        }
+
+        updateTimer(targetRealDate, 'n'); // n for NASCAR
+        updateTimer(targetLeagueDate, 'a'); // a for ASCRL
+    }
+    setInterval(updateCountdowns, 1000);
+
+    // --- CAROUSEL LOGIC ---
+    function loadCarousels(driversData, resultsData, schedData) {
+        // A. UPCOMING EVENTS CARDS (Top of page)
         if(schedData) {
             ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(s => {
                 const sKey = Object.keys(schedData).find(k => k.toLowerCase() === s.toLowerCase());
                 if (sKey && schedData[sKey]) {
-                    // Find next race based on today's date
                     const next = schedData[sKey].find(r => new Date(r.date + "T23:59:00") >= new Date());
                     if(next) {
                         document.getElementById(s.toLowerCase() + '-next').innerText = next.track;
                         document.getElementById(s.toLowerCase() + '-timer').innerText = next.date;
-                    } else {
-                        document.getElementById(s.toLowerCase() + '-next').innerText = "SEASON COMPLETE";
                     }
                 }
             });
         }
 
-        // B. LEADERS (Using 2026 Data)
+        // B. LEADERS
         if(driversData) {
             let html = '';
             const allDrivers = Object.keys(driversData).map(key => ({ id: key, display_name: driversData[key].display_name || key, ...driversData[key] }));
-
             ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(seriesName => {
                 let bestDriver = null, maxPoints = -1, bestData = null;
                 allDrivers.forEach(driver => {
@@ -511,9 +592,7 @@
                     const sKey = Object.keys(driver.series).find(k => k.toLowerCase() === seriesName.toLowerCase());
                     if (sKey) {
                         const sData = driver.series[sKey];
-                        // Use current_stats for 2026
                         const stats = sData.current_stats || sData.stats || {points:0};
-                        
                         if ((stats.points || 0) > maxPoints) {
                             maxPoints = stats.points || 0;
                             bestDriver = driver;
@@ -521,39 +600,29 @@
                         }
                     }
                 });
-
                 if (bestDriver && bestData) {
                     let badgeClass = seriesName.toLowerCase() === 'cup' ? 'badge-cup' : seriesName.toLowerCase() === 'xfinity' ? 'badge-xfinity' : seriesName.toLowerCase() === 'truck' ? 'badge-truck' : 'badge-menards';
-                    const stats = bestData.current_stats || bestData.stats || {wins:0};
-                    const wins = stats.wins || 0;
+                    const stats = bestData.current_stats || {wins:0};
                     let flags = '';
-                    for(let i=0; i<wins; i++) flags += `<i class="fa-solid fa-flag-checkered flag-icon ${badgeClass.replace('badge', 'flag')}"></i>`;
+                    for(let i=0; i<stats.wins; i++) flags += `<i class="fa-solid fa-flag-checkered flag-icon ${badgeClass.replace('badge', 'flag')}"></i>`;
 
-                    html += `
-                        <div class="carousel-cell">
-                            <div class="card-layer-image" style="background-image: url('${getDriverImage(bestDriver.display_name)}');"></div>
-                            <div class="card-layer-gradient"></div>
-                            
-                            <div class="series-badge-top ${badgeClass}" style="z-index: 5;">${seriesName} LEADER</div>
-                            <div class="bg-number">${bestData.number || ''}</div>
-                            
-                            <div class="card-content">
-                                <div class="win-flags-container">${flags}</div>
-                                <h3 class="driver-name">${bestDriver.display_name}</h3>
-                                <div class="team-name">${bestData.team || 'Independent'}</div>
-                                <div class="stats-pill">
-                                    <span>#${bestData.number || ''}</span><div class="stat-divider"></div>
-                                    <span>${maxPoints} PTS</span><div class="stat-divider"></div>
-                                    <span>${wins} WINS</span>
+                    html += `<div class="carousel-cell">
+                                <div class="card-layer-image" style="background-image: url('${getDriverImage(bestDriver.display_name)}');"></div>
+                                <div class="card-layer-gradient"></div>
+                                <div class="series-badge-top ${badgeClass}" style="z-index: 5;">${seriesName} LEADER</div>
+                                <div class="bg-number">${bestData.number || ''}</div>
+                                <div class="card-content">
+                                    <div class="win-flags-container">${flags}</div>
+                                    <h3 class="driver-name">${bestDriver.display_name}</h3>
+                                    <div class="stats-pill"><span>${maxPoints} PTS</span><div class="stat-divider"></div><span>${stats.wins} WINS</span></div>
                                 </div>
-                            </div>
-                        </div>`;
+                            </div>`;
                 }
             });
             document.getElementById('leaders-carousel').innerHTML = html;
         }
 
-        // C. WINNERS (Using 2026 Data)
+        // C. WINNERS
         if(resultsData) {
             let html = '';
             const keys = Object.keys(resultsData);
@@ -569,94 +638,66 @@
                         let cleanName = winner.driver.replace(/^#\d+\s+/, '').trim();
                         let carNum = (winner.driver.match(/^#(\d+)/) || [])[1] || '';
                         
-                        html += `
-                            <div class="carousel-cell">
-                                <div class="card-layer-image" style="background-image: url('${getDriverImage(cleanName)}');"></div>
-                                <div class="card-layer-gradient"></div>
-                                
-                                <div class="series-badge-top ${badgeClass}" style="right:0; left:auto; clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%); z-index:5;">${seriesName} WINNER</div>
-                                <div class="bg-number">${carNum}</div>
-                                
-                                <div class="card-content">
-                                    <div style="font-size:0.8rem; color:var(--primary); font-weight:bold; margin-bottom:5px;">${lastKey.split('-')[1].trim()}</div>
-                                    <h3 class="driver-name">${cleanName}</h3>
-                                    <div class="stats-pill"><span>WINNER</span><div class="stat-divider"></div><span>${winner.points} PTS</span></div>
-                                </div>
-                            </div>`;
+                        html += `<div class="carousel-cell">
+                                    <div class="card-layer-image" style="background-image: url('${getDriverImage(cleanName)}');"></div>
+                                    <div class="card-layer-gradient"></div>
+                                    <div class="series-badge-top ${badgeClass}" style="right:0; left:auto; clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%); z-index:5;">${seriesName} WINNER</div>
+                                    <div class="bg-number">${carNum}</div>
+                                    <div class="card-content">
+                                        <div style="font-size:0.8rem; color:var(--primary); font-weight:bold; margin-bottom:5px;">${lastKey.split('-')[1].trim()}</div>
+                                        <h3 class="driver-name">${cleanName}</h3>
+                                        <div class="stats-pill"><span>WINNER</span><div class="stat-divider"></div><span>${winner.points} PTS</span></div>
+                                    </div>
+                                </div>`;
                     }
                 }
             });
             document.getElementById('winners-carousel').innerHTML = html;
         }
+    }
 
-        // D. POWER RANKINGS CALCULATION (Using 2026 Data)
-        if(driversData && resultsData) {
-            calculatePowerRankings(driversData, resultsData);
-        }
-    });
-
-    // --- POWER RANKINGS ENGINE v2 (Multi-Series Support) ---
-    let rankingsCache = {}; // Stores the calculated lists for instant switching
-
+    // --- POWER RANKINGS ENGINE ---
+    let rankingsCache = {}; 
     async function calculatePowerRankings(driversData, resultsData) {
-        
-        // 1. Process Momentum (Last 3 finishes per series)
+        // 1. Process Momentum
         const momentumMap = {};
         Object.keys(resultsData).forEach(raceKey => {
             const parts = raceKey.split(' - ');
             const series = parts[0]; 
             const results = resultsData[raceKey];
-
             results.forEach(r => {
-                let name = r.driver;
-                if(name.includes('#')) name = name.split(' ').slice(1).join(' '); // Clean #
-                name = name.trim();
-
+                let name = r.driver.replace(/^#\d+\s*/, '').trim();
                 if(!momentumMap[name]) momentumMap[name] = {};
                 if(!momentumMap[name][series]) momentumMap[name][series] = [];
                 momentumMap[name][series].push(r.position);
             });
         });
 
-        // 2. Weights & Config
         const WEIGHTS = { points: 0.40, wins: 0.20, consistency: 0.25, momentum: 0.15 };
         const SERIES_MULT = { "Cup": 1.0, "Xfinity": 0.85, "Truck": 0.70, "Menards": 0.55 };
-        
-        // Initialize Cache
         rankingsCache = { "Overall": [], "Cup": [], "Xfinity": [], "Truck": [], "Menards": [] };
 
-        // --- HELPER: Calculate Score for a single series entry ---
         function getSeriesScore(stats, seriesName, driverName) {
             const pts = stats.points || 0;
             const wins = stats.wins || 0;
             const avg = stats.avg || 40;
-            
-            // Find max points for THIS series to normalize (Simplified 400 cap)
             const maxPts = 400; 
-
             const normPoints = Math.min(pts / maxPts, 1.0);
-            const normWins = Math.min(wins / 3, 1.0); // 3 wins = 100%
+            const normWins = Math.min(wins / 3, 1.0);
             const normConsist = Math.max(0, (40 - avg) / 39);
-            
-            // Momentum
             let normMom = 0;
             const recents = momentumMap[driverName] ? momentumMap[driverName][seriesName] : null;
             if(recents && recents.length > 0) {
                 const last3 = recents.slice(-3);
                 const avgRec = last3.reduce((a,b)=>a+b,0) / last3.length;
                 normMom = Math.max(0, (40 - avgRec) / 39);
-            } else {
-                normMom = normConsist; 
-            }
-
+            } else { normMom = normConsist; }
             return ((normPoints * WEIGHTS.points) + (normWins * WEIGHTS.wins) + (normConsist * WEIGHTS.consistency) + (normMom * WEIGHTS.momentum)) * 100;
         }
 
-        // 3. Main Loop
         Object.keys(driversData).forEach(id => {
             const d = driversData[id];
             const name = d.display_name;
-            
             let overallScoreSum = 0;
             let seriesCount = 0;
             let totalWins = 0;
@@ -664,25 +705,12 @@
 
             if(d.series) {
                 Object.keys(d.series).forEach(s => {
-                    // Fallback to legacy 'stats' if 'current_stats' doesn't exist
                     const stats = d.series[s].current_stats || d.series[s].stats;
                     if(!stats) return;
-
-                    // Series Specific Calculation
                     const sScore = getSeriesScore(stats, s, name);
-                    
-                    // Add to Series Specific List
                     if(rankingsCache[s]) {
-                        rankingsCache[s].push({
-                            name: name,
-                            team: d.series[s].team || "Independent",
-                            wins: stats.wins || 0,
-                            score: sScore,
-                            img: getDriverImage(name)
-                        });
+                        rankingsCache[s].push({ name: name, team: d.series[s].team || "Independent", wins: stats.wins || 0, score: sScore, img: getDriverImage(name) });
                     }
-
-                    // Add to Overall Sum (Weighted)
                     if(SERIES_MULT[s]) {
                         overallScoreSum += sScore * SERIES_MULT[s];
                         seriesCount++;
@@ -691,49 +719,27 @@
                     }
                 });
             }
-
             if(seriesCount > 0) {
-                rankingsCache["Overall"].push({
-                    name: name,
-                    team: primaryTeam,
-                    wins: totalWins,
-                    score: overallScoreSum, 
-                    img: getDriverImage(name)
-                });
+                rankingsCache["Overall"].push({ name: name, team: primaryTeam, wins: totalWins, score: overallScoreSum, img: getDriverImage(name) });
             }
         });
 
-        // 4. Sort All Lists
-        Object.keys(rankingsCache).forEach(key => {
-            rankingsCache[key].sort((a,b) => b.score - a.score);
-        });
-
-        // 5. Initial Render
+        Object.keys(rankingsCache).forEach(key => { rankingsCache[key].sort((a,b) => b.score - a.score); });
         renderRankings("Overall");
     }
 
     function renderRankings(category) {
         const container = document.getElementById('power-rankings-container');
         const data = rankingsCache[category];
-        
-        // Update Buttons
         document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
         const btn = document.querySelector(`.filter-btn.btn-${category.toLowerCase()}`) || document.querySelector(`.filter-btn.btn-overall`);
         if(btn) btn.classList.add('active');
 
-        if(!data || data.length === 0) {
-            container.innerHTML = `<p style="text-align:center; color:#666; padding:2rem;">No data available for ${category}.</p>`;
-            return;
-        }
-
+        if(!data || data.length === 0) { container.innerHTML = `<p style="text-align:center; color:#666; padding:2rem;">No data available for ${category}.</p>`; return; }
         container.innerHTML = ''; 
-
-        // Show top 10 (or 15 for overall)
         const limit = 10;
         const topList = data.slice(0, limit);
         const topScore = topList[0].score;
-
-        // Define bar color based on category
         let barColor = "rgba(255,255,255,0.1)";
         let scoreColor = "#fff";
         if(category === "Overall") { barColor = "rgba(0,255,0,0.1)"; scoreColor = "#00ff00"; }
@@ -745,7 +751,6 @@
         topList.forEach((d, index) => {
             const delay = index * 0.05; 
             const widthPct = Math.max((d.score / topScore) * 100, 15);
-
             const html = `
             <div class="power-card" style="animation-delay: ${delay}s; border-color: ${scoreColor}44;">
                 <div class="p-bar" style="width: ${widthPct}%; background: ${barColor};"></div>
@@ -767,53 +772,12 @@
     }
 
     // 1. Disable Right Click
-    document.addEventListener('contextmenu', (e) => {
-        e.preventDefault();
-    });
-
-    // 2. Disable Keyboard Shortcuts (Ctrl+U, F12, Ctrl+Shift+I, etc.)
+    document.addEventListener('contextmenu', (e) => { e.preventDefault(); });
+    // 2. Disable Keyboard Shortcuts
     document.addEventListener('keydown', (e) => {
-        if (e.ctrlKey || e.metaKey) {
-            switch (e.key.toLowerCase()) {
-                case 'u': case 's': case 'a': case 'c': e.preventDefault(); return false;
-            }
-            if (e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j')) {
-                e.preventDefault(); return false;
-            }
-        }
+        if (e.ctrlKey || e.metaKey) { switch (e.key.toLowerCase()) { case 'u': case 's': case 'a': case 'c': e.preventDefault(); return false; } }
         if (e.key === 'F12') { e.preventDefault(); return false; }
     });
-
-    // 3. DUAL COUNTDOWN LOGIC
-    const nascarDate = new Date("February 15, 2026 14:30:00").getTime();
-    const ascrlDate = new Date("February 17, 2026 20:00:00").getTime();
-
-    function updateCountdowns() {
-        const now = new Date().getTime();
-        function getParts(target) {
-            const distance = target - now;
-            if (distance < 0) return { d:0, h:0, m:0, s:0 };
-            return {
-                d: Math.floor(distance / (1000 * 60 * 60 * 24)),
-                h: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-                m: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
-                s: Math.floor((distance % (1000 * 60)) / 1000)
-            };
-        }
-        const n = getParts(nascarDate);
-        document.getElementById("n-d").innerText = n.d < 10 ? "0" + n.d : n.d;
-        document.getElementById("n-h").innerText = n.h < 10 ? "0" + n.h : n.h;
-        document.getElementById("n-m").innerText = n.m < 10 ? "0" + n.m : n.m;
-        document.getElementById("n-s").innerText = n.s < 10 ? "0" + n.s : n.s;
-
-        const a = getParts(ascrlDate);
-        document.getElementById("a-d").innerText = a.d < 10 ? "0" + a.d : a.d;
-        document.getElementById("a-h").innerText = a.h < 10 ? "0" + a.h : a.h;
-        document.getElementById("a-m").innerText = a.m < 10 ? "0" + a.m : a.m;
-        document.getElementById("a-s").innerText = a.s < 10 ? "0" + a.s : a.s;
-    }
-    setInterval(updateCountdowns, 1000);
-    updateCountdowns(); 
     </script>
 
 </body>
