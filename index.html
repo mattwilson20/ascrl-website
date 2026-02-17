@@ -10,13 +10,8 @@
     <link rel="stylesheet" href="style.css">
     <style>
         :root {
-            --primary: #c00;
-            --accent: #ff0;
-            --bg-dark: #000;
-            --card-bg: #0d0d0d;
-            --border: #1a1a1a;
-            --text-muted: #a0a0a0;
-            --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --primary: #c00; --accent: #ff0; --bg-dark: #000; --card-bg: #0d0d0d; --border: #1a1a1a;
+            --text-muted: #a0a0a0; --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             
             /* Series Colors */
             --cup-blue: #0077ff;
@@ -310,7 +305,7 @@
 
             <div class="countdown-wrapper">
                 <div class="cd-side cd-real">
-                    <span class="stat-label" style="color:var(--cup-blue); margin-bottom:5px;">NASCAR CUP SERIES</span>
+                    <span class="stat-label" style="color:var(--cup-blue); margin-bottom:5px;">REAL LIFE CUP SERIES</span>
                     <span class="cd-title" id="real-race-name">LOADING...</span>
                     <span class="cd-subtitle" id="real-race-time">--/--</span>
                     <div class="cd-timer">
@@ -624,7 +619,7 @@
             document.getElementById('leaders-carousel').innerHTML = html;
         }
 
-        // C. WINNERS (SMARTER LOGIC)
+        // C. WINNERS (SMARTER LOGIC - EXISTENCE CHECK)
         if(resultsData && schedData) {
             let html = '';
             
@@ -633,37 +628,39 @@
                 const sKey = Object.keys(schedData).find(k => k.toLowerCase() === seriesName.toLowerCase());
                 if (!sKey || !schedData[sKey]) return;
 
-                // 2. Find the LAST COMPLETED race date
-                const today = new Date();
-                const pastRaces = schedData[sKey].filter(r => new Date(r.date + "T23:59:00") < today);
-                
-                if(pastRaces.length > 0) {
-                    // Get the very last race that happened
-                    const lastRace = pastRaces[pastRaces.length - 1]; 
-                    
-                    // 3. Construct Key (e.g. "Truck - Daytona") and find in Results
-                    const resultKey = `${seriesName} - ${lastRace.track}`;
-                    const raceResults = resultsData[resultKey];
+                // 2. Iterate chronologically to find the LATEST race that has results
+                let latestResult = null;
+                let latestTrackName = "";
 
-                    if(raceResults) {
-                        const winner = raceResults.find(r => r.position === 1);
-                        if(winner) {
-                            let badgeClass = seriesName.toLowerCase() === 'cup' ? 'badge-cup' : seriesName.toLowerCase() === 'xfinity' ? 'badge-xfinity' : seriesName.toLowerCase() === 'truck' ? 'badge-truck' : 'badge-menards';
-                            let cleanName = winner.driver.replace(/^#\d+\s+/, '').trim();
-                            let carNum = (winner.driver.match(/^#(\d+)/) || [])[1] || '';
-                            
-                            html += `<div class="carousel-cell">
-                                        <div class="card-layer-image" style="background-image: url('${getDriverImage(cleanName)}');"></div>
-                                        <div class="card-layer-gradient"></div>
-                                        <div class="series-badge-top ${badgeClass}" style="right:0; left:auto; clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%); z-index:5;">${seriesName} WINNER</div>
-                                        <div class="bg-number">${carNum}</div>
-                                        <div class="card-content">
-                                            <div style="font-size:0.8rem; color:var(--primary); font-weight:bold; margin-bottom:5px;">${lastRace.track.toUpperCase()}</div>
-                                            <h3 class="driver-name">${cleanName}</h3>
-                                            <div class="stats-pill"><span>WINNER</span><div class="stat-divider"></div><span>${winner.points} PTS</span></div>
-                                        </div>
-                                    </div>`;
-                        }
+                schedData[sKey].forEach(race => {
+                    const lookupKey = `${seriesName} - ${race.track}`;
+                    if (resultsData[lookupKey]) {
+                        // Found a completed race! Store it.
+                        // Since we loop in order, the last one we find is the latest completed race.
+                        latestResult = resultsData[lookupKey];
+                        latestTrackName = race.track;
+                    }
+                });
+
+                // 3. If we found a result, generate the card
+                if (latestResult) {
+                    const winner = latestResult.find(r => r.position === 1);
+                    if(winner) {
+                        let badgeClass = seriesName.toLowerCase() === 'cup' ? 'badge-cup' : seriesName.toLowerCase() === 'xfinity' ? 'badge-xfinity' : seriesName.toLowerCase() === 'truck' ? 'badge-truck' : 'badge-menards';
+                        let cleanName = winner.driver.replace(/^#\d+\s+/, '').trim();
+                        let carNum = (winner.driver.match(/^#(\d+)/) || [])[1] || '';
+                        
+                        html += `<div class="carousel-cell">
+                                    <div class="card-layer-image" style="background-image: url('${getDriverImage(cleanName)}');"></div>
+                                    <div class="card-layer-gradient"></div>
+                                    <div class="series-badge-top ${badgeClass}" style="right:0; left:auto; clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%); z-index:5;">${seriesName} WINNER</div>
+                                    <div class="bg-number">${carNum}</div>
+                                    <div class="card-content">
+                                        <div style="font-size:0.8rem; color:var(--primary); font-weight:bold; margin-bottom:5px;">${latestTrackName.toUpperCase()}</div>
+                                        <h3 class="driver-name">${cleanName}</h3>
+                                        <div class="stats-pill"><span>WINNER</span><div class="stat-divider"></div><span>${winner.points} PTS</span></div>
+                                    </div>
+                                </div>`;
                     }
                 }
             });
