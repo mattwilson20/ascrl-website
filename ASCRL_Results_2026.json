@@ -1,4 +1,223 @@
 {
+    "Truck - Daytona": [
+        {
+            "driver": "#41 SithWarriorUno",
+            "position": 1,
+            "points": 40,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#9 dakotathomas1994",
+            "position": 2,
+            "points": 35,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#1 mattwilson20",
+            "position": 3,
+            "points": 34,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#69 xxHambone",
+            "position": 4,
+            "points": 33,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#71 Dewshine_02",
+            "position": 5,
+            "points": 32,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#34 Dezzy_Wezzy_01",
+            "position": 6,
+            "points": 31,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#33 superace33",
+            "position": 7,
+            "points": 30,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#24 Scott247_",
+            "position": 8,
+            "points": 29,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#07 The_Stone07",
+            "position": 9,
+            "points": 28,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#31 HatterMAD218",
+            "position": 10,
+            "points": 27,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#22 Mrs. Puff - Hockey",
+            "position": 11,
+            "points": 26,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#75 bigray-45",
+            "position": 12,
+            "points": 26,
+            "pole": "",
+            "fl": "FL"
+        },
+        {
+            "driver": "#29 z71chevymanz71",
+            "position": 13,
+            "points": 24,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#5 C0mpl1c8ed",
+            "position": 14,
+            "points": 23,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#59 BanishedCrayon",
+            "position": 15,
+            "points": 22,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#0 ThirstTrapToby",
+            "position": 16,
+            "points": 21,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#40 the_fireman199",
+            "position": 17,
+            "points": 20,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#65 MrSmooth-21",
+            "position": 18,
+            "points": 19,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#95 Joshua Riddle #12",
+            "position": 19,
+            "points": 18,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#13 TheReaperRhino",
+            "position": 20,
+            "points": 17,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#89 tophert422",
+            "position": 21,
+            "points": 16,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#05 Mike_8762",
+            "position": 22,
+            "points": 15,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#17 BusterTC007",
+            "position": 23,
+            "points": 14,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#18 MajorBlaz33",
+            "position": 24,
+            "points": 13,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#6 rickyspanish1500",
+            "position": 25,
+            "points": 12,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#58 On-A-Mission618",
+            "position": 26,
+            "points": 12,
+            "pole": "Yes",
+            "fl": ""
+        },
+        {
+            "driver": "#52 SOLID1915ONE",
+            "position": 27,
+            "points": 10,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#2 Lostcozov",
+            "position": 28,
+            "points": 9,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#45 Ant_was_he",
+            "position": 29,
+            "points": 8,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#85 TampaxxMaxx",
+            "position": 30,
+            "points": 7,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#35 Isaac-_-34",
+            "position": 31,
+            "points": 6,
+            "pole": "",
+            "fl": ""
+        }
+    ],
     "Xfinity - Daytona": [
         {
             "driver": "#99 Mrs. Puff - Hockey",
@@ -176,7 +395,7 @@
             "fl": ""
         },
         {
-            "driver": "#83 C0mpl1c8ed",
+            "driver": "#5 C0mpl1c8ed",
             "position": 26,
             "points": 11,
             "pole": "",
@@ -241,7 +460,7 @@
             "fl": ""
         },
         {
-            "driver": "#83 C0mpl1c8ed",
+            "driver": "#5 C0mpl1c8ed",
             "position": 7,
             "points": 0,
             "pole": "",
@@ -446,7 +665,7 @@
             "fl": ""
         },
         {
-            "driver": "#83 C0mpl1c8ed",
+            "driver": "#5 C0mpl1c8ed",
             "position": 8,
             "points": 29,
             "pole": "",
