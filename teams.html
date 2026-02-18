@@ -23,19 +23,6 @@
         /* --- MODULAR NAVIGATION STYLES --- */
         #nav-placeholder { position: relative; z-index: 2000; }
         
-        .nav-overlay { 
-            position: fixed; top: 0; left: -100%; width: 100%; max-width: 350px; 
-            height: 100vh; background: #050505; transition: left 0.5s ease; 
-            z-index: 1999; padding-top: 100px; border-right: 1px solid var(--primary); 
-        }
-        .nav-overlay.open { left: 0; }
-        .nav-links { display: flex; flex-direction: column; padding: 0 3rem; }
-        .nav-links a { 
-            color: #fff; text-decoration: none; font-size: 1.2rem; padding: 1.2rem 0; 
-            border-bottom: 1px solid var(--border); transition: var(--transition); letter-spacing: 2px; 
-        }
-        .nav-links a:hover { color: var(--primary); padding-left: 10px; }
-        
         /* HERO & LAYOUT */
         .hero { background: radial-gradient(circle at center, #222 0%, #000 100%); padding: 12rem 1rem 8rem; text-align: center; border-bottom: 1px solid var(--border); }
         h1 { font-size: clamp(3rem, 10vw, 5rem); margin: 0; letter-spacing: -2px; }
@@ -109,7 +96,8 @@
     <div class="standings-section">
         <div class="standings-controls">
             <select id="season-select" onchange="loadSeasonData()">
-                <option value="Season_1" selected>Season 1 (2025-26)</option>
+                <option value="2026">2026 Season (Current)</option>
+                <option value="Season_1">Season 1 (2025-26)</option>
             </select>
 
             <div class="tabs-container">
@@ -161,7 +149,6 @@
 
     <script>
         // --- 1. MODULAR NAVIGATION LOGIC ---
-        // This fetches nav.html and injects it into the #nav-placeholder div
         fetch('nav.html')
             .then(res => res.text())
             .then(data => { 
@@ -178,30 +165,25 @@
             })
             .catch(err => console.error("Nav Error:", err));
 
-        // Function called by the hamburger button inside nav.html
         function toggleMenu() {
             const menu = document.getElementById('nav-menu');
             if(menu) menu.classList.toggle('open');
         }
 
-        // --- 2. DATA LOADING ---
+        // --- 2. DATA LOADING & CALCULATION ---
         let driversData = {}; 
+        let resultsData = {}; 
         let currentSeries = 'Cup';
-
-        const FILE_DRIVERS = "drivers.json";
 
         document.addEventListener('DOMContentLoaded', () => { loadSeasonData(); });
 
         async function fetchWithFallback(filename) {
-            const local = filename;
-            const github = `https://raw.githubusercontent.com/mattwilson20/ascrl-website/main/${filename}`;
+            // Cache busting param to ensure we get fresh data
+            const url = filename + "?v=" + new Date().getTime();
             try {
-                let r = await fetch(local);
+                let r = await fetch(url);
                 if (r.ok) return await r.json();
-                console.warn(`Local failed for ${local}, trying GitHub...`);
-                r = await fetch(github);
-                if (r.ok) return await r.json();
-                throw new Error("404 Not Found");
+                return null;
             } catch (err) {
                 console.error(`Failed to load: ${filename}`);
                 return null; 
@@ -209,13 +191,22 @@
         }
 
         async function loadSeasonData() {
-            document.getElementById('standings-body').innerHTML = '<tr><td colspan="3" style="text-align:center;">Accessing Data...</td></tr>';
+            document.getElementById('standings-body').innerHTML = '<tr><td colspan="3" style="text-align:center;">Calculating Data...</td></tr>';
             
-            // We only STRICTLY need drivers.json to calculate team points + driver breakdown
-            const dData = await fetchWithFallback(FILE_DRIVERS);
-            driversData = dData || {};
+            const seasonKey = document.getElementById('season-select').value;
+            // Select correct Results file based on dropdown
+            const resultFile = seasonKey === "2026" ? "ASCRL_Results_2026.json" : "ASCRL_Results_Season_1.json";
 
-            updateUI();
+            // Load BOTH Drivers (for team names) AND Results (for calculations)
+            const [dData, rData] = await Promise.all([
+                fetchWithFallback("drivers.json"),
+                fetchWithFallback(resultFile)
+            ]);
+
+            driversData = dData || {};
+            resultsData = rData || {};
+
+            updateStandingsTable();
         }
 
         function switchSeries(s) {
@@ -224,23 +215,94 @@
                 b.classList.remove('active');
                 if(b.dataset.series === s) b.classList.add('active');
             });
-            updateUI();
-        }
-
-        function updateUI() {
             updateStandingsTable();
         }
 
-        // 3. TABLE LOGIC
+        // --- 3. TEAM CALCULATION ENGINE ---
+        function calculateTeamsFromDrivers(seriesName) {
+            const teamsMap = {};
+            const driverPointsCache = {}; // Temporary storage for driver points
+
+            // Step A: Calculate points for EVERY driver from the Results file
+            if(resultsData) {
+                Object.keys(resultsData).forEach(raceKey => {
+                    const parts = raceKey.split(' - ');
+                    const rSeries = parts[0]; 
+                    
+                    if(rSeries.toLowerCase() === seriesName.toLowerCase()) {
+                        resultsData[raceKey].forEach(entry => {
+                            let name = entry.driver.replace(/^#\d+\s*/, '').trim();
+                            // Normalize name logic can go here if needed
+                            
+                            // Find match in driversData for Official Name
+                            const driverEntry = Object.values(driversData).find(d => 
+                                d.display_name && d.display_name.toLowerCase() === name.toLowerCase()
+                            );
+                            if(driverEntry) name = driverEntry.display_name;
+
+                            if(!driverPointsCache[name]) driverPointsCache[name] = 0;
+                            driverPointsCache[name] += parseInt(entry.points || 0);
+                        });
+                    }
+                });
+            }
+
+            // Step B: Map drivers to Teams and Assign Points
+            for (const [id, driver] of Object.entries(driversData)) {
+                if(!driver.series) continue;
+                
+                const sKey = Object.keys(driver.series).find(k => k.toLowerCase() === seriesName.toLowerCase());
+                if (!sKey) continue;
+                
+                const sData = driver.series[sKey];
+                let teamName = sData.team || "Independent";
+                
+                // Rebranding Patch
+                if (teamName.toUpperCase().includes("BHG")) teamName = "REDLINE RACING";
+
+                if (!teamName || teamName.toLowerCase().includes("independent") || teamName === "") continue;
+                
+                // Retrieve calculated points (or 0 if they haven't raced)
+                const calculatedPoints = driverPointsCache[driver.display_name] || 0;
+
+                if (!teamsMap[teamName]) {
+                    teamsMap[teamName] = {
+                        name: teamName,
+                        totalPoints: 0,
+                        drivers: []
+                    };
+                }
+                
+                // Only add driver if they have points > 0 OR strictly for roster display
+                // (We include everyone so roster looks complete)
+                teamsMap[teamName].totalPoints += calculatedPoints;
+                teamsMap[teamName].drivers.push({
+                    name: driver.display_name,
+                    number: sData.number,
+                    points: calculatedPoints
+                });
+            }
+
+            // Convert map to array and sort by points
+            const sortedTeams = Object.values(teamsMap).sort((a, b) => b.totalPoints - a.totalPoints);
+            
+            // Sort drivers inside each team by number
+            sortedTeams.forEach(team => {
+                team.drivers.sort((a, b) => parseInt(a.number) - parseInt(b.number));
+            });
+
+            return sortedTeams;
+        }
+
+        // --- 4. RENDER LOGIC ---
         function updateStandingsTable() {
             const tbody = document.getElementById('standings-body');
             tbody.innerHTML = '';
             
-            // We calculate teams dynamically from drivers.json to ensure we have the member list
             const teams = calculateTeamsFromDrivers(currentSeries);
 
             if(teams.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="3" style="text-align:center;">No active teams for ${currentSeries}.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding:2rem;">No active teams or results found for ${currentSeries}.</td></tr>`;
                 return;
             }
 
@@ -306,58 +368,6 @@
                 `;
                 tbody.appendChild(trDetail);
             });
-        }
-
-        function calculateTeamsFromDrivers(seriesName) {
-            const teamsMap = {};
-            
-            for (const [id, driver] of Object.entries(driversData)) {
-                if(!driver.series) continue;
-                
-                // Case insensitive series match
-                const sKey = Object.keys(driver.series).find(k => k.toLowerCase() === seriesName.toLowerCase());
-                if (!sKey) continue;
-                
-                const sData = driver.series[sKey];
-                let teamName = sData.team || "Independent";
-                
-                // --- FIX: REBRANDING PATCH ---
-                if (teamName.toUpperCase().includes("BHG")) {
-                    teamName = "REDLINE RACING";
-                }
-
-                // FILTER: Remove Independents / Nulls
-                if (!teamName || teamName.toLowerCase().includes("independent") || teamName === "") continue;
-                
-                // POINTS CHECK
-                const st = sData.stats || {};
-                const pts = parseInt(st.points || st.Points || 0);
-                
-                if (!teamsMap[teamName]) {
-                    teamsMap[teamName] = {
-                        name: teamName,
-                        totalPoints: 0,
-                        drivers: []
-                    };
-                }
-                
-                teamsMap[teamName].totalPoints += pts;
-                teamsMap[teamName].drivers.push({
-                    name: driver.display_name,
-                    number: sData.number,
-                    points: pts
-                });
-            }
-
-            // Convert map to array and sort by points
-            const sortedTeams = Object.values(teamsMap).sort((a, b) => b.totalPoints - a.totalPoints);
-            
-            // Sort drivers inside each team by number
-            sortedTeams.forEach(team => {
-                team.drivers.sort((a, b) => parseInt(a.number) - parseInt(b.number));
-            });
-
-            return sortedTeams;
         }
 
         function toggleDetails(rowId, detailId) {
