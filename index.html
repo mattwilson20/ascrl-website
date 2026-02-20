@@ -223,7 +223,7 @@
         footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
         .social-links { display: flex; gap: 2rem; justify-content: center; }
         .social-icon { color: #555; font-size: 1.8rem; transition: 0.3s ease; display: flex; align-items: center; justify-content: center; text-decoration: none; }
-        .social-icon:hover { transform: translateY(-3px); }
+        .social-icon:hover { transform: translateY(-3px); color: #fff; }
 
         /* --- MOBILE OVERRIDE --- */
         @media (max-width: 900px) {
@@ -619,36 +619,29 @@
             document.getElementById('leaders-carousel').innerHTML = html;
         }
 
-        // C. WINNERS (SMARTER LOGIC - EXISTENCE CHECK)
-        if(resultsData && schedData) {
+        // C. WINNERS (ROBUST LOGIC)
+        if(resultsData) {
             let html = '';
+            const keys = Object.keys(resultsData);
             
             ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(seriesName => {
-                // 1. Get Schedule for this series
-                const sKey = Object.keys(schedData).find(k => k.toLowerCase() === seriesName.toLowerCase());
-                if (!sKey || !schedData[sKey]) return;
-
-                // 2. Iterate chronologically to find the LATEST race that has results
-                let latestResult = null;
-                let latestTrackName = "";
-
-                schedData[sKey].forEach(race => {
-                    const lookupKey = `${seriesName} - ${race.track}`;
-                    if (resultsData[lookupKey]) {
-                        // Found a completed race! Store it.
-                        // Since we loop in order, the last one we find is the latest completed race.
-                        latestResult = resultsData[lookupKey];
-                        latestTrackName = race.track;
+                let lastKey = null;
+                // Read from bottom-up to get the newest race for this series
+                for (let i = keys.length - 1; i >= 0; i--) {
+                    if (keys[i].toLowerCase().startsWith(seriesName.toLowerCase())) { 
+                        lastKey = keys[i]; 
+                        break; 
                     }
-                });
-
-                // 3. If we found a result, generate the card
-                if (latestResult) {
-                    const winner = latestResult.find(r => r.position === 1);
+                }
+                
+                if(lastKey) {
+                    // Use parseInt to be 100% safe against string vs int
+                    const winner = resultsData[lastKey].find(r => parseInt(r.position) === 1);
                     if(winner) {
                         let badgeClass = seriesName.toLowerCase() === 'cup' ? 'badge-cup' : seriesName.toLowerCase() === 'xfinity' ? 'badge-xfinity' : seriesName.toLowerCase() === 'truck' ? 'badge-truck' : 'badge-menards';
                         let cleanName = winner.driver.replace(/^#\d+\s+/, '').trim();
                         let carNum = (winner.driver.match(/^#(\d+)/) || [])[1] || '';
+                        let trackName = lastKey.split('-')[1].trim(); // Gets "Daytona" from "Truck - Daytona"
                         
                         html += `<div class="carousel-cell">
                                     <div class="card-layer-image" style="background-image: url('${getDriverImage(cleanName)}');"></div>
@@ -656,7 +649,7 @@
                                     <div class="series-badge-top ${badgeClass}" style="right:0; left:auto; clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%); z-index:5;">${seriesName} WINNER</div>
                                     <div class="bg-number">${carNum}</div>
                                     <div class="card-content">
-                                        <div style="font-size:0.8rem; color:var(--primary); font-weight:bold; margin-bottom:5px;">${latestTrackName.toUpperCase()}</div>
+                                        <div style="font-size:0.8rem; color:var(--primary); font-weight:bold; margin-bottom:5px;">${trackName.toUpperCase()}</div>
                                         <h3 class="driver-name">${cleanName}</h3>
                                         <div class="stats-pill"><span>WINNER</span><div class="stat-divider"></div><span>${winner.points} PTS</span></div>
                                     </div>
