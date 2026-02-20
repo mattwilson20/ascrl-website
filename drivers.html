@@ -419,7 +419,10 @@
         // --- 3. POP-OUT CARD LOGIC ---
         let canFlip = false;
 
-        function viewCard(imgSrc, backText) {
+        function viewCard(event, imgSrc, backText) {
+            // This firmly stops the click from reaching the binder
+            if (event) event.stopPropagation(); 
+
             const modal = document.getElementById('card-view-modal');
             const card = document.getElementById('pop-card');
             const img = document.getElementById('pop-img');
@@ -599,7 +602,7 @@
                 let safeText = backText ? backText.replace(/'/g, "\\'") : "";
 
                 achievementSlots += `
-                    <div class="m-slot" style="background:transparent; border:none;" onclick="event.stopPropagation(); viewCard('${imgUrl}', '${safeText}')">
+                    <div class="m-slot" style="background:transparent; border:none;" onclick="viewCard(event, '${imgUrl}', '${safeText}')">
                         <img src="${imgUrl}">
                     </div>
                 `;
@@ -609,7 +612,7 @@
             if(driverData.badges) {
                 driverData.badges.forEach(b => {
                     achievementSlots += `
-                        <div class="m-slot" style="background:#111; border:2px solid gold;">
+                        <div class="m-slot" style="background:#111; border:2px solid gold;" onclick="event.stopPropagation();">
                             <div style="text-align:center; padding:5px;">
                                 <i class="fa-solid fa-trophy" style="color:gold; font-size:1.5rem; margin-bottom:5px;"></i>
                                 <div style="color:gold; font-size:0.4rem; text-transform:uppercase; font-weight:bold; line-height:1.2;">${b}</div>
