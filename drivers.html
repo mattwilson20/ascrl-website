@@ -596,12 +596,10 @@
                 }
 
                 // Create clickable slot
-                // We assume backText might have quotes, so we escape them safely using HTML entities isn't strictly necessary for onclick in template strings if we use single quotes for JS wrap
-                // But replacing ' with \' is safer.
                 let safeText = backText ? backText.replace(/'/g, "\\'") : "";
 
                 achievementSlots += `
-                    <div class="m-slot" style="background:transparent; border:none;" onclick="viewCard('${imgUrl}', '${safeText}')">
+                    <div class="m-slot" style="background:transparent; border:none;" onclick="event.stopPropagation(); viewCard('${imgUrl}', '${safeText}')">
                         <img src="${imgUrl}">
                     </div>
                 `;
