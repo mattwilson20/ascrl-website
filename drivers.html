@@ -146,7 +146,6 @@
             width: 400px; height: 560px; /* Slightly smaller for modal */
             transform-style: preserve-3d;
             transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-            cursor: pointer;
             max-width: 85vw; /* Mobile Safe */
         }
 
@@ -158,6 +157,7 @@
             transform-style: preserve-3d; transform-origin: left;
             transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
             z-index: 10;
+            cursor: pointer;
         }
         .binder-modal.closed .m-flip-wrapper { transform: rotateY(-15deg); }
         .binder-modal.open .m-flip-wrapper { transform: rotateY(-180deg); }
@@ -208,6 +208,7 @@
             background-color: #800000; background-image: var(--binder-texture);
             display: flex; align-items: center; justify-content: center;
             border-radius: 5px 0 0 5px;
+            cursor: pointer;
         }
 
         /* RINGS */
@@ -420,9 +421,6 @@
         let canFlip = false;
 
         function viewCard(event, imgSrc, backText) {
-            // This firmly stops the click from reaching the binder
-            if (event) event.stopPropagation(); 
-
             const modal = document.getElementById('card-view-modal');
             const card = document.getElementById('pop-card');
             const img = document.getElementById('pop-img');
@@ -612,7 +610,7 @@
             if(driverData.badges) {
                 driverData.badges.forEach(b => {
                     achievementSlots += `
-                        <div class="m-slot" style="background:#111; border:2px solid gold;" onclick="event.stopPropagation();">
+                        <div class="m-slot" style="background:#111; border:2px solid gold;">
                             <div style="text-align:center; padding:5px;">
                                 <i class="fa-solid fa-trophy" style="color:gold; font-size:1.5rem; margin-bottom:5px;"></i>
                                 <div style="color:gold; font-size:0.4rem; text-transform:uppercase; font-weight:bold; line-height:1.2;">${b}</div>
@@ -669,9 +667,11 @@
 
                 <div id="mod-tab-collection" class="p-panel" style="text-align:center;">
                     <div class="shelf-modal">
-                        <div class="binder-modal closed" onclick="this.classList.toggle('closed'); this.classList.toggle('open')">
-                            <div class="m-spine"></div>
-                            <div class="m-flip-wrapper">
+                        <div class="binder-modal closed" id="active-binder">
+                            
+                            <div class="m-spine" onclick="document.getElementById('active-binder').classList.toggle('closed'); document.getElementById('active-binder').classList.toggle('open')"></div>
+                            
+                            <div class="m-flip-wrapper" onclick="document.getElementById('active-binder').classList.toggle('closed'); document.getElementById('active-binder').classList.toggle('open')">
                                 <div class="m-face m-front">
                                     <img src="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96" style="width:60px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5)); margin-bottom:10px;">
                                     <h1>${dName.split(' ')[0]}<br>${dName.split(' ')[1] || ''}</h1>
@@ -685,13 +685,15 @@
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="m-base-page">
                                 <div class="m-rings"><div class="m-metal-ring"></div><div class="m-metal-ring"></div><div class="m-metal-ring"></div></div>
                                 <div class="m-sheet">${achievementSlots}</div>
                             </div>
+                            
                         </div>
                     </div>
-                    <p style="color:#666; font-size:0.8rem; margin-top:10px;">(Click Binder to Open | Click Cards to View)</p>
+                    <p style="color:#666; font-size:0.8rem; margin-top:10px;">(Click Binder Cover to Open/Close | Click Cards to View)</p>
                 </div>
             `;
 
