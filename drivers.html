@@ -596,8 +596,10 @@
                     backText = item.text;
                 }
 
-                // Create clickable slot
-                let safeText = backText ? backText.replace(/'/g, "\\'") : "";
+               // Create clickable slot (Safely escaping both single and double quotes!)
+                let safeText = backText 
+                    ? backText.replace(/'/g, "\\'").replace(/"/g, "&quot;") 
+                    : "";
 
                 achievementSlots += `
                     <div class="m-slot" style="background:transparent; border:none;" onclick="viewCard(event, '${imgUrl}', '${safeText}')">
