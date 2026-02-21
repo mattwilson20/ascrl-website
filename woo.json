@@ -10,18 +10,18 @@
                 "avg": 8.0
             },
             {
+                "type": "Midget",
+                "starts": 9,
+                "points": 251,
+                "wins": 0,
+                "avg": 9.11
+            },
+            {
                 "type": "Big Block Modified",
                 "starts": 6,
                 "points": 194,
                 "wins": 0,
                 "avg": 4.67
-            },
-            {
-                "type": "Midget",
-                "starts": 6,
-                "points": 172,
-                "wins": 0,
-                "avg": 8.33
             },
             {
                 "type": "Street Stock",
@@ -50,9 +50,52 @@
                 "points": 103,
                 "wins": 0,
                 "avg": 2.67
+            },
+            {
+                "type": "410 Non wing",
+                "starts": 3,
+                "points": 80,
+                "wins": 0,
+                "avg": 10.33
             }
         ],
         "race_log": [
+            {
+                "track": "Sawtooth",
+                "car": "410 Non wing",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Charlotte",
+                "car": "410 Non wing",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Bristol",
+                "car": "410 Non wing",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Williams Grove",
+                "car": "Midget",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Lincoln",
+                "car": "Midget",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Midget",
+                "pos": 9,
+                "pts": 28
+            },
             {
                 "track": "I-55 Raceway",
                 "car": "305 Sprint Car",
@@ -305,12 +348,12 @@
                 "number": "1",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1156,
+                    "points": 1315,
                     "wins": 0,
                     "top5": 11,
-                    "top10": 25,
-                    "starts": 41,
-                    "avg": 8.8
+                    "top10": 28,
+                    "starts": 47,
+                    "avg": 9.02
                 }
             }
         }
@@ -319,18 +362,18 @@
         "display_name": "HatterMAD218",
         "cars": [
             {
+                "type": "Midget",
+                "starts": 9,
+                "points": 260,
+                "wins": 0,
+                "avg": 8.11
+            },
+            {
                 "type": "305 Sprint Car",
                 "starts": 9,
                 "points": 243,
                 "wins": 0,
                 "avg": 10.0
-            },
-            {
-                "type": "Midget",
-                "starts": 6,
-                "points": 176,
-                "wins": 0,
-                "avg": 7.67
             },
             {
                 "type": "410 Wing Sprint",
@@ -354,6 +397,13 @@
                 "avg": 11.0
             },
             {
+                "type": "410 Non wing",
+                "starts": 3,
+                "points": 85,
+                "wins": 0,
+                "avg": 8.67
+            },
+            {
                 "type": "Big Block Modified",
                 "starts": 3,
                 "points": 81,
@@ -362,6 +412,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Sawtooth",
+                "car": "410 Non wing",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Charlotte",
+                "car": "410 Non wing",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Bristol",
+                "car": "410 Non wing",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Williams Grove",
+                "car": "Midget",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Lincoln",
+                "car": "Midget",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Midget",
+                "pos": 10,
+                "pts": 27
+            },
             {
                 "track": "I-55 Raceway",
                 "car": "305 Sprint Car",
@@ -584,12 +670,12 @@
                 "number": "218",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 985,
+                    "points": 1154,
                     "wins": 0,
-                    "top5": 6,
-                    "top10": 19,
-                    "starts": 36,
-                    "avg": 9.64
+                    "top5": 7,
+                    "top10": 24,
+                    "starts": 42,
+                    "avg": 9.52
                 }
             }
         }
@@ -603,6 +689,13 @@
                 "points": 273,
                 "wins": 0,
                 "avg": 9.7
+            },
+            {
+                "type": "Midget",
+                "starts": 9,
+                "points": 227,
+                "wins": 0,
+                "avg": 11.78
             },
             {
                 "type": "Street Stock",
@@ -633,11 +726,11 @@
                 "avg": 10.17
             },
             {
-                "type": "Midget",
-                "starts": 6,
-                "points": 148,
+                "type": "410 Non wing",
+                "starts": 3,
+                "points": 86,
                 "wins": 0,
-                "avg": 12.33
+                "avg": 8.33
             },
             {
                 "type": "360 Sprint",
@@ -648,6 +741,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Sawtooth",
+                "car": "410 Non wing",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Charlotte",
+                "car": "410 Non wing",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Bristol",
+                "car": "410 Non wing",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Williams Grove",
+                "car": "Midget",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Lincoln",
+                "car": "Midget",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Midget",
+                "pos": 11,
+                "pts": 26
+            },
             {
                 "track": "I-55 Raceway",
                 "car": "305 Sprint Car",
@@ -912,11 +1041,11 @@
                 "number": "000",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1184,
+                    "points": 1349,
                     "wins": 0,
                     "top5": 5,
-                    "top10": 27,
-                    "starts": 43,
+                    "top10": 31,
+                    "starts": 49,
                     "avg": 9.47
                 }
             }
@@ -1031,21 +1160,21 @@
         }
     },
     "271508381506732032": {
-        "display_name": "ALESSI-20-11",
+        "display_name": "Steven Alessi #8",
         "cars": [
+            {
+                "type": "Midget",
+                "starts": 9,
+                "points": 298,
+                "wins": 1,
+                "avg": 4.33
+            },
             {
                 "type": "305 Sprint Car",
                 "starts": 9,
                 "points": 278,
                 "wins": 0,
                 "avg": 6.11
-            },
-            {
-                "type": "Midget",
-                "starts": 6,
-                "points": 209,
-                "wins": 1,
-                "avg": 2.83
             },
             {
                 "type": "410 Wing Sprint",
@@ -1081,9 +1210,46 @@
                 "points": 93,
                 "wins": 0,
                 "avg": 6.0
+            },
+            {
+                "type": "410 Non wing",
+                "starts": 2,
+                "points": 50,
+                "wins": 0,
+                "avg": 12.0
             }
         ],
         "race_log": [
+            {
+                "track": "Charlotte",
+                "car": "410 Non wing",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Bristol",
+                "car": "410 Non wing",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Williams Grove",
+                "car": "Midget",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Lincoln",
+                "car": "Midget",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Midget",
+                "pos": 7,
+                "pts": 30
+            },
             {
                 "track": "I-55 Raceway",
                 "car": "305 Sprint Car",
@@ -1342,12 +1508,12 @@
                 "number": "8",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1334,
+                    "points": 1473,
                     "wins": 1,
-                    "top5": 24,
-                    "top10": 40,
-                    "starts": 42,
-                    "avg": 5.33
+                    "top5": 25,
+                    "top10": 42,
+                    "starts": 47,
+                    "avg": 5.74
                 }
             }
         }
@@ -1835,6 +2001,13 @@
         "display_name": "The_Stone07",
         "cars": [
             {
+                "type": "Midget",
+                "starts": 7,
+                "points": 260,
+                "wins": 6,
+                "avg": 3.29
+            },
+            {
                 "type": "Street Stock",
                 "starts": 6,
                 "points": 240,
@@ -1863,14 +2036,14 @@
                 "avg": 4.33
             },
             {
-                "type": "Midget",
-                "starts": 4,
-                "points": 140,
+                "type": "410 Wing Sprint",
+                "starts": 3,
+                "points": 120,
                 "wins": 3,
-                "avg": 5.0
+                "avg": 1.0
             },
             {
-                "type": "410 Wing Sprint",
+                "type": "410 Non wing",
                 "starts": 3,
                 "points": 120,
                 "wins": 3,
@@ -1885,6 +2058,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Sawtooth",
+                "car": "410 Non wing",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Charlotte",
+                "car": "410 Non wing",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Bristol",
+                "car": "410 Non wing",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Williams Grove",
+                "car": "Midget",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Lincoln",
+                "car": "Midget",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Midget",
+                "pos": 1,
+                "pts": 40
+            },
             {
                 "track": "I-55 Raceway",
                 "car": "305 Sprint Car",
@@ -2095,12 +2304,12 @@
                 "number": "07",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1273,
-                    "wins": 26,
-                    "top5": 30,
-                    "top10": 31,
-                    "starts": 34,
-                    "avg": 2.62
+                    "points": 1513,
+                    "wins": 32,
+                    "top5": 36,
+                    "top10": 37,
+                    "starts": 40,
+                    "avg": 2.38
                 }
             }
         }
@@ -2249,10 +2458,10 @@
         "cars": [
             {
                 "type": "Midget",
-                "starts": 6,
-                "points": 156,
+                "starts": 9,
+                "points": 232,
                 "wins": 0,
-                "avg": 11.0
+                "avg": 11.22
             },
             {
                 "type": "Street Stock",
@@ -2295,9 +2504,40 @@
                 "points": 77,
                 "wins": 0,
                 "avg": 11.33
+            },
+            {
+                "type": "410 Non wing",
+                "starts": 1,
+                "points": 24,
+                "wins": 0,
+                "avg": 13.0
             }
         ],
         "race_log": [
+            {
+                "track": "Bristol",
+                "car": "410 Non wing",
+                "pos": 13,
+                "pts": 24
+            },
+            {
+                "track": "Williams Grove",
+                "car": "Midget",
+                "pos": 13,
+                "pts": 24
+            },
+            {
+                "track": "Lincoln",
+                "car": "Midget",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Midget",
+                "pos": 12,
+                "pts": 25
+            },
             {
                 "track": "Prairie View",
                 "car": "Street Stock",
@@ -2484,12 +2724,12 @@
                 "number": "69",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 802,
+                    "points": 902,
                     "wins": 0,
                     "top5": 3,
-                    "top10": 15,
-                    "starts": 30,
-                    "avg": 10.27
+                    "top10": 16,
+                    "starts": 34,
+                    "avg": 10.47
                 }
             }
         }
@@ -2791,6 +3031,13 @@
                 "avg": 4.89
             },
             {
+                "type": "Midget",
+                "starts": 9,
+                "points": 276,
+                "wins": 0,
+                "avg": 6.33
+            },
+            {
                 "type": "410 Wing Sprint",
                 "starts": 6,
                 "points": 200,
@@ -2812,21 +3059,57 @@
                 "avg": 6.67
             },
             {
-                "type": "Midget",
-                "starts": 6,
-                "points": 181,
-                "wins": 0,
-                "avg": 6.83
-            },
-            {
                 "type": "Big Block Modified",
                 "starts": 3,
                 "points": 96,
                 "wins": 0,
                 "avg": 5.0
+            },
+            {
+                "type": "410 Non wing",
+                "starts": 3,
+                "points": 95,
+                "wins": 0,
+                "avg": 5.33
             }
         ],
         "race_log": [
+            {
+                "track": "Sawtooth",
+                "car": "410 Non wing",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Charlotte",
+                "car": "410 Non wing",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Bristol",
+                "car": "410 Non wing",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Williams Grove",
+                "car": "Midget",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Lincoln",
+                "car": "Midget",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Midget",
+                "pos": 2,
+                "pts": 35
+            },
             {
                 "track": "I-55 Raceway",
                 "car": "305 Sprint Car",
@@ -3049,12 +3332,12 @@
                 "number": "13",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1140,
+                    "points": 1330,
                     "wins": 2,
-                    "top5": 21,
-                    "top10": 32,
-                    "starts": 36,
-                    "avg": 5.56
+                    "top5": 24,
+                    "top10": 38,
+                    "starts": 42,
+                    "avg": 5.52
                 }
             }
         }
@@ -3134,6 +3417,13 @@
         "display_name": "superace33",
         "cars": [
             {
+                "type": "Midget",
+                "starts": 9,
+                "points": 290,
+                "wins": 1,
+                "avg": 5.22
+            },
+            {
                 "type": "305 Sprint Car",
                 "starts": 9,
                 "points": 271,
@@ -3146,13 +3436,6 @@
                 "points": 198,
                 "wins": 0,
                 "avg": 4.0
-            },
-            {
-                "type": "Midget",
-                "starts": 6,
-                "points": 190,
-                "wins": 1,
-                "avg": 6.0
             },
             {
                 "type": "WOO Late Model",
@@ -3169,6 +3452,13 @@
                 "avg": 11.17
             },
             {
+                "type": "410 Non wing",
+                "starts": 3,
+                "points": 98,
+                "wins": 0,
+                "avg": 4.33
+            },
+            {
                 "type": "Big Block Modified",
                 "starts": 3,
                 "points": 95,
@@ -3177,6 +3467,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Sawtooth",
+                "car": "410 Non wing",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Charlotte",
+                "car": "410 Non wing",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Bristol",
+                "car": "410 Non wing",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Williams Grove",
+                "car": "Midget",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Lincoln",
+                "car": "Midget",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Midget",
+                "pos": 4,
+                "pts": 33
+            },
             {
                 "track": "I-55 Raceway",
                 "car": "305 Sprint Car",
@@ -3399,12 +3725,12 @@
                 "number": "33",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1068,
+                    "points": 1266,
                     "wins": 1,
-                    "top5": 14,
-                    "top10": 25,
-                    "starts": 36,
-                    "avg": 7.44
+                    "top5": 19,
+                    "top10": 31,
+                    "starts": 42,
+                    "avg": 6.95
                 }
             }
         }
@@ -3711,11 +4037,25 @@
                 "avg": 5.0
             },
             {
+                "type": "Midget",
+                "starts": 6,
+                "points": 190,
+                "wins": 0,
+                "avg": 5.33
+            },
+            {
                 "type": "410 Wing Sprint",
                 "starts": 5,
                 "points": 173,
                 "wins": 0,
                 "avg": 2.4
+            },
+            {
+                "type": "410 Non wing",
+                "starts": 3,
+                "points": 105,
+                "wins": 0,
+                "avg": 2.0
             },
             {
                 "type": "Big Block Modified",
@@ -3730,16 +4070,45 @@
                 "points": 95,
                 "wins": 0,
                 "avg": 5.33
-            },
-            {
-                "type": "Midget",
-                "starts": 3,
-                "points": 89,
-                "wins": 0,
-                "avg": 7.33
             }
         ],
         "race_log": [
+            {
+                "track": "Sawtooth",
+                "car": "410 Non wing",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Charlotte",
+                "car": "410 Non wing",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Bristol",
+                "car": "410 Non wing",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Williams Grove",
+                "car": "Midget",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Lincoln",
+                "car": "Midget",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Midget",
+                "pos": 5,
+                "pts": 32
+            },
             {
                 "track": "I-55 Raceway",
                 "car": "305 Sprint Car",
@@ -3866,12 +4235,12 @@
                 "number": "88E",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 651,
+                    "points": 857,
                     "wins": 0,
-                    "top5": 15,
-                    "top10": 19,
-                    "starts": 20,
-                    "avg": 4.45
+                    "top5": 21,
+                    "top10": 25,
+                    "starts": 26,
+                    "avg": 4.04
                 }
             }
         }
@@ -4166,11 +4535,25 @@
                 "avg": 7.33
             },
             {
+                "type": "Midget",
+                "starts": 6,
+                "points": 164,
+                "wins": 0,
+                "avg": 9.67
+            },
+            {
                 "type": "Big Block Modified",
                 "starts": 3,
                 "points": 98,
                 "wins": 0,
                 "avg": 4.33
+            },
+            {
+                "type": "410 Non wing",
+                "starts": 3,
+                "points": 92,
+                "wins": 0,
+                "avg": 6.33
             },
             {
                 "type": "410 Wing Sprint",
@@ -4185,16 +4568,45 @@
                 "points": 86,
                 "wins": 0,
                 "avg": 8.33
-            },
-            {
-                "type": "Midget",
-                "starts": 3,
-                "points": 78,
-                "wins": 0,
-                "avg": 11.0
             }
         ],
         "race_log": [
+            {
+                "track": "Sawtooth",
+                "car": "410 Non wing",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Charlotte",
+                "car": "410 Non wing",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Bristol",
+                "car": "410 Non wing",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Williams Grove",
+                "car": "Midget",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Lincoln",
+                "car": "Midget",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Midget",
+                "pos": 8,
+                "pts": 29
+            },
             {
                 "track": "I-55 Raceway",
                 "car": "305 Sprint Car",
@@ -4345,12 +4757,12 @@
                 "number": "05",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 708,
+                    "points": 886,
                     "wins": 0,
-                    "top5": 5,
-                    "top10": 20,
-                    "starts": 24,
-                    "avg": 7.5
+                    "top5": 6,
+                    "top10": 26,
+                    "starts": 30,
+                    "avg": 7.47
                 }
             }
         }
@@ -4358,6 +4770,13 @@
     "1276370402800566292": {
         "display_name": "xxHambone",
         "cars": [
+            {
+                "type": "Midget",
+                "starts": 6,
+                "points": 179,
+                "wins": 0,
+                "avg": 7.17
+            },
             {
                 "type": "WOO Late Model",
                 "starts": 6,
@@ -4373,18 +4792,18 @@
                 "avg": 9.8
             },
             {
+                "type": "410 Non wing",
+                "starts": 3,
+                "points": 91,
+                "wins": 0,
+                "avg": 6.67
+            },
+            {
                 "type": "410 Wing Sprint",
                 "starts": 3,
                 "points": 88,
                 "wins": 0,
                 "avg": 7.67
-            },
-            {
-                "type": "Midget",
-                "starts": 3,
-                "points": 87,
-                "wins": 0,
-                "avg": 8.0
             },
             {
                 "type": "Big Block Modified",
@@ -4402,6 +4821,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Sawtooth",
+                "car": "410 Non wing",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Charlotte",
+                "car": "410 Non wing",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Bristol",
+                "car": "410 Non wing",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Williams Grove",
+                "car": "Midget",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Lincoln",
+                "car": "Midget",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Midget",
+                "pos": 6,
+                "pts": 31
+            },
             {
                 "track": "I-55 Raceway",
                 "car": "305 Sprint Car",
@@ -4546,12 +5001,12 @@
                 "number": "32",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 629,
+                    "points": 812,
                     "wins": 0,
-                    "top5": 3,
-                    "top10": 15,
-                    "starts": 23,
-                    "avg": 9.65
+                    "top5": 4,
+                    "top10": 21,
+                    "starts": 29,
+                    "avg": 9.0
                 }
             }
         }
@@ -4687,7 +5142,21 @@
         "display_name": "Dalton Gibson #17",
         "cars": [
             {
+                "type": "Midget",
+                "starts": 3,
+                "points": 101,
+                "wins": 0,
+                "avg": 3.33
+            },
+            {
                 "type": "WOO Late Model",
+                "starts": 3,
+                "points": 93,
+                "wins": 0,
+                "avg": 6.0
+            },
+            {
+                "type": "410 Non wing",
                 "starts": 3,
                 "points": 93,
                 "wins": 0,
@@ -4702,6 +5171,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Sawtooth",
+                "car": "410 Non wing",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Charlotte",
+                "car": "410 Non wing",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Bristol",
+                "car": "410 Non wing",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Williams Grove",
+                "car": "Midget",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Lincoln",
+                "car": "Midget",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Desert Rock",
+                "car": "Midget",
+                "pos": 3,
+                "pts": 34
+            },
             {
                 "track": "Bristol",
                 "car": "410 Wing Sprint",
@@ -4744,12 +5249,12 @@
                 "number": "17",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 182,
+                    "points": 376,
                     "wins": 0,
-                    "top5": 2,
-                    "top10": 6,
-                    "starts": 6,
-                    "avg": 6.67
+                    "top5": 7,
+                    "top10": 11,
+                    "starts": 12,
+                    "avg": 5.67
                 }
             }
         }
@@ -4820,7 +5325,7 @@
         }
     },
     "1324901158971637825": {
-        "display_name": "Orangeman96",
+        "display_name": "Eric Rodaman #96",
         "cars": [],
         "race_log": [],
         "series": {
@@ -4850,10 +5355,17 @@
             },
             {
                 "type": "Midget",
-                "starts": 3,
-                "points": 87,
+                "starts": 4,
+                "points": 119,
                 "wins": 0,
-                "avg": 8.0
+                "avg": 7.25
+            },
+            {
+                "type": "410 Non wing",
+                "starts": 3,
+                "points": 90,
+                "wins": 0,
+                "avg": 7.0
             },
             {
                 "type": "305 Sprint Car",
@@ -4871,6 +5383,30 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Sawtooth",
+                "car": "410 Non wing",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Charlotte",
+                "car": "410 Non wing",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Bristol",
+                "car": "410 Non wing",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Williams Grove",
+                "car": "Midget",
+                "pos": 5,
+                "pts": 32
+            },
             {
                 "track": "I-55 Raceway",
                 "car": "305 Sprint Car",
@@ -4961,18 +5497,18 @@
                 "number": "59a",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 395,
+                    "points": 517,
                     "wins": 0,
-                    "top5": 3,
-                    "top10": 10,
-                    "starts": 14,
-                    "avg": 8.79
+                    "top5": 4,
+                    "top10": 14,
+                    "starts": 18,
+                    "avg": 8.28
                 }
             }
         }
     },
     "1371700421261000785": {
-        "display_name": "QuickPro\ud83d\udc22",
+        "display_name": "Unknown Driver",
         "cars": [],
         "race_log": [],
         "series": {
