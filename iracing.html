@@ -1,225 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASCRL | Live Telemetry</title>
-    <link rel="icon" href="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Chakra+Petch:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --neon-red: #ff003c;
-            --neon-blue: #00f0ff;
-            --neon-green: #00ff41;
-            --dark-bg: #050505;
-            --panel-bg: rgba(15, 15, 20, 0.9);
-            --grid-line: rgba(255, 255, 255, 0.05);
-            --text-main: #e0e0e0;
-            --text-muted: #666;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCRL | Live Telemetry</title>
+    <link rel="icon" href="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Chakra+Petch:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* --- CORE HUD VARIABLES --- */
+        :root {
+            --neon-red: #ff003c;
+            --neon-blue: #00f0ff;
+            --neon-green: #00ff41;
+            --dark-bg: #050505;
+            --panel-bg: rgba(15, 15, 20, 0.95);
+            --grid-line: rgba(0, 240, 255, 0.05);
+            --text-main: #e0e0e0;
+            --text-muted: #666;
+        }
 
-        body {
-            margin: 0;
-            background-color: var(--dark-bg);
-            color: var(--text-main);
-            font-family: 'Rajdhani', sans-serif;
-            background-image: 
-                linear-gradient(var(--grid-line) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-            background-size: 40px 40px;
-            background-attachment: fixed;
-            overflow-x: hidden;
-        }
+        /* --- FORCE DARK THEME --- */
+        body {
+            margin: 0 !important;
+            background-color: var(--dark-bg) !important;
+            color: var(--text-main) !important;
+            font-family: 'Rajdhani', sans-serif !important;
+            background-image: 
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) !important;
+            background-size: 40px 40px !important;
+            background-attachment: fixed !important;
+            overflow-x: hidden !important;
+        }
 
-        #nav-placeholder { position: relative; z-index: 99999; }
+        #nav-placeholder { position: relative; z-index: 99999; }
 
-        /* --- HUD HEADER --- */
-        .hud-header {
-            position: relative;
-            padding: 6rem 2rem 3rem;
-            text-align: center;
-            border-bottom: 2px solid var(--neon-red);
-            background: radial-gradient(circle at top, #1a0005 0%, var(--dark-bg) 80%);
-            box-shadow: 0 10px 40px rgba(255, 0, 60, 0.1);
-        }
-        .hud-title {
-            font-family: 'Chakra Petch', sans-serif;
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            font-weight: 700;
-            font-style: italic;
-            margin: 0;
-            text-transform: uppercase;
-            color: #fff;
-            text-shadow: 2px 2px 0px var(--neon-red), -2px -2px 0px var(--neon-blue);
-            letter-spacing: 2px;
-        }
-        .hud-status {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 5px 15px;
-            border: 1px solid var(--neon-green);
-            color: var(--neon-green);
-            font-weight: bold;
-            font-family: 'Chakra Petch', monospace;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 0.8rem;
-            background: rgba(0, 255, 65, 0.1);
-            animation: pulse 2s infinite;
-        }
+        /* --- HUD HERO SECTION --- */
+        .hud-header {
+            position: relative;
+            padding: 7rem 2rem 4rem;
+            text-align: center;
+            border-bottom: 2px solid var(--neon-red);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, var(--dark-bg) 100%), 
+                        url('https://images-static.iracing.com/img/logos/tracks/120__light.png') center/cover;
+            box-shadow: 0 10px 40px rgba(255, 0, 60, 0.15);
+        }
+        .hud-title {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            font-style: italic;
+            margin: 0;
+            text-transform: uppercase;
+            color: #fff;
+            text-shadow: 3px 3px 0px var(--neon-red), -3px -3px 0px var(--neon-blue);
+            letter-spacing: 4px;
+        }
+        .hud-status {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 8px 20px;
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            font-weight: bold;
+            font-family: 'Chakra Petch', monospace;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.9rem;
+            background: rgba(0, 255, 65, 0.1);
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+        }
 
-        /* --- TABS --- */
-        .controls-wrapper {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            padding: 20px;
-            position: sticky;
-            top: 0;
-            background: rgba(5, 5, 5, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid #222;
-        }
-        .hud-btn {
-            background: transparent;
-            color: var(--text-muted);
-            border: 1px solid #333;
-            padding: 12px 30px;
-            font-family: 'Chakra Petch', sans-serif;
-            font-weight: bold;
-            font-size: 1rem;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
-        }
-        .hud-btn:hover {
-            color: #fff;
-            border-color: var(--neon-blue);
-            text-shadow: 0 0 8px var(--neon-blue);
-        }
-        .hud-btn.active {
-            background: var(--neon-red);
-            color: #fff;
-            border-color: var(--neon-red);
-            box-shadow: 0 0 20px rgba(255, 0, 60, 0.4);
-        }
+        @keyframes pulse {
+            0% { opacity: 0.8; box-shadow: 0 0 10px rgba(0, 255, 65, 0.2); }
+            50% { opacity: 1; box-shadow: 0 0 25px rgba(0, 255, 65, 0.5); }
+            100% { opacity: 0.8; box-shadow: 0 0 10px rgba(0, 255, 65, 0.2); }
+        }
 
-        /* --- MAIN CONTAINER & PANELS --- */
-        .telemetry-container {
-            max-width: 1500px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-        .tab-pane {
-            display: none;
-            animation: bootUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-        .tab-pane.active { display: block; }
-        
-        @keyframes bootUp {
-            0% { opacity: 0; transform: scale(0.98) translateY(20px); filter: blur(5px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
-        }
+        /* --- CONTROL TABS --- */
+        .controls-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid #222;
+        }
+        .hud-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid #333;
+            padding: 12px 30px;
+            font-family: 'Chakra Petch', sans-serif;
+            font-weight: bold;
+            font-size: 1rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+        }
+        .hud-btn:hover {
+            color: #fff;
+            border-color: var(--neon-blue);
+            text-shadow: 0 0 8px var(--neon-blue);
+        }
+        .hud-btn.active {
+            background: var(--neon-red);
+            color: #fff;
+            border-color: var(--neon-red);
+            box-shadow: 0 0 20px rgba(255, 0, 60, 0.4);
+        }
 
-        /* Highlight Cards */
-        .insights-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        .insight-card {
-            background: var(--panel-bg);
-            border: 1px solid #222;
-            border-left: 4px solid var(--neon-blue);
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-        .insight-card::before {
-            content: ''; position: absolute; top: 0; right: 0;
-            border-top: 20px solid #222; border-left: 20px solid transparent;
-        }
-        .insight-label {
-            font-size: 0.8rem; color: var(--neon-blue);
-            text-transform: uppercase; letter-spacing: 2px;
-            margin-bottom: 5px; font-weight: bold;
-        }
-        .insight-value {
-            font-family: 'Chakra Petch', sans-serif;
-            font-size: 1.8rem; font-weight: 700; color: #fff;
-            text-transform: uppercase;
-        }
-        .insight-sub { font-size: 0.9rem; color: #888; margin-top: 5px; }
+        /* --- MAIN CONTAINER & PANELS --- */
+        .telemetry-container {
+            max-width: 1500px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+        }
+        .tab-pane {
+            display: none;
+            animation: bootUp 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .tab-pane.active { display: block; }
+        
+        @keyframes bootUp {
+            0% { opacity: 0; transform: translateY(20px); filter: blur(4px); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
 
-        /* DATA TABLES */
-        .hud-table-wrapper {
-            background: var(--panel-bg);
-            border: 1px solid #333;
-            overflow-x: auto;
-            position: relative;
-        }
-        .hud-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.1rem;
-            white-space: nowrap;
-        }
-        .hud-table th {
-            background: #111; color: var(--text-muted);
-            padding: 15px; text-transform: uppercase;
-            font-size: 0.85rem; letter-spacing: 2px;
-            border-bottom: 1px solid var(--neon-red);
-            position: sticky; top: 0;
-        }
-        .hud-table td {
-            padding:12px 15px;
-            border-bottom: 1px solid #111;
+        /* --- INSIGHT CARDS (Top of tabs) --- */
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .insight-card {
+            background: var(--panel-bg);
+            border: 1px solid #222;
+            border-left: 4px solid var(--neon-blue);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        .insight-card::before {
+            content: ''; position: absolute; top: 0; right: 0;
+            border-top: 25px solid #222; border-left: 25px solid transparent;
+        }
+        .insight-label {
+            font-size: 0.85rem; color: var(--neon-blue);
+            text-transform: uppercase; letter-spacing: 2px;
+            margin-bottom: 5px; font-weight: bold;
+        }
+        .insight-value {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 2rem; font-weight: 700; color: #fff;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(255,255,255,0.2);
+        }
+        .insight-sub { font-size: 0.9rem; color: #888; margin-top: 5px; font-family: 'Chakra Petch'; }
+
+        /* --- DATA TABLES --- */
+        .hud-table-wrapper {
+            background: var(--panel-bg);
+            border: 1px solid #333;
+            overflow-x: auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+        .hud-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.15rem;
+            white-space: nowrap;
+        }
+        .hud-table th {
+            background: #0a0a0a; color: var(--text-muted);
+            padding: 18px 15px; text-transform: uppercase;
+            font-size: 0.85rem; letter-spacing: 2px;
+            border-bottom: 1px solid var(--neon-red);
+            position: sticky; top: 0;
+            font-family: 'Chakra Petch', sans-serif;
+        }
+        .hud-table td {
+            padding: 14px 15px;
+            border-bottom: 1px solid #1a1a1a;
             text-align: center;
         }
         .hud-table tbody tr { transition: background 0.2s; }
-        .hud-table tbody tr:nth-child(even) { background: rgba(255,255,255,0.02); }
-        .hud-table tbody tr:hover { background: rgba(0, 240, 255, 0.05); }
+        .hud-table tbody tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+        .hud-table tbody tr:hover { background: rgba(0, 240, 255, 0.08); }
         
         .align-left { text-align: left !important; }
-        .driver-name { font-weight: 700; color: #fff; letter-spacing: 1px; }
+        .driver-name { font-weight: 700; color: #fff; letter-spacing: 1px; font-size: 1.2rem; }
         
         /* Badges & Colors */
         .pos-badge {
-            display: inline-block; width: 28px; height: 28px; line-height: 28px;
+            display: inline-block; width: 32px; height: 32px; line-height: 32px;
             background: #222; border-radius: 4px; font-weight: bold; font-family: 'Chakra Petch';
+            font-size: 1rem;
         }
-        .pos-1 { background: #ffd700; color: #000; box-shadow: 0 0 10px rgba(255,215,0,0.6); }
-        .pos-2 { background: #c0c0c0; color: #000; }
-        .pos-3 { background: #cd7f32; color: #000; }
+        .pos-1 { background: #ffd700; color: #000; box-shadow: 0 0 15px rgba(255,215,0,0.6); }
+        .pos-2 { background: #c0c0c0; color: #000; box-shadow: 0 0 10px rgba(192,192,192,0.4); }
+        .pos-3 { background: #cd7f32; color: #000; box-shadow: 0 0 10px rgba(205,127,50,0.4); }
         
-        .val-gain { color: var(--neon-green); font-weight: bold; text-shadow: 0 0 5px rgba(0,255,65,0.4); }
-        .val-loss { color: var(--neon-red); font-weight: bold; text-shadow: 0 0 5px rgba(255,0,60,0.4); }
+        .val-gain { color: var(--neon-green); font-weight: bold; text-shadow: 0 0 8px rgba(0,255,65,0.5); }
+        .val-loss { color: var(--neon-red); font-weight: bold; text-shadow: 0 0 8px rgba(255,0,60,0.5); }
         .val-neutral { color: #555; }
-        .val-pts { color: var(--neon-blue); font-weight: bold; font-size: 1.2rem; }
+        .val-pts { color: var(--neon-blue); font-weight: bold; font-size: 1.3rem; font-family: 'Chakra Petch'; }
         .inc-danger { color: var(--neon-red); font-weight: bold; border-bottom: 1px dashed var(--neon-red); }
 
         /* Matrix Grid Boxes */
         .matrix-box {
             display: inline-flex; align-items: center; justify-content: center;
-            width: 32px; height: 32px; font-family: 'Chakra Petch'; font-weight: bold;
-            font-size: 0.9rem; background: #111; border: 1px solid #333; border-radius: 3px;
+            width: 36px; height: 36px; font-family: 'Chakra Petch'; font-weight: bold;
+            font-size: 1rem; background: #111; border: 1px solid #333; border-radius: 4px;
         }
-        .mb-win { background: var(--neon-red); color: #fff; border-color: #ff4d4d; box-shadow: 0 0 8px rgba(255,0,60,0.6); }
-        .mb-top5 { background: rgba(0, 240, 255, 0.2); color: var(--neon-blue); border-color: var(--neon-blue); }
-        .mb-dnf { background: #1a0000; color: #666; border-color: #330000; font-size: 0.75rem; }
+        .mb-win { background: var(--neon-red); color: #fff; border-color: #ff4d4d; box-shadow: 0 0 12px rgba(255,0,60,0.8); }
+        .mb-top5 { background: rgba(0, 240, 255, 0.15); color: var(--neon-blue); border-color: var(--neon-blue); }
+        .mb-dnf { background: #1a0000; color: #666; border-color: #440000; font-size: 0.8rem; }
 
         /* Loader */
-        .loader-wrapper { text-align: center; padding: 5rem 0; }
+        .loader-wrapper { text-align: center; padding: 6rem 0; }
         .cyber-spinner {
-            width: 50px; height: 50px; margin: 0 auto 20px;
-            border: 3px solid transparent; border-top-color: var(--neon-blue);
+            width: 60px; height: 60px; margin: 0 auto 20px;
+            border: 4px solid rgba(255,255,255,0.05); border-top-color: var(--neon-blue);
             border-right-color: var(--neon-red); border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -245,7 +261,7 @@
         
         <div class="loader-wrapper" id="loader">
             <div class="cyber-spinner"></div>
-            <div style="font-family:'Chakra Petch'; color:var(--neon-blue); letter-spacing:3px;">DECRYPTING iRACING DATA...</div>
+            <div style="font-family:'Chakra Petch'; color:var(--neon-blue); letter-spacing:4px; font-weight:bold; font-size:1.2rem;">DECRYPTING iRACING DATA...</div>
         </div>
 
         <div id="tab-standings" class="tab-pane">
@@ -272,7 +288,7 @@
         </div>
 
         <div id="tab-latest" class="tab-pane">
-            <h2 style="font-family:'Chakra Petch'; color:var(--neon-blue); text-transform:uppercase; margin-top:0;" id="latest-track-name">RACE RESULTS</h2>
+            <h2 style="font-family:'Chakra Petch'; color:var(--neon-blue); text-transform:uppercase; margin-top:0; letter-spacing: 2px;" id="latest-track-name">RACE RESULTS</h2>
             <div class="insights-grid" id="latest-insights">
                 </div>
             <div class="hud-table-wrapper">
@@ -331,20 +347,27 @@
             try {
                 const res = await fetch('iracing.json');
                 const rawData = await res.json();
+                
+                // Ensure array format
                 const events = Array.isArray(rawData) ? rawData : [rawData];
                 
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('tab-standings').classList.add('active');
+                
+                // Update HUD Status
                 document.getElementById('hud-status-text').innerText = "SYSTEM ONLINE // DATA SYNCED";
                 document.getElementById('hud-status-text').style.color = "var(--neon-blue)";
                 document.getElementById('hud-status-text').style.borderColor = "var(--neon-blue)";
+                document.getElementById('hud-status-text').style.boxShadow = "0 0 15px rgba(0, 240, 255, 0.3)";
+                document.getElementById('hud-status-text').style.background = "rgba(0, 240, 255, 0.1)";
 
                 processTelemetry(events);
             } catch (err) {
                 console.error(err);
                 document.getElementById('loader').innerHTML = `
-                    <i class="fa-solid fa-triangle-exclamation" style="font-size:3rem; color:var(--neon-red); margin-bottom:10px;"></i>
-                    <div style="font-family:'Chakra Petch'; color:var(--neon-red); letter-spacing:2px;">LINK SEVERED. CHECK iracing.json</div>
+                    <i class="fa-solid fa-triangle-exclamation" style="font-size:4rem; color:var(--neon-red); margin-bottom:15px; text-shadow: 0 0 20px var(--neon-red);"></i>
+                    <div style="font-family:'Chakra Petch'; color:var(--neon-red); letter-spacing:3px; font-size:1.5rem; font-weight:bold;">LINK SEVERED</div>
+                    <div style="color:#666; margin-top:10px;">Check iracing.json formatting or server connection.</div>
                 `;
             }
         }
@@ -434,17 +457,17 @@
                 <div class="insight-card">
                     <div class="insight-label">Championship Leader</div>
                     <div class="insight-value">${leaderName}</div>
-                    <div class="insight-sub">${leaderPts} Points</div>
+                    <div class="insight-sub" style="color:var(--neon-blue);">${leaderPts} Points</div>
                 </div>
                 <div class="insight-card">
                     <div class="insight-label">Most Wins</div>
                     <div class="insight-value">${mostWins.name}</div>
-                    <div class="insight-sub">${mostWins.val} Wins</div>
+                    <div class="insight-sub" style="color:var(--neon-green);">${mostWins.val} Wins</div>
                 </div>
                 <div class="insight-card">
                     <div class="insight-label">Safest Driver (Avg Inc)</div>
                     <div class="insight-value">${safest.name}</div>
-                    <div class="insight-sub">${safest.val} per race</div>
+                    <div class="insight-sub" style="color:#ffd700;">${safest.val} per race</div>
                 </div>
             `;
         }
@@ -472,17 +495,17 @@
                 if(diff < 0) diffHtml = `<span class="val-loss">▼ ${Math.abs(diff)}</span>`;
 
                 let incClass = r.incidents >= 8 ? 'inc-danger' : '';
-                let interval = r.reason_out_id !== 0 ? `<span style="color:var(--neon-red); font-size:0.8rem;">${r.reason_out}</span>` : r.interval;
+                let interval = r.reason_out_id !== 0 ? `<span style="color:var(--neon-red); font-size:0.9rem;">${r.reason_out}</span>` : r.interval;
 
                 html += `
                     <tr>
-                        <td style="font-family:'Chakra Petch'; font-weight:bold; font-size:1.2rem;">${fin}</td>
+                        <td style="font-family:'Chakra Petch'; font-weight:bold; font-size:1.3rem;">${fin}</td>
                         <td>${diffHtml}</td>
                         <td class="align-left driver-name">${r.display_name}</td>
-                        <td>P${start}</td>
+                        <td style="color:#888;">P${start}</td>
                         <td>${interval}</td>
                         <td>${r.laps_complete}</td>
-                        <td>${r.laps_lead}</td>
+                        <td style="color:var(--neon-green); font-weight:bold;">${r.laps_lead}</td>
                         <td class="${incClass}">${r.incidents}</td>
                         <td class="val-pts">${pts}</td>
                     </tr>
@@ -493,7 +516,7 @@
             document.getElementById('latest-insights').innerHTML = `
                 <div class="insight-card">
                     <div class="insight-label">Race Winner</div>
-                    <div class="insight-value" style="color:var(--neon-red);">${winner}</div>
+                    <div class="insight-value" style="color:var(--neon-red); text-shadow: 0 0 10px rgba(255,0,60,0.5);">${winner}</div>
                     <div class="insight-sub">P1</div>
                 </div>
                 <div class="insight-card">
@@ -504,7 +527,7 @@
                 <div class="insight-card">
                     <div class="insight-label">Most Laps Led</div>
                     <div class="insight-value">${mostLed.name}</div>
-                    <div class="insight-sub">${mostLed.val} Laps</div>
+                    <div class="insight-sub" style="color:var(--neon-blue);">${mostLed.val} Laps</div>
                 </div>
             `;
         }
@@ -513,7 +536,7 @@
             let headHtml = '<th class="align-left">Driver</th>';
             tracks.forEach((t, i) => {
                 let st = t.split(' ')[0].substring(0, 4).toUpperCase();
-                headHtml += `<th>R${i+1}<br><span style="font-size:0.7rem; color:var(--neon-blue);">${st}</span></th>`;
+                headHtml += `<th>R${i+1}<br><span style="font-size:0.75rem; color:var(--neon-blue); letter-spacing:1px;">${st}</span></th>`;
             });
             document.getElementById('matrix-head').innerHTML = headHtml;
 
