@@ -24,11 +24,25 @@
                 "avg": 4.67
             },
             {
+                "type": "360 Sprint",
+                "starts": 5,
+                "points": 168,
+                "wins": 0,
+                "avg": 3.4
+            },
+            {
                 "type": "Street Stock",
                 "starts": 6,
                 "points": 155,
                 "wins": 0,
                 "avg": 11.17
+            },
+            {
+                "type": "410 Non wing",
+                "starts": 5,
+                "points": 149,
+                "wins": 0,
+                "avg": 7.2
             },
             {
                 "type": "WOO Late Model",
@@ -43,23 +57,39 @@
                 "points": 133,
                 "wins": 0,
                 "avg": 10.4
-            },
-            {
-                "type": "360 Sprint",
-                "starts": 3,
-                "points": 103,
-                "wins": 0,
-                "avg": 2.67
-            },
-            {
-                "type": "410 Non wing",
-                "starts": 3,
-                "points": 80,
-                "wins": 0,
-                "avg": 10.33
             }
         ],
         "race_log": [
+            {
+                "track": "Grant Park",
+                "car": "360 Sprint",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Diamond Grove",
+                "car": "360 Sprint",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "I-19 Speedway",
+                "car": "410 Non wing",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Bristol",
+                "car": "410 Non wing",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Kokomo",
+                "car": "410 Non wing",
+                "pos": 5,
+                "pts": 32
+            },
             {
                 "track": "Sawtooth",
                 "car": "410 Non wing",
@@ -71,12 +101,6 @@
                 "car": "410 Non wing",
                 "pos": 10,
                 "pts": 27
-            },
-            {
-                "track": "Bristol",
-                "car": "410 Non wing",
-                "pos": 11,
-                "pts": 26
             },
             {
                 "track": "Williams Grove",
@@ -348,12 +372,12 @@
                 "number": "1",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1315,
+                    "points": 1449,
                     "wins": 0,
-                    "top5": 11,
-                    "top10": 28,
-                    "starts": 47,
-                    "avg": 9.02
+                    "top5": 15,
+                    "top10": 33,
+                    "starts": 51,
+                    "avg": 8.59
                 }
             }
         }
@@ -397,18 +421,18 @@
                 "avg": 11.0
             },
             {
-                "type": "410 Non wing",
-                "starts": 3,
-                "points": 85,
-                "wins": 0,
-                "avg": 8.67
-            },
-            {
                 "type": "Big Block Modified",
                 "starts": 3,
                 "points": 81,
                 "wins": 0,
                 "avg": 10.0
+            },
+            {
+                "type": "410 Non wing",
+                "starts": 2,
+                "points": 58,
+                "wins": 0,
+                "avg": 8.0
             }
         ],
         "race_log": [
@@ -423,12 +447,6 @@
                 "car": "410 Non wing",
                 "pos": 11,
                 "pts": 26
-            },
-            {
-                "track": "Bristol",
-                "car": "410 Non wing",
-                "pos": 10,
-                "pts": 27
             },
             {
                 "track": "Williams Grove",
@@ -670,12 +688,12 @@
                 "number": "218",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1154,
+                    "points": 1127,
                     "wins": 0,
                     "top5": 7,
-                    "top10": 24,
-                    "starts": 42,
-                    "avg": 9.52
+                    "top10": 23,
+                    "starts": 41,
+                    "avg": 9.51
                 }
             }
         }
@@ -696,6 +714,13 @@
                 "points": 227,
                 "wins": 0,
                 "avg": 11.78
+            },
+            {
+                "type": "360 Sprint",
+                "starts": 6,
+                "points": 181,
+                "wins": 0,
+                "avg": 6.83
             },
             {
                 "type": "Street Stock",
@@ -727,20 +752,49 @@
             },
             {
                 "type": "410 Non wing",
-                "starts": 3,
-                "points": 86,
+                "starts": 5,
+                "points": 150,
                 "wins": 0,
-                "avg": 8.33
-            },
-            {
-                "type": "360 Sprint",
-                "starts": 3,
-                "points": 84,
-                "wins": 0,
-                "avg": 9.0
+                "avg": 7.0
             }
         ],
         "race_log": [
+            {
+                "track": "Grant Park",
+                "car": "360 Sprint",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Willow Creek",
+                "car": "360 Sprint",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Diamond Grove",
+                "car": "360 Sprint",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "I-19 Speedway",
+                "car": "410 Non wing",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Bristol",
+                "car": "410 Non wing",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Kokomo",
+                "car": "410 Non wing",
+                "pos": 6,
+                "pts": 31
+            },
             {
                 "track": "Sawtooth",
                 "car": "410 Non wing",
@@ -752,12 +806,6 @@
                 "car": "410 Non wing",
                 "pos": 9,
                 "pts": 28
-            },
-            {
-                "track": "Bristol",
-                "car": "410 Non wing",
-                "pos": 7,
-                "pts": 30
             },
             {
                 "track": "Williams Grove",
@@ -1041,12 +1089,12 @@
                 "number": "000",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1349,
+                    "points": 1510,
                     "wins": 0,
-                    "top5": 5,
-                    "top10": 31,
-                    "starts": 49,
-                    "avg": 9.47
+                    "top5": 9,
+                    "top10": 36,
+                    "starts": 54,
+                    "avg": 9.04
                 }
             }
         }
@@ -1213,8 +1261,8 @@
             },
             {
                 "type": "410 Non wing",
-                "starts": 2,
-                "points": 50,
+                "starts": 1,
+                "points": 25,
                 "wins": 0,
                 "avg": 12.0
             }
@@ -1222,12 +1270,6 @@
         "race_log": [
             {
                 "track": "Charlotte",
-                "car": "410 Non wing",
-                "pos": 12,
-                "pts": 25
-            },
-            {
-                "track": "Bristol",
                 "car": "410 Non wing",
                 "pos": 12,
                 "pts": 25
@@ -1508,12 +1550,12 @@
                 "number": "8",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1473,
+                    "points": 1448,
                     "wins": 1,
                     "top5": 25,
                     "top10": 42,
-                    "starts": 47,
-                    "avg": 5.74
+                    "starts": 46,
+                    "avg": 5.61
                 }
             }
         }
@@ -2015,6 +2057,13 @@
                 "avg": 1.0
             },
             {
+                "type": "360 Sprint",
+                "starts": 6,
+                "points": 240,
+                "wins": 6,
+                "avg": 1.0
+            },
+            {
                 "type": "Big Block Modified",
                 "starts": 6,
                 "points": 235,
@@ -2036,21 +2085,14 @@
                 "avg": 4.33
             },
             {
-                "type": "410 Wing Sprint",
-                "starts": 3,
-                "points": 120,
-                "wins": 3,
-                "avg": 1.0
-            },
-            {
                 "type": "410 Non wing",
-                "starts": 3,
-                "points": 120,
-                "wins": 3,
+                "starts": 5,
+                "points": 200,
+                "wins": 5,
                 "avg": 1.0
             },
             {
-                "type": "360 Sprint",
+                "type": "410 Wing Sprint",
                 "starts": 3,
                 "points": 120,
                 "wins": 3,
@@ -2059,6 +2101,42 @@
         ],
         "race_log": [
             {
+                "track": "Grant Park",
+                "car": "360 Sprint",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Willow Creek",
+                "car": "360 Sprint",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Diamond Grove",
+                "car": "360 Sprint",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "I-19 Speedway",
+                "car": "410 Non wing",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Bristol",
+                "car": "410 Non wing",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Kokomo",
+                "car": "410 Non wing",
+                "pos": 1,
+                "pts": 40
+            },
+            {
                 "track": "Sawtooth",
                 "car": "410 Non wing",
                 "pos": 1,
@@ -2066,12 +2144,6 @@
             },
             {
                 "track": "Charlotte",
-                "car": "410 Non wing",
-                "pos": 1,
-                "pts": 40
-            },
-            {
-                "track": "Bristol",
                 "car": "410 Non wing",
                 "pos": 1,
                 "pts": 40
@@ -2304,12 +2376,12 @@
                 "number": "07",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1513,
-                    "wins": 32,
-                    "top5": 36,
-                    "top10": 37,
-                    "starts": 40,
-                    "avg": 2.38
+                    "points": 1713,
+                    "wins": 37,
+                    "top5": 41,
+                    "top10": 42,
+                    "starts": 45,
+                    "avg": 2.22
                 }
             }
         }
@@ -2504,22 +2576,9 @@
                 "points": 77,
                 "wins": 0,
                 "avg": 11.33
-            },
-            {
-                "type": "410 Non wing",
-                "starts": 1,
-                "points": 24,
-                "wins": 0,
-                "avg": 13.0
             }
         ],
         "race_log": [
-            {
-                "track": "Bristol",
-                "car": "410 Non wing",
-                "pos": 13,
-                "pts": 24
-            },
             {
                 "track": "Williams Grove",
                 "car": "Midget",
@@ -2724,12 +2783,12 @@
                 "number": "69",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 902,
+                    "points": 878,
                     "wins": 0,
                     "top5": 3,
                     "top10": 16,
-                    "starts": 34,
-                    "avg": 10.47
+                    "starts": 33,
+                    "avg": 10.39
                 }
             }
         }
@@ -3059,21 +3118,70 @@
                 "avg": 6.67
             },
             {
+                "type": "410 Non wing",
+                "starts": 5,
+                "points": 171,
+                "wins": 0,
+                "avg": 2.8
+            },
+            {
+                "type": "360 Sprint",
+                "starts": 4,
+                "points": 137,
+                "wins": 0,
+                "avg": 2.75
+            },
+            {
                 "type": "Big Block Modified",
                 "starts": 3,
                 "points": 96,
                 "wins": 0,
                 "avg": 5.0
-            },
-            {
-                "type": "410 Non wing",
-                "starts": 3,
-                "points": 95,
-                "wins": 0,
-                "avg": 5.33
             }
         ],
         "race_log": [
+            {
+                "track": "Grant Park",
+                "car": "360 Sprint",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Willow Creek",
+                "car": "360 Sprint",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Willow Creek",
+                "car": "360 Sprint",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Diamond Grove",
+                "car": "360 Sprint",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "I-19 Speedway",
+                "car": "410 Non wing",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Bristol",
+                "car": "410 Non wing",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Kokomo",
+                "car": "410 Non wing",
+                "pos": 3,
+                "pts": 34
+            },
             {
                 "track": "Sawtooth",
                 "car": "410 Non wing",
@@ -3085,12 +3193,6 @@
                 "car": "410 Non wing",
                 "pos": 4,
                 "pts": 33
-            },
-            {
-                "track": "Bristol",
-                "car": "410 Non wing",
-                "pos": 9,
-                "pts": 28
             },
             {
                 "track": "Williams Grove",
@@ -3332,12 +3434,12 @@
                 "number": "13",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1330,
+                    "points": 1543,
                     "wins": 2,
-                    "top5": 24,
-                    "top10": 38,
-                    "starts": 42,
-                    "avg": 5.52
+                    "top5": 31,
+                    "top10": 44,
+                    "starts": 48,
+                    "avg": 5.02
                 }
             }
         }
@@ -3438,6 +3540,13 @@
                 "avg": 4.0
             },
             {
+                "type": "410 Non wing",
+                "starts": 5,
+                "points": 167,
+                "wins": 0,
+                "avg": 3.6
+            },
+            {
                 "type": "WOO Late Model",
                 "starts": 6,
                 "points": 159,
@@ -3452,11 +3561,11 @@
                 "avg": 11.17
             },
             {
-                "type": "410 Non wing",
+                "type": "360 Sprint",
                 "starts": 3,
-                "points": 98,
+                "points": 103,
                 "wins": 0,
-                "avg": 4.33
+                "avg": 2.67
             },
             {
                 "type": "Big Block Modified",
@@ -3468,6 +3577,42 @@
         ],
         "race_log": [
             {
+                "track": "Grant Park",
+                "car": "360 Sprint",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Willow Creek",
+                "car": "360 Sprint",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Diamond Grove",
+                "car": "360 Sprint",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "I-19 Speedway",
+                "car": "410 Non wing",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Bristol",
+                "car": "410 Non wing",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Kokomo",
+                "car": "410 Non wing",
+                "pos": 2,
+                "pts": 35
+            },
+            {
                 "track": "Sawtooth",
                 "car": "410 Non wing",
                 "pos": 4,
@@ -3478,12 +3623,6 @@
                 "car": "410 Non wing",
                 "pos": 6,
                 "pts": 31
-            },
-            {
-                "track": "Bristol",
-                "car": "410 Non wing",
-                "pos": 3,
-                "pts": 34
             },
             {
                 "track": "Williams Grove",
@@ -3725,12 +3864,12 @@
                 "number": "33",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1266,
+                    "points": 1438,
                     "wins": 1,
-                    "top5": 19,
-                    "top10": 31,
-                    "starts": 42,
-                    "avg": 6.95
+                    "top5": 24,
+                    "top10": 36,
+                    "starts": 47,
+                    "avg": 6.49
                 }
             }
         }
@@ -4051,13 +4190,6 @@
                 "avg": 2.4
             },
             {
-                "type": "410 Non wing",
-                "starts": 3,
-                "points": 105,
-                "wins": 0,
-                "avg": 2.0
-            },
-            {
                 "type": "Big Block Modified",
                 "starts": 3,
                 "points": 102,
@@ -4070,6 +4202,13 @@
                 "points": 95,
                 "wins": 0,
                 "avg": 5.33
+            },
+            {
+                "type": "410 Non wing",
+                "starts": 2,
+                "points": 70,
+                "wins": 0,
+                "avg": 2.0
             }
         ],
         "race_log": [
@@ -4081,12 +4220,6 @@
             },
             {
                 "track": "Charlotte",
-                "car": "410 Non wing",
-                "pos": 2,
-                "pts": 35
-            },
-            {
-                "track": "Bristol",
                 "car": "410 Non wing",
                 "pos": 2,
                 "pts": 35
@@ -4235,12 +4368,12 @@
                 "number": "88E",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 857,
+                    "points": 822,
                     "wins": 0,
-                    "top5": 21,
-                    "top10": 25,
-                    "starts": 26,
-                    "avg": 4.04
+                    "top5": 20,
+                    "top10": 24,
+                    "starts": 25,
+                    "avg": 4.12
                 }
             }
         }
@@ -4542,18 +4675,18 @@
                 "avg": 9.67
             },
             {
+                "type": "410 Non wing",
+                "starts": 5,
+                "points": 162,
+                "wins": 0,
+                "avg": 4.6
+            },
+            {
                 "type": "Big Block Modified",
                 "starts": 3,
                 "points": 98,
                 "wins": 0,
                 "avg": 4.33
-            },
-            {
-                "type": "410 Non wing",
-                "starts": 3,
-                "points": 92,
-                "wins": 0,
-                "avg": 6.33
             },
             {
                 "type": "410 Wing Sprint",
@@ -4572,6 +4705,24 @@
         ],
         "race_log": [
             {
+                "track": "I-19 Speedway",
+                "car": "410 Non wing",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Bristol",
+                "car": "410 Non wing",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Kokomo",
+                "car": "410 Non wing",
+                "pos": 4,
+                "pts": 33
+            },
+            {
                 "track": "Sawtooth",
                 "car": "410 Non wing",
                 "pos": 6,
@@ -4582,12 +4733,6 @@
                 "car": "410 Non wing",
                 "pos": 5,
                 "pts": 32
-            },
-            {
-                "track": "Bristol",
-                "car": "410 Non wing",
-                "pos": 8,
-                "pts": 29
             },
             {
                 "track": "Williams Grove",
@@ -4757,12 +4902,12 @@
                 "number": "05",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 886,
+                    "points": 956,
                     "wins": 0,
-                    "top5": 6,
-                    "top10": 26,
-                    "starts": 30,
-                    "avg": 7.47
+                    "top5": 9,
+                    "top10": 28,
+                    "starts": 32,
+                    "avg": 7.13
                 }
             }
         }
@@ -4792,13 +4937,6 @@
                 "avg": 9.8
             },
             {
-                "type": "410 Non wing",
-                "starts": 3,
-                "points": 91,
-                "wins": 0,
-                "avg": 6.67
-            },
-            {
                 "type": "410 Wing Sprint",
                 "starts": 3,
                 "points": 88,
@@ -4818,6 +4956,13 @@
                 "points": 78,
                 "wins": 0,
                 "avg": 11.0
+            },
+            {
+                "type": "410 Non wing",
+                "starts": 2,
+                "points": 59,
+                "wins": 0,
+                "avg": 7.5
             }
         ],
         "race_log": [
@@ -4832,12 +4977,6 @@
                 "car": "410 Non wing",
                 "pos": 7,
                 "pts": 30
-            },
-            {
-                "track": "Bristol",
-                "car": "410 Non wing",
-                "pos": 5,
-                "pts": 32
             },
             {
                 "track": "Williams Grove",
@@ -5001,12 +5140,12 @@
                 "number": "32",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 812,
+                    "points": 780,
                     "wins": 0,
-                    "top5": 4,
-                    "top10": 21,
-                    "starts": 29,
-                    "avg": 9.0
+                    "top5": 3,
+                    "top10": 20,
+                    "starts": 28,
+                    "avg": 9.14
                 }
             }
         }
@@ -5156,18 +5295,18 @@
                 "avg": 6.0
             },
             {
-                "type": "410 Non wing",
-                "starts": 3,
-                "points": 93,
-                "wins": 0,
-                "avg": 6.0
-            },
-            {
                 "type": "410 Wing Sprint",
                 "starts": 3,
                 "points": 89,
                 "wins": 0,
                 "avg": 7.33
+            },
+            {
+                "type": "410 Non wing",
+                "starts": 2,
+                "points": 60,
+                "wins": 0,
+                "avg": 7.0
             }
         ],
         "race_log": [
@@ -5182,12 +5321,6 @@
                 "car": "410 Non wing",
                 "pos": 3,
                 "pts": 34
-            },
-            {
-                "track": "Bristol",
-                "car": "410 Non wing",
-                "pos": 4,
-                "pts": 33
             },
             {
                 "track": "Williams Grove",
@@ -5249,12 +5382,12 @@
                 "number": "17",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 376,
+                    "points": 343,
                     "wins": 0,
-                    "top5": 7,
-                    "top10": 11,
-                    "starts": 12,
-                    "avg": 5.67
+                    "top5": 6,
+                    "top10": 10,
+                    "starts": 11,
+                    "avg": 5.82
                 }
             }
         }
@@ -5361,13 +5494,6 @@
                 "avg": 7.25
             },
             {
-                "type": "410 Non wing",
-                "starts": 3,
-                "points": 90,
-                "wins": 0,
-                "avg": 7.0
-            },
-            {
                 "type": "305 Sprint Car",
                 "starts": 3,
                 "points": 83,
@@ -5380,6 +5506,13 @@
                 "points": 71,
                 "wins": 0,
                 "avg": 13.33
+            },
+            {
+                "type": "410 Non wing",
+                "starts": 2,
+                "points": 59,
+                "wins": 0,
+                "avg": 7.5
             }
         ],
         "race_log": [
@@ -5394,12 +5527,6 @@
                 "car": "410 Non wing",
                 "pos": 8,
                 "pts": 29
-            },
-            {
-                "track": "Bristol",
-                "car": "410 Non wing",
-                "pos": 6,
-                "pts": 31
             },
             {
                 "track": "Williams Grove",
@@ -5497,12 +5624,12 @@
                 "number": "59a",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 517,
+                    "points": 486,
                     "wins": 0,
                     "top5": 4,
-                    "top10": 14,
-                    "starts": 18,
-                    "avg": 8.28
+                    "top10": 13,
+                    "starts": 17,
+                    "avg": 8.41
                 }
             }
         }
@@ -5514,6 +5641,25 @@
         "series": {
             "World Of Outlaws": {
                 "number": "#77",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "starts": 0,
+                    "avg": 0
+                }
+            }
+        }
+    },
+    "1052098179547537499": {
+        "display_name": "Doobie650ballz",
+        "cars": [],
+        "race_log": [],
+        "series": {
+            "World Of Outlaws": {
+                "number": "650",
                 "manufacturer": "N/A",
                 "stats": {
                     "points": 0,
