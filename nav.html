@@ -22,6 +22,15 @@
             </div>
         </div>
         
+        <div class="nav-group iracing-group">
+            <div class="group-label">SIM RACING SERIES</div>
+            <a href="iracing.html" id="nav-iracing" class="iracing-btn">
+                <span class="iracing-icon"><i class="fa-solid fa-gauge-high"></i></span>
+                <span class="iracing-text">iRACING TELEMETRY</span>
+            </a>
+            <p class="iracing-subtext">Live Data • Analytics • Grid</p>
+        </div>
+        
         <div class="nav-group dirt-group">
             <div class="group-label">DIRT SERIES</div>
             <a href="woo.html" id="nav-woo" class="woo-btn">
@@ -65,7 +74,7 @@
     }
     
     /* 1. ASPHALT GROUP */
-    .asphalt-group { padding-bottom: 2rem; }
+    .asphalt-group { padding-bottom: 1.5rem; }
     
     .nav-links { display: flex; flex-direction: column; }
     .nav-links a { 
@@ -77,7 +86,37 @@
         color: #c00; border-left-color: #c00; 
     }
     
-    /* 2. DIRT GROUP (WOO) */
+    /* 2. IRACING GROUP */
+    .iracing-group { 
+        background: linear-gradient(180deg, #000810 0%, #000 100%); 
+        padding: 2rem; border-top: 1px solid #002233; 
+        display: flex; flex-direction: column; justify-content: center; 
+    }
+    .iracing-group .group-label { 
+        color: #00f0ff; margin-left: 0; text-align: center; text-shadow: 0 0 10px rgba(0, 240, 255, 0.3); 
+    }
+    
+    .iracing-btn { 
+        display: flex; align-items: center; justify-content: center; gap: 15px; 
+        background: #001122; color: #fff; text-decoration: none; padding: 1.5rem; 
+        border: 2px solid #004466; border-radius: 4px; transition: 0.3s; text-align: center; 
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5); margin-top: 10px; 
+    }
+    .iracing-btn:hover { 
+        background: #001a33; border-color: #00f0ff; transform: scale(1.02); 
+        box-shadow: 0 0 20px rgba(0, 240, 255, 0.3); color: #00f0ff;
+    }
+    
+    .iracing-text { 
+        font-family: 'Arial Black', sans-serif; font-size: 1.1rem; 
+        letter-spacing: -1px; text-transform: uppercase; 
+    }
+    .iracing-subtext { 
+        text-align: center; color: #666; font-size: 0.75rem; margin-top: 1rem; 
+        font-family: sans-serif; letter-spacing: 1px; text-transform: uppercase; 
+    }
+
+    /* 3. DIRT GROUP (WOO) */
     .dirt-group { 
         background: linear-gradient(180deg, #0a0a0a 0%, #1a0505 100%); 
         padding: 2rem; flex-grow: 1; border-top: 1px solid #330000; 
@@ -109,6 +148,6 @@
 
     @media (max-width: 480px) { 
         .nav-overlay { width: 100%; max-width: 100%; } 
-        .dirt-group { padding: 3rem 1rem; } 
+        .iracing-group, .dirt-group { padding: 3rem 1rem; } 
     }
 </style>
