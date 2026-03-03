@@ -237,7 +237,7 @@
         <h1 class="hud-title">ASCRL TELEMETRY</h1>
         <div class="broadcast-links">
             <a href="https://twitch.tv/tbone6007_" target="_blank" class="b-link b-live"><i class="fa-solid fa-satellite-dish"></i> LIVE BROADCAST</a>
-            <a href="www.youtube.com/@iracingascrl" target="_blank" class="b-link b-vod"><i class="fa-solid fa-play"></i> LATEST RACE VOD</a>
+            <a href="https://www.youtube.com/@iracingascrl" target="_blank" class="b-link b-vod"><i class="fa-solid fa-play"></i> LATEST RACE VOD</a>
         </div>
     </header>
 
@@ -338,6 +338,14 @@
     <script>
         // Load Nav
         fetch('nav.html').then(r=>r.text()).then(d=>document.getElementById('nav-placeholder').innerHTML=d).catch(e=>console.log("Nav ignored"));
+
+        // ==========================================
+        // HAMBURGER MENU LOGIC
+        // ==========================================
+        function toggleMenu() {
+            const m = document.getElementById('nav-menu');
+            if(m) m.classList.toggle('open');
+        }
 
         // Tab Logic
         function switchTab(tabId) {
