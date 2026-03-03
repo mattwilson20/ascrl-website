@@ -336,18 +336,41 @@
     </main>
 
     <script>
-        // Load Nav
-        fetch('nav.html').then(r=>r.text()).then(d=>document.getElementById('nav-placeholder').innerHTML=d).catch(e=>console.log("Nav ignored"));
-
         // ==========================================
-        // HAMBURGER MENU LOGIC
+        // HAMBURGER MENU LOGIC (Bulletproof Window Attachment)
         // ==========================================
-        function toggleMenu() {
+        window.toggleMenu = function() {
             const m = document.getElementById('nav-menu');
-            if(m) m.classList.toggle('open');
-        }
+            if(m) {
+                m.classList.toggle('open');
+            } else {
+                console.error("Hamburger menu clicked, but nav-menu not found in DOM.");
+            }
+        };
 
-        // Tab Logic
+        // ==========================================
+        // LOAD NAVIGATION (With Cache Buster)
+        // ==========================================
+        const cacheBust = new Date().getTime();
+        fetch(`nav.html?v=${cacheBust}`)
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+                
+                // Optional: Auto-highlight the current active page
+                const activeLink = document.getElementById('nav-iracing');
+                if (activeLink) {
+                    activeLink.style.color = "var(--neon-blue)";
+                    activeLink.style.borderLeft = "4px solid var(--neon-blue)";
+                    activeLink.style.paddingLeft = "15px";
+                    activeLink.style.background = "rgba(0, 240, 255, 0.05)";
+                }
+            })
+            .catch(e => console.log("Nav fetch failed: ", e));
+
+        // ==========================================
+        // TAB LOGIC
+        // ==========================================
         function switchTab(tabId) {
             document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
             document.getElementById('tab-' + tabId).classList.add('active');
