@@ -428,8 +428,9 @@
             events.forEach((event) => {
                 if(!event.data) return;
                 let trackName = event.data.track.track_name;
-                let raceSession = event.data.session_results.find(s => s.simsession_type_name === 'Race' || s.simsession_name === 'RACE');
-                if(!raceSession) return;
+                let sessionCount = event.data.session_results.length;
+                let raceSession = event.data.session_results[sessionCount - 1];
+                if(!raceSession || !raceSession.results) return;
 
                 // --- 1. PRE-CALCULATE RACE AWARDS (Hard Charger & Most Laps Led) ---
                 let maxLapsLed = 0;
