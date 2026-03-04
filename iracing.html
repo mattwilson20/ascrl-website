@@ -320,42 +320,35 @@
         // 🛠️ ASCRL MANUAL CONFIGURATION
         // ==========================================
         
-        // 1. Map Drivers to Teams (Type names exactly as they appear in JSON exports)
-        // Includes iRacing numbered names (e.g. "Sam Taylor3") to ensure perfect tracking.
+        // 1. Map Drivers to Teams
         const TEAM_MAPPING = {
-            // Candy Shack Motorsports
             "Dalton Gibson": "Candy Shack Motorsports",
             "Daniel Holloway": "Candy Shack Motorsports",
             "Anthony Poston": "Candy Shack Motorsports",
             "Tyler Hurtt": "Candy Shack Motorsports",
             "Russell Hancock": "Candy Shack Motorsports",
 
-            // Shake N’ Bake Motorsports
             "Grayson Pate": "Shake N' Bake Motorsports",
             "Ethan Horst": "Shake N' Bake Motorsports",
             "Noah Davis": "Shake N' Bake Motorsports",
             "Noah Davis4": "Shake N' Bake Motorsports",
             "Robert Duvendack": "Shake N' Bake Motorsports",
 
-            // Sand Castle Racing
             "Brianna Laurent": "Sand Castle Racing",
             "James Manderud": "Sand Castle Racing",
             "Matt Behnke": "Sand Castle Racing",
             "Kevin Liesch": "Sand Castle Racing",
 
-            // TMS
             "Chase Grier": "TMS",
             "Spencer Teal": "TMS",
             "Zachary Stephens": "TMS",
 
-            // Slightly Dangerous Racing
             "Christian Rhodes": "Slightly Dangerous Racing",
             "Christian Rhodes3": "Slightly Dangerous Racing",
             "Dylan Picklesimer": "Slightly Dangerous Racing",
             "Sam Taylor": "Slightly Dangerous Racing",
             "Sam Taylor3": "Slightly Dangerous Racing",
 
-            // Too Broke Racing
             "Matthew Wilson": "Too Broke Racing",
             "Matthew Wilson37": "Too Broke Racing",
             "Steven Alessi": "Too Broke Racing",
@@ -363,25 +356,22 @@
             "Trever Yates": "Too Broke Racing",
             "Eric Rodaman": "Too Broke Racing",
 
-            // TBD Team Name
             "Kori Rainey": "TBD Team Name",
             "Jeffery Bourne": "TBD Team Name",
             "Jeffrey Bourne2": "TBD Team Name",
 
-            // Quack Pack Racing
             "Gary Breland": "Quack Pack Racing",
             "Ronald Breland": "Quack Pack Racing", 
             "Chris Perry": "Quack Pack Racing",
             "Chris Perry7": "Quack Pack Racing",
 
-            // Weenie Hut Jr. Racing
             "Robert McCray": "Weenie Hut Jr. Racing",
             "Robert Mccray": "Weenie Hut Jr. Racing",
             "Jeremy James": "Weenie Hut Jr. Racing",
             "Jeremy James2": "Weenie Hut Jr. Racing"
         };
 
-        // 2. Manual Stage Points (Format: "Track Name": { "Driver Name": Points })
+        // 2. Official Daytona Stage Points
         const MANUAL_STAGE_POINTS = {
             "Daytona International Speedway": {
                 "Zachary Stephens": 10,
@@ -408,7 +398,12 @@
 
         async function loadData() {
             try {
-                const res = await fetch('iracing.json');
+                // Cache buster to prevent GitHub from serving a stale JSON file
+                const res = await fetch(`iracing.json?v=${new Date().getTime()}`);
+                
+                // If GitHub is down and returns the Unicorn HTML page, this catches it
+                if (!res.ok) throw new Error("GitHub Server Error");
+                
                 const rawData = await res.json();
                 const events = Array.isArray(rawData) ? rawData : [rawData];
                 
@@ -420,7 +415,7 @@
                 document.getElementById('loader').innerHTML = `
                     <i class="fa-solid fa-triangle-exclamation" style="font-size:4rem; color:var(--neon-red); margin-bottom:15px; text-shadow: 0 0 20px var(--neon-red);"></i>
                     <div style="font-family:'Chakra Petch'; color:var(--neon-red); letter-spacing:3px; font-size:1.5rem; font-weight:bold;">DATA LINK SEVERED</div>
-                    <div style="color:#666; margin-top:10px;">Check iracing.json formatting or server connection.</div>
+                    <div style="color:#666; margin-top:10px;">GitHub is experiencing an outage or iracing.json is corrupted.</div>
                 `;
             }
         }
@@ -430,7 +425,7 @@
             globalTeams = {};
             globalRaces = [];
 
-            events.forEach((event, raceIndex) => {
+            events.forEach((event) => {
                 if(!event.data) return;
                 let trackName = event.data.track.track_name;
                 let raceSession = event.data.session_results.find(s => s.simsession_type_name === 'Race' || s.simsession_name === 'RACE');
@@ -446,7 +441,6 @@
                     if(gained > maxPosGained) maxPosGained = gained;
                 });
 
-                // Track team scores for this specific race
                 let raceTeamScores = {};
 
                 raceSession.results.forEach(r => {
@@ -455,18 +449,19 @@
                     let start = r.starting_position + 1;
                     let incs = r.incidents;
                     let lapsLed = r.laps_lead;
+                    let gained = start - fin;
 
-                    // --- 2. ASCRL CUSTOM POINTS LOGIC ---
+                    // --- 2. TRUE ASCRL CUSTOM POINTS LOGIC ---
                     let basePts = Math.max(1, 41 - fin); // 40 for 1st, 39 for 2nd... down to 1
                     let bonusPts = 0;
                     let playoffPts = 0;
                     
-                    if (fin === 1) playoffPts += 5; // Win counts for PLAYOFFS ONLY (Not regular standings)
+                    if (fin === 1) playoffPts += 5; // Win counts for PLAYOFFS ONLY
                     if (incs < 4) bonusPts += 3; // Clean Race
                     if (lapsLed === maxLapsLed && lapsLed > 0) bonusPts += 3; // Most Laps Led
                     if (start === 1) bonusPts += 2; // Pole Position
                     if (lapsLed > 0) bonusPts += 1; // Led a Lap
-                    if ((start - fin) === maxPosGained && maxPosGained > 0) bonusPts += 1; // Hard Charger
+                    if (gained === maxPosGained && maxPosGained > 0) bonusPts += 1; // Hard Charger
 
                     let stagePts = 0;
                     if(MANUAL_STAGE_POINTS[trackName] && MANUAL_STAGE_POINTS[trackName][name]) {
@@ -505,7 +500,6 @@
                         // Team rule: Only Finish + Stage points count towards the sum (excluding bonus modifiers)
                         raceTeamScores[teamName].push(basePts + stagePts);
                         
-                        // Add driver to global team roster
                         if(!globalTeams[teamName]) {
                             globalTeams[teamName] = { name: teamName, drivers: new Set(), totalPts: 0, wins: 0, top5: 0 };
                         }
@@ -514,7 +508,6 @@
                         if(fin <= 5) globalTeams[teamName].top5 += 1;
                     }
                     
-                    // Inject calculated points directly into the JSON memory for the Race Center Tab
                     r.ascrl_total_pts = totalPts;
                     r.ascrl_bonus_pts = bonusPts;
                     r.ascrl_base_pts = basePts;
@@ -524,17 +517,14 @@
                 // --- 5. CALCULATE THE 10-TO-1 TEAM CHAMPIONSHIP POINTS ---
                 let sortedRaceTeams = [];
                 for (const [team, scores] of Object.entries(raceTeamScores)) {
-                    // Sort driver scores high-to-low and take the top 2
                     scores.sort((a, b) => b - a);
                     let teamSum = scores[0];
                     if (scores.length > 1) teamSum += scores[1];
                     sortedRaceTeams.push({ team: team, sum: teamSum });
                 }
                 
-                // Rank teams for this race
                 sortedRaceTeams.sort((a, b) => b.sum - a.sum);
                 
-                // Award 10 points to 1st, 9 to 2nd, etc.
                 sortedRaceTeams.forEach((t, idx) => {
                     let pointsEarned = Math.max(1, 10 - idx);
                     globalTeams[t.team].totalPts += pointsEarned;
@@ -543,7 +533,6 @@
                 globalRaces.push({ track: trackName, results: raceSession.results, maxPosGained: maxPosGained, maxLapsLed: maxLapsLed });
             });
 
-            // Populate Dropdown
             const dropdown = document.getElementById('race-dropdown');
             dropdown.innerHTML = '';
             globalRaces.forEach((race, idx) => {
@@ -554,18 +543,15 @@
                 dropdown.appendChild(opt);
             });
 
-            // Implement ASCRL Tiebreaker Logic for Standings: 
-            // Wins > Top 5s > Top 10s > Avg Finish > Bonus Points
+            // Tiebreaker: Wins > Top 5s > Top 10s > Avg Finish > Bonus Points
             let sortedDrivers = Object.values(globalDrivers).sort((a,b) => {
                 if (b.points !== a.points) return b.points - a.points;
                 if (b.wins !== a.wins) return b.wins - a.wins;
                 if (b.top5 !== a.top5) return b.top5 - a.top5;
                 if (b.top10 !== a.top10) return b.top10 - a.top10;
-                
                 let avgA = a.totalFinish / a.starts;
                 let avgB = b.totalFinish / b.starts;
                 if (avgA !== avgB) return avgA - avgB; 
-                
                 return b.bonusPoints - a.bonusPoints;
             });
             
@@ -576,7 +562,7 @@
             renderSelectedRace(); 
         }
 
-        // --- 1. RACE CENTER ---
+        // --- RENDER FUNCTIONS ---
         function renderSelectedRace() {
             const idx = document.getElementById('race-dropdown').value;
             const race = globalRaces[idx];
@@ -590,7 +576,6 @@
                 let fin = r.finish_position + 1;
                 let start = r.starting_position + 1;
                 let diff = start - fin;
-                
                 let teamName = TEAM_MAPPING[r.display_name] || "Independent";
 
                 if(fin === 1) winner = r.display_name;
@@ -642,7 +627,6 @@
             `;
         }
 
-        // --- 2. STANDINGS ---
         function buildStandings(drivers) {
             let html = '';
             let mostWins = { name: '-', val: 0 };
@@ -699,7 +683,6 @@
             `;
         }
 
-        // --- 3. TEAM POINTS ---
         function buildTeams() {
             let sortedTeams = Object.values(globalTeams)
                 .filter(t => t.name !== "Independent")
@@ -723,7 +706,6 @@
             document.getElementById('teams-body').innerHTML = html;
         }
 
-        // --- 4. ROSTERS (INDIVIDUAL STATS) ---
         function buildRosters(drivers) {
             let html = '';
             drivers.forEach(d => {
@@ -750,7 +732,6 @@
             document.getElementById('rosters-grid').innerHTML = html;
         }
 
-        // --- 5. TEAM LINEUPS ---
         function buildLineups() {
             let html = '';
             Object.values(globalTeams).filter(t => t.name !== "Independent").forEach(t => {
