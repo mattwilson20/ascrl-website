@@ -16,6 +16,8 @@
             --neon-red: #ff003c;
             --neon-blue: #00f0ff;
             --neon-green: #00ff41;
+            --neon-purple: #b500ff;
+            --neon-orange: #ff8c00;
             --dark-bg: #050505;
             --panel-bg: rgba(15, 15, 20, 0.95);
             --grid-line: rgba(0, 240, 255, 0.03);
@@ -61,171 +63,101 @@
             letter-spacing: 4px;
         }
         
-        .broadcast-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
+        .broadcast-links { display: flex; justify-content: center; gap: 20px; margin-top: 20px; flex-wrap: wrap; }
         .b-link {
-            text-decoration: none;
-            padding: 10px 25px;
-            font-family: 'Chakra Petch', sans-serif;
-            font-weight: bold;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
+            text-decoration: none; padding: 10px 25px; font-family: 'Chakra Petch', sans-serif;
+            font-weight: bold; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px;
+            border-radius: 4px; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 10px;
         }
-        .b-live {
-            background: rgba(255, 0, 60, 0.1);
-            color: var(--neon-red);
-            border: 1px solid var(--neon-red);
-            box-shadow: 0 0 10px rgba(255, 0, 60, 0.2);
-            animation: pulse-red 2s infinite;
-        }
+        .b-live { background: rgba(255, 0, 60, 0.1); color: var(--neon-red); border: 1px solid var(--neon-red); box-shadow: 0 0 10px rgba(255, 0, 60, 0.2); animation: pulse-red 2s infinite; }
         .b-live:hover { background: var(--neon-red); color: #fff; box-shadow: 0 0 20px rgba(255, 0, 60, 0.6); }
-        .b-vod {
-            background: rgba(0, 240, 255, 0.1);
-            color: var(--neon-blue);
-            border: 1px solid var(--neon-blue);
-        }
+        .b-vod { background: rgba(0, 240, 255, 0.1); color: var(--neon-blue); border: 1px solid var(--neon-blue); }
         .b-vod:hover { background: var(--neon-blue); color: #000; box-shadow: 0 0 20px rgba(0, 240, 255, 0.6); }
 
-        @keyframes pulse-red {
-            0% { box-shadow: 0 0 10px rgba(255, 0, 60, 0.2); }
-            50% { box-shadow: 0 0 25px rgba(255, 0, 60, 0.5); }
-            100% { box-shadow: 0 0 10px rgba(255, 0, 60, 0.2); }
-        }
+        @keyframes pulse-red { 0% { box-shadow: 0 0 10px rgba(255, 0, 60, 0.2); } 50% { box-shadow: 0 0 25px rgba(255, 0, 60, 0.5); } 100% { box-shadow: 0 0 10px rgba(255, 0, 60, 0.2); } }
 
         /* --- CONTROL TABS --- */
         .controls-wrapper {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            padding: 15px 20px;
-            position: sticky;
-            top: 0;
-            background: rgba(5, 5, 5, 0.98);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid #222;
-            flex-wrap: wrap;
+            display: flex; justify-content: center; gap: 10px; padding: 15px 20px;
+            position: sticky; top: 0; background: rgba(5, 5, 5, 0.98); backdrop-filter: blur(10px);
+            z-index: 1000; border-bottom: 1px solid #222; flex-wrap: wrap;
         }
         .hud-btn {
-            background: transparent;
-            color: var(--text-muted);
-            border: 1px solid #333;
-            padding: 10px 20px;
-            font-family: 'Chakra Petch', sans-serif;
-            font-weight: bold;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+            background: transparent; color: var(--text-muted); border: 1px solid #333; padding: 10px 20px;
+            font-family: 'Chakra Petch', sans-serif; font-weight: bold; font-size: 0.95rem; text-transform: uppercase;
+            cursor: pointer; transition: all 0.3s ease; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
         }
         .hud-btn:hover { color: #fff; border-color: var(--neon-blue); }
-        .hud-btn.active {
-            background: var(--neon-red);
-            color: #fff;
-            border-color: var(--neon-red);
-            box-shadow: 0 0 15px rgba(255, 0, 60, 0.4);
-        }
+        .hud-btn.active { background: var(--neon-red); color: #fff; border-color: var(--neon-red); box-shadow: 0 0 15px rgba(255, 0, 60, 0.4); }
 
         /* --- MAIN CONTAINER & PANELS --- */
-        .telemetry-container { max-width: 1500px; margin: 3rem auto; padding: 0 1rem; }
+        .telemetry-container { max-width: 1600px; margin: 3rem auto; padding: 0 1rem; }
         .tab-pane { display: none; animation: bootUp 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
         .tab-pane.active { display: block; }
-        @keyframes bootUp {
-            0% { opacity: 0; transform: translateY(20px); filter: blur(4px); }
-            100% { opacity: 1; transform: translateY(0); filter: blur(0); }
-        }
+        @keyframes bootUp { 0% { opacity: 0; transform: translateY(20px); filter: blur(4px); } 100% { opacity: 1; transform: translateY(0); filter: blur(0); } }
 
         /* --- INSIGHT CARDS --- */
-        .insights-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px; margin-bottom: 25px;
-        }
+        .insights-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .insight-card {
             background: var(--panel-bg); border: 1px solid #222; border-left: 3px solid var(--neon-blue);
-            padding: 20px; position: relative; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            padding: 15px 20px; position: relative; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
-        .insight-label { font-size: 0.8rem; color: var(--neon-blue); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; font-weight: bold; }
-        .insight-value { font-family: 'Chakra Petch', sans-serif; font-size: 1.6rem; font-weight: 700; color: #fff; text-transform: uppercase; }
-        .insight-sub { font-size: 0.85rem; color: #888; margin-top: 5px; font-family: 'Chakra Petch'; }
+        .insight-label { font-size: 0.75rem; color: var(--neon-blue); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; font-weight: bold; }
+        .insight-value { font-family: 'Chakra Petch', sans-serif; font-size: 1.5rem; font-weight: 700; color: #fff; text-transform: uppercase; }
+        .insight-sub { font-size: 0.8rem; color: #888; margin-top: 2px; font-family: 'Chakra Petch'; }
+        .c-red { border-left-color: var(--neon-red); } .c-red .insight-label { color: var(--neon-red); }
+        .c-green { border-left-color: var(--neon-green); } .c-green .insight-label { color: var(--neon-green); }
+        .c-purple { border-left-color: var(--neon-purple); } .c-purple .insight-label { color: var(--neon-purple); }
+        .c-orange { border-left-color: var(--neon-orange); } .c-orange .insight-label { color: var(--neon-orange); }
 
         /* --- DATA TABLES --- */
-        .hud-table-wrapper {
-            background: var(--panel-bg); border: 1px solid #333; overflow-x: auto;
-            position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.6); margin-bottom: 30px;
-        }
-        .hud-table { width: 100%; border-collapse: collapse; font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; white-space: nowrap; }
+        .hud-table-wrapper { background: var(--panel-bg); border: 1px solid #333; overflow-x: auto; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.6); margin-bottom: 30px; }
+        .hud-table { width: 100%; border-collapse: collapse; font-family: 'Rajdhani', sans-serif; font-size: 1.05rem; white-space: nowrap; }
         .hud-table th {
-            background: #0a0a0a; color: var(--text-muted); padding: 16px 15px; text-transform: uppercase;
+            background: #0a0a0a; color: var(--text-muted); padding: 14px 15px; text-transform: uppercase;
             font-size: 0.85rem; letter-spacing: 1px; border-bottom: 1px solid var(--neon-red);
-            position: sticky; top: 0; font-family: 'Chakra Petch', sans-serif;
+            position: sticky; top: 0; font-family: 'Chakra Petch', sans-serif; text-align: center;
         }
-        .hud-table td { padding: 12px 15px; border-bottom: 1px solid #151515; text-align: center; }
+        .hud-table td { padding: 10px 15px; border-bottom: 1px solid #151515; text-align: center; }
         .hud-table tbody tr { transition: background 0.2s; }
         .hud-table tbody tr:nth-child(even) { background: rgba(255,255,255,0.02); }
         .hud-table tbody tr:hover { background: rgba(0, 240, 255, 0.08); }
         
         .align-left { text-align: left !important; }
-        .driver-name { font-weight: 700; color: #fff; letter-spacing: 1px; font-size: 1.15rem; }
-        .team-name-small { display: block; font-size: 0.8rem; color: #666; font-family: 'Chakra Petch'; margin-top: 2px; }
+        .driver-name { font-weight: 700; color: #fff; letter-spacing: 1px; font-size: 1.1rem; }
+        .team-name-small { display: block; font-size: 0.75rem; color: #777; font-family: 'Chakra Petch'; margin-top: 1px; text-transform: uppercase;}
         
-        .pos-badge {
-            display: inline-block; width: 30px; height: 30px; line-height: 30px;
-            background: #222; border-radius: 4px; font-weight: bold; font-family: 'Chakra Petch'; font-size: 0.95rem;
-        }
-        .pos-1 { background: #ffd700; color: #000; box-shadow: 0 0 15px rgba(255,215,0,0.6); }
+        .pos-badge { display: inline-block; width: 28px; height: 28px; line-height: 28px; background: #222; border-radius: 4px; font-weight: bold; font-family: 'Chakra Petch'; font-size: 0.9rem; }
+        .pos-1 { background: #ffd700; color: #000; box-shadow: 0 0 10px rgba(255,215,0,0.5); }
         .pos-2 { background: #c0c0c0; color: #000; }
         .pos-3 { background: #cd7f32; color: #000; }
         
         .val-gain { color: var(--neon-green); font-weight: bold; }
         .val-loss { color: var(--neon-red); font-weight: bold; }
         .val-neutral { color: #555; }
-        .val-pts { color: var(--neon-blue); font-weight: bold; font-size: 1.25rem; font-family: 'Chakra Petch'; background: rgba(0, 240, 255, 0.05); padding: 5px 15px; border-radius: 4px; }
-        
+        .val-pts { color: var(--neon-blue); font-weight: bold; font-size: 1.2rem; font-family: 'Chakra Petch'; background: rgba(0, 240, 255, 0.05); padding: 4px 12px; border-radius: 4px; }
+        .make-badge { font-size: 0.7rem; padding: 2px 6px; border-radius: 3px; font-weight: bold; text-transform: uppercase; border: 1px solid #444; }
+        .make-chevrolet { background: rgba(200, 160, 0, 0.1); color: #ffd700; border-color: #ffd700; }
+        .make-ford { background: rgba(0, 100, 255, 0.1); color: #00a2ff; border-color: #00a2ff; }
+        .make-toyota { background: rgba(255, 0, 0, 0.1); color: #ff3333; border-color: #ff3333; }
+
         /* Dropdown selector */
-        .race-selector {
-            background: #111; color: var(--neon-blue); border: 1px solid var(--neon-blue);
-            padding: 10px 20px; font-family: 'Chakra Petch'; font-size: 1.1rem;
-            border-radius: 4px; outline: none; cursor: pointer; width: 100%; max-width: 400px;
-            margin-bottom: 20px; font-weight: bold; text-transform: uppercase;
-        }
+        .race-selector { background: #111; color: var(--neon-blue); border: 1px solid var(--neon-blue); padding: 10px 20px; font-family: 'Chakra Petch'; font-size: 1.1rem; border-radius: 4px; outline: none; cursor: pointer; width: 100%; max-width: 400px; margin-bottom: 20px; font-weight: bold; text-transform: uppercase; }
         .race-selector option { background: #000; color: #fff; }
 
         /* --- CARDS (Rosters & Lineups) --- */
-        .card-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;
-        }
-        .roster-card {
-            background: var(--panel-bg); border: 1px solid #222; border-top: 3px solid var(--neon-red);
-            padding: 20px; border-radius: 6px; transition: 0.3s;
-        }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .roster-card { background: var(--panel-bg); border: 1px solid #222; border-top: 3px solid var(--neon-red); padding: 20px; border-radius: 6px; transition: 0.3s; }
         .roster-card:hover { transform: translateY(-5px); border-color: var(--neon-red); box-shadow: 0 10px 20px rgba(255,0,60,0.2); }
-        .rc-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 15px; }
-        .rc-name { font-size: 1.3rem; font-weight: bold; margin: 0; color: #fff; }
-        .rc-team { font-size: 0.8rem; color: var(--neon-blue); font-family: 'Chakra Petch'; text-transform: uppercase; letter-spacing: 1px;}
+        .rc-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 15px; }
+        .rc-name { font-size: 1.2rem; font-weight: bold; margin: 0; color: #fff; }
+        .rc-team { font-size: 0.75rem; color: var(--neon-blue); font-family: 'Chakra Petch'; text-transform: uppercase; letter-spacing: 1px; margin-top:2px;}
         .rc-stat-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-family: 'Chakra Petch'; font-size: 0.95rem; }
         .rc-stat-label { color: #888; }
         .rc-stat-val { color: #fff; font-weight: bold; }
 
-        /* Loader */
         .loader-wrapper { text-align: center; padding: 6rem 0; }
-        .cyber-spinner {
-            width: 60px; height: 60px; margin: 0 auto 20px;
-            border: 4px solid rgba(255,255,255,0.05); border-top-color: var(--neon-blue);
-            border-right-color: var(--neon-red); border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
+        .cyber-spinner { width: 60px; height: 60px; margin: 0 auto 20px; border: 4px solid rgba(255,255,255,0.05); border-top-color: var(--neon-blue); border-right-color: var(--neon-red); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
 </head>
@@ -234,7 +166,7 @@
     <div id="nav-placeholder"></div>
 
     <header class="hud-header">
-        <h1 class="hud-title">ASCRL's iRacing Series</h1>
+        <h1 class="hud-title">ASCRL TELEMETRY</h1>
         <div class="broadcast-links">
             <a href="https://twitch.tv/tbone6007_" target="_blank" class="b-link b-live"><i class="fa-solid fa-satellite-dish"></i> LIVE BROADCAST</a>
             <a href="https://www.youtube.com/@iracingascrl" target="_blank" class="b-link b-vod"><i class="fa-solid fa-play"></i> LATEST RACE VOD</a>
@@ -242,25 +174,30 @@
     </header>
 
     <div class="controls-wrapper">
-        <button class="hud-btn active" onclick="switchTab('latest')">RACE CENTER</button>
-        <button class="hud-btn" onclick="switchTab('standings')">DRIVER STANDINGS</button>
-        <button class="hud-btn" onclick="switchTab('teams')">TEAM POINTS</button>
-        <button class="hud-btn" onclick="switchTab('rosters')">DRIVER ROSTERS</button>
-        <button class="hud-btn" onclick="switchTab('lineups')">TEAM LINEUPS</button>
+        <button class="hud-btn active" onclick="switchTab('latest')"><i class="fa-solid fa-tower-observation"></i> RACE CONTROL</button>
+        <button class="hud-btn" onclick="switchTab('standings')"><i class="fa-solid fa-trophy"></i> DRIVER STANDINGS</button>
+        <button class="hud-btn" onclick="switchTab('teams')"><i class="fa-solid fa-users"></i> TEAM & MFR POINTS</button>
+        <button class="hud-btn" onclick="switchTab('rosters')"><i class="fa-solid fa-id-card"></i> DRIVER DATABANK</button>
     </div>
 
     <main class="telemetry-container">
         
         <div class="loader-wrapper" id="loader">
             <div class="cyber-spinner"></div>
-            <div style="font-family:'Chakra Petch'; color:var(--neon-blue); letter-spacing:4px; font-weight:bold; font-size:1.2rem;">SYNCING iRACING DATA...</div>
+            <div style="font-family:'Chakra Petch'; color:var(--neon-blue); letter-spacing:4px; font-weight:bold; font-size:1.2rem;">DECRYPTING iRACING DATA...</div>
         </div>
 
         <div id="tab-latest" class="tab-pane active">
             <div style="text-align: center;">
                 <select id="race-dropdown" class="race-selector" onchange="renderSelectedRace()"></select>
             </div>
+            
+            <h3 style="font-family:'Chakra Petch'; color:var(--text-muted); border-bottom: 1px solid #333; padding-bottom:5px; margin-bottom:15px; text-transform:uppercase; letter-spacing:2px;">Track & Environment Data</h3>
+            <div class="insights-grid" id="track-insights"></div>
+            
+            <h3 style="font-family:'Chakra Petch'; color:var(--text-muted); border-bottom: 1px solid #333; padding-bottom:5px; margin-bottom:15px; text-transform:uppercase; letter-spacing:2px;">Race Analytics</h3>
             <div class="insights-grid" id="latest-insights"></div>
+
             <div class="hud-table-wrapper">
                 <table class="hud-table">
                     <thead>
@@ -269,10 +206,13 @@
                             <th>Str</th>
                             <th>+/-</th>
                             <th class="align-left">Driver</th>
-                            <th>Interval</th>
+                            <th>Car</th>
+                            <th>Qual Time</th>
+                            <th>Fast Lap</th>
                             <th>Laps</th>
                             <th>Led</th>
                             <th>Inc</th>
+                            <th>Status</th>
                             <th>Pts</th>
                         </tr>
                     </thead>
@@ -295,6 +235,7 @@
                             <th>Top 5</th>
                             <th>Top 10</th>
                             <th>Poles</th>
+                            <th>Clean Races</th>
                             <th>Laps Led</th>
                             <th>Avg Fin</th>
                         </tr>
@@ -305,72 +246,69 @@
         </div>
 
         <div id="tab-teams" class="tab-pane">
-            <h2 style="font-family:'Chakra Petch'; color:var(--neon-blue); text-transform:uppercase; margin-top:0;">CONSTRUCTORS CHAMPIONSHIP</h2>
-            <div class="hud-table-wrapper">
-                <table class="hud-table">
-                    <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th class="align-left">Team Name</th>
-                            <th>Drivers</th>
-                            <th>Wins</th>
-                            <th>Top 5s</th>
-                            <th>Total Points</th>
-                        </tr>
-                    </thead>
-                    <tbody id="teams-body"></tbody>
-                </table>
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px;">
+                <div>
+                    <h2 style="font-family:'Chakra Petch'; color:var(--neon-blue); text-transform:uppercase; margin-top:0;">CONSTRUCTORS CHAMPIONSHIP</h2>
+                    <div class="hud-table-wrapper">
+                        <table class="hud-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th class="align-left">Team Name</th>
+                                    <th>Drivers</th>
+                                    <th>Wins</th>
+                                    <th>Total Points</th>
+                                </tr>
+                            </thead>
+                            <tbody id="teams-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div>
+                    <h2 style="font-family:'Chakra Petch'; color:var(--neon-orange); text-transform:uppercase; margin-top:0;">MANUFACTURER BATTLE</h2>
+                    <div class="hud-table-wrapper">
+                        <table class="hud-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th class="align-left">Manufacturer</th>
+                                    <th>Entries</th>
+                                    <th>Wins</th>
+                                    <th>Laps Led</th>
+                                </tr>
+                            </thead>
+                            <tbody id="mfr-body"></tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div id="tab-rosters" class="tab-pane">
-            <h2 style="font-family:'Chakra Petch'; color:var(--neon-blue); text-transform:uppercase; margin-top:0;">INDIVIDUAL STATS</h2>
+            <h2 style="font-family:'Chakra Petch'; color:var(--neon-blue); text-transform:uppercase; margin-top:0;">DRIVER DATABANK</h2>
             <div class="card-grid" id="rosters-grid"></div>
-        </div>
-
-        <div id="tab-lineups" class="tab-pane">
-            <h2 style="font-family:'Chakra Petch'; color:var(--neon-blue); text-transform:uppercase; margin-top:0;">OFFICIAL LINEUPS</h2>
-            <div class="card-grid" id="lineups-grid"></div>
         </div>
 
     </main>
 
     <script>
-        // ==========================================
-        // HAMBURGER MENU LOGIC (Bulletproof Window Attachment)
-        // ==========================================
         window.toggleMenu = function() {
             const m = document.getElementById('nav-menu');
-            if(m) {
-                m.classList.toggle('open');
-            } else {
-                console.error("Hamburger menu clicked, but nav-menu not found in DOM.");
-            }
+            if(m) m.classList.toggle('open');
         };
 
-        // ==========================================
-        // LOAD NAVIGATION (With Cache Buster)
-        // ==========================================
         const cacheBust = new Date().getTime();
-        fetch(`nav.html?v=${cacheBust}`)
-            .then(res => res.text())
-            .then(data => {
-                document.getElementById('nav-placeholder').innerHTML = data;
-                
-                // Optional: Auto-highlight the current active page
-                const activeLink = document.getElementById('nav-iracing');
-                if (activeLink) {
-                    activeLink.style.color = "var(--neon-blue)";
-                    activeLink.style.borderLeft = "4px solid var(--neon-blue)";
-                    activeLink.style.paddingLeft = "15px";
-                    activeLink.style.background = "rgba(0, 240, 255, 0.05)";
-                }
-            })
-            .catch(e => console.log("Nav fetch failed: ", e));
+        fetch(`nav.html?v=${cacheBust}`).then(res => res.text()).then(data => {
+            document.getElementById('nav-placeholder').innerHTML = data;
+            const activeLink = document.getElementById('nav-iracing');
+            if (activeLink) {
+                activeLink.style.color = "var(--neon-blue)";
+                activeLink.style.borderLeft = "4px solid var(--neon-blue)";
+                activeLink.style.paddingLeft = "15px";
+                activeLink.style.background = "rgba(0, 240, 255, 0.05)";
+            }
+        }).catch(e => console.log("Nav fetch failed: ", e));
 
-        // ==========================================
-        // TAB LOGIC
-        // ==========================================
         function switchTab(tabId) {
             document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
             document.getElementById('tab-' + tabId).classList.add('active');
@@ -381,35 +319,27 @@
         // ==========================================
         // 🛠️ ASCRL MANUAL CONFIGURATION
         // ==========================================
-        
-        // 1. Map Drivers to Teams (Type names exactly as they appear in the JSON)
         const TEAM_MAPPING = {
             "Daniel Holloway": "CandyShack Motorsports",
             "Chase Grier": "TMS",
             "Richard Caro": "Shooter McGavin Motorsport",
             "Dalton Gibson": "Shake N' Bake Motorsports",
-            // Add your drivers below:
             "mattwilson20": "A&M Productions",
             "dakotathomas1994": "Smokin' Fast Racing"
         };
 
-        // 2. Manual Stage Points (Format: "Track Name": { "Driver Name": Points })
         const MANUAL_STAGE_POINTS = {
-            "Talladega Superspeedway": {
-                "Daniel Holloway": 10,
-                "Chase Grier": 5
-            },
-            "Daytona International Speedway": {
-                "mattwilson20": 8
-            }
+            "Talladega Superspeedway": { "Daniel Holloway": 10, "Chase Grier": 5 },
+            "Daytona International Speedway": { "mattwilson20": 8 }
         };
 
         // ==========================================
         // TELEMETRY PROCESSOR
         // ==========================================
-        let globalRaces = []; // Store all races for the dropdown
-        let globalDrivers = {}; // Store processed driver stats
-        let globalTeams = {}; // Store processed team stats
+        let globalRaces = []; 
+        let globalDrivers = {}; 
+        let globalTeams = {}; 
+        let globalMfrs = {};
 
         document.addEventListener('DOMContentLoaded', loadData);
 
@@ -418,10 +348,8 @@
                 const res = await fetch('iracing.json');
                 const rawData = await res.json();
                 const events = Array.isArray(rawData) ? rawData : [rawData];
-                
                 document.getElementById('loader').style.display = 'none';
                 processTelemetry(events);
-
             } catch (err) {
                 console.error(err);
                 document.getElementById('loader').innerHTML = `
@@ -432,40 +360,78 @@
             }
         }
 
+        // Formats iRacing Ticks (10000 per second) into MM:SS.000
+        function formatLapTime(ticks) {
+            if (ticks <= 0) return "-";
+            let ms = ticks / 10;
+            let m = Math.floor(ms / 60000);
+            let s = Math.floor((ms % 60000) / 1000);
+            let ms_rem = Math.floor(ms % 1000);
+            let s_str = s < 10 ? "0" + s : s;
+            let ms_str = ms_rem < 10 ? "00" + ms_rem : (ms_rem < 100 ? "0" + ms_rem : ms_rem);
+            if (m > 0) return `${m}:${s_str}.${ms_str}`;
+            return `${s}.${ms_str}`;
+        }
+        
+        function getCarMake(carName) {
+            if (!carName) return "Unknown";
+            let lower = carName.toLowerCase();
+            if (lower.includes("chevrolet") || lower.includes("camaro")) return "Chevrolet";
+            if (lower.includes("ford") || lower.includes("mustang")) return "Ford";
+            if (lower.includes("toyota") || lower.includes("camry")) return "Toyota";
+            return "Other";
+        }
+
+        function getMakeClass(make) {
+            if (make === "Chevrolet") return "make-chevrolet";
+            if (make === "Ford") return "make-ford";
+            if (make === "Toyota") return "make-toyota";
+            return "";
+        }
+
         function processTelemetry(events) {
             globalDrivers = {};
             globalTeams = {};
+            globalMfrs = { "Chevrolet": {wins:0, laps:0, entries:0}, "Ford": {wins:0, laps:0, entries:0}, "Toyota": {wins:0, laps:0, entries:0}, "Other": {wins:0, laps:0, entries:0} };
             globalRaces = [];
 
             events.forEach(event => {
                 if(!event.data) return;
                 let trackName = event.data.track.track_name;
                 let raceSession = event.data.session_results.find(s => s.simsession_type_name === 'Race' || s.simsession_name === 'RACE');
+                let qualSession = event.data.session_results.find(s => s.simsession_type_name === 'Lone Qualifying' || s.simsession_name === 'QUALIFY');
+                
                 if(!raceSession) return;
 
-                // Save to global races array for the dropdown
-                globalRaces.push({ track: trackName, results: raceSession.results });
+                // Merge Qual times into Race results for easy display
+                if (qualSession) {
+                    raceSession.results.forEach(rr => {
+                        let qr = qualSession.results.find(q => q.cust_id === rr.cust_id);
+                        if (qr && qr.best_lap_time > 0) {
+                            rr.qual_time = qr.best_lap_time;
+                        }
+                    });
+                }
+
+                globalRaces.push({ track: trackName, data: event.data, results: raceSession.results });
 
                 raceSession.results.forEach(r => {
                     let name = r.display_name;
                     let fin = r.finish_position + 1;
                     let start = r.starting_position + 1;
                     let basePts = r.champ_points || r.league_points || 0;
+                    let make = getCarMake(r.car_name);
                     
-                    // Fetch Manual Stage Points if they exist
-                    let stagePts = 0;
-                    if(MANUAL_STAGE_POINTS[trackName] && MANUAL_STAGE_POINTS[trackName][name]) {
-                        stagePts = MANUAL_STAGE_POINTS[trackName][name];
-                    }
+                    let stagePts = MANUAL_STAGE_POINTS[trackName]?.[name] || 0;
                     let totalPts = basePts + stagePts;
-
                     let teamName = TEAM_MAPPING[name] || "Independent";
 
-                    // --- INIT DRIVER ---
+                    // --- DRIVER ---
                     if(!globalDrivers[name]) {
                         globalDrivers[name] = { 
                             name: name, team: teamName, starts: 0, wins: 0, top5: 0, top10: 0, poles: 0, 
-                            lapsLed: 0, incs: 0, points: 0, totalFinish: 0 
+                            lapsLed: 0, incs: 0, points: 0, totalFinish: 0, cleanRaces: 0,
+                            makes: {}
                         };
                     }
                     
@@ -474,13 +440,15 @@
                     globalDrivers[name].lapsLed += r.laps_lead;
                     globalDrivers[name].incs += r.incidents;
                     globalDrivers[name].totalFinish += fin;
+                    globalDrivers[name].makes[make] = (globalDrivers[name].makes[make] || 0) + 1;
 
                     if(fin === 1) globalDrivers[name].wins += 1;
                     if(fin <= 5) globalDrivers[name].top5 += 1;
                     if(fin <= 10) globalDrivers[name].top10 += 1;
                     if(start === 1) globalDrivers[name].poles += 1;
+                    if(r.incidents === 0) globalDrivers[name].cleanRaces += 1;
 
-                    // --- INIT TEAM ---
+                    // --- TEAM ---
                     if(!globalTeams[teamName]) {
                         globalTeams[teamName] = { name: teamName, drivers: new Set(), points: 0, wins: 0, top5: 0 };
                     }
@@ -488,14 +456,19 @@
                     globalTeams[teamName].points += totalPts;
                     if(fin === 1) globalTeams[teamName].wins += 1;
                     if(fin <= 5) globalTeams[teamName].top5 += 1;
+
+                    // --- MFR ---
+                    if(globalMfrs[make]) {
+                        globalMfrs[make].entries += 1;
+                        globalMfrs[make].laps += r.laps_lead;
+                        if (fin === 1) globalMfrs[make].wins += 1;
+                    }
                 });
             });
 
-            // Populate Dropdown
             const dropdown = document.getElementById('race-dropdown');
             dropdown.innerHTML = '';
             globalRaces.forEach((race, idx) => {
-                // Add in reverse order so newest is at the top
                 const actualIdx = globalRaces.length - 1 - idx; 
                 let opt = document.createElement('option');
                 opt.value = actualIdx;
@@ -504,63 +477,106 @@
             });
 
             let sortedDrivers = Object.values(globalDrivers).sort((a,b) => b.points - a.points);
-            
             buildStandings(sortedDrivers);
-            buildTeams();
+            buildTeamsAndMfrs();
             buildRosters(sortedDrivers);
-            buildLineups();
-            renderSelectedRace(); // Render the first one in the dropdown (newest)
+            if (globalRaces.length > 0) renderSelectedRace();
         }
 
         // --- 1. RACE CENTER ---
         function renderSelectedRace() {
             const idx = document.getElementById('race-dropdown').value;
-            const race = globalRaces[idx];
+            const raceObj = globalRaces[idx];
+            const raceData = raceObj.data;
+            const results = raceObj.results;
+            const summary = raceData.race_summary || {};
+            const weather = raceData.weather || {};
+
+            // Format Track Insights
+            let simTime = new Date(weather.simulated_start_time).toLocaleString('en-US', { dateStyle: 'short', timeStyle: 'short'});
+            let tempC = weather.temp_value;
+            let tempF = Math.round((tempC * 9/5) + 32);
+            let weatherStr = weather.skies === 0 ? "Clear" : (weather.skies === 1 ? "P. Cloudy" : "Cloudy");
             
+            document.getElementById('track-insights').innerHTML = `
+                <div class="insight-card">
+                    <div class="insight-label">Simulated Time</div>
+                    <div class="insight-value" style="font-size:1.1rem;">${simTime}</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-label">Weather / Temp</div>
+                    <div class="insight-value" style="font-size:1.3rem;">${tempC}°C (${tempF}°F)</div>
+                    <div class="insight-sub">${weatherStr} / ${weather.rel_humidity}% Hum</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-label">Cautions / Laps</div>
+                    <div class="insight-value" style="font-size:1.5rem; color: #ffeb3b;">${summary.num_cautions || 0} / ${summary.num_caution_laps || 0}</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-label">Lead Changes</div>
+                    <div class="insight-value">${summary.num_lead_changes || 0}</div>
+                    <div class="insight-sub">SoF: ${summary.field_strength || 0}</div>
+                </div>
+            `;
+
             let html = '';
             let hardCharger = { name: '-', val: 0 };
             let mostLed = { name: '-', val: 0 };
             let winner = '-';
+            let fastestLap = { name: '-', time: 999999999, str: '-' };
 
-            race.results.sort((a,b) => a.finish_position - b.finish_position).forEach(r => {
+            results.sort((a,b) => a.finish_position - b.finish_position).forEach(r => {
                 let fin = r.finish_position + 1;
                 let start = r.starting_position + 1;
                 let diff = start - fin;
                 
-                // Points Math
                 let basePts = r.champ_points || r.league_points || 0;
-                let stagePts = 0;
-                if(MANUAL_STAGE_POINTS[race.track] && MANUAL_STAGE_POINTS[race.track][r.display_name]) {
-                    stagePts = MANUAL_STAGE_POINTS[race.track][r.display_name];
-                }
+                let stagePts = MANUAL_STAGE_POINTS[raceObj.track]?.[r.display_name] || 0;
                 let totalPts = basePts + stagePts;
                 
                 let teamName = TEAM_MAPPING[r.display_name] || "Independent";
+                let make = getCarMake(r.car_name);
+                let makeClass = getMakeClass(make);
 
                 if(fin === 1) winner = r.display_name;
                 if(diff > hardCharger.val) { hardCharger.name = r.display_name; hardCharger.val = diff; }
                 if(r.laps_lead > mostLed.val) { mostLed.name = r.display_name; mostLed.val = r.laps_lead; }
+                if(r.best_lap_time > 0 && r.best_lap_time < fastestLap.time) {
+                    fastestLap.time = r.best_lap_time;
+                    fastestLap.name = r.display_name;
+                    fastestLap.str = formatLapTime(r.best_lap_time);
+                }
 
                 let diffHtml = '<span class="val-neutral">-</span>';
                 if(diff > 0) diffHtml = `<span class="val-gain">▲ ${diff}</span>`;
                 if(diff < 0) diffHtml = `<span class="val-loss">▼ ${Math.abs(diff)}</span>`;
 
-                let incClass = r.incidents >= 8 ? 'inc-danger' : '';
-                let interval = r.reason_out_id !== 0 ? `<span style="color:var(--neon-red); font-size:0.8rem; text-transform:uppercase;">${r.reason_out}</span>` : r.interval;
+                let incClass = r.incidents >= 8 ? 'color: var(--neon-red); font-weight:bold;' : '';
+                
+                // Status parsing
+                let status = "Running";
+                let statusStyle = "color: var(--neon-green);";
+                if (r.reason_out_id !== 0) {
+                    status = r.reason_out;
+                    statusStyle = "color: var(--neon-red); font-size:0.85rem; text-transform:uppercase;";
+                }
 
                 html += `
                     <tr>
-                        <td style="font-family:'Chakra Petch'; font-weight:bold; font-size:1.3rem;">${fin}</td>
+                        <td style="font-family:'Chakra Petch'; font-weight:bold; font-size:1.2rem;">${fin}</td>
                         <td style="color:#888;">${start}</td>
                         <td>${diffHtml}</td>
                         <td class="align-left">
                             <span class="driver-name">${r.display_name}</span>
                             <span class="team-name-small">${teamName}</span>
                         </td>
-                        <td>${interval}</td>
+                        <td><span class="make-badge ${makeClass}">${make}</span></td>
+                        <td style="color:#aaa;">${r.qual_time ? formatLapTime(r.qual_time) : '-'}</td>
+                        <td style="color:var(--neon-purple); font-family:'Chakra Petch'; font-weight:bold;">${formatLapTime(r.best_lap_time)}</td>
                         <td>${r.laps_complete}</td>
-                        <td style="color:var(--neon-green); font-weight:bold;">${r.laps_lead}</td>
-                        <td class="${incClass}">${r.incidents}</td>
+                        <td style="color:var(--neon-blue); font-weight:bold;">${r.laps_lead}</td>
+                        <td style="${incClass}">${r.incidents}</td>
+                        <td style="${statusStyle}">${status}</td>
                         <td class="val-pts" title="Base: ${basePts} | Stage: ${stagePts}">${totalPts}</td>
                     </tr>
                 `;
@@ -568,20 +584,24 @@
             document.getElementById('latest-body').innerHTML = html;
 
             document.getElementById('latest-insights').innerHTML = `
-                <div class="insight-card" style="border-left-color: var(--neon-red);">
-                    <div class="insight-label" style="color:var(--neon-red);">Race Winner</div>
+                <div class="insight-card c-red">
+                    <div class="insight-label">Race Winner</div>
                     <div class="insight-value">${winner}</div>
-                    <div class="insight-sub">P1 Finish</div>
                 </div>
-                <div class="insight-card" style="border-left-color: var(--neon-green);">
-                    <div class="insight-label" style="color:var(--neon-green);">Hard Charger</div>
+                <div class="insight-card c-green">
+                    <div class="insight-label">Hard Charger</div>
                     <div class="insight-value">${hardCharger.name}</div>
                     <div class="insight-sub">+${hardCharger.val} Positions</div>
                 </div>
-                <div class="insight-card">
+                <div class="insight-card c-blue">
                     <div class="insight-label">Most Laps Led</div>
                     <div class="insight-value">${mostLed.name}</div>
                     <div class="insight-sub">${mostLed.val} Laps</div>
+                </div>
+                <div class="insight-card c-purple">
+                    <div class="insight-label">Fastest Lap</div>
+                    <div class="insight-value" style="font-size:1.3rem;">${fastestLap.name}</div>
+                    <div class="insight-sub" style="color:var(--neon-purple); font-weight:bold;">${fastestLap.str}</div>
                 </div>
             `;
         }
@@ -590,16 +610,15 @@
         function buildStandings(drivers) {
             let html = '';
             let mostWins = { name: '-', val: 0 };
-            let safest = { name: '-', val: 999 };
+            let cleanest = { name: '-', val: -1 };
 
             drivers.forEach((d, i) => {
                 let rank = i + 1;
                 let badge = rank === 1 ? 'pos-1' : (rank === 2 ? 'pos-2' : (rank === 3 ? 'pos-3' : ''));
                 let avg = (d.totalFinish / d.starts).toFixed(1);
-                let avgInc = (d.incs / d.starts).toFixed(1);
 
                 if(d.wins > mostWins.val) { mostWins.name = d.name; mostWins.val = d.wins; }
-                if(d.starts > 0 && avgInc < safest.val) { safest.name = d.name; safest.val = avgInc; }
+                if(d.starts > 1 && d.cleanRaces > cleanest.val) { cleanest.name = d.name; cleanest.val = d.cleanRaces; }
 
                 html += `
                     <tr>
@@ -614,6 +633,7 @@
                         <td>${d.top5}</td>
                         <td style="color:#bbb;">${d.top10}</td>
                         <td>${d.poles}</td>
+                        <td style="color:var(--neon-green); font-weight:bold;">${d.cleanRaces}</td>
                         <td>${d.lapsLed}</td>
                         <td>${avg}</td>
                     </tr>
@@ -621,125 +641,84 @@
             });
             document.getElementById('standings-body').innerHTML = html;
 
-            let leaderName = drivers.length > 0 ? drivers[0].name : '-';
-            let leaderPts = drivers.length > 0 ? drivers[0].points : '0';
-            
             document.getElementById('standings-insights').innerHTML = `
-                <div class="insight-card">
+                <div class="insight-card c-blue">
                     <div class="insight-label">Championship Leader</div>
-                    <div class="insight-value">${leaderName}</div>
-                    <div class="insight-sub" style="color:var(--neon-blue);">${leaderPts} Points</div>
+                    <div class="insight-value">${drivers[0]?.name || '-'}</div>
+                    <div class="insight-sub">${drivers[0]?.points || '0'} Points</div>
                 </div>
-                <div class="insight-card">
+                <div class="insight-card c-red">
                     <div class="insight-label">Most Wins</div>
                     <div class="insight-value">${mostWins.name}</div>
-                    <div class="insight-sub" style="color:var(--neon-green);">${mostWins.val} Wins</div>
+                    <div class="insight-sub">${mostWins.val} Wins</div>
                 </div>
-                <div class="insight-card">
-                    <div class="insight-label">Safest Driver (Avg Inc)</div>
-                    <div class="insight-value">${safest.name}</div>
-                    <div class="insight-sub" style="color:#ffd700;">${safest.val} per race</div>
+                <div class="insight-card c-green">
+                    <div class="insight-label">Cleanest Driver (0x Races)</div>
+                    <div class="insight-value">${cleanest.name}</div>
+                    <div class="insight-sub">${cleanest.val === -1 ? 0 : cleanest.val} Incident-Free Races</div>
                 </div>
             `;
         }
 
-        // --- 3. TEAM POINTS ---
-        function buildTeams() {
-            // Remove "Independent" from team standings
-            let sortedTeams = Object.values(globalTeams)
-                .filter(t => t.name !== "Independent")
-                .sort((a,b) => b.points - a.points);
-                
-            let html = '';
+        // --- 3. TEAM & MFR POINTS ---
+        function buildTeamsAndMfrs() {
+            let sortedTeams = Object.values(globalTeams).filter(t => t.name !== "Independent").sort((a,b) => b.points - a.points);
+            let thtml = '';
             sortedTeams.forEach((t, i) => {
-                let rank = i + 1;
-                let badge = rank === 1 ? 'pos-1' : (rank === 2 ? 'pos-2' : (rank === 3 ? 'pos-3' : ''));
-                html += `
-                    <tr>
-                        <td><div class="pos-badge ${badge}">${rank}</div></td>
-                        <td class="align-left driver-name">${t.name}</td>
-                        <td>${t.drivers.size}</td>
-                        <td>${t.wins}</td>
-                        <td>${t.top5}</td>
-                        <td class="val-pts">${t.points}</td>
-                    </tr>
-                `;
+                thtml += `<tr>
+                    <td><div class="pos-badge ${i===0?'pos-1':(i===1?'pos-2':(i===2?'pos-3':''))}">${i+1}</div></td>
+                    <td class="align-left driver-name">${t.name}</td>
+                    <td>${t.drivers.size}</td>
+                    <td>${t.wins}</td>
+                    <td class="val-pts">${t.points}</td>
+                </tr>`;
             });
-            document.getElementById('teams-body').innerHTML = html;
+            document.getElementById('teams-body').innerHTML = thtml;
+
+            let sortedMfrs = Object.values(globalMfrs).filter(m => m.entries > 0).sort((a,b) => b.wins - a.wins || b.laps - a.laps);
+            let mhtml = '';
+            sortedMfrs.forEach((m, i) => {
+                let name = Object.keys(globalMfrs).find(key => globalMfrs[key] === m);
+                mhtml += `<tr>
+                    <td><div class="pos-badge">${i+1}</div></td>
+                    <td class="align-left"><span class="make-badge ${getMakeClass(name)}" style="font-size:0.9rem;">${name}</span></td>
+                    <td>${m.entries}</td>
+                    <td style="color:var(--neon-green); font-weight:bold;">${m.wins}</td>
+                    <td>${m.laps}</td>
+                </tr>`;
+            });
+            document.getElementById('mfr-body').innerHTML = mhtml;
         }
 
-        // --- 4. ROSTERS (INDIVIDUAL STATS) ---
+        // --- 4. ROSTERS ---
         function buildRosters(drivers) {
             let html = '';
             drivers.forEach(d => {
+                // Find most driven make
+                let primaryMake = Object.keys(d.makes).reduce((a, b) => d.makes[a] > d.makes[b] ? a : b, "Unknown");
+                
                 html += `
                     <div class="roster-card">
                         <div class="rc-header">
                             <div>
                                 <h3 class="rc-name">${d.name}</h3>
                                 <div class="rc-team">${d.team}</div>
+                                <div style="margin-top:5px;"><span class="make-badge ${getMakeClass(primaryMake)}">${primaryMake}</span></div>
                             </div>
-                            <div class="pos-badge" style="background:var(--neon-blue); color:#000;">${d.points}</div>
+                            <div class="pos-badge" style="background:var(--neon-blue); color:#000; width:auto; padding:0 10px;">${d.points} PTS</div>
                         </div>
                         <div class="rc-stat-row"><span class="rc-stat-label">Starts:</span> <span class="rc-stat-val">${d.starts}</span></div>
                         <div class="rc-stat-row"><span class="rc-stat-label">Wins:</span> <span class="rc-stat-val">${d.wins}</span></div>
                         <div class="rc-stat-row"><span class="rc-stat-label">Top 5s:</span> <span class="rc-stat-val">${d.top5}</span></div>
-                        <div class="rc-stat-row"><span class="rc-stat-label">Top 10s:</span> <span class="rc-stat-val">${d.top10}</span></div>
-                        <div class="rc-stat-row"><span class="rc-stat-label">Laps Led:</span> <span class="rc-stat-val">${d.lapsLed}</span></div>
+                        <div class="rc-stat-row"><span class="rc-stat-label">Poles:</span> <span class="rc-stat-val">${d.poles}</span></div>
+                        <div class="rc-stat-row"><span class="rc-stat-label">Laps Led:</span> <span class="rc-stat-val" style="color:var(--neon-blue);">${d.lapsLed}</span></div>
+                        <div class="rc-stat-row"><span class="rc-stat-label">Avg Fin:</span> <span class="rc-stat-val">${(d.totalFinish / d.starts).toFixed(1)}</span></div>
+                        <div class="rc-stat-row"><span class="rc-stat-label">Clean Races:</span> <span class="rc-stat-val" style="color:var(--neon-green);">${d.cleanRaces}</span></div>
                     </div>
                 `;
             });
             document.getElementById('rosters-grid').innerHTML = html;
         }
-
-        // --- 5. TEAM LINEUPS ---
-        function buildLineups() {
-            let html = '';
-            Object.values(globalTeams).filter(t => t.name !== "Independent").forEach(t => {
-                let driverList = Array.from(t.drivers).map(d => `<div style="padding:8px 0; border-bottom:1px solid #222; color:#ccc;">${d}</div>`).join('');
-                html += `
-                    <div class="roster-card" style="border-top-color:var(--neon-blue);">
-                        <h3 class="rc-name" style="margin-bottom:15px; color:var(--neon-blue);">${t.name}</h3>
-                        <div style="font-family:'Chakra Petch';">
-                            ${driverList}
-                        </div>
-                    </div>
-                `;
-            });
-            document.getElementById('lineups-grid').innerHTML = html;
-        }
-    </script>
-    <script>
-        // 1. Disable Right Click
-        document.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-        });
-
-        // 2. Disable Keyboard Shortcuts (Ctrl+U, F12, Ctrl+Shift+I, etc.)
-        document.addEventListener('keydown', (e) => {
-            // Check for Ctrl (or Command on Mac)
-            if (e.ctrlKey || e.metaKey) {
-                switch (e.key.toLowerCase()) {
-                    case 'u': // View Source
-                    case 's': // Save Page
-                    case 'a': // Select All
-                    case 'c': // Copy
-                        e.preventDefault();
-                        return false;
-                }
-                // Check for Ctrl+Shift+I or J (Developer Tools)
-                if (e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j')) {
-                    e.preventDefault();
-                    return false;
-                }
-            }
-            
-            // Check for F12 (Developer Tools)
-            if (e.key === 'F12') {
-                e.preventDefault();
-                return false;
-            }
-        });
     </script>
 </body>
 </html>
