@@ -391,8 +391,31 @@
         let globalRaces = []; 
         let globalDrivers = {}; 
         let globalTeams = {}; 
+        let globalMfrs = {};
 
         document.addEventListener('DOMContentLoaded', loadData);
+
+        // Helper function to format iRacing lap times (stored in 10,000ths of a second)
+        function formatTime(t) {
+            if (!t || t <= 0) return "-";
+            let seconds = t / 10000;
+            let mins = Math.floor(seconds / 60);
+            let secs = (seconds % 60).toFixed(3);
+            if (mins > 0) {
+                return `${mins}:${secs.padStart(6, '0')}`;
+            }
+            return secs;
+        }
+
+        // Helper function to identify Manufacturer
+        function getCarMake(carName) {
+            if (!carName) return { name: "Unknown", class: "" };
+            let nameLower = carName.toLowerCase();
+            if (nameLower.includes("chevrolet") || nameLower.includes("camaro")) return { name: "Chevy", class: "make-chevrolet" };
+            if (nameLower.includes("ford") || nameLower.includes("mustang")) return { name: "Ford", class: "make-ford" };
+            if (nameLower.includes("toyota") || nameLower.includes("camry")) return { name: "Toyota", class: "make-toyota" };
+            return { name: "Unknown", class: "" };
+        }
 
         async function loadData() {
             try {
@@ -418,6 +441,7 @@
         function processTelemetry(events) {
             globalDrivers = {};
             globalTeams = {};
+            globalMfrs = {};
             globalRaces = [];
 
             events.forEach((event) => {
@@ -436,12 +460,10 @@
                     return a.finish_position - b.finish_position;
                 });
 
-                // Assign the "true" finish position based on laps run
                 raceSession.results.forEach((r, index) => {
                     r.true_finish_position = index + 1;
                 });
 
-                // --- 1. PRE-CALCULATE RACE AWARDS ---
                 let maxLapsLed = 0;
                 let maxPosGained = 0;
                 
@@ -463,18 +485,19 @@
                     let incs = r.incidents;
                     let lapsLed = r.laps_lead;
                     let gained = start - fin;
+                    let makeObj = getCarMake(r.car_name);
 
-                    // --- 2. ASCRL POINTS LOGIC ---
+                    // --- ASCRL POINTS LOGIC ---
                     let basePts = Math.max(1, 41 - fin); 
                     let bonusPts = 0;
                     let playoffPts = 0;
                     
-                    if (fin === 1) playoffPts += 5; // Win (Playoffs Only)
-                    if (incs < 4) bonusPts += 3; // Clean Race
-                    if (lapsLed === maxLapsLed && lapsLed > 0) bonusPts += 3; // Most Laps Led
-                    if (start === 1) bonusPts += 2; // Pole Position
-                    if (lapsLed > 0) bonusPts += 1; // Led a Lap
-                    if (gained === maxPosGained && maxPosGained > 0) bonusPts += 1; // Hard Charger
+                    if (fin === 1) playoffPts += 5; 
+                    if (incs < 4) bonusPts += 3; 
+                    if (lapsLed === maxLapsLed && lapsLed > 0) bonusPts += 3; 
+                    if (start === 1) bonusPts += 2; 
+                    if (lapsLed > 0) bonusPts += 1; 
+                    if (gained === maxPosGained && maxPosGained > 0) bonusPts += 1; 
 
                     let stagePts = 0;
                     if(MANUAL_STAGE_POINTS[trackName] && MANUAL_STAGE_POINTS[trackName][name]) {
@@ -484,7 +507,7 @@
                     let totalPts = basePts + bonusPts + stagePts;
                     let teamName = TEAM_MAPPING[name] || "Independent";
 
-                    // --- 3. INIT DRIVER STATS ---
+                    // --- INIT DRIVER STATS ---
                     if(!globalDrivers[name]) {
                         globalDrivers[name] = { 
                             name: name, team: teamName, starts: 0, wins: 0, top5: 0, top10: 0, poles: 0, 
@@ -505,7 +528,7 @@
                     if(fin <= 10) globalDrivers[name].top10 += 1;
                     if(start === 1) globalDrivers[name].poles += 1;
 
-                    // --- 4. TEAM POINTS ---
+                    // --- TEAM POINTS ---
                     if(teamName !== "Independent") {
                         if(!raceTeamScores[teamName]) {
                             raceTeamScores[teamName] = [];
@@ -519,14 +542,25 @@
                         if(fin === 1) globalTeams[teamName].wins += 1;
                         if(fin <= 5) globalTeams[teamName].top5 += 1;
                     }
+
+                    // --- MFR POINTS ---
+                    if(makeObj.name !== "Unknown") {
+                        if(!globalMfrs[makeObj.name]) {
+                            globalMfrs[makeObj.name] = { name: makeObj.name, class: makeObj.class, entries: 0, wins: 0, lapsLed: 0 };
+                        }
+                        globalMfrs[makeObj.name].entries += 1;
+                        globalMfrs[makeObj.name].lapsLed += lapsLed;
+                        if (fin === 1) globalMfrs[makeObj.name].wins += 1;
+                    }
                     
                     r.ascrl_total_pts = totalPts;
                     r.ascrl_bonus_pts = bonusPts;
                     r.ascrl_base_pts = basePts;
                     r.ascrl_stage_pts = stagePts;
+                    r.ascrl_make = makeObj;
                 });
 
-                // --- 5. CALCULATE 10-TO-1 TEAM CHAMPIONSHIP ---
+                // CALCULATE 10-TO-1 TEAM CHAMPIONSHIP
                 let sortedRaceTeams = [];
                 for (const [team, scores] of Object.entries(raceTeamScores)) {
                     scores.sort((a, b) => b - a);
@@ -568,6 +602,7 @@
             
             buildStandings(sortedDrivers);
             buildTeams();
+            buildMfrs();
             buildRosters(sortedDrivers);
             buildLineups();
             renderSelectedRace(); 
@@ -583,7 +618,6 @@
             let mostLed = { name: '-', val: 0 };
             let winner = '-';
 
-            // Automatically output sorted by true finish position
             race.results.forEach(r => {
                 let fin = r.true_finish_position;
                 let start = r.starting_position + 1;
@@ -599,7 +633,11 @@
                 if(diff < 0) diffHtml = `<span class="val-loss">▼ ${Math.abs(diff)}</span>`;
 
                 let incClass = r.incidents >= 8 ? 'inc-danger' : '';
-                let interval = r.reason_out_id !== 0 ? `<span style="color:var(--neon-red); font-size:0.8rem; text-transform:uppercase;">${r.reason_out}</span>` : r.interval;
+                
+                // Formatted Data
+                let qualTime = formatTime(r.best_qual_lap_time);
+                let fastLap = formatTime(r.best_lap_time);
+                let statusObj = r.reason_out_id !== 0 ? `<span style="color:var(--neon-red); font-size:0.8rem; text-transform:uppercase;">${r.reason_out}</span>` : `<span style="color:#555;">Running</span>`;
 
                 html += `
                     <tr>
@@ -610,10 +648,13 @@
                             <span class="driver-name">${r.display_name}</span>
                             <span class="team-name-small">${teamName}</span>
                         </td>
-                        <td>${interval}</td>
+                        <td><span class="make-badge ${r.ascrl_make.class}">${r.ascrl_make.name}</span></td>
+                        <td style="color:#aaa;">${qualTime}</td>
+                        <td style="color:var(--neon-blue);">${fastLap}</td>
                         <td>${r.laps_complete}</td>
                         <td style="color:var(--neon-green); font-weight:bold;">${r.laps_lead}</td>
                         <td class="${incClass}">${r.incidents}</td>
+                        <td>${statusObj}</td>
                         <td class="val-pts" title="Base: ${r.ascrl_base_pts} | Stage: ${r.ascrl_stage_pts} | Bonus: ${r.ascrl_bonus_pts}">${r.ascrl_total_pts}</td>
                     </tr>
                 `;
@@ -716,6 +757,29 @@
                 `;
             });
             document.getElementById('teams-body').innerHTML = html;
+        }
+
+        function buildMfrs() {
+            let sortedMfrs = Object.values(globalMfrs).sort((a,b) => {
+                if (b.wins !== a.wins) return b.wins - a.wins;
+                return b.lapsLed - a.lapsLed;
+            });
+            
+            let html = '';
+            sortedMfrs.forEach((m, i) => {
+                let rank = i + 1;
+                let badge = rank === 1 ? 'pos-1' : (rank === 2 ? 'pos-2' : (rank === 3 ? 'pos-3' : ''));
+                html += `
+                    <tr>
+                        <td><div class="pos-badge ${badge}">${rank}</div></td>
+                        <td class="align-left"><span class="make-badge ${m.class}">${m.name}</span></td>
+                        <td>${m.entries}</td>
+                        <td style="color:var(--neon-green); font-weight:bold;">${m.wins}</td>
+                        <td>${m.lapsLed}</td>
+                    </tr>
+                `;
+            });
+            document.getElementById('mfr-body').innerHTML = html;
         }
 
         function buildRosters(drivers) {
