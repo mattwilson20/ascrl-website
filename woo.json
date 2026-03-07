@@ -1,6 +1,6 @@
 {
     "196864998251692032": {
-        "display_name": "mattwilson20",
+        "display_name": "Matthew Wilson #01",
         "cars": [
             {
                 "type": "305 Sprint Car",
@@ -57,9 +57,59 @@
                 "points": 133,
                 "wins": 0,
                 "avg": 10.4
+            },
+            {
+                "type": "Micro Sprint Car",
+                "starts": 3,
+                "points": 89,
+                "wins": 0,
+                "avg": 7.33
+            },
+            {
+                "type": "UMP Modified",
+                "starts": 3,
+                "points": 83,
+                "wins": 0,
+                "avg": 9.33
             }
         ],
         "race_log": [
+            {
+                "track": "Chili Bowl",
+                "car": "Micro Sprint Car",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "I-84 Raceway",
+                "car": "Micro Sprint Car",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Las Vegas",
+                "car": "Micro Sprint Car",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Circle Lake",
+                "car": "UMP Modified",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Arrowwood",
+                "car": "UMP Modified",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Texas",
+                "car": "UMP Modified",
+                "pos": 9,
+                "pts": 28
+            },
             {
                 "track": "Grant Park",
                 "car": "360 Sprint",
@@ -372,12 +422,12 @@
                 "number": "1",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1449,
+                    "points": 1621,
                     "wins": 0,
-                    "top5": 15,
-                    "top10": 33,
-                    "starts": 51,
-                    "avg": 8.59
+                    "top5": 16,
+                    "top10": 39,
+                    "starts": 57,
+                    "avg": 8.56
                 }
             }
         }
@@ -421,6 +471,13 @@
                 "avg": 11.0
             },
             {
+                "type": "UMP Modified",
+                "starts": 3,
+                "points": 90,
+                "wins": 0,
+                "avg": 7.0
+            },
+            {
                 "type": "Big Block Modified",
                 "starts": 3,
                 "points": 81,
@@ -433,9 +490,40 @@
                 "points": 58,
                 "wins": 0,
                 "avg": 8.0
+            },
+            {
+                "type": "Micro Sprint Car",
+                "starts": 1,
+                "points": 35,
+                "wins": 0,
+                "avg": 2.0
             }
         ],
         "race_log": [
+            {
+                "track": "Las Vegas",
+                "car": "Micro Sprint Car",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Circle Lake",
+                "car": "UMP Modified",
+                "pos": 12,
+                "pts": 25
+            },
+            {
+                "track": "Arrowwood",
+                "car": "UMP Modified",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Texas",
+                "car": "UMP Modified",
+                "pos": 5,
+                "pts": 32
+            },
             {
                 "track": "Sawtooth",
                 "car": "410 Non wing",
@@ -688,12 +776,12 @@
                 "number": "218",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1127,
+                    "points": 1252,
                     "wins": 0,
-                    "top5": 7,
-                    "top10": 23,
-                    "starts": 41,
-                    "avg": 9.51
+                    "top5": 10,
+                    "top10": 26,
+                    "starts": 45,
+                    "avg": 9.18
                 }
             }
         }
@@ -756,9 +844,59 @@
                 "points": 150,
                 "wins": 0,
                 "avg": 7.0
+            },
+            {
+                "type": "Micro Sprint Car",
+                "starts": 3,
+                "points": 98,
+                "wins": 0,
+                "avg": 4.33
+            },
+            {
+                "type": "UMP Modified",
+                "starts": 3,
+                "points": 81,
+                "wins": 0,
+                "avg": 10.0
             }
         ],
         "race_log": [
+            {
+                "track": "Chili Bowl",
+                "car": "Micro Sprint Car",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "I-84 Raceway",
+                "car": "Micro Sprint Car",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Las Vegas",
+                "car": "Micro Sprint Car",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Circle Lake",
+                "car": "UMP Modified",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Arrowwood",
+                "car": "UMP Modified",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Texas",
+                "car": "UMP Modified",
+                "pos": 11,
+                "pts": 26
+            },
             {
                 "track": "Grant Park",
                 "car": "360 Sprint",
@@ -1089,12 +1227,12 @@
                 "number": "000",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1510,
+                    "points": 1689,
                     "wins": 0,
-                    "top5": 9,
-                    "top10": 36,
-                    "starts": 54,
-                    "avg": 9.04
+                    "top5": 11,
+                    "top10": 40,
+                    "starts": 60,
+                    "avg": 8.85
                 }
             }
         }
@@ -2092,14 +2230,64 @@
                 "avg": 1.0
             },
             {
+                "type": "UMP Modified",
+                "starts": 3,
+                "points": 120,
+                "wins": 3,
+                "avg": 1.0
+            },
+            {
                 "type": "410 Wing Sprint",
                 "starts": 3,
                 "points": 120,
                 "wins": 3,
                 "avg": 1.0
+            },
+            {
+                "type": "Micro Sprint Car",
+                "starts": 3,
+                "points": 92,
+                "wins": 1,
+                "avg": 7.67
             }
         ],
         "race_log": [
+            {
+                "track": "Chili Bowl",
+                "car": "Micro Sprint Car",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "I-84 Raceway",
+                "car": "Micro Sprint Car",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Las Vegas",
+                "car": "Micro Sprint Car",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Circle Lake",
+                "car": "UMP Modified",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Arrowwood",
+                "car": "UMP Modified",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Texas",
+                "car": "UMP Modified",
+                "pos": 1,
+                "pts": 40
+            },
             {
                 "track": "Grant Park",
                 "car": "360 Sprint",
@@ -2376,12 +2564,12 @@
                 "number": "07",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1713,
-                    "wins": 37,
-                    "top5": 41,
-                    "top10": 42,
-                    "starts": 45,
-                    "avg": 2.22
+                    "points": 1925,
+                    "wins": 41,
+                    "top5": 45,
+                    "top10": 46,
+                    "starts": 51,
+                    "avg": 2.47
                 }
             }
         }
@@ -2571,6 +2759,13 @@
                 "avg": 9.67
             },
             {
+                "type": "UMP Modified",
+                "starts": 3,
+                "points": 81,
+                "wins": 0,
+                "avg": 10.0
+            },
+            {
                 "type": "WOO Late Model",
                 "starts": 3,
                 "points": 77,
@@ -2579,6 +2774,24 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Circle Lake",
+                "car": "UMP Modified",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Arrowwood",
+                "car": "UMP Modified",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Texas",
+                "car": "UMP Modified",
+                "pos": 12,
+                "pts": 25
+            },
             {
                 "track": "Williams Grove",
                 "car": "Midget",
@@ -2783,12 +2996,12 @@
                 "number": "69",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 878,
+                    "points": 959,
                     "wins": 0,
                     "top5": 3,
-                    "top10": 16,
-                    "starts": 33,
-                    "avg": 10.39
+                    "top10": 18,
+                    "starts": 36,
+                    "avg": 10.36
                 }
             }
         }
@@ -3132,14 +3345,58 @@
                 "avg": 2.75
             },
             {
+                "type": "Micro Sprint Car",
+                "starts": 3,
+                "points": 105,
+                "wins": 1,
+                "avg": 3.33
+            },
+            {
                 "type": "Big Block Modified",
                 "starts": 3,
                 "points": 96,
                 "wins": 0,
                 "avg": 5.0
+            },
+            {
+                "type": "UMP Modified",
+                "starts": 2,
+                "points": 61,
+                "wins": 0,
+                "avg": 6.5
             }
         ],
         "race_log": [
+            {
+                "track": "Chili Bowl",
+                "car": "Micro Sprint Car",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "I-84 Raceway",
+                "car": "Micro Sprint Car",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Las Vegas",
+                "car": "Micro Sprint Car",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Circle Lake",
+                "car": "UMP Modified",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Texas",
+                "car": "UMP Modified",
+                "pos": 6,
+                "pts": 31
+            },
             {
                 "track": "Grant Park",
                 "car": "360 Sprint",
@@ -3434,12 +3691,12 @@
                 "number": "13",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1543,
-                    "wins": 2,
-                    "top5": 31,
-                    "top10": 44,
-                    "starts": 48,
-                    "avg": 5.02
+                    "points": 1709,
+                    "wins": 3,
+                    "top5": 34,
+                    "top10": 49,
+                    "starts": 53,
+                    "avg": 4.98
                 }
             }
         }
@@ -3561,11 +3818,25 @@
                 "avg": 11.17
             },
             {
+                "type": "Micro Sprint Car",
+                "starts": 3,
+                "points": 104,
+                "wins": 1,
+                "avg": 3.67
+            },
+            {
                 "type": "360 Sprint",
                 "starts": 3,
                 "points": 103,
                 "wins": 0,
                 "avg": 2.67
+            },
+            {
+                "type": "UMP Modified",
+                "starts": 3,
+                "points": 97,
+                "wins": 0,
+                "avg": 4.67
             },
             {
                 "type": "Big Block Modified",
@@ -3576,6 +3847,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Chili Bowl",
+                "car": "Micro Sprint Car",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "I-84 Raceway",
+                "car": "Micro Sprint Car",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Las Vegas",
+                "car": "Micro Sprint Car",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Circle Lake",
+                "car": "UMP Modified",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Arrowwood",
+                "car": "UMP Modified",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Texas",
+                "car": "UMP Modified",
+                "pos": 7,
+                "pts": 30
+            },
             {
                 "track": "Grant Park",
                 "car": "360 Sprint",
@@ -3864,18 +4171,18 @@
                 "number": "33",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1438,
-                    "wins": 1,
-                    "top5": 24,
-                    "top10": 36,
-                    "starts": 47,
-                    "avg": 6.49
+                    "points": 1639,
+                    "wins": 2,
+                    "top5": 28,
+                    "top10": 42,
+                    "starts": 53,
+                    "avg": 6.23
                 }
             }
         }
     },
     "725157771187716136": {
-        "display_name": "C0mpl1c8ed",
+        "display_name": "Daniel \u201cC0mpl1c8ed\u201d Brannon #83",
         "cars": [
             {
                 "type": "305 Sprint Car",
@@ -4101,7 +4408,7 @@
         }
     },
     "690068671980371992": {
-        "display_name": "Dewshine_02",
+        "display_name": "Tyler \u201cDewshine\u201d Green #24",
         "cars": [
             {
                 "type": "305 Sprint Car",
@@ -4382,6 +4689,13 @@
         "display_name": "lnfvmous_-",
         "cars": [
             {
+                "type": "Micro Sprint Car",
+                "starts": 3,
+                "points": 90,
+                "wins": 0,
+                "avg": 7.0
+            },
+            {
                 "type": "410 Wing Sprint",
                 "starts": 3,
                 "points": 78,
@@ -4404,6 +4718,24 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Chili Bowl",
+                "car": "Micro Sprint Car",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "I-84 Raceway",
+                "car": "Micro Sprint Car",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Las Vegas",
+                "car": "Micro Sprint Car",
+                "pos": 12,
+                "pts": 25
+            },
             {
                 "track": "Grant Park",
                 "car": "410 Wing Sprint",
@@ -4464,12 +4796,12 @@
                 "number": "777",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 217,
+                    "points": 307,
                     "wins": 0,
-                    "top5": 1,
-                    "top10": 2,
-                    "starts": 9,
-                    "avg": 12.89
+                    "top5": 2,
+                    "top10": 4,
+                    "starts": 12,
+                    "avg": 11.42
                 }
             }
         }
@@ -4632,7 +4964,7 @@
         }
     },
     "463124702190239744": {
-        "display_name": "georgewright9182",
+        "display_name": "Unknown Driver",
         "cars": [],
         "race_log": [],
         "series": {
@@ -4689,6 +5021,20 @@
                 "avg": 4.33
             },
             {
+                "type": "UMP Modified",
+                "starts": 3,
+                "points": 93,
+                "wins": 0,
+                "avg": 6.0
+            },
+            {
+                "type": "Micro Sprint Car",
+                "starts": 3,
+                "points": 89,
+                "wins": 0,
+                "avg": 7.33
+            },
+            {
                 "type": "410 Wing Sprint",
                 "starts": 3,
                 "points": 86,
@@ -4704,6 +5050,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Chili Bowl",
+                "car": "Micro Sprint Car",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "I-84 Raceway",
+                "car": "Micro Sprint Car",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Las Vegas",
+                "car": "Micro Sprint Car",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Circle Lake",
+                "car": "UMP Modified",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Arrowwood",
+                "car": "UMP Modified",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Texas",
+                "car": "UMP Modified",
+                "pos": 8,
+                "pts": 29
+            },
             {
                 "track": "I-19 Speedway",
                 "car": "410 Non wing",
@@ -4902,12 +5284,12 @@
                 "number": "05",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 956,
+                    "points": 1138,
                     "wins": 0,
-                    "top5": 9,
-                    "top10": 28,
-                    "starts": 32,
-                    "avg": 7.13
+                    "top5": 12,
+                    "top10": 33,
+                    "starts": 38,
+                    "avg": 7.05
                 }
             }
         }
@@ -4935,6 +5317,20 @@
                 "points": 136,
                 "wins": 0,
                 "avg": 9.8
+            },
+            {
+                "type": "UMP Modified",
+                "starts": 3,
+                "points": 100,
+                "wins": 0,
+                "avg": 3.67
+            },
+            {
+                "type": "Micro Sprint Car",
+                "starts": 3,
+                "points": 90,
+                "wins": 0,
+                "avg": 7.0
             },
             {
                 "type": "410 Wing Sprint",
@@ -4966,6 +5362,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Chili Bowl",
+                "car": "Micro Sprint Car",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "I-84 Raceway",
+                "car": "Micro Sprint Car",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Las Vegas",
+                "car": "Micro Sprint Car",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Circle Lake",
+                "car": "UMP Modified",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Arrowwood",
+                "car": "UMP Modified",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Texas",
+                "car": "UMP Modified",
+                "pos": 3,
+                "pts": 34
+            },
             {
                 "track": "Sawtooth",
                 "car": "410 Non wing",
@@ -5140,12 +5572,12 @@
                 "number": "32",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 780,
+                    "points": 970,
                     "wins": 0,
-                    "top5": 3,
-                    "top10": 20,
-                    "starts": 28,
-                    "avg": 9.14
+                    "top5": 5,
+                    "top10": 26,
+                    "starts": 34,
+                    "avg": 8.47
                 }
             }
         }
@@ -5281,6 +5713,13 @@
         "display_name": "Dalton Gibson #17",
         "cars": [
             {
+                "type": "UMP Modified",
+                "starts": 3,
+                "points": 101,
+                "wins": 0,
+                "avg": 3.33
+            },
+            {
                 "type": "Midget",
                 "starts": 3,
                 "points": 101,
@@ -5289,6 +5728,13 @@
             },
             {
                 "type": "WOO Late Model",
+                "starts": 3,
+                "points": 93,
+                "wins": 0,
+                "avg": 6.0
+            },
+            {
+                "type": "Micro Sprint Car",
                 "starts": 3,
                 "points": 93,
                 "wins": 0,
@@ -5310,6 +5756,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Chili Bowl",
+                "car": "Micro Sprint Car",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "I-84 Raceway",
+                "car": "Micro Sprint Car",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Las Vegas",
+                "car": "Micro Sprint Car",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Circle Lake",
+                "car": "UMP Modified",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Arrowwood",
+                "car": "UMP Modified",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Texas",
+                "car": "UMP Modified",
+                "pos": 2,
+                "pts": 35
+            },
             {
                 "track": "Sawtooth",
                 "car": "410 Non wing",
@@ -5382,12 +5864,12 @@
                 "number": "17",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 343,
+                    "points": 537,
                     "wins": 0,
-                    "top5": 6,
-                    "top10": 10,
-                    "starts": 11,
-                    "avg": 5.82
+                    "top5": 10,
+                    "top10": 16,
+                    "starts": 17,
+                    "avg": 5.41
                 }
             }
         }
@@ -5439,7 +5921,7 @@
         }
     },
     "1110268909745090560": {
-        "display_name": "DaltonGregson",
+        "display_name": "Dalton Gregson #28",
         "cars": [],
         "race_log": [],
         "series": {
@@ -5655,19 +6137,142 @@
     },
     "1052098179547537499": {
         "display_name": "Doobie650ballz",
-        "cars": [],
-        "race_log": [],
+        "cars": [
+            {
+                "type": "Micro Sprint Car",
+                "starts": 3,
+                "points": 83,
+                "wins": 0,
+                "avg": 9.33
+            },
+            {
+                "type": "UMP Modified",
+                "starts": 3,
+                "points": 81,
+                "wins": 0,
+                "avg": 10.0
+            }
+        ],
+        "race_log": [
+            {
+                "track": "Chili Bowl",
+                "car": "Micro Sprint Car",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "I-84 Raceway",
+                "car": "Micro Sprint Car",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Las Vegas",
+                "car": "Micro Sprint Car",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Circle Lake",
+                "car": "UMP Modified",
+                "pos": 11,
+                "pts": 26
+            },
+            {
+                "track": "Arrowwood",
+                "car": "UMP Modified",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Texas",
+                "car": "UMP Modified",
+                "pos": 10,
+                "pts": 27
+            }
+        ],
         "series": {
             "World Of Outlaws": {
                 "number": "650",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 0,
+                    "points": 164,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 0,
-                    "starts": 0,
-                    "avg": 0
+                    "top10": 5,
+                    "starts": 6,
+                    "avg": 9.67
+                }
+            }
+        }
+    },
+    "682758052948213859": {
+        "display_name": "nitro4242",
+        "cars": [
+            {
+                "type": "UMP Modified",
+                "starts": 3,
+                "points": 97,
+                "wins": 0,
+                "avg": 4.67
+            },
+            {
+                "type": "Micro Sprint Car",
+                "starts": 3,
+                "points": 92,
+                "wins": 0,
+                "avg": 6.33
+            }
+        ],
+        "race_log": [
+            {
+                "track": "Chili Bowl",
+                "car": "Micro Sprint Car",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "I-84 Raceway",
+                "car": "Micro Sprint Car",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Las Vegas",
+                "car": "Micro Sprint Car",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Circle Lake",
+                "car": "UMP Modified",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Arrowwood",
+                "car": "UMP Modified",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Texas",
+                "car": "UMP Modified",
+                "pos": 4,
+                "pts": 33
+            }
+        ],
+        "series": {
+            "World Of Outlaws": {
+                "number": "24",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 189,
+                    "wins": 0,
+                    "top5": 3,
+                    "top10": 6,
+                    "starts": 6,
+                    "avg": 5.5
                 }
             }
         }
