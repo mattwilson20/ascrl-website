@@ -2155,23 +2155,23 @@
                 "team": "APEX RACING",
                 "manufacturer": "Chevy",
                 "current_stats": {
-                    "points": 41,
+                    "points": 70,
                     "wins": 0,
                     "top5": 1,
-                    "top10": 1,
+                    "top10": 2,
                     "poles": 0,
-                    "starts": 3,
-                    "avg": 24.0,
+                    "starts": 4,
+                    "avg": 20.0,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 319,
+                    "points": 348,
                     "wins": 0,
                     "top5": 4,
-                    "top10": 6,
+                    "top10": 7,
                     "poles": 2,
-                    "starts": 13,
-                    "avg": 12.77
+                    "starts": 14,
+                    "avg": 12.43
                 },
                 "history": [
                     {
@@ -5252,50 +5252,6 @@
             }
         }
     },
-    "1187254765667762281": {
-        "display_name": "Driver 1187254765667762281",
-        "badges": [],
-        "series": {
-            "Cup": {
-                "number": "50",
-                "team": "Independent",
-                "manufacturer": "Toyota",
-                "current_stats": {
-                    "points": 0,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "starts": 0,
-                    "avg": 0,
-                    "penalty_total": 0
-                },
-                "career_stats": {
-                    "points": 162,
-                    "wins": 2,
-                    "top5": 4,
-                    "top10": 4,
-                    "poles": 1,
-                    "starts": 5,
-                    "avg": 6.8
-                },
-                "history": [
-                    {
-                        "season": "2025-26",
-                        "stats": {
-                            "points": 162,
-                            "wins": 2,
-                            "top5": 4,
-                            "top10": 4,
-                            "poles": 1,
-                            "starts": 5,
-                            "avg": 6.8
-                        }
-                    }
-                ]
-            }
-        }
-    },
     "503732466360778782": {
         "display_name": "bschiltzjr",
         "badges": [],
@@ -6218,31 +6174,6 @@
                     "avg": 0
                 },
                 "history": []
-            },
-            "Cup": {
-                "number": "32",
-                "team": "Independent",
-                "manufacturer": "N/A",
-                "current_stats": {
-                    "points": 32,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "starts": 2,
-                    "avg": 21.0,
-                    "penalty_total": 0
-                },
-                "career_stats": {
-                    "points": 32,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "starts": 2,
-                    "avg": 21.0
-                },
-                "history": []
             }
         }
     },
@@ -6331,31 +6262,6 @@
                         }
                     }
                 ]
-            },
-            "Cup": {
-                "number": "22",
-                "team": "Independent",
-                "manufacturer": "N/A",
-                "current_stats": {
-                    "points": 42,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "starts": 2,
-                    "avg": 16.0,
-                    "penalty_total": 0
-                },
-                "career_stats": {
-                    "points": 42,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "starts": 2,
-                    "avg": 16.0
-                },
-                "history": []
             }
         }
     },
@@ -6460,37 +6366,6 @@
                     "poles": 0,
                     "starts": 3,
                     "avg": 10.67
-                },
-                "history": []
-            }
-        }
-    },
-    "463019050809950208": {
-        "display_name": "Driver 463019050809950208",
-        "badges": [],
-        "series": {
-            "Cup": {
-                "number": "51",
-                "team": "Independent",
-                "manufacturer": "N/A",
-                "current_stats": {
-                    "points": 3,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "starts": 1,
-                    "avg": 34.0,
-                    "penalty_total": 0
-                },
-                "career_stats": {
-                    "points": 3,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "starts": 1,
-                    "avg": 34.0
                 },
                 "history": []
             }
@@ -7311,6 +7186,31 @@
                     "avg": 5.0
                 },
                 "history": []
+            },
+            "Cup": {
+                "number": "92",
+                "team": "Independent",
+                "manufacturer": "N/A",
+                "current_stats": {
+                    "points": 32,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 1,
+                    "poles": 0,
+                    "starts": 1,
+                    "avg": 5.0,
+                    "penalty_total": 0
+                },
+                "career_stats": {
+                    "points": 32,
+                    "wins": 0,
+                    "top5": 1,
+                    "top10": 1,
+                    "poles": 0,
+                    "starts": 1,
+                    "avg": 5.0
+                },
+                "history": []
             }
         }
     },
@@ -7365,6 +7265,31 @@
                     "poles": 0,
                     "starts": 1,
                     "avg": 3.0
+                },
+                "history": []
+            },
+            "Cup": {
+                "number": "27",
+                "team": "Independent",
+                "manufacturer": "N/A",
+                "current_stats": {
+                    "points": 20,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 1,
+                    "avg": 17.0,
+                    "penalty_total": 0
+                },
+                "career_stats": {
+                    "points": 20,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 1,
+                    "avg": 17.0
                 },
                 "history": []
             }
