@@ -1,67 +1,115 @@
 {
     "Cup": [
         {
-            "rank": 1,
-            "team": "TOO BROKE RACING",
-            "points": 1138,
+            "team": "HIGH LINE RACING",
+            "points": 361,
             "drivers_count": 4,
-            "roster": "#1 mattwilson20 | #13 TheReaperRhino | #71 HockeyDeckout | #8 ALESSI-20-11"
+            "roster": "#05 Mike_8762 | #36 bigray-45 | #69 xxHambone | #7 Scott247_",
+            "rank": 1
         },
         {
-            "rank": 2,
             "team": "APEX RACING",
-            "points": 1085,
+            "points": 334,
             "drivers_count": 5,
-            "roster": "#24 dakotathomas1994 | #26 MajorBlaz33 | #57 the_fireman199 | #77 Dewshine_02"
+            "roster": "#18 MajorBlaz33 | #24 dakotathomas1994 | #48 the_fireman199 | #77 Dewshine_02 | #77 Tyler “Dewshine” Green #24",
+            "rank": 2
         },
         {
-            "rank": 3,
-            "team": "FAST AND LOOSE RACING",
-            "points": 743,
-            "drivers_count": 4,
-            "roster": "#48 Orangeman_96 | #59 BanishedCrayon | #64 SOLID1915ONE | #88 xX8LRACINGXx"
+            "team": "TOO BROKE RACING",
+            "points": 311,
+            "drivers_count": 6,
+            "roster": "#1 Matthew Wilson #01 | #1 mattwilson20 | #71 HockeyDeckout | #71 Mrs. Puff - Hockey | #8 Steven Alessi #8 | #98 Dalton Gibson #17",
+            "rank": 3
         },
         {
-            "rank": 4,
-            "team": "BACKROW MOTORSPORTS",
-            "points": 742,
-            "drivers_count": 4,
-            "roster": "#28 DaltonGregson | #41 SithWarriorUno | #58 On-A-Mission618 | #60 A54buickbandit"
-        },
-        {
-            "rank": 5,
-            "team": "GAZOO MOTORSPORTS",
-            "points": 705,
-            "drivers_count": 4,
-            "roster": "#20 Fordemgators | #23 KingG931 | #42 Dezzy_Wezzy_01 | #45 Ant_was_he"
-        },
-        {
-            "rank": 6,
-            "team": "REDLINE RACING",
-            "points": 438,
-            "drivers_count": 4,
-            "roster": "#3 BIG_FELLAx2220 | #5 The_Stone07 | #73 HatterMAD218 | #83 C0mpl1c8ed"
-        },
-        {
-            "rank": 7,
             "team": "WHY IS IT SMOKING? MOTORSPORTS",
-            "points": 387,
+            "points": 268,
             "drivers_count": 4,
-            "roster": "#0 ThirstTrapToby | #50 Duramax18gg | #63 Lostcozov | #87 tophert422"
+            "roster": "#0 ThirstTrapToby | #12 Joshua Riddle #12 | #2 Lostcozov | #87 tophert422",
+            "rank": 4
         },
         {
-            "rank": 8,
             "team": "DIRTY AIR RACING",
-            "points": 263,
-            "drivers_count": 4,
-            "roster": "#85 Z71chevymanz71 | #86 TampaxMaxx | #91 TY50BMG | #99 Isaac-_-34"
+            "points": 255,
+            "drivers_count": 7,
+            "roster": "#29 Z71chevymanz71 | #29 z71chevymanz71 | #34 Isaac-_-34 | #68 JakeBrannon24 | #85 TampaxMaxx | #85 TampaxxMaxx | #91 TY50BMG",
+            "rank": 5
         },
         {
-            "rank": 9,
-            "team": "OUTLAW RACING",
-            "points": 11,
+            "team": "BACKROW MOTORSPORTS",
+            "points": 245,
+            "drivers_count": 5,
+            "roster": "#28 Dalton Gregson #28 | #28 DaltonGregson | #41 SithWarriorUno | #58 On-A-Mission618 | #60 A54buickbandit",
+            "rank": 6
+        },
+        {
+            "team": "HITMAN MOTORSPORTS",
+            "points": 148,
+            "drivers_count": 5,
+            "roster": "#11 C0mpl1c8ed | #11 Daniel “C0mpl1c8ed” Brannon #83 | #13 TheReaperRhino | #45 Ant_was_he | #85 TampaxxMaxx",
+            "rank": 7
+        },
+        {
+            "team": "SMOKIN' FAST RACING",
+            "points": 141,
+            "drivers_count": 4,
+            "roster": "#00 a95tornadoes | #22 TShock0329 | #25 Mopawah_titan78 | #32 georgewright9182",
+            "rank": 8
+        },
+        {
+            "team": "FAST AND LOOSE RACING",
+            "points": 126,
+            "drivers_count": 4,
+            "roster": "#17 BusterTC007 | #59 BanishedCrayon | #64 SOLID1915ONE | #88 xX8LRACINGXx",
+            "rank": 9
+        },
+        {
+            "team": "REDLINE RACING",
+            "points": 48,
+            "drivers_count": 4,
+            "roster": "#07 The_Stone07 | #11 C0mpl1c8ed | #3 BIG_FELLAx2220 | #31 HatterMAD218",
+            "rank": 10
+        },
+        {
+            "team": "HITMAN MOTERSPORTS",
+            "points": 24,
+            "drivers_count": 3,
+            "roster": "#13 TheReaperRhino | #30 MrSmooth-21 | #45 Ant_was_he",
+            "rank": 11
+        },
+        {
+            "team": "GAZOO MOTORSPORTS",
+            "points": 10,
             "drivers_count": 1,
-            "roster": "#39 K7_Dalton"
+            "roster": "#23 KingG931",
+            "rank": 12
+        }
+    ],
+    "Xfinity": [
+        {
+            "team": "INDEPENDENT",
+            "points": 200,
+            "drivers_count": 3,
+            "roster": "#18 MajorBlaz33 | #59 BanishedCrayon | #7 Orangeman_96",
+            "rank": 1
+        }
+    ],
+    "Truck": [
+        {
+            "team": "INDEPENDENT",
+            "points": 109,
+            "drivers_count": 2,
+            "roster": "#18 MajorBlaz33 | #59 BanishedCrayon",
+            "rank": 1
+        }
+    ],
+    "Menards": [
+        {
+            "team": "INDEPENDENT",
+            "points": 86,
+            "drivers_count": 3,
+            "roster": "#11 Orangeman_96 | #14 MajorBlaz33 | #59 BanishedCrayon",
+            "rank": 1
         }
     ]
 }
