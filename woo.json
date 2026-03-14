@@ -17,11 +17,25 @@
                 "avg": 9.11
             },
             {
+                "type": "WOO Late Model",
+                "starts": 9,
+                "points": 237,
+                "wins": 0,
+                "avg": 10.67
+            },
+            {
                 "type": "Big Block Modified",
                 "starts": 6,
                 "points": 194,
                 "wins": 0,
                 "avg": 4.67
+            },
+            {
+                "type": "UMP Modified",
+                "starts": 6,
+                "points": 169,
+                "wins": 0,
+                "avg": 8.83
             },
             {
                 "type": "360 Sprint",
@@ -45,13 +59,6 @@
                 "avg": 7.2
             },
             {
-                "type": "WOO Late Model",
-                "starts": 6,
-                "points": 138,
-                "wins": 0,
-                "avg": 14.0
-            },
-            {
                 "type": "410 Wing Sprint",
                 "starts": 5,
                 "points": 133,
@@ -64,16 +71,45 @@
                 "points": 89,
                 "wins": 0,
                 "avg": 7.33
-            },
-            {
-                "type": "UMP Modified",
-                "starts": 3,
-                "points": 83,
-                "wins": 0,
-                "avg": 9.33
             }
         ],
         "race_log": [
+            {
+                "track": "Weedsport",
+                "car": "WOO Late Model",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Elm Creek",
+                "car": "WOO Late Model",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Sawtooth",
+                "car": "WOO Late Model",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Wooley",
+                "car": "UMP Modified",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "I-55 Raceway",
+                "car": "UMP Modified",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Rockberry",
+                "car": "UMP Modified",
+                "pos": 8,
+                "pts": 29
+            },
             {
                 "track": "Chili Bowl",
                 "car": "Micro Sprint Car",
@@ -422,12 +458,12 @@
                 "number": "1",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1621,
+                    "points": 1806,
                     "wins": 0,
-                    "top5": 16,
-                    "top10": 39,
-                    "starts": 57,
-                    "avg": 8.56
+                    "top5": 18,
+                    "top10": 45,
+                    "starts": 63,
+                    "avg": 8.33
                 }
             }
         }
@@ -797,6 +833,13 @@
                 "avg": 9.7
             },
             {
+                "type": "WOO Late Model",
+                "starts": 9,
+                "points": 260,
+                "wins": 0,
+                "avg": 8.11
+            },
+            {
                 "type": "Midget",
                 "starts": 9,
                 "points": 227,
@@ -818,18 +861,18 @@
                 "avg": 7.17
             },
             {
+                "type": "UMP Modified",
+                "starts": 6,
+                "points": 178,
+                "wins": 0,
+                "avg": 7.33
+            },
+            {
                 "type": "Big Block Modified",
                 "starts": 6,
                 "points": 172,
                 "wins": 0,
                 "avg": 8.33
-            },
-            {
-                "type": "WOO Late Model",
-                "starts": 6,
-                "points": 167,
-                "wins": 0,
-                "avg": 9.17
             },
             {
                 "type": "410 Wing Sprint",
@@ -851,16 +894,45 @@
                 "points": 98,
                 "wins": 0,
                 "avg": 4.33
-            },
-            {
-                "type": "UMP Modified",
-                "starts": 3,
-                "points": 81,
-                "wins": 0,
-                "avg": 10.0
             }
         ],
         "race_log": [
+            {
+                "track": "Weedsport",
+                "car": "WOO Late Model",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Elm Creek",
+                "car": "WOO Late Model",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Sawtooth",
+                "car": "WOO Late Model",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Wooley",
+                "car": "UMP Modified",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "I-55 Raceway",
+                "car": "UMP Modified",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Rockberry",
+                "car": "UMP Modified",
+                "pos": 5,
+                "pts": 32
+            },
             {
                 "track": "Chili Bowl",
                 "car": "Micro Sprint Car",
@@ -1227,12 +1299,12 @@
                 "number": "000",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1689,
+                    "points": 1879,
                     "wins": 0,
-                    "top5": 11,
-                    "top10": 40,
-                    "starts": 60,
-                    "avg": 8.85
+                    "top5": 16,
+                    "top10": 46,
+                    "starts": 66,
+                    "avg": 8.53
                 }
             }
         }
@@ -1866,6 +1938,13 @@
                 "avg": 7.44
             },
             {
+                "type": "WOO Late Model",
+                "starts": 9,
+                "points": 236,
+                "wins": 0,
+                "avg": 10.78
+            },
+            {
                 "type": "Midget",
                 "starts": 6,
                 "points": 192,
@@ -1894,21 +1973,57 @@
                 "avg": 7.33
             },
             {
-                "type": "WOO Late Model",
-                "starts": 6,
-                "points": 145,
-                "wins": 0,
-                "avg": 12.83
-            },
-            {
                 "type": "360 Sprint",
                 "starts": 3,
                 "points": 94,
                 "wins": 0,
                 "avg": 5.67
+            },
+            {
+                "type": "UMP Modified",
+                "starts": 3,
+                "points": 91,
+                "wins": 0,
+                "avg": 6.67
             }
         ],
         "race_log": [
+            {
+                "track": "Weedsport",
+                "car": "WOO Late Model",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Elm Creek",
+                "car": "WOO Late Model",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Sawtooth",
+                "car": "WOO Late Model",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Wooley",
+                "car": "UMP Modified",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "I-55 Raceway",
+                "car": "UMP Modified",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Rockberry",
+                "car": "UMP Modified",
+                "pos": 7,
+                "pts": 30
+            },
             {
                 "track": "I-55 Raceway",
                 "car": "305 Sprint Car",
@@ -2167,12 +2282,12 @@
                 "number": "57j",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1237,
+                    "points": 1419,
                     "wins": 1,
                     "top5": 13,
-                    "top10": 32,
-                    "starts": 42,
-                    "avg": 7.64
+                    "top10": 38,
+                    "starts": 48,
+                    "avg": 7.52
                 }
             }
         }
@@ -2181,11 +2296,25 @@
         "display_name": "The_Stone07",
         "cars": [
             {
+                "type": "WOO Late Model",
+                "starts": 9,
+                "points": 330,
+                "wins": 6,
+                "avg": 3.0
+            },
+            {
                 "type": "Midget",
                 "starts": 7,
                 "points": 260,
                 "wins": 6,
                 "avg": 3.29
+            },
+            {
+                "type": "UMP Modified",
+                "starts": 6,
+                "points": 240,
+                "wins": 6,
+                "avg": 1.0
             },
             {
                 "type": "Street Stock",
@@ -2209,13 +2338,6 @@
                 "avg": 1.17
             },
             {
-                "type": "WOO Late Model",
-                "starts": 6,
-                "points": 210,
-                "wins": 3,
-                "avg": 4.0
-            },
-            {
                 "type": "305 Sprint Car",
                 "starts": 6,
                 "points": 208,
@@ -2227,13 +2349,6 @@
                 "starts": 5,
                 "points": 200,
                 "wins": 5,
-                "avg": 1.0
-            },
-            {
-                "type": "UMP Modified",
-                "starts": 3,
-                "points": 120,
-                "wins": 3,
                 "avg": 1.0
             },
             {
@@ -2252,6 +2367,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Weedsport",
+                "car": "WOO Late Model",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Elm Creek",
+                "car": "WOO Late Model",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Sawtooth",
+                "car": "WOO Late Model",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Wooley",
+                "car": "UMP Modified",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "I-55 Raceway",
+                "car": "UMP Modified",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Rockberry",
+                "car": "UMP Modified",
+                "pos": 1,
+                "pts": 40
+            },
             {
                 "track": "Chili Bowl",
                 "car": "Micro Sprint Car",
@@ -2564,12 +2715,12 @@
                 "number": "07",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1925,
-                    "wins": 41,
-                    "top5": 45,
-                    "top10": 46,
-                    "starts": 51,
-                    "avg": 2.47
+                    "points": 2165,
+                    "wins": 47,
+                    "top5": 51,
+                    "top10": 52,
+                    "starts": 57,
+                    "avg": 2.32
                 }
             }
         }
@@ -3790,6 +3941,13 @@
                 "avg": 6.89
             },
             {
+                "type": "WOO Late Model",
+                "starts": 9,
+                "points": 261,
+                "wins": 0,
+                "avg": 8.0
+            },
+            {
                 "type": "Street Stock",
                 "starts": 6,
                 "points": 198,
@@ -3804,11 +3962,11 @@
                 "avg": 3.6
             },
             {
-                "type": "WOO Late Model",
-                "starts": 6,
-                "points": 159,
+                "type": "UMP Modified",
+                "starts": 5,
+                "points": 157,
                 "wins": 0,
-                "avg": 10.5
+                "avg": 5.6
             },
             {
                 "type": "410 Wing Sprint",
@@ -3832,13 +3990,6 @@
                 "avg": 2.67
             },
             {
-                "type": "UMP Modified",
-                "starts": 3,
-                "points": 97,
-                "wins": 0,
-                "avg": 4.67
-            },
-            {
                 "type": "Big Block Modified",
                 "starts": 3,
                 "points": 95,
@@ -3847,6 +3998,36 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Weedsport",
+                "car": "WOO Late Model",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Elm Creek",
+                "car": "WOO Late Model",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Sawtooth",
+                "car": "WOO Late Model",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Wooley",
+                "car": "UMP Modified",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "I-55 Raceway",
+                "car": "UMP Modified",
+                "pos": 8,
+                "pts": 29
+            },
             {
                 "track": "Chili Bowl",
                 "car": "Micro Sprint Car",
@@ -4171,12 +4352,12 @@
                 "number": "33",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1639,
+                    "points": 1801,
                     "wins": 2,
-                    "top5": 28,
-                    "top10": 42,
-                    "starts": 53,
-                    "avg": 6.23
+                    "top5": 31,
+                    "top10": 47,
+                    "starts": 58,
+                    "avg": 6.09
                 }
             }
         }
@@ -4497,18 +4678,25 @@
                 "avg": 2.4
             },
             {
+                "type": "WOO Late Model",
+                "starts": 5,
+                "points": 164,
+                "wins": 0,
+                "avg": 4.2
+            },
+            {
+                "type": "UMP Modified",
+                "starts": 3,
+                "points": 104,
+                "wins": 0,
+                "avg": 2.33
+            },
+            {
                 "type": "Big Block Modified",
                 "starts": 3,
                 "points": 102,
                 "wins": 0,
                 "avg": 3.0
-            },
-            {
-                "type": "WOO Late Model",
-                "starts": 3,
-                "points": 95,
-                "wins": 0,
-                "avg": 5.33
             },
             {
                 "type": "410 Non wing",
@@ -4519,6 +4707,36 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Elm Creek",
+                "car": "WOO Late Model",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Sawtooth",
+                "car": "WOO Late Model",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Wooley",
+                "car": "UMP Modified",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "I-55 Raceway",
+                "car": "UMP Modified",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Rockberry",
+                "car": "UMP Modified",
+                "pos": 2,
+                "pts": 35
+            },
             {
                 "track": "Sawtooth",
                 "car": "410 Non wing",
@@ -4675,12 +4893,12 @@
                 "number": "88E",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 822,
+                    "points": 995,
                     "wins": 0,
-                    "top5": 20,
-                    "top10": 24,
-                    "starts": 25,
-                    "avg": 4.12
+                    "top5": 25,
+                    "top10": 29,
+                    "starts": 30,
+                    "avg": 3.83
                 }
             }
         }
@@ -4986,18 +5204,25 @@
         "display_name": "Mike_8762",
         "cars": [
             {
+                "type": "WOO Late Model",
+                "starts": 9,
+                "points": 268,
+                "wins": 0,
+                "avg": 7.22
+            },
+            {
+                "type": "UMP Modified",
+                "starts": 6,
+                "points": 192,
+                "wins": 0,
+                "avg": 5.0
+            },
+            {
                 "type": "Street Stock",
                 "starts": 6,
                 "points": 182,
                 "wins": 0,
                 "avg": 6.67
-            },
-            {
-                "type": "WOO Late Model",
-                "starts": 6,
-                "points": 178,
-                "wins": 0,
-                "avg": 7.33
             },
             {
                 "type": "Midget",
@@ -5019,13 +5244,6 @@
                 "points": 98,
                 "wins": 0,
                 "avg": 4.33
-            },
-            {
-                "type": "UMP Modified",
-                "starts": 3,
-                "points": 93,
-                "wins": 0,
-                "avg": 6.0
             },
             {
                 "type": "Micro Sprint Car",
@@ -5050,6 +5268,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Weedsport",
+                "car": "WOO Late Model",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Elm Creek",
+                "car": "WOO Late Model",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Sawtooth",
+                "car": "WOO Late Model",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Wooley",
+                "car": "UMP Modified",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "I-55 Raceway",
+                "car": "UMP Modified",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Rockberry",
+                "car": "UMP Modified",
+                "pos": 3,
+                "pts": 34
+            },
             {
                 "track": "Chili Bowl",
                 "car": "Micro Sprint Car",
@@ -5284,12 +5538,12 @@
                 "number": "05",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1138,
+                    "points": 1327,
                     "wins": 0,
-                    "top5": 12,
-                    "top10": 33,
-                    "starts": 38,
-                    "avg": 7.05
+                    "top5": 15,
+                    "top10": 39,
+                    "starts": 44,
+                    "avg": 6.84
                 }
             }
         }
@@ -5298,6 +5552,20 @@
         "display_name": "xxHambone",
         "cars": [
             {
+                "type": "WOO Late Model",
+                "starts": 9,
+                "points": 256,
+                "wins": 0,
+                "avg": 8.56
+            },
+            {
+                "type": "UMP Modified",
+                "starts": 6,
+                "points": 202,
+                "wins": 0,
+                "avg": 3.33
+            },
+            {
                 "type": "Midget",
                 "starts": 6,
                 "points": 179,
@@ -5305,25 +5573,11 @@
                 "avg": 7.17
             },
             {
-                "type": "WOO Late Model",
-                "starts": 6,
-                "points": 158,
-                "wins": 0,
-                "avg": 10.67
-            },
-            {
                 "type": "Street Stock",
                 "starts": 5,
                 "points": 136,
                 "wins": 0,
                 "avg": 9.8
-            },
-            {
-                "type": "UMP Modified",
-                "starts": 3,
-                "points": 100,
-                "wins": 0,
-                "avg": 3.67
             },
             {
                 "type": "Micro Sprint Car",
@@ -5362,6 +5616,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Weedsport",
+                "car": "WOO Late Model",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Elm Creek",
+                "car": "WOO Late Model",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Sawtooth",
+                "car": "WOO Late Model",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Wooley",
+                "car": "UMP Modified",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "I-55 Raceway",
+                "car": "UMP Modified",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Rockberry",
+                "car": "UMP Modified",
+                "pos": 4,
+                "pts": 33
+            },
             {
                 "track": "Chili Bowl",
                 "car": "Micro Sprint Car",
@@ -5572,12 +5862,12 @@
                 "number": "32",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 970,
+                    "points": 1170,
                     "wins": 0,
-                    "top5": 5,
-                    "top10": 26,
-                    "starts": 34,
-                    "avg": 8.47
+                    "top5": 11,
+                    "top10": 32,
+                    "starts": 40,
+                    "avg": 7.75
                 }
             }
         }
@@ -6139,21 +6429,64 @@
         "display_name": "Doobie650ballz",
         "cars": [
             {
+                "type": "UMP Modified",
+                "starts": 6,
+                "points": 170,
+                "wins": 0,
+                "avg": 8.67
+            },
+            {
+                "type": "WOO Late Model",
+                "starts": 3,
+                "points": 86,
+                "wins": 0,
+                "avg": 8.33
+            },
+            {
                 "type": "Micro Sprint Car",
                 "starts": 3,
                 "points": 83,
                 "wins": 0,
                 "avg": 9.33
-            },
-            {
-                "type": "UMP Modified",
-                "starts": 3,
-                "points": 81,
-                "wins": 0,
-                "avg": 10.0
             }
         ],
         "race_log": [
+            {
+                "track": "Weedsport",
+                "car": "WOO Late Model",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Elm Creek",
+                "car": "WOO Late Model",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Sawtooth",
+                "car": "WOO Late Model",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Wooley",
+                "car": "UMP Modified",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "I-55 Raceway",
+                "car": "UMP Modified",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Rockberry",
+                "car": "UMP Modified",
+                "pos": 6,
+                "pts": 31
+            },
             {
                 "track": "Chili Bowl",
                 "car": "Micro Sprint Car",
@@ -6196,12 +6529,12 @@
                 "number": "650",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 164,
+                    "points": 339,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 5,
-                    "starts": 6,
-                    "avg": 9.67
+                    "top10": 11,
+                    "starts": 12,
+                    "avg": 8.75
                 }
             }
         }
