@@ -223,6 +223,20 @@
             const teamsMap = {};
             const driverPointsCache = {}; // Temporary storage for driver points
 
+            // 🚨 FIX: Discord Name Change Aliases 🚨
+            // If a driver changes their name, map their NEW longer name back to their OLD shorter name here.
+            const NAME_ALIASES = {
+                "Tyler “Dewshine” Green #24": "Dewshine_02",
+                "TampaxxMaxx": "TampaxMaxx",
+                "Daniel “C0mpl1c8ed” Brannon #83": "C0mpl1c8ed",
+                "z71chevymanz71": "Z71chevymanz71"
+            };
+
+            function getTrueName(rawName) {
+                let name = rawName.replace(/^#\d+\s*/, '').trim();
+                return NAME_ALIASES[name] || name;
+            }
+
             // Step A: Calculate points for EVERY driver from the Results file
             if(resultsData) {
                 Object.keys(resultsData).forEach(raceKey => {
@@ -231,14 +245,13 @@
                     
                     if(rSeries.toLowerCase() === seriesName.toLowerCase()) {
                         resultsData[raceKey].forEach(entry => {
-                            let name = entry.driver.replace(/^#\d+\s*/, '').trim();
-                            // Normalize name logic can go here if needed
+                            let name = getTrueName(entry.driver);
                             
                             // Find match in driversData for Official Name
                             const driverEntry = Object.values(driversData).find(d => 
-                                d.display_name && d.display_name.toLowerCase() === name.toLowerCase()
+                                d.display_name && getTrueName(d.display_name).toLowerCase() === name.toLowerCase()
                             );
-                            if(driverEntry) name = driverEntry.display_name;
+                            if(driverEntry) name = getTrueName(driverEntry.display_name);
 
                             if(!driverPointsCache[name]) driverPointsCache[name] = 0;
                             driverPointsCache[name] += parseInt(entry.points || 0);
@@ -247,6 +260,8 @@
                 });
             }
 
+            let processedDrivers = new Set(); // Prevent duplicates from showing up twice
+
             // Step B: Map drivers to Teams and Assign Points
             for (const [id, driver] of Object.entries(driversData)) {
                 if(!driver.series) continue;
@@ -254,6 +269,12 @@
                 const sKey = Object.keys(driver.series).find(k => k.toLowerCase() === seriesName.toLowerCase());
                 if (!sKey) continue;
                 
+                let trueName = getTrueName(driver.display_name);
+                
+                // If we already added this driver (because they have two discord profiles), skip the duplicate
+                if (processedDrivers.has(trueName)) continue;
+                processedDrivers.add(trueName);
+
                 const sData = driver.series[sKey];
                 let teamName = sData.team || "Independent";
                 
@@ -263,7 +284,7 @@
                 if (!teamName || teamName.toLowerCase().includes("independent") || teamName === "") continue;
                 
                 // Retrieve calculated points (or 0 if they haven't raced)
-                const calculatedPoints = driverPointsCache[driver.display_name] || 0;
+                const calculatedPoints = driverPointsCache[trueName] || 0;
 
                 if (!teamsMap[teamName]) {
                     teamsMap[teamName] = {
@@ -274,10 +295,9 @@
                 }
                 
                 // Only add driver if they have points > 0 OR strictly for roster display
-                // (We include everyone so roster looks complete)
                 teamsMap[teamName].totalPoints += calculatedPoints;
                 teamsMap[teamName].drivers.push({
-                    name: driver.display_name,
+                    name: trueName, // Uses the shorter alias name
                     number: sData.number,
                     points: calculatedPoints
                 });
