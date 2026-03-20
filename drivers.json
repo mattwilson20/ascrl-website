@@ -511,23 +511,23 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "current_stats": {
-                    "points": 109,
-                    "wins": 0,
-                    "top5": 2,
-                    "top10": 2,
-                    "poles": 0,
-                    "starts": 4,
-                    "avg": 9.75,
-                    "penalty_total": 0
-                },
-                "career_stats": {
-                    "points": 142,
+                    "points": 141,
                     "wins": 0,
                     "top5": 3,
                     "top10": 3,
                     "poles": 0,
                     "starts": 5,
-                    "avg": 8.6
+                    "avg": 8.8,
+                    "penalty_total": 0
+                },
+                "career_stats": {
+                    "points": 174,
+                    "wins": 0,
+                    "top5": 4,
+                    "top10": 4,
+                    "poles": 0,
+                    "starts": 6,
+                    "avg": 8.0
                 },
                 "history": [
                     {
@@ -1054,23 +1054,23 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "current_stats": {
-                    "points": 126,
+                    "points": 153,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 3,
+                    "top10": 4,
                     "poles": 0,
-                    "starts": 5,
-                    "avg": 11.8,
+                    "starts": 6,
+                    "avg": 11.5,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 296,
+                    "points": 323,
                     "wins": 0,
                     "top5": 2,
-                    "top10": 8,
+                    "top10": 9,
                     "poles": 0,
-                    "starts": 11,
-                    "avg": 10.09
+                    "starts": 12,
+                    "avg": 10.08
                 },
                 "history": [
                     {
@@ -1168,49 +1168,11 @@
                         }
                     }
                 ]
-            },
-            "Xfinity": {
-                "number": "20",
-                "team": "Independent",
-                "manufacturer": "N/A",
-                "current_stats": {
-                    "points": 97,
-                    "wins": 0,
-                    "top5": 1,
-                    "top10": 1,
-                    "poles": 0,
-                    "starts": 4,
-                    "avg": 12.75,
-                    "penalty_total": 0
-                },
-                "career_stats": {
-                    "points": 129,
-                    "wins": 0,
-                    "top5": 2,
-                    "top10": 2,
-                    "poles": 0,
-                    "starts": 5,
-                    "avg": 11.2
-                },
-                "history": [
-                    {
-                        "season": "2025-26",
-                        "stats": {
-                            "points": 32,
-                            "wins": 0,
-                            "top5": 1,
-                            "top10": 1,
-                            "poles": 0,
-                            "starts": 1,
-                            "avg": 5.0
-                        }
-                    }
-                ]
             }
         }
     },
     "719704149339537509": {
-        "display_name": "Ant_was_he",
+        "display_name": "Driver 719704149339537509",
         "badges": [],
         "series": {
             "Cup": {
@@ -1326,49 +1288,11 @@
                         }
                     }
                 ]
-            },
-            "Xfinity": {
-                "number": "45",
-                "team": "Independent",
-                "manufacturer": "Toyota",
-                "current_stats": {
-                    "points": 62,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "starts": 5,
-                    "avg": 24.6,
-                    "penalty_total": 0
-                },
-                "career_stats": {
-                    "points": 247,
-                    "wins": 0,
-                    "top5": 2,
-                    "top10": 4,
-                    "poles": 0,
-                    "starts": 12,
-                    "avg": 16.42
-                },
-                "history": [
-                    {
-                        "season": "2025-26",
-                        "stats": {
-                            "points": 185,
-                            "wins": 0,
-                            "top5": 2,
-                            "top10": 4,
-                            "poles": 0,
-                            "starts": 7,
-                            "avg": 10.57
-                        }
-                    }
-                ]
             }
         }
     },
     "1110268909745090560": {
-        "display_name": "Dalton Gregson #28",
+        "display_name": "Dalton \"Barbasol\" Gregson #28",
         "badges": [],
         "series": {
             "Cup": {
@@ -1610,23 +1534,23 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "current_stats": {
-                    "points": 70,
+                    "points": 90,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "starts": 5,
-                    "avg": 23.0,
+                    "starts": 6,
+                    "avg": 22.0,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 202,
+                    "points": 222,
                     "wins": 0,
                     "top5": 0,
                     "top10": 1,
                     "poles": 0,
-                    "starts": 11,
-                    "avg": 18.64
+                    "starts": 12,
+                    "avg": 18.5
                 },
                 "history": [
                     {
@@ -3349,23 +3273,23 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "current_stats": {
-                    "points": 54,
+                    "points": 76,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "starts": 3,
-                    "avg": 19.0,
+                    "starts": 4,
+                    "avg": 18.0,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 209,
+                    "points": 231,
                     "wins": 0,
                     "top5": 3,
                     "top10": 5,
                     "poles": 1,
-                    "starts": 8,
-                    "avg": 11.0
+                    "starts": 9,
+                    "avg": 11.44
                 },
                 "history": [
                     {
@@ -3734,23 +3658,23 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "current_stats": {
-                    "points": 135,
+                    "points": 170,
                     "wins": 0,
-                    "top5": 2,
-                    "top10": 3,
+                    "top5": 3,
+                    "top10": 4,
                     "poles": 1,
-                    "starts": 5,
-                    "avg": 10.4,
+                    "starts": 6,
+                    "avg": 9.0,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 194,
+                    "points": 229,
                     "wins": 0,
-                    "top5": 2,
-                    "top10": 4,
+                    "top5": 3,
+                    "top10": 5,
                     "poles": 1,
-                    "starts": 8,
-                    "avg": 13.0
+                    "starts": 9,
+                    "avg": 11.78
                 },
                 "history": [
                     {
@@ -4238,23 +4162,23 @@
                 "team": "Independent",
                 "manufacturer": "Chevy",
                 "current_stats": {
-                    "points": 98,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "starts": 4,
-                    "avg": 12.5,
-                    "penalty_total": 0
-                },
-                "career_stats": {
-                    "points": 144,
+                    "points": 127,
                     "wins": 0,
                     "top5": 0,
                     "top10": 2,
                     "poles": 0,
-                    "starts": 6,
-                    "avg": 13.0
+                    "starts": 5,
+                    "avg": 11.6,
+                    "penalty_total": 0
+                },
+                "career_stats": {
+                    "points": 173,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 3,
+                    "poles": 0,
+                    "starts": 7,
+                    "avg": 12.29
                 },
                 "history": [
                     {
@@ -4434,23 +4358,23 @@
                 "team": "Independent",
                 "manufacturer": "Chevy",
                 "current_stats": {
-                    "points": 85,
+                    "points": 115,
                     "wins": 0,
                     "top5": 1,
-                    "top10": 2,
+                    "top10": 3,
                     "poles": 0,
-                    "starts": 3,
-                    "avg": 8.67,
+                    "starts": 4,
+                    "avg": 8.25,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 218,
+                    "points": 248,
                     "wins": 1,
                     "top5": 4,
-                    "top10": 5,
+                    "top10": 6,
                     "poles": 0,
-                    "starts": 7,
-                    "avg": 6.43
+                    "starts": 8,
+                    "avg": 6.5
                 },
                 "history": [
                     {
@@ -4507,44 +4431,6 @@
                             "poles": 0,
                             "starts": 4,
                             "avg": 7.0
-                        }
-                    }
-                ]
-            },
-            "Xfinity": {
-                "number": "12",
-                "team": "Independent",
-                "manufacturer": "N/A",
-                "current_stats": {
-                    "points": 15,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "starts": 1,
-                    "avg": 22.0,
-                    "penalty_total": 0
-                },
-                "career_stats": {
-                    "points": 70,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "starts": 4,
-                    "avg": 19.5
-                },
-                "history": [
-                    {
-                        "season": "2025-26",
-                        "stats": {
-                            "points": 55,
-                            "wins": 0,
-                            "top5": 0,
-                            "top10": 1,
-                            "poles": 0,
-                            "starts": 3,
-                            "avg": 18.67
                         }
                     }
                 ]
@@ -4794,23 +4680,23 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "current_stats": {
-                    "points": 39,
+                    "points": 56,
                     "wins": 0,
                     "top5": 0,
                     "top10": 1,
                     "poles": 0,
-                    "starts": 2,
-                    "avg": 17.5,
+                    "starts": 3,
+                    "avg": 18.33,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 86,
+                    "points": 103,
                     "wins": 0,
                     "top5": 0,
                     "top10": 2,
                     "poles": 0,
-                    "starts": 4,
-                    "avg": 15.5
+                    "starts": 5,
+                    "avg": 16.4
                 },
                 "history": [
                     {
@@ -5141,23 +5027,23 @@
                 "team": "INDEPENDENT",
                 "manufacturer": "N/A",
                 "current_stats": {
-                    "points": 81,
+                    "points": 104,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 1,
-                    "starts": 5,
-                    "avg": 21.0,
+                    "starts": 6,
+                    "avg": 19.83,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 299,
+                    "points": 322,
                     "wins": 0,
                     "top5": 1,
                     "top10": 5,
                     "poles": 1,
-                    "starts": 13,
-                    "avg": 14.08
+                    "starts": 14,
+                    "avg": 14.07
                 },
                 "history": [
                     {
@@ -5475,23 +5361,23 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "current_stats": {
-                    "points": 134,
+                    "points": 158,
                     "wins": 0,
                     "top5": 1,
                     "top10": 3,
                     "poles": 0,
-                    "starts": 5,
-                    "avg": 10.2,
+                    "starts": 6,
+                    "avg": 10.67,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 173,
+                    "points": 197,
                     "wins": 0,
                     "top5": 1,
                     "top10": 3,
                     "poles": 0,
-                    "starts": 7,
-                    "avg": 12.29
+                    "starts": 8,
+                    "avg": 12.38
                 },
                 "history": [
                     {
@@ -5847,23 +5733,23 @@
                 "team": "Independent",
                 "manufacturer": "Chevy",
                 "current_stats": {
-                    "points": 139,
+                    "points": 159,
                     "wins": 0,
                     "top5": 4,
                     "top10": 4,
-                    "poles": 0,
-                    "starts": 4,
-                    "avg": 2.5,
+                    "poles": 1,
+                    "starts": 5,
+                    "avg": 5.6,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 171,
+                    "points": 191,
                     "wins": 0,
                     "top5": 5,
                     "top10": 5,
-                    "poles": 0,
-                    "starts": 5,
-                    "avg": 3.0
+                    "poles": 1,
+                    "starts": 6,
+                    "avg": 5.5
                 },
                 "history": [
                     {
@@ -5992,23 +5878,23 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "current_stats": {
-                    "points": 77,
+                    "points": 103,
                     "wins": 0,
                     "top5": 0,
                     "top10": 2,
                     "poles": 0,
-                    "starts": 4,
-                    "avg": 17.75,
+                    "starts": 5,
+                    "avg": 16.4,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 107,
+                    "points": 133,
                     "wins": 0,
                     "top5": 0,
                     "top10": 3,
                     "poles": 0,
-                    "starts": 5,
-                    "avg": 15.6
+                    "starts": 6,
+                    "avg": 14.83
                 },
                 "history": [
                     {
@@ -6061,23 +5947,23 @@
                 "team": "Independent",
                 "manufacturer": "Ford",
                 "current_stats": {
-                    "points": 63,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 1,
-                    "poles": 0,
-                    "starts": 3,
-                    "avg": 16.0,
-                    "penalty_total": 0
-                },
-                "career_stats": {
-                    "points": 69,
+                    "points": 84,
                     "wins": 0,
                     "top5": 0,
                     "top10": 1,
                     "poles": 0,
                     "starts": 4,
-                    "avg": 19.75
+                    "avg": 16.0,
+                    "penalty_total": 0
+                },
+                "career_stats": {
+                    "points": 90,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 1,
+                    "poles": 0,
+                    "starts": 5,
+                    "avg": 19.0
                 },
                 "history": [
                     {
@@ -6286,23 +6172,23 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "current_stats": {
-                    "points": 72,
+                    "points": 90,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "starts": 3,
-                    "avg": 13.0,
+                    "starts": 4,
+                    "avg": 14.5,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 72,
+                    "points": 90,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "starts": 3,
-                    "avg": 13.0
+                    "starts": 4,
+                    "avg": 14.5
                 },
                 "history": []
             },
@@ -6679,23 +6565,23 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "current_stats": {
-                    "points": 79,
+                    "points": 112,
                     "wins": 0,
-                    "top5": 1,
-                    "top10": 2,
+                    "top5": 2,
+                    "top10": 3,
                     "poles": 0,
-                    "starts": 3,
-                    "avg": 10.67,
+                    "starts": 4,
+                    "avg": 9.0,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 79,
+                    "points": 112,
                     "wins": 0,
-                    "top5": 1,
-                    "top10": 2,
+                    "top5": 2,
+                    "top10": 3,
                     "poles": 0,
-                    "starts": 3,
-                    "avg": 10.67
+                    "starts": 4,
+                    "avg": 9.0
                 },
                 "history": []
             }
@@ -6942,23 +6828,23 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "current_stats": {
-                    "points": 33,
+                    "points": 61,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 0,
+                    "top10": 1,
                     "poles": 0,
-                    "starts": 2,
-                    "avg": 20.5,
+                    "starts": 3,
+                    "avg": 16.67,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 33,
+                    "points": 61,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 0,
+                    "top10": 1,
                     "poles": 0,
-                    "starts": 2,
-                    "avg": 20.5
+                    "starts": 3,
+                    "avg": 16.67
                 },
                 "history": []
             },
@@ -7048,23 +6934,23 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "current_stats": {
-                    "points": 65,
+                    "points": 100,
                     "wins": 0,
-                    "top5": 2,
-                    "top10": 2,
+                    "top5": 3,
+                    "top10": 3,
                     "poles": 0,
-                    "starts": 2,
-                    "avg": 4.5,
+                    "starts": 3,
+                    "avg": 4.0,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 65,
+                    "points": 100,
                     "wins": 0,
-                    "top5": 2,
-                    "top10": 2,
+                    "top5": 3,
+                    "top10": 3,
                     "poles": 0,
-                    "starts": 2,
-                    "avg": 4.5
+                    "starts": 3,
+                    "avg": 4.0
                 },
                 "history": []
             },
@@ -7104,23 +6990,23 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "current_stats": {
-                    "points": 53,
+                    "points": 84,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 1,
+                    "top10": 2,
                     "poles": 0,
-                    "starts": 2,
-                    "avg": 10.5,
+                    "starts": 3,
+                    "avg": 9.0,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 53,
+                    "points": 84,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 1,
+                    "top10": 2,
                     "poles": 0,
-                    "starts": 2,
-                    "avg": 10.5
+                    "starts": 3,
+                    "avg": 9.0
                 },
                 "history": []
             },
@@ -7266,23 +7152,98 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "current_stats": {
-                    "points": 20,
+                    "points": 45,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "starts": 1,
-                    "avg": 17.0,
+                    "starts": 2,
+                    "avg": 14.5,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 20,
+                    "points": 45,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
+                    "starts": 2,
+                    "avg": 14.5
+                },
+                "history": []
+            }
+        }
+    },
+    "1187254765667762281": {
+        "display_name": "Duramax18gg",
+        "badges": [],
+        "series": {
+            "Xfinity": {
+                "number": "51",
+                "team": "Independent",
+                "manufacturer": "N/A",
+                "current_stats": {
+                    "points": 40,
+                    "wins": 1,
+                    "top5": 1,
+                    "top10": 1,
+                    "poles": 0,
                     "starts": 1,
-                    "avg": 17.0
+                    "avg": 1.0,
+                    "penalty_total": 0
+                },
+                "career_stats": {
+                    "points": 190,
+                    "wins": 2,
+                    "top5": 4,
+                    "top10": 4,
+                    "poles": 0,
+                    "starts": 6,
+                    "avg": 6.83
+                },
+                "history": [
+                    {
+                        "season": "2025-26",
+                        "stats": {
+                            "points": 150,
+                            "wins": 1,
+                            "top5": 3,
+                            "top10": 3,
+                            "poles": 0,
+                            "starts": 5,
+                            "avg": 8.0
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "818324106029694998": {
+        "display_name": "RA-A_SuperMan",
+        "badges": [],
+        "series": {
+            "Xfinity": {
+                "number": "70",
+                "team": "Independent",
+                "manufacturer": "N/A",
+                "current_stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0,
+                    "penalty_total": 0
+                },
+                "career_stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0
                 },
                 "history": []
             }
