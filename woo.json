@@ -4,10 +4,10 @@
         "cars": [
             {
                 "type": "305 Sprint Car",
-                "starts": 9,
-                "points": 261,
+                "starts": 11,
+                "points": 330,
                 "wins": 0,
-                "avg": 8.0
+                "avg": 7.0
             },
             {
                 "type": "Midget",
@@ -22,6 +22,13 @@
                 "points": 237,
                 "wins": 0,
                 "avg": 10.67
+            },
+            {
+                "type": "410 Wing Sprint",
+                "starts": 8,
+                "points": 226,
+                "wins": 0,
+                "avg": 8.75
             },
             {
                 "type": "Big Block Modified",
@@ -59,13 +66,6 @@
                 "avg": 7.2
             },
             {
-                "type": "410 Wing Sprint",
-                "starts": 5,
-                "points": 133,
-                "wins": 0,
-                "avg": 10.4
-            },
-            {
                 "type": "Micro Sprint Car",
                 "starts": 3,
                 "points": 89,
@@ -74,6 +74,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Willow Creek",
+                "car": "410 Wing Sprint",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Circle Lake",
+                "car": "410 Wing Sprint",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Jacod'S County",
+                "car": "410 Wing Sprint",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Faribury",
+                "car": "305 Sprint Car",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Five Forks",
+                "car": "305 Sprint Car",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Prairie View",
+                "car": "305 Sprint Car",
+                "pos": 7,
+                "pts": 30
+            },
             {
                 "track": "Weedsport",
                 "car": "WOO Late Model",
@@ -411,12 +447,6 @@
                 "pts": 33
             },
             {
-                "track": "Prairie View",
-                "car": "305 Sprint Car",
-                "pos": 11,
-                "pts": 26
-            },
-            {
                 "track": "Huset'S",
                 "car": "360 Sprint",
                 "pos": 3,
@@ -458,12 +488,12 @@
                 "number": "1",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1806,
+                    "points": 1968,
                     "wins": 0,
-                    "top5": 18,
-                    "top10": 45,
-                    "starts": 63,
-                    "avg": 8.33
+                    "top5": 20,
+                    "top10": 51,
+                    "starts": 68,
+                    "avg": 8.06
                 }
             }
         }
@@ -480,10 +510,10 @@
             },
             {
                 "type": "305 Sprint Car",
-                "starts": 9,
-                "points": 243,
+                "starts": 8,
+                "points": 214,
                 "wins": 0,
-                "avg": 10.0
+                "avg": 10.25
             },
             {
                 "type": "410 Wing Sprint",
@@ -799,12 +829,6 @@
                 "car": "305 Sprint Car",
                 "pos": 15,
                 "pts": 22
-            },
-            {
-                "track": "Prairie View",
-                "car": "305 Sprint Car",
-                "pos": 8,
-                "pts": 29
             }
         ],
         "series": {
@@ -812,12 +836,12 @@
                 "number": "218",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1252,
+                    "points": 1223,
                     "wins": 0,
                     "top5": 10,
-                    "top10": 26,
-                    "starts": 45,
-                    "avg": 9.18
+                    "top10": 25,
+                    "starts": 44,
+                    "avg": 9.2
                 }
             }
         }
@@ -826,18 +850,18 @@
         "display_name": "ThirstTrapToby",
         "cars": [
             {
-                "type": "305 Sprint Car",
-                "starts": 10,
-                "points": 273,
-                "wins": 0,
-                "avg": 9.7
-            },
-            {
                 "type": "WOO Late Model",
                 "starts": 9,
                 "points": 260,
                 "wins": 0,
                 "avg": 8.11
+            },
+            {
+                "type": "305 Sprint Car",
+                "starts": 9,
+                "points": 252,
+                "wins": 0,
+                "avg": 9.0
             },
             {
                 "type": "Midget",
@@ -1252,12 +1276,6 @@
                 "pts": 26
             },
             {
-                "track": "Prairie View",
-                "car": "305 Sprint Car",
-                "pos": 16,
-                "pts": 21
-            },
-            {
                 "track": "Huset'S",
                 "car": "360 Sprint",
                 "pos": 10,
@@ -1299,12 +1317,12 @@
                 "number": "000",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1879,
+                    "points": 1858,
                     "wins": 0,
                     "top5": 16,
                     "top10": 46,
-                    "starts": 66,
-                    "avg": 8.53
+                    "starts": 65,
+                    "avg": 8.42
                 }
             }
         }
@@ -1429,10 +1447,10 @@
             },
             {
                 "type": "305 Sprint Car",
-                "starts": 9,
-                "points": 278,
+                "starts": 8,
+                "points": 243,
                 "wins": 0,
-                "avg": 6.11
+                "avg": 6.63
             },
             {
                 "type": "410 Wing Sprint",
@@ -1713,12 +1731,6 @@
                 "pts": 28
             },
             {
-                "track": "Prairie View",
-                "car": "305 Sprint Car",
-                "pos": 2,
-                "pts": 35
-            },
-            {
                 "track": "Huset'S",
                 "car": "360 Sprint",
                 "pos": 6,
@@ -1760,12 +1772,12 @@
                 "number": "8",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1448,
+                    "points": 1413,
                     "wins": 1,
-                    "top5": 25,
-                    "top10": 42,
-                    "starts": 46,
-                    "avg": 5.61
+                    "top5": 24,
+                    "top10": 41,
+                    "starts": 45,
+                    "avg": 5.69
                 }
             }
         }
@@ -1774,18 +1786,18 @@
         "display_name": "dakotathomas1994",
         "cars": [
             {
-                "type": "305 Sprint Car",
-                "starts": 6,
-                "points": 195,
-                "wins": 0,
-                "avg": 4.5
-            },
-            {
                 "type": "Big Block Modified",
                 "starts": 6,
                 "points": 175,
                 "wins": 0,
                 "avg": 7.83
+            },
+            {
+                "type": "305 Sprint Car",
+                "starts": 5,
+                "points": 162,
+                "wins": 0,
+                "avg": 4.6
             },
             {
                 "type": "360 Sprint",
@@ -1870,12 +1882,6 @@
                 "pts": 29
             },
             {
-                "track": "Prairie View",
-                "car": "305 Sprint Car",
-                "pos": 4,
-                "pts": 33
-            },
-            {
                 "track": "Huset'S",
                 "car": "360 Sprint",
                 "pos": 7,
@@ -1917,12 +1923,12 @@
                 "number": "24a",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 546,
+                    "points": 513,
                     "wins": 0,
-                    "top5": 9,
-                    "top10": 15,
-                    "starts": 18,
-                    "avg": 6.67
+                    "top5": 8,
+                    "top10": 14,
+                    "starts": 17,
+                    "avg": 6.82
                 }
             }
         }
@@ -1932,10 +1938,10 @@
         "cars": [
             {
                 "type": "305 Sprint Car",
-                "starts": 9,
-                "points": 266,
+                "starts": 8,
+                "points": 238,
                 "wins": 0,
-                "avg": 7.44
+                "avg": 7.25
             },
             {
                 "type": "WOO Late Model",
@@ -2235,12 +2241,6 @@
                 "pts": 30
             },
             {
-                "track": "Prairie View",
-                "car": "305 Sprint Car",
-                "pos": 9,
-                "pts": 28
-            },
-            {
                 "track": "Huset'S",
                 "car": "360 Sprint",
                 "pos": 5,
@@ -2282,12 +2282,12 @@
                 "number": "57j",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1419,
+                    "points": 1391,
                     "wins": 1,
                     "top5": 13,
-                    "top10": 38,
-                    "starts": 48,
-                    "avg": 7.52
+                    "top10": 37,
+                    "starts": 47,
+                    "avg": 7.49
                 }
             }
         }
@@ -2301,6 +2301,13 @@
                 "points": 330,
                 "wins": 6,
                 "avg": 3.0
+            },
+            {
+                "type": "305 Sprint Car",
+                "starts": 8,
+                "points": 284,
+                "wins": 5,
+                "avg": 4.0
             },
             {
                 "type": "Midget",
@@ -2324,6 +2331,13 @@
                 "avg": 1.0
             },
             {
+                "type": "410 Wing Sprint",
+                "starts": 6,
+                "points": 240,
+                "wins": 6,
+                "avg": 1.0
+            },
+            {
                 "type": "360 Sprint",
                 "starts": 6,
                 "points": 240,
@@ -2338,24 +2352,10 @@
                 "avg": 1.17
             },
             {
-                "type": "305 Sprint Car",
-                "starts": 6,
-                "points": 208,
-                "wins": 3,
-                "avg": 4.33
-            },
-            {
                 "type": "410 Non wing",
                 "starts": 5,
                 "points": 200,
                 "wins": 5,
-                "avg": 1.0
-            },
-            {
-                "type": "410 Wing Sprint",
-                "starts": 3,
-                "points": 120,
-                "wins": 3,
                 "avg": 1.0
             },
             {
@@ -2367,6 +2367,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Willow Creek",
+                "car": "410 Wing Sprint",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Circle Lake",
+                "car": "410 Wing Sprint",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Jacod'S County",
+                "car": "410 Wing Sprint",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Faribury",
+                "car": "305 Sprint Car",
+                "pos": 10,
+                "pts": 27
+            },
+            {
+                "track": "Five Forks",
+                "car": "305 Sprint Car",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Prairie View",
+                "car": "305 Sprint Car",
+                "pos": 1,
+                "pts": 40
+            },
             {
                 "track": "Weedsport",
                 "car": "WOO Late Model",
@@ -2668,12 +2704,6 @@
                 "pts": 35
             },
             {
-                "track": "Prairie View",
-                "car": "305 Sprint Car",
-                "pos": 6,
-                "pts": 31
-            },
-            {
                 "track": "Huset'S",
                 "car": "360 Sprint",
                 "pos": 1,
@@ -2715,12 +2745,12 @@
                 "number": "07",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 2165,
-                    "wins": 47,
-                    "top5": 51,
-                    "top10": 52,
-                    "starts": 57,
-                    "avg": 2.32
+                    "points": 2361,
+                    "wins": 52,
+                    "top5": 56,
+                    "top10": 57,
+                    "starts": 62,
+                    "avg": 2.27
                 }
             }
         }
@@ -2730,10 +2760,10 @@
         "cars": [
             {
                 "type": "305 Sprint Car",
-                "starts": 6,
-                "points": 190,
+                "starts": 5,
+                "points": 160,
                 "wins": 0,
-                "avg": 5.33
+                "avg": 5.0
             },
             {
                 "type": "Midget",
@@ -2825,12 +2855,6 @@
                 "pts": 31
             },
             {
-                "track": "Prairie View",
-                "car": "305 Sprint Car",
-                "pos": 7,
-                "pts": 30
-            },
-            {
                 "track": "Huset'S",
                 "car": "360 Sprint",
                 "pos": 9,
@@ -2854,12 +2878,12 @@
                 "number": "85",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 455,
+                    "points": 425,
                     "wins": 0,
                     "top5": 6,
-                    "top10": 14,
-                    "starts": 15,
-                    "avg": 6.67
+                    "top10": 13,
+                    "starts": 14,
+                    "avg": 6.64
                 }
             }
         }
@@ -2875,18 +2899,25 @@
                 "avg": 11.22
             },
             {
+                "type": "305 Sprint Car",
+                "starts": 8,
+                "points": 217,
+                "wins": 0,
+                "avg": 9.88
+            },
+            {
+                "type": "410 Wing Sprint",
+                "starts": 6,
+                "points": 172,
+                "wins": 0,
+                "avg": 8.33
+            },
+            {
                 "type": "Street Stock",
                 "starts": 6,
                 "points": 152,
                 "wins": 0,
                 "avg": 11.67
-            },
-            {
-                "type": "305 Sprint Car",
-                "starts": 6,
-                "points": 148,
-                "wins": 0,
-                "avg": 12.33
             },
             {
                 "type": "360 Sprint",
@@ -2901,13 +2932,6 @@
                 "points": 92,
                 "wins": 0,
                 "avg": 6.33
-            },
-            {
-                "type": "410 Wing Sprint",
-                "starts": 3,
-                "points": 82,
-                "wins": 0,
-                "avg": 9.67
             },
             {
                 "type": "UMP Modified",
@@ -2925,6 +2949,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Willow Creek",
+                "car": "410 Wing Sprint",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Circle Lake",
+                "car": "410 Wing Sprint",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Jacod'S County",
+                "car": "410 Wing Sprint",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Faribury",
+                "car": "305 Sprint Car",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Five Forks",
+                "car": "305 Sprint Car",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Prairie View",
+                "car": "305 Sprint Car",
+                "pos": 6,
+                "pts": 31
+            },
             {
                 "track": "Circle Lake",
                 "car": "UMP Modified",
@@ -3100,12 +3160,6 @@
                 "pts": 24
             },
             {
-                "track": "Prairie View",
-                "car": "305 Sprint Car",
-                "pos": 14,
-                "pts": 23
-            },
-            {
                 "track": "Huset'S",
                 "car": "360 Sprint",
                 "pos": 4,
@@ -3147,12 +3201,12 @@
                 "number": "69",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 959,
+                    "points": 1118,
                     "wins": 0,
-                    "top5": 3,
-                    "top10": 18,
-                    "starts": 36,
-                    "avg": 10.36
+                    "top5": 4,
+                    "top10": 24,
+                    "starts": 41,
+                    "avg": 9.73
                 }
             }
         }
@@ -3160,6 +3214,13 @@
     "1432485477834817607": {
         "display_name": "Lostcozov",
         "cars": [
+            {
+                "type": "305 Sprint Car",
+                "starts": 3,
+                "points": 86,
+                "wins": 0,
+                "avg": 8.33
+            },
             {
                 "type": "Street Stock",
                 "starts": 3,
@@ -3183,6 +3244,24 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Faribury",
+                "car": "305 Sprint Car",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Five Forks",
+                "car": "305 Sprint Car",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Prairie View",
+                "car": "305 Sprint Car",
+                "pos": 8,
+                "pts": 29
+            },
             {
                 "track": "Prairie View",
                 "car": "Street Stock",
@@ -3231,12 +3310,12 @@
                 "number": "63",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 178,
+                    "points": 264,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 1,
-                    "starts": 7,
-                    "avg": 11.57
+                    "top10": 4,
+                    "starts": 10,
+                    "avg": 10.6
                 }
             }
         }
@@ -3246,10 +3325,10 @@
         "cars": [
             {
                 "type": "305 Sprint Car",
-                "starts": 6,
-                "points": 227,
+                "starts": 7,
+                "points": 268,
                 "wins": 5,
-                "avg": 2.5
+                "avg": 1.57
             },
             {
                 "type": "Midget",
@@ -3295,6 +3374,18 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Five Forks",
+                "car": "305 Sprint Car",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Prairie View",
+                "car": "305 Sprint Car",
+                "pos": 3,
+                "pts": 34
+            },
             {
                 "track": "Prairie View",
                 "car": "Street Stock",
@@ -3386,12 +3477,6 @@
                 "pts": 40
             },
             {
-                "track": "Prairie View",
-                "car": "305 Sprint Car",
-                "pos": 10,
-                "pts": 27
-            },
-            {
                 "track": "Huset'S",
                 "car": "360 Sprint",
                 "pos": 2,
@@ -3433,12 +3518,12 @@
                 "number": "12",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 762,
+                    "points": 803,
                     "wins": 8,
-                    "top5": 18,
-                    "top10": 20,
-                    "starts": 22,
-                    "avg": 3.82
+                    "top5": 20,
+                    "top10": 21,
+                    "starts": 23,
+                    "avg": 3.48
                 }
             }
         }
@@ -3448,10 +3533,17 @@
         "cars": [
             {
                 "type": "305 Sprint Car",
+                "starts": 11,
+                "points": 352,
+                "wins": 0,
+                "avg": 5.0
+            },
+            {
+                "type": "410 Wing Sprint",
                 "starts": 9,
-                "points": 293,
+                "points": 300,
                 "wins": 1,
-                "avg": 4.89
+                "avg": 4.11
             },
             {
                 "type": "Midget",
@@ -3459,13 +3551,6 @@
                 "points": 276,
                 "wins": 0,
                 "avg": 6.33
-            },
-            {
-                "type": "410 Wing Sprint",
-                "starts": 6,
-                "points": 200,
-                "wins": 1,
-                "avg": 4.33
             },
             {
                 "type": "WOO Late Model",
@@ -3518,6 +3603,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Willow Creek",
+                "car": "410 Wing Sprint",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Circle Lake",
+                "car": "410 Wing Sprint",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Jacod'S County",
+                "car": "410 Wing Sprint",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Faribury",
+                "car": "305 Sprint Car",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Five Forks",
+                "car": "305 Sprint Car",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Prairie View",
+                "car": "305 Sprint Car",
+                "pos": 4,
+                "pts": 33
+            },
             {
                 "track": "Chili Bowl",
                 "car": "Micro Sprint Car",
@@ -3829,12 +3950,6 @@
                 "car": "305 Sprint Car",
                 "pos": 5,
                 "pts": 32
-            },
-            {
-                "track": "Prairie View",
-                "car": "305 Sprint Car",
-                "pos": 1,
-                "pts": 40
             }
         ],
         "series": {
@@ -3842,18 +3957,18 @@
                 "number": "13",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1709,
-                    "wins": 3,
-                    "top5": 34,
-                    "top10": 49,
-                    "starts": 53,
-                    "avg": 4.98
+                    "points": 1868,
+                    "wins": 2,
+                    "top5": 39,
+                    "top10": 54,
+                    "starts": 58,
+                    "avg": 4.93
                 }
             }
         }
     },
     "209715669120319488": {
-        "display_name": "Dezzy_Wezzy_01",
+        "display_name": "Unknown Driver",
         "cars": [
             {
                 "type": "Midget",
@@ -3864,10 +3979,10 @@
             },
             {
                 "type": "305 Sprint Car",
-                "starts": 3,
-                "points": 84,
+                "starts": 2,
+                "points": 62,
                 "wins": 0,
-                "avg": 9.0
+                "avg": 6.0
             }
         ],
         "race_log": [
@@ -3900,12 +4015,6 @@
                 "car": "305 Sprint Car",
                 "pos": 10,
                 "pts": 27
-            },
-            {
-                "track": "Prairie View",
-                "car": "305 Sprint Car",
-                "pos": 15,
-                "pts": 22
             }
         ],
         "series": {
@@ -3913,12 +4022,12 @@
                 "number": "29",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 179,
+                    "points": 157,
                     "wins": 0,
                     "top5": 2,
                     "top10": 5,
-                    "starts": 6,
-                    "avg": 7.17
+                    "starts": 5,
+                    "avg": 5.6
                 }
             }
         }
@@ -3934,18 +4043,18 @@
                 "avg": 5.22
             },
             {
-                "type": "305 Sprint Car",
-                "starts": 9,
-                "points": 271,
-                "wins": 0,
-                "avg": 6.89
-            },
-            {
                 "type": "WOO Late Model",
                 "starts": 9,
                 "points": 261,
                 "wins": 0,
                 "avg": 8.0
+            },
+            {
+                "type": "305 Sprint Car",
+                "starts": 8,
+                "points": 239,
+                "wins": 0,
+                "avg": 7.13
             },
             {
                 "type": "Street Stock",
@@ -4339,12 +4448,6 @@
                 "car": "305 Sprint Car",
                 "pos": 3,
                 "pts": 34
-            },
-            {
-                "track": "Prairie View",
-                "car": "305 Sprint Car",
-                "pos": 5,
-                "pts": 32
             }
         ],
         "series": {
@@ -4352,12 +4455,12 @@
                 "number": "33",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1801,
+                    "points": 1769,
                     "wins": 2,
-                    "top5": 31,
-                    "top10": 47,
-                    "starts": 58,
-                    "avg": 6.09
+                    "top5": 30,
+                    "top10": 46,
+                    "starts": 57,
+                    "avg": 6.11
                 }
             }
         }
@@ -4367,10 +4470,10 @@
         "cars": [
             {
                 "type": "305 Sprint Car",
-                "starts": 6,
-                "points": 152,
+                "starts": 5,
+                "points": 127,
                 "wins": 0,
-                "avg": 11.67
+                "avg": 11.6
             },
             {
                 "type": "WOO Late Model",
@@ -4531,12 +4634,6 @@
                 "pts": 25
             },
             {
-                "track": "Prairie View",
-                "car": "305 Sprint Car",
-                "pos": 12,
-                "pts": 25
-            },
-            {
                 "track": "Huset'S",
                 "car": "360 Sprint",
                 "pos": 8,
@@ -4578,12 +4675,12 @@
                 "number": "83",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 662,
+                    "points": 637,
                     "wins": 0,
                     "top5": 0,
                     "top10": 11,
-                    "starts": 26,
-                    "avg": 11.54
+                    "starts": 25,
+                    "avg": 11.52
                 }
             }
         }
@@ -4593,8 +4690,8 @@
         "cars": [
             {
                 "type": "305 Sprint Car",
-                "starts": 3,
-                "points": 72,
+                "starts": 2,
+                "points": 48,
                 "wins": 0,
                 "avg": 13.0
             },
@@ -4630,12 +4727,6 @@
                 "car": "305 Sprint Car",
                 "pos": 14,
                 "pts": 23
-            },
-            {
-                "track": "Prairie View",
-                "car": "305 Sprint Car",
-                "pos": 13,
-                "pts": 24
             }
         ],
         "series": {
@@ -4643,12 +4734,12 @@
                 "number": "3",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 114,
+                    "points": 90,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
-                    "starts": 5,
-                    "avg": 14.2
+                    "starts": 4,
+                    "avg": 14.5
                 }
             }
         }
@@ -4657,11 +4748,18 @@
         "display_name": "ThatSquidGuy",
         "cars": [
             {
-                "type": "305 Sprint Car",
-                "starts": 6,
-                "points": 192,
+                "type": "410 Wing Sprint",
+                "starts": 8,
+                "points": 277,
                 "wins": 0,
-                "avg": 5.0
+                "avg": 2.38
+            },
+            {
+                "type": "305 Sprint Car",
+                "starts": 8,
+                "points": 268,
+                "wins": 1,
+                "avg": 4.0
             },
             {
                 "type": "Midget",
@@ -4669,13 +4767,6 @@
                 "points": 190,
                 "wins": 0,
                 "avg": 5.33
-            },
-            {
-                "type": "410 Wing Sprint",
-                "starts": 5,
-                "points": 173,
-                "wins": 0,
-                "avg": 2.4
             },
             {
                 "type": "WOO Late Model",
@@ -4707,6 +4798,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Willow Creek",
+                "car": "410 Wing Sprint",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Circle Lake",
+                "car": "410 Wing Sprint",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Jacod'S County",
+                "car": "410 Wing Sprint",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Faribury",
+                "car": "305 Sprint Car",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Five Forks",
+                "car": "305 Sprint Car",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Prairie View",
+                "car": "305 Sprint Car",
+                "pos": 2,
+                "pts": 35
+            },
             {
                 "track": "Elm Creek",
                 "car": "WOO Late Model",
@@ -4880,12 +5007,6 @@
                 "car": "305 Sprint Car",
                 "pos": 16,
                 "pts": 21
-            },
-            {
-                "track": "Prairie View",
-                "car": "305 Sprint Car",
-                "pos": 3,
-                "pts": 34
             }
         ],
         "series": {
@@ -4893,12 +5014,12 @@
                 "number": "88E",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 995,
-                    "wins": 0,
-                    "top5": 25,
-                    "top10": 29,
-                    "starts": 30,
-                    "avg": 3.83
+                    "points": 1175,
+                    "wins": 1,
+                    "top5": 30,
+                    "top10": 34,
+                    "starts": 35,
+                    "avg": 3.54
                 }
             }
         }
@@ -4907,18 +5028,18 @@
         "display_name": "lnfvmous_-",
         "cars": [
             {
+                "type": "410 Wing Sprint",
+                "starts": 5,
+                "points": 134,
+                "wins": 0,
+                "avg": 10.2
+            },
+            {
                 "type": "Micro Sprint Car",
                 "starts": 3,
                 "points": 90,
                 "wins": 0,
                 "avg": 7.0
-            },
-            {
-                "type": "410 Wing Sprint",
-                "starts": 3,
-                "points": 78,
-                "wins": 0,
-                "avg": 11.0
             },
             {
                 "type": "Midget",
@@ -4933,9 +5054,34 @@
                 "points": 67,
                 "wins": 0,
                 "avg": 14.67
+            },
+            {
+                "type": "305 Sprint Car",
+                "starts": 1,
+                "points": 29,
+                "wins": 0,
+                "avg": 8.0
             }
         ],
         "race_log": [
+            {
+                "track": "Circle Lake",
+                "car": "410 Wing Sprint",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Jacod'S County",
+                "car": "410 Wing Sprint",
+                "pos": 9,
+                "pts": 28
+            },
+            {
+                "track": "Faribury",
+                "car": "305 Sprint Car",
+                "pos": 8,
+                "pts": 29
+            },
             {
                 "track": "Chili Bowl",
                 "car": "Micro Sprint Car",
@@ -5014,12 +5160,12 @@
                 "number": "777",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 307,
+                    "points": 392,
                     "wins": 0,
                     "top5": 2,
-                    "top10": 4,
-                    "starts": 12,
-                    "avg": 11.42
+                    "top10": 7,
+                    "starts": 15,
+                    "avg": 10.87
                 }
             }
         }
@@ -6211,7 +6357,7 @@
         }
     },
     "1110268909745090560": {
-        "display_name": "Dalton Gregson #28",
+        "display_name": "Dalton \"Barbasol\" Gregson #28",
         "cars": [],
         "race_log": [],
         "series": {
@@ -6252,6 +6398,13 @@
         "display_name": "A54buickbandit",
         "cars": [
             {
+                "type": "305 Sprint Car",
+                "starts": 6,
+                "points": 179,
+                "wins": 0,
+                "avg": 7.17
+            },
+            {
                 "type": "Street Stock",
                 "starts": 5,
                 "points": 154,
@@ -6266,11 +6419,11 @@
                 "avg": 7.25
             },
             {
-                "type": "305 Sprint Car",
+                "type": "410 Wing Sprint",
                 "starts": 3,
-                "points": 83,
+                "points": 93,
                 "wins": 0,
-                "avg": 9.33
+                "avg": 6.0
             },
             {
                 "type": "WOO Late Model",
@@ -6288,6 +6441,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Willow Creek",
+                "car": "410 Wing Sprint",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Circle Lake",
+                "car": "410 Wing Sprint",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Jacod'S County",
+                "car": "410 Wing Sprint",
+                "pos": 8,
+                "pts": 29
+            },
+            {
+                "track": "Faribury",
+                "car": "305 Sprint Car",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Five Forks",
+                "car": "305 Sprint Car",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Prairie View",
+                "car": "305 Sprint Car",
+                "pos": 5,
+                "pts": 32
+            },
             {
                 "track": "Sawtooth",
                 "car": "410 Non wing",
@@ -6396,12 +6585,12 @@
                 "number": "59a",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 486,
+                    "points": 675,
                     "wins": 0,
-                    "top5": 4,
-                    "top10": 13,
-                    "starts": 17,
-                    "avg": 8.41
+                    "top5": 8,
+                    "top10": 19,
+                    "starts": 23,
+                    "avg": 7.65
                 }
             }
         }
@@ -6436,6 +6625,13 @@
                 "avg": 8.67
             },
             {
+                "type": "410 Wing Sprint",
+                "starts": 3,
+                "points": 94,
+                "wins": 0,
+                "avg": 5.67
+            },
+            {
                 "type": "WOO Late Model",
                 "starts": 3,
                 "points": 86,
@@ -6448,9 +6644,40 @@
                 "points": 83,
                 "wins": 0,
                 "avg": 9.33
+            },
+            {
+                "type": "305 Sprint Car",
+                "starts": 1,
+                "points": 30,
+                "wins": 0,
+                "avg": 7.0
             }
         ],
         "race_log": [
+            {
+                "track": "Willow Creek",
+                "car": "410 Wing Sprint",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Circle Lake",
+                "car": "410 Wing Sprint",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Jacod'S County",
+                "car": "410 Wing Sprint",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Faribury",
+                "car": "305 Sprint Car",
+                "pos": 7,
+                "pts": 30
+            },
             {
                 "track": "Weedsport",
                 "car": "WOO Late Model",
@@ -6529,12 +6756,12 @@
                 "number": "650",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 339,
+                    "points": 463,
                     "wins": 0,
-                    "top5": 0,
-                    "top10": 11,
-                    "starts": 12,
-                    "avg": 8.75
+                    "top5": 1,
+                    "top10": 15,
+                    "starts": 16,
+                    "avg": 8.06
                 }
             }
         }
@@ -6542,6 +6769,13 @@
     "682758052948213859": {
         "display_name": "nitro4242",
         "cars": [
+            {
+                "type": "410 Wing Sprint",
+                "starts": 3,
+                "points": 98,
+                "wins": 0,
+                "avg": 4.33
+            },
             {
                 "type": "UMP Modified",
                 "starts": 3,
@@ -6555,9 +6789,40 @@
                 "points": 92,
                 "wins": 0,
                 "avg": 6.33
+            },
+            {
+                "type": "305 Sprint Car",
+                "starts": 1,
+                "points": 35,
+                "wins": 0,
+                "avg": 2.0
             }
         ],
         "race_log": [
+            {
+                "track": "Willow Creek",
+                "car": "410 Wing Sprint",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Circle Lake",
+                "car": "410 Wing Sprint",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Jacod'S County",
+                "car": "410 Wing Sprint",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Faribury",
+                "car": "305 Sprint Car",
+                "pos": 2,
+                "pts": 35
+            },
             {
                 "track": "Chili Bowl",
                 "car": "Micro Sprint Car",
@@ -6600,12 +6865,12 @@
                 "number": "24",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 189,
+                    "points": 322,
                     "wins": 0,
-                    "top5": 3,
-                    "top10": 6,
-                    "starts": 6,
-                    "avg": 5.5
+                    "top5": 6,
+                    "top10": 10,
+                    "starts": 10,
+                    "avg": 4.8
                 }
             }
         }
