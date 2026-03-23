@@ -32,41 +32,6 @@
             overflow-x: hidden; 
         }
 
-        /* --- CHARITY BANNER STYLES --- */
-        .charity-banner {
-            background: linear-gradient(135deg, #FF8C00, #FF4500); /* Leukemia Orange */
-            color: #fff; text-align: center; padding: 1.5rem;
-            border-bottom: 4px solid #fff; position: relative; z-index: 5000;
-            box-shadow: 0 10px 30px rgba(255, 69, 0, 0.4);
-        }
-        .charity-wrapper {
-            max-width: 1200px; margin: 0 auto; display: flex;
-            align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
-        }
-        .charity-info { text-align: left; }
-        .charity-info h2 { font-size: 1.8rem; margin: 0; text-transform: uppercase; text-shadow: 0 2px 5px rgba(0,0,0,0.2); line-height: 1; }
-        .charity-info p { font-size: 0.9rem; margin: 5px 0 0; font-family: sans-serif; opacity: 0.9; max-width: 600px; line-height: 1.4; }
-        .charity-btn {
-            background: #fff; color: #FF4500; font-family: 'Arial Black'; text-decoration: none;
-            padding: 12px 30px; border-radius: 50px; font-size: 1.1rem;
-            display: inline-flex; align-items: center; gap: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2); animation: pulse-orange 2s infinite; transition: 0.3s;
-            white-space: nowrap;
-        }
-        .charity-btn:hover { transform: scale(1.05); color: #c00; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
-        @keyframes pulse-orange { 
-            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); } 
-            70% { box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); } 
-            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); } 
-        }
-        .c-tag { background: rgba(0,0,0,0.2); padding: 3px 8px; border-radius: 4px; font-size: 0.65rem; font-weight: bold; letter-spacing: 1px; display: inline-block; margin-bottom: 5px; }
-
-        @media (max-width: 768px) { 
-            .charity-wrapper { flex-direction: column; text-align: center; } 
-            .charity-info { text-align: center; }
-            .charity-btn { width: 100%; justify-content: center; }
-        }
-
         /* --- MODULAR NAVIGATION STYLES --- */
         #nav-placeholder { position: relative; z-index: 2000; }
         
@@ -232,19 +197,6 @@
     </style>
 </head>
 <body>
-
-    <div class="charity-banner">
-        <div class="charity-wrapper">
-            <div class="charity-info">
-                <div class="c-tag">OFFICIAL LEAGUE FUNDRAISER</div>
-                <h2>RACING FOR A CAUSE</h2>
-                <p>Charity Tournament for Leukemia Awareness. Donate $5 or more to enter (NASCAR 25 & World of Outlaws). Entry fees go directly to the family.</p>
-            </div>
-            <a href="https://gofund.me/73d0f55de" target="_blank" class="charity-btn">
-                <i class="fa-solid fa-heart"></i> DONATE TO ENTER
-            </a>
-        </div>
-    </div>
 
     <div id="nav-placeholder"></div>
 
