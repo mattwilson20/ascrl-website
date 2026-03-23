@@ -59,25 +59,6 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* --- UPCOMING EVENTS --- */
-        .timer-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 0; 
-            position: relative;
-            z-index: 10;
-        }
-
-        .race-card {
-            background: #0d0d0d;
-            padding: 2.5rem;
-            border: 1px solid var(--border);
-            text-align: center;
-            transition: 0.3s;
-        }
-        .race-card:hover { border-color: var(--primary); transform: translateY(-5px); }
-
         /* --- 3D CAROUSEL STYLES --- */
         .carousel-section {
             padding: 2rem 0 6rem 0; 
@@ -144,18 +125,6 @@
         .contact-btn { text-decoration: none; display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--primary); padding: 15px 30px; color: #fff; transition: 0.3s; }
         .contact-btn:hover { background: var(--primary); }
 
-        /* --- DUAL COUNTDOWN STYLES --- */
-        .countdown-wrapper { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; width: 100%; }
-        .cd-side { flex: 1; min-width: 300px; background: rgba(255,255,255,0.03); border: 1px solid #222; padding: 2rem; border-radius: 8px; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .cd-real { border-top: 4px solid var(--cup-blue); }
-        .cd-league { border-top: 4px solid var(--primary); }
-        .cd-title { font-size: 1rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.5rem; color: #fff; position: relative; z-index: 2; }
-        .cd-subtitle { font-size: 0.7rem; color: #888; margin-bottom: 2rem; font-family: sans-serif; position: relative; z-index: 2; }
-        .cd-timer { display: flex; gap: 1rem; font-family: 'Arial Black', sans-serif; position: relative; z-index: 2; }
-        .cd-box { background: rgba(0,0,0,0.5); padding: 10px; border-radius: 4px; min-width: 60px; border: 1px solid rgba(255,255,255,0.1); }
-        .cd-num { display: block; font-size: 2rem; line-height: 1; color: #fff; }
-        .cd-label { display: block; font-size: 0.6rem; color: #666; margin-top: 5px; }
-
         /* --- POWER RANKINGS STYLES --- */
         .ranking-filters { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
         .filter-btn { background: rgba(255,255,255,0.05); border: 1px solid #333; color: #aaa; padding: 10px 20px; border-radius: 30px; font-family: 'Arial Black', sans-serif; font-size: 0.8rem; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
@@ -209,31 +178,6 @@
     </header>
 
     <main class="container" style="max-width: 1300px; margin: 0 auto; padding: 2rem;">
-        <section>
-            <h2 style="margin-bottom: 2rem; font-size: 1.2rem; color: var(--text-muted); letter-spacing: 4px; position: relative; z-index: 20; text-align: center;">UPCOMING ASCR RACES</h2>
-            <div class="timer-container" id="race-countdowns">
-                <div class="race-card">
-                    <span class="stat-label">CUP SERIES</span>
-                    <h3 id="cup-next" style="font-size: 1.2rem; margin: 0.5rem 0;">...</h3>
-                    <div class="stat-value" id="cup-timer">--/--</div>
-                </div>
-                <div class="race-card">
-                    <span class="stat-label">XFINITY SERIES</span>
-                    <h3 id="xfinity-next" style="font-size: 1.2rem; margin: 0.5rem 0;">...</h3>
-                    <div class="stat-value" id="xfinity-timer">--/--</div>
-                </div>
-                <div class="race-card">
-                    <span class="stat-label">TRUCK SERIES</span>
-                    <h3 id="truck-next" style="font-size: 1.2rem; margin: 0.5rem 0;">...</h3>
-                    <div class="stat-value" id="truck-timer">--/--</div>
-                </div>
-                <div class="race-card">
-                    <span class="stat-label">MENARDS SERIES</span>
-                    <h3 id="menards-next" style="font-size: 1.2rem; margin: 0.5rem 0;">...</h3>
-                    <div class="stat-value" id="menards-timer">--/--</div>
-                </div>
-            </div>
-        </section>
 
         <section class="carousel-section">
             <h2 style="margin-bottom: 3rem; text-align: center; color: var(--text-muted); font-size: 1.2rem; letter-spacing: 4px;">VICTORY LANE</h2>
@@ -246,39 +190,6 @@
             <h2 style="margin-bottom: 3rem; text-align: center; color: var(--text-muted); font-size: 1.2rem; letter-spacing: 4px;">CHAMPIONSHIP LEADERS</h2>
             <div class="carousel-scene-reverse" id="leaders-carousel">
                 <p style="color:#666; text-align:center; padding-top:150px;">Loading Leaders...</p>
-            </div>
-        </section>
-
-        <section class="highlight-box" style="padding: 3rem 1rem; border-left: 4px solid #fff; background: linear-gradient(135deg, #0d0d0d, #111);">
-            <div style="text-align: center; margin-bottom: 2rem;">
-                <span class="stat-label" style="color: #fff;">THE ROAD TO THE CHAMPIONSHIP</span>
-                <h2 style="font-size: 2.5rem; margin: 0.5rem 0; line-height: 1;">NEXT EVENTS</h2>
-            </div>
-
-            <div class="countdown-wrapper">
-                <div class="cd-side cd-real">
-                    <span class="stat-label" style="color:var(--cup-blue); margin-bottom:5px;">REAL LIFE CUP SERIES</span>
-                    <span class="cd-title" id="real-race-name">LOADING...</span>
-                    <span class="cd-subtitle" id="real-race-time">--/--</span>
-                    <div class="cd-timer">
-                        <div class="cd-box"><span class="cd-num" id="n-d">00</span><span class="cd-label">DAYS</span></div>
-                        <div class="cd-box"><span class="cd-num" id="n-h">00</span><span class="cd-label">HRS</span></div>
-                        <div class="cd-box"><span class="cd-num" id="n-m">00</span><span class="cd-label">MIN</span></div>
-                        <div class="cd-box"><span class="cd-num" id="n-s">00</span><span class="cd-label">SEC</span></div>
-                    </div>
-                </div>
-
-                <div class="cd-side cd-league">
-                    <span class="stat-label" style="color:var(--primary); margin-bottom:5px;">ASCRL CUP SERIES</span>
-                    <span class="cd-title" id="league-race-name">LOADING...</span>
-                    <span class="cd-subtitle" id="league-race-time">--/--</span>
-                    <div class="cd-timer">
-                        <div class="cd-box"><span class="cd-num" id="a-d">00</span><span class="cd-label">DAYS</span></div>
-                        <div class="cd-box"><span class="cd-num" id="a-h">00</span><span class="cd-label">HRS</span></div>
-                        <div class="cd-box"><span class="cd-num" id="a-m">00</span><span class="cd-label">MIN</span></div>
-                        <div class="cd-box"><span class="cd-num" id="a-s">00</span><span class="cd-label">SEC</span></div>
-                    </div>
-                </div>
             </div>
         </section>
 
@@ -415,24 +326,11 @@
         return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg";
     }
 
-    // 2. DATA LOADING & COUNTDOWN LOGIC
-    // Added ?v= timestamp to prevent caching old data
+    // 2. DATA LOADING
     const cacheBust = "?v=" + new Date().getTime();
     const scheduleFile = "ASCRL_2026_Schedule.json" + cacheBust;
     const driversFile = "drivers.json" + cacheBust; 
     const resultsFile = "ASCRL_Results_2026.json" + cacheBust;
-
-    // --- MANUAL REAL NASCAR SCHEDULE ---
-    const realNascarSchedule = [
-        { name: "ATLANTA", date: "2026-02-22T15:00:00" },
-        { name: "COTA", date: "2026-03-01T15:30:00" },
-        { name: "PHOENIX", date: "2026-03-08T15:30:00" },
-        { name: "LAS VEGAS", date: "2026-03-15T15:30:00" },
-        { name: "HOMESTEAD", date: "2026-03-22T15:00:00" }
-    ];
-
-    let targetRealDate = 0;
-    let targetLeagueDate = 0;
 
     async function fetchWithFallback(primary, secondary) {
         try {
@@ -448,97 +346,18 @@
         fetchWithFallback(resultsFile, null)
     ]).then(([schedData, driversData, resultsData]) => {
         
-        const now = new Date();
-
-        // A. SETUP REAL NASCAR COUNTDOWN
-        const nextReal = realNascarSchedule.find(r => new Date(r.date) > now);
-        if(nextReal) {
-            document.getElementById('real-race-name').innerText = nextReal.name;
-            const d = new Date(nextReal.date);
-            const dateStr = d.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
-            const timeStr = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
-            document.getElementById('real-race-time').innerText = `${dateStr} @ ${timeStr}`;
-            targetRealDate = d.getTime();
-        } else {
-            document.getElementById('real-race-name').innerText = "SEASON ENDED";
-        }
-
-        // B. SETUP LEAGUE COUNTDOWN
-        if(schedData && schedData['Cup']) {
-            const nextLeague = schedData['Cup'].find(r => {
-                const specificDate = new Date(r.date + "T20:30:00"); 
-                return specificDate > now;
-            });
-
-            if(nextLeague) {
-                document.getElementById('league-race-name').innerText = nextLeague.track;
-                const d = new Date(nextLeague.date + "T20:30:00");
-                const dateStr = d.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
-                document.getElementById('league-race-time').innerText = `${dateStr} @ 8:30 PM EST`;
-                targetLeagueDate = d.getTime();
-            } else {
-                document.getElementById('league-race-name').innerText = "SEASON ENDED";
-            }
-        }
-
-        // C. LOAD CAROUSELS
+        // A. LOAD CAROUSELS
         loadCarousels(driversData, resultsData, schedData);
         
-        // D. POWER RANKINGS
+        // B. POWER RANKINGS
         if(driversData && resultsData) {
             calculatePowerRankings(driversData, resultsData);
         }
     });
 
-    // --- COUNTDOWN TICKER ---
-    function updateCountdowns() {
-        const now = new Date().getTime();
-
-        function updateTimer(target, prefix) {
-            if(!target) return;
-            const distance = target - now;
-            
-            if (distance < 0) {
-                document.getElementById(prefix + "-d").innerText = "00";
-                document.getElementById(prefix + "-h").innerText = "00";
-                document.getElementById(prefix + "-m").innerText = "00";
-                document.getElementById(prefix + "-s").innerText = "00";
-                return;
-            }
-
-            const d = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById(prefix + "-d").innerText = d < 10 ? "0" + d : d;
-            document.getElementById(prefix + "-h").innerText = h < 10 ? "0" + h : h;
-            document.getElementById(prefix + "-m").innerText = m < 10 ? "0" + m : m;
-            document.getElementById(prefix + "-s").innerText = s < 10 ? "0" + s : s;
-        }
-
-        updateTimer(targetRealDate, 'n'); // n for NASCAR
-        updateTimer(targetLeagueDate, 'a'); // a for ASCRL
-    }
-    setInterval(updateCountdowns, 1000);
-
     // --- CAROUSEL LOGIC ---
     function loadCarousels(driversData, resultsData, schedData) {
-        // A. UPCOMING EVENTS CARDS (Top of page)
-        if(schedData) {
-            ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(s => {
-                const sKey = Object.keys(schedData).find(k => k.toLowerCase() === s.toLowerCase());
-                if (sKey && schedData[sKey]) {
-                    const next = schedData[sKey].find(r => new Date(r.date + "T23:59:00") >= new Date());
-                    if(next) {
-                        document.getElementById(s.toLowerCase() + '-next').innerText = next.track;
-                        document.getElementById(s.toLowerCase() + '-timer').innerText = next.date;
-                    }
-                }
-            });
-        }
-
-        // B. LEADERS
+        // A. LEADERS
         if(driversData) {
             let html = '';
             const allDrivers = Object.keys(driversData).map(key => ({ id: key, display_name: driversData[key].display_name || key, ...driversData[key] }));
@@ -579,25 +398,21 @@
             document.getElementById('leaders-carousel').innerHTML = html;
         }
 
-        // C. WINNERS (IGNORING EXHIBITIONS)
+        // B. WINNERS (IGNORING EXHIBITIONS)
         if(resultsData) {
             let html = '';
             const keys = Object.keys(resultsData);
             
-            // Exhibition keywords to skip
             const exhibitionKeywords = ["clash", "all-star", "all star"];
 
             ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(seriesName => {
                 let lastKey = null;
                 
-                // Read from bottom-up to get the newest race for this series
                 for (let i = keys.length - 1; i >= 0; i--) {
                     const raceName = keys[i].toLowerCase();
                     
-                    // If it belongs to this series
                     if (raceName.startsWith(seriesName.toLowerCase())) { 
                         
-                        // Check if it's an exhibition race
                         let isExhibition = false;
                         for (let keyword of exhibitionKeywords) {
                             if (raceName.includes(keyword)) {
@@ -606,7 +421,6 @@
                             }
                         }
                         
-                        // If it is NOT an exhibition, set it as the last race and STOP looping
                         if (!isExhibition) {
                             lastKey = keys[i]; 
                             break; 
@@ -642,7 +456,6 @@
     // --- POWER RANKINGS ENGINE ---
     let rankingsCache = {}; 
     async function calculatePowerRankings(driversData, resultsData) {
-        // 1. Process Momentum
         const momentumMap = {};
         Object.keys(resultsData).forEach(raceKey => {
             const parts = raceKey.split(' - ');
