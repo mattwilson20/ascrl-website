@@ -1,13 +1,20 @@
 {
     "196864998251692032": {
-        "display_name": "Matthew Wilson #01",
+        "display_name": "mattwilson20",
         "cars": [
             {
                 "type": "305 Sprint Car",
-                "starts": 11,
-                "points": 330,
+                "starts": 14,
+                "points": 425,
                 "wins": 0,
-                "avg": 7.0
+                "avg": 6.64
+            },
+            {
+                "type": "UMP Modified",
+                "starts": 9,
+                "points": 264,
+                "wins": 0,
+                "avg": 7.67
             },
             {
                 "type": "Midget",
@@ -36,13 +43,6 @@
                 "points": 194,
                 "wins": 0,
                 "avg": 4.67
-            },
-            {
-                "type": "UMP Modified",
-                "starts": 6,
-                "points": 169,
-                "wins": 0,
-                "avg": 8.83
             },
             {
                 "type": "360 Sprint",
@@ -74,6 +74,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Prairie Creek",
+                "car": "UMP Modified",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Willow Creek",
+                "car": "UMP Modified",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Limaland",
+                "car": "UMP Modified",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Diamond Grove",
+                "car": "305 Sprint Car",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Lincoln",
+                "car": "305 Sprint Car",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Sugarbush",
+                "car": "305 Sprint Car",
+                "pos": 4,
+                "pts": 33
+            },
             {
                 "track": "Willow Creek",
                 "car": "410 Wing Sprint",
@@ -488,12 +524,12 @@
                 "number": "1",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1968,
+                    "points": 2158,
                     "wins": 0,
-                    "top5": 20,
-                    "top10": 51,
-                    "starts": 68,
-                    "avg": 8.06
+                    "top5": 23,
+                    "top10": 57,
+                    "starts": 74,
+                    "avg": 7.84
                 }
             }
         }
@@ -850,18 +886,25 @@
         "display_name": "ThirstTrapToby",
         "cars": [
             {
+                "type": "305 Sprint Car",
+                "starts": 12,
+                "points": 350,
+                "wins": 0,
+                "avg": 7.83
+            },
+            {
+                "type": "UMP Modified",
+                "starts": 9,
+                "points": 279,
+                "wins": 0,
+                "avg": 6.0
+            },
+            {
                 "type": "WOO Late Model",
                 "starts": 9,
                 "points": 260,
                 "wins": 0,
                 "avg": 8.11
-            },
-            {
-                "type": "305 Sprint Car",
-                "starts": 9,
-                "points": 252,
-                "wins": 0,
-                "avg": 9.0
             },
             {
                 "type": "Midget",
@@ -883,13 +926,6 @@
                 "points": 179,
                 "wins": 0,
                 "avg": 7.17
-            },
-            {
-                "type": "UMP Modified",
-                "starts": 6,
-                "points": 178,
-                "wins": 0,
-                "avg": 7.33
             },
             {
                 "type": "Big Block Modified",
@@ -921,6 +957,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Prairie Creek",
+                "car": "UMP Modified",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Willow Creek",
+                "car": "UMP Modified",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Limaland",
+                "car": "UMP Modified",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Diamond Grove",
+                "car": "305 Sprint Car",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Lincoln",
+                "car": "305 Sprint Car",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Sugarbush",
+                "car": "305 Sprint Car",
+                "pos": 6,
+                "pts": 31
+            },
             {
                 "track": "Weedsport",
                 "car": "WOO Late Model",
@@ -1317,12 +1389,12 @@
                 "number": "000",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1858,
+                    "points": 2057,
                     "wins": 0,
-                    "top5": 16,
-                    "top10": 46,
-                    "starts": 65,
-                    "avg": 8.42
+                    "top5": 21,
+                    "top10": 52,
+                    "starts": 71,
+                    "avg": 8.03
                 }
             }
         }
@@ -1938,10 +2010,10 @@
         "cars": [
             {
                 "type": "305 Sprint Car",
-                "starts": 8,
-                "points": 238,
+                "starts": 10,
+                "points": 302,
                 "wins": 0,
-                "avg": 7.25
+                "avg": 6.8
             },
             {
                 "type": "WOO Late Model",
@@ -1956,6 +2028,13 @@
                 "points": 192,
                 "wins": 0,
                 "avg": 5.0
+            },
+            {
+                "type": "UMP Modified",
+                "starts": 6,
+                "points": 187,
+                "wins": 0,
+                "avg": 5.83
             },
             {
                 "type": "Street Stock",
@@ -1984,16 +2063,39 @@
                 "points": 94,
                 "wins": 0,
                 "avg": 5.67
-            },
-            {
-                "type": "UMP Modified",
-                "starts": 3,
-                "points": 91,
-                "wins": 0,
-                "avg": 6.67
             }
         ],
         "race_log": [
+            {
+                "track": "Prairie Creek",
+                "car": "UMP Modified",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Willow Creek",
+                "car": "UMP Modified",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Limaland",
+                "car": "UMP Modified",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Diamond Grove",
+                "car": "305 Sprint Car",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Lincoln",
+                "car": "305 Sprint Car",
+                "pos": 5,
+                "pts": 32
+            },
             {
                 "track": "Weedsport",
                 "car": "WOO Late Model",
@@ -2282,12 +2384,12 @@
                 "number": "57j",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1391,
+                    "points": 1551,
                     "wins": 1,
-                    "top5": 13,
-                    "top10": 37,
-                    "starts": 47,
-                    "avg": 7.49
+                    "top5": 17,
+                    "top10": 42,
+                    "starts": 52,
+                    "avg": 7.25
                 }
             }
         }
@@ -2296,6 +2398,20 @@
         "display_name": "The_Stone07",
         "cars": [
             {
+                "type": "305 Sprint Car",
+                "starts": 11,
+                "points": 404,
+                "wins": 8,
+                "avg": 3.18
+            },
+            {
+                "type": "UMP Modified",
+                "starts": 9,
+                "points": 360,
+                "wins": 9,
+                "avg": 1.0
+            },
+            {
                 "type": "WOO Late Model",
                 "starts": 9,
                 "points": 330,
@@ -2303,25 +2419,11 @@
                 "avg": 3.0
             },
             {
-                "type": "305 Sprint Car",
-                "starts": 8,
-                "points": 284,
-                "wins": 5,
-                "avg": 4.0
-            },
-            {
                 "type": "Midget",
                 "starts": 7,
                 "points": 260,
                 "wins": 6,
                 "avg": 3.29
-            },
-            {
-                "type": "UMP Modified",
-                "starts": 6,
-                "points": 240,
-                "wins": 6,
-                "avg": 1.0
             },
             {
                 "type": "Street Stock",
@@ -2367,6 +2469,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Prairie Creek",
+                "car": "UMP Modified",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Willow Creek",
+                "car": "UMP Modified",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Limaland",
+                "car": "UMP Modified",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Diamond Grove",
+                "car": "305 Sprint Car",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Lincoln",
+                "car": "305 Sprint Car",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Sugarbush",
+                "car": "305 Sprint Car",
+                "pos": 1,
+                "pts": 40
+            },
             {
                 "track": "Willow Creek",
                 "car": "410 Wing Sprint",
@@ -2745,12 +2883,12 @@
                 "number": "07",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 2361,
-                    "wins": 52,
-                    "top5": 56,
-                    "top10": 57,
-                    "starts": 62,
-                    "avg": 2.27
+                    "points": 2601,
+                    "wins": 58,
+                    "top5": 62,
+                    "top10": 63,
+                    "starts": 68,
+                    "avg": 2.16
                 }
             }
         }
@@ -2892,18 +3030,18 @@
         "display_name": "\ud83e\udda5Strait_Rogue\ud83e\udda5",
         "cars": [
             {
+                "type": "305 Sprint Car",
+                "starts": 11,
+                "points": 309,
+                "wins": 0,
+                "avg": 8.91
+            },
+            {
                 "type": "Midget",
                 "starts": 9,
                 "points": 232,
                 "wins": 0,
                 "avg": 11.22
-            },
-            {
-                "type": "305 Sprint Car",
-                "starts": 8,
-                "points": 217,
-                "wins": 0,
-                "avg": 9.88
             },
             {
                 "type": "410 Wing Sprint",
@@ -2920,6 +3058,13 @@
                 "avg": 11.67
             },
             {
+                "type": "UMP Modified",
+                "starts": 4,
+                "points": 111,
+                "wins": 0,
+                "avg": 9.25
+            },
+            {
                 "type": "360 Sprint",
                 "starts": 3,
                 "points": 95,
@@ -2934,13 +3079,6 @@
                 "avg": 6.33
             },
             {
-                "type": "UMP Modified",
-                "starts": 3,
-                "points": 81,
-                "wins": 0,
-                "avg": 10.0
-            },
-            {
                 "type": "WOO Late Model",
                 "starts": 3,
                 "points": 77,
@@ -2949,6 +3087,30 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Limaland",
+                "car": "UMP Modified",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Diamond Grove",
+                "car": "305 Sprint Car",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Lincoln",
+                "car": "305 Sprint Car",
+                "pos": 7,
+                "pts": 30
+            },
+            {
+                "track": "Sugarbush",
+                "car": "305 Sprint Car",
+                "pos": 5,
+                "pts": 32
+            },
             {
                 "track": "Willow Creek",
                 "car": "410 Wing Sprint",
@@ -3201,12 +3363,12 @@
                 "number": "69",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1118,
+                    "points": 1240,
                     "wins": 0,
-                    "top5": 4,
-                    "top10": 24,
-                    "starts": 41,
-                    "avg": 9.73
+                    "top5": 5,
+                    "top10": 28,
+                    "starts": 45,
+                    "avg": 9.44
                 }
             }
         }
@@ -3533,10 +3695,10 @@
         "cars": [
             {
                 "type": "305 Sprint Car",
-                "starts": 11,
-                "points": 352,
+                "starts": 14,
+                "points": 456,
                 "wins": 0,
-                "avg": 5.0
+                "avg": 4.43
             },
             {
                 "type": "410 Wing Sprint",
@@ -3574,6 +3736,13 @@
                 "avg": 2.8
             },
             {
+                "type": "UMP Modified",
+                "starts": 5,
+                "points": 166,
+                "wins": 0,
+                "avg": 3.8
+            },
+            {
                 "type": "360 Sprint",
                 "starts": 4,
                 "points": 137,
@@ -3593,16 +3762,45 @@
                 "points": 96,
                 "wins": 0,
                 "avg": 5.0
-            },
-            {
-                "type": "UMP Modified",
-                "starts": 2,
-                "points": 61,
-                "wins": 0,
-                "avg": 6.5
             }
         ],
         "race_log": [
+            {
+                "track": "Prairie Creek",
+                "car": "UMP Modified",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Willow Creek",
+                "car": "UMP Modified",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Limaland",
+                "car": "UMP Modified",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Diamond Grove",
+                "car": "305 Sprint Car",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Lincoln",
+                "car": "305 Sprint Car",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Sugarbush",
+                "car": "305 Sprint Car",
+                "pos": 2,
+                "pts": 35
+            },
             {
                 "track": "Willow Creek",
                 "car": "410 Wing Sprint",
@@ -3957,12 +4155,12 @@
                 "number": "13",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1868,
+                    "points": 2077,
                     "wins": 2,
-                    "top5": 39,
-                    "top10": 54,
-                    "starts": 58,
-                    "avg": 4.93
+                    "top5": 45,
+                    "top10": 60,
+                    "starts": 64,
+                    "avg": 4.67
                 }
             }
         }
@@ -4466,7 +4664,7 @@
         }
     },
     "725157771187716136": {
-        "display_name": "Daniel \u201cC0mpl1c8ed\u201d Brannon #83",
+        "display_name": "C0mpl1c8ed",
         "cars": [
             {
                 "type": "305 Sprint Car",
@@ -5328,7 +5526,7 @@
         }
     },
     "463124702190239744": {
-        "display_name": "Unknown Driver",
+        "display_name": "Georgewright2",
         "cars": [],
         "race_log": [],
         "series": {
@@ -6395,7 +6593,7 @@
         }
     },
     "1343100447703040000": {
-        "display_name": "A54buickbandit",
+        "display_name": "A54BUICKBANDIT",
         "cars": [
             {
                 "type": "305 Sprint Car",
@@ -6619,10 +6817,17 @@
         "cars": [
             {
                 "type": "UMP Modified",
-                "starts": 6,
-                "points": 170,
+                "starts": 9,
+                "points": 268,
                 "wins": 0,
-                "avg": 8.67
+                "avg": 7.22
+            },
+            {
+                "type": "305 Sprint Car",
+                "starts": 4,
+                "points": 132,
+                "wins": 0,
+                "avg": 4.0
             },
             {
                 "type": "410 Wing Sprint",
@@ -6644,16 +6849,45 @@
                 "points": 83,
                 "wins": 0,
                 "avg": 9.33
-            },
-            {
-                "type": "305 Sprint Car",
-                "starts": 1,
-                "points": 30,
-                "wins": 0,
-                "avg": 7.0
             }
         ],
         "race_log": [
+            {
+                "track": "Prairie Creek",
+                "car": "UMP Modified",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Willow Creek",
+                "car": "UMP Modified",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Limaland",
+                "car": "UMP Modified",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Diamond Grove",
+                "car": "305 Sprint Car",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Lincoln",
+                "car": "305 Sprint Car",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Sugarbush",
+                "car": "305 Sprint Car",
+                "pos": 3,
+                "pts": 34
+            },
             {
                 "track": "Willow Creek",
                 "car": "410 Wing Sprint",
@@ -6756,12 +6990,12 @@
                 "number": "650",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 463,
+                    "points": 663,
                     "wins": 0,
-                    "top5": 1,
-                    "top10": 15,
-                    "starts": 16,
-                    "avg": 8.06
+                    "top5": 6,
+                    "top10": 21,
+                    "starts": 22,
+                    "avg": 6.86
                 }
             }
         }
