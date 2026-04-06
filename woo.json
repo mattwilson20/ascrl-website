@@ -60,10 +60,10 @@
             },
             {
                 "type": "410 Non wing",
-                "starts": 5,
-                "points": 149,
+                "starts": 3,
+                "points": 90,
                 "wins": 0,
-                "avg": 7.2
+                "avg": 7.0
             },
             {
                 "type": "Micro Sprint Car",
@@ -237,22 +237,10 @@
                 "pts": 31
             },
             {
-                "track": "Bristol",
-                "car": "410 Non wing",
-                "pos": 5,
-                "pts": 32
-            },
-            {
                 "track": "Kokomo",
                 "car": "410 Non wing",
                 "pos": 5,
                 "pts": 32
-            },
-            {
-                "track": "Sawtooth",
-                "car": "410 Non wing",
-                "pos": 10,
-                "pts": 27
             },
             {
                 "track": "Charlotte",
@@ -524,12 +512,12 @@
                 "number": "1",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 2158,
+                    "points": 2099,
                     "wins": 0,
-                    "top5": 23,
-                    "top10": 57,
-                    "starts": 74,
-                    "avg": 7.84
+                    "top5": 22,
+                    "top10": 55,
+                    "starts": 72,
+                    "avg": 7.85
                 }
             }
         }
@@ -587,18 +575,18 @@
                 "avg": 10.0
             },
             {
-                "type": "410 Non wing",
-                "starts": 2,
-                "points": 58,
-                "wins": 0,
-                "avg": 8.0
-            },
-            {
                 "type": "Micro Sprint Car",
                 "starts": 1,
                 "points": 35,
                 "wins": 0,
                 "avg": 2.0
+            },
+            {
+                "type": "410 Non wing",
+                "starts": 1,
+                "points": 26,
+                "wins": 0,
+                "avg": 11.0
             }
         ],
         "race_log": [
@@ -623,12 +611,6 @@
             {
                 "track": "Texas",
                 "car": "UMP Modified",
-                "pos": 5,
-                "pts": 32
-            },
-            {
-                "track": "Sawtooth",
-                "car": "410 Non wing",
                 "pos": 5,
                 "pts": 32
             },
@@ -872,12 +854,12 @@
                 "number": "218",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1223,
+                    "points": 1191,
                     "wins": 0,
-                    "top5": 10,
-                    "top10": 25,
-                    "starts": 44,
-                    "avg": 9.2
+                    "top5": 9,
+                    "top10": 24,
+                    "starts": 43,
+                    "avg": 9.3
                 }
             }
         }
@@ -914,6 +896,13 @@
                 "avg": 11.78
             },
             {
+                "type": "410 Non wing",
+                "starts": 6,
+                "points": 190,
+                "wins": 0,
+                "avg": 5.33
+            },
+            {
                 "type": "360 Sprint",
                 "starts": 6,
                 "points": 181,
@@ -942,11 +931,11 @@
                 "avg": 10.17
             },
             {
-                "type": "410 Non wing",
-                "starts": 5,
-                "points": 150,
+                "type": "Pro late Model",
+                "starts": 3,
+                "points": 98,
                 "wins": 0,
-                "avg": 7.0
+                "avg": 4.33
             },
             {
                 "type": "Micro Sprint Car",
@@ -957,6 +946,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Charlotte",
+                "car": "Pro late Model",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Lincoln",
+                "car": "Pro late Model",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Baxterville",
+                "car": "Pro late Model",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Bristol",
+                "car": "410 Non wing",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Sawtooth",
+                "car": "410 Non wing",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Weedsport",
+                "car": "410 Non wing",
+                "pos": 4,
+                "pts": 33
+            },
             {
                 "track": "Prairie Creek",
                 "car": "UMP Modified",
@@ -1090,22 +1115,10 @@
                 "pts": 32
             },
             {
-                "track": "Bristol",
-                "car": "410 Non wing",
-                "pos": 6,
-                "pts": 31
-            },
-            {
                 "track": "Kokomo",
                 "car": "410 Non wing",
                 "pos": 6,
                 "pts": 31
-            },
-            {
-                "track": "Sawtooth",
-                "car": "410 Non wing",
-                "pos": 9,
-                "pts": 28
             },
             {
                 "track": "Charlotte",
@@ -1389,12 +1402,12 @@
                 "number": "000",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 2057,
+                    "points": 2195,
                     "wins": 0,
-                    "top5": 21,
-                    "top10": 52,
-                    "starts": 71,
-                    "avg": 8.03
+                    "top5": 25,
+                    "top10": 56,
+                    "starts": 75,
+                    "avg": 7.73
                 }
             }
         }
@@ -2440,6 +2453,13 @@
                 "avg": 1.0
             },
             {
+                "type": "410 Non wing",
+                "starts": 6,
+                "points": 240,
+                "wins": 6,
+                "avg": 1.0
+            },
+            {
                 "type": "360 Sprint",
                 "starts": 6,
                 "points": 240,
@@ -2454,10 +2474,10 @@
                 "avg": 1.17
             },
             {
-                "type": "410 Non wing",
-                "starts": 5,
-                "points": 200,
-                "wins": 5,
+                "type": "Pro late Model",
+                "starts": 3,
+                "points": 120,
+                "wins": 3,
                 "avg": 1.0
             },
             {
@@ -2469,6 +2489,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Charlotte",
+                "car": "Pro late Model",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Lincoln",
+                "car": "Pro late Model",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Baxterville",
+                "car": "Pro late Model",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Bristol",
+                "car": "410 Non wing",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Sawtooth",
+                "car": "410 Non wing",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Weedsport",
+                "car": "410 Non wing",
+                "pos": 1,
+                "pts": 40
+            },
             {
                 "track": "Prairie Creek",
                 "car": "UMP Modified",
@@ -2638,19 +2694,7 @@
                 "pts": 40
             },
             {
-                "track": "Bristol",
-                "car": "410 Non wing",
-                "pos": 1,
-                "pts": 40
-            },
-            {
                 "track": "Kokomo",
-                "car": "410 Non wing",
-                "pos": 1,
-                "pts": 40
-            },
-            {
-                "track": "Sawtooth",
                 "car": "410 Non wing",
                 "pos": 1,
                 "pts": 40
@@ -2883,12 +2927,12 @@
                 "number": "07",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 2601,
-                    "wins": 58,
-                    "top5": 62,
-                    "top10": 63,
-                    "starts": 68,
-                    "avg": 2.16
+                    "points": 2761,
+                    "wins": 62,
+                    "top5": 66,
+                    "top10": 67,
+                    "starts": 72,
+                    "avg": 2.1
                 }
             }
         }
@@ -3084,9 +3128,22 @@
                 "points": 77,
                 "wins": 0,
                 "avg": 11.33
+            },
+            {
+                "type": "410 Non wing",
+                "starts": 1,
+                "points": 30,
+                "wins": 0,
+                "avg": 7.0
             }
         ],
         "race_log": [
+            {
+                "track": "Weedsport",
+                "car": "410 Non wing",
+                "pos": 7,
+                "pts": 30
+            },
             {
                 "track": "Limaland",
                 "car": "UMP Modified",
@@ -3363,12 +3420,12 @@
                 "number": "69",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1240,
+                    "points": 1270,
                     "wins": 0,
                     "top5": 5,
-                    "top10": 28,
-                    "starts": 45,
-                    "avg": 9.44
+                    "top10": 29,
+                    "starts": 46,
+                    "avg": 9.39
                 }
             }
         }
@@ -3483,7 +3540,7 @@
         }
     },
     "766025588217085952": {
-        "display_name": "Mrs. Puff - Hockey",
+        "display_name": "Trever \"mrs puff\" Yates #71",
         "cars": [
             {
                 "type": "305 Sprint Car",
@@ -3729,13 +3786,6 @@
                 "avg": 6.67
             },
             {
-                "type": "410 Non wing",
-                "starts": 5,
-                "points": 171,
-                "wins": 0,
-                "avg": 2.8
-            },
-            {
                 "type": "UMP Modified",
                 "starts": 5,
                 "points": 166,
@@ -3755,6 +3805,13 @@
                 "points": 105,
                 "wins": 1,
                 "avg": 3.33
+            },
+            {
+                "type": "410 Non wing",
+                "starts": 3,
+                "points": 102,
+                "wins": 0,
+                "avg": 3.0
             },
             {
                 "type": "Big Block Modified",
@@ -3898,19 +3955,7 @@
                 "pts": 35
             },
             {
-                "track": "Bristol",
-                "car": "410 Non wing",
-                "pos": 2,
-                "pts": 35
-            },
-            {
                 "track": "Kokomo",
-                "car": "410 Non wing",
-                "pos": 3,
-                "pts": 34
-            },
-            {
-                "track": "Sawtooth",
                 "car": "410 Non wing",
                 "pos": 3,
                 "pts": 34
@@ -4155,12 +4200,12 @@
                 "number": "13",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 2077,
+                    "points": 2008,
                     "wins": 2,
-                    "top5": 45,
-                    "top10": 60,
-                    "starts": 64,
-                    "avg": 4.67
+                    "top5": 43,
+                    "top10": 58,
+                    "starts": 62,
+                    "avg": 4.74
                 }
             }
         }
@@ -4262,13 +4307,6 @@
                 "avg": 4.0
             },
             {
-                "type": "410 Non wing",
-                "starts": 5,
-                "points": 167,
-                "wins": 0,
-                "avg": 3.6
-            },
-            {
                 "type": "UMP Modified",
                 "starts": 5,
                 "points": 157,
@@ -4295,6 +4333,13 @@
                 "points": 103,
                 "wins": 0,
                 "avg": 2.67
+            },
+            {
+                "type": "410 Non wing",
+                "starts": 3,
+                "points": 100,
+                "wins": 0,
+                "avg": 3.67
             },
             {
                 "type": "Big Block Modified",
@@ -4396,22 +4441,10 @@
                 "pts": 34
             },
             {
-                "track": "Bristol",
-                "car": "410 Non wing",
-                "pos": 3,
-                "pts": 34
-            },
-            {
                 "track": "Kokomo",
                 "car": "410 Non wing",
                 "pos": 2,
                 "pts": 35
-            },
-            {
-                "track": "Sawtooth",
-                "car": "410 Non wing",
-                "pos": 4,
-                "pts": 33
             },
             {
                 "track": "Charlotte",
@@ -4653,12 +4686,12 @@
                 "number": "33",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1769,
+                    "points": 1702,
                     "wins": 2,
-                    "top5": 30,
-                    "top10": 46,
-                    "starts": 57,
-                    "avg": 6.11
+                    "top5": 28,
+                    "top10": 44,
+                    "starts": 55,
+                    "avg": 6.2
                 }
             }
         }
@@ -4989,8 +5022,8 @@
             },
             {
                 "type": "410 Non wing",
-                "starts": 2,
-                "points": 70,
+                "starts": 1,
+                "points": 35,
                 "wins": 0,
                 "avg": 2.0
             }
@@ -5059,12 +5092,6 @@
             {
                 "track": "Rockberry",
                 "car": "UMP Modified",
-                "pos": 2,
-                "pts": 35
-            },
-            {
-                "track": "Sawtooth",
-                "car": "410 Non wing",
                 "pos": 2,
                 "pts": 35
             },
@@ -5212,12 +5239,12 @@
                 "number": "88E",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1175,
+                    "points": 1140,
                     "wins": 1,
-                    "top5": 30,
-                    "top10": 34,
-                    "starts": 35,
-                    "avg": 3.54
+                    "top5": 29,
+                    "top10": 33,
+                    "starts": 34,
+                    "avg": 3.59
                 }
             }
         }
@@ -5386,6 +5413,20 @@
                 "avg": 10.17
             },
             {
+                "type": "Pro late Model",
+                "starts": 3,
+                "points": 104,
+                "wins": 0,
+                "avg": 2.33
+            },
+            {
+                "type": "410 Non wing",
+                "starts": 3,
+                "points": 100,
+                "wins": 0,
+                "avg": 3.67
+            },
+            {
                 "type": "305 Sprint Car",
                 "starts": 3,
                 "points": 92,
@@ -5401,6 +5442,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Charlotte",
+                "car": "Pro late Model",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Lincoln",
+                "car": "Pro late Model",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Baxterville",
+                "car": "Pro late Model",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Bristol",
+                "car": "410 Non wing",
+                "pos": 6,
+                "pts": 31
+            },
+            {
+                "track": "Sawtooth",
+                "car": "410 Non wing",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Weedsport",
+                "car": "410 Non wing",
+                "pos": 2,
+                "pts": 35
+            },
             {
                 "track": "Texas",
                 "car": "Street Stock",
@@ -5515,12 +5592,12 @@
                 "number": "51",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 537,
+                    "points": 741,
                     "wins": 0,
-                    "top5": 6,
-                    "top10": 15,
-                    "starts": 18,
-                    "avg": 7.17
+                    "top5": 11,
+                    "top10": 21,
+                    "starts": 24,
+                    "avg": 6.13
                 }
             }
         }
@@ -5555,6 +5632,13 @@
                 "avg": 7.22
             },
             {
+                "type": "410 Non wing",
+                "starts": 6,
+                "points": 199,
+                "wins": 0,
+                "avg": 3.83
+            },
+            {
                 "type": "UMP Modified",
                 "starts": 6,
                 "points": 192,
@@ -5574,13 +5658,6 @@
                 "points": 164,
                 "wins": 0,
                 "avg": 9.67
-            },
-            {
-                "type": "410 Non wing",
-                "starts": 5,
-                "points": 162,
-                "wins": 0,
-                "avg": 4.6
             },
             {
                 "type": "Big Block Modified",
@@ -5609,9 +5686,40 @@
                 "points": 86,
                 "wins": 0,
                 "avg": 8.33
+            },
+            {
+                "type": "Pro late Model",
+                "starts": 1,
+                "points": 33,
+                "wins": 0,
+                "avg": 4.0
             }
         ],
         "race_log": [
+            {
+                "track": "Baxterville",
+                "car": "Pro late Model",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Bristol",
+                "car": "410 Non wing",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Sawtooth",
+                "car": "410 Non wing",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Weedsport",
+                "car": "410 Non wing",
+                "pos": 3,
+                "pts": 34
+            },
             {
                 "track": "Weedsport",
                 "car": "WOO Late Model",
@@ -5691,22 +5799,10 @@
                 "pts": 33
             },
             {
-                "track": "Bristol",
-                "car": "410 Non wing",
-                "pos": 4,
-                "pts": 33
-            },
-            {
                 "track": "Kokomo",
                 "car": "410 Non wing",
                 "pos": 4,
                 "pts": 33
-            },
-            {
-                "track": "Sawtooth",
-                "car": "410 Non wing",
-                "pos": 6,
-                "pts": 31
             },
             {
                 "track": "Charlotte",
@@ -5882,12 +5978,12 @@
                 "number": "05",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1327,
+                    "points": 1397,
                     "wins": 0,
-                    "top5": 15,
-                    "top10": 39,
-                    "starts": 44,
-                    "avg": 6.84
+                    "top5": 18,
+                    "top10": 41,
+                    "starts": 46,
+                    "avg": 6.63
                 }
             }
         }
@@ -5924,6 +6020,13 @@
                 "avg": 9.8
             },
             {
+                "type": "410 Non wing",
+                "starts": 4,
+                "points": 128,
+                "wins": 0,
+                "avg": 5.0
+            },
+            {
                 "type": "Micro Sprint Car",
                 "starts": 3,
                 "points": 90,
@@ -5952,14 +6055,44 @@
                 "avg": 11.0
             },
             {
-                "type": "410 Non wing",
+                "type": "Pro late Model",
                 "starts": 2,
-                "points": 59,
+                "points": 68,
                 "wins": 0,
-                "avg": 7.5
+                "avg": 3.0
             }
         ],
         "race_log": [
+            {
+                "track": "Lincoln",
+                "car": "Pro late Model",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Baxterville",
+                "car": "Pro late Model",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Bristol",
+                "car": "410 Non wing",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Sawtooth",
+                "car": "410 Non wing",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Weedsport",
+                "car": "410 Non wing",
+                "pos": 6,
+                "pts": 31
+            },
             {
                 "track": "Weedsport",
                 "car": "WOO Late Model",
@@ -6031,12 +6164,6 @@
                 "car": "UMP Modified",
                 "pos": 3,
                 "pts": 34
-            },
-            {
-                "track": "Sawtooth",
-                "car": "410 Non wing",
-                "pos": 8,
-                "pts": 29
             },
             {
                 "track": "Charlotte",
@@ -6206,12 +6333,12 @@
                 "number": "32",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1170,
+                    "points": 1307,
                     "wins": 0,
-                    "top5": 11,
-                    "top10": 32,
-                    "starts": 40,
-                    "avg": 7.75
+                    "top5": 15,
+                    "top10": 36,
+                    "starts": 44,
+                    "avg": 7.3
                 }
             }
         }
@@ -6383,10 +6510,10 @@
             },
             {
                 "type": "410 Non wing",
-                "starts": 2,
-                "points": 60,
+                "starts": 1,
+                "points": 34,
                 "wins": 0,
-                "avg": 7.0
+                "avg": 3.0
             }
         ],
         "race_log": [
@@ -6425,12 +6552,6 @@
                 "car": "UMP Modified",
                 "pos": 2,
                 "pts": 35
-            },
-            {
-                "track": "Sawtooth",
-                "car": "410 Non wing",
-                "pos": 11,
-                "pts": 26
             },
             {
                 "track": "Charlotte",
@@ -6498,12 +6619,12 @@
                 "number": "17",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 537,
+                    "points": 511,
                     "wins": 0,
                     "top5": 10,
                     "top10": 16,
-                    "starts": 17,
-                    "avg": 5.41
+                    "starts": 16,
+                    "avg": 5.06
                 }
             }
         }
@@ -6632,10 +6753,10 @@
             },
             {
                 "type": "410 Non wing",
-                "starts": 2,
-                "points": 59,
+                "starts": 1,
+                "points": 29,
                 "wins": 0,
-                "avg": 7.5
+                "avg": 8.0
             }
         ],
         "race_log": [
@@ -6674,12 +6795,6 @@
                 "car": "305 Sprint Car",
                 "pos": 5,
                 "pts": 32
-            },
-            {
-                "track": "Sawtooth",
-                "car": "410 Non wing",
-                "pos": 7,
-                "pts": 30
             },
             {
                 "track": "Charlotte",
@@ -6783,12 +6898,12 @@
                 "number": "59a",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 675,
+                    "points": 645,
                     "wins": 0,
                     "top5": 8,
-                    "top10": 19,
-                    "starts": 23,
-                    "avg": 7.65
+                    "top10": 18,
+                    "starts": 22,
+                    "avg": 7.68
                 }
             }
         }
@@ -6830,6 +6945,13 @@
                 "avg": 4.0
             },
             {
+                "type": "410 Non wing",
+                "starts": 3,
+                "points": 97,
+                "wins": 0,
+                "avg": 4.67
+            },
+            {
                 "type": "410 Wing Sprint",
                 "starts": 3,
                 "points": 94,
@@ -6849,9 +6971,46 @@
                 "points": 83,
                 "wins": 0,
                 "avg": 9.33
+            },
+            {
+                "type": "Pro late Model",
+                "starts": 2,
+                "points": 65,
+                "wins": 0,
+                "avg": 4.5
             }
         ],
         "race_log": [
+            {
+                "track": "Lincoln",
+                "car": "Pro late Model",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Baxterville",
+                "car": "Pro late Model",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Bristol",
+                "car": "410 Non wing",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Sawtooth",
+                "car": "410 Non wing",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Weedsport",
+                "car": "410 Non wing",
+                "pos": 5,
+                "pts": 32
+            },
             {
                 "track": "Prairie Creek",
                 "car": "UMP Modified",
@@ -6990,12 +7149,12 @@
                 "number": "650",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 663,
+                    "points": 825,
                     "wins": 0,
-                    "top5": 6,
-                    "top10": 21,
-                    "starts": 22,
-                    "avg": 6.86
+                    "top5": 11,
+                    "top10": 26,
+                    "starts": 27,
+                    "avg": 6.44
                 }
             }
         }
