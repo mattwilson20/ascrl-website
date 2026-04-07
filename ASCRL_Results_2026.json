@@ -4206,169 +4206,6 @@
             "fl": ""
         }
     ],
-    "Truck - Rockingham": [
-        {
-            "driver": "Duramax18gg",
-            "position": 1,
-            "points": 42,
-            "pole": "Yes",
-            "fl": "FL"
-        },
-        {
-            "driver": "#75 bigray-45",
-            "position": 2,
-            "points": 35,
-            "pole": "",
-            "fl": ""
-        },
-        {
-            "driver": "Maddietheracer6",
-            "position": 3,
-            "points": 34,
-            "pole": "",
-            "fl": ""
-        },
-        {
-            "driver": "#95 Joshua Riddle #12",
-            "position": 4,
-            "points": 33,
-            "pole": "",
-            "fl": ""
-        },
-        {
-            "driver": "#36 eRA_LukeAss369",
-            "position": 5,
-            "points": 32,
-            "pole": "",
-            "fl": ""
-        },
-        {
-            "driver": "#6 rickyspanish1500",
-            "position": 6,
-            "points": 31,
-            "pole": "",
-            "fl": ""
-        },
-        {
-            "driver": "#9 dakotathomas1994",
-            "position": 7,
-            "points": 30,
-            "pole": "",
-            "fl": ""
-        },
-        {
-            "driver": "#60 A54BUICKBANDIT",
-            "position": 8,
-            "points": 29,
-            "pole": "",
-            "fl": ""
-        },
-        {
-            "driver": "#59 BanishedCrayon",
-            "position": 9,
-            "points": 28,
-            "pole": "",
-            "fl": ""
-        },
-        {
-            "driver": "#48 the_fireman199",
-            "position": 10,
-            "points": 27,
-            "pole": "",
-            "fl": ""
-        },
-        {
-            "driver": "eRA_Jakeyy",
-            "position": 11,
-            "points": 26,
-            "pole": "",
-            "fl": ""
-        },
-        {
-            "driver": "#41 SithWarriorUno",
-            "position": 12,
-            "points": 25,
-            "pole": "",
-            "fl": ""
-        },
-        {
-            "driver": "#24 Scott247_",
-            "position": 13,
-            "points": 24,
-            "pole": "",
-            "fl": ""
-        },
-        {
-            "driver": "#33 superace33",
-            "position": 14,
-            "points": 23,
-            "pole": "",
-            "fl": ""
-        },
-        {
-            "driver": "#04 lolmpgs",
-            "position": 15,
-            "points": 22,
-            "pole": "",
-            "fl": ""
-        },
-        {
-            "driver": "#58 On-A-Mission618",
-            "position": 16,
-            "points": 21,
-            "pole": "",
-            "fl": ""
-        },
-        {
-            "driver": "#05 Mike_8762",
-            "position": 17,
-            "points": 20,
-            "pole": "",
-            "fl": ""
-        },
-        {
-            "driver": "#2 Lostcozov",
-            "position": 18,
-            "points": 19,
-            "pole": "",
-            "fl": ""
-        },
-        {
-            "driver": "#7 BusterTC007",
-            "position": 19,
-            "points": 18,
-            "pole": "",
-            "fl": ""
-        },
-        {
-            "driver": "#27 RA_J_Set_",
-            "position": 20,
-            "points": 17,
-            "pole": "",
-            "fl": ""
-        },
-        {
-            "driver": "#10 nitro4242",
-            "position": 21,
-            "points": 16,
-            "pole": "",
-            "fl": ""
-        },
-        {
-            "driver": "#1 mattwilson20",
-            "position": 22,
-            "points": 15,
-            "pole": "",
-            "fl": ""
-        },
-        {
-            "driver": "#18 MajorBlaz33",
-            "position": 23,
-            "points": 14,
-            "pole": "",
-            "fl": ""
-        }
-    ],
     "Xfinity - Rockingham": [
         {
             "driver": "#51 Duramax18gg",
@@ -4528,6 +4365,162 @@
             "driver": "#18 MajorBlaz33",
             "position": 23,
             "points": 14,
+            "pole": "",
+            "fl": ""
+        }
+    ],
+    "Truck - Rockingham": [
+        {
+            "driver": "Duramax18gg",
+            "position": 1,
+            "points": 40,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#36 eRA_LukeAss369",
+            "position": 2,
+            "points": 37,
+            "pole": "Yes",
+            "fl": "FL"
+        },
+        {
+            "driver": "#24 Scott247_",
+            "position": 3,
+            "points": 34,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#58 On-A-Mission618",
+            "position": 4,
+            "points": 33,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#05 Mike_8762",
+            "position": 5,
+            "points": 32,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#48 the_fireman199",
+            "position": 6,
+            "points": 31,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "Maddietheracer6",
+            "position": 7,
+            "points": 30,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#75 bigray-45",
+            "position": 8,
+            "points": 29,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#60 A54BUICKBANDIT",
+            "position": 9,
+            "points": 28,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#9 dakotathomas1994",
+            "position": 10,
+            "points": 27,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#85 TampaxxMaxx",
+            "position": 11,
+            "points": 26,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#41 SithWarriorUno",
+            "position": 12,
+            "points": 25,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#10 nitro4242",
+            "position": 13,
+            "points": 24,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#7 BusterTC007",
+            "position": 14,
+            "points": 23,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#59 BanishedCrayon",
+            "position": 15,
+            "points": 22,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#18 MajorBlaz33",
+            "position": 16,
+            "points": 21,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#69 xxHambone",
+            "position": 17,
+            "points": 20,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#2 Lostcozov",
+            "position": 18,
+            "points": 19,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#5 C0mpl1c8ed",
+            "position": 19,
+            "points": 18,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#32 Cratelate5",
+            "position": 20,
+            "points": 17,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#33 superace33",
+            "position": 21,
+            "points": 16,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#27 RA_J_Set_",
+            "position": 22,
+            "points": 15,
             "pole": "",
             "fl": ""
         }
