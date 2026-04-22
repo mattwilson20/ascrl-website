@@ -8,23 +8,23 @@
                 "team": "TOO BROKE RACING",
                 "manufacturer": "Chevy",
                 "current_stats": {
-                    "points": 155,
+                    "points": 170,
                     "wins": 0,
                     "top5": 0,
                     "top10": 1,
                     "poles": 0,
-                    "starts": 8,
-                    "avg": 17.62,
+                    "starts": 9,
+                    "avg": 18.11,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 489,
+                    "points": 504,
                     "wins": 1,
                     "top5": 2,
                     "top10": 9,
                     "poles": 0,
-                    "starts": 20,
-                    "avg": 12.75
+                    "starts": 21,
+                    "avg": 13.19
                 },
                 "history": [
                     {
@@ -163,7 +163,7 @@
         "series": {
             "Cup": {
                 "number": "3",
-                "team": "REDLINE RACING",
+                "team": "Independent",
                 "manufacturer": "Chevy",
                 "current_stats": {
                     "points": 9,
@@ -277,23 +277,23 @@
                 "team": "APEX RACING",
                 "manufacturer": "Chevy",
                 "current_stats": {
-                    "points": 144,
+                    "points": 165,
                     "wins": 0,
                     "top5": 0,
                     "top10": 2,
                     "poles": 0,
-                    "starts": 7,
-                    "avg": 16.43,
+                    "starts": 8,
+                    "avg": 16.38,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 499,
+                    "points": 520,
                     "wins": 1,
                     "top5": 6,
                     "top10": 9,
                     "poles": 1,
-                    "starts": 19,
-                    "avg": 11.0
+                    "starts": 20,
+                    "avg": 11.25
                 },
                 "history": [
                     {
@@ -580,23 +580,23 @@
                 "team": "Independent",
                 "manufacturer": "Toyota",
                 "current_stats": {
-                    "points": 5,
+                    "points": 14,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "starts": 1,
-                    "avg": 32.0,
+                    "starts": 2,
+                    "avg": 30.0,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 198,
+                    "points": 207,
                     "wins": 0,
                     "top5": 1,
                     "top10": 2,
                     "poles": 0,
-                    "starts": 10,
-                    "avg": 17.2
+                    "starts": 11,
+                    "avg": 18.19
                 },
                 "history": [
                     {
@@ -735,7 +735,7 @@
         "series": {
             "Cup": {
                 "number": "07",
-                "team": "REDLINE RACING",
+                "team": "DIRTY AIR RACING",
                 "manufacturer": "Chevy",
                 "current_stats": {
                     "points": 0,
@@ -896,23 +896,23 @@
                 "team": "TOO BROKE RACING",
                 "manufacturer": "Toyota",
                 "current_stats": {
-                    "points": 123,
+                    "points": 140,
                     "wins": 0,
                     "top5": 0,
                     "top10": 2,
                     "poles": 0,
-                    "starts": 7,
-                    "avg": 19.43,
+                    "starts": 8,
+                    "avg": 19.5,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 307,
+                    "points": 324,
                     "wins": 0,
                     "top5": 2,
                     "top10": 5,
                     "poles": 0,
-                    "starts": 14,
-                    "avg": 15.07
+                    "starts": 15,
+                    "avg": 15.4
                 },
                 "history": [
                     {
@@ -940,23 +940,23 @@
                 "team": "BACKROW MOTORSPORTS",
                 "manufacturer": "Ford",
                 "current_stats": {
-                    "points": 144,
+                    "points": 174,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 2,
+                    "top10": 3,
                     "poles": 0,
-                    "starts": 8,
-                    "avg": 19.0,
+                    "starts": 9,
+                    "avg": 17.67,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 364,
+                    "points": 394,
                     "wins": 0,
                     "top5": 1,
-                    "top10": 5,
+                    "top10": 6,
                     "poles": 0,
-                    "starts": 17,
-                    "avg": 15.59
+                    "starts": 18,
+                    "avg": 15.12
                 },
                 "history": [
                     {
@@ -1256,23 +1256,23 @@
                 "team": "WHY IS IT SMOKING? MOTORSPORTS",
                 "manufacturer": "Toyota",
                 "current_stats": {
-                    "points": 105,
+                    "points": 117,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "starts": 7,
-                    "avg": 22.43,
+                    "starts": 8,
+                    "avg": 22.75,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 186,
+                    "points": 198,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "starts": 12,
-                    "avg": 21.75
+                    "starts": 13,
+                    "avg": 22.0
                 },
                 "history": [
                     {
@@ -1561,23 +1561,23 @@
                 "team": "TOO BROKE RACING",
                 "manufacturer": "Chevy",
                 "current_stats": {
-                    "points": 198,
+                    "points": 220,
                     "wins": 3,
                     "top5": 3,
                     "top10": 4,
                     "poles": 0,
-                    "starts": 8,
-                    "avg": 14.12,
+                    "starts": 9,
+                    "avg": 14.22,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 533,
+                    "points": 555,
                     "wins": 7,
                     "top5": 11,
                     "top10": 13,
                     "poles": 5,
-                    "starts": 17,
-                    "avg": 8.12
+                    "starts": 18,
+                    "avg": 8.5
                 },
                 "history": [
                     {
@@ -1716,7 +1716,7 @@
         "series": {
             "Cup": {
                 "number": "31",
-                "team": "REDLINE RACING",
+                "team": "Independent",
                 "manufacturer": "Chevy",
                 "current_stats": {
                     "points": 20,
@@ -1877,23 +1877,23 @@
                 "team": "APEX RACING",
                 "manufacturer": "Chevy",
                 "current_stats": {
-                    "points": 140,
+                    "points": 153,
                     "wins": 0,
                     "top5": 1,
                     "top10": 2,
                     "poles": 0,
-                    "starts": 8,
-                    "avg": 19.75,
+                    "starts": 9,
+                    "avg": 20.22,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 418,
+                    "points": 431,
                     "wins": 0,
                     "top5": 4,
                     "top10": 7,
                     "poles": 2,
-                    "starts": 18,
-                    "avg": 14.0
+                    "starts": 19,
+                    "avg": 14.53
                 },
                 "history": [
                     {
@@ -3109,23 +3109,23 @@
                 "team": "BACKROW MOTORSPORTS",
                 "manufacturer": "Ford",
                 "current_stats": {
-                    "points": 212,
+                    "points": 247,
                     "wins": 0,
-                    "top5": 3,
-                    "top10": 5,
+                    "top5": 4,
+                    "top10": 6,
                     "poles": 0,
-                    "starts": 8,
-                    "avg": 10.5,
+                    "starts": 9,
+                    "avg": 9.56,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 350,
+                    "points": 385,
                     "wins": 1,
-                    "top5": 4,
-                    "top10": 8,
+                    "top5": 5,
+                    "top10": 9,
                     "poles": 0,
-                    "starts": 13,
-                    "avg": 10.38
+                    "starts": 14,
+                    "avg": 9.79
                 },
                 "history": [
                     {
@@ -3191,23 +3191,23 @@
                 "team": "WHY IS IT SMOKING? MOTORSPORTS",
                 "manufacturer": "Toyota",
                 "current_stats": {
-                    "points": 171,
+                    "points": 190,
                     "wins": 0,
                     "top5": 1,
                     "top10": 2,
                     "poles": 0,
-                    "starts": 8,
-                    "avg": 15.62,
+                    "starts": 9,
+                    "avg": 15.89,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 298,
+                    "points": 317,
                     "wins": 0,
                     "top5": 1,
                     "top10": 3,
                     "poles": 0,
-                    "starts": 14,
-                    "avg": 15.71
+                    "starts": 15,
+                    "avg": 15.87
                 },
                 "history": [
                     {
@@ -3387,23 +3387,23 @@
                 "team": "WHY IS IT SMOKING? MOTORSPORTS",
                 "manufacturer": "N/A",
                 "current_stats": {
-                    "points": 249,
+                    "points": 283,
                     "wins": 0,
-                    "top5": 4,
-                    "top10": 7,
+                    "top5": 5,
+                    "top10": 8,
                     "poles": 1,
-                    "starts": 8,
-                    "avg": 6.0,
+                    "starts": 9,
+                    "avg": 5.67,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 249,
+                    "points": 283,
                     "wins": 0,
-                    "top5": 4,
-                    "top10": 7,
+                    "top5": 5,
+                    "top10": 8,
                     "poles": 1,
-                    "starts": 8,
-                    "avg": 6.0
+                    "starts": 9,
+                    "avg": 5.67
                 },
                 "history": []
             },
@@ -3626,23 +3626,23 @@
                 "team": "HITMAN MOTORSPORTS",
                 "manufacturer": "Chevy",
                 "current_stats": {
-                    "points": 109,
+                    "points": 137,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 2,
+                    "top10": 3,
                     "poles": 0,
-                    "starts": 7,
-                    "avg": 21.43,
+                    "starts": 8,
+                    "avg": 19.88,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 203,
+                    "points": 231,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 4,
+                    "top10": 5,
                     "poles": 0,
-                    "starts": 11,
-                    "avg": 18.55
+                    "starts": 12,
+                    "avg": 17.75
                 },
                 "history": [
                     {
@@ -3708,23 +3708,23 @@
                 "team": "DIRTY AIR RACING",
                 "manufacturer": "Chevy",
                 "current_stats": {
-                    "points": 190,
+                    "points": 210,
                     "wins": 0,
                     "top5": 1,
                     "top10": 2,
                     "poles": 0,
-                    "starts": 8,
-                    "avg": 13.25,
+                    "starts": 9,
+                    "avg": 13.67,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 275,
+                    "points": 295,
                     "wins": 0,
                     "top5": 1,
                     "top10": 3,
                     "poles": 0,
-                    "starts": 12,
-                    "avg": 14.08
+                    "starts": 13,
+                    "avg": 14.31
                 },
                 "history": [
                     {
@@ -3866,23 +3866,23 @@
                 "team": "APEX RACING",
                 "manufacturer": "Chevy",
                 "current_stats": {
-                    "points": 204,
+                    "points": 236,
                     "wins": 0,
-                    "top5": 2,
-                    "top10": 2,
+                    "top5": 3,
+                    "top10": 3,
                     "poles": 1,
-                    "starts": 8,
-                    "avg": 11.62,
+                    "starts": 9,
+                    "avg": 10.89,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 308,
+                    "points": 340,
                     "wins": 0,
-                    "top5": 3,
-                    "top10": 4,
+                    "top5": 4,
+                    "top10": 5,
                     "poles": 1,
-                    "starts": 12,
-                    "avg": 11.41
+                    "starts": 13,
+                    "avg": 10.92
                 },
                 "history": [
                     {
@@ -4068,23 +4068,23 @@
                 "team": "WHY IS IT SMOKING? MOTORSPORTS",
                 "manufacturer": "N/A",
                 "current_stats": {
-                    "points": 102,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "starts": 8,
-                    "avg": 24.25,
-                    "penalty_total": 0
-                },
-                "career_stats": {
-                    "points": 119,
+                    "points": 118,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
                     "starts": 9,
-                    "avg": 23.78
+                    "avg": 23.89,
+                    "penalty_total": 0
+                },
+                "career_stats": {
+                    "points": 135,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 10,
+                    "avg": 23.5
                 },
                 "history": [
                     {
@@ -4428,23 +4428,23 @@
                 "team": "APEX RACING",
                 "manufacturer": "Chevy",
                 "current_stats": {
-                    "points": 130,
+                    "points": 159,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 1,
+                    "top10": 2,
                     "poles": 0,
-                    "starts": 7,
-                    "avg": 18.43,
+                    "starts": 8,
+                    "avg": 17.12,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 465,
+                    "points": 494,
                     "wins": 0,
                     "top5": 4,
-                    "top10": 8,
+                    "top10": 9,
                     "poles": 0,
-                    "starts": 19,
-                    "avg": 12.52
+                    "starts": 20,
+                    "avg": 12.3
                 },
                 "history": [
                     {
@@ -4586,23 +4586,23 @@
                 "team": "FAST AND LOOSE RACING",
                 "manufacturer": "Chevy",
                 "current_stats": {
-                    "points": 138,
+                    "points": 161,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
-                    "starts": 8,
-                    "avg": 19.75,
+                    "starts": 9,
+                    "avg": 19.11,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 325,
+                    "points": 348,
                     "wins": 0,
                     "top5": 0,
                     "top10": 1,
                     "poles": 0,
-                    "starts": 17,
-                    "avg": 17.88
+                    "starts": 18,
+                    "avg": 17.67
                 },
                 "history": [
                     {
@@ -4920,23 +4920,23 @@
                 "team": "HITMAN MOTORSPORTS",
                 "manufacturer": "Toyota",
                 "current_stats": {
-                    "points": 176,
+                    "points": 202,
                     "wins": 0,
                     "top5": 0,
                     "top10": 2,
                     "poles": 0,
-                    "starts": 8,
-                    "avg": 15.0,
+                    "starts": 9,
+                    "avg": 14.56,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 208,
+                    "points": 234,
                     "wins": 0,
                     "top5": 1,
                     "top10": 3,
                     "poles": 0,
-                    "starts": 9,
-                    "avg": 13.89
+                    "starts": 10,
+                    "avg": 13.6
                 },
                 "history": [
                     {
@@ -5197,23 +5197,23 @@
                 "team": "HIGH LINE RACING",
                 "manufacturer": "N/A",
                 "current_stats": {
-                    "points": 144,
-                    "wins": 0,
-                    "top5": 0,
-                    "top10": 0,
-                    "poles": 0,
-                    "starts": 8,
-                    "avg": 19.0,
-                    "penalty_total": 0
-                },
-                "career_stats": {
-                    "points": 150,
+                    "points": 168,
                     "wins": 0,
                     "top5": 0,
                     "top10": 0,
                     "poles": 0,
                     "starts": 9,
-                    "avg": 20.33
+                    "avg": 18.33,
+                    "penalty_total": 0
+                },
+                "career_stats": {
+                    "points": 174,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 10,
+                    "avg": 19.6
                 },
                 "history": [
                     {
@@ -5317,23 +5317,23 @@
                 "team": "HIGH LINE RACING",
                 "manufacturer": "Chevy",
                 "current_stats": {
-                    "points": 250,
-                    "wins": 1,
-                    "top5": 6,
-                    "top10": 7,
-                    "poles": 1,
-                    "starts": 8,
-                    "avg": 6.5,
-                    "penalty_total": 0
-                },
-                "career_stats": {
-                    "points": 282,
+                    "points": 283,
                     "wins": 1,
                     "top5": 7,
                     "top10": 8,
                     "poles": 1,
                     "starts": 9,
-                    "avg": 6.33
+                    "avg": 6.22,
+                    "penalty_total": 0
+                },
+                "career_stats": {
+                    "points": 315,
+                    "wins": 1,
+                    "top5": 8,
+                    "top10": 9,
+                    "poles": 1,
+                    "starts": 10,
+                    "avg": 6.1
                 },
                 "history": [
                     {
@@ -5462,23 +5462,23 @@
                 "team": "HIGH LINE RACING",
                 "manufacturer": "N/A",
                 "current_stats": {
-                    "points": 144,
+                    "points": 171,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 1,
+                    "top10": 2,
                     "poles": 0,
-                    "starts": 8,
-                    "avg": 19.0,
+                    "starts": 9,
+                    "avg": 18.0,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 160,
+                    "points": 187,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 1,
+                    "top10": 2,
                     "poles": 0,
-                    "starts": 9,
-                    "avg": 19.22
+                    "starts": 10,
+                    "avg": 18.3
                 },
                 "history": [
                     {
@@ -5544,23 +5544,23 @@
                 "team": "FAST AND LOOSE RACING",
                 "manufacturer": "Ford",
                 "current_stats": {
-                    "points": 56,
+                    "points": 87,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 0,
+                    "top10": 1,
                     "poles": 0,
-                    "starts": 4,
-                    "avg": 23.0,
+                    "starts": 5,
+                    "avg": 19.6,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 56,
+                    "points": 87,
                     "wins": 0,
                     "top5": 0,
-                    "top10": 0,
+                    "top10": 1,
                     "poles": 0,
-                    "starts": 4,
-                    "avg": 23.0
+                    "starts": 5,
+                    "avg": 19.6
                 },
                 "history": []
             },
@@ -5738,23 +5738,23 @@
                 "team": "HIGH LINE RACING",
                 "manufacturer": "N/A",
                 "current_stats": {
-                    "points": 166,
-                    "wins": 0,
-                    "top5": 4,
-                    "top10": 4,
+                    "points": 207,
+                    "wins": 1,
+                    "top5": 5,
+                    "top10": 5,
                     "poles": 0,
-                    "starts": 6,
-                    "avg": 9.5,
+                    "starts": 7,
+                    "avg": 8.29,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 166,
-                    "wins": 0,
-                    "top5": 4,
-                    "top10": 4,
+                    "points": 207,
+                    "wins": 1,
+                    "top5": 5,
+                    "top10": 5,
                     "poles": 0,
-                    "starts": 6,
-                    "avg": 9.5
+                    "starts": 7,
+                    "avg": 8.29
                 },
                 "history": []
             }
@@ -5838,23 +5838,23 @@
                 "team": "BACKROW MOTORSPORTS",
                 "manufacturer": "N/A",
                 "current_stats": {
-                    "points": 104,
+                    "points": 114,
                     "wins": 0,
                     "top5": 0,
                     "top10": 2,
                     "poles": 0,
-                    "starts": 6,
-                    "avg": 20.0,
+                    "starts": 7,
+                    "avg": 21.0,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 104,
+                    "points": 114,
                     "wins": 0,
                     "top5": 0,
                     "top10": 2,
                     "poles": 0,
-                    "starts": 6,
-                    "avg": 20.0
+                    "starts": 7,
+                    "avg": 21.0
                 },
                 "history": []
             },
@@ -5969,23 +5969,23 @@
                 "team": "Independent",
                 "manufacturer": "N/A",
                 "current_stats": {
-                    "points": 97,
+                    "points": 105,
                     "wins": 1,
                     "top5": 2,
                     "top10": 2,
                     "poles": 0,
-                    "starts": 3,
-                    "avg": 6.0,
+                    "starts": 4,
+                    "avg": 11.75,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 97,
+                    "points": 105,
                     "wins": 1,
                     "top5": 2,
                     "top10": 2,
                     "poles": 0,
-                    "starts": 3,
-                    "avg": 6.0
+                    "starts": 4,
+                    "avg": 11.75
                 },
                 "history": []
             },
@@ -6529,26 +6529,26 @@
             },
             "Cup": {
                 "number": "92",
-                "team": "Independent",
+                "team": "RACEASYLUM GRIDLIFE",
                 "manufacturer": "N/A",
                 "current_stats": {
-                    "points": 147,
+                    "points": 161,
                     "wins": 0,
                     "top5": 2,
                     "top10": 4,
                     "poles": 1,
-                    "starts": 5,
-                    "avg": 7.8,
+                    "starts": 6,
+                    "avg": 10.33,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 147,
+                    "points": 161,
                     "wins": 0,
                     "top5": 2,
                     "top10": 4,
                     "poles": 1,
-                    "starts": 5,
-                    "avg": 7.8
+                    "starts": 6,
+                    "avg": 10.33
                 },
                 "history": []
             },
@@ -6610,26 +6610,26 @@
             },
             "Cup": {
                 "number": "27",
-                "team": "Independent",
+                "team": "RACEASYLUM GRIDLIFE",
                 "manufacturer": "N/A",
                 "current_stats": {
-                    "points": 125,
+                    "points": 136,
                     "wins": 0,
                     "top5": 0,
                     "top10": 3,
                     "poles": 0,
-                    "starts": 5,
-                    "avg": 12.0,
+                    "starts": 6,
+                    "avg": 14.33,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 125,
+                    "points": 136,
                     "wins": 0,
                     "top5": 0,
                     "top10": 3,
                     "poles": 0,
-                    "starts": 5,
-                    "avg": 12.0
+                    "starts": 6,
+                    "avg": 14.33
                 },
                 "history": []
             },
@@ -7029,26 +7029,26 @@
         "series": {
             "Cup": {
                 "number": "99",
-                "team": "Independent",
+                "team": "DIRTY AIR RACING",
                 "manufacturer": "N/A",
                 "current_stats": {
-                    "points": 82,
+                    "points": 107,
                     "wins": 0,
                     "top5": 2,
                     "top10": 2,
                     "poles": 1,
-                    "starts": 3,
-                    "avg": 10.33,
+                    "starts": 4,
+                    "avg": 10.75,
                     "penalty_total": 0
                 },
                 "career_stats": {
-                    "points": 82,
+                    "points": 107,
                     "wins": 0,
                     "top5": 2,
                     "top10": 2,
                     "poles": 1,
-                    "starts": 3,
-                    "avg": 10.33
+                    "starts": 4,
+                    "avg": 10.75
                 },
                 "history": []
             },
