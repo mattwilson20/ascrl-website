@@ -172,13 +172,11 @@
 
         // --- 2. DATA LOADING & CALCULATION ---
         let driversData = {}; 
-        let resultsData = {}; 
         let currentSeries = 'Cup';
 
         document.addEventListener('DOMContentLoaded', () => { loadSeasonData(); });
 
         async function fetchWithFallback(filename) {
-            // Cache busting param to ensure we get fresh data
             const url = filename + "?v=" + new Date().getTime();
             try {
                 let r = await fetch(url);
@@ -193,18 +191,10 @@
         async function loadSeasonData() {
             document.getElementById('standings-body').innerHTML = '<tr><td colspan="3" style="text-align:center;">Calculating Data...</td></tr>';
             
-            const seasonKey = document.getElementById('season-select').value;
-            // Select correct Results file based on dropdown
-            const resultFile = seasonKey === "2026" ? "ASCRL_Results_2026.json" : "ASCRL_Results_Season_1.json";
-
-            // Load BOTH Drivers (for team names) AND Results (for calculations)
-            const [dData, rData] = await Promise.all([
-                fetchWithFallback("drivers.json"),
-                fetchWithFallback(resultFile)
-            ]);
-
+            // For Team Standings to match Individual Standings perfectly, 
+            // we ONLY need to pull from drivers.json!
+            const dData = await fetchWithFallback("drivers.json");
             driversData = dData || {};
-            resultsData = rData || {};
 
             updateStandingsTable();
         }
@@ -221,10 +211,10 @@
         // --- 3. TEAM CALCULATION ENGINE ---
         function calculateTeamsFromDrivers(seriesName) {
             const teamsMap = {};
-            const driverPointsCache = {}; // Temporary storage for driver points
+            const seasonKey = document.getElementById('season-select').value;
 
             // 🚨 FIX: Discord Name Change Aliases 🚨
-            // If a driver changes their name, map their NEW longer name back to their OLD shorter name here.
+            // If a driver has duplicate profiles, map the long name back to the short name here.
             const NAME_ALIASES = {
                 "Tyler “Dewshine” Green #24": "Dewshine_02",
                 "TampaxxMaxx": "TampaxMaxx",
@@ -237,78 +227,77 @@
                 return NAME_ALIASES[name] || name;
             }
 
-            // Step A: Calculate points for EVERY driver from the Results file
-            if(resultsData) {
-                Object.keys(resultsData).forEach(raceKey => {
-                    const parts = raceKey.split(' - ');
-                    const rSeries = parts[0]; 
-                    
-                    if(rSeries.toLowerCase() === seriesName.toLowerCase()) {
-                        resultsData[raceKey].forEach(entry => {
-                            let name = getTrueName(entry.driver);
-                            
-                            // Find match in driversData for Official Name
-                            const driverEntry = Object.values(driversData).find(d => 
-                                d.display_name && getTrueName(d.display_name).toLowerCase() === name.toLowerCase()
-                            );
-                            if(driverEntry) name = getTrueName(driverEntry.display_name);
+            const combinedDrivers = {};
 
-                            if(!driverPointsCache[name]) driverPointsCache[name] = 0;
-                            driverPointsCache[name] += parseInt(entry.points || 0);
-                        });
-                    }
-                });
-            }
-
-            let processedDrivers = new Set(); // Prevent duplicates from showing up twice
-
-            // Step B: Map drivers to Teams and Assign Points
+            // Step A: Extract exact points from drivers.json and merge duplicates
             for (const [id, driver] of Object.entries(driversData)) {
                 if(!driver.series) continue;
                 
                 const sKey = Object.keys(driver.series).find(k => k.toLowerCase() === seriesName.toLowerCase());
                 if (!sKey) continue;
-                
-                let trueName = getTrueName(driver.display_name);
-                
-                // If we already added this driver (because they have two discord profiles), skip the duplicate
-                if (processedDrivers.has(trueName)) continue;
-                processedDrivers.add(trueName);
 
                 const sData = driver.series[sKey];
                 let teamName = sData.team || "Independent";
                 
                 // Rebranding Patch
                 if (teamName.toUpperCase().includes("BHG")) teamName = "REDLINE RACING";
-
                 if (!teamName || teamName.toLowerCase().includes("independent") || teamName === "") continue;
-                
-                // Retrieve calculated points (or 0 if they haven't raced)
-                const calculatedPoints = driverPointsCache[trueName] || 0;
 
-                if (!teamsMap[teamName]) {
-                    teamsMap[teamName] = {
-                        name: teamName,
+                // Get correct season stats
+                let activeStats = null;
+                if (seasonKey === "2026") {
+                    activeStats = sData.current_stats || sData.stats;
+                } else if (seasonKey === "Season_1" || seasonKey === "2025-26") {
+                    if (sData.history && Array.isArray(sData.history)) {
+                        const historyEntry = sData.history.find(h => h.season === "2025-26" || h.season === "Season_1");
+                        if (historyEntry) activeStats = historyEntry.stats;
+                    }
+                }
+
+                if (!activeStats) continue;
+
+                // Use the exact point total from drivers.json
+                const driverPoints = parseInt(activeStats.points || 0);
+                const rawName = driver.display_name || id;
+                const trueName = getTrueName(rawName);
+
+                if (!combinedDrivers[trueName]) {
+                    combinedDrivers[trueName] = {
+                        name: trueName,
+                        number: sData.number || "",
+                        team: teamName,
+                        points: 0
+                    };
+                }
+                
+                // Merge points together if they have duplicate profiles
+                combinedDrivers[trueName].points += driverPoints;
+            }
+
+            // Step B: Put the combined drivers into their teams
+            for (const [trueName, data] of Object.entries(combinedDrivers)) {
+                if (!teamsMap[data.team]) {
+                    teamsMap[data.team] = {
+                        name: data.team,
                         totalPoints: 0,
                         drivers: []
                     };
                 }
                 
-                // Only add driver if they have points > 0 OR strictly for roster display
-                teamsMap[teamName].totalPoints += calculatedPoints;
-                teamsMap[teamName].drivers.push({
-                    name: trueName, // Uses the shorter alias name
-                    number: sData.number,
-                    points: calculatedPoints
+                teamsMap[data.team].totalPoints += data.points;
+                teamsMap[data.team].drivers.push({
+                    name: data.name,
+                    number: data.number,
+                    points: data.points
                 });
             }
 
-            // Convert map to array and sort by points
+            // Convert map to array and sort by total team points
             const sortedTeams = Object.values(teamsMap).sort((a, b) => b.totalPoints - a.totalPoints);
             
-            // Sort drivers inside each team by number
+            // Sort drivers inside each team by points (highest contributor at the top)
             sortedTeams.forEach(team => {
-                team.drivers.sort((a, b) => parseInt(a.number) - parseInt(b.number));
+                team.drivers.sort((a, b) => b.points - a.points);
             });
 
             return sortedTeams;
