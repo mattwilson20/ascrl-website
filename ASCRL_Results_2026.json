@@ -1131,7 +1131,7 @@
             "fl": ""
         },
         {
-            "driver": "#10 nitro4242",
+            "driver": "#5 nitro4242",
             "position": 4,
             "points": 33,
             "pole": "",
@@ -1823,7 +1823,7 @@
             "fl": ""
         },
         {
-            "driver": "#10 nitro4242",
+            "driver": "#5 nitro4242",
             "position": 8,
             "points": 29,
             "pole": "",
@@ -2983,7 +2983,7 @@
             "fl": "FL"
         },
         {
-            "driver": "#57 nitro4242",
+            "driver": "#5 nitro4242",
             "position": 4,
             "points": 33,
             "pole": "",
@@ -3146,7 +3146,7 @@
             "fl": ""
         },
         {
-            "driver": "#10 nitro4242",
+            "driver": "#5 nitro4242",
             "position": 7,
             "points": 30,
             "pole": "",
@@ -3288,7 +3288,7 @@
             "fl": "FL"
         },
         {
-            "driver": "#57 nitro4242",
+            "driver": "#5 nitro4242",
             "position": 3,
             "points": 34,
             "pole": "",
@@ -3775,7 +3775,7 @@
             "fl": ""
         },
         {
-            "driver": "#57 nitro4242",
+            "driver": "#5 nitro4242",
             "position": 21,
             "points": 16,
             "pole": "",
@@ -3882,7 +3882,7 @@
             "fl": ""
         },
         {
-            "driver": "#10 nitro4242",
+            "driver": "#5 nitro4242",
             "position": 13,
             "points": 24,
             "pole": "",
@@ -3961,7 +3961,7 @@
             "fl": ""
         },
         {
-            "driver": "#57 nitro4242",
+            "driver": "#5 nitro4242",
             "position": 2,
             "points": 35,
             "pole": "",
@@ -4166,7 +4166,7 @@
             "fl": ""
         },
         {
-            "driver": "#10 nitro4242",
+            "driver": "#5 nitro4242",
             "position": 9,
             "points": 28,
             "pole": "",
@@ -4471,7 +4471,7 @@
             "fl": ""
         },
         {
-            "driver": "#57 nitro4242",
+            "driver": "#5 nitro4242",
             "position": 5,
             "points": 33,
             "pole": "",
@@ -4867,7 +4867,7 @@
             "fl": ""
         },
         {
-            "driver": "#57 nitro4242",
+            "driver": "#5 nitro4242",
             "position": 14,
             "points": 23,
             "pole": "",
@@ -6092,7 +6092,7 @@
             "fl": ""
         },
         {
-            "driver": "#57 nitro4242",
+            "driver": "#5 nitro4242",
             "position": 4,
             "points": 34,
             "pole": "",
@@ -6290,7 +6290,7 @@
             "fl": ""
         },
         {
-            "driver": "#10 nitro4242",
+            "driver": "#5 nitro4242",
             "position": 9,
             "points": 28,
             "pole": "",
@@ -6872,7 +6872,7 @@
             "fl": ""
         },
         {
-            "driver": "#10 nitro4242",
+            "driver": "#5 nitro4242",
             "position": 9,
             "points": 28,
             "pole": "",
@@ -7275,7 +7275,7 @@
             "fl": ""
         },
         {
-            "driver": "#57 nitro4242",
+            "driver": "#5 nitro4242",
             "position": 14,
             "points": 24,
             "pole": "",
@@ -7552,7 +7552,7 @@
             "fl": ""
         },
         {
-            "driver": "#10 nitro4242",
+            "driver": "#5 nitro4242",
             "position": 15,
             "points": 22,
             "pole": "",
@@ -7725,6 +7725,120 @@
             "driver": "#59 BanishedCrayon",
             "position": 19,
             "points": 0,
+            "pole": "",
+            "fl": ""
+        }
+    ],
+    "Xfinity - Charlotte": [
+        {
+            "driver": "#53 A54BUICKBANDIT",
+            "position": 1,
+            "points": 40,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#71 Maddietheracer6",
+            "position": 2,
+            "points": 35,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#11 Scott247_",
+            "position": 3,
+            "points": 34,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#58 On-A-Mission618",
+            "position": 4,
+            "points": 33,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#25 Joshua Riddle #12",
+            "position": 5,
+            "points": 32,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#29 z71chevymanz71",
+            "position": 6,
+            "points": 33,
+            "pole": "Yes",
+            "fl": "FL"
+        },
+        {
+            "driver": "#48 the_fireman199",
+            "position": 7,
+            "points": 30,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#05 Mike_8762",
+            "position": 8,
+            "points": 29,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#5 nitro4242",
+            "position": 9,
+            "points": 28,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#27 RA_J_Set_",
+            "position": 10,
+            "points": 27,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#7 BusterTC007",
+            "position": 11,
+            "points": 26,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#9 dakotathomas1994",
+            "position": 12,
+            "points": 25,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#41 SithWarriorUno",
+            "position": 13,
+            "points": 24,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#2 Lostcozov",
+            "position": 14,
+            "points": 23,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#18 MajorBlaz33",
+            "position": 15,
+            "points": 22,
+            "pole": "",
+            "fl": ""
+        },
+        {
+            "driver": "#59 BanishedCrayon",
+            "position": 16,
+            "points": 21,
             "pole": "",
             "fl": ""
         }
