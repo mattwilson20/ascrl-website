@@ -59,25 +59,6 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* --- UPCOMING EVENTS --- */
-        .timer-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 0; 
-            position: relative;
-            z-index: 10;
-        }
-
-        .race-card {
-            background: #0d0d0d;
-            padding: 2.5rem;
-            border: 1px solid var(--border);
-            text-align: center;
-            transition: 0.3s;
-        }
-        .race-card:hover { border-color: var(--primary); transform: translateY(-5px); }
-
         /* --- 3D CAROUSEL STYLES --- */
         .carousel-section {
             padding: 2rem 0 6rem 0; 
@@ -135,39 +116,6 @@
         .badge-xfinity { background: var(--xfinity-purple); }
         .badge-truck { background: var(--truck-red); }
         .badge-menards { background: var(--menards-yellow); color: #000; }
-
-        /* --- TOURNAMENT BRACKET STYLES --- */
-        .bracket-wrapper {
-            background: #080808;
-            border: 1px solid #222;
-            border-radius: 8px;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
-            margin: 2rem 0;
-            padding: 2rem 1rem;
-            display: flex;
-            overflow-x: auto;
-            gap: 2rem;
-            align-items: stretch;
-        }
-        .bracket-round {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            min-width: 240px;
-        }
-        .round-header {
-            text-align: center; color: var(--cup-blue); font-size: 0.9rem; letter-spacing: 2px;
-            margin-bottom: 1.5rem; text-transform: uppercase; font-family: 'Arial Black';
-        }
-        .matchup {
-            background: #111; border: 1px solid #333; border-radius: 6px;
-            margin: 10px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.5); transition: 0.3s;
-        }
-        .matchup:hover { border-color: var(--cup-blue); box-shadow: 0 0 15px rgba(0, 119, 255, 0.4); transform: scale(1.02); }
-        .matchup-team { display: flex; align-items: center; padding: 10px 12px; border-bottom: 1px solid #222; gap: 10px; }
-        .matchup-team:last-child { border-bottom: none; }
-        .m-seed { font-size: 0.65rem; color: #666; font-family: sans-serif; width: 15px; text-align: right; }
-        .m-name { font-size: 0.8rem; color: #ddd; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; }
 
         /* --- HIGHLIGHT BOX --- */
         .highlight-box { background: linear-gradient(90deg, #0d0d0d 0%, #000 100%); border-left: 4px solid var(--primary); padding: 4rem 3rem; text-align: left; margin: 4rem 0; }
@@ -230,31 +178,6 @@
     </header>
 
     <main class="container" style="max-width: 1300px; margin: 0 auto; padding: 2rem;">
-        <section>
-            <h2 style="margin-bottom: 2rem; font-size: 1.2rem; color: var(--text-muted); letter-spacing: 4px; position: relative; z-index: 20; text-align: center;">UPCOMING ASCR RACES</h2>
-            <div class="timer-container" id="race-countdowns">
-                <div class="race-card">
-                    <span class="stat-label">CUP SERIES</span>
-                    <h3 id="cup-next" style="font-size: 1.2rem; margin: 0.5rem 0;">...</h3>
-                    <div class="stat-value" id="cup-timer">--/--</div>
-                </div>
-                <div class="race-card">
-                    <span class="stat-label">XFINITY SERIES</span>
-                    <h3 id="xfinity-next" style="font-size: 1.2rem; margin: 0.5rem 0;">...</h3>
-                    <div class="stat-value" id="xfinity-timer">--/--</div>
-                </div>
-                <div class="race-card">
-                    <span class="stat-label">TRUCK SERIES</span>
-                    <h3 id="truck-next" style="font-size: 1.2rem; margin: 0.5rem 0;">...</h3>
-                    <div class="stat-value" id="truck-timer">--/--</div>
-                </div>
-                <div class="race-card">
-                    <span class="stat-label">MENARDS SERIES</span>
-                    <h3 id="menards-next" style="font-size: 1.2rem; margin: 0.5rem 0;">...</h3>
-                    <div class="stat-value" id="menards-timer">--/--</div>
-                </div>
-            </div>
-        </section>
 
         <section class="carousel-section">
             <h2 style="margin-bottom: 3rem; text-align: center; color: var(--text-muted); font-size: 1.2rem; letter-spacing: 4px;">VICTORY LANE</h2>
@@ -267,21 +190,6 @@
             <h2 style="margin-bottom: 3rem; text-align: center; color: var(--text-muted); font-size: 1.2rem; letter-spacing: 4px;">CHAMPIONSHIP LEADERS</h2>
             <div class="carousel-scene-reverse" id="leaders-carousel">
                 <p style="color:#666; text-align:center; padding-top:150px;">Loading Leaders...</p>
-            </div>
-        </section>
-
-        <!-- TOURNAMENT BRACKET SECTION -->
-        <section class="highlight-box" style="padding: 3rem 1rem; background: linear-gradient(135deg, #050505, #0a0a0a); border-left: 4px solid var(--cup-blue); margin-top: 4rem;">
-            <div style="text-align: center; margin-bottom: 2rem;">
-                <span class="stat-label" style="color: var(--cup-blue);">THE POSTSEASON</span>
-                <h2 style="font-size: 2.5rem; margin: 0.5rem 0; text-transform: uppercase;">CUP SERIES BRACKET</h2>
-                <p style="color: #888; font-size: 0.9rem; font-family: sans-serif; margin-bottom: 2rem;">
-                    Top 32 drivers seeded by total points.
-                </p>
-            </div>
-
-            <div class="bracket-wrapper" id="tournament-bracket">
-                <p style="text-align:center; color:#444; width:100%;">Calculating Bracket Seeding...</p>
             </div>
         </section>
 
@@ -439,128 +347,13 @@
     ]).then(([schedData, driversData, resultsData]) => {
         
         // A. LOAD CAROUSELS
-        // Missing the data rendering for upcoming race blocks right here!
+        loadCarousels(driversData, resultsData, schedData);
         
-        // B. TOURNAMENT BRACKET
-        if(driversData) {
-            buildBracket(driversData);
-        }
-        
-        // C. POWER RANKINGS
+        // B. POWER RANKINGS
         if(driversData && resultsData) {
             calculatePowerRankings(driversData, resultsData);
         }
     });
-
-    // --- BRACKET LOGIC ---
-    function buildBracket(driversData) {
-        let cupDrivers = [];
-        Object.keys(driversData).forEach(id => {
-            const d = driversData[id];
-            if(d.series) {
-                const sKey = Object.keys(d.series).find(k => k.toLowerCase() === 'cup');
-                if(sKey) {
-                    const stats = d.series[sKey].current_stats || d.series[sKey].stats || {points:0};
-                    cupDrivers.push({
-                        name: d.display_name || id,
-                        points: stats.points || 0
-                    });
-                }
-            }
-        });
-        
-        // Sort descending by points
-        cupDrivers.sort((a,b) => b.points - a.points);
-        const top32 = cupDrivers.slice(0, 32);
-        
-        // Fill empty spots with TBD if under 32 drivers
-        while(top32.length < 32) {
-            top32.push({ name: "TBD", points: 0 });
-        }
-        
-        // Official 32-player Athletic Seeding
-        const seeds = [
-            1, 32, 16, 17, 9, 24, 8, 25, 
-            4, 29, 13, 20, 12, 21, 5, 28, 
-            2, 31, 15, 18, 10, 23, 7, 26, 
-            3, 30, 14, 19, 11, 22, 6, 27
-        ];
-        
-        let r1HTML = '';
-        for(let i=0; i<32; i+=2) {
-            const p1 = top32[seeds[i]-1];
-            const p2 = top32[seeds[i+1]-1];
-            r1HTML += `
-                <div class="matchup">
-                    <div class="matchup-team"><span class="m-seed">${seeds[i]}</span><span class="m-name">${p1.name}</span></div>
-                    <div class="matchup-team"><span class="m-seed">${seeds[i+1]}</span><span class="m-name">${p2.name}</span></div>
-                </div>
-            `;
-        }
-        
-        let r2HTML = '';
-        for(let i=0; i<8; i++) {
-            r2HTML += `
-                <div class="matchup">
-                    <div class="matchup-team"><span class="m-seed">-</span><span class="m-name" style="color:#666;">TBD</span></div>
-                    <div class="matchup-team"><span class="m-seed">-</span><span class="m-name" style="color:#666;">TBD</span></div>
-                </div>
-            `;
-        }
-
-        let r3HTML = '';
-        for(let i=0; i<4; i++) {
-            r3HTML += `
-                <div class="matchup">
-                    <div class="matchup-team"><span class="m-seed">-</span><span class="m-name" style="color:#666;">TBD</span></div>
-                    <div class="matchup-team"><span class="m-seed">-</span><span class="m-name" style="color:#666;">TBD</span></div>
-                </div>
-            `;
-        }
-
-        let r4HTML = '';
-        for(let i=0; i<2; i++) {
-            r4HTML += `
-                <div class="matchup">
-                    <div class="matchup-team"><span class="m-seed">-</span><span class="m-name" style="color:#666;">TBD</span></div>
-                    <div class="matchup-team"><span class="m-seed">-</span><span class="m-name" style="color:#666;">TBD</span></div>
-                </div>
-            `;
-        }
-
-        let r5HTML = `
-            <div class="matchup" style="border-color:#ffd700; box-shadow: 0 0 20px rgba(255,215,0,0.3);">
-                <div class="matchup-team"><span class="m-seed" style="color:#ffd700;"><i class="fa-solid fa-trophy"></i></span><span class="m-name" style="color:#ffd700;">CHAMPION</span></div>
-                <div class="matchup-team"><span class="m-seed">-</span><span class="m-name" style="color:#666;">TBD</span></div>
-            </div>
-        `;
-        
-        const bracketHTML = `
-            <div class="bracket-round">
-                <div class="round-header">Round of 32</div>
-                ${r1HTML}
-            </div>
-            <div class="bracket-round">
-                <div class="round-header">Sweet 16</div>
-                ${r2HTML}
-            </div>
-            <div class="bracket-round">
-                <div class="round-header">Elite 8</div>
-                ${r3HTML}
-            </div>
-            <div class="bracket-round">
-                <div class="round-header">Final 4</div>
-                ${r4HTML}
-            </div>
-            <div class="bracket-round" style="justify-content: center;">
-                <div class="round-header">Championship</div>
-                ${r5HTML}
-            </div>
-        `;
-        
-        const container = document.getElementById('tournament-bracket');
-        if(container) container.innerHTML = bracketHTML;
-    }
 
     // --- CAROUSEL LOGIC ---
     function loadCarousels(driversData, resultsData, schedData) {
