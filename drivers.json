@@ -5830,6 +5830,81 @@
                     "avg": 23.0
                 },
                 "history": []
+            },
+            "Menards": {
+                "number": "5",
+                "team": "Independent",
+                "manufacturer": "N/A",
+                "current_stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0,
+                    "penalty_total": 0
+                },
+                "career_stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0
+                },
+                "history": []
+            },
+            "Truck": {
+                "number": "23",
+                "team": "Independent",
+                "manufacturer": "N/A",
+                "current_stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0,
+                    "penalty_total": 0
+                },
+                "career_stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0
+                },
+                "history": []
+            },
+            "Xfinity": {
+                "number": "3",
+                "team": "Independent",
+                "manufacturer": "N/A",
+                "current_stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0,
+                    "penalty_total": 0
+                },
+                "career_stats": {
+                    "points": 0,
+                    "wins": 0,
+                    "top5": 0,
+                    "top10": 0,
+                    "poles": 0,
+                    "starts": 0,
+                    "avg": 0
+                },
+                "history": []
             }
         }
     }
