@@ -409,32 +409,45 @@
         }
     });
         // --- BRACKET LOGIC ---
-    function buildBracket(driversData) {
-        let cupDrivers = [];
-        Object.keys(driversData).forEach(id => {
-            const d = driversData[id];
-            if(d.series) {
-                const sKey = Object.keys(d.series).find(k => k.toLowerCase() === 'cup');
-                if(sKey) {
-                    const stats = d.series[sKey].current_stats || d.series[sKey].stats || {points:0};
-                    cupDrivers.push({
-                        name: d.display_name || id,
-                        points: stats.points || 0
-                    });
-                }
-            }
-        });
+    // 🏆 MANUAL TOURNAMENT CONFIGURATION 🏆
+    // Type the names exactly as you want them to appear to lock them into the bracket.
+    const TOURNAMENT_BRACKET = {
         
-        // Sort descending by points
-        cupDrivers.sort((a,b) => b.points - a.points);
-        const top32 = cupDrivers.slice(0, 32);
-        
-        // Fill empty spots with TBD if under 32 drivers
-        while(top32.length < 32) {
-            top32.push({ name: "TBD", points: 0 });
-        }
-        
-        // Official 32-player Athletic Seeding
+        // The Top 32 Drivers locked in order (Seed 1 to 32)
+        seeds: [
+            "Scott247_", "Joshua Riddle #12", "Mrs. Puff - Hockey", "the_fireman199", 
+            "A54buickbandit", "Steven Alessi #8", "bigray-45", "TampaxxMaxx", 
+            "MajorBlaz33", "z71chevymanz71", "ThirstTrapToby", "Mike_8762", 
+            "dakotathomas1994", "BanishedCrayon", "SithWarriorUno", "rickyspanish1500", 
+            "xxHambone", "Matthew Wilson #01", "KingG931", "Isaac-_-34", 
+            "tophert422", "Doobie650ballz", "eRA_LukeAss369", "Lostcozov", 
+            "a95tornadoes", "TheReaperRhino", "RA_J_Set_", "nitro4242", 
+            "On-A-Mission618", "Tyler “Dewshine” Green #24", "Mopawah_titan78", "TShock0329"
+        ],
+
+        // Enter the 16 drivers who advance to the Sweet 16 (Top-to-Bottom order)
+        round2: [
+            // Example: "Scott247_", "rickyspanish1500" ...
+        ],
+
+        // Elite 8 (8 drivers)
+        round3: [],
+
+        // Final 4 (4 drivers)
+        round4: [],
+
+        // Championship Matchup (2 drivers)
+        round5: [],
+
+        // The Ultimate Winner
+        champion: ""
+    };
+
+    function buildBracket() {
+        const top32 = [...TOURNAMENT_BRACKET.seeds];
+        while(top32.length < 32) top32.push("TBD"); // Fallback if under 32 names
+
+        // Official 32-player Athletic Seeding Logic
         const seeds = [
             1, 32, 16, 17, 9, 24, 8, 25, 
             4, 29, 13, 20, 12, 21, 5, 28, 
@@ -442,52 +455,54 @@
             3, 30, 14, 19, 11, 22, 6, 27
         ];
         
+        // Generate Round 1 (32 Drivers)
         let r1HTML = '';
         for(let i=0; i<32; i+=2) {
-            const p1 = top32[seeds[i]-1];
-            const p2 = top32[seeds[i+1]-1];
+            const p1Name = top32[seeds[i]-1] || "TBD";
+            const p2Name = top32[seeds[i+1]-1] || "TBD";
             r1HTML += `
                 <div class="matchup">
-                    <div class="matchup-team"><span class="m-seed">${seeds[i]}</span><span class="m-name">${p1.name}</span></div>
-                    <div class="matchup-team"><span class="m-seed">${seeds[i+1]}</span><span class="m-name">${p2.name}</span></div>
+                    <div class="matchup-team"><span class="m-seed">${seeds[i]}</span><span class="m-name">${p1Name}</span></div>
+                    <div class="matchup-team"><span class="m-seed">${seeds[i+1]}</span><span class="m-name">${p2Name}</span></div>
                 </div>
             `;
         }
+
+        // Helper function for later rounds
+        function createRoundHTML(advancingDrivers, slotsCount) {
+            let html = '';
+            for(let i=0; i<slotsCount; i+=2) {
+                const p1 = advancingDrivers[i] || "TBD";
+                const p2 = advancingDrivers[i+1] || "TBD";
+                html += `
+                    <div class="matchup">
+                        <div class="matchup-team"><span class="m-seed">-</span><span class="m-name" style="${p1==='TBD'?'color:#666;':''}">${p1}</span></div>
+                        <div class="matchup-team"><span class="m-seed">-</span><span class="m-name" style="${p2==='TBD'?'color:#666;':''}">${p2}</span></div>
+                    </div>
+                `;
+            }
+            return html;
+        }
+
+        const r2HTML = createRoundHTML(TOURNAMENT_BRACKET.round2, 16);
+        const r3HTML = createRoundHTML(TOURNAMENT_BRACKET.round3, 8);
+        const r4HTML = createRoundHTML(TOURNAMENT_BRACKET.round4, 4);
         
-        let r2HTML = '';
-        for(let i=0; i<8; i++) {
-            r2HTML += `
-                <div class="matchup">
-                    <div class="matchup-team"><span class="m-seed">-</span><span class="m-name" style="color:#666;">TBD</span></div>
-                    <div class="matchup-team"><span class="m-seed">-</span><span class="m-name" style="color:#666;">TBD</span></div>
-                </div>
-            `;
-        }
+        // Championship Matchup
+        const champ1 = TOURNAMENT_BRACKET.round5[0] || "TBD";
+        const champ2 = TOURNAMENT_BRACKET.round5[1] || "TBD";
+        const finalMatchupHtml = `
+            <div class="matchup">
+                <div class="matchup-team"><span class="m-seed">-</span><span class="m-name" style="${champ1==='TBD'?'color:#666;':''}">${champ1}</span></div>
+                <div class="matchup-team"><span class="m-seed">-</span><span class="m-name" style="${champ2==='TBD'?'color:#666;':''}">${champ2}</span></div>
+            </div>
+        `;
 
-        let r3HTML = '';
-        for(let i=0; i<4; i++) {
-            r3HTML += `
-                <div class="matchup">
-                    <div class="matchup-team"><span class="m-seed">-</span><span class="m-name" style="color:#666;">TBD</span></div>
-                    <div class="matchup-team"><span class="m-seed">-</span><span class="m-name" style="color:#666;">TBD</span></div>
-                </div>
-            `;
-        }
-
-        let r4HTML = '';
-        for(let i=0; i<2; i++) {
-            r4HTML += `
-                <div class="matchup">
-                    <div class="matchup-team"><span class="m-seed">-</span><span class="m-name" style="color:#666;">TBD</span></div>
-                    <div class="matchup-team"><span class="m-seed">-</span><span class="m-name" style="color:#666;">TBD</span></div>
-                </div>
-            `;
-        }
-
-        let r5HTML = `
-            <div class="matchup" style="border-color:#ffd700; box-shadow: 0 0 20px rgba(255,215,0,0.3);">
+        // Winner Crown Box
+        const winnerHtml = `
+            <div class="matchup" style="border-color:#ffd700; box-shadow: 0 0 20px rgba(255,215,0,0.3); margin-top:20px;">
                 <div class="matchup-team"><span class="m-seed" style="color:#ffd700;"><i class="fa-solid fa-trophy"></i></span><span class="m-name" style="color:#ffd700;">CHAMPION</span></div>
-                <div class="matchup-team"><span class="m-seed">-</span><span class="m-name" style="color:#666;">TBD</span></div>
+                <div class="matchup-team"><span class="m-seed">-</span><span class="m-name" style="${TOURNAMENT_BRACKET.champion ? 'color:#fff; font-weight:bold;' : 'color:#666;'}">${TOURNAMENT_BRACKET.champion || 'TBD'}</span></div>
             </div>
         `;
         
@@ -497,20 +512,21 @@
                 ${r1HTML}
             </div>
             <div class="bracket-round">
-                <div class="round-header">Round of 16</div>
+                <div class="round-header">Sweet 16</div>
                 ${r2HTML}
             </div>
             <div class="bracket-round">
-                <div class="round-header">Round of 8</div>
+                <div class="round-header">Elite 8</div>
                 ${r3HTML}
             </div>
             <div class="bracket-round">
-                <div class="round-header">Round of 4</div>
+                <div class="round-header">Final 4</div>
                 ${r4HTML}
             </div>
             <div class="bracket-round" style="justify-content: center;">
                 <div class="round-header">Championship</div>
-                ${r5HTML}
+                ${finalMatchupHtml}
+                ${winnerHtml}
             </div>
         `;
         
