@@ -7,7 +7,6 @@
     <link rel="icon" href="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Chakra+Petch:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
     
     <style>
         /* --- CORE HUD VARIABLES --- */
@@ -38,7 +37,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Cinematic Grid with Fade-out edges */
         .bg-grid {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -62,12 +60,7 @@
         /* --- HERO SECTION --- */
         .hud-header {
             position: relative;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 4rem 2rem;
+            padding: 4rem 2rem 2rem;
             text-align: center;
             background: radial-gradient(circle at top, rgba(255, 0, 60, 0.05) 0%, transparent 60%);
             animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -81,7 +74,6 @@
             margin: 0;
             text-transform: uppercase;
             color: #ffffff;
-            /* High-saturation offset shadows for dynamic 3D pop */
             text-shadow: 
                 3px 3px 0px var(--neon-red), 
                 -3px -3px 0px var(--neon-blue),
@@ -96,14 +88,13 @@
             letter-spacing: 8px;
             text-transform: uppercase;
             margin-top: 0.5rem;
-            margin-bottom: 4rem;
+            margin-bottom: 3rem;
             font-family: 'Chakra Petch', sans-serif;
             font-weight: 600;
             position: relative;
             display: inline-block;
         }
 
-        /* Tech accent lines around subtitle */
         .hud-subtitle::before, .hud-subtitle::after {
             content: '';
             position: absolute;
@@ -122,10 +113,10 @@
             gap: 25px; 
             flex-wrap: wrap; 
             max-width: 1000px;
+            margin: 0 auto 3rem;
             width: 100%;
         }
         
-        /* Aggressive angled buttons */
         .b-link {
             position: relative;
             text-decoration: none; 
@@ -144,7 +135,6 @@
             backdrop-filter: blur(5px);
         }
 
-        /* Un-skew the text inside the button */
         .b-link-content {
             transform: skewX(calc(var(--speed-angle) * -1));
             display: flex;
@@ -153,7 +143,6 @@
             z-index: 2;
         }
 
-        /* Sweep effect element */
         .b-link::before {
             content: '';
             position: absolute;
@@ -162,17 +151,11 @@
             transition: all 0.4s ease;
             z-index: 1;
         }
-        .b-link:hover::before {
-            left: 0;
-        }
-        .b-link:active {
-            transform: skewX(var(--speed-angle)) scale(0.96);
-        }
+        .b-link:hover::before { left: 0; }
+        .b-link:active { transform: skewX(var(--speed-angle)) scale(0.96); }
         
-        /* Red Twitch Button */
         .b-live { 
-            background: rgba(255, 0, 60, 0.05); 
-            color: #fff; 
+            background: rgba(255, 0, 60, 0.05); color: #fff; 
             border: 2px solid var(--neon-red); 
             box-shadow: 0 0 20px var(--neon-red-glow), inset 0 0 10px var(--neon-red-glow); 
         }
@@ -181,36 +164,18 @@
             box-shadow: 0 0 40px var(--neon-red), inset 0 0 20px rgba(255,255,255,0.5); 
         }
         
-        /* Blue YouTube Button */
         .b-vod { 
-            background: rgba(0, 240, 255, 0.05); 
-            color: #fff; 
+            background: rgba(0, 240, 255, 0.05); color: #fff; 
             border: 2px solid var(--neon-blue); 
             box-shadow: 0 0 20px var(--neon-blue-glow), inset 0 0 10px var(--neon-blue-glow); 
         }
         .b-vod:hover { 
-            background: var(--neon-blue); 
-            color: var(--dark-bg);
+            background: var(--neon-blue); color: var(--dark-bg);
             box-shadow: 0 0 40px var(--neon-blue), inset 0 0 20px rgba(255,255,255,0.5); 
         }
 
-        /* Green Standings Button */
-        .b-standings { 
-            background: rgba(0, 255, 65, 0.05); 
-            color: #fff; 
-            border: 2px solid var(--neon-green); 
-            box-shadow: 0 0 20px var(--neon-green-glow), inset 0 0 10px var(--neon-green-glow); 
-        }
-        .b-standings:hover { 
-            background: var(--neon-green); 
-            color: var(--dark-bg);
-            box-shadow: 0 0 40px var(--neon-green), inset 0 0 20px rgba(255,255,255,0.5); 
-        }
-
-        /* Live pulsating indicator for Twitch */
         .live-dot {
-            height: 10px;
-            width: 10px;
+            height: 10px; width: 10px;
             background-color: #fff;
             border-radius: 50%;
             display: inline-block;
@@ -218,21 +183,103 @@
             animation: pulse-dot 1.5s infinite;
         }
 
+        /* --- LIVE DATA DASHBOARD --- */
+        .dashboard-container {
+            max-width: 1000px;
+            width: 90%;
+            margin: 0 auto 4rem;
+            background: var(--panel-bg);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-top: 3px solid var(--neon-blue);
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            animation: fadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .dashboard-title {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 1.5rem;
+            margin: 0;
+            color: var(--neon-blue);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .update-status {
+            font-size: 0.9rem;
+            color: #888;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Leaderboard Table */
+        .standings-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .standings-table th {
+            font-family: 'Chakra Petch', sans-serif;
+            color: #888;
+            text-transform: uppercase;
+            padding: 10px 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            letter-spacing: 1px;
+        }
+
+        .standings-table td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .standings-table tr:hover td {
+            background: rgba(0, 240, 255, 0.05);
+        }
+
+        .rank-col { width: 60px; color: var(--neon-blue); font-weight: 700; }
+        .pts-col { color: var(--neon-green); text-align: right; }
+        .wins-col { color: #aaa; text-align: right; width: 80px; }
+
+        .playoff-tag {
+            background: rgba(255, 193, 7, 0.15);
+            color: #ffc107;
+            font-size: 0.7rem;
+            padding: 3px 6px;
+            border-radius: 3px;
+            margin-left: 10px;
+            text-transform: uppercase;
+            border: 1px solid #ffc107;
+            vertical-align: middle;
+        }
+
         @keyframes pulse-dot {
             0% { transform: scale(0.95); opacity: 1; }
             50% { transform: scale(1.3); opacity: 0.5; }
             100% { transform: scale(0.95); opacity: 1; }
         }
-
         @keyframes fadeIn {
             0% { opacity: 0; transform: translateY(20px); }
             100% { opacity: 1; transform: translateY(0); }
         }
-        
         @media (max-width: 850px) {
             .broadcast-links { flex-direction: column; align-items: center; }
             .b-link { width: 85%; }
             .hud-subtitle::before, .hud-subtitle::after { display: none; }
+            .dashboard-container { padding: 1rem; }
         }
     </style>
 </head>
@@ -253,12 +300,6 @@
                 </span>
             </a>
             
-            <a href="https://simracerhub.com/season_standings.php?season_id=28914" target="_blank" class="b-link b-standings">
-                <span class="b-link-content">
-                    <i class="fa-solid fa-trophy"></i> LIVE STANDINGS
-                </span>
-            </a>
-            
             <a href="https://www.youtube.com/@iracingascrl" target="_blank" class="b-link b-vod">
                 <span class="b-link-content">
                     <i class="fa-brands fa-youtube"></i> LATEST RACE VOD
@@ -267,16 +308,88 @@
         </div>
     </header>
 
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h2 class="dashboard-title"><i class="fa-solid fa-trophy"></i> Live Championship</h2>
+            <div class="update-status" id="last-updated">
+                <i class="fa-solid fa-rotate"></i> Syncing with ASCRL Database...
+            </div>
+        </div>
+
+        <table class="standings-table">
+            <thead>
+                <tr>
+                    <th class="rank-col">POS</th>
+                    <th>Driver</th>
+                    <th class="wins-col">Wins</th>
+                    <th class="pts-col">Points</th>
+                </tr>
+            </thead>
+            <tbody id="standings-body">
+                </tbody>
+        </table>
+    </div>
+
     <script>
-        // --- MODULAR NAVIGATION LOGIC ---
-        // Retained for your architecture requirements
+        // --- 1. JSON FETCH ENGINE ---
+        // This function targets the exact export schema generated by your Discord Bot.
+        async function loadStandings() {
+            try {
+                // Fetch the JSON file generated by your /export_season command
+                // Add a cache-busting query parameter so the browser always gets the newest version
+                const response = await fetch(`live_season_standings.json?v=${new Date().getTime()}`);
+                
+                if (!response.ok) {
+                    throw new Error("Standings file not found. Ensure the bot has run /export_season.");
+                }
+
+                const data = await response.json();
+                const tbody = document.getElementById('standings-body');
+                tbody.innerHTML = ''; // Clear loading state
+
+                // Update timestamp if the bot included one, otherwise use current time
+                const updatedTime = data.exported_at ? new Date(data.exported_at).toLocaleString() : new Date().toLocaleString();
+                document.getElementById('last-updated').innerHTML = `<i class="fa-solid fa-check-circle" style="color: var(--neon-green)"></i> Last Sync: ${updatedTime}`;
+
+                // Loop through the array generated by the SQLite database
+                data.driver_standings.forEach((driver, index) => {
+                    const tr = document.createElement('tr');
+                    
+                    // Render the Playoff tag if the bot flagged them as 'playoff_alive = 1'
+                    const playoffBadge = driver.playoff_alive ? `<span class="playoff-tag">Chase Grid</span>` : '';
+
+                    tr.innerHTML = `
+                        <td class="rank-col">${index + 1}</td>
+                        <td>${driver.name} ${playoffBadge}</td>
+                        <td class="wins-col">${driver.wins}</td>
+                        <td class="pts-col">${driver.points}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+            } catch (error) {
+                console.error("Error loading standings:", error);
+                document.getElementById('standings-body').innerHTML = `
+                    <tr>
+                        <td colspan="4" style="text-align:center; color:#ff3333; padding: 30px;">
+                            <i class="fa-solid fa-triangle-exclamation"></i> Database offline or standings file missing. Run <code>/export_season</code> in Discord.
+                        </td>
+                    </tr>
+                `;
+                document.getElementById('last-updated').innerHTML = `<i class="fa-solid fa-link-slash" style="color: var(--neon-red)"></i> Connection Failed`;
+            }
+        }
+
+        // Initialize the fetch engine when the page loads
+        document.addEventListener("DOMContentLoaded", loadStandings);
+
+        // --- 2. MODULAR NAVIGATION LOGIC ---
         const cacheBust = new Date().getTime();
         fetch(`nav.html?v=${cacheBust}`)
             .then(res => res.text())
             .then(data => {
                 document.getElementById('nav-placeholder').innerHTML = data;
                 
-                // Highlight the active link in the menu
                 const activeLink = document.getElementById('nav-iracing');
                 if (activeLink) {
                     activeLink.style.color = "var(--neon-blue)";
