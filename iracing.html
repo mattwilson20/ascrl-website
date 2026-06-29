@@ -26,385 +26,295 @@
 
         /* --- GLOBAL & BACKGROUND --- */
         body {
-            margin: 0;
-            background-color: var(--dark-bg);
-            color: var(--text-main);
-            font-family: 'Rajdhani', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
+            margin: 0; background-color: var(--dark-bg); color: var(--text-main);
+            font-family: 'Rajdhani', sans-serif; min-height: 100vh;
+            display: flex; flex-direction: column; overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
         .bg-grid {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background-image: 
-                linear-gradient(var(--grid-line) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: -1;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 50px 50px; z-index: -1;
             mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
             -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
             animation: panGrid 60s linear infinite;
         }
 
-        @keyframes panGrid {
-            0% { background-position: 0 0; }
-            100% { background-position: 0 500px; }
-        }
-
-        #nav-placeholder { position: relative; z-index: 99999; }
+        @keyframes panGrid { 0% { background-position: 0 0; } 100% { background-position: 0 500px; } }
 
         /* --- HERO SECTION --- */
         .hud-header {
-            position: relative;
-            padding: 4rem 2rem 2rem;
-            text-align: center;
+            position: relative; padding: 4rem 2rem 2rem; text-align: center;
             background: radial-gradient(circle at top, rgba(255, 0, 60, 0.05) 0%, transparent 60%);
             animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         
         .hud-title {
-            font-family: 'Chakra Petch', sans-serif;
-            font-size: clamp(3.5rem, 8vw, 7rem);
-            font-weight: 700;
-            font-style: italic;
-            margin: 0;
-            text-transform: uppercase;
-            color: #ffffff;
-            text-shadow: 
-                3px 3px 0px var(--neon-red), 
-                -3px -3px 0px var(--neon-blue),
-                0px 0px 30px rgba(255, 255, 255, 0.2);
-            letter-spacing: 6px;
-            line-height: 1.1;
+            font-family: 'Chakra Petch', sans-serif; font-size: clamp(3.5rem, 8vw, 7rem);
+            font-weight: 700; font-style: italic; margin: 0; text-transform: uppercase; color: #ffffff;
+            text-shadow: 3px 3px 0px var(--neon-red), -3px -3px 0px var(--neon-blue), 0px 0px 30px rgba(255, 255, 255, 0.2);
+            letter-spacing: 6px; line-height: 1.1;
         }
 
         .hud-subtitle {
-            color: #9ba1a6;
-            font-size: clamp(1rem, 3vw, 1.4rem);
-            letter-spacing: 8px;
-            text-transform: uppercase;
-            margin-top: 0.5rem;
-            margin-bottom: 3rem;
-            font-family: 'Chakra Petch', sans-serif;
-            font-weight: 600;
-            position: relative;
-            display: inline-block;
+            color: #9ba1a6; font-size: clamp(1rem, 3vw, 1.4rem); letter-spacing: 8px;
+            text-transform: uppercase; margin-top: 0.5rem; margin-bottom: 3rem;
+            font-family: 'Chakra Petch', sans-serif; font-weight: 600; position: relative; display: inline-block;
         }
-
         .hud-subtitle::before, .hud-subtitle::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 40px;
-            height: 2px;
-            background: var(--neon-red);
+            content: ''; position: absolute; top: 50%; width: 40px; height: 2px; background: var(--neon-red);
         }
-        .hud-subtitle::before { left: -60px; }
-        .hud-subtitle::after { right: -60px; }
+        .hud-subtitle::before { left: -60px; } .hud-subtitle::after { right: -60px; }
         
-        /* --- ESPORTS BUTTON LAYOUT --- */
-        .broadcast-links { 
-            display: flex; 
-            justify-content: center; 
-            gap: 25px; 
-            flex-wrap: wrap; 
-            max-width: 1000px;
-            margin: 0 auto 3rem;
-            width: 100%;
-        }
-        
-        .b-link {
-            position: relative;
-            text-decoration: none; 
-            padding: 20px 45px; 
-            font-family: 'Chakra Petch', sans-serif;
-            font-weight: 700; 
-            font-size: 1.2rem; 
-            text-transform: uppercase; 
-            letter-spacing: 2px;
-            transform: skewX(var(--speed-angle));
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
-            display: inline-flex; 
-            align-items: center; 
-            justify-content: center;
-            overflow: hidden;
-            backdrop-filter: blur(5px);
-        }
-
-        .b-link-content {
-            transform: skewX(calc(var(--speed-angle) * -1));
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            z-index: 2;
-        }
-
-        .b-link::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            transition: all 0.4s ease;
-            z-index: 1;
-        }
-        .b-link:hover::before { left: 0; }
-        .b-link:active { transform: skewX(var(--speed-angle)) scale(0.96); }
-        
-        .b-live { 
-            background: rgba(255, 0, 60, 0.05); color: #fff; 
-            border: 2px solid var(--neon-red); 
-            box-shadow: 0 0 20px var(--neon-red-glow), inset 0 0 10px var(--neon-red-glow); 
-        }
-        .b-live:hover { 
-            background: var(--neon-red); 
-            box-shadow: 0 0 40px var(--neon-red), inset 0 0 20px rgba(255,255,255,0.5); 
-        }
-        
-        .b-vod { 
-            background: rgba(0, 240, 255, 0.05); color: #fff; 
-            border: 2px solid var(--neon-blue); 
-            box-shadow: 0 0 20px var(--neon-blue-glow), inset 0 0 10px var(--neon-blue-glow); 
-        }
-        .b-vod:hover { 
-            background: var(--neon-blue); color: var(--dark-bg);
-            box-shadow: 0 0 40px var(--neon-blue), inset 0 0 20px rgba(255,255,255,0.5); 
-        }
-
-        .live-dot {
-            height: 10px; width: 10px;
-            background-color: #fff;
-            border-radius: 50%;
-            display: inline-block;
-            box-shadow: 0 0 10px #fff;
-            animation: pulse-dot 1.5s infinite;
-        }
-
         /* --- LIVE DATA DASHBOARD --- */
         .dashboard-container {
-            max-width: 1000px;
-            width: 90%;
-            margin: 0 auto 4rem;
-            background: var(--panel-bg);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-top: 3px solid var(--neon-blue);
-            padding: 2rem;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            max-width: 1200px; width: 95%; margin: 0 auto 4rem;
+            background: var(--panel-bg); border: 1px solid rgba(255,255,255,0.1);
+            border-top: 3px solid var(--neon-blue); padding: 2rem;
+            backdrop-filter: blur(10px); box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             animation: fadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 1rem;
-            margin-bottom: 1.5rem;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem; margin-bottom: 1.5rem;
         }
 
         .dashboard-title {
-            font-family: 'Chakra Petch', sans-serif;
-            font-size: 1.5rem;
-            margin: 0;
-            color: var(--neon-blue);
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            font-family: 'Chakra Petch', sans-serif; font-size: 1.5rem; margin: 0;
+            color: var(--neon-blue); text-transform: uppercase; letter-spacing: 2px;
         }
 
-        .update-status {
-            font-size: 0.9rem;
-            color: #888;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .update-status { font-size: 0.9rem; color: #888; display: flex; align-items: center; gap: 8px; }
+
+        /* --- TABBED NAVIGATION --- */
+        .tab-nav {
+            display: flex; gap: 10px; margin-bottom: 2rem; flex-wrap: wrap;
+        }
+        .tab-btn {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            color: #aaa; padding: 10px 25px; font-family: 'Chakra Petch', sans-serif;
+            font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px;
+            cursor: pointer; transition: all 0.3s ease; transform: skewX(-10deg);
+        }
+        .tab-btn span { display: block; transform: skewX(10deg); }
+        .tab-btn:hover { background: rgba(0, 240, 255, 0.1); color: #fff; border-color: var(--neon-blue); }
+        .tab-btn.active {
+            background: rgba(0, 240, 255, 0.15); color: var(--neon-blue);
+            border-color: var(--neon-blue); box-shadow: 0 0 15px var(--neon-blue-glow);
         }
 
-        /* Leaderboard Table */
-        .standings-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
+        .tab-content { display: none; animation: fadeIn 0.4s ease forwards; }
+        .tab-content.active { display: block; }
 
-        .standings-table th {
-            font-family: 'Chakra Petch', sans-serif;
-            color: #888;
-            text-transform: uppercase;
-            padding: 10px 15px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            letter-spacing: 1px;
+        /* --- DATA TABLES --- */
+        .data-table { width: 100%; border-collapse: collapse; text-align: left; }
+        .data-table th {
+            font-family: 'Chakra Petch', sans-serif; color: #888; text-transform: uppercase;
+            padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.1); letter-spacing: 1px;
         }
+        .data-table td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 1.1rem; font-weight: 600; }
+        .data-table tr:hover td { background: rgba(0, 240, 255, 0.05); }
 
-        .standings-table td {
-            padding: 15px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            font-size: 1.2rem;
-            font-weight: 600;
+        .rank-col { width: 60px; color: var(--neon-blue); font-weight: 700; font-size: 1.3rem !important; }
+        .pts-col { color: var(--neon-green); font-weight: 700; }
+        .deduction-col { color: var(--neon-red); font-weight: 700; }
+        
+        /* Badges */
+        .badge {
+            font-size: 0.75rem; padding: 4px 8px; border-radius: 3px; margin-left: 10px;
+            text-transform: uppercase; border: 1px solid; vertical-align: middle; letter-spacing: 1px;
         }
+        .badge-playoff { background: rgba(255, 193, 7, 0.15); color: #ffc107; border-color: #ffc107; }
+        .badge-open { background: rgba(255, 193, 7, 0.15); color: #ffc107; border-color: #ffc107; }
+        .badge-penalized { background: rgba(255, 0, 60, 0.15); color: var(--neon-red); border-color: var(--neon-red); }
+        .badge-dismissed { background: rgba(255, 255, 255, 0.1); color: #888; border-color: #555; }
+        .badge-playoff-race { background: rgba(0, 240, 255, 0.15); color: var(--neon-blue); border-color: var(--neon-blue); }
 
-        .standings-table tr:hover td {
-            background: rgba(0, 240, 255, 0.05);
-        }
+        .sub-text { display: block; font-size: 0.85rem; color: #777; font-weight: 400; margin-top: 4px; }
 
-        .rank-col { width: 60px; color: var(--neon-blue); font-weight: 700; }
-        .pts-col { color: var(--neon-green); text-align: right; }
-        .wins-col { color: #aaa; text-align: right; width: 80px; }
-
-        .playoff-tag {
-            background: rgba(255, 193, 7, 0.15);
-            color: #ffc107;
-            font-size: 0.7rem;
-            padding: 3px 6px;
-            border-radius: 3px;
-            margin-left: 10px;
-            text-transform: uppercase;
-            border: 1px solid #ffc107;
-            vertical-align: middle;
-        }
-
-        @keyframes pulse-dot {
-            0% { transform: scale(0.95); opacity: 1; }
-            50% { transform: scale(1.3); opacity: 0.5; }
-            100% { transform: scale(0.95); opacity: 1; }
-        }
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        @media (max-width: 850px) {
-            .broadcast-links { flex-direction: column; align-items: center; }
-            .b-link { width: 85%; }
-            .hud-subtitle::before, .hud-subtitle::after { display: none; }
-            .dashboard-container { padding: 1rem; }
-        }
+        @keyframes fadeIn { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 850px) { .hud-subtitle::before, .hud-subtitle::after { display: none; } .dashboard-container { padding: 1rem; } .tab-nav { justify-content: center; } }
     </style>
 </head>
 <body>
 
     <div class="bg-grid"></div>
-    <div id="nav-placeholder"></div>
 
     <header class="hud-header">
         <h1 class="hud-title">ASCRL iRACING</h1>
         <div class="hud-subtitle">Official League Hub</div>
-        
-        <div class="broadcast-links">
-            <a href="https://twitch.tv/tbone6007_" target="_blank" class="b-link b-live">
-                <span class="b-link-content">
-                    <span class="live-dot"></span>
-                    <i class="fa-solid fa-satellite-dish"></i> LIVE BROADCAST
-                </span>
-            </a>
-            
-            <a href="https://www.youtube.com/@iracingascrl" target="_blank" class="b-link b-vod">
-                <span class="b-link-content">
-                    <i class="fa-brands fa-youtube"></i> LATEST RACE VOD
-                </span>
-            </a>
-        </div>
     </header>
 
     <div class="dashboard-container">
         <div class="dashboard-header">
-            <h2 class="dashboard-title"><i class="fa-solid fa-trophy"></i> Live Championship</h2>
+            <h2 class="dashboard-title" id="active-title"><i class="fa-solid fa-user-astronaut"></i> Driver Standings</h2>
             <div class="update-status" id="last-updated">
-                <i class="fa-solid fa-rotate"></i> Syncing with ASCRL Database...
+                <i class="fa-solid fa-rotate"></i> Syncing Database...
             </div>
         </div>
 
-        <table class="standings-table">
-            <thead>
-                <tr>
-                    <th class="rank-col">POS</th>
-                    <th>Driver</th>
-                    <th class="wins-col">Wins</th>
-                    <th class="pts-col">Points</th>
-                </tr>
-            </thead>
-            <tbody id="standings-body">
-                </tbody>
-        </table>
+        <div class="tab-nav">
+            <button class="tab-btn active" onclick="switchTab('drivers', 'Driver Standings', 'fa-user-astronaut')"><span>Drivers</span></button>
+            <button class="tab-btn" onclick="switchTab('teams', 'Team Championship', 'fa-users')"><span>Teams</span></button>
+            <button class="tab-btn" onclick="switchTab('schedule', 'Season Schedule', 'fa-calendar-days')"><span>Schedule</span></button>
+            <button class="tab-btn" onclick="switchTab('stewards', 'Stewards Office', 'fa-gavel')"><span>Stewards Office</span></button>
+        </div>
+
+        <div id="tab-drivers" class="tab-content active">
+            <div style="overflow-x: auto;">
+                <table class="data-table">
+                    <thead><tr><th class="rank-col">POS</th><th>Driver</th><th>Wins</th><th class="pts-col">Points</th></tr></thead>
+                    <tbody id="data-drivers"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="tab-teams" class="tab-content">
+            <div style="overflow-x: auto;">
+                <table class="data-table">
+                    <thead><tr><th class="rank-col">POS</th><th>Team</th><th>Manufacturer</th><th class="pts-col">Total Points</th></tr></thead>
+                    <tbody id="data-teams"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="tab-schedule" class="tab-content">
+            <div style="overflow-x: auto;">
+                <table class="data-table">
+                    <thead><tr><th class="rank-col">Wk</th><th>Track</th><th>Date</th></tr></thead>
+                    <tbody id="data-schedule"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="tab-stewards" class="tab-content">
+            <h3 style="color: var(--neon-red); font-family: 'Chakra Petch'; margin-top: 0;">Recent Penalties</h3>
+            <div style="overflow-x: auto; margin-bottom: 3rem;">
+                <table class="data-table">
+                    <thead><tr><th>Driver</th><th class="deduction-col">Penalty</th><th>Infraction Reason</th></tr></thead>
+                    <tbody id="data-penalties"></tbody>
+                </table>
+            </div>
+
+            <h3 style="color: #ffc107; font-family: 'Chakra Petch';">Official Protests</h3>
+            <div style="overflow-x: auto;">
+                <table class="data-table">
+                    <thead><tr><th>ID</th><th>Accused Driver</th><th>Incident Details</th><th>Ruling</th></tr></thead>
+                    <tbody id="data-protests"></tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <script>
-        // --- 1. JSON FETCH ENGINE ---
-        // This function targets the exact export schema generated by your Discord Bot.
-        async function loadStandings() {
+        let leagueData = null;
+
+        // --- TAB SWITCHING LOGIC ---
+        function switchTab(tabId, title, iconClass) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+            event.currentTarget.classList.add('active');
+            
+            document.getElementById('active-title').innerHTML = `<i class="fa-solid ${iconClass}"></i> ${title}`;
+        }
+
+        // --- DATA RENDERING ENGINE ---
+        async function loadDashboard() {
             try {
-                // Fetch the JSON file generated by your /export_season command
-                // Add a cache-busting query parameter so the browser always gets the newest version
                 const response = await fetch(`live_season_standings.json?v=${new Date().getTime()}`);
-                
-                if (!response.ok) {
-                    throw new Error("Standings file not found. Ensure the bot has run /export_season.");
-                }
+                if (!response.ok) throw new Error("JSON not found.");
+                leagueData = await response.json();
 
-                const data = await response.json();
-                const tbody = document.getElementById('standings-body');
-                tbody.innerHTML = ''; // Clear loading state
+                const updatedTime = leagueData.exported_at ? new Date(leagueData.exported_at).toLocaleString() : new Date().toLocaleString();
+                document.getElementById('last-updated').innerHTML = `<i class="fa-solid fa-check-circle" style="color: var(--neon-green)"></i> Updated: ${updatedTime}`;
 
-                // Update timestamp if the bot included one, otherwise use current time
-                const updatedTime = data.exported_at ? new Date(data.exported_at).toLocaleString() : new Date().toLocaleString();
-                document.getElementById('last-updated').innerHTML = `<i class="fa-solid fa-check-circle" style="color: var(--neon-green)"></i> Last Sync: ${updatedTime}`;
-
-                // Loop through the array generated by the SQLite database
-                data.driver_standings.forEach((driver, index) => {
-                    const tr = document.createElement('tr');
-                    
-                    // Render the Playoff tag if the bot flagged them as 'playoff_alive = 1'
-                    const playoffBadge = driver.playoff_alive ? `<span class="playoff-tag">Chase Grid</span>` : '';
-
-                    tr.innerHTML = `
-                        <td class="rank-col">${index + 1}</td>
-                        <td>${driver.name} ${playoffBadge}</td>
-                        <td class="wins-col">${driver.wins}</td>
-                        <td class="pts-col">${driver.points}</td>
-                    `;
-                    tbody.appendChild(tr);
-                });
+                renderDrivers();
+                renderTeams();
+                renderSchedule();
+                renderStewards();
 
             } catch (error) {
-                console.error("Error loading standings:", error);
-                document.getElementById('standings-body').innerHTML = `
-                    <tr>
-                        <td colspan="4" style="text-align:center; color:#ff3333; padding: 30px;">
-                            <i class="fa-solid fa-triangle-exclamation"></i> Database offline or standings file missing. Run <code>/export_season</code> in Discord.
-                        </td>
-                    </tr>
-                `;
+                console.error("Load error:", error);
                 document.getElementById('last-updated').innerHTML = `<i class="fa-solid fa-link-slash" style="color: var(--neon-red)"></i> Connection Failed`;
+                document.getElementById('data-drivers').innerHTML = `<tr><td colspan="4" style="text-align:center; color:#ff3333; padding: 30px;">Data offline. Awaiting bot export.</td></tr>`;
             }
         }
 
-        // Initialize the fetch engine when the page loads
-        document.addEventListener("DOMContentLoaded", loadStandings);
-
-        // --- 2. MODULAR NAVIGATION LOGIC ---
-        const cacheBust = new Date().getTime();
-        fetch(`nav.html?v=${cacheBust}`)
-            .then(res => res.text())
-            .then(data => {
-                document.getElementById('nav-placeholder').innerHTML = data;
-                
-                const activeLink = document.getElementById('nav-iracing');
-                if (activeLink) {
-                    activeLink.style.color = "var(--neon-blue)";
-                    activeLink.style.borderLeft = "4px solid var(--neon-blue)";
-                    activeLink.style.paddingLeft = "15px";
-                    activeLink.style.background = "rgba(0, 240, 255, 0.05)";
-                    activeLink.style.boxShadow = "-2px 0 10px var(--neon-blue-glow)";
-                }
-            })
-            .catch(e => console.error("Navigation load failed: ", e));
-
-        function toggleMenu() {
-            const m = document.getElementById('nav-menu');
-            if(m) m.classList.toggle('open');
+        function renderDrivers() {
+            const tbody = document.getElementById('data-drivers');
+            tbody.innerHTML = '';
+            leagueData.driver_standings.forEach((d, i) => {
+                const badge = d.playoff_alive ? `<span class="badge badge-playoff">Chase Grid</span>` : '';
+                tbody.innerHTML += `<tr><td class="rank-col">${i + 1}</td><td>${d.name} ${badge}</td><td>${d.wins}</td><td class="pts-col">${d.points}</td></tr>`;
+            });
         }
+
+        function renderTeams() {
+            const tbody = document.getElementById('data-teams');
+            tbody.innerHTML = '';
+            const activeTeams = leagueData.team_standings.filter(t => t.team !== "Independent");
+            if (activeTeams.length === 0) { tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#777;">No active teams registered.</td></tr>`; return; }
+            
+            activeTeams.forEach((t, i) => {
+                tbody.innerHTML += `<tr><td class="rank-col">${i + 1}</td><td>${t.team}</td><td>${t.manufacturer}</td><td class="pts-col">${t.points}</td></tr>`;
+            });
+        }
+
+        function renderSchedule() {
+            const tbody = document.getElementById('data-schedule');
+            tbody.innerHTML = '';
+            if (!leagueData.schedule || leagueData.schedule.length === 0) { tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#777;">Schedule pending.</td></tr>`; return; }
+            
+            leagueData.schedule.forEach(s => {
+                const badge = s.is_playoff ? `<span class="badge badge-playoff-race">Playoff Race</span>` : '';
+                tbody.innerHTML += `<tr><td class="rank-col">${s.week_number}</td><td>${s.track_name} ${badge}</td><td>${s.race_date}</td></tr>`;
+            });
+        }
+
+        function renderStewards() {
+            // Render Penalties
+            const penBody = document.getElementById('data-penalties');
+            penBody.innerHTML = '';
+            if (!leagueData.penalty_log || leagueData.penalty_log.length === 0) { 
+                penBody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#777;">Clean racing! No penalties issued.</td></tr>`; 
+            } else {
+                leagueData.penalty_log.forEach(p => {
+                    penBody.innerHTML += `<tr><td>${p.name} <span class="sub-text">Issued by ${p.issued_by}</span></td><td class="deduction-col">-${p.points_deducted} pts</td><td>${p.reason}</td></tr>`;
+                });
+            }
+
+            // Render Protests
+            const protBody = document.getElementById('data-protests');
+            protBody.innerHTML = '';
+            if (!leagueData.protest_log || leagueData.protest_log.length === 0) {
+                protBody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#777;">No active protests.</td></tr>`;
+            } else {
+                leagueData.protest_log.forEach(p => {
+                    let badgeClass = 'badge-open';
+                    if (p.status === 'penalized') badgeClass = 'badge-penalized';
+                    if (p.status === 'dismissed') badgeClass = 'badge-dismissed';
+                    
+                    const rulingText = p.ruling ? p.ruling : 'Pending review by stewards...';
+                    const linkText = p.video_link ? `<a href="${p.video_link}" target="_blank" style="color:var(--neon-blue);"><i class="fa-solid fa-video"></i> Evidence</a>` : '';
+
+                    protBody.innerHTML += `
+                        <tr>
+                            <td class="rank-col">#${p.protest_id}</td>
+                            <td>${p.accused_driver} <span class="badge ${badgeClass}">${p.status}</span></td>
+                            <td>Lap ${p.lap} - ${p.reason} <span class="sub-text">${linkText}</span></td>
+                            <td style="color:#ccc;">${rulingText}</td>
+                        </tr>
+                    `;
+                });
+            }
+        }
+
+        // Initialize
+        document.addEventListener("DOMContentLoaded", loadDashboard);
     </script>
 </body>
 </html>
