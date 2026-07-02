@@ -1,320 +1,1381 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASCRL | Official iRacing Hub</title>
-    <link rel="icon" href="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Chakra+Petch:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* --- CORE HUD VARIABLES --- */
-        :root {
-            --neon-red: #ff003c;
-            --neon-red-glow: rgba(255, 0, 60, 0.4);
-            --neon-blue: #00f0ff;
-            --neon-blue-glow: rgba(0, 240, 255, 0.4);
-            --neon-green: #00ff41;
-            --neon-green-glow: rgba(0, 255, 65, 0.4);
-            --dark-bg: #050507;
-            --panel-bg: rgba(10, 10, 12, 0.85);
-            --grid-line: rgba(255, 255, 255, 0.04);
-            --text-main: #f0f0f0;
-            --speed-angle: -15deg;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050507" />
+  <title>ApexGrid | ASCRL iRacing Command Center</title>
+  <link rel="icon" href="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 
-        /* --- GLOBAL & BACKGROUND --- */
-        body {
-            margin: 0; background-color: var(--dark-bg); color: var(--text-main);
-            font-family: 'Rajdhani', sans-serif; min-height: 100vh;
-            display: flex; flex-direction: column; overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
+  <style>
+    :root {
+      --bg: #040407;
+      --bg-2: #090a10;
+      --panel: rgba(12, 14, 20, 0.82);
+      --panel-solid: #10131b;
+      --panel-2: rgba(255, 255, 255, 0.045);
+      --border: rgba(255, 255, 255, 0.12);
+      --border-strong: rgba(255, 255, 255, 0.22);
+      --text: #f5f7fb;
+      --muted: #98a1b3;
+      --muted-2: #667085;
+      --red: #ff003c;
+      --red-glow: rgba(255, 0, 60, 0.45);
+      --blue: #00f0ff;
+      --blue-glow: rgba(0, 240, 255, 0.45);
+      --green: #00ff8a;
+      --green-glow: rgba(0, 255, 138, 0.35);
+      --gold: #ffc857;
+      --purple: #a855f7;
+      --warning: #ffb020;
+      --danger: #ff375f;
+      --radius: 22px;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+      --font-display: "Chakra Petch", system-ui, sans-serif;
+      --font-main: "Rajdhani", system-ui, sans-serif;
+    }
 
-        .bg-grid {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-            background-size: 50px 50px; z-index: -1;
-            mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
-            -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
-            animation: panGrid 60s linear infinite;
-        }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(255, 0, 60, 0.14), transparent 34%),
+        radial-gradient(circle at 85% 12%, rgba(0, 240, 255, 0.12), transparent 38%),
+        radial-gradient(circle at 55% 80%, rgba(168, 85, 247, 0.11), transparent 45%),
+        var(--bg);
+      font-family: var(--font-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
 
-        @keyframes panGrid { 0% { background-position: 0 0; } 100% { background-position: 0 500px; } }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -3;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: radial-gradient(circle at center, black 22%, transparent 78%);
+      -webkit-mask-image: radial-gradient(circle at center, black 22%, transparent 78%);
+      animation: gridSlide 42s linear infinite;
+    }
 
-        /* --- HERO SECTION --- */
-        .hud-header {
-            position: relative; padding: 4rem 2rem 2rem; text-align: center;
-            background: radial-gradient(circle at top, rgba(255, 0, 60, 0.05) 0%, transparent 60%);
-            animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        
-        .hud-title {
-            font-family: 'Chakra Petch', sans-serif; font-size: clamp(3.5rem, 8vw, 7rem);
-            font-weight: 700; font-style: italic; margin: 0; text-transform: uppercase; color: #ffffff;
-            text-shadow: 3px 3px 0px var(--neon-red), -3px -3px 0px var(--neon-blue), 0px 0px 30px rgba(255, 255, 255, 0.2);
-            letter-spacing: 6px; line-height: 1.1;
-        }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+      background:
+        linear-gradient(90deg, transparent 0 49%, rgba(0, 240, 255, 0.04) 50%, transparent 51%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 18%, transparent 82%, rgba(255, 255, 255, 0.025));
+      mix-blend-mode: screen;
+    }
 
-        .hud-subtitle {
-            color: #9ba1a6; font-size: clamp(1rem, 3vw, 1.4rem); letter-spacing: 8px;
-            text-transform: uppercase; margin-top: 0.5rem; margin-bottom: 3rem;
-            font-family: 'Chakra Petch', sans-serif; font-weight: 600; position: relative; display: inline-block;
-        }
-        .hud-subtitle::before, .hud-subtitle::after {
-            content: ''; position: absolute; top: 50%; width: 40px; height: 2px; background: var(--neon-red);
-        }
-        .hud-subtitle::before { left: -60px; } .hud-subtitle::after { right: -60px; }
-        
-        /* --- LIVE DATA DASHBOARD --- */
-        .dashboard-container {
-            max-width: 1200px; width: 95%; margin: 0 auto 4rem;
-            background: var(--panel-bg); border: 1px solid rgba(255,255,255,0.1);
-            border-top: 3px solid var(--neon-blue); padding: 2rem;
-            backdrop-filter: blur(10px); box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            animation: fadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
+    @keyframes gridSlide {
+      from { background-position: 0 0; }
+      to { background-position: 0 540px; }
+    }
 
-        .dashboard-header {
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem; margin-bottom: 1.5rem;
-        }
+    a { color: inherit; }
+    .site-shell { width: min(1440px, calc(100% - 32px)); margin: 0 auto; }
 
-        .dashboard-title {
-            font-family: 'Chakra Petch', sans-serif; font-size: 1.5rem; margin: 0;
-            color: var(--neon-blue); text-transform: uppercase; letter-spacing: 2px;
-        }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(180deg, rgba(4, 4, 7, 0.92), rgba(4, 4, 7, 0.68));
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
 
-        .update-status { font-size: 0.9rem; color: #888; display: flex; align-items: center; gap: 8px; }
+    .topbar-inner {
+      width: min(1440px, calc(100% - 32px));
+      margin: 0 auto;
+      height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
 
-        /* --- TABBED NAVIGATION --- */
-        .tab-nav {
-            display: flex; gap: 10px; margin-bottom: 2rem; flex-wrap: wrap;
-        }
-        .tab-btn {
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-            color: #aaa; padding: 10px 25px; font-family: 'Chakra Petch', sans-serif;
-            font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px;
-            cursor: pointer; transition: all 0.3s ease; transform: skewX(-10deg);
-        }
-        .tab-btn span { display: block; transform: skewX(10deg); }
-        .tab-btn:hover { background: rgba(0, 240, 255, 0.1); color: #fff; border-color: var(--neon-blue); }
-        .tab-btn.active {
-            background: rgba(0, 240, 255, 0.15); color: var(--neon-blue);
-            border-color: var(--neon-blue); box-shadow: 0 0 15px var(--neon-blue-glow);
-        }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
 
-        .tab-content { display: none; animation: fadeIn 0.4s ease forwards; }
-        .tab-content.active { display: block; }
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      color: #fff;
+      background:
+        linear-gradient(135deg, rgba(255, 0, 60, 0.92), rgba(0, 240, 255, 0.78)),
+        #111;
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.18);
+      transform: skewX(-10deg);
+    }
 
-        /* --- DATA TABLES --- */
-        .data-table { width: 100%; border-collapse: collapse; text-align: left; }
-        .data-table th {
-            font-family: 'Chakra Petch', sans-serif; color: #888; text-transform: uppercase;
-            padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.1); letter-spacing: 1px;
-        }
-        .data-table td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 1.1rem; font-weight: 600; }
-        .data-table tr:hover td { background: rgba(0, 240, 255, 0.05); }
+    .brand-mark i { transform: skewX(10deg); }
+    .brand-title { min-width: 0; }
+    .brand-title strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1.02rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .brand-title span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 1px;
+    }
 
-        .rank-col { width: 60px; color: var(--neon-blue); font-weight: 700; font-size: 1.3rem !important; }
-        .pts-col { color: var(--neon-green); font-weight: 700; }
-        .deduction-col { color: var(--neon-red); font-weight: 700; }
-        
-        /* Badges */
-        .badge {
-            font-size: 0.75rem; padding: 4px 8px; border-radius: 3px; margin-left: 10px;
-            text-transform: uppercase; border: 1px solid; vertical-align: middle; letter-spacing: 1px;
-        }
-        .badge-playoff { background: rgba(255, 193, 7, 0.15); color: #ffc107; border-color: #ffc107; }
-        .badge-open { background: rgba(255, 193, 7, 0.15); color: #ffc107; border-color: #ffc107; }
-        .badge-penalized { background: rgba(255, 0, 60, 0.15); color: var(--neon-red); border-color: var(--neon-red); }
-        .badge-dismissed { background: rgba(255, 255, 255, 0.1); color: #888; border-color: #555; }
-        .badge-playoff-race { background: rgba(0, 240, 255, 0.15); color: var(--neon-blue); border-color: var(--neon-blue); }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-        .sub-text { display: block; font-size: 0.85rem; color: #777; font-weight: 400; margin-top: 4px; }
+    .pill {
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.045);
+      border-radius: 999px;
+      padding: 9px 12px;
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
 
-        @keyframes fadeIn { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
-        @media (max-width: 850px) { .hud-subtitle::before, .hud-subtitle::after { display: none; } .dashboard-container { padding: 1rem; } .tab-nav { justify-content: center; } }
-    </style>
+    .pill.live { color: var(--green); border-color: rgba(0, 255, 138, 0.35); }
+    .pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--green);
+      box-shadow: 0 0 0 rgba(0, 255, 138, 0.8);
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(0, 255, 138, 0.55); }
+      70% { box-shadow: 0 0 0 10px rgba(0, 255, 138, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 255, 138, 0); }
+    }
+
+    .hero {
+      position: relative;
+      padding: 68px 0 34px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .hero-card,
+    .panel,
+    .stat-card,
+    .race-card-mini {
+      position: relative;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.072), rgba(255, 255, 255, 0.028));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+    }
+
+    .hero-card::before,
+    .panel::before,
+    .stat-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(0, 240, 255, 0.08), transparent 26%, transparent 74%, rgba(255, 0, 60, 0.08)),
+        radial-gradient(circle at 15% 0%, rgba(255, 255, 255, 0.09), transparent 25%);
+    }
+
+    .hero-card {
+      border-radius: 32px;
+      padding: clamp(28px, 5vw, 52px);
+      min-height: 410px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .eyebrow {
+      color: var(--blue);
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      font-size: 0.82rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(3.4rem, 8vw, 7.6rem);
+      line-height: 0.9;
+      letter-spacing: -0.06em;
+      text-transform: uppercase;
+      font-style: italic;
+      text-shadow:
+        4px 4px 0 var(--red),
+        -3px -3px 0 rgba(0, 240, 255, 0.86),
+        0 0 46px rgba(255, 255, 255, 0.16);
+    }
+
+    .hero-copy {
+      max-width: 820px;
+      color: var(--muted);
+      font-size: clamp(1.08rem, 2vw, 1.35rem);
+      line-height: 1.4;
+      margin: 22px 0 0;
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .btn {
+      border: 1px solid var(--border-strong);
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      padding: 13px 18px;
+      border-radius: 999px;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.85rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      border-color: rgba(0, 240, 255, 0.6);
+      background: rgba(0, 240, 255, 0.10);
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, rgba(255, 0, 60, 0.9), rgba(0, 240, 255, 0.68));
+      border-color: transparent;
+      box-shadow: 0 14px 40px rgba(0, 240, 255, 0.12);
+    }
+
+    .leader-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .leader-card {
+      border-radius: 28px;
+      padding: 24px;
+      min-height: 194px;
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.028)),
+        rgba(0, 0, 0, 0.24);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .leader-card::after {
+      content: "";
+      position: absolute;
+      right: -38px;
+      top: -42px;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.22), transparent 70%);
+    }
+
+    .leader-label {
+      color: var(--muted);
+      font-family: var(--font-display);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      margin-bottom: 12px;
+    }
+
+    .leader-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(2rem, 4vw, 3.15rem);
+      line-height: 0.95;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    .leader-meta {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 1.04rem;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .metric {
+      color: #fff;
+      font-family: var(--font-display);
+      display: inline-flex;
+      align-items: baseline;
+      gap: 5px;
+    }
+    .metric b { color: var(--green); font-size: 1.2em; }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+      margin: 12px 0 22px;
+    }
+
+    .stat-card {
+      border-radius: 22px;
+      padding: 18px;
+      min-height: 132px;
+    }
+
+    .stat-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: rgba(0, 240, 255, 0.10);
+      color: var(--blue);
+      margin-bottom: 14px;
+    }
+
+    .stat-value {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-top: 7px;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-weight: 700;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 18px;
+      padding-bottom: 54px;
+    }
+
+    .panel {
+      border-radius: var(--radius);
+      padding: 22px;
+    }
+
+    .panel-header {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 18px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .panel-title {
+      margin: 0;
+      font-family: var(--font-display);
+      color: #fff;
+      font-size: 1.3rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .panel-title i { color: var(--blue); }
+    .panel-subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    .tab-nav {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin: 0 0 18px;
+    }
+
+    .tab-btn {
+      background: rgba(255, 255, 255, 0.048);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      color: var(--muted);
+      padding: 10px 15px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-family: var(--font-display);
+      font-size: 0.84rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      transition: all 0.18s ease;
+    }
+
+    .tab-btn:hover,
+    .tab-btn.active {
+      color: #fff;
+      border-color: rgba(0, 240, 255, 0.55);
+      background: rgba(0, 240, 255, 0.10);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.08);
+    }
+
+    .tab-content { display: none; position: relative; z-index: 1; }
+    .tab-content.active { display: block; animation: fadeIn 0.22s ease both; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .toolbar {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .search {
+      min-width: min(100%, 360px);
+      position: relative;
+      flex: 1;
+      max-width: 460px;
+    }
+
+    .search i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted-2);
+    }
+
+    .search input,
+    .select {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      background: rgba(0, 0, 0, 0.20);
+      color: #fff;
+      border-radius: 14px;
+      padding: 12px 14px 12px 40px;
+      font: 700 1rem var(--font-main);
+      outline: none;
+    }
+
+    .select {
+      width: auto;
+      padding: 12px 14px;
+      cursor: pointer;
+    }
+
+    .table-wrap {
+      overflow: auto;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.075);
+      background: rgba(0, 0, 0, 0.18);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      color: var(--muted);
+      background: rgba(12, 14, 20, 0.96);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+      padding: 13px 14px;
+      text-align: left;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.76rem;
+      white-space: nowrap;
+    }
+
+    th.sortable { cursor: pointer; }
+    td {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+      padding: 14px;
+      font-size: 1.06rem;
+      font-weight: 700;
+      vertical-align: top;
+    }
+
+    tr:hover td { background: rgba(0, 240, 255, 0.045); }
+
+    .rank {
+      color: var(--blue);
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      width: 74px;
+    }
+
+    .points { color: var(--green); font-family: var(--font-display); }
+    .bad { color: var(--danger); }
+    .gold { color: var(--gold); }
+    .muted { color: var(--muted); }
+    .sub {
+      display: block;
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 600;
+      margin-top: 3px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 999px;
+      margin-left: 7px;
+      font-size: 0.68rem;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .badge.playoff { color: var(--gold); border-color: rgba(255, 200, 87, 0.45); background: rgba(255, 200, 87, 0.10); }
+    .badge.open { color: var(--gold); border-color: rgba(255, 200, 87, 0.45); background: rgba(255, 200, 87, 0.10); }
+    .badge.penalized { color: var(--red); border-color: rgba(255, 0, 60, 0.5); background: rgba(255, 0, 60, 0.10); }
+    .badge.dismissed { color: var(--muted); border-color: rgba(255, 255, 255, 0.16); background: rgba(255, 255, 255, 0.06); }
+    .badge.green { color: var(--green); border-color: rgba(0, 255, 138, 0.4); background: rgba(0, 255, 138, 0.08); }
+    .badge.blue { color: var(--blue); border-color: rgba(0, 240, 255, 0.42); background: rgba(0, 240, 255, 0.09); }
+
+    .charts-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .chart-card {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.20);
+      border-radius: 20px;
+      padding: 16px;
+      min-height: 330px;
+    }
+
+    .chart-title {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.92rem;
+      color: var(--muted);
+      margin: 0 0 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .chart-wrap { height: 260px; position: relative; }
+
+    .race-grid,
+    .driver-card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .race-card-mini,
+    .driver-mini {
+      border-radius: 20px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.20);
+      min-height: 154px;
+    }
+
+    .mini-label {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      font: 700 0.76rem var(--font-display);
+      margin-bottom: 8px;
+    }
+
+    .mini-title {
+      font: 700 1.45rem/1 var(--font-display);
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    .mini-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.075);
+      padding-top: 10px;
+      margin-top: 14px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .empty {
+      padding: 32px;
+      text-align: center;
+      color: var(--muted);
+      border: 1px dashed rgba(255, 255, 255, 0.13);
+      border-radius: 18px;
+      background: rgba(0, 0, 0, 0.16);
+    }
+
+    .footer {
+      color: var(--muted-2);
+      font-size: 0.9rem;
+      padding: 26px 0 42px;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .glitch-line {
+      height: 2px;
+      width: 100%;
+      background: linear-gradient(90deg, transparent, var(--blue), var(--red), transparent);
+      opacity: 0.45;
+      margin: 20px 0 0;
+    }
+
+    @media (max-width: 1100px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .stat-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .race-grid, .driver-card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 760px) {
+      .topbar-inner { height: auto; padding: 12px 0; align-items: flex-start; flex-direction: column; }
+      .nav-actions { width: 100%; overflow-x: auto; padding-bottom: 4px; }
+      .hero { padding-top: 34px; }
+      .hero-card { min-height: auto; border-radius: 24px; }
+      .leader-stack { grid-template-columns: 1fr; }
+      .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .charts-grid { grid-template-columns: 1fr; }
+      .race-grid, .driver-card-grid { grid-template-columns: 1fr; }
+      .panel { padding: 16px; }
+      .panel-header { align-items: flex-start; flex-direction: column; }
+      .hero-actions .btn { width: 100%; justify-content: center; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .site-shell, .topbar-inner { width: min(100% - 20px, 1440px); }
+      .stat-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 3.1rem; }
+      .brand-title strong { font-size: 0.9rem; }
+      .brand-title span { display: none; }
+    }
+  </style>
 </head>
+
 <body>
-
-    <div class="bg-grid"></div>
-
-    <header class="hud-header">
-        <h1 class="hud-title">ASCRL iRACING</h1>
-        <div class="hud-subtitle">Official League Hub</div>
-    </header>
-
-    <div class="dashboard-container">
-        <div class="dashboard-header">
-            <h2 class="dashboard-title" id="active-title"><i class="fa-solid fa-user-astronaut"></i> Driver Standings</h2>
-            <div class="update-status" id="last-updated">
-                <i class="fa-solid fa-rotate"></i> Syncing Database...
-            </div>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-mark"><i class="fa-solid fa-flag-checkered"></i></div>
+        <div class="brand-title">
+          <strong>ApexGrid</strong>
+          <span>ASCRL iRacing Command Center</span>
         </div>
+      </div>
 
-        <div class="tab-nav">
-            <button class="tab-btn active" onclick="switchTab('drivers', 'Driver Standings', 'fa-user-astronaut')"><span>Drivers</span></button>
-            <button class="tab-btn" onclick="switchTab('teams', 'Team Championship', 'fa-users')"><span>Teams</span></button>
-            <button class="tab-btn" onclick="switchTab('schedule', 'Season Schedule', 'fa-calendar-days')"><span>Schedule</span></button>
-            <button class="tab-btn" onclick="switchTab('stewards', 'Stewards Office', 'fa-gavel')"><span>Stewards Office</span></button>
-        </div>
-
-        <div id="tab-drivers" class="tab-content active">
-            <div style="overflow-x: auto;">
-                <table class="data-table">
-                    <thead><tr><th class="rank-col">POS</th><th>Driver</th><th>Wins</th><th class="pts-col">Points</th></tr></thead>
-                    <tbody id="data-drivers"></tbody>
-                </table>
-            </div>
-        </div>
-
-        <div id="tab-teams" class="tab-content">
-            <div style="overflow-x: auto;">
-                <table class="data-table">
-                    <thead><tr><th class="rank-col">POS</th><th>Team</th><th>Manufacturer</th><th class="pts-col">Total Points</th></tr></thead>
-                    <tbody id="data-teams"></tbody>
-                </table>
-            </div>
-        </div>
-
-        <div id="tab-schedule" class="tab-content">
-            <div style="overflow-x: auto;">
-                <table class="data-table">
-                    <thead><tr><th class="rank-col">Wk</th><th>Track</th><th>Date</th></tr></thead>
-                    <tbody id="data-schedule"></tbody>
-                </table>
-            </div>
-        </div>
-
-        <div id="tab-stewards" class="tab-content">
-            <h3 style="color: var(--neon-red); font-family: 'Chakra Petch'; margin-top: 0;">Recent Penalties</h3>
-            <div style="overflow-x: auto; margin-bottom: 3rem;">
-                <table class="data-table">
-                    <thead><tr><th>Driver</th><th class="deduction-col">Penalty</th><th>Infraction Reason</th></tr></thead>
-                    <tbody id="data-penalties"></tbody>
-                </table>
-            </div>
-
-            <h3 style="color: #ffc107; font-family: 'Chakra Petch';">Official Protests</h3>
-            <div style="overflow-x: auto;">
-                <table class="data-table">
-                    <thead><tr><th>ID</th><th>Accused Driver</th><th>Incident Details</th><th>Ruling</th></tr></thead>
-                    <tbody id="data-protests"></tbody>
-                </table>
-            </div>
-        </div>
+      <div class="nav-actions">
+        <span class="pill live"><span class="pulse"></span> Live export</span>
+        <span class="pill" id="lastUpdated"><i class="fa-solid fa-rotate"></i> Syncing</span>
+        <a class="pill" href="#standings"><i class="fa-solid fa-table-list"></i> Standings</a>
+        <a class="pill" href="#analytics"><i class="fa-solid fa-chart-line"></i> Analytics</a>
+      </div>
     </div>
+  </header>
 
-    <script>
-        let leagueData = null;
+  <main class="site-shell">
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-card">
+          <div>
+            <div class="eyebrow"><i class="fa-solid fa-satellite-dish"></i> Race control online</div>
+            <h1>League<br />Hub</h1>
+            <p class="hero-copy">
+              A full command-center style iRacing hub for standings, race analytics, stewarding, schedules,
+              team battles, penalties, protests, and broadcast-ready storylines.
+            </p>
+          </div>
 
-        // --- TAB SWITCHING LOGIC ---
-        function switchTab(tabId, title, iconClass) {
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            
-            document.getElementById(`tab-${tabId}`).classList.add('active');
-            event.currentTarget.classList.add('active');
-            
-            document.getElementById('active-title').innerHTML = `<i class="fa-solid ${iconClass}"></i> ${title}`;
-        }
+          <div>
+            <div class="hero-actions">
+              <a class="btn primary" href="#standings"><i class="fa-solid fa-ranking-star"></i> View standings</a>
+              <a class="btn" href="#races"><i class="fa-solid fa-stopwatch"></i> Latest races</a>
+              <a class="btn" href="#stewards"><i class="fa-solid fa-gavel"></i> Stewards office</a>
+            </div>
+            <div class="glitch-line"></div>
+          </div>
+        </div>
 
-        // --- DATA RENDERING ENGINE ---
-        async function loadDashboard() {
-            try {
-                const response = await fetch(`live_season_standings.json?v=${new Date().getTime()}`);
-                if (!response.ok) throw new Error("JSON not found.");
-                leagueData = await response.json();
+        <div class="leader-stack">
+          <div class="leader-card">
+            <div class="leader-label">Driver championship leader</div>
+            <h2 class="leader-name" id="heroDriver">Awaiting Data</h2>
+            <div class="leader-meta">
+              <span class="metric"><b id="heroDriverPts">0</b> pts</span>
+              <span class="metric"><b id="heroDriverWins">0</b> wins</span>
+            </div>
+          </div>
 
-                const updatedTime = leagueData.exported_at ? new Date(leagueData.exported_at).toLocaleString() : new Date().toLocaleString();
-                document.getElementById('last-updated').innerHTML = `<i class="fa-solid fa-check-circle" style="color: var(--neon-green)"></i> Updated: ${updatedTime}`;
+          <div class="leader-card">
+            <div class="leader-label">Team championship leader</div>
+            <h2 class="leader-name" id="heroTeam">Awaiting Data</h2>
+            <div class="leader-meta">
+              <span class="metric"><b id="heroTeamPts">0</b> pts</span>
+              <span class="metric" id="heroTeamMfg">Manufacturer pending</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-                renderDrivers();
-                renderTeams();
-                renderSchedule();
-                renderStewards();
+    <section class="stat-grid" aria-label="League overview cards">
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+        <div class="stat-value" id="statDrivers">0</div>
+        <div class="stat-label">Drivers</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="stat-value" id="statTeams">0</div>
+        <div class="stat-label">Teams</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-trophy"></i></div>
+        <div class="stat-value" id="statRaces">0</div>
+        <div class="stat-label">Races</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        <div class="stat-value" id="statPenalties">0</div>
+        <div class="stat-label">Penalties</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+        <div class="stat-value" id="statProtests">0</div>
+        <div class="stat-label">Protests</div>
+      </div>
+    </section>
 
-            } catch (error) {
-                console.error("Load error:", error);
-                document.getElementById('last-updated').innerHTML = `<i class="fa-solid fa-link-slash" style="color: var(--neon-red)"></i> Connection Failed`;
-                document.getElementById('data-drivers').innerHTML = `<tr><td colspan="4" style="text-align:center; color:#ff3333; padding: 30px;">Data offline. Awaiting bot export.</td></tr>`;
+    <section class="main-grid">
+      <section class="panel" id="analytics">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title"><i class="fa-solid fa-chart-simple"></i> Analytics suite</h2>
+            <div class="panel-subtitle">Charts update from the same JSON file your Discord bot exports.</div>
+          </div>
+          <button class="btn" onclick="loadDashboard(true)"><i class="fa-solid fa-arrows-rotate"></i> Refresh</button>
+        </div>
+
+        <div class="charts-grid">
+          <div class="chart-card">
+            <h3 class="chart-title">Top drivers <span>Points</span></h3>
+            <div class="chart-wrap"><canvas id="chartDrivers"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <h3 class="chart-title">Team fight <span>Points</span></h3>
+            <div class="chart-wrap"><canvas id="chartTeams"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <h3 class="chart-title">Recent incidents <span>Last race data</span></h3>
+            <div class="chart-wrap"><canvas id="chartIncidents"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <h3 class="chart-title">Laps led <span>Last race data</span></h3>
+            <div class="chart-wrap"><canvas id="chartLapsLed"></canvas></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="standings">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title"><i class="fa-solid fa-gauge-high"></i> League database</h2>
+            <div class="panel-subtitle">Drivers, teams, schedules, race stats, and stewarding records in one place.</div>
+          </div>
+
+          <div class="search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input id="globalSearch" type="search" placeholder="Search drivers, teams, tracks, penalties..." />
+          </div>
+        </div>
+
+        <nav class="tab-nav" aria-label="Dashboard tabs">
+          <button class="tab-btn active" data-tab="drivers"><i class="fa-solid fa-user-astronaut"></i> Drivers</button>
+          <button class="tab-btn" data-tab="teams"><i class="fa-solid fa-people-group"></i> Teams</button>
+          <button class="tab-btn" data-tab="schedule"><i class="fa-solid fa-calendar-days"></i> Schedule</button>
+          <button class="tab-btn" data-tab="races"><i class="fa-solid fa-flag-checkered"></i> Races</button>
+          <button class="tab-btn" data-tab="driverStats"><i class="fa-solid fa-id-card"></i> Driver stats</button>
+          <button class="tab-btn" data-tab="stewards"><i class="fa-solid fa-gavel"></i> Stewards</button>
+        </nav>
+
+        <div class="tab-content active" id="tab-drivers">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th class="rank">Pos</th>
+                  <th>Driver</th>
+                  <th>Wins</th>
+                  <th>Playoff</th>
+                  <th class="points">Points</th>
+                </tr>
+              </thead>
+              <tbody id="driversBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="tab-content" id="tab-teams">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th class="rank">Pos</th>
+                  <th>Team</th>
+                  <th>Manufacturer</th>
+                  <th class="points">Points</th>
+                </tr>
+              </thead>
+              <tbody id="teamsBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="tab-content" id="tab-schedule">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th class="rank">Week</th>
+                  <th>Track</th>
+                  <th>Date</th>
+                  <th>Type</th>
+                </tr>
+              </thead>
+              <tbody id="scheduleBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="tab-content" id="tab-races">
+          <div id="racesGrid" class="race-grid"></div>
+        </div>
+
+        <div class="tab-content" id="tab-driverStats">
+          <div class="toolbar">
+            <select id="driverSort" class="select" aria-label="Sort driver stats">
+              <option value="finish_position">Sort: Finish</option>
+              <option value="total_race_points">Sort: Race points</option>
+              <option value="incidents">Sort: Incidents</option>
+              <option value="laps_led">Sort: Laps led</option>
+              <option value="irating_change">Sort: iRating change</option>
+            </select>
+          </div>
+          <div id="driverCards" class="driver-card-grid"></div>
+        </div>
+
+        <div class="tab-content" id="tab-stewards">
+          <div class="table-wrap" id="stewards">
+            <table>
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Driver / Protest</th>
+                  <th>Details</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="stewardsBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="footer">
+    ApexGrid / ASCRL iRacing Hub &bull; Powered by the live export from your Discord bot
+  </footer>
+
+  <script>
+    "use strict";
+
+    const DATA_URL = "live_season_standings.json";
+    const AUTO_REFRESH_MS = 60000;
+    let leagueData = {};
+    let charts = {};
+
+    const $ = (id) => document.getElementById(id);
+
+    function escapeHTML(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function asNumber(value, fallback = 0) {
+      const n = Number(value);
+      return Number.isFinite(n) ? n : fallback;
+    }
+
+    function formatDate(value) {
+      if (!value) return "TBA";
+      const d = new Date(value);
+      if (Number.isNaN(d.getTime())) return escapeHTML(value);
+      return d.toLocaleString([], { year: "numeric", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+    }
+
+    function statusBadge(status) {
+      const clean = String(status || "open").toLowerCase();
+      const cls = clean === "penalized" ? "penalized" : clean === "dismissed" ? "dismissed" : "open";
+      return `<span class="badge ${cls}">${escapeHTML(clean)}</span>`;
+    }
+
+    function playoffBadge(active) {
+      return active ? `<span class="badge playoff"><i class="fa-solid fa-bolt"></i> Chase</span>` : `<span class="muted">—</span>`;
+    }
+
+    function setText(id, value) {
+      const el = $(id);
+      if (el) el.textContent = value;
+    }
+
+    function getDrivers() {
+      return Array.isArray(leagueData.driver_standings) ? leagueData.driver_standings : [];
+    }
+
+    function getTeams() {
+      return Array.isArray(leagueData.team_standings)
+        ? leagueData.team_standings.filter(t => String(t.team || t.team_name || "").toLowerCase() !== "independent")
+        : [];
+    }
+
+    function getSchedule() {
+      return Array.isArray(leagueData.schedule) ? leagueData.schedule : [];
+    }
+
+    function getPenalties() {
+      return Array.isArray(leagueData.penalty_log) ? leagueData.penalty_log : [];
+    }
+
+    function getProtests() {
+      return Array.isArray(leagueData.protest_log) ? leagueData.protest_log : [];
+    }
+
+    function getRaceEvents() {
+      if (Array.isArray(leagueData.race_events)) return leagueData.race_events;
+      if (Array.isArray(leagueData.races)) return leagueData.races;
+      return [];
+    }
+
+    function getDriverStats() {
+      if (Array.isArray(leagueData.race_driver_stats)) return leagueData.race_driver_stats;
+      if (Array.isArray(leagueData.driver_stats)) return leagueData.driver_stats;
+      return [];
+    }
+
+    function latestRaceStats() {
+      const rows = getDriverStats();
+      if (!rows.length) return [];
+      const latestSubsession = rows
+        .map(r => asNumber(r.subsession_id, 0))
+        .sort((a, b) => b - a)[0];
+      return rows.filter(r => asNumber(r.subsession_id, 0) === latestSubsession);
+    }
+
+    function emptyRow(cols, message) {
+      return `<tr><td colspan="${cols}" class="empty">${escapeHTML(message)}</td></tr>`;
+    }
+
+    function renderHeroAndStats() {
+      const drivers = getDrivers();
+      const teams = getTeams();
+      const races = getRaceEvents();
+
+      const leader = drivers[0] || {};
+      const teamLeader = teams[0] || {};
+
+      setText("heroDriver", leader.name || leader.iracing_name || "Awaiting Data");
+      setText("heroDriverPts", asNumber(leader.points, 0));
+      setText("heroDriverWins", asNumber(leader.wins, 0));
+
+      setText("heroTeam", teamLeader.team || teamLeader.team_name || "Awaiting Data");
+      setText("heroTeamPts", asNumber(teamLeader.points ?? teamLeader.total_points, 0));
+      setText("heroTeamMfg", teamLeader.manufacturer || "Manufacturer pending");
+
+      setText("statDrivers", drivers.length);
+      setText("statTeams", teams.length);
+      setText("statRaces", races.length);
+      setText("statPenalties", getPenalties().length);
+      setText("statProtests", getProtests().length);
+    }
+
+    function renderDrivers() {
+      const search = $("globalSearch").value.toLowerCase().trim();
+      const rows = getDrivers().filter(d => JSON.stringify(d).toLowerCase().includes(search));
+      $("driversBody").innerHTML = rows.length
+        ? rows.map((d, i) => `
+          <tr>
+            <td class="rank">${i + 1}</td>
+            <td>${escapeHTML(d.name || d.iracing_name || "Unknown")}</td>
+            <td>${asNumber(d.wins, 0)}</td>
+            <td>${playoffBadge(d.playoff_alive)}</td>
+            <td class="points">${asNumber(d.points, 0)}</td>
+          </tr>
+        `).join("")
+        : emptyRow(5, "No driver standings found. Run the bot export command first.");
+    }
+
+    function renderTeams() {
+      const search = $("globalSearch").value.toLowerCase().trim();
+      const rows = getTeams().filter(t => JSON.stringify(t).toLowerCase().includes(search));
+      $("teamsBody").innerHTML = rows.length
+        ? rows.map((t, i) => `
+          <tr>
+            <td class="rank">${i + 1}</td>
+            <td>${escapeHTML(t.team || t.team_name || "Unknown Team")}</td>
+            <td>${escapeHTML(t.manufacturer || "Unknown")}</td>
+            <td class="points">${asNumber(t.points ?? t.total_points, 0)}</td>
+          </tr>
+        `).join("")
+        : emptyRow(4, "No active teams registered yet.");
+    }
+
+    function renderSchedule() {
+      const search = $("globalSearch").value.toLowerCase().trim();
+      const rows = getSchedule().filter(s => JSON.stringify(s).toLowerCase().includes(search));
+      $("scheduleBody").innerHTML = rows.length
+        ? rows.map(s => `
+          <tr>
+            <td class="rank">${escapeHTML(s.week_number ?? s.week ?? "—")}</td>
+            <td>${escapeHTML(s.track_name || s.track || "Unknown Track")}</td>
+            <td>${escapeHTML(s.race_date || s.date || "TBA")}</td>
+            <td>${s.is_playoff ? `<span class="badge blue">Playoff race</span>` : `<span class="muted">Regular season</span>`}</td>
+          </tr>
+        `).join("")
+        : emptyRow(4, "Schedule pending.");
+    }
+
+    function parseAwards(race) {
+      if (!race) return {};
+      if (race.awards && typeof race.awards === "object") return race.awards;
+      if (race.awards_json) {
+        try { return JSON.parse(race.awards_json); } catch { return {}; }
+      }
+      return {};
+    }
+
+    function renderRaces() {
+      const search = $("globalSearch").value.toLowerCase().trim();
+      const rows = getRaceEvents()
+        .slice()
+        .sort((a, b) => asNumber(b.subsession_id, 0) - asNumber(a.subsession_id, 0))
+        .filter(r => JSON.stringify(r).toLowerCase().includes(search));
+
+      $("racesGrid").innerHTML = rows.length
+        ? rows.map(r => {
+          const awards = parseAwards(r);
+          return `
+            <article class="race-card-mini">
+              <div class="mini-label">Subsession ${escapeHTML(r.subsession_id || "—")}</div>
+              <h3 class="mini-title">${escapeHTML(r.track_name || "Unknown Track")}</h3>
+              <div class="sub">${formatDate(r.processed_at || r.start_time)}</div>
+              <div class="mini-row"><span>SOF</span><strong>${escapeHTML(r.strength_of_field || "N/A")}</strong></div>
+              <div class="mini-row"><span>Cautions</span><strong>${asNumber(r.num_cautions, 0)} / ${asNumber(r.num_caution_laps, 0)} laps</strong></div>
+              <div class="mini-row"><span>Hard charger</span><strong>${escapeHTML(awards.hard_charger_name || "N/A")}</strong></div>
+            </article>
+          `;
+        }).join("")
+        : `<div class="empty">No race event history found yet. Process a race in the Discord bot, then export the season JSON.</div>`;
+    }
+
+    function renderDriverCards() {
+      const search = $("globalSearch").value.toLowerCase().trim();
+      const sortKey = $("driverSort").value;
+      const rows = getDriverStats()
+        .slice()
+        .filter(r => JSON.stringify(r).toLowerCase().includes(search))
+        .sort((a, b) => {
+          const av = asNumber(a[sortKey], 0);
+          const bv = asNumber(b[sortKey], 0);
+          if (sortKey === "finish_position" || sortKey === "incidents") return av - bv;
+          return bv - av;
+        })
+        .slice(0, 24);
+
+      $("driverCards").innerHTML = rows.length
+        ? rows.map(d => `
+          <article class="driver-mini">
+            <div class="mini-label">#${escapeHTML(d.car_number || "—")} &bull; ${escapeHTML(d.team_name || d.team || "Independent")}</div>
+            <h3 class="mini-title">${escapeHTML(d.iracing_name || d.name || "Unknown")}</h3>
+            <div class="sub">${escapeHTML(d.car_name || d.manufacturer || "iRacing entry")}</div>
+            <div class="mini-row"><span>Finish</span><strong>P${escapeHTML(d.finish_position || "—")}</strong></div>
+            <div class="mini-row"><span>Points</span><strong class="points">${asNumber(d.total_race_points, 0)}</strong></div>
+            <div class="mini-row"><span>Inc / Led</span><strong>${asNumber(d.incidents, 0)}x / ${asNumber(d.laps_led, 0)}</strong></div>
+            <div class="mini-row"><span>iRating</span><strong class="${asNumber(d.irating_change, 0) < 0 ? "bad" : "points"}">${asNumber(d.irating_change, 0)}</strong></div>
+          </article>
+        `).join("")
+        : `<div class="empty">No deep driver stat rows found. This fills after the Stats Max bot processes/export races.</div>`;
+    }
+
+    function renderStewards() {
+      const search = $("globalSearch").value.toLowerCase().trim();
+      const penalties = getPenalties()
+        .filter(p => JSON.stringify(p).toLowerCase().includes(search))
+        .map(p => `
+          <tr>
+            <td><span class="badge penalized">Penalty</span></td>
+            <td>${escapeHTML(p.name || p.iracing_name || "Unknown")}</td>
+            <td><span class="bad">-${asNumber(p.points_deducted, 0)} pts</span><span class="sub">${escapeHTML(p.reason || "No reason provided")}</span></td>
+            <td>${escapeHTML(p.issued_by || "Stewards")}</td>
+          </tr>
+        `);
+
+      const protests = getProtests()
+        .filter(p => JSON.stringify(p).toLowerCase().includes(search))
+        .map(p => `
+          <tr>
+            <td><span class="badge open">Protest</span></td>
+            <td>#${escapeHTML(p.protest_id || "—")} &bull; ${escapeHTML(p.accused_driver || "Unknown")}</td>
+            <td>Lap ${escapeHTML(p.lap || "—")} — ${escapeHTML(p.reason || "No statement")} ${p.video_link ? `<span class="sub"><a href="${escapeHTML(p.video_link)}" target="_blank" rel="noopener">Evidence link</a></span>` : ""}</td>
+            <td>${statusBadge(p.status)} <span class="sub">${escapeHTML(p.ruling || "Pending review")}</span></td>
+          </tr>
+        `);
+
+      const rows = [...penalties, ...protests];
+      $("stewardsBody").innerHTML = rows.length ? rows.join("") : emptyRow(4, "No stewarding records found.");
+    }
+
+    function chartDefaults() {
+      Chart.defaults.color = "rgba(245, 247, 251, 0.72)";
+      Chart.defaults.font.family = "'Rajdhani', system-ui, sans-serif";
+      Chart.defaults.borderColor = "rgba(255, 255, 255, 0.08)";
+    }
+
+    function destroyChart(id) {
+      if (charts[id]) {
+        charts[id].destroy();
+        charts[id] = null;
+      }
+    }
+
+    function makeBarChart(id, labels, values, label, accent) {
+      destroyChart(id);
+      const canvas = $(id);
+      if (!canvas) return;
+
+      charts[id] = new Chart(canvas, {
+        type: "bar",
+        data: {
+          labels,
+          datasets: [{
+            label,
+            data: values,
+            backgroundColor: accent,
+            borderColor: accent.replace("0.55", "1"),
+            borderWidth: 1,
+            borderRadius: 10,
+            maxBarThickness: 44
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          indexAxis: labels.length > 8 ? "y" : "x",
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: "rgba(5, 5, 7, 0.94)",
+              borderColor: "rgba(255,255,255,0.16)",
+              borderWidth: 1,
+              titleFont: { family: "Chakra Petch", weight: "700" },
+              bodyFont: { family: "Rajdhani", weight: "700", size: 14 }
             }
+          },
+          scales: {
+            x: { grid: { color: "rgba(255,255,255,0.06)" }, ticks: { maxRotation: 0 } },
+            y: { grid: { color: "rgba(255,255,255,0.06)" }, beginAtZero: true }
+          }
         }
+      });
+    }
 
-        function renderDrivers() {
-            const tbody = document.getElementById('data-drivers');
-            tbody.innerHTML = '';
-            leagueData.driver_standings.forEach((d, i) => {
-                const badge = d.playoff_alive ? `<span class="badge badge-playoff">Chase Grid</span>` : '';
-                tbody.innerHTML += `<tr><td class="rank-col">${i + 1}</td><td>${d.name} ${badge}</td><td>${d.wins}</td><td class="pts-col">${d.points}</td></tr>`;
-            });
+    function renderCharts() {
+      chartDefaults();
+
+      const drivers = getDrivers().slice(0, 10);
+      makeBarChart(
+        "chartDrivers",
+        drivers.map(d => d.name || d.iracing_name || "Unknown"),
+        drivers.map(d => asNumber(d.points, 0)),
+        "Points",
+        "rgba(0, 240, 255, 0.55)"
+      );
+
+      const teams = getTeams().slice(0, 10);
+      makeBarChart(
+        "chartTeams",
+        teams.map(t => t.team || t.team_name || "Unknown"),
+        teams.map(t => asNumber(t.points ?? t.total_points, 0)),
+        "Team points",
+        "rgba(0, 255, 138, 0.55)"
+      );
+
+      const latest = latestRaceStats().slice(0, 12);
+      makeBarChart(
+        "chartIncidents",
+        latest.map(d => d.iracing_name || d.name || "Unknown"),
+        latest.map(d => asNumber(d.incidents, 0)),
+        "Incidents",
+        "rgba(255, 0, 60, 0.55)"
+      );
+
+      const lapsLed = latest.slice().sort((a, b) => asNumber(b.laps_led, 0) - asNumber(a.laps_led, 0)).slice(0, 12);
+      makeBarChart(
+        "chartLapsLed",
+        lapsLed.map(d => d.iracing_name || d.name || "Unknown"),
+        lapsLed.map(d => asNumber(d.laps_led, 0)),
+        "Laps led",
+        "rgba(255, 200, 87, 0.62)"
+      );
+    }
+
+    function renderAll() {
+      renderHeroAndStats();
+      renderDrivers();
+      renderTeams();
+      renderSchedule();
+      renderRaces();
+      renderDriverCards();
+      renderStewards();
+      renderCharts();
+    }
+
+    async function loadDashboard(manual = false) {
+      try {
+        const response = await fetch(`${DATA_URL}?v=${Date.now()}`, { cache: "no-store" });
+        if (!response.ok) throw new Error(`Could not load ${DATA_URL}`);
+        leagueData = await response.json();
+
+        const updated = leagueData.exported_at || leagueData.processed_at || new Date().toISOString();
+        $("lastUpdated").innerHTML = `<i class="fa-solid fa-check-circle" style="color: var(--green)"></i> Updated ${formatDate(updated)}`;
+        renderAll();
+
+        if (manual) {
+          $("lastUpdated").animate([{ transform: "scale(1)" }, { transform: "scale(1.04)" }, { transform: "scale(1)" }], { duration: 350 });
         }
+      } catch (error) {
+        console.error(error);
+        $("lastUpdated").innerHTML = `<i class="fa-solid fa-link-slash" style="color: var(--red)"></i> Export offline`;
+        $("driversBody").innerHTML = emptyRow(5, "Data offline. Upload or generate live_season_standings.json from the Discord bot.");
+      }
+    }
 
-        function renderTeams() {
-            const tbody = document.getElementById('data-teams');
-            tbody.innerHTML = '';
-            const activeTeams = leagueData.team_standings.filter(t => t.team !== "Independent");
-            if (activeTeams.length === 0) { tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#777;">No active teams registered.</td></tr>`; return; }
-            
-            activeTeams.forEach((t, i) => {
-                tbody.innerHTML += `<tr><td class="rank-col">${i + 1}</td><td>${t.team}</td><td>${t.manufacturer}</td><td class="pts-col">${t.points}</td></tr>`;
-            });
-        }
+    document.querySelectorAll(".tab-btn").forEach(button => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+        button.classList.add("active");
+        $(`tab-${button.dataset.tab}`).classList.add("active");
+      });
+    });
 
-        function renderSchedule() {
-            const tbody = document.getElementById('data-schedule');
-            tbody.innerHTML = '';
-            if (!leagueData.schedule || leagueData.schedule.length === 0) { tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#777;">Schedule pending.</td></tr>`; return; }
-            
-            leagueData.schedule.forEach(s => {
-                const badge = s.is_playoff ? `<span class="badge badge-playoff-race">Playoff Race</span>` : '';
-                tbody.innerHTML += `<tr><td class="rank-col">${s.week_number}</td><td>${s.track_name} ${badge}</td><td>${s.race_date}</td></tr>`;
-            });
-        }
+    $("globalSearch").addEventListener("input", () => {
+      renderDrivers();
+      renderTeams();
+      renderSchedule();
+      renderRaces();
+      renderDriverCards();
+      renderStewards();
+    });
 
-        function renderStewards() {
-            // Render Penalties
-            const penBody = document.getElementById('data-penalties');
-            penBody.innerHTML = '';
-            if (!leagueData.penalty_log || leagueData.penalty_log.length === 0) { 
-                penBody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#777;">Clean racing! No penalties issued.</td></tr>`; 
-            } else {
-                leagueData.penalty_log.forEach(p => {
-                    penBody.innerHTML += `<tr><td>${p.name} <span class="sub-text">Issued by ${p.issued_by}</span></td><td class="deduction-col">-${p.points_deducted} pts</td><td>${p.reason}</td></tr>`;
-                });
-            }
+    $("driverSort").addEventListener("change", renderDriverCards);
 
-            // Render Protests
-            const protBody = document.getElementById('data-protests');
-            protBody.innerHTML = '';
-            if (!leagueData.protest_log || leagueData.protest_log.length === 0) {
-                protBody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#777;">No active protests.</td></tr>`;
-            } else {
-                leagueData.protest_log.forEach(p => {
-                    let badgeClass = 'badge-open';
-                    if (p.status === 'penalized') badgeClass = 'badge-penalized';
-                    if (p.status === 'dismissed') badgeClass = 'badge-dismissed';
-                    
-                    const rulingText = p.ruling ? p.ruling : 'Pending review by stewards...';
-                    const linkText = p.video_link ? `<a href="${p.video_link}" target="_blank" style="color:var(--neon-blue);"><i class="fa-solid fa-video"></i> Evidence</a>` : '';
-
-                    protBody.innerHTML += `
-                        <tr>
-                            <td class="rank-col">#${p.protest_id}</td>
-                            <td>${p.accused_driver} <span class="badge ${badgeClass}">${p.status}</span></td>
-                            <td>Lap ${p.lap} - ${p.reason} <span class="sub-text">${linkText}</span></td>
-                            <td style="color:#ccc;">${rulingText}</td>
-                        </tr>
-                    `;
-                });
-            }
-        }
-
-        // Initialize
-        document.addEventListener("DOMContentLoaded", loadDashboard);
-    </script>
+    document.addEventListener("DOMContentLoaded", () => {
+      loadDashboard();
+      setInterval(loadDashboard, AUTO_REFRESH_MS);
+    });
+  </script>
 </body>
 </html>
