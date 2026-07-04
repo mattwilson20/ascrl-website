@@ -24,13 +24,6 @@
                 "avg": 9.11
             },
             {
-                "type": "WOO Late Model",
-                "starts": 9,
-                "points": 237,
-                "wins": 0,
-                "avg": 10.67
-            },
-            {
                 "type": "410 Wing Sprint",
                 "starts": 8,
                 "points": 226,
@@ -43,6 +36,13 @@
                 "points": 194,
                 "wins": 0,
                 "avg": 4.67
+            },
+            {
+                "type": "WOO Late Model",
+                "starts": 7,
+                "points": 169,
+                "wins": 0,
+                "avg": 12.86
             },
             {
                 "type": "360 Sprint",
@@ -145,18 +145,6 @@
                 "car": "305 Sprint Car",
                 "pos": 7,
                 "pts": 30
-            },
-            {
-                "track": "Weedsport",
-                "car": "WOO Late Model",
-                "pos": 2,
-                "pts": 35
-            },
-            {
-                "track": "Elm Creek",
-                "car": "WOO Late Model",
-                "pos": 4,
-                "pts": 33
             },
             {
                 "track": "Sawtooth",
@@ -512,12 +500,12 @@
                 "number": "1",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 2099,
+                    "points": 2031,
                     "wins": 0,
-                    "top5": 22,
-                    "top10": 55,
-                    "starts": 72,
-                    "avg": 7.85
+                    "top5": 20,
+                    "top10": 53,
+                    "starts": 70,
+                    "avg": 7.99
                 }
             }
         }
@@ -882,18 +870,18 @@
                 "avg": 6.0
             },
             {
-                "type": "WOO Late Model",
-                "starts": 9,
-                "points": 260,
-                "wins": 0,
-                "avg": 8.11
-            },
-            {
                 "type": "Midget",
                 "starts": 9,
                 "points": 227,
                 "wins": 0,
                 "avg": 11.78
+            },
+            {
+                "type": "WOO Late Model",
+                "starts": 7,
+                "points": 199,
+                "wins": 0,
+                "avg": 8.57
             },
             {
                 "type": "410 Non wing",
@@ -1017,18 +1005,6 @@
                 "car": "305 Sprint Car",
                 "pos": 6,
                 "pts": 31
-            },
-            {
-                "track": "Weedsport",
-                "car": "WOO Late Model",
-                "pos": 4,
-                "pts": 33
-            },
-            {
-                "track": "Elm Creek",
-                "car": "WOO Late Model",
-                "pos": 9,
-                "pts": 28
             },
             {
                 "track": "Sawtooth",
@@ -1402,12 +1378,12 @@
                 "number": "000",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 2195,
+                    "points": 2134,
                     "wins": 0,
-                    "top5": 25,
-                    "top10": 56,
-                    "starts": 75,
-                    "avg": 7.73
+                    "top5": 24,
+                    "top10": 54,
+                    "starts": 73,
+                    "avg": 7.77
                 }
             }
         }
@@ -2029,13 +2005,6 @@
                 "avg": 6.8
             },
             {
-                "type": "WOO Late Model",
-                "starts": 9,
-                "points": 236,
-                "wins": 0,
-                "avg": 10.78
-            },
-            {
                 "type": "Midget",
                 "starts": 6,
                 "points": 192,
@@ -2069,6 +2038,13 @@
                 "points": 178,
                 "wins": 0,
                 "avg": 7.33
+            },
+            {
+                "type": "WOO Late Model",
+                "starts": 7,
+                "points": 174,
+                "wins": 0,
+                "avg": 12.14
             },
             {
                 "type": "360 Sprint",
@@ -2108,18 +2084,6 @@
                 "car": "305 Sprint Car",
                 "pos": 5,
                 "pts": 32
-            },
-            {
-                "track": "Weedsport",
-                "car": "WOO Late Model",
-                "pos": 6,
-                "pts": 31
-            },
-            {
-                "track": "Elm Creek",
-                "car": "WOO Late Model",
-                "pos": 6,
-                "pts": 31
             },
             {
                 "track": "Sawtooth",
@@ -2397,12 +2361,12 @@
                 "number": "57j",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1551,
+                    "points": 1489,
                     "wins": 1,
                     "top5": 17,
-                    "top10": 42,
-                    "starts": 52,
-                    "avg": 7.25
+                    "top10": 40,
+                    "starts": 50,
+                    "avg": 7.3
                 }
             }
         }
@@ -2418,6 +2382,13 @@
                 "avg": 3.18
             },
             {
+                "type": "WOO Late Model",
+                "starts": 10,
+                "points": 370,
+                "wins": 7,
+                "avg": 2.8
+            },
+            {
                 "type": "UMP Modified",
                 "starts": 9,
                 "points": 360,
@@ -2425,11 +2396,11 @@
                 "avg": 1.0
             },
             {
-                "type": "WOO Late Model",
+                "type": "360 Sprint",
                 "starts": 9,
-                "points": 330,
-                "wins": 6,
-                "avg": 3.0
+                "points": 360,
+                "wins": 9,
+                "avg": 1.0
             },
             {
                 "type": "Midget",
@@ -2460,13 +2431,6 @@
                 "avg": 1.0
             },
             {
-                "type": "360 Sprint",
-                "starts": 6,
-                "points": 240,
-                "wins": 6,
-                "avg": 1.0
-            },
-            {
                 "type": "Big Block Modified",
                 "starts": 6,
                 "points": 235,
@@ -2489,6 +2453,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Jacod'S County",
+                "car": "WOO Late Model",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Weedsport",
+                "car": "WOO Late Model",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Elm Creek",
+                "car": "WOO Late Model",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Limaland",
+                "car": "360 Sprint",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Faribury",
+                "car": "360 Sprint",
+                "pos": 1,
+                "pts": 40
+            },
+            {
+                "track": "Lernerville",
+                "car": "360 Sprint",
+                "pos": 1,
+                "pts": 40
+            },
             {
                 "track": "Charlotte",
                 "car": "Pro late Model",
@@ -2594,18 +2594,6 @@
             {
                 "track": "Prairie View",
                 "car": "305 Sprint Car",
-                "pos": 1,
-                "pts": 40
-            },
-            {
-                "track": "Weedsport",
-                "car": "WOO Late Model",
-                "pos": 1,
-                "pts": 40
-            },
-            {
-                "track": "Elm Creek",
-                "car": "WOO Late Model",
                 "pos": 1,
                 "pts": 40
             },
@@ -2927,12 +2915,12 @@
                 "number": "07",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 2761,
-                    "wins": 62,
-                    "top5": 66,
-                    "top10": 67,
-                    "starts": 72,
-                    "avg": 2.1
+                    "points": 2921,
+                    "wins": 66,
+                    "top5": 70,
+                    "top10": 71,
+                    "starts": 76,
+                    "avg": 2.04
                 }
             }
         }
@@ -3071,7 +3059,7 @@
         }
     },
     "1141220889816465469": {
-        "display_name": "\ud83e\udda5Strait_Rogue\ud83e\udda5",
+        "display_name": "Unknown Driver",
         "cars": [
             {
                 "type": "305 Sprint Car",
@@ -3540,7 +3528,7 @@
         }
     },
     "766025588217085952": {
-        "display_name": "Trever \"mrs puff\" Yates #71",
+        "display_name": "Trever \"Phillips\" Yates #71",
         "cars": [
             {
                 "type": "305 Sprint Car",
@@ -3765,6 +3753,13 @@
                 "avg": 4.11
             },
             {
+                "type": "WOO Late Model",
+                "starts": 9,
+                "points": 290,
+                "wins": 0,
+                "avg": 4.78
+            },
+            {
                 "type": "Midget",
                 "starts": 9,
                 "points": 276,
@@ -3772,11 +3767,11 @@
                 "avg": 6.33
             },
             {
-                "type": "WOO Late Model",
-                "starts": 6,
-                "points": 188,
+                "type": "360 Sprint",
+                "starts": 7,
+                "points": 237,
                 "wins": 0,
-                "avg": 5.67
+                "avg": 3.14
             },
             {
                 "type": "Street Stock",
@@ -3791,13 +3786,6 @@
                 "points": 166,
                 "wins": 0,
                 "avg": 3.8
-            },
-            {
-                "type": "360 Sprint",
-                "starts": 4,
-                "points": 137,
-                "wins": 0,
-                "avg": 2.75
             },
             {
                 "type": "Micro Sprint Car",
@@ -3822,6 +3810,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Jacod'S County",
+                "car": "WOO Late Model",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Weedsport",
+                "car": "WOO Late Model",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Elm Creek",
+                "car": "WOO Late Model",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Limaland",
+                "car": "360 Sprint",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Faribury",
+                "car": "360 Sprint",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Lernerville",
+                "car": "360 Sprint",
+                "pos": 4,
+                "pts": 33
+            },
             {
                 "track": "Prairie Creek",
                 "car": "UMP Modified",
@@ -4200,12 +4224,12 @@
                 "number": "13",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 2008,
+                    "points": 2210,
                     "wins": 2,
-                    "top5": 43,
-                    "top10": 58,
-                    "starts": 62,
-                    "avg": 4.74
+                    "top5": 49,
+                    "top10": 64,
+                    "starts": 68,
+                    "avg": 4.62
                 }
             }
         }
@@ -4286,13 +4310,6 @@
                 "avg": 5.22
             },
             {
-                "type": "WOO Late Model",
-                "starts": 9,
-                "points": 261,
-                "wins": 0,
-                "avg": 8.0
-            },
-            {
                 "type": "305 Sprint Car",
                 "starts": 8,
                 "points": 239,
@@ -4305,6 +4322,13 @@
                 "points": 198,
                 "wins": 0,
                 "avg": 4.0
+            },
+            {
+                "type": "WOO Late Model",
+                "starts": 7,
+                "points": 192,
+                "wins": 0,
+                "avg": 9.57
             },
             {
                 "type": "UMP Modified",
@@ -4350,18 +4374,6 @@
             }
         ],
         "race_log": [
-            {
-                "track": "Weedsport",
-                "car": "WOO Late Model",
-                "pos": 3,
-                "pts": 34
-            },
-            {
-                "track": "Elm Creek",
-                "car": "WOO Late Model",
-                "pos": 2,
-                "pts": 35
-            },
             {
                 "track": "Sawtooth",
                 "car": "WOO Late Model",
@@ -4686,18 +4698,18 @@
                 "number": "33",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1702,
+                    "points": 1633,
                     "wins": 2,
-                    "top5": 28,
-                    "top10": 44,
-                    "starts": 55,
-                    "avg": 6.2
+                    "top5": 26,
+                    "top10": 42,
+                    "starts": 53,
+                    "avg": 6.34
                 }
             }
         }
     },
     "725157771187716136": {
-        "display_name": "C0mpl1c8ed",
+        "display_name": "C0MPL1C8ED",
         "cars": [
             {
                 "type": "305 Sprint Car",
@@ -4917,7 +4929,7 @@
         }
     },
     "690068671980371992": {
-        "display_name": "Tyler \u201cDewshine\u201d Green #24",
+        "display_name": "Dakotas GRANDPA",
         "cars": [
             {
                 "type": "305 Sprint Car",
@@ -4976,7 +4988,7 @@
         }
     },
     "486147199621791745": {
-        "display_name": "ThatSquidGuy",
+        "display_name": "Unknown Driver",
         "cars": [
             {
                 "type": "410 Wing Sprint",
@@ -5001,10 +5013,10 @@
             },
             {
                 "type": "WOO Late Model",
-                "starts": 5,
-                "points": 164,
+                "starts": 4,
+                "points": 130,
                 "wins": 0,
-                "avg": 4.2
+                "avg": 4.5
             },
             {
                 "type": "UMP Modified",
@@ -5064,12 +5076,6 @@
                 "car": "305 Sprint Car",
                 "pos": 2,
                 "pts": 35
-            },
-            {
-                "track": "Elm Creek",
-                "car": "WOO Late Model",
-                "pos": 3,
-                "pts": 34
             },
             {
                 "track": "Sawtooth",
@@ -5239,12 +5245,12 @@
                 "number": "88E",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1140,
+                    "points": 1106,
                     "wins": 1,
-                    "top5": 29,
-                    "top10": 33,
-                    "starts": 34,
-                    "avg": 3.59
+                    "top5": 28,
+                    "top10": 32,
+                    "starts": 33,
+                    "avg": 3.61
                 }
             }
         }
@@ -5626,10 +5632,10 @@
         "cars": [
             {
                 "type": "WOO Late Model",
-                "starts": 9,
-                "points": 268,
+                "starts": 7,
+                "points": 208,
                 "wins": 0,
-                "avg": 7.22
+                "avg": 7.29
             },
             {
                 "type": "410 Non wing",
@@ -5719,18 +5725,6 @@
                 "car": "410 Non wing",
                 "pos": 3,
                 "pts": 34
-            },
-            {
-                "track": "Weedsport",
-                "car": "WOO Late Model",
-                "pos": 7,
-                "pts": 30
-            },
-            {
-                "track": "Elm Creek",
-                "car": "WOO Late Model",
-                "pos": 7,
-                "pts": 30
             },
             {
                 "track": "Sawtooth",
@@ -5978,12 +5972,12 @@
                 "number": "05",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1397,
+                    "points": 1337,
                     "wins": 0,
                     "top5": 18,
-                    "top10": 41,
-                    "starts": 46,
-                    "avg": 6.63
+                    "top10": 39,
+                    "starts": 44,
+                    "avg": 6.61
                 }
             }
         }
@@ -5993,10 +5987,10 @@
         "cars": [
             {
                 "type": "WOO Late Model",
-                "starts": 9,
-                "points": 256,
+                "starts": 10,
+                "points": 291,
                 "wins": 0,
-                "avg": 8.56
+                "avg": 7.9
             },
             {
                 "type": "UMP Modified",
@@ -6064,6 +6058,24 @@
         ],
         "race_log": [
             {
+                "track": "Jacod'S County",
+                "car": "WOO Late Model",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Weedsport",
+                "car": "WOO Late Model",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Elm Creek",
+                "car": "WOO Late Model",
+                "pos": 4,
+                "pts": 33
+            },
+            {
                 "track": "Lincoln",
                 "car": "Pro late Model",
                 "pos": 3,
@@ -6092,18 +6104,6 @@
                 "car": "410 Non wing",
                 "pos": 6,
                 "pts": 31
-            },
-            {
-                "track": "Weedsport",
-                "car": "WOO Late Model",
-                "pos": 5,
-                "pts": 32
-            },
-            {
-                "track": "Elm Creek",
-                "car": "WOO Late Model",
-                "pos": 5,
-                "pts": 32
             },
             {
                 "track": "Sawtooth",
@@ -6333,12 +6333,12 @@
                 "number": "32",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 1307,
+                    "points": 1342,
                     "wins": 0,
-                    "top5": 15,
-                    "top10": 36,
-                    "starts": 44,
-                    "avg": 7.3
+                    "top5": 16,
+                    "top10": 37,
+                    "starts": 45,
+                    "avg": 7.18
                 }
             }
         }
@@ -6945,6 +6945,20 @@
                 "avg": 4.0
             },
             {
+                "type": "WOO Late Model",
+                "starts": 4,
+                "points": 127,
+                "wins": 0,
+                "avg": 5.25
+            },
+            {
+                "type": "360 Sprint",
+                "starts": 3,
+                "points": 101,
+                "wins": 0,
+                "avg": 3.33
+            },
+            {
                 "type": "410 Non wing",
                 "starts": 3,
                 "points": 97,
@@ -6957,13 +6971,6 @@
                 "points": 94,
                 "wins": 0,
                 "avg": 5.67
-            },
-            {
-                "type": "WOO Late Model",
-                "starts": 3,
-                "points": 86,
-                "wins": 0,
-                "avg": 8.33
             },
             {
                 "type": "Micro Sprint Car",
@@ -6981,6 +6988,42 @@
             }
         ],
         "race_log": [
+            {
+                "track": "Jacod'S County",
+                "car": "WOO Late Model",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Weedsport",
+                "car": "WOO Late Model",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Elm Creek",
+                "car": "WOO Late Model",
+                "pos": 5,
+                "pts": 32
+            },
+            {
+                "track": "Limaland",
+                "car": "360 Sprint",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Faribury",
+                "car": "360 Sprint",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Lernerville",
+                "car": "360 Sprint",
+                "pos": 3,
+                "pts": 34
+            },
             {
                 "track": "Lincoln",
                 "car": "Pro late Model",
@@ -7072,18 +7115,6 @@
                 "pts": 30
             },
             {
-                "track": "Weedsport",
-                "car": "WOO Late Model",
-                "pos": 8,
-                "pts": 29
-            },
-            {
-                "track": "Elm Creek",
-                "car": "WOO Late Model",
-                "pos": 8,
-                "pts": 29
-            },
-            {
                 "track": "Sawtooth",
                 "car": "WOO Late Model",
                 "pos": 9,
@@ -7149,12 +7180,12 @@
                 "number": "650",
                 "manufacturer": "N/A",
                 "stats": {
-                    "points": 825,
+                    "points": 967,
                     "wins": 0,
-                    "top5": 11,
-                    "top10": 26,
-                    "starts": 27,
-                    "avg": 6.44
+                    "top5": 17,
+                    "top10": 30,
+                    "starts": 31,
+                    "avg": 5.81
                 }
             }
         }
@@ -7264,6 +7295,77 @@
                     "top10": 10,
                     "starts": 10,
                     "avg": 4.8
+                }
+            }
+        }
+    },
+    "969098797634428958": {
+        "display_name": "Lord_Grizzle-",
+        "cars": [
+            {
+                "type": "360 Sprint",
+                "starts": 3,
+                "points": 105,
+                "wins": 0,
+                "avg": 2.0
+            },
+            {
+                "type": "WOO Late Model",
+                "starts": 3,
+                "points": 102,
+                "wins": 0,
+                "avg": 3.0
+            }
+        ],
+        "race_log": [
+            {
+                "track": "Jacod'S County",
+                "car": "WOO Late Model",
+                "pos": 4,
+                "pts": 33
+            },
+            {
+                "track": "Weedsport",
+                "car": "WOO Late Model",
+                "pos": 3,
+                "pts": 34
+            },
+            {
+                "track": "Elm Creek",
+                "car": "WOO Late Model",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Limaland",
+                "car": "360 Sprint",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Faribury",
+                "car": "360 Sprint",
+                "pos": 2,
+                "pts": 35
+            },
+            {
+                "track": "Lernerville",
+                "car": "360 Sprint",
+                "pos": 2,
+                "pts": 35
+            }
+        ],
+        "series": {
+            "World Of Outlaws": {
+                "number": "82",
+                "manufacturer": "N/A",
+                "stats": {
+                    "points": 207,
+                    "wins": 0,
+                    "top5": 6,
+                    "top10": 6,
+                    "starts": 6,
+                    "avg": 2.5
                 }
             }
         }
