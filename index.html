@@ -327,6 +327,7 @@
     function getDriverImage(driverName) {
         const nameLower = (driverName || "").toLowerCase();
         
+            if (nameLower.includes('riddle')) return "https://github.com/mattwilson20/ascrl-website/blob/main/RIDDLES_RENO.png?raw=true";
             if (nameLower.includes('maddietheracer')) return "https://github.com/mattwilson20/ascrl-website/blob/main/Maddietheracer99.png?raw=true";
             if (nameLower.includes('theplugryan')) return "https://github.com/mattwilson20/ascrl-website/blob/main/Theplugryan.png?raw=true";
             if (nameLower.includes('thirsttraptoby')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/7bc95544293252379df0a7693e5770b80e8ca8bf/ThirstTrapTobyHeroCard.jpg";
@@ -349,7 +350,7 @@
             if (nameLower.includes('sithwarrior')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/3e992547a13fe5d73940648e83df80d97df41f90/SithWarriorUno_Hero_Card.jpg";
             if (nameLower.includes('majorblaz')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/77807b78b078188862cb490d2b95d2f846d237bf/Blaze_Hero_Card.jpg";
             if (nameLower.includes('thereaperrhino')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/050733b62b774aa4ec749a9612ba761aefcda477/updatedrhinohero.jpg";
-            if (nameLower.includes('daltongregson')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ec988478a8132f49d9d6b596e7ed258e2c2dd482/DaltonGregson_Hero_Card.jpg";
+            if (nameLower.includes('dalton')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ec988478a8132f49d9d6b596e7ed258e2c2dd482/DaltonGregson_Hero_Card.jpg";
             if (nameLower.includes('singular_nacho')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/f311b21127533ca6128a4408f36edaf9612d59b1/Singular_Nacho_Hero_Card.jpg";
             if (nameLower.includes('mattwilson20')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6686ee35c988cd1b0ae305d099ff4e31c652a49f/mattwilson20_Hero_Card.jpg";
             if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/81df81de5161ea2f590ee32c370d3e99675cdbaa/Hockey_Hero_Card.png";
@@ -372,7 +373,6 @@
             if (nameLower.includes('bigray')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/8961bbf00688e8efae3e75af9b11ee473c6a5b0a/BigRayhero.jpg";
             if (nameLower.includes('wezzy')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/050733b62b774aa4ec749a9612ba761aefcda477/dezzyhero.jpg";
             if (nameLower.includes('nitro')) return "https://github.com/mattwilson20/ascrl-website/blob/main/NitroLosiUtah2.png?raw=true";
-
         
         return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg";
     }
