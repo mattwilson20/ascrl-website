@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -183,7 +182,8 @@
     }
     .hero-card { border-radius: 32px; padding: clamp(28px, 5vw, 52px); min-height: 410px; display: flex; flex-direction: column; justify-content: space-between; }
     .eyebrow { color: var(--blue); font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.22em; font-size: 0.82rem; display: inline-flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-    .hero h1 { margin: 0; font-family: var(--font-display); font-size: clamp(3.4rem, 8vw, 7.6rem); line-height: 0.9; letter-spacing: -0.06em; text-transform: uppercase; font-style: italic; text-shadow: 4px 4px 0 var(--red), -3px -3px 0 rgba(0, 240, 255, 0.86), 0 0 46px rgba(255, 255, 255, 0.16); }
+    .hero h1, .hero-title-readable { margin: 0; font-family: var(--font-display); font-size: clamp(2.8rem, 6.6vw, 6rem); line-height: 0.98; letter-spacing: -0.03em; text-transform: uppercase; font-style: normal; font-weight: 700; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45); color: #ffffff; }
+    .hero-title-readable { max-width: 10ch; }
     .hero-copy { max-width: 860px; color: var(--muted); font-size: clamp(1.08rem, 2vw, 1.35rem); line-height: 1.4; margin: 22px 0 0; font-weight: 600; }
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
     .btn {
@@ -297,8 +297,9 @@
 
     @media (max-width: 1240px) { .hero-grid { grid-template-columns: 1fr; } .stat-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .charts-grid, .race-grid, .driver-card-grid, .records-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     @media (max-width: 760px) { .topbar-inner { align-items: flex-start; flex-direction: column; } .nav-actions { width: 100%; overflow-x: auto; padding-bottom: 4px; justify-content: flex-start; flex-wrap: nowrap; } .hero { padding-top: 34px; } .hero-card { min-height: auto; border-radius: 24px; } .leader-stack { grid-template-columns: 1fr; } .leader-card.wide { grid-column: auto; } .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .charts-grid, .race-grid, .driver-card-grid, .records-grid { grid-template-columns: 1fr; } .panel { padding: 16px; } .panel-header { align-items: flex-start; flex-direction: column; } .hero-actions .btn { width: 100%; justify-content: center; text-align: center; } }
-    @media (max-width: 480px) { .site-shell, .topbar-inner { width: min(100% - 20px, 1500px); } .stat-grid { grid-template-columns: 1fr; } .hero h1 { font-size: 3.1rem; } .brand-title strong { font-size: 0.9rem; } .brand-title span { display: none; } }
+    @media (max-width: 480px) { .site-shell, .topbar-inner { width: min(100% - 20px, 1500px); } .stat-grid { grid-template-columns: 1fr; } .hero h1, .hero-title-readable { font-size: 3.1rem; } .brand-title strong { font-size: 0.9rem; } .brand-title span { display: none; } }
   </style>
+  <!-- ApexGrid ready check patch: last3/last5 avg, schedule car type, no SOF/iRating/cleanest recap callouts -->
 </head>
 
 <body>
@@ -327,8 +328,8 @@
         <div class="hero-card">
           <div>
             <div class="eyebrow"><i class="fa-solid fa-satellite-dish"></i> Race control online</div>
-            <h1>League<br />Hub</h1>
-            <p class="hero-copy">Full command-center stats for driver standings, top 5s, top 10s, starts, poles, hard chargers, average start, average finish, race grids, car types, and race-by-race storylines.</p>
+            <h1 class="hero-title-readable">ASCRL<br />SuperSpeedway<br />Series</h1>
+            <p class="hero-copy">Full command-center stats for driver standings, top 5s, top 10s, starts, poles, hard chargers, last 3 / last 5 average finish, race grids, car types, and race-by-race storylines.</p>
           </div>
           <div>
             <div class="hero-actions">
@@ -416,7 +417,7 @@
         <div class="tab-content active" id="tab-drivers">
           <div class="table-wrap">
             <table>
-              <thead><tr><th class="rank">Pos</th><th>Driver</th><th>Team / Car #</th><th class="points">Points</th><th>Wins</th><th>Top 5s</th><th>Top 10s</th><th>Starts</th><th>Poles</th><th>Hard chargers</th><th>Avg start</th><th>Avg finish</th><th>Laps led</th><th>Inc</th><th>Cars used</th></tr></thead>
+              <thead><tr><th class="rank">Pos</th><th>Driver</th><th>Team / Car #</th><th class="points">Points</th><th>Wins</th><th>Top 5s</th><th>Top 10s</th><th>Starts</th><th>Poles</th><th>Hard chargers</th><th>Last 3 Avg</th><th>Last 5 Avg</th><th>Avg start</th><th>Avg finish</th><th>Laps led</th><th>Inc</th><th>Cars used</th></tr></thead>
               <tbody id="driversBody"></tbody>
             </table>
           </div>
@@ -449,7 +450,7 @@
         </div>
 
         <div class="tab-content" id="tab-schedule">
-          <div class="table-wrap"><table><thead><tr><th class="rank">Week</th><th>Track</th><th>Date</th><th>Type</th></tr></thead><tbody id="scheduleBody"></tbody></table></div>
+          <div class="table-wrap"><table><thead><tr><th class="rank">Week</th><th>Track</th><th>Date</th><th>Time</th><th>Car Type</th><th>Status</th></tr></thead><tbody id="scheduleBody"></tbody></table></div>
         </div>
 
         <div class="tab-content" id="tab-stewards">
@@ -459,7 +460,9 @@
     </section>
   </main>
 
-  <footer class="footer">ApexGrid / ASCRL iRacing Hub &bull; Powered by the Website Ultra live export from your Discord bot</footer>
+  <footer class="footer">
+  ApexGrid / ASCRL SuperSpeedway Series &bull; © 2026 ASCRL / ApexGrid. All rights reserved. Unauthorized copying, cloning, scraping, or redistribution is prohibited.
+</footer>
 
   <script>
     "use strict";
@@ -500,6 +503,8 @@
     function top10Of(row) { return asNumber(row?.top10s ?? row?.top_10s, 0); }
     function polesOf(row) { return asNumber(row?.poles, 0); }
     function hardChargersOf(row) { return asNumber(row?.hard_charger_awards, 0); }
+    function last3AvgOf(row) { return row?.avg_finish_last3 ?? row?.last3_avg_finish ?? row?.avg_finish_last_3 ?? "—"; }
+    function last5AvgOf(row) { return row?.avg_finish_last5 ?? row?.last5_avg_finish ?? row?.avg_finish_last_5 ?? "—"; }
     function carsUsedOf(row) {
       if (Array.isArray(row?.car_types_used)) return row.car_types_used.filter(Boolean);
       if (typeof row?.car_types_used === "string") return row.car_types_used.split(",").map(s => s.trim()).filter(Boolean);
@@ -583,13 +588,15 @@
             <td>${asNumber(d.starts, 0)}</td>
             <td>${polesOf(d)}</td>
             <td>${hardChargersOf(d)}</td>
+            <td>${last3AvgOf(d)}</td>
+            <td>${last5AvgOf(d)}</td>
             <td>${d.avg_start ?? "—"}</td>
             <td>${d.avg_finish ?? "—"}</td>
             <td>${asNumber(d.laps_led, 0)}</td>
             <td>${asNumber(d.incidents, 0)}x</td>
             <td>${cars.length ? escapeHTML(cars.slice(0, 3).join(", ")) + (cars.length > 3 ? `<span class="sub">+${cars.length - 3} more</span>` : "") : `<span class="muted">—</span>`}</td>
           </tr>`;
-      }).join("") : emptyRow(15, "No driver standings found. Run /export_season from the corrected bot and upload live_season_standings.json.");
+      }).join("") : emptyRow(17, "No driver standings found. Run /export_season from the corrected bot and upload live_season_standings.json.");
     }
 
     function leaderboardCard(title, icon, rows, valueGetter, unit = "") {
@@ -619,10 +626,8 @@
         leaderboardCard("Hard charger awards", "fa-rocket", top("hard_charger_leaders", "hard_charger_awards"), r => hardChargersOf(r)),
         leaderboardCard("Net position gain", "fa-arrow-trend-up", top("hard_charger_net", "net_position_change"), r => signed(r.net_position_change)),
         leaderboardCard("Laps led", "fa-road", top("laps_led_leaders", "laps_led"), r => asNumber(r.laps_led, 0)),
-        leaderboardCard("Clean races", "fa-soap", top("clean_race_leaders", "clean_races"), r => asNumber(r.clean_races, 0)),
         leaderboardCard("Best avg finish", "fa-bullseye", top("avg_finish_leaders", "avg_finish", true), r => r.avg_finish ?? "—"),
         leaderboardCard("Best avg start", "fa-gauge-high", top("avg_start_leaders", "avg_start", true), r => r.avg_start ?? "—"),
-        leaderboardCard("iRating gain", "fa-chart-line", top("irating_gain_leaders", "net_irating_change"), r => signed(r.net_irating_change)),
         leaderboardCard("Car usage", "fa-car-side", carUsage, r => r.car_name || "Unknown car", "" ).replaceAll("Unknown", "Unknown")
       ].join("");
       if (carUsage.length) {
@@ -651,7 +656,7 @@
             <div class="mini-row"><span>Winner</span><strong>${escapeHTML(r.winner || "N/A")}</strong></div>
             <div class="mini-row"><span>Pole</span><strong>${escapeHTML(r.pole_winner || "N/A")}</strong></div>
             <div class="mini-row"><span>Hard charger</span><strong>${escapeHTML(r.hard_charger || "N/A")} ${r.hard_charger_positions !== null && r.hard_charger_positions !== undefined ? `(${signed(r.hard_charger_positions)})` : ""}</strong></div>
-            <div class="mini-row"><span>SOF / Laps</span><strong>${escapeHTML(r.strength_of_field || "N/A")} / ${escapeHTML(r.total_laps || "—")}</strong></div>
+            <div class="mini-row"><span>Laps</span><strong>${escapeHTML(r.total_laps || "—")}</strong></div>
             <div class="mini-row"><span>Cautions</span><strong>${asNumber(r.num_cautions, 0)} / ${asNumber(r.num_caution_laps, 0)} laps</strong></div>
             <div class="mini-row"><span>Lead changes</span><strong>${asNumber(r.num_lead_changes, 0)}</strong></div>
             <details class="race-detail"><summary>Top 5</summary><div class="table-wrap"><table class="compact-table"><thead><tr><th>#</th><th>Fin</th><th>Driver</th><th>Car</th><th>+/-</th><th>Pts</th><th>Led</th><th>Inc</th></tr></thead><tbody>${top5.length ? top5.map((row, i) => rowMini(row, i)).join("") : emptyRow(8, "No top 5 data")}</tbody></table></div></details>
@@ -696,7 +701,7 @@
     function renderSchedule() {
       const rows = filtered(getSchedule());
       $("scheduleBody").innerHTML = rows.length ? rows.map(s => `
-        <tr><td class="rank">${escapeHTML(s.week_number ?? s.week ?? "—")}</td><td>${escapeHTML(s.track_name || s.track || "Unknown Track")}</td><td>${escapeHTML(s.race_date || s.date || "TBA")}</td><td>${s.is_playoff ? `<span class="badge blue">Playoff race</span>` : `<span class="muted">Regular season</span>`}</td></tr>`).join("") : emptyRow(4, "Schedule pending.");
+        <tr><td class="rank">${escapeHTML(s.week_number ?? s.week ?? "—")}</td><td>${escapeHTML(s.track_name || s.track || "Unknown Track")}</td><td>${escapeHTML(s.race_date || s.date || "TBA")}</td><td>${escapeHTML(s.race_time || s.time || "TBA")}</td><td>${escapeHTML(s.car_type || s.car || "TBD")}</td><td>${s.is_playoff ? `<span class="badge blue">Playoff race</span>` : `<span class="muted">Regular season</span>`}</td></tr>`).join("") : emptyRow(6, "Schedule pending.");
     }
 
     function renderStewards() {
@@ -786,7 +791,7 @@
       } catch (error) {
         console.error(error);
         $("lastUpdated").innerHTML = `<i class="fa-solid fa-link-slash" style="color: var(--red)"></i> Export offline`;
-        $("driversBody").innerHTML = emptyRow(15, "Data offline. Upload or generate live_season_standings.json from the corrected Discord bot.");
+        $("driversBody").innerHTML = emptyRow(17, "Data offline. Upload or generate live_season_standings.json from the corrected Discord bot.");
       }
     }
 
