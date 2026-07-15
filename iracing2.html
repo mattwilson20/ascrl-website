@@ -196,7 +196,7 @@
             main.container { padding: 1rem 1.5rem !important; }
         }
     
-        /* --- DUAL DASHBOARD TEST MODE --- */
+        /* --- DUAL DASHBOARD TEST MODE - HARD SWITCH VERSION --- */
         .mode-switch-wrap {
             margin-top: 1.4rem;
             display: flex;
@@ -204,11 +204,15 @@
             gap: 10px;
             flex-wrap: wrap;
             position: relative;
-            z-index: 50;
+            z-index: 9999;
         }
         .mode-switch-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 170px;
             border: 1px solid rgba(255,255,255,0.35);
-            background: rgba(0,0,0,0.72);
+            background: rgba(0,0,0,0.78);
             color: #fff;
             padding: 12px 24px;
             border-radius: 999px;
@@ -219,7 +223,9 @@
             text-transform: uppercase;
             transition: 0.25s ease;
             position: relative;
-            z-index: 60;
+            z-index: 10000;
+            text-decoration: none;
+            pointer-events: auto;
         }
         .mode-switch-btn:hover {
             transform: translateY(-2px);
@@ -231,14 +237,9 @@
             border-color: var(--primary);
             color: #fff;
         }
-        #nascar-dashboard,
-        #iracing-dashboard {
-            display: none;
-        }
-        #nascar-dashboard.active,
-        #iracing-dashboard.active {
-            display: block;
-        }
+        #nascar-dashboard { display: block; }
+        #iracing-dashboard { display: none; }
+
         .iracing-command-center {
             max-width: 1300px;
             margin: 0 auto;
@@ -368,10 +369,236 @@
         }
         @media (max-width: 520px) {
             .iracing-stat-grid { grid-template-columns: 1fr; }
-            .mode-switch-btn { width: min(100%, 260px); }
+            .mode-switch-btn { width: min(100%, 270px); }
         }
 
     </style>
+
+    <script>
+    /* Standalone dual-dashboard switch.
+       This is intentionally loaded in the HEAD so it does not depend on the rest
+       of the NASCAR homepage JavaScript running successfully. */
+    window.ASCRL_DUAL = {
+        iracingLoaded: false,
+        iracingData: null,
+        urls: [
+            "data/iracing/live_season_standings.json",
+            "live_season_standings.json",
+            "live_season_stats_max.json"
+        ]
+    };
+
+    function ascrlSetText(id, value) {
+        var el = document.getElementById(id);
+        if (el) el.textContent = value;
+    }
+
+    function ascrlEscape(value) {
+        value = String(value == null ? "" : value);
+        return value
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    function ascrlNumber(value, fallback) {
+        var n = Number(value);
+        return isFinite(n) ? n : (fallback || 0);
+    }
+
+    function ascrlHardSwitchDashboard(mode) {
+        var showIRacing = mode === "iracing";
+
+        var nascar = document.getElementById("nascar-dashboard");
+        var iracing = document.getElementById("iracing-dashboard");
+        var nascarBtn = document.getElementById("nascarModeBtn");
+        var iracingBtn = document.getElementById("iracingModeBtn");
+
+        if (!nascar || !iracing) {
+            alert("Dashboard sections were not found. Make sure you are using the dual-dashboard test HTML.");
+            return false;
+        }
+
+        nascar.style.display = showIRacing ? "none" : "block";
+        iracing.style.display = showIRacing ? "block" : "none";
+
+        if (nascarBtn) {
+            nascarBtn.className = showIRacing ? "mode-switch-btn" : "mode-switch-btn active";
+        }
+        if (iracingBtn) {
+            iracingBtn.className = showIRacing ? "mode-switch-btn active" : "mode-switch-btn";
+        }
+
+        try {
+            window.history.replaceState(null, "", showIRacing ? "#iracing" : "#nascar25");
+        } catch (e) {
+            window.location.hash = showIRacing ? "iracing" : "nascar25";
+        }
+
+        if (showIRacing && !window.ASCRL_DUAL.iracingLoaded) {
+            ascrlLoadIRacingDashboard();
+        }
+
+        return false;
+    }
+
+    function ascrlFetchFirstWorkingJSON(index, onSuccess, onFailure) {
+        if (index >= window.ASCRL_DUAL.urls.length) {
+            onFailure();
+            return;
+        }
+
+        var url = window.ASCRL_DUAL.urls[index];
+        fetch(url + "?v=" + Date.now(), { cache: "no-store" })
+            .then(function (response) {
+                if (!response.ok) throw new Error("Not found: " + url);
+                return response.json().then(function (json) {
+                    onSuccess(json, url);
+                });
+            })
+            .catch(function () {
+                ascrlFetchFirstWorkingJSON(index + 1, onSuccess, onFailure);
+            });
+    }
+
+    function ascrlLoadIRacingDashboard() {
+        window.ASCRL_DUAL.iracingLoaded = true;
+        ascrlSetText("iracingStatusBox", "Loading iRacing JSON...");
+
+        ascrlFetchFirstWorkingJSON(0, function (json, url) {
+            window.ASCRL_DUAL.iracingData = json || {};
+            ascrlSetText("iracingStatusBox", "Loaded iRacing data from: " + url);
+            ascrlRenderIRacingDashboard();
+        }, function () {
+            ascrlSetText("iracingStatusBox", "iRacing JSON not found. Put live_season_standings.json beside this HTML or inside data/iracing/.");
+            var body = document.getElementById("iracingDriversBody");
+            var races = document.getElementById("iracingRaceCards");
+            var sched = document.getElementById("iracingScheduleBody");
+
+            if (body) body.innerHTML = '<tr><td colspan="9">iRacing JSON not found yet. Put live_season_standings.json beside this file or in data/iracing/.</td></tr>';
+            if (races) races.innerHTML = '<div class="iracing-warning">No iRacing race archive found yet.</div>';
+            if (sched) sched.innerHTML = '<tr><td colspan="8">No iRacing schedule found yet.</td></tr>';
+        });
+    }
+
+    function ascrlDriverName(row) {
+        return row.name || row.iracing_name || row.driver_name || "Unknown";
+    }
+
+    function ascrlTeamName(row) {
+        return row.team_name || row.team || "Independent";
+    }
+
+    function ascrlPoints(row) {
+        return ascrlNumber(row.points != null ? row.points : (row.total_points != null ? row.total_points : row.total_race_points), 0);
+    }
+
+    function ascrlLast3(row) {
+        return row.avg_finish_last3 != null ? row.avg_finish_last3 :
+               row.last3_avg_finish != null ? row.last3_avg_finish :
+               row.avg_finish_last_3 != null ? row.avg_finish_last_3 : "—";
+    }
+
+    function ascrlLast5(row) {
+        return row.avg_finish_last5 != null ? row.avg_finish_last5 :
+               row.last5_avg_finish != null ? row.last5_avg_finish :
+               row.avg_finish_last_5 != null ? row.avg_finish_last_5 : "—";
+    }
+
+    function ascrlRenderIRacingDashboard() {
+        var data = window.ASCRL_DUAL.iracingData || {};
+        var drivers = Array.isArray(data.driver_standings) ? data.driver_standings : [];
+        var teams = Array.isArray(data.team_standings) ? data.team_standings : [];
+        var races = Array.isArray(data.race_summaries) ? data.race_summaries :
+                    (Array.isArray(data.races) ? data.races : []);
+        var schedule = Array.isArray(data.schedule) ? data.schedule : [];
+        var driverStats = Array.isArray(data.race_driver_stats) ? data.race_driver_stats : [];
+
+        ascrlSetText("irStatDrivers", data.season_summary && data.season_summary.total_drivers != null ? data.season_summary.total_drivers : drivers.length);
+        ascrlSetText("irStatTeams", data.season_summary && data.season_summary.total_teams != null ? data.season_summary.total_teams : teams.length);
+        ascrlSetText("irStatRaces", data.season_summary && data.season_summary.total_races != null ? data.season_summary.total_races : races.length);
+        ascrlSetText("irStatStarts", data.season_summary && data.season_summary.total_starts != null ? data.season_summary.total_starts : driverStats.length);
+
+        var body = document.getElementById("iracingDriversBody");
+        if (body) {
+            if (!drivers.length) {
+                body.innerHTML = '<tr><td colspan="9">No iRacing driver standings found yet.</td></tr>';
+            } else {
+                var driverHTML = "";
+                for (var i = 0; i < drivers.length; i++) {
+                    var d = drivers[i];
+                    driverHTML += '<tr>' +
+                        '<td>' + ascrlEscape(d.rank != null ? d.rank : i + 1) + '</td>' +
+                        '<td>' + ascrlEscape(ascrlDriverName(d)) + '</td>' +
+                        '<td>' + ascrlEscape(ascrlTeamName(d)) + '</td>' +
+                        '<td class="iracing-points">' + ascrlEscape(ascrlPoints(d)) + '</td>' +
+                        '<td>' + ascrlEscape(ascrlNumber(d.wins, 0)) + '</td>' +
+                        '<td>' + ascrlEscape(ascrlNumber(d.top5s != null ? d.top5s : d.top_5s, 0)) + '</td>' +
+                        '<td>' + ascrlEscape(ascrlNumber(d.top10s != null ? d.top10s : d.top_10s, 0)) + '</td>' +
+                        '<td>' + ascrlEscape(ascrlLast3(d)) + '</td>' +
+                        '<td>' + ascrlEscape(ascrlLast5(d)) + '</td>' +
+                    '</tr>';
+                }
+                body.innerHTML = driverHTML;
+            }
+        }
+
+        var raceCards = document.getElementById("iracingRaceCards");
+        if (raceCards) {
+            if (!races.length) {
+                raceCards.innerHTML = '<div class="iracing-warning">No iRacing races processed yet.</div>';
+            } else {
+                var raceHTML = "";
+                for (var r = 0; r < Math.min(races.length, 8); r++) {
+                    var race = races[r];
+                    raceHTML += '<div class="iracing-race-card">' +
+                        '<strong>' + ascrlEscape(race.track_name || race.track || "Unknown Track") + '</strong>' +
+                        '<span>Winner: ' + ascrlEscape(race.winner || "N/A") + '</span>' +
+                        '<span>Pole: ' + ascrlEscape(race.pole_winner || "N/A") + '</span>' +
+                        '<span>Hard Charger: ' + ascrlEscape(race.hard_charger || "N/A") + '</span>' +
+                        '<span>Laps: ' + ascrlEscape(race.total_laps || "—") + ' • Cautions: ' + ascrlEscape(race.num_cautions || 0) + '</span>' +
+                    '</div>';
+                }
+                raceCards.innerHTML = raceHTML;
+            }
+        }
+
+        var sched = document.getElementById("iracingScheduleBody");
+        if (sched) {
+            if (!schedule.length) {
+                sched.innerHTML = '<tr><td colspan="8">No iRacing schedule found yet.</td></tr>';
+            } else {
+                var scheduleHTML = "";
+                for (var s = 0; s < schedule.length; s++) {
+                    var item = schedule[s];
+                    scheduleHTML += '<tr>' +
+                        '<td>' + ascrlEscape(item.week_number != null ? item.week_number : (item.week != null ? item.week : "—")) + '</td>' +
+                        '<td>' + ascrlEscape(item.race_date || item.date || "TBA") + '</td>' +
+                        '<td>' + ascrlEscape(item.track_name || item.track || "Unknown") + '</td>' +
+                        '<td>' + ascrlEscape(item.car_type || "TBD") + '</td>' +
+                        '<td>' + ascrlEscape(item.laps || "—") + '</td>' +
+                        '<td>' + ascrlEscape(item.stage_lap || "—") + '</td>' +
+                        '<td>' + ascrlEscape(item.theme || "—") + '</td>' +
+                        '<td>' + ascrlEscape(item.playoff_round || (item.is_playoff ? "Playoff" : "Regular Season")) + '</td>' +
+                    '</tr>';
+                }
+                sched.innerHTML = scheduleHTML;
+            }
+        }
+    }
+
+    window.addEventListener("DOMContentLoaded", function () {
+        var hash = String(window.location.hash || "").toLowerCase();
+        if (hash.indexOf("iracing") !== -1) {
+            ascrlHardSwitchDashboard("iracing");
+        } else {
+            ascrlHardSwitchDashboard("nascar");
+        }
+    });
+    </script>
+
 </head>
 <body>
 
@@ -383,13 +610,13 @@
         <div style="margin-top: 2rem; position: relative; z-index: 2;">
             <a href="https://discord.gg/RgYEY5F3Kf" class="btn-primary" style="text-decoration: none; border: 1px solid #fff; padding: 12px 30px; color: #fff; letter-spacing: 2px; font-size: 0.8rem;">JOIN THE DISCORD</a>
             <div class="mode-switch-wrap" aria-label="Dashboard switch">
-                <button type="button" class="mode-switch-btn active" id="nascarModeBtn" data-dashboard-mode="nascar">NASCAR 25/26</button>
-                <button type="button" class="mode-switch-btn" id="iracingModeBtn" data-dashboard-mode="iracing">iRacing</button>
+                <a href="#nascar25" class="mode-switch-btn active" id="nascarModeBtn" onclick="return ascrlHardSwitchDashboard('nascar');">NASCAR 25/26</a>
+                <a href="#iracing" class="mode-switch-btn" id="iracingModeBtn" onclick="return ascrlHardSwitchDashboard('iracing');">iRacing</a>
             </div>
         </div>
     </header>
 
-    <main id="nascar-dashboard" class="active container" style="max-width: 1300px; margin: 0 auto; padding: 2rem;">
+    <main id="nascar-dashboard" class="container" style="max-width: 1300px; margin: 0 auto; padding: 2rem;">
 
         <section class="carousel-section">
             <h2 style="margin-bottom: 3rem; text-align: center; color: var(--text-muted); font-size: 1.2rem; letter-spacing: 4px;">VICTORY LANE</h2>
@@ -981,194 +1208,6 @@
             container.innerHTML += html;
         });
     }
-
-
-    // --- DUAL DASHBOARD MODE SWITCH - FIXED EVENT LISTENER VERSION ---
-    const IRACING_DATA_URLS = [
-        "data/iracing/live_season_standings.json",
-        "live_season_standings.json",
-        "live_season_stats_max.json"
-    ];
-    let iracingLoadedOnce = false;
-    let iracingData = null;
-
-    function switchDashboardModeFixed(mode) {
-        const nascar = document.getElementById("nascar-dashboard");
-        const iracing = document.getElementById("iracing-dashboard");
-        const nascarBtn = document.getElementById("nascarModeBtn");
-        const iracingBtn = document.getElementById("iracingModeBtn");
-
-        if (!nascar || !iracing) {
-            console.warn("Dashboard sections were not found.");
-            return;
-        }
-
-        const showIRacing = mode === "iracing";
-        nascar.classList.toggle("active", !showIRacing);
-        iracing.classList.toggle("active", showIRacing);
-
-        if (nascarBtn) nascarBtn.classList.toggle("active", !showIRacing);
-        if (iracingBtn) iracingBtn.classList.toggle("active", showIRacing);
-
-        try {
-            window.history.replaceState(null, "", showIRacing ? "#iracing" : "#nascar25");
-        } catch (error) {
-            window.location.hash = showIRacing ? "iracing" : "nascar25";
-        }
-
-        if (showIRacing && !iracingLoadedOnce) {
-            loadIRacingDashboardFixed();
-        }
-    }
-
-    function irEscape(value) {
-        return String(value ?? "")
-            .replaceAll("&", "&amp;").replaceAll("<", "&lt;")
-            .replaceAll(">", "&gt;").replaceAll('"', "&quot;")
-            .replaceAll("'", "&#039;");
-    }
-    function irNum(value, fallback = 0) {
-        const n = Number(value);
-        return Number.isFinite(n) ? n : fallback;
-    }
-    function irName(row) {
-        return row?.name || row?.iracing_name || row?.driver_name || "Unknown";
-    }
-    function irTeam(row) {
-        return row?.team_name || row?.team || "Independent";
-    }
-    function irPoints(row) {
-        return irNum(row?.points ?? row?.total_points ?? row?.total_race_points, 0);
-    }
-    function irLast3(row) {
-        return row?.avg_finish_last3 ?? row?.last3_avg_finish ?? row?.avg_finish_last_3 ?? "—";
-    }
-    function irLast5(row) {
-        return row?.avg_finish_last5 ?? row?.last5_avg_finish ?? row?.avg_finish_last_5 ?? "—";
-    }
-
-    async function fetchIRacingJSONFixed() {
-        let lastError = null;
-        const cacheBust = "?v=" + Date.now();
-        for (const url of IRACING_DATA_URLS) {
-            try {
-                const res = await fetch(url + cacheBust, { cache: "no-store" });
-                if (!res.ok) throw new Error("Could not load " + url);
-                const json = await res.json();
-                return { json, url };
-            } catch (err) {
-                lastError = err;
-            }
-        }
-        throw lastError || new Error("No iRacing JSON found.");
-    }
-
-    async function loadIRacingDashboardFixed() {
-        iracingLoadedOnce = true;
-        const statusBox = document.getElementById("iracingStatusBox");
-        if (statusBox) statusBox.textContent = "Loading iRacing JSON...";
-        try {
-            const result = await fetchIRacingJSONFixed();
-            iracingData = result.json || {};
-            if (statusBox) statusBox.textContent = "Loaded iRacing data from: " + result.url;
-            renderIRacingDashboardFixed();
-        } catch (err) {
-            console.error(err);
-            if (statusBox) statusBox.textContent = "iRacing JSON not found. Place live_season_standings.json beside this file or in data/iracing/.";
-            const body = document.getElementById("iracingDriversBody");
-            const races = document.getElementById("iracingRaceCards");
-            const sched = document.getElementById("iracingScheduleBody");
-            if (body) body.innerHTML = `<tr><td colspan="9">iRacing JSON not found yet. Put live_season_standings.json beside this file or in data/iracing/.</td></tr>`;
-            if (races) races.innerHTML = `<div class="iracing-warning">No iRacing race archive found yet.</div>`;
-            if (sched) sched.innerHTML = `<tr><td colspan="8">No iRacing schedule found yet.</td></tr>`;
-        }
-    }
-
-    function renderIRacingDashboardFixed() {
-        const data = iracingData || {};
-        const drivers = Array.isArray(data.driver_standings) ? data.driver_standings : [];
-        const teams = Array.isArray(data.team_standings) ? data.team_standings : [];
-        const races = Array.isArray(data.race_summaries) ? data.race_summaries : (Array.isArray(data.races) ? data.races : []);
-        const schedule = Array.isArray(data.schedule) ? data.schedule : [];
-        const driverStats = Array.isArray(data.race_driver_stats) ? data.race_driver_stats : [];
-
-        const set = (id, value) => {
-            const el = document.getElementById(id);
-            if (el) el.textContent = value;
-        };
-        set("irStatDrivers", data?.season_summary?.total_drivers ?? drivers.length);
-        set("irStatTeams", data?.season_summary?.total_teams ?? teams.filter(t => String(t.team || t.team_name || "").toLowerCase() !== "independent").length);
-        set("irStatRaces", data?.season_summary?.total_races ?? races.length);
-        set("irStatStarts", data?.season_summary?.total_starts ?? driverStats.length);
-
-        const body = document.getElementById("iracingDriversBody");
-        if (body) {
-            body.innerHTML = drivers.length ? drivers.map((d, idx) => `
-                <tr>
-                    <td>${irNum(d.rank, idx + 1)}</td>
-                    <td>${irEscape(irName(d))}</td>
-                    <td>${irEscape(irTeam(d))}</td>
-                    <td class="iracing-points">${irPoints(d)}</td>
-                    <td>${irNum(d.wins, 0)}</td>
-                    <td>${irNum(d.top5s ?? d.top_5s, 0)}</td>
-                    <td>${irNum(d.top10s ?? d.top_10s, 0)}</td>
-                    <td>${irEscape(irLast3(d))}</td>
-                    <td>${irEscape(irLast5(d))}</td>
-                </tr>
-            `).join("") : `<tr><td colspan="9">No iRacing driver standings found yet.</td></tr>`;
-        }
-
-        const raceCards = document.getElementById("iracingRaceCards");
-        if (raceCards) {
-            raceCards.innerHTML = races.length ? races.slice(0, 8).map(r => `
-                <div class="iracing-race-card">
-                    <strong>${irEscape(r.track_name || "Unknown Track")}</strong>
-                    <span>Winner: ${irEscape(r.winner || "N/A")}</span>
-                    <span>Pole: ${irEscape(r.pole_winner || "N/A")}</span>
-                    <span>Hard Charger: ${irEscape(r.hard_charger || "N/A")} ${r.hard_charger_positions !== undefined ? "(" + irEscape(r.hard_charger_positions) + ")" : ""}</span>
-                    <span>Laps: ${irEscape(r.total_laps || "—")} • Cautions: ${irEscape(r.num_cautions || 0)}</span>
-                </div>
-            `).join("") : `<div class="iracing-warning">No iRacing races processed yet.</div>`;
-        }
-
-        const sched = document.getElementById("iracingScheduleBody");
-        if (sched) {
-            sched.innerHTML = schedule.length ? schedule.map(s => `
-                <tr>
-                    <td>${irEscape(s.week_number ?? s.week ?? "—")}</td>
-                    <td>${irEscape(s.race_date || s.date || "TBA")}</td>
-                    <td>${irEscape(s.track_name || s.track || "Unknown")}</td>
-                    <td>${irEscape(s.car_type || "TBD")}</td>
-                    <td>${irEscape(s.laps || "—")}</td>
-                    <td>${irEscape(s.stage_lap || "—")}</td>
-                    <td>${irEscape(s.theme || "—")}</td>
-                    <td>${irEscape(s.playoff_round || (s.is_playoff ? "Playoff" : "Regular Season"))}</td>
-                </tr>
-            `).join("") : `<tr><td colspan="8">No iRacing schedule found yet.</td></tr>`;
-        }
-    }
-
-    function attachDashboardSwitchButtons() {
-        const buttons = document.querySelectorAll("[data-dashboard-mode]");
-        buttons.forEach(btn => {
-            btn.addEventListener("click", function (event) {
-                event.preventDefault();
-                event.stopPropagation();
-                const mode = btn.getAttribute("data-dashboard-mode");
-                switchDashboardModeFixed(mode);
-            });
-        });
-
-        const hash = String(window.location.hash || "").toLowerCase();
-        if (hash.includes("iracing")) {
-            switchDashboardModeFixed("iracing");
-        } else {
-            switchDashboardModeFixed("nascar");
-        }
-    }
-
-    document.addEventListener("DOMContentLoaded", attachDashboardSwitchButtons);
-
 
     // 1. Disable Right Click
     document.addEventListener('contextmenu', (e) => { e.preventDefault(); });
