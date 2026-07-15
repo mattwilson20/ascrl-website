@@ -298,11 +298,59 @@
     @media (max-width: 1240px) { .hero-grid { grid-template-columns: 1fr; } .stat-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .charts-grid, .race-grid, .driver-card-grid, .records-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     @media (max-width: 760px) { .topbar-inner { align-items: flex-start; flex-direction: column; } .nav-actions { width: 100%; overflow-x: auto; padding-bottom: 4px; justify-content: flex-start; flex-wrap: nowrap; } .hero { padding-top: 34px; } .hero-card { min-height: auto; border-radius: 24px; } .leader-stack { grid-template-columns: 1fr; } .leader-card.wide { grid-column: auto; } .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .charts-grid, .race-grid, .driver-card-grid, .records-grid { grid-template-columns: 1fr; } .panel { padding: 16px; } .panel-header { align-items: flex-start; flex-direction: column; } .hero-actions .btn { width: 100%; justify-content: center; text-align: center; } }
     @media (max-width: 480px) { .site-shell, .topbar-inner { width: min(100% - 20px, 1500px); } .stat-grid { grid-template-columns: 1fr; } .hero h1, .hero-title-readable { font-size: 3.1rem; } .brand-title strong { font-size: 0.9rem; } .brand-title span { display: none; } }
+  
+    /* --- SHARED ASCRL HAMBURGER NAV LOADER --- */
+    #nav-placeholder {
+      position: relative;
+      z-index: 2000;
+    }
+
   </style>
   <!-- ApexGrid ready check patch: last3/last5 avg, schedule car type, no SOF/iRating/cleanest recap callouts -->
 </head>
 
 <body>
+  <div id="nav-placeholder"></div>
+
+  <script>
+    // Shared ASCRL navigation loader. This matches the original index.html/nav.html setup.
+    fetch('nav.html')
+      .then(res => res.text())
+      .then(data => {
+        const navPlaceholder = document.getElementById('nav-placeholder');
+        if (!navPlaceholder) return;
+
+        navPlaceholder.innerHTML = data;
+
+        const currentPage = window.location.pathname.split("/").pop() || "index.html";
+        const pageBase = currentPage.split(".")[0];
+
+        const possibleActiveIDs = [
+          "nav-" + pageBase,
+          pageBase.toLowerCase().includes("iracing") ? "nav-iracing" : "",
+          pageBase.toLowerCase().includes("apexgrid") ? "nav-iracing" : ""
+        ].filter(Boolean);
+
+        for (const id of possibleActiveIDs) {
+          const activeLink = document.getElementById(id);
+          if (activeLink) {
+            activeLink.style.color = "var(--red)";
+            activeLink.style.borderLeft = "4px solid var(--red)";
+            activeLink.style.paddingLeft = "15px";
+            break;
+          }
+        }
+      })
+      .catch(error => {
+        console.warn("nav.html could not be loaded:", error);
+      });
+
+    function toggleMenu() {
+      const menu = document.getElementById('nav-menu');
+      if (menu) menu.classList.toggle('open');
+    }
+  </script>
+
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand">
