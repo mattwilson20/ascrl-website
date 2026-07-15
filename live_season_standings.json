@@ -1,6 +1,6 @@
 {
   "export_type": "ApexGrid Website Publish Pack",
-  "exported_at": "2026-07-15T00:16:16+00:00",
+  "exported_at": "2026-07-15T16:24:54+00:00",
   "driver_standings": [
     {
       "name": "Adam Kilday",
@@ -316,7 +316,7 @@
       "wins": 0,
       "playoff_alive": 0,
       "car_number": "96",
-      "team": "Independent",
+      "team": "HM Motorsports",
       "roster_status": "active",
       "manufacturer": "Independent",
       "team_logo_url": null
@@ -327,9 +327,9 @@
       "wins": 0,
       "playoff_alive": 0,
       "car_number": "15",
-      "team": "Shake n Bake Motorsports",
+      "team": "TMS Racing",
       "roster_status": "active",
-      "manufacturer": "Chevy",
+      "manufacturer": "Independent",
       "team_logo_url": null
     },
     {
@@ -2909,6 +2909,366 @@
       "actor_name": "mattwilson20",
       "action": "schedule_add",
       "details": "Week 16: \"Reg Season Champ\" on \"2026-11-16\", car=\"Team Points Leader\", laps=\"TBD\", stage=\"TBD\", theme=, playoff=True, all_star=False, duels=False, round=\"Round of 4\", championship=True"
+    },
+    {
+      "audit_id": 170,
+      "created_at": "2026-07-15T00:16:16+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "website_publish",
+      "details": "apexgrid_website_publish_20260715_001616.zip"
+    },
+    {
+      "audit_id": 171,
+      "created_at": "2026-07-15T01:02:35+00:00",
+      "actor_id": "1156655071451414601",
+      "actor_name": "dgibby17",
+      "action": "team_release",
+      "details": "Ethan Horst -> Independent"
+    },
+    {
+      "audit_id": 172,
+      "created_at": "2026-07-15T01:02:58+00:00",
+      "actor_id": "1156655071451414601",
+      "actor_name": "dgibby17",
+      "action": "team_hire",
+      "details": "Ethan Horst -> TMS Racing"
+    },
+    {
+      "audit_id": 173,
+      "created_at": "2026-07-15T01:03:16+00:00",
+      "actor_id": "1156655071451414601",
+      "actor_name": "dgibby17",
+      "action": "team_hire",
+      "details": "Eric Rodaman -> HM Motorsports"
+    },
+    {
+      "audit_id": 174,
+      "created_at": "2026-07-15T15:59:38+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "AL Lykins. Reason: No reason given"
+    },
+    {
+      "audit_id": 175,
+      "created_at": "2026-07-15T16:00:12+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Brandon Bolton. Reason: No reason given"
+    },
+    {
+      "audit_id": 176,
+      "created_at": "2026-07-15T16:00:47+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Brian V Macklin. Reason: No reason given"
+    },
+    {
+      "audit_id": 177,
+      "created_at": "2026-07-15T16:01:01+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Caden Kelly. Reason: No reason given"
+    },
+    {
+      "audit_id": 178,
+      "created_at": "2026-07-15T16:01:10+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Casey Ponsford. Reason: No reason given"
+    },
+    {
+      "audit_id": 179,
+      "created_at": "2026-07-15T16:01:35+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Cory Yocom. Reason: No reason given"
+    },
+    {
+      "audit_id": 180,
+      "created_at": "2026-07-15T16:01:48+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Cody Hanson. Reason: No reason given"
+    },
+    {
+      "audit_id": 181,
+      "created_at": "2026-07-15T16:02:27+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "David Bonnett. Reason: No reason given"
+    },
+    {
+      "audit_id": 182,
+      "created_at": "2026-07-15T16:02:36+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "David Mayberry. Reason: No reason given"
+    },
+    {
+      "audit_id": 183,
+      "created_at": "2026-07-15T16:03:56+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Dawson Price. Reason: No reason given"
+    },
+    {
+      "audit_id": 184,
+      "created_at": "2026-07-15T16:04:17+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Dylan Lansdell. Reason: No reason given"
+    },
+    {
+      "audit_id": 185,
+      "created_at": "2026-07-15T16:04:43+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Fred M Pennington. Reason: No reason given"
+    },
+    {
+      "audit_id": 186,
+      "created_at": "2026-07-15T16:05:02+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Gino Villanti. Reason: No reason given"
+    },
+    {
+      "audit_id": 187,
+      "created_at": "2026-07-15T16:07:24+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Jacob Major. Reason: No reason given"
+    },
+    {
+      "audit_id": 188,
+      "created_at": "2026-07-15T16:08:13+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "James Day Jr. Reason: No reason given"
+    },
+    {
+      "audit_id": 189,
+      "created_at": "2026-07-15T16:08:28+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "James Yerger. Reason: No reason given"
+    },
+    {
+      "audit_id": 190,
+      "created_at": "2026-07-15T16:08:45+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Jason Werbeskas. Reason: No reason given"
+    },
+    {
+      "audit_id": 191,
+      "created_at": "2026-07-15T16:09:44+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Jayden Bogner. Reason: No reason given"
+    },
+    {
+      "audit_id": 192,
+      "created_at": "2026-07-15T16:10:15+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Jeremiah Nelson4. Reason: No reason given"
+    },
+    {
+      "audit_id": 193,
+      "created_at": "2026-07-15T16:10:23+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Jeremy J Davis. Reason: No reason given"
+    },
+    {
+      "audit_id": 194,
+      "created_at": "2026-07-15T16:10:44+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Keith Cole. Reason: No reason given"
+    },
+    {
+      "audit_id": 195,
+      "created_at": "2026-07-15T16:11:02+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Kevin Parker3. Reason: No reason given"
+    },
+    {
+      "audit_id": 196,
+      "created_at": "2026-07-15T16:11:19+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Landyn O\u2019Donnell. Reason: No reason given"
+    },
+    {
+      "audit_id": 197,
+      "created_at": "2026-07-15T16:11:47+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Luc Cotoir. Reason: No reason given"
+    },
+    {
+      "audit_id": 198,
+      "created_at": "2026-07-15T16:12:09+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Matthew Hamill. Reason: No reason given"
+    },
+    {
+      "audit_id": 199,
+      "created_at": "2026-07-15T16:12:31+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Michael Hill29. Reason: No reason given"
+    },
+    {
+      "audit_id": 200,
+      "created_at": "2026-07-15T16:12:39+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Michael Prince. Reason: No reason given"
+    },
+    {
+      "audit_id": 201,
+      "created_at": "2026-07-15T16:12:50+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Michael Vandiver. Reason: No reason given"
+    },
+    {
+      "audit_id": 202,
+      "created_at": "2026-07-15T16:13:09+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Mikey McConahay. Reason: No reason given"
+    },
+    {
+      "audit_id": 203,
+      "created_at": "2026-07-15T16:15:09+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Nate Blasdell. Reason: No reason given"
+    },
+    {
+      "audit_id": 204,
+      "created_at": "2026-07-15T16:15:25+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Nicholas Warner. Reason: No reason given"
+    },
+    {
+      "audit_id": 205,
+      "created_at": "2026-07-15T16:15:33+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Nicholas Wing. Reason: No reason given"
+    },
+    {
+      "audit_id": 206,
+      "created_at": "2026-07-15T16:15:53+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Owen Vannoy. Reason: No reason given"
+    },
+    {
+      "audit_id": 207,
+      "created_at": "2026-07-15T16:16:09+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Richard Smith II. Reason: No reason given"
+    },
+    {
+      "audit_id": 208,
+      "created_at": "2026-07-15T16:16:24+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Seth Lacroix2. Reason: No reason given"
+    },
+    {
+      "audit_id": 209,
+      "created_at": "2026-07-15T16:16:43+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Stevie Routh. Reason: No reason given"
+    },
+    {
+      "audit_id": 210,
+      "created_at": "2026-07-15T16:16:58+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Storm J Strubbe. Reason: No reason given"
+    },
+    {
+      "audit_id": 211,
+      "created_at": "2026-07-15T16:17:13+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Thomas Laverde. Reason: No reason given"
+    },
+    {
+      "audit_id": 212,
+      "created_at": "2026-07-15T16:17:30+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "TJ Wood. Reason: No reason given"
+    },
+    {
+      "audit_id": 213,
+      "created_at": "2026-07-15T16:17:43+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Trevor Quesenberry. Reason: No reason given"
+    },
+    {
+      "audit_id": 214,
+      "created_at": "2026-07-15T16:17:57+00:00",
+      "actor_id": "196864998251692032",
+      "actor_name": "mattwilson20",
+      "action": "roster_remove",
+      "details": "Tristan Haynes. Reason: No reason given"
     }
   ]
 }
