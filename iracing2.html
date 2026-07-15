@@ -204,13 +204,13 @@
             gap: 10px;
             flex-wrap: wrap;
             position: relative;
-            z-index: 3;
+            z-index: 50;
         }
         .mode-switch-btn {
             border: 1px solid rgba(255,255,255,0.35);
-            background: rgba(0,0,0,0.55);
+            background: rgba(0,0,0,0.72);
             color: #fff;
-            padding: 11px 22px;
+            padding: 12px 24px;
             border-radius: 999px;
             cursor: pointer;
             font-family: 'Arial Black', sans-serif;
@@ -218,6 +218,8 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             transition: 0.25s ease;
+            position: relative;
+            z-index: 60;
         }
         .mode-switch-btn:hover {
             transform: translateY(-2px);
@@ -229,9 +231,14 @@
             border-color: var(--primary);
             color: #fff;
         }
-        .dashboard-mode { display: none; }
-        .dashboard-mode.active { display: block; }
-
+        #nascar-dashboard,
+        #iracing-dashboard {
+            display: none;
+        }
+        #nascar-dashboard.active,
+        #iracing-dashboard.active {
+            display: block;
+        }
         .iracing-command-center {
             max-width: 1300px;
             margin: 0 auto;
@@ -376,13 +383,13 @@
         <div style="margin-top: 2rem; position: relative; z-index: 2;">
             <a href="https://discord.gg/RgYEY5F3Kf" class="btn-primary" style="text-decoration: none; border: 1px solid #fff; padding: 12px 30px; color: #fff; letter-spacing: 2px; font-size: 0.8rem;">JOIN THE DISCORD</a>
             <div class="mode-switch-wrap" aria-label="Dashboard switch">
-                <button type="button" class="mode-switch-btn active" id="nascarModeBtn" onclick="switchDashboardMode('nascar')">NASCAR 25/26</button>
-                <button type="button" class="mode-switch-btn" id="iracingModeBtn" onclick="switchDashboardMode('iracing')">iRacing</button>
+                <button type="button" class="mode-switch-btn active" id="nascarModeBtn" data-dashboard-mode="nascar">NASCAR 25/26</button>
+                <button type="button" class="mode-switch-btn" id="iracingModeBtn" data-dashboard-mode="iracing">iRacing</button>
             </div>
         </div>
     </header>
 
-    <main id="nascar-dashboard" class="dashboard-mode active container" style="max-width: 1300px; margin: 0 auto; padding: 2rem;">
+    <main id="nascar-dashboard" class="active container" style="max-width: 1300px; margin: 0 auto; padding: 2rem;">
 
         <section class="carousel-section">
             <h2 style="margin-bottom: 3rem; text-align: center; color: var(--text-muted); font-size: 1.2rem; letter-spacing: 4px;">VICTORY LANE</h2>
@@ -976,7 +983,7 @@
     }
 
 
-    // --- DUAL DASHBOARD MODE SWITCH ---
+    // --- DUAL DASHBOARD MODE SWITCH - FIXED EVENT LISTENER VERSION ---
     const IRACING_DATA_URLS = [
         "data/iracing/live_season_standings.json",
         "live_season_standings.json",
@@ -985,24 +992,32 @@
     let iracingLoadedOnce = false;
     let iracingData = null;
 
-    function switchDashboardMode(mode) {
+    function switchDashboardModeFixed(mode) {
         const nascar = document.getElementById("nascar-dashboard");
         const iracing = document.getElementById("iracing-dashboard");
         const nascarBtn = document.getElementById("nascarModeBtn");
         const iracingBtn = document.getElementById("iracingModeBtn");
 
-        if (!nascar || !iracing) return;
+        if (!nascar || !iracing) {
+            console.warn("Dashboard sections were not found.");
+            return;
+        }
 
         const showIRacing = mode === "iracing";
         nascar.classList.toggle("active", !showIRacing);
         iracing.classList.toggle("active", showIRacing);
+
         if (nascarBtn) nascarBtn.classList.toggle("active", !showIRacing);
         if (iracingBtn) iracingBtn.classList.toggle("active", showIRacing);
 
-        window.location.hash = showIRacing ? "iracing" : "nascar25";
+        try {
+            window.history.replaceState(null, "", showIRacing ? "#iracing" : "#nascar25");
+        } catch (error) {
+            window.location.hash = showIRacing ? "iracing" : "nascar25";
+        }
 
         if (showIRacing && !iracingLoadedOnce) {
-            loadIRacingDashboard();
+            loadIRacingDashboardFixed();
         }
     }
 
@@ -1032,7 +1047,7 @@
         return row?.avg_finish_last5 ?? row?.last5_avg_finish ?? row?.avg_finish_last_5 ?? "—";
     }
 
-    async function fetchIRacingJSON() {
+    async function fetchIRacingJSONFixed() {
         let lastError = null;
         const cacheBust = "?v=" + Date.now();
         for (const url of IRACING_DATA_URLS) {
@@ -1048,14 +1063,18 @@
         throw lastError || new Error("No iRacing JSON found.");
     }
 
-    async function loadIRacingDashboard() {
+    async function loadIRacingDashboardFixed() {
         iracingLoadedOnce = true;
+        const statusBox = document.getElementById("iracingStatusBox");
+        if (statusBox) statusBox.textContent = "Loading iRacing JSON...";
         try {
-            const result = await fetchIRacingJSON();
+            const result = await fetchIRacingJSONFixed();
             iracingData = result.json || {};
-            renderIRacingDashboard();
+            if (statusBox) statusBox.textContent = "Loaded iRacing data from: " + result.url;
+            renderIRacingDashboardFixed();
         } catch (err) {
             console.error(err);
+            if (statusBox) statusBox.textContent = "iRacing JSON not found. Place live_season_standings.json beside this file or in data/iracing/.";
             const body = document.getElementById("iracingDriversBody");
             const races = document.getElementById("iracingRaceCards");
             const sched = document.getElementById("iracingScheduleBody");
@@ -1065,7 +1084,7 @@
         }
     }
 
-    function renderIRacingDashboard() {
+    function renderIRacingDashboardFixed() {
         const data = iracingData || {};
         const drivers = Array.isArray(data.driver_standings) ? data.driver_standings : [];
         const teams = Array.isArray(data.team_standings) ? data.team_standings : [];
@@ -1129,12 +1148,26 @@
         }
     }
 
-    document.addEventListener("DOMContentLoaded", function () {
+    function attachDashboardSwitchButtons() {
+        const buttons = document.querySelectorAll("[data-dashboard-mode]");
+        buttons.forEach(btn => {
+            btn.addEventListener("click", function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                const mode = btn.getAttribute("data-dashboard-mode");
+                switchDashboardModeFixed(mode);
+            });
+        });
+
         const hash = String(window.location.hash || "").toLowerCase();
         if (hash.includes("iracing")) {
-            switchDashboardMode("iracing");
+            switchDashboardModeFixed("iracing");
+        } else {
+            switchDashboardModeFixed("nascar");
         }
-    });
+    }
+
+    document.addEventListener("DOMContentLoaded", attachDashboardSwitchButtons);
 
 
     // 1. Disable Right Click
