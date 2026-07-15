@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | American Stock Car Racing League</title>
+    
+    <link rel="icon" href="https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary: #c00; --accent: #ff0; --bg-dark: #000; --card-bg: #0d0d0d; --border: #1a1a1a;
+            --text-muted: #a0a0a0; --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            
+            /* Series Colors */
+            --cup-blue: #0077ff;
+            --xfinity-purple: #8000b0;
+            --truck-red: #c00;
+            --menards-yellow: #fff200;
+        }
+
+        body { 
+            margin: 0; 
+            font-family: 'Arial Black', sans-serif; 
+            background-color: #333333; 
+            background-image: 
+                radial-gradient(transparent 0%, #000 100%),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.35'/%3E%3C/svg%3E");
+            background-attachment: fixed;
+            color: #fff; 
+            overflow-x: hidden; 
+        }
+
+        /* --- MODULAR NAVIGATION STYLES --- */
+        #nav-placeholder { position: relative; z-index: 2000; }
+        
+        /* --- HOME HERO --- */
+        .hero { 
+            position: relative; 
+            overflow: hidden; 
+            background: radial-gradient(circle at center, #222 0%, #000 100%); 
+            padding: 12rem 1rem 8rem; 
+            text-align: center; 
+            border-bottom: 1px solid var(--border);
+        }
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: repeating-conic-gradient(rgba(255,255,255,0.03) 0% 25%, transparent 0% 50%) 50% / 80px 80px;
+            pointer-events: none;
+        }
+        
+        h1 { font-size: clamp(4rem, 15vw, 8rem); margin: 0; letter-spacing: -2px; position: relative; z-index: 1; }
+        .text-gradient {
+            background: linear-gradient(to bottom, #fff 30%, #444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- 3D CAROUSEL STYLES --- */
+        .carousel-section {
+            padding: 2rem 0 6rem 0; 
+            overflow: hidden;
+            perspective: 1000px;
+        }
+        .carousel-scene {
+            width: 200px; height: 300px; margin: 4rem auto 0;
+            position: relative; transform-style: preserve-3d;
+            animation: carouselSpin 20s infinite linear;
+        }
+        .carousel-scene-reverse {
+            width: 200px; height: 300px; margin: 4rem auto 0;
+            position: relative; transform-style: preserve-3d;
+            animation: carouselSpinReverse 20s infinite linear;
+        }
+        .carousel-scene:hover, .carousel-scene-reverse:hover { animation-play-state: paused; }
+
+        .carousel-cell {
+            background-color: #000; border: 1px solid #333; border-radius: 8px;
+            position: absolute; width: 200px; height: 300px; left: 0; top: 0;
+            backface-visibility: hidden; overflow: hidden;
+            display: flex; flex-direction: column; justify-content: flex-end;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        
+        .card-layer-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center top; z-index: 1; }
+        .card-layer-gradient { position: absolute; bottom: 0; left: 0; width: 100%; height: 75%; background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 30%, transparent 100%); z-index: 2; }
+        .card-content { position: absolute; bottom: 0; left: 0; width: 100%; z-index: 3; padding: 1.5rem; box-sizing: border-box; text-align: center; display: flex; flex-direction: column; align-items: center; }
+
+        .carousel-cell:nth-child(1) { transform: rotateY(0deg) translateZ(300px); }
+        .carousel-cell:nth-child(2) { transform: rotateY(90deg) translateZ(300px); }
+        .carousel-cell:nth-child(3) { transform: rotateY(180deg) translateZ(300px); }
+        .carousel-cell:nth-child(4) { transform: rotateY(270deg) translateZ(300px); }
+
+        @keyframes carouselSpin { from { transform: rotateY(0deg); } to { transform: rotateY(-360deg); } }
+        @keyframes carouselSpinReverse { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
+
+        .carousel-cell:hover { border-color: var(--primary); }
+        .driver-name { font-size: 1.0rem; margin: 0 0 0.5rem; line-height: 1.1; text-shadow: 0 2px 10px rgba(0,0,0,1); }
+        .bg-number { position: absolute; top: 10px; right: 15px; font-size: 2.2rem; font-weight: 900; color: rgba(255, 255, 255, 0.4); z-index: 2; pointer-events: none; }
+        
+        .win-flags-container { display: flex; gap: 5px; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem; min-height: 24px; }
+        .flag-icon { font-size: 1.0rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,1)); }
+        .flag-cup { color: var(--cup-blue); }
+        .flag-xfinity { color: var(--xfinity-purple); }
+        .flag-truck { color: var(--truck-red); }
+        .flag-menards { color: var(--menards-yellow); }
+        
+        .stats-pill { display: inline-flex; align-items: center; gap: 10px; border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.8); padding: 4px 10px; border-radius: 20px; font-size: 0.65rem; color: #fff; backdrop-filter: blur(5px); }
+        .stat-divider { width: 1px; height: 12px; background: #666; }
+
+        .series-badge-top { position: absolute; top: 0; left: 0; background: var(--primary); color: #fff; font-size: 0.7rem; padding: 5px 15px; text-transform: uppercase; font-weight: bold; z-index: 5; clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%); }
+        .badge-cup { background: var(--cup-blue); }
+        .badge-xfinity { background: var(--xfinity-purple); }
+        .badge-truck { background: var(--truck-red); }
+        .badge-menards { background: var(--menards-yellow); color: #000; }
+        /* --- TOURNAMENT BRACKET STYLES --- */
+        .bracket-wrapper {
+            background: #080808;
+            border: 1px solid #222;
+            border-radius: 8px;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
+            margin: 2rem 0;
+            padding: 2rem 1rem;
+            display: flex;
+            overflow-x: auto;
+            gap: 2rem;
+            align-items: stretch;
+        }
+        .bracket-round {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            min-width: 240px;
+        }
+        .round-header {
+            text-align: center; color: var(--cup-blue); font-size: 0.9rem; letter-spacing: 2px;
+            margin-bottom: 1.5rem; text-transform: uppercase; font-family: 'Arial Black';
+        }
+        .matchup {
+            background: #111; border: 1px solid #333; border-radius: 6px;
+            margin: 10px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.5); transition: 0.3s;
+        }
+        .matchup:hover { border-color: var(--cup-blue); box-shadow: 0 0 15px rgba(0, 119, 255, 0.4); transform: scale(1.02); }
+        .matchup-team { display: flex; align-items: center; padding: 10px 12px; border-bottom: 1px solid #222; gap: 10px; }
+        .matchup-team:last-child { border-bottom: none; }
+        .m-seed { font-size: 0.65rem; color: #666; font-family: sans-serif; width: 15px; text-align: right; }
+        .m-name { font-size: 0.8rem; color: #ddd; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; }
+
+        /* --- HIGHLIGHT BOX --- */
+        .highlight-box { background: linear-gradient(90deg, #0d0d0d 0%, #000 100%); border-left: 4px solid var(--primary); padding: 4rem 3rem; text-align: left; margin: 4rem 0; }
+        .stat-label { color: var(--primary); font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; display: block; }
+        .stat-value { font-size: 1.8rem; font-family: 'Arial Black', sans-serif; display: block; margin-top: 0.5rem; }
+        
+        .contact-btn { text-decoration: none; display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--primary); padding: 15px 30px; color: #fff; transition: 0.3s; }
+        .contact-btn:hover { background: var(--primary); }
+
+        /* --- POWER RANKINGS STYLES --- */
+        .ranking-filters { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+        .filter-btn { background: rgba(255,255,255,0.05); border: 1px solid #333; color: #aaa; padding: 10px 20px; border-radius: 30px; font-family: 'Arial Black', sans-serif; font-size: 0.8rem; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .filter-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+        .filter-btn.btn-overall.active { background: #00ff00; color: #000; border-color: #00ff00; box-shadow: 0 0 15px rgba(0,255,0,0.4); }
+        .filter-btn.btn-cup.active { background: var(--cup-blue); color: #fff; border-color: var(--cup-blue); box-shadow: 0 0 15px rgba(0, 119, 255, 0.4); }
+        .filter-btn.btn-xfinity.active { background: var(--xfinity-purple); color: #fff; border-color: var(--xfinity-purple); box-shadow: 0 0 15px rgba(128, 0, 176, 0.4); }
+        .filter-btn.btn-truck.active { background: var(--truck-red); color: #fff; border-color: var(--truck-red); box-shadow: 0 0 15px rgba(204, 0, 0, 0.4); }
+        .filter-btn.btn-menards.active { background: var(--menards-yellow); color: #000; border-color: var(--menards-yellow); box-shadow: 0 0 15px rgba(255, 242, 0, 0.4); }
+
+        .power-grid { display: flex; flex-direction: column; gap: 10px; max-width: 800px; margin: 0 auto; min-height: 300px; }
+        .power-card { display: flex; align-items: center; background: rgba(255,255,255,0.03); border: 1px solid #222; padding: 10px 20px; border-radius: 6px; transition: 0.3s; position: relative; overflow: hidden; animation: fadeSlide 0.4s ease-out forwards; opacity: 0; transform: translateY(10px); }
+        @keyframes fadeSlide { to { opacity: 1; transform: translateY(0); } }
+        .power-card:hover { transform: translateX(5px); }
+        .p-rank { font-size: 1.8rem; font-weight: 900; color: #444; width: 50px; text-align: center; font-style: italic; z-index: 2; }
+        .power-card:nth-child(1) .p-rank { color: #ffd700; text-shadow: 0 0 15px rgba(255, 215, 0, 0.4); }
+        .power-card:nth-child(2) .p-rank { color: #c0c0c0; }
+        .power-card:nth-child(3) .p-rank { color: #cd7f32; }
+        .p-driver { display: flex; align-items: center; gap: 15px; flex: 1; z-index: 2; }
+        .p-img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid #333; background: #000; }
+        .p-info { display: flex; flex-direction: column; }
+        .p-info h3 { margin: 0; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; color: #fff; }
+        .p-team { font-size: 0.65rem; color: #888; font-family: sans-serif; }
+        .p-score-box { text-align: right; z-index: 2; }
+        .p-score { font-family: 'Arial Black', sans-serif; font-size: 1.2rem; color: #fff; line-height: 1; }
+        .p-label { font-size: 0.55rem; color: #666; letter-spacing: 1px; text-transform: uppercase; }
+        .p-bar { position: absolute; top: 0; left: 0; bottom: 0; background: linear-gradient(90deg, rgba(255,255,255,0.05), transparent); z-index: 1; transition: width 1s ease-out; }
+
+        /* FOOTER */
+        footer { padding: 4rem 1rem; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+        .social-links { display: flex; gap: 2rem; justify-content: center; }
+        .social-icon { color: #555; font-size: 1.8rem; transition: 0.3s ease; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+        .social-icon:hover { transform: translateY(-3px); color: #fff; }
+
+        /* --- MOBILE OVERRIDE --- */
+        @media (max-width: 900px) {
+            main.container { padding: 1rem 1.5rem !important; }
+        }
+    
+        /* --- DUAL DASHBOARD TEST MODE --- */
+        .mode-switch-wrap {
+            margin-top: 1.4rem;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 3;
+        }
+        .mode-switch-btn {
+            border: 1px solid rgba(255,255,255,0.35);
+            background: rgba(0,0,0,0.55);
+            color: #fff;
+            padding: 11px 22px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-family: 'Arial Black', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: 0.25s ease;
+        }
+        .mode-switch-btn:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+            box-shadow: 0 0 18px rgba(204,0,0,0.35);
+        }
+        .mode-switch-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+        }
+        .dashboard-mode { display: none; }
+        .dashboard-mode.active { display: block; }
+
+        .iracing-command-center {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 3rem 2rem 5rem;
+        }
+        .iracing-hero-card {
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.12), rgba(255, 0, 60, 0.08)), #050505;
+            border: 1px solid rgba(255,255,255,0.14);
+            border-left: 4px solid #00f0ff;
+            border-radius: 14px;
+            padding: 2.4rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+        }
+        .iracing-hero-card h2 {
+            margin: 0;
+            font-size: clamp(2rem, 6vw, 4.6rem);
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            line-height: 0.95;
+        }
+        .iracing-subtitle {
+            color: #aaa;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 780px;
+            margin-top: 1rem;
+        }
+        .iracing-stat-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+            margin: 2rem 0;
+        }
+        .iracing-stat-card {
+            background: rgba(255,255,255,0.045);
+            border: 1px solid #222;
+            border-radius: 10px;
+            padding: 1.3rem;
+        }
+        .iracing-stat-card span {
+            display: block;
+            color: #888;
+            font-size: 0.68rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .iracing-stat-card strong {
+            display: block;
+            font-size: 2rem;
+            margin-top: 0.5rem;
+            color: #fff;
+        }
+        .iracing-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+            gap: 18px;
+        }
+        .iracing-panel {
+            background: #080808;
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 1.4rem;
+            overflow: hidden;
+        }
+        .iracing-panel h3 {
+            margin: 0 0 1rem;
+            color: #00f0ff;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 1rem;
+        }
+        .iracing-table-wrap { overflow-x: auto; }
+        .iracing-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 760px;
+            font-family: Arial, sans-serif;
+        }
+        .iracing-table th {
+            color: #aaa;
+            font-size: 0.72rem;
+            letter-spacing: 1px;
+            text-align: left;
+            padding: 11px 10px;
+            border-bottom: 1px solid #222;
+            text-transform: uppercase;
+        }
+        .iracing-table td {
+            padding: 11px 10px;
+            border-bottom: 1px solid #171717;
+            font-size: 0.9rem;
+        }
+        .iracing-points { color: #00ff8a; font-weight: 900; }
+        .iracing-race-card {
+            border: 1px solid #222;
+            background: rgba(255,255,255,0.035);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 10px;
+            font-family: Arial, sans-serif;
+        }
+        .iracing-race-card strong {
+            display: block;
+            color: #fff;
+            font-family: 'Arial Black', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.98rem;
+        }
+        .iracing-race-card span {
+            display: block;
+            color: #999;
+            font-size: 0.82rem;
+            margin-top: 5px;
+        }
+        .iracing-warning {
+            border: 1px dashed #555;
+            color: #aaa;
+            padding: 1.2rem;
+            border-radius: 10px;
+            font-family: Arial, sans-serif;
+            background: rgba(255,255,255,0.025);
+        }
+        @media (max-width: 900px) {
+            .iracing-stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .iracing-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 520px) {
+            .iracing-stat-grid { grid-template-columns: 1fr; }
+            .mode-switch-btn { width: min(100%, 260px); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="nav-placeholder"></div>
+
+    <header class="hero">
+        <p style="letter-spacing: 8px; color: var(--primary); text-transform: uppercase; font-size: 0.8rem;">Official League Portal</p>
+        <h1 class="text-gradient">ASCRL</h1>
+        <div style="margin-top: 2rem; position: relative; z-index: 2;">
+            <a href="https://discord.gg/RgYEY5F3Kf" class="btn-primary" style="text-decoration: none; border: 1px solid #fff; padding: 12px 30px; color: #fff; letter-spacing: 2px; font-size: 0.8rem;">JOIN THE DISCORD</a>
+            <div class="mode-switch-wrap" aria-label="Dashboard switch">
+                <button type="button" class="mode-switch-btn active" id="nascarModeBtn" onclick="switchDashboardMode('nascar')">NASCAR 25/26</button>
+                <button type="button" class="mode-switch-btn" id="iracingModeBtn" onclick="switchDashboardMode('iracing')">iRacing</button>
+            </div>
+        </div>
+    </header>
+
+    <main id="nascar-dashboard" class="dashboard-mode active container" style="max-width: 1300px; margin: 0 auto; padding: 2rem;">
+
+        <section class="carousel-section">
+            <h2 style="margin-bottom: 3rem; text-align: center; color: var(--text-muted); font-size: 1.2rem; letter-spacing: 4px;">VICTORY LANE</h2>
+            <div class="carousel-scene" id="winners-carousel">
+                <p style="color:#666; text-align:center; padding-top:150px;">Loading Recent Winners...</p>
+            </div>
+        </section>
+
+        <section class="carousel-section" style="padding-top: 0;">
+            <h2 style="margin-bottom: 3rem; text-align: center; color: var(--text-muted); font-size: 1.2rem; letter-spacing: 4px;">CHAMPIONSHIP LEADERS</h2>
+            <div class="carousel-scene-reverse" id="leaders-carousel">
+                <p style="color:#666; text-align:center; padding-top:150px;">Loading Leaders...</p>
+            </div>
+        </section>
+
+        <!-- TOURNAMENT BRACKET SECTION -->
+        <section class="highlight-box" style="padding: 3rem 1rem; background: linear-gradient(135deg, #050505, #0a0a0a); border-left: 4px solid var(--cup-blue); margin-top: 4rem;">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <span class="stat-label" style="color: var(--cup-blue);">ASCRL's 2026 In-Season Tournament</span>
+                <h2 style="font-size: 2.5rem; margin: 0.5rem 0; text-transform: uppercase;">CUP SERIES BRACKET</h2>
+                <p style="color: #888; font-size: 0.9rem; font-family: sans-serif; margin-bottom: 2rem;">
+                    Top 32 drivers seeded by total points.
+                </p>
+            </div>
+
+            <div class="bracket-wrapper" id="tournament-bracket">
+                <p style="text-align:center; color:#444; width:100%;">Calculating Bracket Seeding...</p>
+            </div>
+        </section>
+
+        <section class="highlight-box" style="padding: 3rem 1rem; background: linear-gradient(to right, #111, #080808); border-left: 4px solid #00ff00; margin-top: 4rem;">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <span class="stat-label" style="color: #00ff00;">WEEKLY ANALYSIS</span>
+                <h2 style="font-size: 2.5rem; margin: 0.5rem 0; text-transform: uppercase;">Power Rankings</h2>
+                <p style="color: #888; font-size: 0.9rem; font-family: sans-serif; margin-bottom: 2rem;">
+                    Algorithmic ranking based on Points, Wins, Consistency, and Momentum.
+                </p>
+
+                <div class="ranking-filters">
+                    <button class="filter-btn active btn-overall" onclick="renderRankings('Overall')">OVERALL</button>
+                    <button class="filter-btn btn-cup" onclick="renderRankings('Cup')">CUP</button>
+                    <button class="filter-btn btn-xfinity" onclick="renderRankings('Xfinity')">XFINITY</button>
+                    <button class="filter-btn btn-truck" onclick="renderRankings('Truck')">TRUCK</button>
+                    <button class="filter-btn btn-menards" onclick="renderRankings('Menards')">MENARDS</button>
+                </div>
+            </div>
+
+            <div class="power-grid" id="power-rankings-container">
+                <p style="text-align:center; color:#444;">Calculating Power Scores...</p>
+            </div>
+        </section>
+
+        <section style="margin: 6rem 0; padding: 4rem 1rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); text-align: center; background: linear-gradient(180deg, #050505 0%, #000 100%);">
+            <span class="stat-label" style="color: var(--primary);">A&M PRODUCTIONS LLC</span>
+            <h2 style="font-size: 2rem; margin: 1rem 0;">BUSINESS INQUIRIES</h2>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 2rem; font-family: sans-serif; line-height: 1.6;">
+                For sponsorship opportunities, league disputes, or website feedback, please contact the league office directly.
+            </p>
+            
+            <a href="mailto:contact.ascrl@gmail.com" class="contact-btn">
+                <i class="fa-solid fa-envelope" style="color: var(--primary);"></i>
+                <span style="letter-spacing: 2px; font-size: 0.9rem;">CONTACT.ASCRL@GMAIL.COM</span>
+            </a>
+        </section>
+
+    </main>
+
+   <footer>
+        <div style="margin-bottom: 0.5rem; letter-spacing: 2px; color: #fff;">
+            © 2025-2026 AMERICAN STOCK CAR RACING LEAGUE
+        </div>
+        
+        <div style="font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 2rem; text-transform: uppercase;">
+            OWNED AND OPERATED BY <span style="color: #fff; font-weight: bold;">A&M PRODUCTIONS LLC</span>
+        </div>
+
+        <div class="social-links">
+            <a href="https://www.facebook.com/share/14PeZVCH1hL/" target="_blank" class="social-icon facebook" aria-label="Facebook">
+                <i class="fa-brands fa-facebook"></i>
+            </a>
+            <a href="https://x.com/ASCRWeekly" target="_blank" class="social-icon x-twitter" aria-label="X (Twitter)">
+                <i class="fa-brands fa-x-twitter"></i>
+            </a>
+            
+            <a href="mailto:contact.ascrl@gmail.com" class="social-icon email" aria-label="Email A&M Productions">
+                <i class="fa-solid fa-envelope"></i>
+            </a>
+        </div>
+        
+        <div style="font-size: 0.6rem; color: #444; margin-top: 20px; font-style: italic;">*ai generated images may be used</div>
+    </footer>
+
+    <script>
+    // 1. NAVIGATION
+    fetch('nav.html')
+        .then(res => res.text())
+        .then(data => { 
+            document.getElementById('nav-placeholder').innerHTML = data; 
+            const currentPage = window.location.pathname.split("/").pop() || "index.html";
+            const navID = "nav-" + currentPage.split(".")[0];
+            const activeLink = document.getElementById(navID);
+            if (activeLink) {
+                activeLink.style.color = "var(--primary)";
+                activeLink.style.borderLeft = "4px solid var(--primary)";
+                activeLink.style.paddingLeft = "15px";
+            }
+        });
+
+    function toggleMenu() {
+        const m = document.getElementById('nav-menu');
+        if(m) m.classList.toggle('open');
+    }
+
+    // --- HELPER: GET DRIVER IMAGE ---
+    function getDriverImage(driverName) {
+        const nameLower = (driverName || "").toLowerCase();
+        
+            if (nameLower.includes('riddle')) return "https://github.com/mattwilson20/ascrl-website/blob/main/RIDDLES_RENO.png?raw=true";
+            if (nameLower.includes('superace')) return "https://github.com/mattwilson20/ascrl-website/blob/main/superace.png?raw=true";
+            if (nameLower.includes('maddietheracer')) return "https://github.com/mattwilson20/ascrl-website/blob/main/Maddietheracer99.png?raw=true";
+            if (nameLower.includes('theplugryan')) return "https://github.com/mattwilson20/ascrl-website/blob/main/Theplugryan.png?raw=true";
+            if (nameLower.includes('thirsttraptoby')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/7bc95544293252379df0a7693e5770b80e8ca8bf/ThirstTrapTobyHeroCard.jpg";
+            if (nameLower.includes('hockey')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/8e6c91687a3fd67cc8d9771eec28321a154a56ce/UpdatedHockeyHero.jpg";
+            if (nameLower.includes('k7_dalton')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/9a7e63f44a37cedfdf0b85ddeb4968c3b0da8817/k7Dalton.jpg";
+            if (nameLower.includes('isaac')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/d0f7c7e6480bc33317d4e7939036024f0dcff3dc/Isaac.jpg";
+            if (nameLower.includes('z71chevyman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/869f4adefde19421e449f2e1e9ab7bd3a6ffaee5/ChevyMan.jpg";
+            if (nameLower.includes('a54buick')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/b0f5738c17ce63c442afaca0ad22da6998499e1b/BuickBandit.jpg";
+            if (nameLower.includes('rickyspanish')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/a4eb1f155988eef725e62b9c29859db41c08a225/RickySpanish.jpg";
+            if (nameLower.includes('solid1915')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/7655f9eefe0cdd0d1809954233309718780d8925/SolidOne.jpg";
+            if (nameLower.includes('the_fireman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6426c5de3657027051e18be3fae01a1c56faefbd/Fireman.jpg";
+            if (nameLower.includes('the_stone')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/e81190c6bca706ca129f3413df56c7f2e375f74b/Stone.jpg";
+            if (nameLower.includes('alessi')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/050733b62b774aa4ec749a9612ba761aefcda477/updatedalessihero.jpg";
+            if (nameLower.includes('dakotathomas')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/720d39d80f598430f8f4d7aa2a03360db2627230/IMG_7125.jpg";
+            if (nameLower.includes('orangeman')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/70b5243e68e9c7f7a596f6695677d8d3520e89e1/IMG_7160.jpg";
+            if (nameLower.includes('ant_was_he')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/050733b62b774aa4ec749a9612ba761aefcda477/updatedantwashehero.jpg";
+            if (nameLower.includes('c0mpl1c8')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/099805ff88fcc2ba2a1cc2e8b5aba8f515a716a6/C0mpl1c8ted_hero_card.jpg";
+            if (nameLower.includes('on-a-mission')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/446d56688b6fdf55420d2c5e52b6a764e873fab6/Mission_Hero_card.jpg";
+            if (nameLower.includes('banishedcrayon')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/d42bcd32df90441f1b5f24da75a77074ea2186fe/Banished_Crayon_hero_Card.jpg";
+            if (nameLower.includes('sithwarrior')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/3e992547a13fe5d73940648e83df80d97df41f90/SithWarriorUno_Hero_Card.jpg";
+            if (nameLower.includes('majorblaz')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/77807b78b078188862cb490d2b95d2f846d237bf/Blaze_Hero_Card.jpg";
+            if (nameLower.includes('thereaperrhino')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/050733b62b774aa4ec749a9612ba761aefcda477/updatedrhinohero.jpg";
+            if (nameLower.includes('dalton')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ec988478a8132f49d9d6b596e7ed258e2c2dd482/DaltonGregson_Hero_Card.jpg";
+            if (nameLower.includes('singular_nacho')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/f311b21127533ca6128a4408f36edaf9612d59b1/Singular_Nacho_Hero_Card.jpg";
+            if (nameLower.includes('mattwilson20')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/6686ee35c988cd1b0ae305d099ff4e31c652a49f/mattwilson20_Hero_Card.jpg";
+            if (nameLower.includes('hockeydeckout')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/81df81de5161ea2f590ee32c370d3e99675cdbaa/Hockey_Hero_Card.png";
+            if (nameLower.includes('dewshine')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/69fbabfd1608e3705ac8de05efb77f5c59d2a45a/IMG_8325.jpg";
+            if (nameLower.includes('lnfvmous')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/4bee6a922312f5277f04304bbbe31876492949eb/InfamousUpdatedHero.jpg";
+            if (nameLower.includes('fordemgators')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/050733b62b774aa4ec749a9612ba761aefcda477/updatedfordhero.jpg";
+            if (nameLower.includes('gibson')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/a0de7269483b7e2ec5e1aaae549f739229008914/DGibby.hero.card.jpg";
+            if (nameLower.includes('kingg')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/9eb12bdb1b61a806ad951ae9a8bddc590622f35f/King.Hero.Card.jpg";
+            if (nameLower.includes('hatter')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/34425dadb737bc4bc27aa9271be62909dc9a3e99/Hatter.Hero.Card.jpg";
+            if (nameLower.includes('big_fella')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ced27a5d96e0d211f038b36e34a55bccf4a7e4de/BigFella.Hero.Card.jpg";
+            if (nameLower.includes('titan')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ee73828ab501e649ce3839648fc2f2eec0f98580/TitanHeroPic.jpg";
+            if (nameLower.includes('lostcoz')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/19fc0a667f0ec6e94bea222fd593c938a2fff2e9/LostCozHeroCard.jpg";
+            if (nameLower.includes('hambone')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/f59434c6e9122c0214a321e21888c2aacba368d0/HamboneHero.jpg";
+            if (nameLower.includes('mike')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/f59434c6e9122c0214a321e21888c2aacba368d0/Mikehero.jpg";
+            if (nameLower.includes('scott')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/f59434c6e9122c0214a321e21888c2aacba368d0/Scotthero.jpg";
+            if (nameLower.includes('tophert')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/f59434c6e9122c0214a321e21888c2aacba368d0/topherthero.jpg";
+            if (nameLower.includes('ty50')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/f59434c6e9122c0214a321e21888c2aacba368d0/ty50bmg.jpg";
+            if (nameLower.includes('xx8lracing')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/f59434c6e9122c0214a321e21888c2aacba368d0/x8lracinghero.jpg";
+            if (nameLower.includes('tampaxx')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/10c77e5291d5698e8a32204e81037b030e42d159/Tampaxxhero.jpg";
+            if (nameLower.includes('bigray')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/8961bbf00688e8efae3e75af9b11ee473c6a5b0a/BigRayhero.jpg";
+            if (nameLower.includes('wezzy')) return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/050733b62b774aa4ec749a9612ba761aefcda477/dezzyhero.jpg";
+            if (nameLower.includes('nitro')) return "https://github.com/mattwilson20/ascrl-website/blob/main/NitroLosiUtah2.png?raw=true";
+        
+        return "https://raw.githubusercontent.com/mattwilson20/ascrl-website/ad657026d44e8f66292dddbee7b21b0568631461/1766598509726.jpg";
+    }
+
+    // 2. DATA LOADING
+    const cacheBust = "?v=" + new Date().getTime();
+    const scheduleFile = "ASCRL_2026_Schedule.json" + cacheBust;
+    const driversFile = "drivers.json" + cacheBust; 
+    const resultsFile = "ASCRL_Results_2026.json" + cacheBust;
+
+    async function fetchWithFallback(primary, secondary) {
+        try {
+            let r = await fetch(primary);
+            if (!r.ok && secondary) r = await fetch(secondary);
+            return r.ok ? await r.json() : null;
+        } catch (e) { return null; }
+    }
+
+    Promise.all([
+        fetchWithFallback(scheduleFile, null),
+        fetchWithFallback(driversFile, null),
+        fetchWithFallback(resultsFile, null)
+    ]).then(([schedData, driversData, resultsData]) => {
+        
+        // A. LOAD CAROUSELS
+        loadCarousels(driversData, resultsData, schedData);
+
+        // B. TOURNAMENT BRACKET
+        if(driversData) {
+            buildBracket(driversData);
+        }
+        
+        // C. POWER RANKINGS
+        if(driversData && resultsData) {
+            calculatePowerRankings(driversData, resultsData);
+        }
+    });
+        // --- BRACKET LOGIC ---
+    // 🏆 MANUAL TOURNAMENT CONFIGURATION 🏆
+    // Type the names exactly as you want them to appear to lock them into the bracket.
+    const TOURNAMENT_BRACKET = {
+        
+        // The Top 32 Drivers locked in order (Seed 1 to 32)
+        seeds: [
+            "Scott247_", 
+            "bigray-45", 
+            "Joshua Riddle #12", 
+            "A54BUICKBANDIT", 
+            "z71chevymanz71", 
+            "the_fireman199", 
+            "ThirstTrapToby", 
+            "TampaxxMaxx", 
+            "KingG931", 
+            "Maddietheracer6", 
+            "SithWarriorUno", 
+            "MajorBlaz33", 
+            "mattwilson20", 
+            "dakotathomas1994", 
+            "Mike_8762", 
+            "RA_J_Set_", 
+            "C0MPL1C8ED", 
+            "eRA_LukeAss369", 
+            "BanishedCrayon", 
+            "nitro4242", 
+            "xxHambone", 
+            "tophert422", 
+            "On-A-Mission618", 
+            "Lostcozov", 
+            "Tyler “Dewshine” Green #24", 
+            "Dalton \"Barbasol\" Gregson #28", 
+            "BusterTC007", 
+            "CajunThrottle", 
+            "Steven Alessi #8", 
+            "a95tornadoes", 
+            "TheReaperRhino", 
+            "Doobie650ballz"
+        ],
+
+        // Enter the 16 drivers who advance to the Sweet 16 (Top-to-Bottom order)
+        round2: [
+            "Scott247_",
+            "RA_J_Set_",
+            "KingG931",
+            "TampaxxMaxx",
+            "A54BUICKBANDIT",
+            "nitro4242",
+            "MajorBlaz33",
+            "CajunThrottle",
+            "bigray-45",
+            "Mike_8762",
+            "On-A-Mission618",
+            "ThirstTrapToby",
+            "Joshua Riddle #12",
+            "dakotathomas1994",
+            "tophert422",
+            "the_fireman199"
+        ],
+
+        // Elite 8 (8 drivers)
+        round3: [
+            "Scott247_",
+            "KingG931",
+            "A54BUICKBANDIT",
+            "MajorBlaz33",
+            "Mike_8762",
+            "ThirstTrapToby",
+            "Joshua Riddle #12",
+            "the_fireman199"
+        ],
+
+        // Final 4 (4 drivers)
+        round4: [
+            "Scott247_",
+            "A54BUICKBANDIT",
+            "Mike_8762",
+            "Joshua Riddle #12"
+        ],
+
+        // Championship Matchup (2 drivers)
+        round5: [],
+
+        // The Ultimate Winner
+        champion: ""
+    };
+
+    function buildBracket() {
+        const top32 = [...TOURNAMENT_BRACKET.seeds];
+        while(top32.length < 32) top32.push("TBD"); // Fallback if under 32 names
+
+        // Official 32-player Athletic Seeding Logic
+        const seeds = [
+            1, 32, 16, 17, 9, 24, 8, 25, 
+            4, 29, 13, 20, 12, 21, 5, 28, 
+            2, 31, 15, 18, 10, 23, 7, 26, 
+            3, 30, 14, 19, 11, 22, 6, 27
+        ];
+        
+        // Generate Round 1 (32 Drivers)
+        let r1HTML = '';
+        for(let i=0; i<32; i+=2) {
+            const p1Name = top32[seeds[i]-1] || "TBD";
+            const p2Name = top32[seeds[i+1]-1] || "TBD";
+            r1HTML += `
+                <div class="matchup">
+                    <div class="matchup-team"><span class="m-seed">${seeds[i]}</span><span class="m-name">${p1Name}</span></div>
+                    <div class="matchup-team"><span class="m-seed">${seeds[i+1]}</span><span class="m-name">${p2Name}</span></div>
+                </div>
+            `;
+        }
+
+        // Helper function for later rounds
+        function createRoundHTML(advancingDrivers, slotsCount) {
+            let html = '';
+            for(let i=0; i<slotsCount; i+=2) {
+                const p1 = advancingDrivers[i] || "TBD";
+                const p2 = advancingDrivers[i+1] || "TBD";
+                html += `
+                    <div class="matchup">
+                        <div class="matchup-team"><span class="m-seed">-</span><span class="m-name" style="${p1==='TBD'?'color:#666;':''}">${p1}</span></div>
+                        <div class="matchup-team"><span class="m-seed">-</span><span class="m-name" style="${p2==='TBD'?'color:#666;':''}">${p2}</span></div>
+                    </div>
+                `;
+            }
+            return html;
+        }
+
+        const r2HTML = createRoundHTML(TOURNAMENT_BRACKET.round2, 16);
+        const r3HTML = createRoundHTML(TOURNAMENT_BRACKET.round3, 8);
+        const r4HTML = createRoundHTML(TOURNAMENT_BRACKET.round4, 4);
+        
+        // Championship Matchup
+        const champ1 = TOURNAMENT_BRACKET.round5[0] || "TBD";
+        const champ2 = TOURNAMENT_BRACKET.round5[1] || "TBD";
+        const finalMatchupHtml = `
+            <div class="matchup">
+                <div class="matchup-team"><span class="m-seed">-</span><span class="m-name" style="${champ1==='TBD'?'color:#666;':''}">${champ1}</span></div>
+                <div class="matchup-team"><span class="m-seed">-</span><span class="m-name" style="${champ2==='TBD'?'color:#666;':''}">${champ2}</span></div>
+            </div>
+        `;
+
+        // Winner Crown Box
+        const winnerHtml = `
+            <div class="matchup" style="border-color:#ffd700; box-shadow: 0 0 20px rgba(255,215,0,0.3); margin-top:20px;">
+                <div class="matchup-team"><span class="m-seed" style="color:#ffd700;"><i class="fa-solid fa-trophy"></i></span><span class="m-name" style="color:#ffd700;">CHAMPION</span></div>
+                <div class="matchup-team"><span class="m-seed">-</span><span class="m-name" style="${TOURNAMENT_BRACKET.champion ? 'color:#fff; font-weight:bold;' : 'color:#666;'}">${TOURNAMENT_BRACKET.champion || 'TBD'}</span></div>
+            </div>
+        `;
+        
+        const bracketHTML = `
+            <div class="bracket-round">
+                <div class="round-header">Round of 32</div>
+                ${r1HTML}
+            </div>
+            <div class="bracket-round">
+                <div class="round-header">Sweet 16</div>
+                ${r2HTML}
+            </div>
+            <div class="bracket-round">
+                <div class="round-header">Elite 8</div>
+                ${r3HTML}
+            </div>
+            <div class="bracket-round">
+                <div class="round-header">Final 4</div>
+                ${r4HTML}
+            </div>
+            <div class="bracket-round" style="justify-content: center;">
+                <div class="round-header">Championship</div>
+                ${finalMatchupHtml}
+                ${winnerHtml}
+            </div>
+        `;
+        
+        const container = document.getElementById('tournament-bracket');
+        if(container) container.innerHTML = bracketHTML;
+    }
+
+    // --- CAROUSEL LOGIC ---
+    function loadCarousels(driversData, resultsData, schedData) {
+        // A. LEADERS
+        if(driversData) {
+            let html = '';
+            const allDrivers = Object.keys(driversData).map(key => ({ id: key, display_name: driversData[key].display_name || key, ...driversData[key] }));
+            ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(seriesName => {
+                let bestDriver = null, maxPoints = -1, bestData = null;
+                allDrivers.forEach(driver => {
+                    if (!driver.series) return;
+                    const sKey = Object.keys(driver.series).find(k => k.toLowerCase() === seriesName.toLowerCase());
+                    if (sKey) {
+                        const sData = driver.series[sKey];
+                        const stats = sData.current_stats || sData.stats || {points:0};
+                        if ((stats.points || 0) > maxPoints) {
+                            maxPoints = stats.points || 0;
+                            bestDriver = driver;
+                            bestData = sData;
+                        }
+                    }
+                });
+                if (bestDriver && bestData) {
+                    let badgeClass = seriesName.toLowerCase() === 'cup' ? 'badge-cup' : seriesName.toLowerCase() === 'xfinity' ? 'badge-xfinity' : seriesName.toLowerCase() === 'truck' ? 'badge-truck' : 'badge-menards';
+                    const stats = bestData.current_stats || {wins:0};
+                    let flags = '';
+                    for(let i=0; i<stats.wins; i++) flags += `<i class="fa-solid fa-flag-checkered flag-icon ${badgeClass.replace('badge', 'flag')}"></i>`;
+
+                    html += `<div class="carousel-cell">
+                                <div class="card-layer-image" style="background-image: url('${getDriverImage(bestDriver.display_name)}');"></div>
+                                <div class="card-layer-gradient"></div>
+                                <div class="series-badge-top ${badgeClass}" style="z-index: 5;">${seriesName} LEADER</div>
+                                <div class="bg-number">${bestData.number || ''}</div>
+                                <div class="card-content">
+                                    <div class="win-flags-container">${flags}</div>
+                                    <h3 class="driver-name">${bestDriver.display_name}</h3>
+                                    <div class="stats-pill"><span>${maxPoints} PTS</span><div class="stat-divider"></div><span>${stats.wins} WINS</span></div>
+                                </div>
+                            </div>`;
+                }
+            });
+            document.getElementById('leaders-carousel').innerHTML = html;
+        }
+
+        // B. WINNERS (IGNORING EXHIBITIONS)
+        if(resultsData) {
+            let html = '';
+            const keys = Object.keys(resultsData);
+            
+            const exhibitionKeywords = ["clash", "all-star", "all star"];
+
+            ['Cup', 'Xfinity', 'Truck', 'Menards'].forEach(seriesName => {
+                let lastKey = null;
+                
+                for (let i = keys.length - 1; i >= 0; i--) {
+                    const raceName = keys[i].toLowerCase();
+                    
+                    if (raceName.startsWith(seriesName.toLowerCase())) { 
+                        
+                        let isExhibition = false;
+                        for (let keyword of exhibitionKeywords) {
+                            if (raceName.includes(keyword)) {
+                                isExhibition = true;
+                                break;
+                            }
+                        }
+                        
+                        if (!isExhibition) {
+                            lastKey = keys[i]; 
+                            break; 
+                        }
+                    }
+                }
+                
+                if(lastKey) {
+                    const winner = resultsData[lastKey].find(r => r.position == 1);
+                    if(winner) {
+                        let badgeClass = seriesName.toLowerCase() === 'cup' ? 'badge-cup' : seriesName.toLowerCase() === 'xfinity' ? 'badge-xfinity' : seriesName.toLowerCase() === 'truck' ? 'badge-truck' : 'badge-menards';
+                        let cleanName = winner.driver.replace(/^#\d+\s+/, '').trim();
+                        let carNum = (winner.driver.match(/^#(\d+)/) || [])[1] || '';
+                        
+                        html += `<div class="carousel-cell">
+                                    <div class="card-layer-image" style="background-image: url('${getDriverImage(cleanName)}');"></div>
+                                    <div class="card-layer-gradient"></div>
+                                    <div class="series-badge-top ${badgeClass}" style="right:0; left:auto; clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%); z-index:5;">${seriesName} WINNER</div>
+                                    <div class="bg-number">${carNum}</div>
+                                    <div class="card-content">
+                                        <div style="font-size:0.8rem; color:var(--primary); font-weight:bold; margin-bottom:5px;">${lastKey.split('-')[1].trim()}</div>
+                                        <h3 class="driver-name">${cleanName}</h3>
+                                        <div class="stats-pill"><span>WINNER</span><div class="stat-divider"></div><span>${winner.points} PTS</span></div>
+                                    </div>
+                                </div>`;
+                    }
+                }
+            });
+            document.getElementById('winners-carousel').innerHTML = html;
+        }
+    }
+
+    // --- POWER RANKINGS ENGINE ---
+    let rankingsCache = {}; 
+    async function calculatePowerRankings(driversData, resultsData) {
+        const momentumMap = {};
+        Object.keys(resultsData).forEach(raceKey => {
+            const parts = raceKey.split(' - ');
+            const series = parts[0]; 
+            const results = resultsData[raceKey];
+            results.forEach(r => {
+                let name = r.driver.replace(/^#\d+\s*/, '').trim();
+                if(!momentumMap[name]) momentumMap[name] = {};
+                if(!momentumMap[name][series]) momentumMap[name][series] = [];
+                momentumMap[name][series].push(r.position);
+            });
+        });
+
+        const WEIGHTS = { points: 0.40, wins: 0.20, consistency: 0.25, momentum: 0.15 };
+        const SERIES_MULT = { "Cup": 1.0, "Xfinity": 0.85, "Truck": 0.70, "Menards": 0.55 };
+        rankingsCache = { "Overall": [], "Cup": [], "Xfinity": [], "Truck": [], "Menards": [] };
+
+        function getSeriesScore(stats, seriesName, driverName) {
+            const pts = stats.points || 0;
+            const wins = stats.wins || 0;
+            const avg = stats.avg || 40;
+            const maxPts = 400; 
+            const normPoints = Math.min(pts / maxPts, 1.0);
+            const normWins = Math.min(wins / 3, 1.0);
+            const normConsist = Math.max(0, (40 - avg) / 39);
+            let normMom = 0;
+            const recents = momentumMap[driverName] ? momentumMap[driverName][seriesName] : null;
+            if(recents && recents.length > 0) {
+                const last3 = recents.slice(-3);
+                const avgRec = last3.reduce((a,b)=>a+b,0) / last3.length;
+                normMom = Math.max(0, (40 - avgRec) / 39);
+            } else { normMom = normConsist; }
+            return ((normPoints * WEIGHTS.points) + (normWins * WEIGHTS.wins) + (normConsist * WEIGHTS.consistency) + (normMom * WEIGHTS.momentum)) * 100;
+        }
+
+        Object.keys(driversData).forEach(id => {
+            const d = driversData[id];
+            const name = d.display_name;
+            let overallScoreSum = 0;
+            let seriesCount = 0;
+            let totalWins = 0;
+            let primaryTeam = "Independent";
+
+            if(d.series) {
+                Object.keys(d.series).forEach(s => {
+                    const stats = d.series[s].current_stats || d.series[s].stats;
+                    if(!stats) return;
+                    const sScore = getSeriesScore(stats, s, name);
+                    if(rankingsCache[s]) {
+                        rankingsCache[s].push({ name: name, team: d.series[s].team || "Independent", wins: stats.wins || 0, score: sScore, img: getDriverImage(name) });
+                    }
+                    if(SERIES_MULT[s]) {
+                        overallScoreSum += sScore * SERIES_MULT[s];
+                        seriesCount++;
+                        totalWins += (stats.wins || 0);
+                        if(d.series[s].team && d.series[s].team !== "Independent") primaryTeam = d.series[s].team;
+                    }
+                });
+            }
+            if(seriesCount > 0) {
+                rankingsCache["Overall"].push({ name: name, team: primaryTeam, wins: totalWins, score: overallScoreSum, img: getDriverImage(name) });
+            }
+        });
+
+        Object.keys(rankingsCache).forEach(key => { rankingsCache[key].sort((a,b) => b.score - a.score); });
+        renderRankings("Overall");
+    }
+
+    function renderRankings(category) {
+        const container = document.getElementById('power-rankings-container');
+        const data = rankingsCache[category];
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        const btn = document.querySelector(`.filter-btn.btn-${category.toLowerCase()}`) || document.querySelector(`.filter-btn.btn-overall`);
+        if(btn) btn.classList.add('active');
+
+        if(!data || data.length === 0) { container.innerHTML = `<p style="text-align:center; color:#666; padding:2rem;">No data available for ${category}.</p>`; return; }
+        container.innerHTML = ''; 
+        const limit = 10;
+        const topList = data.slice(0, limit);
+        const topScore = topList[0].score;
+        let barColor = "rgba(255,255,255,0.1)";
+        let scoreColor = "#fff";
+        if(category === "Overall") { barColor = "rgba(0,255,0,0.1)"; scoreColor = "#00ff00"; }
+        if(category === "Cup") { barColor = "rgba(0,119,255,0.1)"; scoreColor = "#0077ff"; }
+        if(category === "Xfinity") { barColor = "rgba(128,0,176,0.1)"; scoreColor = "#b042ff"; }
+        if(category === "Truck") { barColor = "rgba(204,0,0,0.1)"; scoreColor = "#ff4444"; }
+        if(category === "Menards") { barColor = "rgba(255,242,0,0.1)"; scoreColor = "#fff200"; }
+
+        topList.forEach((d, index) => {
+            const delay = index * 0.05; 
+            const widthPct = Math.max((d.score / topScore) * 100, 15);
+            const html = `
+            <div class="power-card" style="animation-delay: ${delay}s; border-color: ${scoreColor}44;">
+                <div class="p-bar" style="width: ${widthPct}%; background: ${barColor};"></div>
+                <div class="p-rank" style="color:${index<3 ? '' : '#666'}">${index + 1}</div>
+                <div class="p-driver">
+                    <img src="${d.img}" class="p-img" onerror="this.src='https://via.placeholder.com/50'">
+                    <div class="p-info">
+                        <h3>${d.name}</h3>
+                        <span class="p-team">${d.team} • ${d.wins} Wins</span>
+                    </div>
+                </div>
+                <div class="p-score-box">
+                    <div class="p-score" style="color:${scoreColor}">${d.score.toFixed(1)}</div>
+                    <div class="p-label" style="color:${scoreColor}">RATING</div>
+                </div>
+            </div>`;
+            container.innerHTML += html;
+        });
+    }
+
+
+    // --- DUAL DASHBOARD MODE SWITCH ---
+    const IRACING_DATA_URLS = [
+        "data/iracing/live_season_standings.json",
+        "live_season_standings.json",
+        "live_season_stats_max.json"
+    ];
+    let iracingLoadedOnce = false;
+    let iracingData = null;
+
+    function switchDashboardMode(mode) {
+        const nascar = document.getElementById("nascar-dashboard");
+        const iracing = document.getElementById("iracing-dashboard");
+        const nascarBtn = document.getElementById("nascarModeBtn");
+        const iracingBtn = document.getElementById("iracingModeBtn");
+
+        if (!nascar || !iracing) return;
+
+        const showIRacing = mode === "iracing";
+        nascar.classList.toggle("active", !showIRacing);
+        iracing.classList.toggle("active", showIRacing);
+        if (nascarBtn) nascarBtn.classList.toggle("active", !showIRacing);
+        if (iracingBtn) iracingBtn.classList.toggle("active", showIRacing);
+
+        window.location.hash = showIRacing ? "iracing" : "nascar25";
+
+        if (showIRacing && !iracingLoadedOnce) {
+            loadIRacingDashboard();
+        }
+    }
+
+    function irEscape(value) {
+        return String(value ?? "")
+            .replaceAll("&", "&amp;").replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;").replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+    }
+    function irNum(value, fallback = 0) {
+        const n = Number(value);
+        return Number.isFinite(n) ? n : fallback;
+    }
+    function irName(row) {
+        return row?.name || row?.iracing_name || row?.driver_name || "Unknown";
+    }
+    function irTeam(row) {
+        return row?.team_name || row?.team || "Independent";
+    }
+    function irPoints(row) {
+        return irNum(row?.points ?? row?.total_points ?? row?.total_race_points, 0);
+    }
+    function irLast3(row) {
+        return row?.avg_finish_last3 ?? row?.last3_avg_finish ?? row?.avg_finish_last_3 ?? "—";
+    }
+    function irLast5(row) {
+        return row?.avg_finish_last5 ?? row?.last5_avg_finish ?? row?.avg_finish_last_5 ?? "—";
+    }
+
+    async function fetchIRacingJSON() {
+        let lastError = null;
+        const cacheBust = "?v=" + Date.now();
+        for (const url of IRACING_DATA_URLS) {
+            try {
+                const res = await fetch(url + cacheBust, { cache: "no-store" });
+                if (!res.ok) throw new Error("Could not load " + url);
+                const json = await res.json();
+                return { json, url };
+            } catch (err) {
+                lastError = err;
+            }
+        }
+        throw lastError || new Error("No iRacing JSON found.");
+    }
+
+    async function loadIRacingDashboard() {
+        iracingLoadedOnce = true;
+        try {
+            const result = await fetchIRacingJSON();
+            iracingData = result.json || {};
+            renderIRacingDashboard();
+        } catch (err) {
+            console.error(err);
+            const body = document.getElementById("iracingDriversBody");
+            const races = document.getElementById("iracingRaceCards");
+            const sched = document.getElementById("iracingScheduleBody");
+            if (body) body.innerHTML = `<tr><td colspan="9">iRacing JSON not found yet. Put live_season_standings.json beside this file or in data/iracing/.</td></tr>`;
+            if (races) races.innerHTML = `<div class="iracing-warning">No iRacing race archive found yet.</div>`;
+            if (sched) sched.innerHTML = `<tr><td colspan="8">No iRacing schedule found yet.</td></tr>`;
+        }
+    }
+
+    function renderIRacingDashboard() {
+        const data = iracingData || {};
+        const drivers = Array.isArray(data.driver_standings) ? data.driver_standings : [];
+        const teams = Array.isArray(data.team_standings) ? data.team_standings : [];
+        const races = Array.isArray(data.race_summaries) ? data.race_summaries : (Array.isArray(data.races) ? data.races : []);
+        const schedule = Array.isArray(data.schedule) ? data.schedule : [];
+        const driverStats = Array.isArray(data.race_driver_stats) ? data.race_driver_stats : [];
+
+        const set = (id, value) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = value;
+        };
+        set("irStatDrivers", data?.season_summary?.total_drivers ?? drivers.length);
+        set("irStatTeams", data?.season_summary?.total_teams ?? teams.filter(t => String(t.team || t.team_name || "").toLowerCase() !== "independent").length);
+        set("irStatRaces", data?.season_summary?.total_races ?? races.length);
+        set("irStatStarts", data?.season_summary?.total_starts ?? driverStats.length);
+
+        const body = document.getElementById("iracingDriversBody");
+        if (body) {
+            body.innerHTML = drivers.length ? drivers.map((d, idx) => `
+                <tr>
+                    <td>${irNum(d.rank, idx + 1)}</td>
+                    <td>${irEscape(irName(d))}</td>
+                    <td>${irEscape(irTeam(d))}</td>
+                    <td class="iracing-points">${irPoints(d)}</td>
+                    <td>${irNum(d.wins, 0)}</td>
+                    <td>${irNum(d.top5s ?? d.top_5s, 0)}</td>
+                    <td>${irNum(d.top10s ?? d.top_10s, 0)}</td>
+                    <td>${irEscape(irLast3(d))}</td>
+                    <td>${irEscape(irLast5(d))}</td>
+                </tr>
+            `).join("") : `<tr><td colspan="9">No iRacing driver standings found yet.</td></tr>`;
+        }
+
+        const raceCards = document.getElementById("iracingRaceCards");
+        if (raceCards) {
+            raceCards.innerHTML = races.length ? races.slice(0, 8).map(r => `
+                <div class="iracing-race-card">
+                    <strong>${irEscape(r.track_name || "Unknown Track")}</strong>
+                    <span>Winner: ${irEscape(r.winner || "N/A")}</span>
+                    <span>Pole: ${irEscape(r.pole_winner || "N/A")}</span>
+                    <span>Hard Charger: ${irEscape(r.hard_charger || "N/A")} ${r.hard_charger_positions !== undefined ? "(" + irEscape(r.hard_charger_positions) + ")" : ""}</span>
+                    <span>Laps: ${irEscape(r.total_laps || "—")} • Cautions: ${irEscape(r.num_cautions || 0)}</span>
+                </div>
+            `).join("") : `<div class="iracing-warning">No iRacing races processed yet.</div>`;
+        }
+
+        const sched = document.getElementById("iracingScheduleBody");
+        if (sched) {
+            sched.innerHTML = schedule.length ? schedule.map(s => `
+                <tr>
+                    <td>${irEscape(s.week_number ?? s.week ?? "—")}</td>
+                    <td>${irEscape(s.race_date || s.date || "TBA")}</td>
+                    <td>${irEscape(s.track_name || s.track || "Unknown")}</td>
+                    <td>${irEscape(s.car_type || "TBD")}</td>
+                    <td>${irEscape(s.laps || "—")}</td>
+                    <td>${irEscape(s.stage_lap || "—")}</td>
+                    <td>${irEscape(s.theme || "—")}</td>
+                    <td>${irEscape(s.playoff_round || (s.is_playoff ? "Playoff" : "Regular Season"))}</td>
+                </tr>
+            `).join("") : `<tr><td colspan="8">No iRacing schedule found yet.</td></tr>`;
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const hash = String(window.location.hash || "").toLowerCase();
+        if (hash.includes("iracing")) {
+            switchDashboardMode("iracing");
+        }
+    });
+
+
+    // 1. Disable Right Click
+    document.addEventListener('contextmenu', (e) => { e.preventDefault(); });
+    // 2. Disable Keyboard Shortcuts
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey || e.metaKey) { switch (e.key.toLowerCase()) { case 'u': case 's': case 'a': case 'c': e.preventDefault(); return false; } }
+        if (e.key === 'F12') { e.preventDefault(); return false; }
+    });
+    </script>
+
+</body>
+</html>
