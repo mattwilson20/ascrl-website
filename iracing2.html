@@ -196,7 +196,7 @@
             main.container { padding: 1rem 1.5rem !important; }
         }
     
-        /* --- DUAL DASHBOARD TEST MODE - HARD SWITCH VERSION --- */
+        /* --- DUAL DASHBOARD TEST MODE - FINAL FIX --- */
         .mode-switch-wrap {
             margin-top: 1.4rem;
             display: flex;
@@ -375,9 +375,6 @@
     </style>
 
     <script>
-    /* Standalone dual-dashboard switch.
-       This is intentionally loaded in the HEAD so it does not depend on the rest
-       of the NASCAR homepage JavaScript running successfully. */
     window.ASCRL_DUAL = {
         iracingLoaded: false,
         iracingData: null,
@@ -410,26 +407,21 @@
 
     function ascrlHardSwitchDashboard(mode) {
         var showIRacing = mode === "iracing";
-
         var nascar = document.getElementById("nascar-dashboard");
         var iracing = document.getElementById("iracing-dashboard");
         var nascarBtn = document.getElementById("nascarModeBtn");
         var iracingBtn = document.getElementById("iracingModeBtn");
 
         if (!nascar || !iracing) {
-            alert("Dashboard sections were not found. Make sure you are using the dual-dashboard test HTML.");
+            alert("Dashboard sections were not found. NASCAR section found: " + !!nascar + " | iRacing section found: " + !!iracing);
             return false;
         }
 
         nascar.style.display = showIRacing ? "none" : "block";
         iracing.style.display = showIRacing ? "block" : "none";
 
-        if (nascarBtn) {
-            nascarBtn.className = showIRacing ? "mode-switch-btn" : "mode-switch-btn active";
-        }
-        if (iracingBtn) {
-            iracingBtn.className = showIRacing ? "mode-switch-btn active" : "mode-switch-btn";
-        }
+        if (nascarBtn) nascarBtn.className = showIRacing ? "mode-switch-btn" : "mode-switch-btn active";
+        if (iracingBtn) iracingBtn.className = showIRacing ? "mode-switch-btn active" : "mode-switch-btn";
 
         try {
             window.history.replaceState(null, "", showIRacing ? "#iracing" : "#nascar25");
@@ -476,7 +468,6 @@
             var body = document.getElementById("iracingDriversBody");
             var races = document.getElementById("iracingRaceCards");
             var sched = document.getElementById("iracingScheduleBody");
-
             if (body) body.innerHTML = '<tr><td colspan="9">iRacing JSON not found yet. Put live_season_standings.json beside this file or in data/iracing/.</td></tr>';
             if (races) races.innerHTML = '<div class="iracing-warning">No iRacing race archive found yet.</div>';
             if (sched) sched.innerHTML = '<tr><td colspan="8">No iRacing schedule found yet.</td></tr>';
@@ -511,8 +502,7 @@
         var data = window.ASCRL_DUAL.iracingData || {};
         var drivers = Array.isArray(data.driver_standings) ? data.driver_standings : [];
         var teams = Array.isArray(data.team_standings) ? data.team_standings : [];
-        var races = Array.isArray(data.race_summaries) ? data.race_summaries :
-                    (Array.isArray(data.races) ? data.races : []);
+        var races = Array.isArray(data.race_summaries) ? data.race_summaries : (Array.isArray(data.races) ? data.races : []);
         var schedule = Array.isArray(data.schedule) ? data.schedule : [];
         var driverStats = Array.isArray(data.race_driver_stats) ? data.race_driver_stats : [];
 
@@ -683,6 +673,60 @@
         </section>
 
     </main>
+
+    <section id="iracing-dashboard" class="iracing-command-center" aria-label="ASCRL iRacing Dashboard">
+        <div class="iracing-hero-card">
+            <span class="stat-label" style="color:#00f0ff;">ASCRL iRacing Command Center</span>
+            <h2>iRacing<br>SuperSpeedway Series</h2>
+            <p class="iracing-subtitle">
+                Live iRacing standings, team points, race archive, schedule, and driver form. This section loads separately from the NASCAR 25/26 data so either side can update without breaking the other.
+            </p>
+            <div class="iracing-warning" id="iracingStatusBox" style="margin-top:1rem;">Click iRacing to load the iRacing dashboard.</div>
+        </div>
+
+        <div class="iracing-stat-grid">
+            <div class="iracing-stat-card"><span>Drivers</span><strong id="irStatDrivers">0</strong></div>
+            <div class="iracing-stat-card"><span>Teams</span><strong id="irStatTeams">0</strong></div>
+            <div class="iracing-stat-card"><span>Races</span><strong id="irStatRaces">0</strong></div>
+            <div class="iracing-stat-card"><span>Starts</span><strong id="irStatStarts">0</strong></div>
+        </div>
+
+        <div class="iracing-grid">
+            <div class="iracing-panel">
+                <h3><i class="fa-solid fa-ranking-star"></i> Driver Standings</h3>
+                <div class="iracing-table-wrap">
+                    <table class="iracing-table">
+                        <thead>
+                            <tr>
+                                <th>Pos</th><th>Driver</th><th>Team</th><th>Pts</th><th>Wins</th><th>Top 5</th><th>Top 10</th><th>Last 3 Avg</th><th>Last 5 Avg</th>
+                            </tr>
+                        </thead>
+                        <tbody id="iracingDriversBody">
+                            <tr><td colspan="9">Click the iRacing button to load standings.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <aside class="iracing-panel">
+                <h3><i class="fa-solid fa-flag-checkered"></i> Recent Races</h3>
+                <div id="iracingRaceCards">
+                    <div class="iracing-warning">Click the iRacing button to load race archive.</div>
+                </div>
+            </aside>
+        </div>
+
+        <div class="iracing-panel" style="margin-top:18px;">
+            <h3><i class="fa-solid fa-calendar-days"></i> iRacing Schedule</h3>
+            <div class="iracing-table-wrap">
+                <table class="iracing-table">
+                    <thead><tr><th>Week</th><th>Date</th><th>Track</th><th>Car</th><th>Laps</th><th>Stage</th><th>Theme</th><th>Round</th></tr></thead>
+                    <tbody id="iracingScheduleBody"><tr><td colspan="8">Click the iRacing button to load schedule.</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
 
    <footer>
         <div style="margin-bottom: 0.5rem; letter-spacing: 2px; color: #fff;">
