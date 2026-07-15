@@ -172,44 +172,50 @@
         .woo-subtext { text-align: center; color: #666; font-size: 0.75rem; margin-top: 1rem; font-family: sans-serif; letter-spacing: 1px; text-transform: uppercase; }
         @media (max-width: 480px) { .nav-overlay { width: 100%; max-width: 100%; } .dirt-group { padding: 3rem 1rem; } }
 
+    
+        /* --- SHARED ASCRL HAMBURGER NAV LOADER --- */
+        #nav-placeholder { position: relative; z-index: 2000; }
+
     </style>
 </head>
 <body>
+    <div id="nav-placeholder"></div>
 
-    <div class="hamburger" onclick="toggleMenu()">
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-    </div>
+    <script>
+        // Shared ASCRL navigation loader. This matches the original index.html/nav.html setup.
+        fetch('nav.html')
+            .then(res => res.text())
+            .then(data => {
+                const navPlaceholder = document.getElementById('nav-placeholder');
+                if (!navPlaceholder) return;
 
-    <nav class="nav-overlay" id="nav-menu">
-        <div class="nav-content">
-            <div class="nav-group asphalt-group">
-                <div class="group-label">PAVEMENT SERIES</div>
-                <div class="nav-links">
-                    <a href="index.html" id="nav-index">DASHBOARD</a>
-                    <a href="news.html" id="nav-news">LATEST NEWS</a>
-                    <a href="standings.html" id="nav-standings">STANDINGS</a>
-                    <a href="results.html" id="nav-results">RESULTS</a>
-                    <a href="schedule.html" id="nav-schedule">CALENDAR</a>
-                    <a href="teams.html" id="nav-teams">TEAMS</a>
-                    <a href="drivers.html" id="nav-drivers">ROSTER</a>
-                    <a href="rules.html" id="nav-rules">REGULATIONS</a>
-                </div>
-            </div>
-            <div class="nav-split"></div>
-            <div class="nav-group dirt-group">
-                <div class="group-label">DIRT SERIES</div>
-                <a href="woo.html" id="nav-woo" class="woo-btn">
-                    <span class="woo-icon"><i class="fa-solid fa-flag-checkered"></i></span>
-                    <span class="woo-text">WORLD OF OUTLAWS</span>
-                </a>
-                <p class="woo-subtext">Sprint Cars • Late Models • Modifieds</p>
-            </div>
-        </div>
-    </nav>
+                navPlaceholder.innerHTML = data;
 
-    <header class="hero-woo">
+                const currentPage = window.location.pathname.split("/").pop() || "index.html";
+                const pageBase = currentPage.split(".")[0];
+
+                const possibleActiveIDs = [
+                    "nav-" + pageBase,
+                    pageBase.toLowerCase().includes("woo") ? "nav-woo" : "",
+                    pageBase.toLowerCase().includes("outlaw") ? "nav-woo" : ""
+                ].filter(Boolean);
+
+                for (const id of possibleActiveIDs) {
+                    const activeLink = document.getElementById(id);
+                    if (activeLink) {
+                        activeLink.style.color = "var(--dirt-gold)";
+                        activeLink.style.borderLeft = "4px solid var(--dirt-gold)";
+                        activeLink.style.paddingLeft = "15px";
+                        break;
+                    }
+                }
+            })
+            .catch(error => {
+                console.warn("nav.html could not be loaded:", error);
+            });
+    </script>
+
+<header class="hero-woo">
         <p class="woo-super-title">ASCR'S</p>
         <h1>World of Outlaws</h1>
         <p class="woo-sub-title">Career Stats & Breakdown</p>
