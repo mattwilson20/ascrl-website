@@ -196,8 +196,8 @@
             main.container { padding: 1rem 1.5rem !important; }
         }
     
-        /* --- DUAL DASHBOARD TEST MODE - FINAL FIX --- */
-        .mode-switch-wrap {
+        /* --- DUAL WEBSITE TEST MODE: NASCAR + FULL iRACING FRAME --- */
+        .ascrl-mode-switch {
             margin-top: 1.4rem;
             display: flex;
             justify-content: center;
@@ -206,7 +206,7 @@
             position: relative;
             z-index: 9999;
         }
-        .mode-switch-btn {
+        .ascrl-mode-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -222,206 +222,72 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             transition: 0.25s ease;
-            position: relative;
-            z-index: 10000;
             text-decoration: none;
-            pointer-events: auto;
         }
-        .mode-switch-btn:hover {
+        .ascrl-mode-btn:hover {
             transform: translateY(-2px);
             border-color: var(--primary);
             box-shadow: 0 0 18px rgba(204,0,0,0.35);
         }
-        .mode-switch-btn.active {
+        .ascrl-mode-btn.active {
             background: var(--primary);
             border-color: var(--primary);
             color: #fff;
         }
-        #nascar-dashboard { display: block; }
-        #iracing-dashboard { display: none; }
-
-        .iracing-command-center {
+        #nascar-dashboard-wrap { display: block; }
+        #iracing-dashboard-wrap {
+            display: none;
+            width: 100%;
+            min-height: 100vh;
+            background: #040407;
+        }
+        .iracing-frame-shell {
+            width: 100%;
+            min-height: 100vh;
+            background: #040407;
+            border-top: 1px solid rgba(255,255,255,0.12);
+        }
+        .iracing-full-frame {
+            width: 100%;
+            min-height: 2400px;
+            border: 0;
+            display: block;
+            background: #040407;
+        }
+        .iracing-frame-note {
             max-width: 1300px;
             margin: 0 auto;
-            padding: 3rem 2rem 5rem;
-        }
-        .iracing-hero-card {
-            background: linear-gradient(135deg, rgba(0, 240, 255, 0.12), rgba(255, 0, 60, 0.08)), #050505;
-            border: 1px solid rgba(255,255,255,0.14);
-            border-left: 4px solid #00f0ff;
-            border-radius: 14px;
-            padding: 2.4rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.45);
-        }
-        .iracing-hero-card h2 {
-            margin: 0;
-            font-size: clamp(2rem, 6vw, 4.6rem);
-            text-transform: uppercase;
-            letter-spacing: -2px;
-            line-height: 0.95;
-        }
-        .iracing-subtitle {
+            padding: 14px 18px;
             color: #aaa;
             font-family: Arial, sans-serif;
-            line-height: 1.6;
-            max-width: 780px;
-            margin-top: 1rem;
-        }
-        .iracing-stat-grid {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 14px;
-            margin: 2rem 0;
-        }
-        .iracing-stat-card {
-            background: rgba(255,255,255,0.045);
-            border: 1px solid #222;
-            border-radius: 10px;
-            padding: 1.3rem;
-        }
-        .iracing-stat-card span {
-            display: block;
-            color: #888;
-            font-size: 0.68rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-        .iracing-stat-card strong {
-            display: block;
-            font-size: 2rem;
-            margin-top: 0.5rem;
-            color: #fff;
-        }
-        .iracing-grid {
-            display: grid;
-            grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
-            gap: 18px;
-        }
-        .iracing-panel {
-            background: #080808;
-            border: 1px solid #222;
-            border-radius: 12px;
-            padding: 1.4rem;
-            overflow: hidden;
-        }
-        .iracing-panel h3 {
-            margin: 0 0 1rem;
-            color: #00f0ff;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-size: 1rem;
-        }
-        .iracing-table-wrap { overflow-x: auto; }
-        .iracing-table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 760px;
-            font-family: Arial, sans-serif;
-        }
-        .iracing-table th {
-            color: #aaa;
-            font-size: 0.72rem;
-            letter-spacing: 1px;
-            text-align: left;
-            padding: 11px 10px;
-            border-bottom: 1px solid #222;
-            text-transform: uppercase;
-        }
-        .iracing-table td {
-            padding: 11px 10px;
-            border-bottom: 1px solid #171717;
-            font-size: 0.9rem;
-        }
-        .iracing-points { color: #00ff8a; font-weight: 900; }
-        .iracing-race-card {
-            border: 1px solid #222;
-            background: rgba(255,255,255,0.035);
-            border-radius: 10px;
-            padding: 1rem;
-            margin-bottom: 10px;
-            font-family: Arial, sans-serif;
-        }
-        .iracing-race-card strong {
-            display: block;
-            color: #fff;
-            font-family: 'Arial Black', sans-serif;
-            text-transform: uppercase;
-            font-size: 0.98rem;
-        }
-        .iracing-race-card span {
-            display: block;
-            color: #999;
-            font-size: 0.82rem;
-            margin-top: 5px;
-        }
-        .iracing-warning {
-            border: 1px dashed #555;
-            color: #aaa;
-            padding: 1.2rem;
-            border-radius: 10px;
-            font-family: Arial, sans-serif;
-            background: rgba(255,255,255,0.025);
+            font-size: 0.85rem;
+            background: rgba(0,0,0,0.7);
+            border-bottom: 1px solid rgba(255,255,255,0.12);
         }
         @media (max-width: 900px) {
-            .iracing-stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-            .iracing-grid { grid-template-columns: 1fr; }
-        }
-        @media (max-width: 520px) {
-            .iracing-stat-grid { grid-template-columns: 1fr; }
-            .mode-switch-btn { width: min(100%, 270px); }
+            .iracing-full-frame { min-height: 3200px; }
         }
 
     </style>
 
     <script>
-    window.ASCRL_DUAL = {
-        iracingLoaded: false,
-        iracingData: null,
-        urls: [
-            "data/iracing/live_season_standings.json",
-            "live_season_standings.json",
-            "live_season_stats_max.json"
-        ]
-    };
-
-    function ascrlSetText(id, value) {
-        var el = document.getElementById(id);
-        if (el) el.textContent = value;
-    }
-
-    function ascrlEscape(value) {
-        value = String(value == null ? "" : value);
-        return value
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-    }
-
-    function ascrlNumber(value, fallback) {
-        var n = Number(value);
-        return isFinite(n) ? n : (fallback || 0);
-    }
-
-    function ascrlHardSwitchDashboard(mode) {
+    function ascrlSwitchSiteMode(mode) {
         var showIRacing = mode === "iracing";
-        var nascar = document.getElementById("nascar-dashboard");
-        var iracing = document.getElementById("iracing-dashboard");
-        var nascarBtn = document.getElementById("nascarModeBtn");
-        var iracingBtn = document.getElementById("iracingModeBtn");
+        var nascar = document.getElementById("nascar-dashboard-wrap");
+        var iracing = document.getElementById("iracing-dashboard-wrap");
+        var nascarBtn = document.getElementById("ascrlNascarBtn");
+        var iracingBtn = document.getElementById("ascrlIracingBtn");
 
         if (!nascar || !iracing) {
-            alert("Dashboard sections were not found. NASCAR section found: " + !!nascar + " | iRacing section found: " + !!iracing);
+            alert("Dual dashboard wrappers were not found.");
             return false;
         }
 
         nascar.style.display = showIRacing ? "none" : "block";
         iracing.style.display = showIRacing ? "block" : "none";
 
-        if (nascarBtn) nascarBtn.className = showIRacing ? "mode-switch-btn" : "mode-switch-btn active";
-        if (iracingBtn) iracingBtn.className = showIRacing ? "mode-switch-btn active" : "mode-switch-btn";
+        if (nascarBtn) nascarBtn.className = showIRacing ? "ascrl-mode-btn" : "ascrl-mode-btn active";
+        if (iracingBtn) iracingBtn.className = showIRacing ? "ascrl-mode-btn active" : "ascrl-mode-btn";
 
         try {
             window.history.replaceState(null, "", showIRacing ? "#iracing" : "#nascar25");
@@ -429,162 +295,22 @@
             window.location.hash = showIRacing ? "iracing" : "nascar25";
         }
 
-        if (showIRacing && !window.ASCRL_DUAL.iracingLoaded) {
-            ascrlLoadIRacingDashboard();
+        if (showIRacing) {
+            setTimeout(function () {
+                var frame = document.getElementById("ascrlIracingFrame");
+                if (frame && frame.contentWindow) frame.contentWindow.focus();
+            }, 200);
         }
 
         return false;
     }
 
-    function ascrlFetchFirstWorkingJSON(index, onSuccess, onFailure) {
-        if (index >= window.ASCRL_DUAL.urls.length) {
-            onFailure();
-            return;
-        }
-
-        var url = window.ASCRL_DUAL.urls[index];
-        fetch(url + "?v=" + Date.now(), { cache: "no-store" })
-            .then(function (response) {
-                if (!response.ok) throw new Error("Not found: " + url);
-                return response.json().then(function (json) {
-                    onSuccess(json, url);
-                });
-            })
-            .catch(function () {
-                ascrlFetchFirstWorkingJSON(index + 1, onSuccess, onFailure);
-            });
-    }
-
-    function ascrlLoadIRacingDashboard() {
-        window.ASCRL_DUAL.iracingLoaded = true;
-        ascrlSetText("iracingStatusBox", "Loading iRacing JSON...");
-
-        ascrlFetchFirstWorkingJSON(0, function (json, url) {
-            window.ASCRL_DUAL.iracingData = json || {};
-            ascrlSetText("iracingStatusBox", "Loaded iRacing data from: " + url);
-            ascrlRenderIRacingDashboard();
-        }, function () {
-            ascrlSetText("iracingStatusBox", "iRacing JSON not found. Put live_season_standings.json beside this HTML or inside data/iracing/.");
-            var body = document.getElementById("iracingDriversBody");
-            var races = document.getElementById("iracingRaceCards");
-            var sched = document.getElementById("iracingScheduleBody");
-            if (body) body.innerHTML = '<tr><td colspan="9">iRacing JSON not found yet. Put live_season_standings.json beside this file or in data/iracing/.</td></tr>';
-            if (races) races.innerHTML = '<div class="iracing-warning">No iRacing race archive found yet.</div>';
-            if (sched) sched.innerHTML = '<tr><td colspan="8">No iRacing schedule found yet.</td></tr>';
-        });
-    }
-
-    function ascrlDriverName(row) {
-        return row.name || row.iracing_name || row.driver_name || "Unknown";
-    }
-
-    function ascrlTeamName(row) {
-        return row.team_name || row.team || "Independent";
-    }
-
-    function ascrlPoints(row) {
-        return ascrlNumber(row.points != null ? row.points : (row.total_points != null ? row.total_points : row.total_race_points), 0);
-    }
-
-    function ascrlLast3(row) {
-        return row.avg_finish_last3 != null ? row.avg_finish_last3 :
-               row.last3_avg_finish != null ? row.last3_avg_finish :
-               row.avg_finish_last_3 != null ? row.avg_finish_last_3 : "—";
-    }
-
-    function ascrlLast5(row) {
-        return row.avg_finish_last5 != null ? row.avg_finish_last5 :
-               row.last5_avg_finish != null ? row.last5_avg_finish :
-               row.avg_finish_last_5 != null ? row.avg_finish_last_5 : "—";
-    }
-
-    function ascrlRenderIRacingDashboard() {
-        var data = window.ASCRL_DUAL.iracingData || {};
-        var drivers = Array.isArray(data.driver_standings) ? data.driver_standings : [];
-        var teams = Array.isArray(data.team_standings) ? data.team_standings : [];
-        var races = Array.isArray(data.race_summaries) ? data.race_summaries : (Array.isArray(data.races) ? data.races : []);
-        var schedule = Array.isArray(data.schedule) ? data.schedule : [];
-        var driverStats = Array.isArray(data.race_driver_stats) ? data.race_driver_stats : [];
-
-        ascrlSetText("irStatDrivers", data.season_summary && data.season_summary.total_drivers != null ? data.season_summary.total_drivers : drivers.length);
-        ascrlSetText("irStatTeams", data.season_summary && data.season_summary.total_teams != null ? data.season_summary.total_teams : teams.length);
-        ascrlSetText("irStatRaces", data.season_summary && data.season_summary.total_races != null ? data.season_summary.total_races : races.length);
-        ascrlSetText("irStatStarts", data.season_summary && data.season_summary.total_starts != null ? data.season_summary.total_starts : driverStats.length);
-
-        var body = document.getElementById("iracingDriversBody");
-        if (body) {
-            if (!drivers.length) {
-                body.innerHTML = '<tr><td colspan="9">No iRacing driver standings found yet.</td></tr>';
-            } else {
-                var driverHTML = "";
-                for (var i = 0; i < drivers.length; i++) {
-                    var d = drivers[i];
-                    driverHTML += '<tr>' +
-                        '<td>' + ascrlEscape(d.rank != null ? d.rank : i + 1) + '</td>' +
-                        '<td>' + ascrlEscape(ascrlDriverName(d)) + '</td>' +
-                        '<td>' + ascrlEscape(ascrlTeamName(d)) + '</td>' +
-                        '<td class="iracing-points">' + ascrlEscape(ascrlPoints(d)) + '</td>' +
-                        '<td>' + ascrlEscape(ascrlNumber(d.wins, 0)) + '</td>' +
-                        '<td>' + ascrlEscape(ascrlNumber(d.top5s != null ? d.top5s : d.top_5s, 0)) + '</td>' +
-                        '<td>' + ascrlEscape(ascrlNumber(d.top10s != null ? d.top10s : d.top_10s, 0)) + '</td>' +
-                        '<td>' + ascrlEscape(ascrlLast3(d)) + '</td>' +
-                        '<td>' + ascrlEscape(ascrlLast5(d)) + '</td>' +
-                    '</tr>';
-                }
-                body.innerHTML = driverHTML;
-            }
-        }
-
-        var raceCards = document.getElementById("iracingRaceCards");
-        if (raceCards) {
-            if (!races.length) {
-                raceCards.innerHTML = '<div class="iracing-warning">No iRacing races processed yet.</div>';
-            } else {
-                var raceHTML = "";
-                for (var r = 0; r < Math.min(races.length, 8); r++) {
-                    var race = races[r];
-                    raceHTML += '<div class="iracing-race-card">' +
-                        '<strong>' + ascrlEscape(race.track_name || race.track || "Unknown Track") + '</strong>' +
-                        '<span>Winner: ' + ascrlEscape(race.winner || "N/A") + '</span>' +
-                        '<span>Pole: ' + ascrlEscape(race.pole_winner || "N/A") + '</span>' +
-                        '<span>Hard Charger: ' + ascrlEscape(race.hard_charger || "N/A") + '</span>' +
-                        '<span>Laps: ' + ascrlEscape(race.total_laps || "—") + ' • Cautions: ' + ascrlEscape(race.num_cautions || 0) + '</span>' +
-                    '</div>';
-                }
-                raceCards.innerHTML = raceHTML;
-            }
-        }
-
-        var sched = document.getElementById("iracingScheduleBody");
-        if (sched) {
-            if (!schedule.length) {
-                sched.innerHTML = '<tr><td colspan="8">No iRacing schedule found yet.</td></tr>';
-            } else {
-                var scheduleHTML = "";
-                for (var s = 0; s < schedule.length; s++) {
-                    var item = schedule[s];
-                    scheduleHTML += '<tr>' +
-                        '<td>' + ascrlEscape(item.week_number != null ? item.week_number : (item.week != null ? item.week : "—")) + '</td>' +
-                        '<td>' + ascrlEscape(item.race_date || item.date || "TBA") + '</td>' +
-                        '<td>' + ascrlEscape(item.track_name || item.track || "Unknown") + '</td>' +
-                        '<td>' + ascrlEscape(item.car_type || "TBD") + '</td>' +
-                        '<td>' + ascrlEscape(item.laps || "—") + '</td>' +
-                        '<td>' + ascrlEscape(item.stage_lap || "—") + '</td>' +
-                        '<td>' + ascrlEscape(item.theme || "—") + '</td>' +
-                        '<td>' + ascrlEscape(item.playoff_round || (item.is_playoff ? "Playoff" : "Regular Season")) + '</td>' +
-                    '</tr>';
-                }
-                sched.innerHTML = scheduleHTML;
-            }
-        }
-    }
-
     window.addEventListener("DOMContentLoaded", function () {
         var hash = String(window.location.hash || "").toLowerCase();
         if (hash.indexOf("iracing") !== -1) {
-            ascrlHardSwitchDashboard("iracing");
+            ascrlSwitchSiteMode("iracing");
         } else {
-            ascrlHardSwitchDashboard("nascar");
+            ascrlSwitchSiteMode("nascar25");
         }
     });
     </script>
@@ -599,14 +325,15 @@
         <h1 class="text-gradient">ASCRL</h1>
         <div style="margin-top: 2rem; position: relative; z-index: 2;">
             <a href="https://discord.gg/RgYEY5F3Kf" class="btn-primary" style="text-decoration: none; border: 1px solid #fff; padding: 12px 30px; color: #fff; letter-spacing: 2px; font-size: 0.8rem;">JOIN THE DISCORD</a>
-            <div class="mode-switch-wrap" aria-label="Dashboard switch">
-                <a href="#nascar25" class="mode-switch-btn active" id="nascarModeBtn" onclick="return ascrlHardSwitchDashboard('nascar');">NASCAR 25/26</a>
-                <a href="#iracing" class="mode-switch-btn" id="iracingModeBtn" onclick="return ascrlHardSwitchDashboard('iracing');">iRacing</a>
+            <div class="ascrl-mode-switch" aria-label="ASCRL website mode switch">
+                <a href="#nascar25" class="ascrl-mode-btn active" id="ascrlNascarBtn" onclick="return ascrlSwitchSiteMode('nascar25');">NASCAR 25/26</a>
+                <a href="#iracing" class="ascrl-mode-btn" id="ascrlIracingBtn" onclick="return ascrlSwitchSiteMode('iracing');">iRacing</a>
             </div>
         </div>
     </header>
 
-    <main id="nascar-dashboard" class="container" style="max-width: 1300px; margin: 0 auto; padding: 2rem;">
+    <div id="nascar-dashboard-wrap">
+<main class="container" style="max-width: 1300px; margin: 0 auto; padding: 2rem;">
 
         <section class="carousel-section">
             <h2 style="margin-bottom: 3rem; text-align: center; color: var(--text-muted); font-size: 1.2rem; letter-spacing: 4px;">VICTORY LANE</h2>
@@ -673,59 +400,840 @@
         </section>
 
     </main>
+</div>
 
-    <section id="iracing-dashboard" class="iracing-command-center" aria-label="ASCRL iRacing Dashboard">
-        <div class="iracing-hero-card">
-            <span class="stat-label" style="color:#00f0ff;">ASCRL iRacing Command Center</span>
-            <h2>iRacing<br>SuperSpeedway Series</h2>
-            <p class="iracing-subtitle">
-                Live iRacing standings, team points, race archive, schedule, and driver form. This section loads separately from the NASCAR 25/26 data so either side can update without breaking the other.
-            </p>
-            <div class="iracing-warning" id="iracingStatusBox" style="margin-top:1rem;">Click iRacing to load the iRacing dashboard.</div>
+<div id="iracing-dashboard-wrap">
+    <div class="iracing-frame-shell">
+        <div class="iracing-frame-note">
+            iRacing dashboard is loaded in an isolated frame so its original Chart.js, tabs, standings, records, race archive, and JSON loader stay intact.
         </div>
+        <iframe
+            id="ascrlIracingFrame"
+            class="iracing-full-frame"
+            title="ASCRL iRacing Command Center"
+            srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;base href=&quot;./&quot;&gt;
+  &lt;meta charset=&quot;UTF-8&quot; /&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+  &lt;meta name=&quot;theme-color&quot; content=&quot;#050507&quot; /&gt;
+  &lt;title&gt;ApexGrid | ASCRL iRacing Command Center&lt;/title&gt;
+  &lt;link rel=&quot;icon&quot; href=&quot;https://cdn.discordapp.com/emojis/1445100562960879760.png?size=96&quot; /&gt;
+  &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot; /&gt;
+  &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin /&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css&quot; /&gt;
+  &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&amp;family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,700&amp;display=swap&quot; rel=&quot;stylesheet&quot; /&gt;
+  &lt;script src=&quot;https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js&quot;&gt;&lt;/script&gt;
 
-        <div class="iracing-stat-grid">
-            <div class="iracing-stat-card"><span>Drivers</span><strong id="irStatDrivers">0</strong></div>
-            <div class="iracing-stat-card"><span>Teams</span><strong id="irStatTeams">0</strong></div>
-            <div class="iracing-stat-card"><span>Races</span><strong id="irStatRaces">0</strong></div>
-            <div class="iracing-stat-card"><span>Starts</span><strong id="irStatStarts">0</strong></div>
-        </div>
+  &lt;style&gt;
+    :root {
+      --bg: #040407;
+      --bg-2: #090a10;
+      --panel: rgba(12, 14, 20, 0.86);
+      --panel-solid: #10131b;
+      --panel-2: rgba(255, 255, 255, 0.045);
+      --border: rgba(255, 255, 255, 0.12);
+      --border-strong: rgba(255, 255, 255, 0.22);
+      --text: #f5f7fb;
+      --muted: #98a1b3;
+      --muted-2: #667085;
+      --red: #ff003c;
+      --red-glow: rgba(255, 0, 60, 0.45);
+      --blue: #00f0ff;
+      --blue-glow: rgba(0, 240, 255, 0.45);
+      --green: #00ff8a;
+      --green-glow: rgba(0, 255, 138, 0.35);
+      --gold: #ffc857;
+      --purple: #a855f7;
+      --warning: #ffb020;
+      --danger: #ff375f;
+      --radius: 22px;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+      --font-display: &quot;Chakra Petch&quot;, system-ui, sans-serif;
+      --font-main: &quot;Rajdhani&quot;, system-ui, sans-serif;
+    }
 
-        <div class="iracing-grid">
-            <div class="iracing-panel">
-                <h3><i class="fa-solid fa-ranking-star"></i> Driver Standings</h3>
-                <div class="iracing-table-wrap">
-                    <table class="iracing-table">
-                        <thead>
-                            <tr>
-                                <th>Pos</th><th>Driver</th><th>Team</th><th>Pts</th><th>Wins</th><th>Top 5</th><th>Top 10</th><th>Last 3 Avg</th><th>Last 5 Avg</th>
-                            </tr>
-                        </thead>
-                        <tbody id="iracingDriversBody">
-                            <tr><td colspan="9">Click the iRacing button to load standings.</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(255, 0, 60, 0.14), transparent 34%),
+        radial-gradient(circle at 85% 12%, rgba(0, 240, 255, 0.12), transparent 38%),
+        radial-gradient(circle at 55% 80%, rgba(168, 85, 247, 0.11), transparent 45%),
+        var(--bg);
+      font-family: var(--font-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
 
-            <aside class="iracing-panel">
-                <h3><i class="fa-solid fa-flag-checkered"></i> Recent Races</h3>
-                <div id="iracingRaceCards">
-                    <div class="iracing-warning">Click the iRacing button to load race archive.</div>
-                </div>
-            </aside>
-        </div>
+    body::before {
+      content: &quot;&quot;;
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -3;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: radial-gradient(circle at center, black 22%, transparent 78%);
+      -webkit-mask-image: radial-gradient(circle at center, black 22%, transparent 78%);
+      animation: gridSlide 42s linear infinite;
+    }
 
-        <div class="iracing-panel" style="margin-top:18px;">
-            <h3><i class="fa-solid fa-calendar-days"></i> iRacing Schedule</h3>
-            <div class="iracing-table-wrap">
-                <table class="iracing-table">
-                    <thead><tr><th>Week</th><th>Date</th><th>Track</th><th>Car</th><th>Laps</th><th>Stage</th><th>Theme</th><th>Round</th></tr></thead>
-                    <tbody id="iracingScheduleBody"><tr><td colspan="8">Click the iRacing button to load schedule.</td></tr></tbody>
-                </table>
-            </div>
-        </div>
-    </section>
+    body::after {
+      content: &quot;&quot;;
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+      background:
+        linear-gradient(90deg, transparent 0 49%, rgba(0, 240, 255, 0.04) 50%, transparent 51%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 18%, transparent 82%, rgba(255, 255, 255, 0.025));
+      mix-blend-mode: screen;
+    }
+
+    @keyframes gridSlide { from { background-position: 0 0; } to { background-position: 0 540px; } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0, 255, 138, 0.55); } 70% { box-shadow: 0 0 0 10px rgba(0, 255, 138, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 255, 138, 0); } }
+
+    a { color: inherit; }
+    .site-shell { width: min(1500px, calc(100% - 32px)); margin: 0 auto; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(180deg, rgba(4, 4, 7, 0.94), rgba(4, 4, 7, 0.70));
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .topbar-inner {
+      width: min(1500px, calc(100% - 32px));
+      margin: 0 auto;
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 10px 0;
+    }
+
+    .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      color: #fff;
+      background: linear-gradient(135deg, rgba(255, 0, 60, 0.92), rgba(0, 240, 255, 0.78)), #111;
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.18);
+      transform: skewX(-10deg);
+      flex: 0 0 auto;
+    }
+    .brand-mark i { transform: skewX(10deg); }
+    .brand-title strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1.02rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .brand-title span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 1px;
+    }
+
+    .nav-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+    .pill {
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.045);
+      border-radius: 999px;
+      padding: 9px 12px;
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    .pill.live { color: var(--green); border-color: rgba(0, 255, 138, 0.35); }
+    .pulse { width: 8px; height: 8px; border-radius: 999px; background: var(--green); animation: pulse 1.8s infinite; }
+
+    .hero { padding: 54px 0 24px; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr); gap: 22px; align-items: stretch; }
+    .hero-card, .panel, .stat-card, .race-card-mini, .record-card, .driver-mini {
+      position: relative;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.074), rgba(255, 255, 255, 0.03));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+    }
+    .hero-card::before, .panel::before, .stat-card::before, .record-card::before {
+      content: &quot;&quot;;
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(0, 240, 255, 0.08), transparent 26%, transparent 74%, rgba(255, 0, 60, 0.08)),
+        radial-gradient(circle at 15% 0%, rgba(255, 255, 255, 0.09), transparent 25%);
+    }
+    .hero-card { border-radius: 32px; padding: clamp(28px, 5vw, 52px); min-height: 410px; display: flex; flex-direction: column; justify-content: space-between; }
+    .eyebrow { color: var(--blue); font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.22em; font-size: 0.82rem; display: inline-flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .hero h1, .hero-title-readable { margin: 0; font-family: var(--font-display); font-size: clamp(2.8rem, 6.6vw, 6rem); line-height: 0.98; letter-spacing: -0.03em; text-transform: uppercase; font-style: normal; font-weight: 700; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45); color: #ffffff; }
+    .hero-title-readable { max-width: 10ch; }
+    .hero-copy { max-width: 860px; color: var(--muted); font-size: clamp(1.08rem, 2vw, 1.35rem); line-height: 1.4; margin: 22px 0 0; font-weight: 600; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+    .btn {
+      border: 1px solid var(--border-strong);
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      padding: 13px 18px;
+      border-radius: 999px;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.85rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .btn:hover { transform: translateY(-2px); border-color: rgba(0, 240, 255, 0.6); background: rgba(0, 240, 255, 0.10); }
+    .btn.primary { background: linear-gradient(135deg, rgba(255, 0, 60, 0.9), rgba(0, 240, 255, 0.68)); border-color: transparent; box-shadow: 0 14px 40px rgba(0, 240, 255, 0.12); }
+
+    .leader-stack { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .leader-card {
+      border-radius: 28px;
+      padding: 22px;
+      min-height: 190px;
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.028)), rgba(0, 0, 0, 0.24);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+      position: relative;
+    }
+    .leader-card.wide { grid-column: span 2; }
+    .leader-card::after { content: &quot;&quot;; position: absolute; right: -38px; top: -42px; width: 140px; height: 140px; border-radius: 50%; background: radial-gradient(circle, rgba(0, 240, 255, 0.22), transparent 70%); }
+    .leader-label { color: var(--muted); font-family: var(--font-display); letter-spacing: 0.16em; text-transform: uppercase; font-size: 0.72rem; margin-bottom: 12px; }
+    .leader-name { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.6rem, 3.2vw, 2.75rem); line-height: 0.98; text-transform: uppercase; margin: 0; }
+    .leader-meta { margin-top: 14px; color: var(--muted); font-size: 1.04rem; display: flex; gap: 12px; flex-wrap: wrap; }
+    .metric { color: #fff; font-family: var(--font-display); display: inline-flex; align-items: baseline; gap: 5px; }
+    .metric b { color: var(--green); font-size: 1.2em; }
+
+    .stat-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; margin: 12px 0 22px; }
+    .stat-card { border-radius: 22px; padding: 18px; min-height: 132px; }
+    .stat-icon { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 13px; background: rgba(0, 240, 255, 0.10); color: var(--blue); margin-bottom: 14px; }
+    .stat-value { font-family: var(--font-display); font-size: 2.25rem; font-weight: 700; line-height: 1; }
+    .stat-label { color: var(--muted); font-size: 0.86rem; margin-top: 7px; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 700; }
+
+    .main-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; padding-bottom: 54px; }
+    .panel { border-radius: var(--radius); padding: 22px; }
+    .panel &gt; * { position: relative; z-index: 1; }
+    .panel-header { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 18px; padding-bottom: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+    .panel-title { margin: 0; font-family: var(--font-display); color: #fff; font-size: 1.3rem; text-transform: uppercase; letter-spacing: 0.06em; display: flex; align-items: center; gap: 10px; }
+    .panel-title i { color: var(--blue); }
+    .panel-subtitle { color: var(--muted); font-size: 0.95rem; margin-top: 4px; font-weight: 600; }
+
+    .tab-nav { display: flex; flex-wrap: wrap; gap: 9px; margin: 0 0 18px; }
+    .tab-btn { background: rgba(255, 255, 255, 0.048); border: 1px solid rgba(255, 255, 255, 0.10); color: var(--muted); padding: 10px 15px; border-radius: 999px; cursor: pointer; font-family: var(--font-display); font-size: 0.84rem; text-transform: uppercase; letter-spacing: 0.08em; transition: all 0.18s ease; }
+    .tab-btn:hover, .tab-btn.active { color: #fff; border-color: rgba(0, 240, 255, 0.55); background: rgba(0, 240, 255, 0.10); box-shadow: 0 0 20px rgba(0, 240, 255, 0.08); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.22s ease both; }
+
+    .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+    .search { min-width: min(100%, 360px); position: relative; flex: 1; max-width: 520px; }
+    .search i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muted-2); }
+    .search input, .select { width: 100%; border: 1px solid rgba(255, 255, 255, 0.11); background: rgba(0, 0, 0, 0.20); color: #fff; border-radius: 14px; padding: 12px 14px 12px 40px; font: 700 1rem var(--font-main); outline: none; }
+    .select { width: auto; padding: 12px 14px; cursor: pointer; }
+
+    .table-wrap { overflow: auto; border-radius: 18px; border: 1px solid rgba(255, 255, 255, 0.075); background: rgba(0, 0, 0, 0.18); }
+    table { width: 100%; border-collapse: collapse; min-width: 960px; }
+    th { position: sticky; top: 0; z-index: 2; color: var(--muted); background: rgba(12, 14, 20, 0.96); border-bottom: 1px solid rgba(255, 255, 255, 0.10); padding: 13px 14px; text-align: left; font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.74rem; white-space: nowrap; }
+    th.sortable { cursor: pointer; }
+    td { border-bottom: 1px solid rgba(255, 255, 255, 0.055); padding: 13px 14px; font-size: 1.02rem; font-weight: 700; vertical-align: top; }
+    tr:hover td { background: rgba(0, 240, 255, 0.045); }
+    .rank { color: var(--blue); font-family: var(--font-display); font-size: 1.15rem; width: 74px; }
+    .points { color: var(--green); font-family: var(--font-display); }
+    .bad { color: var(--danger); }
+    .gold { color: var(--gold); }
+    .muted { color: var(--muted); }
+    .sub { display: block; color: var(--muted); font-size: 0.84rem; font-weight: 600; margin-top: 3px; }
+
+    .badge { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--border); padding: 3px 8px; border-radius: 999px; margin-left: 7px; font-size: 0.68rem; font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.08em; vertical-align: middle; white-space: nowrap; }
+    .badge.playoff { color: var(--gold); border-color: rgba(255, 200, 87, 0.45); background: rgba(255, 200, 87, 0.10); }
+    .badge.open { color: var(--gold); border-color: rgba(255, 200, 87, 0.45); background: rgba(255, 200, 87, 0.10); }
+    .badge.penalized { color: var(--red); border-color: rgba(255, 0, 60, 0.5); background: rgba(255, 0, 60, 0.10); }
+    .badge.dismissed { color: var(--muted); border-color: rgba(255, 255, 255, 0.16); background: rgba(255, 255, 255, 0.06); }
+    .badge.green { color: var(--green); border-color: rgba(0, 255, 138, 0.4); background: rgba(0, 255, 138, 0.08); }
+    .badge.blue { color: var(--blue); border-color: rgba(0, 240, 255, 0.42); background: rgba(0, 240, 255, 0.09); }
+
+    .charts-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .chart-card { border: 1px solid rgba(255, 255, 255, 0.08); background: rgba(0, 0, 0, 0.20); border-radius: 20px; padding: 16px; min-height: 330px; }
+    .chart-title { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.92rem; color: var(--muted); margin: 0 0 12px; display: flex; justify-content: space-between; gap: 10px; }
+    .chart-wrap { height: 260px; position: relative; }
+
+    .race-grid, .driver-card-grid, .records-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .race-card-mini, .driver-mini, .record-card { border-radius: 20px; padding: 18px; border: 1px solid rgba(255, 255, 255, 0.08); background: rgba(0, 0, 0, 0.20); min-height: 154px; }
+    .mini-label, .record-label { color: var(--muted); text-transform: uppercase; letter-spacing: 0.10em; font: 700 0.76rem var(--font-display); margin-bottom: 8px; }
+    .mini-title, .record-title { font: 700 1.35rem/1.05 var(--font-display); text-transform: uppercase; margin: 0; }
+    .mini-row, .record-row { display: flex; justify-content: space-between; gap: 10px; border-top: 1px solid rgba(255, 255, 255, 0.075); padding-top: 9px; margin-top: 10px; color: var(--muted); font-weight: 700; }
+    .mini-row strong, .record-row strong { color: #fff; text-align: right; }
+    .record-list { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 8px; }
+    .record-list li { display: grid; grid-template-columns: 34px 1fr auto; gap: 10px; align-items: center; padding: 8px 0; border-top: 1px solid rgba(255,255,255,0.06); font-weight: 700; }
+    .record-list .pos { color: var(--blue); font-family: var(--font-display); }
+    details.race-detail { margin-top: 12px; border-top: 1px solid rgba(255,255,255,.08); padding-top: 10px; }
+    details.race-detail summary { cursor: pointer; color: var(--blue); font-family: var(--font-display); text-transform: uppercase; letter-spacing: .08em; font-size: .78rem; }
+    .compact-table { min-width: 0; font-size: .92rem; margin-top: 10px; }
+    .compact-table th, .compact-table td { padding: 8px 9px; font-size: .88rem; }
+
+    .empty { padding: 32px; text-align: center; color: var(--muted); border: 1px dashed rgba(255, 255, 255, 0.13); border-radius: 18px; background: rgba(0, 0, 0, 0.16); grid-column: 1 / -1; }
+    .footer { color: var(--muted-2); font-size: 0.9rem; padding: 26px 0 42px; text-align: center; font-weight: 700; }
+    .glitch-line { height: 2px; width: 100%; background: linear-gradient(90deg, transparent, var(--blue), var(--red), transparent); opacity: 0.45; margin: 20px 0 0; }
+
+    @media (max-width: 1240px) { .hero-grid { grid-template-columns: 1fr; } .stat-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .charts-grid, .race-grid, .driver-card-grid, .records-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 760px) { .topbar-inner { align-items: flex-start; flex-direction: column; } .nav-actions { width: 100%; overflow-x: auto; padding-bottom: 4px; justify-content: flex-start; flex-wrap: nowrap; } .hero { padding-top: 34px; } .hero-card { min-height: auto; border-radius: 24px; } .leader-stack { grid-template-columns: 1fr; } .leader-card.wide { grid-column: auto; } .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .charts-grid, .race-grid, .driver-card-grid, .records-grid { grid-template-columns: 1fr; } .panel { padding: 16px; } .panel-header { align-items: flex-start; flex-direction: column; } .hero-actions .btn { width: 100%; justify-content: center; text-align: center; } }
+    @media (max-width: 480px) { .site-shell, .topbar-inner { width: min(100% - 20px, 1500px); } .stat-grid { grid-template-columns: 1fr; } .hero h1, .hero-title-readable { font-size: 3.1rem; } .brand-title strong { font-size: 0.9rem; } .brand-title span { display: none; } }
+  &lt;/style&gt;
+  &lt;!-- ApexGrid ready check patch: last3/last5 avg, schedule car type, no SOF/iRating/cleanest recap callouts --&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;header class=&quot;topbar&quot;&gt;
+    &lt;div class=&quot;topbar-inner&quot;&gt;
+      &lt;div class=&quot;brand&quot;&gt;
+        &lt;div class=&quot;brand-mark&quot;&gt;&lt;i class=&quot;fa-solid fa-flag-checkered&quot;&gt;&lt;/i&gt;&lt;/div&gt;
+        &lt;div class=&quot;brand-title&quot;&gt;
+          &lt;strong&gt;ApexGrid&lt;/strong&gt;
+          &lt;span&gt;ASCRL iRacing Command Center&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;nav-actions&quot;&gt;
+        &lt;span class=&quot;pill live&quot;&gt;&lt;span class=&quot;pulse&quot;&gt;&lt;/span&gt; Live export&lt;/span&gt;
+        &lt;span class=&quot;pill&quot; id=&quot;lastUpdated&quot;&gt;&lt;i class=&quot;fa-solid fa-rotate&quot;&gt;&lt;/i&gt; Syncing&lt;/span&gt;
+        &lt;a class=&quot;pill&quot; href=&quot;#standings&quot;&gt;&lt;i class=&quot;fa-solid fa-table-list&quot;&gt;&lt;/i&gt; Database&lt;/a&gt;
+        &lt;a class=&quot;pill&quot; href=&quot;#analytics&quot;&gt;&lt;i class=&quot;fa-solid fa-chart-line&quot;&gt;&lt;/i&gt; Analytics&lt;/a&gt;
+        &lt;a class=&quot;pill&quot; href=&quot;#records&quot;&gt;&lt;i class=&quot;fa-solid fa-crown&quot;&gt;&lt;/i&gt; Records&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/header&gt;
+
+  &lt;main class=&quot;site-shell&quot;&gt;
+    &lt;section class=&quot;hero&quot;&gt;
+      &lt;div class=&quot;hero-grid&quot;&gt;
+        &lt;div class=&quot;hero-card&quot;&gt;
+          &lt;div&gt;
+            &lt;div class=&quot;eyebrow&quot;&gt;&lt;i class=&quot;fa-solid fa-satellite-dish&quot;&gt;&lt;/i&gt; Race control online&lt;/div&gt;
+            &lt;h1 class=&quot;hero-title-readable&quot;&gt;ASCRL&lt;br /&gt;iRacing&lt;br /&gt;Home&lt;/h1&gt;
+            &lt;p class=&quot;hero-copy&quot;&gt;Full command-center stats for driver standings, top 5s, top 10s, starts, poles, hard chargers, last 3 / last 5 average finish, race grids, car types, and race-by-race storylines.&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div&gt;
+            &lt;div class=&quot;hero-actions&quot;&gt;
+              &lt;a class=&quot;btn primary&quot; href=&quot;#standings&quot;&gt;&lt;i class=&quot;fa-solid fa-ranking-star&quot;&gt;&lt;/i&gt; View standings&lt;/a&gt;
+              &lt;a class=&quot;btn&quot; href=&quot;#records&quot;&gt;&lt;i class=&quot;fa-solid fa-crown&quot;&gt;&lt;/i&gt; Season records&lt;/a&gt;
+              &lt;a class=&quot;btn&quot; href=&quot;#races&quot;&gt;&lt;i class=&quot;fa-solid fa-stopwatch&quot;&gt;&lt;/i&gt; Race archive&lt;/a&gt;
+              &lt;a class=&quot;btn&quot; href=&quot;#stewards&quot;&gt;&lt;i class=&quot;fa-solid fa-gavel&quot;&gt;&lt;/i&gt; Stewards office&lt;/a&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;glitch-line&quot;&gt;&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;leader-stack&quot;&gt;
+          &lt;div class=&quot;leader-card wide&quot;&gt;
+            &lt;div class=&quot;leader-label&quot;&gt;Driver championship leader&lt;/div&gt;
+            &lt;h2 class=&quot;leader-name&quot; id=&quot;heroDriver&quot;&gt;Awaiting Data&lt;/h2&gt;
+            &lt;div class=&quot;leader-meta&quot;&gt;
+              &lt;span class=&quot;metric&quot;&gt;&lt;b id=&quot;heroDriverPts&quot;&gt;0&lt;/b&gt; pts&lt;/span&gt;
+              &lt;span class=&quot;metric&quot;&gt;&lt;b id=&quot;heroDriverWins&quot;&gt;0&lt;/b&gt; wins&lt;/span&gt;
+              &lt;span class=&quot;metric&quot;&gt;&lt;b id=&quot;heroDriverTop5&quot;&gt;0&lt;/b&gt; top 5s&lt;/span&gt;
+              &lt;span class=&quot;metric&quot;&gt;&lt;b id=&quot;heroDriverTop10&quot;&gt;0&lt;/b&gt; top 10s&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;leader-card&quot;&gt;
+            &lt;div class=&quot;leader-label&quot;&gt;Pole leader&lt;/div&gt;
+            &lt;h2 class=&quot;leader-name&quot; id=&quot;heroPole&quot;&gt;Awaiting Data&lt;/h2&gt;
+            &lt;div class=&quot;leader-meta&quot;&gt;&lt;span class=&quot;metric&quot;&gt;&lt;b id=&quot;heroPoleCount&quot;&gt;0&lt;/b&gt; poles&lt;/span&gt;&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;leader-card&quot;&gt;
+            &lt;div class=&quot;leader-label&quot;&gt;Hard charger leader&lt;/div&gt;
+            &lt;h2 class=&quot;leader-name&quot; id=&quot;heroHardCharger&quot;&gt;Awaiting Data&lt;/h2&gt;
+            &lt;div class=&quot;leader-meta&quot;&gt;&lt;span class=&quot;metric&quot;&gt;&lt;b id=&quot;heroHardChargerCount&quot;&gt;0&lt;/b&gt; awards&lt;/span&gt;&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class=&quot;stat-grid&quot; aria-label=&quot;League overview cards&quot;&gt;
+      &lt;div class=&quot;stat-card&quot;&gt;&lt;div class=&quot;stat-icon&quot;&gt;&lt;i class=&quot;fa-solid fa-users&quot;&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;stat-value&quot; id=&quot;statDrivers&quot;&gt;0&lt;/div&gt;&lt;div class=&quot;stat-label&quot;&gt;Drivers&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;stat-card&quot;&gt;&lt;div class=&quot;stat-icon&quot;&gt;&lt;i class=&quot;fa-solid fa-shield-halved&quot;&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;stat-value&quot; id=&quot;statTeams&quot;&gt;0&lt;/div&gt;&lt;div class=&quot;stat-label&quot;&gt;Teams&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;stat-card&quot;&gt;&lt;div class=&quot;stat-icon&quot;&gt;&lt;i class=&quot;fa-solid fa-trophy&quot;&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;stat-value&quot; id=&quot;statRaces&quot;&gt;0&lt;/div&gt;&lt;div class=&quot;stat-label&quot;&gt;Races&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;stat-card&quot;&gt;&lt;div class=&quot;stat-icon&quot;&gt;&lt;i class=&quot;fa-solid fa-list-ol&quot;&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;stat-value&quot; id=&quot;statStarts&quot;&gt;0&lt;/div&gt;&lt;div class=&quot;stat-label&quot;&gt;Total starts&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;stat-card&quot;&gt;&lt;div class=&quot;stat-icon&quot;&gt;&lt;i class=&quot;fa-solid fa-triangle-exclamation&quot;&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;stat-value&quot; id=&quot;statIncidents&quot;&gt;0&lt;/div&gt;&lt;div class=&quot;stat-label&quot;&gt;Incidents&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;stat-card&quot;&gt;&lt;div class=&quot;stat-icon&quot;&gt;&lt;i class=&quot;fa-solid fa-car-side&quot;&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;stat-value&quot; id=&quot;statCars&quot;&gt;0&lt;/div&gt;&lt;div class=&quot;stat-label&quot;&gt;Car types&lt;/div&gt;&lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class=&quot;main-grid&quot;&gt;
+      &lt;section class=&quot;panel&quot; id=&quot;analytics&quot;&gt;
+        &lt;div class=&quot;panel-header&quot;&gt;
+          &lt;div&gt;
+            &lt;h2 class=&quot;panel-title&quot;&gt;&lt;i class=&quot;fa-solid fa-chart-simple&quot;&gt;&lt;/i&gt; Analytics suite&lt;/h2&gt;
+            &lt;div class=&quot;panel-subtitle&quot;&gt;Charts built from the Website Ultra JSON export.&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;button class=&quot;btn&quot; onclick=&quot;loadDashboard(true)&quot;&gt;&lt;i class=&quot;fa-solid fa-arrows-rotate&quot;&gt;&lt;/i&gt; Refresh&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;charts-grid&quot;&gt;
+          &lt;div class=&quot;chart-card&quot;&gt;&lt;h3 class=&quot;chart-title&quot;&gt;Top drivers &lt;span&gt;Points&lt;/span&gt;&lt;/h3&gt;&lt;div class=&quot;chart-wrap&quot;&gt;&lt;canvas id=&quot;chartDrivers&quot;&gt;&lt;/canvas&gt;&lt;/div&gt;&lt;/div&gt;
+          &lt;div class=&quot;chart-card&quot;&gt;&lt;h3 class=&quot;chart-title&quot;&gt;Top 5 leaders &lt;span&gt;Finishes&lt;/span&gt;&lt;/h3&gt;&lt;div class=&quot;chart-wrap&quot;&gt;&lt;canvas id=&quot;chartTop5&quot;&gt;&lt;/canvas&gt;&lt;/div&gt;&lt;/div&gt;
+          &lt;div class=&quot;chart-card&quot;&gt;&lt;h3 class=&quot;chart-title&quot;&gt;Top 10 leaders &lt;span&gt;Finishes&lt;/span&gt;&lt;/h3&gt;&lt;div class=&quot;chart-wrap&quot;&gt;&lt;canvas id=&quot;chartTop10&quot;&gt;&lt;/canvas&gt;&lt;/div&gt;&lt;/div&gt;
+          &lt;div class=&quot;chart-card&quot;&gt;&lt;h3 class=&quot;chart-title&quot;&gt;Pole records &lt;span&gt;Starts P1&lt;/span&gt;&lt;/h3&gt;&lt;div class=&quot;chart-wrap&quot;&gt;&lt;canvas id=&quot;chartPoles&quot;&gt;&lt;/canvas&gt;&lt;/div&gt;&lt;/div&gt;
+          &lt;div class=&quot;chart-card&quot;&gt;&lt;h3 class=&quot;chart-title&quot;&gt;Hard chargers &lt;span&gt;Awards&lt;/span&gt;&lt;/h3&gt;&lt;div class=&quot;chart-wrap&quot;&gt;&lt;canvas id=&quot;chartHardChargers&quot;&gt;&lt;/canvas&gt;&lt;/div&gt;&lt;/div&gt;
+          &lt;div class=&quot;chart-card&quot;&gt;&lt;h3 class=&quot;chart-title&quot;&gt;Car usage &lt;span&gt;Race starts&lt;/span&gt;&lt;/h3&gt;&lt;div class=&quot;chart-wrap&quot;&gt;&lt;canvas id=&quot;chartCars&quot;&gt;&lt;/canvas&gt;&lt;/div&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      &lt;section class=&quot;panel&quot; id=&quot;standings&quot;&gt;
+        &lt;div class=&quot;panel-header&quot;&gt;
+          &lt;div&gt;
+            &lt;h2 class=&quot;panel-title&quot;&gt;&lt;i class=&quot;fa-solid fa-gauge-high&quot;&gt;&lt;/i&gt; League database&lt;/h2&gt;
+            &lt;div class=&quot;panel-subtitle&quot;&gt;Drivers, teams, records, race grids, race results, and stewarding records.&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;search&quot;&gt;&lt;i class=&quot;fa-solid fa-magnifying-glass&quot;&gt;&lt;/i&gt;&lt;input id=&quot;globalSearch&quot; type=&quot;search&quot; placeholder=&quot;Search drivers, teams, tracks, cars, penalties...&quot; /&gt;&lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;nav class=&quot;tab-nav&quot; aria-label=&quot;Dashboard tabs&quot;&gt;
+          &lt;button class=&quot;tab-btn active&quot; data-tab=&quot;drivers&quot;&gt;&lt;i class=&quot;fa-solid fa-user-astronaut&quot;&gt;&lt;/i&gt; Drivers&lt;/button&gt;
+          &lt;button class=&quot;tab-btn&quot; data-tab=&quot;records&quot;&gt;&lt;i class=&quot;fa-solid fa-crown&quot;&gt;&lt;/i&gt; Records&lt;/button&gt;
+          &lt;button class=&quot;tab-btn&quot; data-tab=&quot;races&quot;&gt;&lt;i class=&quot;fa-solid fa-flag-checkered&quot;&gt;&lt;/i&gt; Races&lt;/button&gt;
+          &lt;button class=&quot;tab-btn&quot; data-tab=&quot;raceResults&quot;&gt;&lt;i class=&quot;fa-solid fa-table-cells&quot;&gt;&lt;/i&gt; Race results&lt;/button&gt;
+          &lt;button class=&quot;tab-btn&quot; data-tab=&quot;teams&quot;&gt;&lt;i class=&quot;fa-solid fa-people-group&quot;&gt;&lt;/i&gt; Teams&lt;/button&gt;
+          &lt;button class=&quot;tab-btn&quot; data-tab=&quot;schedule&quot;&gt;&lt;i class=&quot;fa-solid fa-calendar-days&quot;&gt;&lt;/i&gt; Schedule&lt;/button&gt;
+          &lt;button class=&quot;tab-btn&quot; data-tab=&quot;stewards&quot;&gt;&lt;i class=&quot;fa-solid fa-gavel&quot;&gt;&lt;/i&gt; Stewards&lt;/button&gt;
+        &lt;/nav&gt;
+
+        &lt;div class=&quot;tab-content active&quot; id=&quot;tab-drivers&quot;&gt;
+          &lt;div class=&quot;table-wrap&quot;&gt;
+            &lt;table&gt;
+              &lt;thead&gt;&lt;tr&gt;&lt;th class=&quot;rank&quot;&gt;Pos&lt;/th&gt;&lt;th&gt;Driver&lt;/th&gt;&lt;th&gt;Team / Car #&lt;/th&gt;&lt;th class=&quot;points&quot;&gt;Points&lt;/th&gt;&lt;th&gt;Wins&lt;/th&gt;&lt;th&gt;Top 5s&lt;/th&gt;&lt;th&gt;Top 10s&lt;/th&gt;&lt;th&gt;Starts&lt;/th&gt;&lt;th&gt;Poles&lt;/th&gt;&lt;th&gt;Hard chargers&lt;/th&gt;&lt;th&gt;Last 3 Avg&lt;/th&gt;&lt;th&gt;Last 5 Avg&lt;/th&gt;&lt;th&gt;Avg start&lt;/th&gt;&lt;th&gt;Avg finish&lt;/th&gt;&lt;th&gt;Laps led&lt;/th&gt;&lt;th&gt;Inc&lt;/th&gt;&lt;th&gt;Cars used&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+              &lt;tbody id=&quot;driversBody&quot;&gt;&lt;/tbody&gt;
+            &lt;/table&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;tab-content&quot; id=&quot;tab-records&quot;&gt;&lt;div id=&quot;recordsGrid&quot; class=&quot;records-grid&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+
+        &lt;div class=&quot;tab-content&quot; id=&quot;tab-races&quot;&gt;&lt;div id=&quot;racesGrid&quot; class=&quot;race-grid&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+
+        &lt;div class=&quot;tab-content&quot; id=&quot;tab-raceResults&quot;&gt;
+          &lt;div class=&quot;toolbar&quot;&gt;
+            &lt;select id=&quot;raceSelect&quot; class=&quot;select&quot; aria-label=&quot;Choose race&quot;&gt;&lt;/select&gt;
+            &lt;select id=&quot;raceTableMode&quot; class=&quot;select&quot; aria-label=&quot;Race table mode&quot;&gt;
+              &lt;option value=&quot;results&quot;&gt;Race results&lt;/option&gt;
+              &lt;option value=&quot;starting_grid&quot;&gt;Starting grid&lt;/option&gt;
+              &lt;option value=&quot;top5&quot;&gt;Top 5&lt;/option&gt;
+              &lt;option value=&quot;top10&quot;&gt;Top 10&lt;/option&gt;
+            &lt;/select&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;table-wrap&quot;&gt;
+            &lt;table&gt;
+              &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Finish&lt;/th&gt;&lt;th&gt;Start&lt;/th&gt;&lt;th&gt;Driver&lt;/th&gt;&lt;th&gt;Car&lt;/th&gt;&lt;th&gt;Change&lt;/th&gt;&lt;th&gt;Points&lt;/th&gt;&lt;th&gt;Laps led&lt;/th&gt;&lt;th&gt;Inc&lt;/th&gt;&lt;th&gt;Best lap&lt;/th&gt;&lt;th&gt;Reason&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+              &lt;tbody id=&quot;raceResultsBody&quot;&gt;&lt;/tbody&gt;
+            &lt;/table&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;tab-content&quot; id=&quot;tab-teams&quot;&gt;
+          &lt;div class=&quot;table-wrap&quot;&gt;&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th class=&quot;rank&quot;&gt;Pos&lt;/th&gt;&lt;th&gt;Team&lt;/th&gt;&lt;th&gt;Manufacturer&lt;/th&gt;&lt;th class=&quot;points&quot;&gt;Points&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody id=&quot;teamsBody&quot;&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;tab-content&quot; id=&quot;tab-schedule&quot;&gt;
+          &lt;div class=&quot;table-wrap&quot;&gt;&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th class=&quot;rank&quot;&gt;Week&lt;/th&gt;&lt;th&gt;Track&lt;/th&gt;&lt;th&gt;Date&lt;/th&gt;&lt;th&gt;Time&lt;/th&gt;&lt;th&gt;Car Type&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody id=&quot;scheduleBody&quot;&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;tab-content&quot; id=&quot;tab-stewards&quot;&gt;
+          &lt;div class=&quot;table-wrap&quot; id=&quot;stewards&quot;&gt;&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Type&lt;/th&gt;&lt;th&gt;Driver / Protest&lt;/th&gt;&lt;th&gt;Details&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody id=&quot;stewardsBody&quot;&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;footer class=&quot;footer&quot;&gt;
+  ApexGrid / ASCRL SuperSpeedway Series &amp;bull; © 2026 ASCRL / ApexGrid. All rights reserved. Unauthorized copying, cloning, scraping, or redistribution is prohibited.
+&lt;/footer&gt;
+
+  &lt;script&gt;
+    &quot;use strict&quot;;
+
+    const DATA_URLS = [&quot;live_season_standings.json&quot;, &quot;live_season_stats_max.json&quot;];
+    const AUTO_REFRESH_MS = 60000;
+    let leagueData = {};
+    let charts = {};
+
+    const $ = (id) =&gt; document.getElementById(id);
+
+    function escapeHTML(value) {
+      return String(value ?? &quot;&quot;)
+        .replaceAll(&quot;&amp;&quot;, &quot;&amp;amp;&quot;)
+        .replaceAll(&quot;&lt;&quot;, &quot;&amp;lt;&quot;)
+        .replaceAll(&quot;&gt;&quot;, &quot;&amp;gt;&quot;)
+        .replaceAll(&#x27;&quot;&#x27;, &quot;&amp;quot;&quot;)
+        .replaceAll(&quot;&#x27;&quot;, &quot;&amp;#039;&quot;);
+    }
+
+    function asNumber(value, fallback = 0) { const n = Number(value); return Number.isFinite(n) ? n : fallback; }
+    function pct(value) { return value === null || value === undefined || value === &quot;&quot; ? &quot;—&quot; : `${asNumber(value).toFixed(1)}%`; }
+    function pos(value) { const n = asNumber(value, 0); return n &gt; 0 ? `P${n}` : &quot;—&quot;; }
+    function lapTime(value) { const n = Number(value); return Number.isFinite(n) &amp;&amp; n &gt; 0 ? `${n.toFixed(4)}s` : &quot;—&quot;; }
+    function signed(value) { const n = asNumber(value, 0); return n &gt; 0 ? `+${n}` : `${n}`; }
+
+    function formatDate(value) {
+      if (!value) return &quot;TBA&quot;;
+      const d = new Date(value);
+      if (Number.isNaN(d.getTime())) return escapeHTML(value);
+      return d.toLocaleString([], { year: &quot;numeric&quot;, month: &quot;short&quot;, day: &quot;numeric&quot;, hour: &quot;numeric&quot;, minute: &quot;2-digit&quot; });
+    }
+
+    function nameOf(row) { return row?.name || row?.iracing_name || row?.driver_name || &quot;Unknown&quot;; }
+    function teamOf(row) { return row?.team_name || row?.team || &quot;Independent&quot;; }
+    function pointsOf(row) { return asNumber(row?.points ?? row?.total_points ?? row?.total_race_points, 0); }
+    function top5Of(row) { return asNumber(row?.top5s ?? row?.top_5s, 0); }
+    function top10Of(row) { return asNumber(row?.top10s ?? row?.top_10s, 0); }
+    function polesOf(row) { return asNumber(row?.poles, 0); }
+    function hardChargersOf(row) { return asNumber(row?.hard_charger_awards, 0); }
+    function last3AvgOf(row) { return row?.avg_finish_last3 ?? row?.last3_avg_finish ?? row?.avg_finish_last_3 ?? &quot;—&quot;; }
+    function last5AvgOf(row) { return row?.avg_finish_last5 ?? row?.last5_avg_finish ?? row?.avg_finish_last_5 ?? &quot;—&quot;; }
+    function carsUsedOf(row) {
+      if (Array.isArray(row?.car_types_used)) return row.car_types_used.filter(Boolean);
+      if (typeof row?.car_types_used === &quot;string&quot;) return row.car_types_used.split(&quot;,&quot;).map(s =&gt; s.trim()).filter(Boolean);
+      return [];
+    }
+
+    function statusBadge(status) {
+      const clean = String(status || &quot;open&quot;).toLowerCase();
+      const cls = clean === &quot;penalized&quot; ? &quot;penalized&quot; : clean === &quot;dismissed&quot; ? &quot;dismissed&quot; : &quot;open&quot;;
+      return `&lt;span class=&quot;badge ${cls}&quot;&gt;${escapeHTML(clean)}&lt;/span&gt;`;
+    }
+    function playoffBadge(active) { return active ? `&lt;span class=&quot;badge playoff&quot;&gt;&lt;i class=&quot;fa-solid fa-bolt&quot;&gt;&lt;/i&gt; Chase&lt;/span&gt;` : `&lt;span class=&quot;muted&quot;&gt;—&lt;/span&gt;`; }
+    function setText(id, value) { const el = $(id); if (el) el.textContent = value; }
+    function emptyRow(cols, message) { return `&lt;tr&gt;&lt;td colspan=&quot;${cols}&quot; class=&quot;empty&quot;&gt;${escapeHTML(message)}&lt;/td&gt;&lt;/tr&gt;`; }
+
+    function getDrivers() { return Array.isArray(leagueData.driver_standings) ? leagueData.driver_standings : []; }
+    function getTeams() { return Array.isArray(leagueData.team_standings) ? leagueData.team_standings.filter(t =&gt; String(t.team || t.team_name || &quot;&quot;).toLowerCase() !== &quot;independent&quot;) : []; }
+    function getSchedule() { return Array.isArray(leagueData.schedule) ? leagueData.schedule : []; }
+    function getPenalties() { return Array.isArray(leagueData.penalty_log) ? leagueData.penalty_log : []; }
+    function getProtests() { return Array.isArray(leagueData.protest_log) ? leagueData.protest_log : []; }
+    function getRaceEvents() { return Array.isArray(leagueData.race_events) ? leagueData.race_events : []; }
+    function getRaceSummaries() { return Array.isArray(leagueData.race_summaries) ? leagueData.race_summaries : (Array.isArray(leagueData.races) ? leagueData.races : []); }
+    function getDriverStats() { return Array.isArray(leagueData.race_driver_stats) ? leagueData.race_driver_stats : (Array.isArray(leagueData.driver_stats) ? leagueData.driver_stats : []); }
+    function getRecords() { return leagueData.records &amp;&amp; typeof leagueData.records === &quot;object&quot; ? leagueData.records : {}; }
+    function getSummary() { return leagueData.season_summary &amp;&amp; typeof leagueData.season_summary === &quot;object&quot; ? leagueData.season_summary : {}; }
+    function getCarUsage() { return Array.isArray(getSummary().car_usage) ? getSummary().car_usage : []; }
+
+    function filtered(rows) {
+      const search = ($(&quot;globalSearch&quot;)?.value || &quot;&quot;).toLowerCase().trim();
+      if (!search) return rows;
+      return rows.filter(row =&gt; JSON.stringify(row).toLowerCase().includes(search));
+    }
+
+    function deriveLeader(recordKey, fallbackKey, low = false) {
+      const records = getRecords();
+      const list = records[recordKey];
+      if (Array.isArray(list) &amp;&amp; list.length) return list[0];
+      const drivers = getDrivers().filter(d =&gt; d[fallbackKey] !== null &amp;&amp; d[fallbackKey] !== undefined);
+      return drivers.sort((a, b) =&gt; low ? asNumber(a[fallbackKey], 9999) - asNumber(b[fallbackKey], 9999) : asNumber(b[fallbackKey], 0) - asNumber(a[fallbackKey], 0))[0] || {};
+    }
+
+    function renderHeroAndStats() {
+      const drivers = getDrivers();
+      const teams = getTeams();
+      const summary = getSummary();
+      const leader = summary.leader_points || drivers[0] || {};
+      const poleLeader = deriveLeader(&quot;pole_leaders&quot;, &quot;poles&quot;);
+      const hardLeader = deriveLeader(&quot;hard_charger_leaders&quot;, &quot;hard_charger_awards&quot;);
+
+      setText(&quot;heroDriver&quot;, nameOf(leader));
+      setText(&quot;heroDriverPts&quot;, pointsOf(leader));
+      setText(&quot;heroDriverWins&quot;, asNumber(leader.wins, 0));
+      setText(&quot;heroDriverTop5&quot;, top5Of(leader));
+      setText(&quot;heroDriverTop10&quot;, top10Of(leader));
+      setText(&quot;heroPole&quot;, nameOf(poleLeader));
+      setText(&quot;heroPoleCount&quot;, polesOf(poleLeader));
+      setText(&quot;heroHardCharger&quot;, nameOf(hardLeader));
+      setText(&quot;heroHardChargerCount&quot;, hardChargersOf(hardLeader));
+
+      setText(&quot;statDrivers&quot;, asNumber(summary.total_drivers, drivers.length));
+      setText(&quot;statTeams&quot;, asNumber(summary.total_teams, teams.length));
+      setText(&quot;statRaces&quot;, asNumber(summary.total_races, getRaceSummaries().length || getRaceEvents().length));
+      setText(&quot;statStarts&quot;, asNumber(summary.total_starts, getDriverStats().length));
+      setText(&quot;statIncidents&quot;, asNumber(summary.total_incidents, getDriverStats().reduce((sum, r) =&gt; sum + asNumber(r.incidents, 0), 0)));
+      setText(&quot;statCars&quot;, getCarUsage().length || new Set(getDriverStats().map(r =&gt; r.car_name).filter(Boolean)).size);
+    }
+
+    function renderDrivers() {
+      const rows = filtered(getDrivers());
+      $(&quot;driversBody&quot;).innerHTML = rows.length ? rows.map((d, i) =&gt; {
+        const cars = carsUsedOf(d);
+        return `
+          &lt;tr&gt;
+            &lt;td class=&quot;rank&quot;&gt;${asNumber(d.rank, i + 1)}&lt;/td&gt;
+            &lt;td&gt;${escapeHTML(nameOf(d))} ${playoffBadge(d.playoff_alive)}&lt;/td&gt;
+            &lt;td&gt;${escapeHTML(teamOf(d))}&lt;span class=&quot;sub&quot;&gt;#${escapeHTML(d.car_number || d.roster_car_number || &quot;—&quot;)} &amp;bull; ${escapeHTML(d.manufacturer || &quot;Unknown&quot;)}&lt;/span&gt;&lt;/td&gt;
+            &lt;td class=&quot;points&quot;&gt;${pointsOf(d)}&lt;/td&gt;
+            &lt;td&gt;${asNumber(d.wins, 0)}&lt;/td&gt;
+            &lt;td class=&quot;gold&quot;&gt;${top5Of(d)}&lt;/td&gt;
+            &lt;td class=&quot;gold&quot;&gt;${top10Of(d)}&lt;/td&gt;
+            &lt;td&gt;${asNumber(d.starts, 0)}&lt;/td&gt;
+            &lt;td&gt;${polesOf(d)}&lt;/td&gt;
+            &lt;td&gt;${hardChargersOf(d)}&lt;/td&gt;
+            &lt;td&gt;${last3AvgOf(d)}&lt;/td&gt;
+            &lt;td&gt;${last5AvgOf(d)}&lt;/td&gt;
+            &lt;td&gt;${d.avg_start ?? &quot;—&quot;}&lt;/td&gt;
+            &lt;td&gt;${d.avg_finish ?? &quot;—&quot;}&lt;/td&gt;
+            &lt;td&gt;${asNumber(d.laps_led, 0)}&lt;/td&gt;
+            &lt;td&gt;${asNumber(d.incidents, 0)}x&lt;/td&gt;
+            &lt;td&gt;${cars.length ? escapeHTML(cars.slice(0, 3).join(&quot;, &quot;)) + (cars.length &gt; 3 ? `&lt;span class=&quot;sub&quot;&gt;+${cars.length - 3} more&lt;/span&gt;` : &quot;&quot;) : `&lt;span class=&quot;muted&quot;&gt;—&lt;/span&gt;`}&lt;/td&gt;
+          &lt;/tr&gt;`;
+      }).join(&quot;&quot;) : emptyRow(17, &quot;No driver standings found. Run /export_season from the corrected bot and upload live_season_standings.json.&quot;);
+    }
+
+    function leaderboardCard(title, icon, rows, valueGetter, unit = &quot;&quot;) {
+      const safeRows = Array.isArray(rows) ? rows.slice(0, 10) : [];
+      return `
+        &lt;article class=&quot;record-card&quot;&gt;
+          &lt;div class=&quot;record-label&quot;&gt;&lt;i class=&quot;fa-solid ${icon}&quot;&gt;&lt;/i&gt; ${escapeHTML(title)}&lt;/div&gt;
+          ${safeRows.length ? `&lt;ol class=&quot;record-list&quot;&gt;${safeRows.map((r, i) =&gt; `
+            &lt;li&gt;&lt;span class=&quot;pos&quot;&gt;${i + 1}&lt;/span&gt;&lt;span&gt;${escapeHTML(nameOf(r))}&lt;/span&gt;&lt;strong&gt;${escapeHTML(valueGetter(r))}${unit}&lt;/strong&gt;&lt;/li&gt;
+          `).join(&quot;&quot;)}&lt;/ol&gt;` : `&lt;div class=&quot;empty&quot;&gt;No data yet.&lt;/div&gt;`}
+        &lt;/article&gt;`;
+    }
+
+    function renderRecords() {
+      const records = getRecords();
+      const drivers = getDrivers();
+      const top = (key, fallbackKey, low = false) =&gt; Array.isArray(records[key]) &amp;&amp; records[key].length
+        ? records[key]
+        : drivers.slice().filter(d =&gt; d[fallbackKey] !== null &amp;&amp; d[fallbackKey] !== undefined).sort((a, b) =&gt; low ? asNumber(a[fallbackKey], 9999) - asNumber(b[fallbackKey], 9999) : asNumber(b[fallbackKey], 0) - asNumber(a[fallbackKey], 0)).slice(0, 10);
+      const carUsage = getCarUsage();
+      $(&quot;recordsGrid&quot;).innerHTML = [
+        leaderboardCard(&quot;Points leaders&quot;, &quot;fa-ranking-star&quot;, top(&quot;points_leaders&quot;, &quot;points&quot;), r =&gt; pointsOf(r)),
+        leaderboardCard(&quot;Win leaders&quot;, &quot;fa-trophy&quot;, top(&quot;win_leaders&quot;, &quot;wins&quot;), r =&gt; asNumber(r.wins, 0)),
+        leaderboardCard(&quot;Top 5 leaders&quot;, &quot;fa-medal&quot;, top(&quot;top5_leaders&quot;, &quot;top5s&quot;), r =&gt; top5Of(r)),
+        leaderboardCard(&quot;Top 10 leaders&quot;, &quot;fa-list-ol&quot;, top(&quot;top10_leaders&quot;, &quot;top10s&quot;), r =&gt; top10Of(r)),
+        leaderboardCard(&quot;Pole records&quot;, &quot;fa-flag&quot;, top(&quot;pole_leaders&quot;, &quot;poles&quot;), r =&gt; polesOf(r)),
+        leaderboardCard(&quot;Hard charger awards&quot;, &quot;fa-rocket&quot;, top(&quot;hard_charger_leaders&quot;, &quot;hard_charger_awards&quot;), r =&gt; hardChargersOf(r)),
+        leaderboardCard(&quot;Net position gain&quot;, &quot;fa-arrow-trend-up&quot;, top(&quot;hard_charger_net&quot;, &quot;net_position_change&quot;), r =&gt; signed(r.net_position_change)),
+        leaderboardCard(&quot;Laps led&quot;, &quot;fa-road&quot;, top(&quot;laps_led_leaders&quot;, &quot;laps_led&quot;), r =&gt; asNumber(r.laps_led, 0)),
+        leaderboardCard(&quot;Best avg finish&quot;, &quot;fa-bullseye&quot;, top(&quot;avg_finish_leaders&quot;, &quot;avg_finish&quot;, true), r =&gt; r.avg_finish ?? &quot;—&quot;),
+        leaderboardCard(&quot;Best avg start&quot;, &quot;fa-gauge-high&quot;, top(&quot;avg_start_leaders&quot;, &quot;avg_start&quot;, true), r =&gt; r.avg_start ?? &quot;—&quot;),
+        leaderboardCard(&quot;Car usage&quot;, &quot;fa-car-side&quot;, carUsage, r =&gt; r.car_name || &quot;Unknown car&quot;, &quot;&quot; ).replaceAll(&quot;Unknown&quot;, &quot;Unknown&quot;)
+      ].join(&quot;&quot;);
+      if (carUsage.length) {
+        const cards = $(&quot;recordsGrid&quot;).querySelectorAll(&quot;.record-card&quot;);
+        const last = cards[cards.length - 1];
+        last.innerHTML = `&lt;div class=&quot;record-label&quot;&gt;&lt;i class=&quot;fa-solid fa-car-side&quot;&gt;&lt;/i&gt; Car usage&lt;/div&gt;&lt;ol class=&quot;record-list&quot;&gt;${carUsage.slice(0, 10).map((c, i) =&gt; `&lt;li&gt;&lt;span class=&quot;pos&quot;&gt;${i + 1}&lt;/span&gt;&lt;span&gt;${escapeHTML(c.car_name || &quot;Unknown car&quot;)}&lt;/span&gt;&lt;strong&gt;${asNumber(c.starts, 0)} starts&lt;/strong&gt;&lt;/li&gt;`).join(&quot;&quot;)}&lt;/ol&gt;`;
+      }
+    }
+
+    function rowMini(row, index, mode = &quot;finish&quot;) {
+      const p = mode === &quot;start&quot; ? row.start_position : row.finish_position;
+      return `&lt;tr&gt;&lt;td&gt;${index + 1}&lt;/td&gt;&lt;td&gt;${pos(p)}&lt;/td&gt;&lt;td&gt;${escapeHTML(row.iracing_name || row.name || &quot;Unknown&quot;)}&lt;/td&gt;&lt;td&gt;${escapeHTML(row.car_name || &quot;Unknown car&quot;)}&lt;/td&gt;&lt;td class=&quot;${asNumber(row.position_change, 0) &lt; 0 ? &quot;bad&quot; : &quot;points&quot;}&quot;&gt;${signed(row.position_change)}&lt;/td&gt;&lt;td&gt;${asNumber(row.total_race_points, 0)}&lt;/td&gt;&lt;td&gt;${asNumber(row.laps_led, 0)}&lt;/td&gt;&lt;td&gt;${asNumber(row.incidents, 0)}x&lt;/td&gt;&lt;/tr&gt;`;
+    }
+
+    function renderRaces() {
+      const rows = filtered(getRaceSummaries().slice().sort((a, b) =&gt; asNumber(b.subsession_id, 0) - asNumber(a.subsession_id, 0)));
+      $(&quot;racesGrid&quot;).innerHTML = rows.length ? rows.map(r =&gt; {
+        const carText = Array.isArray(r.car_types) &amp;&amp; r.car_types.length ? r.car_types.join(&quot;, &quot;) : (r.winner_car || r.pole_car || &quot;Unknown car&quot;);
+        const top5 = Array.isArray(r.top5) ? r.top5 : [];
+        const top10 = Array.isArray(r.top10) ? r.top10 : [];
+        return `
+          &lt;article class=&quot;race-card-mini&quot; id=&quot;race-${escapeHTML(r.subsession_id || &quot;&quot;)}&quot;&gt;
+            &lt;div class=&quot;mini-label&quot;&gt;Subsession ${escapeHTML(r.subsession_id || &quot;—&quot;)}&lt;/div&gt;
+            &lt;h3 class=&quot;mini-title&quot;&gt;${escapeHTML(r.track_name || &quot;Unknown Track&quot;)}&lt;/h3&gt;
+            &lt;div class=&quot;sub&quot;&gt;${formatDate(r.processed_at || r.start_time)} &amp;bull; ${escapeHTML(carText)}&lt;/div&gt;
+            &lt;div class=&quot;mini-row&quot;&gt;&lt;span&gt;Winner&lt;/span&gt;&lt;strong&gt;${escapeHTML(r.winner || &quot;N/A&quot;)}&lt;/strong&gt;&lt;/div&gt;
+            &lt;div class=&quot;mini-row&quot;&gt;&lt;span&gt;Pole&lt;/span&gt;&lt;strong&gt;${escapeHTML(r.pole_winner || &quot;N/A&quot;)}&lt;/strong&gt;&lt;/div&gt;
+            &lt;div class=&quot;mini-row&quot;&gt;&lt;span&gt;Hard charger&lt;/span&gt;&lt;strong&gt;${escapeHTML(r.hard_charger || &quot;N/A&quot;)} ${r.hard_charger_positions !== null &amp;&amp; r.hard_charger_positions !== undefined ? `(${signed(r.hard_charger_positions)})` : &quot;&quot;}&lt;/strong&gt;&lt;/div&gt;
+            &lt;div class=&quot;mini-row&quot;&gt;&lt;span&gt;Laps&lt;/span&gt;&lt;strong&gt;${escapeHTML(r.total_laps || &quot;—&quot;)}&lt;/strong&gt;&lt;/div&gt;
+            &lt;div class=&quot;mini-row&quot;&gt;&lt;span&gt;Cautions&lt;/span&gt;&lt;strong&gt;${asNumber(r.num_cautions, 0)} / ${asNumber(r.num_caution_laps, 0)} laps&lt;/strong&gt;&lt;/div&gt;
+            &lt;div class=&quot;mini-row&quot;&gt;&lt;span&gt;Lead changes&lt;/span&gt;&lt;strong&gt;${asNumber(r.num_lead_changes, 0)}&lt;/strong&gt;&lt;/div&gt;
+            &lt;details class=&quot;race-detail&quot;&gt;&lt;summary&gt;Top 5&lt;/summary&gt;&lt;div class=&quot;table-wrap&quot;&gt;&lt;table class=&quot;compact-table&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;#&lt;/th&gt;&lt;th&gt;Fin&lt;/th&gt;&lt;th&gt;Driver&lt;/th&gt;&lt;th&gt;Car&lt;/th&gt;&lt;th&gt;+/-&lt;/th&gt;&lt;th&gt;Pts&lt;/th&gt;&lt;th&gt;Led&lt;/th&gt;&lt;th&gt;Inc&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;${top5.length ? top5.map((row, i) =&gt; rowMini(row, i)).join(&quot;&quot;) : emptyRow(8, &quot;No top 5 data&quot;)}&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;/details&gt;
+            &lt;details class=&quot;race-detail&quot;&gt;&lt;summary&gt;Top 10&lt;/summary&gt;&lt;div class=&quot;table-wrap&quot;&gt;&lt;table class=&quot;compact-table&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;#&lt;/th&gt;&lt;th&gt;Fin&lt;/th&gt;&lt;th&gt;Driver&lt;/th&gt;&lt;th&gt;Car&lt;/th&gt;&lt;th&gt;+/-&lt;/th&gt;&lt;th&gt;Pts&lt;/th&gt;&lt;th&gt;Led&lt;/th&gt;&lt;th&gt;Inc&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;${top10.length ? top10.map((row, i) =&gt; rowMini(row, i)).join(&quot;&quot;) : emptyRow(8, &quot;No top 10 data&quot;)}&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;/details&gt;
+          &lt;/article&gt;`;
+      }).join(&quot;&quot;) : `&lt;div class=&quot;empty&quot;&gt;No race summaries found yet. Process a race, then run /export_season.&lt;/div&gt;`;
+    }
+
+    function populateRaceSelect() {
+      const races = getRaceSummaries().slice().sort((a, b) =&gt; asNumber(b.subsession_id, 0) - asNumber(a.subsession_id, 0));
+      $(&quot;raceSelect&quot;).innerHTML = races.length ? races.map(r =&gt; `&lt;option value=&quot;${escapeHTML(r.subsession_id)}&quot;&gt;${escapeHTML(r.track_name || &quot;Race&quot;)} — ${escapeHTML(r.subsession_id || &quot;&quot;)}&lt;/option&gt;`).join(&quot;&quot;) : `&lt;option value=&quot;&quot;&gt;No races&lt;/option&gt;`;
+    }
+
+    function renderRaceResults() {
+      const races = getRaceSummaries();
+      const sid = $(&quot;raceSelect&quot;).value || (races[0]?.subsession_id ?? &quot;&quot;);
+      const mode = $(&quot;raceTableMode&quot;).value;
+      const race = races.find(r =&gt; String(r.subsession_id) === String(sid)) || races[0] || {};
+      let rows = Array.isArray(race[mode]) ? race[mode] : [];
+      if (!rows.length &amp;&amp; mode === &quot;results&quot; &amp;&amp; Array.isArray(race.top10)) rows = race.top10;
+      $(&quot;raceResultsBody&quot;).innerHTML = rows.length ? rows.map(r =&gt; `
+        &lt;tr&gt;
+          &lt;td&gt;${pos(r.finish_position)}&lt;/td&gt;
+          &lt;td&gt;${pos(r.start_position)}&lt;/td&gt;
+          &lt;td&gt;${escapeHTML(r.iracing_name || r.name || &quot;Unknown&quot;)}&lt;span class=&quot;sub&quot;&gt;#${escapeHTML(r.car_number || &quot;—&quot;)} &amp;bull; ${escapeHTML(r.team_name || &quot;Independent&quot;)}&lt;/span&gt;&lt;/td&gt;
+          &lt;td&gt;${escapeHTML(r.car_name || &quot;Unknown car&quot;)}&lt;/td&gt;
+          &lt;td class=&quot;${asNumber(r.position_change, 0) &lt; 0 ? &quot;bad&quot; : &quot;points&quot;}&quot;&gt;${signed(r.position_change)}&lt;/td&gt;
+          &lt;td class=&quot;points&quot;&gt;${asNumber(r.total_race_points, 0)}&lt;/td&gt;
+          &lt;td&gt;${asNumber(r.laps_led, 0)}&lt;/td&gt;
+          &lt;td&gt;${asNumber(r.incidents, 0)}x&lt;/td&gt;
+          &lt;td&gt;${lapTime(r.best_lap_time_sec)}&lt;/td&gt;
+          &lt;td&gt;${escapeHTML(r.reason_out || &quot;Running&quot;)}&lt;/td&gt;
+        &lt;/tr&gt;`).join(&quot;&quot;) : emptyRow(10, &quot;No rows for that race/table yet.&quot;);
+    }
+
+    function renderTeams() {
+      const rows = filtered(getTeams());
+      $(&quot;teamsBody&quot;).innerHTML = rows.length ? rows.map((t, i) =&gt; `
+        &lt;tr&gt;&lt;td class=&quot;rank&quot;&gt;${i + 1}&lt;/td&gt;&lt;td&gt;${escapeHTML(t.team || t.team_name || &quot;Unknown Team&quot;)}&lt;/td&gt;&lt;td&gt;${escapeHTML(t.manufacturer || &quot;Unknown&quot;)}&lt;/td&gt;&lt;td class=&quot;points&quot;&gt;${pointsOf(t)}&lt;/td&gt;&lt;/tr&gt;`).join(&quot;&quot;) : emptyRow(4, &quot;No active teams registered yet.&quot;);
+    }
+
+    function renderSchedule() {
+      const rows = filtered(getSchedule());
+      $(&quot;scheduleBody&quot;).innerHTML = rows.length ? rows.map(s =&gt; `
+        &lt;tr&gt;&lt;td class=&quot;rank&quot;&gt;${escapeHTML(s.week_number ?? s.week ?? &quot;—&quot;)}&lt;/td&gt;&lt;td&gt;${escapeHTML(s.track_name || s.track || &quot;Unknown Track&quot;)}&lt;/td&gt;&lt;td&gt;${escapeHTML(s.race_date || s.date || &quot;TBA&quot;)}&lt;/td&gt;&lt;td&gt;${escapeHTML(s.race_time || s.time || &quot;TBA&quot;)}&lt;/td&gt;&lt;td&gt;${escapeHTML(s.car_type || s.car || &quot;TBD&quot;)}&lt;/td&gt;&lt;td&gt;${s.is_playoff ? `&lt;span class=&quot;badge blue&quot;&gt;Playoff race&lt;/span&gt;` : `&lt;span class=&quot;muted&quot;&gt;Regular season&lt;/span&gt;`}&lt;/td&gt;&lt;/tr&gt;`).join(&quot;&quot;) : emptyRow(6, &quot;Schedule pending.&quot;);
+    }
+
+    function renderStewards() {
+      const penalties = filtered(getPenalties()).map(p =&gt; `
+        &lt;tr&gt;&lt;td&gt;&lt;span class=&quot;badge penalized&quot;&gt;Penalty&lt;/span&gt;&lt;/td&gt;&lt;td&gt;${escapeHTML(p.name || p.iracing_name || &quot;Unknown&quot;)}&lt;/td&gt;&lt;td&gt;&lt;span class=&quot;bad&quot;&gt;-${asNumber(p.points_deducted, 0)} pts&lt;/span&gt;&lt;span class=&quot;sub&quot;&gt;${escapeHTML(p.reason || &quot;No reason provided&quot;)}&lt;/span&gt;&lt;/td&gt;&lt;td&gt;${escapeHTML(p.issued_by || &quot;Stewards&quot;)}&lt;/td&gt;&lt;/tr&gt;`);
+      const protests = filtered(getProtests()).map(p =&gt; `
+        &lt;tr&gt;&lt;td&gt;&lt;span class=&quot;badge open&quot;&gt;Protest&lt;/span&gt;&lt;/td&gt;&lt;td&gt;#${escapeHTML(p.protest_id || &quot;—&quot;)} &amp;bull; ${escapeHTML(p.accused_driver || &quot;Unknown&quot;)}&lt;/td&gt;&lt;td&gt;Lap ${escapeHTML(p.lap || &quot;—&quot;)} — ${escapeHTML(p.reason || &quot;No statement&quot;)} ${p.video_link ? `&lt;span class=&quot;sub&quot;&gt;&lt;a href=&quot;${escapeHTML(p.video_link)}&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Evidence link&lt;/a&gt;&lt;/span&gt;` : &quot;&quot;}&lt;/td&gt;&lt;td&gt;${statusBadge(p.status)} &lt;span class=&quot;sub&quot;&gt;${escapeHTML(p.ruling || &quot;Pending review&quot;)}&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;`);
+      const rows = [...penalties, ...protests];
+      $(&quot;stewardsBody&quot;).innerHTML = rows.length ? rows.join(&quot;&quot;) : emptyRow(4, &quot;No stewarding records found.&quot;);
+    }
+
+    function chartDefaults() {
+      if (!window.Chart) return;
+      Chart.defaults.color = &quot;rgba(245, 247, 251, 0.72)&quot;;
+      Chart.defaults.font.family = &quot;&#x27;Rajdhani&#x27;, system-ui, sans-serif&quot;;
+      Chart.defaults.borderColor = &quot;rgba(255, 255, 255, 0.08)&quot;;
+    }
+    function destroyChart(id) { if (charts[id]) { charts[id].destroy(); charts[id] = null; } }
+    function makeBarChart(id, labels, values, label, accent) {
+      if (!window.Chart) return;
+      destroyChart(id);
+      const canvas = $(id);
+      if (!canvas) return;
+      charts[id] = new Chart(canvas, {
+        type: &quot;bar&quot;,
+        data: { labels, datasets: [{ label, data: values, backgroundColor: accent, borderColor: accent.replace(&quot;0.55&quot;, &quot;1&quot;).replace(&quot;0.62&quot;, &quot;1&quot;), borderWidth: 1, borderRadius: 10, maxBarThickness: 44 }] },
+        options: { responsive: true, maintainAspectRatio: false, indexAxis: labels.length &gt; 7 ? &quot;y&quot; : &quot;x&quot;, plugins: { legend: { display: false }, tooltip: { backgroundColor: &quot;rgba(5, 5, 7, 0.94)&quot;, borderColor: &quot;rgba(255,255,255,0.16)&quot;, borderWidth: 1, titleFont: { family: &quot;Chakra Petch&quot;, weight: &quot;700&quot; }, bodyFont: { family: &quot;Rajdhani&quot;, weight: &quot;700&quot;, size: 14 } } }, scales: { x: { grid: { color: &quot;rgba(255,255,255,0.06)&quot; }, ticks: { maxRotation: 0 } }, y: { grid: { color: &quot;rgba(255,255,255,0.06)&quot; }, beginAtZero: true } } }
+      });
+    }
+
+    function chartRows(recordKey, fallbackKey, valueGetter, limit = 10) {
+      const records = getRecords();
+      const rows = Array.isArray(records[recordKey]) &amp;&amp; records[recordKey].length ? records[recordKey] : getDrivers().slice().sort((a, b) =&gt; asNumber(b[fallbackKey], 0) - asNumber(a[fallbackKey], 0));
+      return rows.slice(0, limit).map(r =&gt; ({ label: nameOf(r), value: valueGetter(r) }));
+    }
+
+    function renderCharts() {
+      chartDefaults();
+      const points = getDrivers().slice(0, 10).map(r =&gt; ({ label: nameOf(r), value: pointsOf(r) }));
+      const top5 = chartRows(&quot;top5_leaders&quot;, &quot;top5s&quot;, top5Of);
+      const top10 = chartRows(&quot;top10_leaders&quot;, &quot;top10s&quot;, top10Of);
+      const poles = chartRows(&quot;pole_leaders&quot;, &quot;poles&quot;, polesOf);
+      const hard = chartRows(&quot;hard_charger_leaders&quot;, &quot;hard_charger_awards&quot;, hardChargersOf);
+      const cars = getCarUsage().slice(0, 10).map(c =&gt; ({ label: c.car_name || &quot;Unknown car&quot;, value: asNumber(c.starts, 0) }));
+      makeBarChart(&quot;chartDrivers&quot;, points.map(r =&gt; r.label), points.map(r =&gt; r.value), &quot;Points&quot;, &quot;rgba(0, 240, 255, 0.55)&quot;);
+      makeBarChart(&quot;chartTop5&quot;, top5.map(r =&gt; r.label), top5.map(r =&gt; r.value), &quot;Top 5s&quot;, &quot;rgba(255, 200, 87, 0.62)&quot;);
+      makeBarChart(&quot;chartTop10&quot;, top10.map(r =&gt; r.label), top10.map(r =&gt; r.value), &quot;Top 10s&quot;, &quot;rgba(0, 255, 138, 0.55)&quot;);
+      makeBarChart(&quot;chartPoles&quot;, poles.map(r =&gt; r.label), poles.map(r =&gt; r.value), &quot;Poles&quot;, &quot;rgba(168, 85, 247, 0.55)&quot;);
+      makeBarChart(&quot;chartHardChargers&quot;, hard.map(r =&gt; r.label), hard.map(r =&gt; r.value), &quot;Hard chargers&quot;, &quot;rgba(255, 0, 60, 0.55)&quot;);
+      makeBarChart(&quot;chartCars&quot;, cars.map(r =&gt; r.label), cars.map(r =&gt; r.value), &quot;Starts&quot;, &quot;rgba(0, 240, 255, 0.55)&quot;);
+    }
+
+    function renderAll() {
+      renderHeroAndStats();
+      renderDrivers();
+      renderRecords();
+      renderRaces();
+      populateRaceSelect();
+      renderRaceResults();
+      renderTeams();
+      renderSchedule();
+      renderStewards();
+      renderCharts();
+    }
+
+    async function fetchFirstAvailable() {
+      let lastError;
+      for (const url of DATA_URLS) {
+        try {
+          const response = await fetch(`${url}?v=${Date.now()}`, { cache: &quot;no-store&quot; });
+          if (!response.ok) throw new Error(`Could not load ${url}`);
+          const json = await response.json();
+          return { json, url };
+        } catch (error) { lastError = error; }
+      }
+      throw lastError || new Error(&quot;No season JSON found.&quot;);
+    }
+
+    async function loadDashboard(manual = false) {
+      try {
+        const result = await fetchFirstAvailable();
+        leagueData = result.json;
+        const updated = leagueData.exported_at || leagueData.processed_at || new Date().toISOString();
+        $(&quot;lastUpdated&quot;).innerHTML = `&lt;i class=&quot;fa-solid fa-check-circle&quot; style=&quot;color: var(--green)&quot;&gt;&lt;/i&gt; Updated ${formatDate(updated)}`;
+        renderAll();
+        if (manual) $(&quot;lastUpdated&quot;).animate([{ transform: &quot;scale(1)&quot; }, { transform: &quot;scale(1.04)&quot; }, { transform: &quot;scale(1)&quot; }], { duration: 350 });
+      } catch (error) {
+        console.error(error);
+        $(&quot;lastUpdated&quot;).innerHTML = `&lt;i class=&quot;fa-solid fa-link-slash&quot; style=&quot;color: var(--red)&quot;&gt;&lt;/i&gt; Export offline`;
+        $(&quot;driversBody&quot;).innerHTML = emptyRow(17, &quot;Data offline. Upload or generate live_season_standings.json from the corrected Discord bot.&quot;);
+      }
+    }
+
+    document.querySelectorAll(&quot;.tab-btn&quot;).forEach(button =&gt; {
+      button.addEventListener(&quot;click&quot;, () =&gt; {
+        document.querySelectorAll(&quot;.tab-btn&quot;).forEach(b =&gt; b.classList.remove(&quot;active&quot;));
+        document.querySelectorAll(&quot;.tab-content&quot;).forEach(c =&gt; c.classList.remove(&quot;active&quot;));
+        button.classList.add(&quot;active&quot;);
+        $(`tab-${button.dataset.tab}`).classList.add(&quot;active&quot;);
+      });
+    });
+
+    $(&quot;globalSearch&quot;).addEventListener(&quot;input&quot;, () =&gt; { renderDrivers(); renderRaces(); renderTeams(); renderSchedule(); renderStewards(); });
+    $(&quot;raceSelect&quot;).addEventListener(&quot;change&quot;, renderRaceResults);
+    $(&quot;raceTableMode&quot;).addEventListener(&quot;change&quot;, renderRaceResults);
+    document.addEventListener(&quot;DOMContentLoaded&quot;, () =&gt; { loadDashboard(); setInterval(loadDashboard, AUTO_REFRESH_MS); });
+  &lt;/script&gt;
+  &lt;script&gt;
+        document.addEventListener(&#x27;contextmenu&#x27;, e =&gt; e.preventDefault());
+        document.addEventListener(&#x27;keydown&#x27;, e =&gt; {
+            if(e.key === &#x27;F12&#x27; || (e.ctrlKey &amp;&amp; [&#x27;u&#x27;,&#x27;s&#x27;,&#x27;a&#x27;].includes(e.key.toLowerCase()))) e.preventDefault();
+        });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;">
+        </iframe>
+    </div>
+</div>
 
 
    <footer>
