@@ -272,6 +272,24 @@
     .badge.green { color: var(--green); border-color: rgba(0, 255, 138, 0.4); background: rgba(0, 255, 138, 0.08); }
     .badge.blue { color: var(--blue); border-color: rgba(0, 240, 255, 0.42); background: rgba(0, 240, 255, 0.09); }
 
+    .non-points-note {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--gold);
+      border: 1px solid rgba(255, 200, 87, 0.32);
+      background: rgba(255, 200, 87, 0.08);
+      border-radius: 18px;
+      padding: 12px 14px;
+      font-weight: 700;
+      margin: 0 0 14px;
+    }
+    .duel-session-title { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+    .duel-session-title .mini-title { margin: 0; }
+    .duel-card { grid-column: span 1; }
+    .duel-card .table-wrap { margin-top: 12px; max-height: 420px; }
+    @media (min-width: 1241px) { .duel-card { grid-column: span 3; } }
+
     .charts-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
     .chart-card { border: 1px solid rgba(255, 255, 255, 0.08); background: rgba(0, 0, 0, 0.20); border-radius: 20px; padding: 16px; min-height: 330px; }
     .chart-title { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.92rem; color: var(--muted); margin: 0 0 12px; display: flex; justify-content: space-between; gap: 10px; }
@@ -384,6 +402,7 @@
               <a class="btn primary" href="#standings"><i class="fa-solid fa-ranking-star"></i> View standings</a>
               <a class="btn" href="#records"><i class="fa-solid fa-crown"></i> Season records</a>
               <a class="btn" href="#races"><i class="fa-solid fa-stopwatch"></i> Race archive</a>
+              <a class="btn" href="#duels"><i class="fa-solid fa-fire-flame-curved"></i> Duels</a>
               <a class="btn" href="#stewards"><i class="fa-solid fa-gavel"></i> Stewards office</a>
             </div>
             <div class="glitch-line"></div>
@@ -457,6 +476,7 @@
           <button class="tab-btn" data-tab="records"><i class="fa-solid fa-crown"></i> Records</button>
           <button class="tab-btn" data-tab="races"><i class="fa-solid fa-flag-checkered"></i> Races</button>
           <button class="tab-btn" data-tab="raceResults"><i class="fa-solid fa-table-cells"></i> Race results</button>
+          <button class="tab-btn" data-tab="duels"><i class="fa-solid fa-fire-flame-curved"></i> Duels</button>
           <button class="tab-btn" data-tab="teams"><i class="fa-solid fa-people-group"></i> Teams</button>
           <button class="tab-btn" data-tab="schedule"><i class="fa-solid fa-calendar-days"></i> Schedule</button>
           <button class="tab-btn" data-tab="stewards"><i class="fa-solid fa-gavel"></i> Stewards</button>
@@ -493,6 +513,20 @@
           </div>
         </div>
 
+
+        <div class="tab-content" id="tab-duels">
+          <div class="toolbar">
+            <select id="duelSelect" class="select" aria-label="Choose duel event"></select>
+            <span class="badge green"><i class="fa-solid fa-shield-halved"></i> Website-only</span>
+            <span class="badge open"><i class="fa-solid fa-circle-info"></i> Non-points event</span>
+          </div>
+          <div class="non-points-note">
+            <i class="fa-solid fa-lock"></i>
+            <span>Duels / heats are shown for lineup and event history only. They do not award points and should not affect driver standings, wins, team points, or playoff records.</span>
+          </div>
+          <div id="duelsGrid" class="race-grid"></div>
+        </div>
+
         <div class="tab-content" id="tab-teams">
           <div class="table-wrap"><table><thead><tr><th class="rank">Pos</th><th>Team</th><th>Manufacturer</th><th class="points">Points</th></tr></thead><tbody id="teamsBody"></tbody></table></div>
         </div>
@@ -516,6 +550,7 @@
     "use strict";
 
     const DATA_URLS = ["live_season_standings.json", "live_season_stats_max.json"];
+    const DUELS_URLS = ["duels.json", "live_duels.json"];
     const AUTO_REFRESH_MS = 60000;
     let leagueData = {};
     let charts = {};
@@ -545,7 +580,7 @@
     }
 
     function nameOf(row) { return row?.name || row?.iracing_name || row?.driver_name || "Unknown"; }
-    function teamOf(row) { return row?.team_name || row?.team || "Independent"; }
+    function teamOf(row) { const raw = row?.team_name || row?.team || ""; return raw && String(raw).toLowerCase() !== "independent" ? raw : "Free Agent"; }
     function pointsOf(row) { return asNumber(row?.points ?? row?.total_points ?? row?.total_race_points, 0); }
     function top5Of(row) { return asNumber(row?.top5s ?? row?.top_5s, 0); }
     function top10Of(row) { return asNumber(row?.top10s ?? row?.top_10s, 0); }
@@ -575,6 +610,19 @@
     function getProtests() { return Array.isArray(leagueData.protest_log) ? leagueData.protest_log : []; }
     function getRaceEvents() { return Array.isArray(leagueData.race_events) ? leagueData.race_events : []; }
     function getRaceSummaries() { return Array.isArray(leagueData.race_summaries) ? leagueData.race_summaries : (Array.isArray(leagueData.races) ? leagueData.races : []); }
+
+    function getDuelEvents() {
+      if (Array.isArray(leagueData.duel_events)) return leagueData.duel_events;
+      if (Array.isArray(leagueData.duels)) return leagueData.duels;
+      if (Array.isArray(leagueData.heat_events)) return leagueData.heat_events;
+      if (Array.isArray(leagueData.non_points_events)) {
+        return leagueData.non_points_events.filter(e => {
+          const label = JSON.stringify(e).toLowerCase();
+          return label.includes("duel") || label.includes("heat");
+        });
+      }
+      return [];
+    }
     function getDriverStats() { return Array.isArray(leagueData.race_driver_stats) ? leagueData.race_driver_stats : (Array.isArray(leagueData.driver_stats) ? leagueData.driver_stats : []); }
     function getRecords() { return leagueData.records && typeof leagueData.records === "object" ? leagueData.records : {}; }
     function getSummary() { return leagueData.season_summary && typeof leagueData.season_summary === "object" ? leagueData.season_summary : {}; }
@@ -729,7 +777,7 @@
         <tr>
           <td>${pos(r.finish_position)}</td>
           <td>${pos(r.start_position)}</td>
-          <td>${escapeHTML(r.iracing_name || r.name || "Unknown")}<span class="sub">#${escapeHTML(r.car_number || "—")} &bull; ${escapeHTML(r.team_name || "Independent")}</span></td>
+          <td>${escapeHTML(r.iracing_name || r.name || "Unknown")}<span class="sub">#${escapeHTML(r.car_number || "—")} &bull; ${escapeHTML(r.team_name || r.team || "Free Agent")}</span></td>
           <td>${escapeHTML(r.car_name || "Unknown car")}</td>
           <td class="${asNumber(r.position_change, 0) < 0 ? "bad" : "points"}">${signed(r.position_change)}</td>
           <td class="points">${asNumber(r.total_race_points, 0)}</td>
@@ -738,6 +786,91 @@
           <td>${lapTime(r.best_lap_time_sec)}</td>
           <td>${escapeHTML(r.reason_out || "Running")}</td>
         </tr>`).join("") : emptyRow(10, "No rows for that race/table yet.");
+    }
+
+
+    function duelRowsOf(session) {
+      if (!session) return [];
+      if (Array.isArray(session.results)) return session.results;
+      if (Array.isArray(session.rows)) return session.rows;
+      if (Array.isArray(session.top10)) return session.top10;
+      return [];
+    }
+
+    function duelLabelOf(event, index) {
+      return event?.event_name || event?.name || event?.track_name || `Duel Event ${index + 1}`;
+    }
+
+    function populateDuelSelect() {
+      const select = $("duelSelect");
+      if (!select) return;
+      const events = getDuelEvents();
+      select.innerHTML = events.length
+        ? events.map((e, i) => `<option value="${i}">${escapeHTML(duelLabelOf(e, i))} — ${escapeHTML(e.track_name || e.track || "Unknown Track")}</option>`).join("")
+        : `<option value="">No duels</option>`;
+    }
+
+    function renderDuels() {
+      const grid = $("duelsGrid");
+      if (!grid) return;
+
+      const search = ($("globalSearch")?.value || "").toLowerCase().trim();
+      const events = getDuelEvents();
+      const selectedIndex = asNumber($("duelSelect")?.value, 0);
+      const event = events[selectedIndex] || events[0];
+
+      if (!event) {
+        grid.innerHTML = `<div class="empty">No Duel results found yet. Upload duels.json or export website-only duel_events from the bot.</div>`;
+        return;
+      }
+
+      const sessions = Array.isArray(event.sessions) ? event.sessions : [];
+      const visibleSessions = search
+        ? sessions.map(session => {
+            const filteredRows = duelRowsOf(session).filter(row => JSON.stringify(row).toLowerCase().includes(search));
+            const sessionMatches = JSON.stringify(session).toLowerCase().includes(search);
+            return sessionMatches ? session : { ...session, results: filteredRows };
+          }).filter(session => duelRowsOf(session).length || JSON.stringify(session).toLowerCase().includes(search))
+        : sessions;
+
+      grid.innerHTML = visibleSessions.length ? visibleSessions.map((session, sessionIndex) => {
+        const rows = duelRowsOf(session).slice().sort((a, b) => asNumber(a.finish_position, 9999) - asNumber(b.finish_position, 9999));
+        const winner = session.winner || rows[0]?.iracing_name || rows[0]?.name || rows[0]?.driver_name || "N/A";
+        const sessionName = session.name || session.source_session || `Duel ${sessionIndex + 1}`;
+        return `
+          <article class="race-card-mini duel-card" id="duels">
+            <div class="duel-session-title">
+              <div>
+                <div class="mini-label">${escapeHTML(event.track_name || event.track || "Unknown Track")} &bull; ${escapeHTML(event.date || event.start_time || "")}</div>
+                <h3 class="mini-title">${escapeHTML(sessionName)}</h3>
+                <div class="sub">${escapeHTML(session.source_session || "Heat session")} &bull; Non-points event &bull; ${asNumber(session.total_entries, rows.length)} entries</div>
+              </div>
+              <span class="badge open">0 pts</span>
+            </div>
+            <div class="mini-row"><span>Winner</span><strong>${escapeHTML(winner)}</strong></div>
+            <div class="mini-row"><span>Purpose</span><strong>Lineup / Duel result only</strong></div>
+            <div class="table-wrap">
+              <table class="compact-table">
+                <thead><tr><th>Finish</th><th>Start</th><th>Driver</th><th>Car / #</th><th>+/-</th><th>Points</th><th>Led</th><th>Inc</th><th>Best lap</th><th>Reason</th></tr></thead>
+                <tbody>
+                  ${rows.length ? rows.map(r => `
+                    <tr>
+                      <td>${pos(r.finish_position)}</td>
+                      <td>${pos(r.start_position)}</td>
+                      <td>${escapeHTML(r.iracing_name || r.name || r.driver_name || "Unknown")}</td>
+                      <td>${escapeHTML(r.car_name || "Unknown car")}<span class="sub">#${escapeHTML(r.car_number || "—")}</span></td>
+                      <td class="${asNumber(r.position_change, 0) < 0 ? "bad" : "points"}">${signed(r.position_change)}</td>
+                      <td class="muted">0</td>
+                      <td>${asNumber(r.laps_led ?? r.laps_lead, 0)}</td>
+                      <td>${asNumber(r.incidents, 0)}x</td>
+                      <td>${lapTime(r.best_lap_time_sec)}</td>
+                      <td>${escapeHTML(r.reason_out || "Running")}</td>
+                    </tr>`).join("") : emptyRow(10, "No Duel rows found for this session.")}
+                </tbody>
+              </table>
+            </div>
+          </article>`;
+      }).join("") : `<div class="empty">No Duel rows match the current search.</div>`;
     }
 
     function renderTeams() {
@@ -809,6 +942,8 @@
       renderRaces();
       populateRaceSelect();
       renderRaceResults();
+      populateDuelSelect();
+      renderDuels();
       renderTeams();
       renderSchedule();
       renderStewards();
@@ -828,10 +963,31 @@
       throw lastError || new Error("No season JSON found.");
     }
 
+
+    async function fetchOptionalDuels() {
+      for (const url of DUELS_URLS) {
+        try {
+          const response = await fetch(`${url}?v=${Date.now()}`, { cache: "no-store" });
+          if (!response.ok) continue;
+          const json = await response.json();
+          const events = Array.isArray(json) ? json : (json.duel_events || json.duels || json.heat_events || []);
+          if (Array.isArray(events) && events.length) {
+            leagueData.duel_events = events;
+            leagueData.duels_exported_at = json.exported_at || json.processed_at || leagueData.duels_exported_at;
+            return true;
+          }
+        } catch (error) {
+          // Duels are optional. Missing duels.json should never break the main dashboard.
+        }
+      }
+      return false;
+    }
+
     async function loadDashboard(manual = false) {
       try {
         const result = await fetchFirstAvailable();
         leagueData = result.json;
+        await fetchOptionalDuels();
         const updated = leagueData.exported_at || leagueData.processed_at || new Date().toISOString();
         $("lastUpdated").innerHTML = `<i class="fa-solid fa-check-circle" style="color: var(--green)"></i> Updated ${formatDate(updated)}`;
         renderAll();
@@ -852,9 +1008,10 @@
       });
     });
 
-    $("globalSearch").addEventListener("input", () => { renderDrivers(); renderRaces(); renderTeams(); renderSchedule(); renderStewards(); });
+    $("globalSearch").addEventListener("input", () => { renderDrivers(); renderRaces(); renderDuels(); renderTeams(); renderSchedule(); renderStewards(); });
     $("raceSelect").addEventListener("change", renderRaceResults);
     $("raceTableMode").addEventListener("change", renderRaceResults);
+    $("duelSelect")?.addEventListener("change", renderDuels);
     document.addEventListener("DOMContentLoaded", () => { loadDashboard(); setInterval(loadDashboard, AUTO_REFRESH_MS); });
   </script>
   <script>
