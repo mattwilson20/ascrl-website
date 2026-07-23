@@ -507,7 +507,7 @@
           </div>
           <div class="table-wrap">
             <table>
-              <thead><tr><th>Finish</th><th>Start</th><th>Driver</th><th>Car</th><th>Change</th><th>Points</th><th>Laps led</th><th>Inc</th><th>Best lap</th><th>Reason</th></tr></thead>
+              <thead><tr><th>Finish</th><th>Start</th><th>Driver</th><th>Car</th><th>Change</th><th>Points</th><th>Laps led</th><th>Inc</th><th>Best lap</th></tr></thead>
               <tbody id="raceResultsBody"></tbody>
             </table>
           </div>
@@ -784,8 +784,7 @@
           <td>${asNumber(r.laps_led, 0)}</td>
           <td>${asNumber(r.incidents, 0)}x</td>
           <td>${lapTime(r.best_lap_time_sec)}</td>
-          <td>${escapeHTML(r.reason_out || "Running")}</td>
-        </tr>`).join("") : emptyRow(10, "No rows for that race/table yet.");
+        </tr>`).join("") : emptyRow(9, "No rows for that race/table yet.");
     }
 
 
@@ -851,7 +850,7 @@
             <div class="mini-row"><span>Purpose</span><strong>Lineup / Duel result only</strong></div>
             <div class="table-wrap">
               <table class="compact-table">
-                <thead><tr><th>Finish</th><th>Start</th><th>Driver</th><th>Car / #</th><th>+/-</th><th>Points</th><th>Led</th><th>Inc</th><th>Best lap</th><th>Reason</th></tr></thead>
+                <thead><tr><th>Finish</th><th>Start</th><th>Driver</th><th>Car / #</th><th>+/-</th><th>Points</th><th>Led</th><th>Inc</th><th>Best lap</th></tr></thead>
                 <tbody>
                   ${rows.length ? rows.map(r => `
                     <tr>
@@ -864,7 +863,6 @@
                       <td>${asNumber(r.laps_led ?? r.laps_lead, 0)}</td>
                       <td>${asNumber(r.incidents, 0)}x</td>
                       <td>${lapTime(r.best_lap_time_sec)}</td>
-                      <td>${escapeHTML(r.reason_out || "Running")}</td>
                     </tr>`).join("") : emptyRow(10, "No Duel rows found for this session.")}
                 </tbody>
               </table>
