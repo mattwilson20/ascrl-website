@@ -30,6 +30,7 @@
         }
 
         /* --- NAVIGATION FIX --- */
+        /* This ensures the menu is always on top of the sticky bar */
         #nav-placeholder { position: relative; z-index: 9999; }
 
         /* --- HERO --- */
@@ -92,7 +93,7 @@
             text-transform: uppercase; letter-spacing: 2px; text-align: center;
             padding: 20px 10px; border-bottom: 2px solid #222;
         }
-        th:nth-child(2) { text-align: left; }
+        th:nth-child(2) { text-align: left; } /* Driver Name Align Left */
 
         td { 
             padding: 15px 10px; border-bottom: 1px solid #1a1a1a; 
@@ -138,7 +139,7 @@
 
     <div class="controls-bar">
         <div class="controls-inner">
-            <select id="seasonSelect" class="season-select" onchange="loadStats()">
+            <select id="seasonSelect" class="season-select" onchange="renderTable()">
                 <option value="2026">2026 Season (Current)</option>
                 <option value="2025-26">2025-26 Season (Archive)</option>
             </select>
@@ -169,7 +170,7 @@
                     </tr>
                 </thead>
                 <tbody id="stats-body">
-                </tbody>
+                    </tbody>
             </table>
         </div>
     </main>
@@ -185,11 +186,13 @@
 
     <script>
         // 1. NAV LOADER
+        // Used fetch to load nav.html into the placeholder
         fetch('nav.html')
             .then(r => r.text())
             .then(d => {
                 document.getElementById('nav-placeholder').innerHTML = d;
                 
+                // Highlight active link
                 const currentPage = window.location.pathname.split("/").pop() || "index.html";
                 const navID = "nav-" + currentPage.split(".")[0];
                 const activeLink = document.getElementById(navID);
@@ -200,65 +203,98 @@
                 }
             });
 
-        // 2. GLOBAL TOGGLE FUNCTION
+        // 2. GLOBAL TOGGLE FUNCTION (Required by nav.html)
         function toggleMenu() {
             const m = document.getElementById('nav-menu');
             if(m) m.classList.toggle('open');
         }
 
-        // 3. API DATA LOGIC
-        const API_BASE_URL = 'http://127.0.0.1:8000'; // Change to production domain when hosted
-        let currentSeries = 'Cup Series';
+        // 3. DATA LOGIC
+        let rawData = {};
+        let currentSeries = 'Cup';
+
+        function loadStats() {
+            const tbody = document.getElementById('stats-body');
+            tbody.innerHTML = '<tr><td colspan="9" style="padding:3rem;">Loading Data...</td></tr>';
+
+            // Pointing specifically to drivers.json
+            fetch('drivers.json')
+                .then(r => r.json())
+                .then(data => {
+                    rawData = data;
+                    renderTable();
+                })
+                .catch(err => {
+                    console.error(err);
+                    tbody.innerHTML = '<tr><td colspan="9" style="color:#c00; padding:3rem;">Data not found. (drivers.json)</td></tr>';
+                });
+        }
 
         function switchSeries(seriesName) {
-            // Map button names to backend series names
-            if (seriesName === 'Cup') currentSeries = 'Cup Series';
-            else if (seriesName === 'Xfinity') currentSeries = 'Xfinity Series';
-            else if (seriesName === 'Truck') currentSeries = 'Truck Series';
-            else currentSeries = seriesName;
-
+            currentSeries = seriesName;
             document.querySelectorAll('.series-btn').forEach(btn => {
                 btn.classList.remove('active');
                 if(btn.dataset.series === seriesName) btn.classList.add('active');
             });
-            
-            loadStats();
+            renderTable();
         }
 
-        async function loadStats() {
+        function renderTable() {
             const tbody = document.getElementById('stats-body');
-            tbody.innerHTML = '<tr><td colspan="9" style="padding:3rem;">Loading Live Standings...</td></tr>';
-
-            try {
-                const response = await fetch(`${API_BASE_URL}/api/stats/${encodeURIComponent(currentSeries)}`);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const standings = await response.json();
-                renderTable(standings);
-
-            } catch (err) {
-                console.error("API connection error:", err);
-                tbody.innerHTML = `<tr><td colspan="9" style="color:#c00; padding:3rem;">Unable to connect to live API server. Make sure Python FastAPI is running!</td></tr>`;
-            }
-        }
-
-        function renderTable(standings) {
-            const tbody = document.getElementById('stats-body');
+            const seasonKey = document.getElementById('seasonSelect').value;
             tbody.innerHTML = '';
 
-            if(!standings || standings.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="9" style="padding:3rem;">No active standings data found for ${currentSeries}.</td></tr>`;
+            const list = [];
+            
+            for (const [id, driver] of Object.entries(rawData)) {
+                if(driver.series) {
+                    // Match Series Case Insensitive
+                    const sKey = Object.keys(driver.series).find(k => k.toLowerCase() === currentSeries.toLowerCase());
+                    
+                    if(sKey) {
+                        const sData = driver.series[sKey];
+                        let activeStats = null;
+
+                        // --- INTELLIGENT SEASON SWITCHING ---
+                        if (seasonKey === "2026") {
+                            // 2026: Use 'current_stats' (Default 0s)
+                            activeStats = sData.current_stats || sData.stats;
+                        } else if (seasonKey === "2025-26") {
+                            // 2025-26: Dig into 'history' array
+                            if (sData.history && Array.isArray(sData.history)) {
+                                const historyEntry = sData.history.find(h => h.season === "2025-26");
+                                if (historyEntry) {
+                                    activeStats = historyEntry.stats;
+                                }
+                            }
+                        }
+
+                        if (activeStats) {
+                            list.push({
+                                name: driver.display_name || id,
+                                team: sData.team || "Independent",
+                                number: sData.number || "",
+                                stats: activeStats
+                            });
+                        }
+                    }
+                }
+            }
+
+            // Sort by Points
+            list.sort((a,b) => (b.stats.points || 0) - (a.stats.points || 0));
+
+            if(list.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="9" style="padding:3rem;">No data available for ${seasonKey} - ${currentSeries}.</td></tr>`;
                 return;
             }
 
-            standings.forEach((driver, index) => {
+            list.forEach((d, index) => {
+                const s = d.stats;
                 const rank = index + 1;
                 const rowClass = rank <= 3 ? 'top3-row' : '';
                 
-                let avg = driver.avg_finish || 0;
+                let avg = s.avg || 0;
                 if(typeof avg === 'number') avg = avg.toFixed(1);
 
                 const html = `
@@ -266,15 +302,16 @@
                         <td class="rank-cell">${rank}</td>
                         <td class="driver-cell">
                             <div>
-                                <div class="driver-name">${driver.driver_id} <span style="color:#666; font-size:0.8rem;">#${driver.car_number || ''}</span></div>
+                                <div class="driver-name">${d.name} <span style="color:#666; font-size:0.8rem;">#${d.number}</span></div>
+                                <div class="team-tag">${d.team}</div>
                             </div>
                         </td>
-                        <td class="pts-cell">${driver.points || 0}</td>
-                        <td class="win-cell">${driver.wins || 0}</td>
-                        <td>${driver.top5 || 0}</td>
-                        <td>${driver.top10 || 0}</td>
-                        <td class="hide-mobile">${driver.poles || 0}</td>
-                        <td class="hide-mobile">${driver.starts || 0}</td>
+                        <td class="pts-cell">${s.points || 0}</td>
+                        <td class="win-cell">${s.wins || 0}</td>
+                        <td>${s.top5 || 0}</td>
+                        <td>${s.top10 || 0}</td>
+                        <td class="hide-mobile">${s.poles || 0}</td>
+                        <td class="hide-mobile">${s.starts || 0}</td>
                         <td class="hide-mobile">${avg}</td>
                     </tr>
                 `;
@@ -282,25 +319,39 @@
             });
         }
 
-        // Initialize on load
+        // Init
         loadStats();
-    </script>
 
+        // Utils
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => { if(e.key === 'F12') e.preventDefault(); });
+    </script>
     <script>
-        // Security Protections
-        document.addEventListener('contextmenu', (e) => e.preventDefault());
+        // 1. Disable Right Click
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+
+        // 2. Disable Keyboard Shortcuts (Ctrl+U, F12, Ctrl+Shift+I, etc.)
         document.addEventListener('keydown', (e) => {
+            // Check for Ctrl (or Command on Mac)
             if (e.ctrlKey || e.metaKey) {
                 switch (e.key.toLowerCase()) {
-                    case 'u': case 's': case 'a': case 'c':
+                    case 'u': // View Source
+                    case 's': // Save Page
+                    case 'a': // Select All
+                    case 'c': // Copy
                         e.preventDefault();
                         return false;
                 }
+                // Check for Ctrl+Shift+I or J (Developer Tools)
                 if (e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j')) {
                     e.preventDefault();
                     return false;
                 }
             }
+            
+            // Check for F12 (Developer Tools)
             if (e.key === 'F12') {
                 e.preventDefault();
                 return false;
