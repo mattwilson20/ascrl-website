@@ -880,7 +880,7 @@
     function renderSchedule() {
       const rows = filtered(getSchedule());
       $("scheduleBody").innerHTML = rows.length ? rows.map(s => `
-        <tr><td class="rank">${escapeHTML(s.week_number ?? s.week ?? "—")}</td><td>${escapeHTML(s.track_name || s.track || "Unknown Track")}</td><td>${escapeHTML(s.race_date || s.date || "TBA")}</td><td>${escapeHTML(s.race_time || s.time || "TBA")}</td><td>${escapeHTML(s.car_type || s.car || "TBD")}</td><td>${s.is_playoff ? `<span class="badge blue">Playoff race</span>` : `<span class="muted">Regular season</span>`}</td></tr>`).join("") : emptyRow(6, "Schedule pending.");
+        <tr><td class="rank">${escapeHTML(s.week_number ?? s.week ?? "—")}</td><td>${escapeHTML(s.track_name || s.track || "Unknown Track")}</td><td>${escapeHTML(s.race_date || s.date || "8:30PM EST")}</td><td>${escapeHTML(s.race_time || s.time || "TBA")}</td><td>${escapeHTML(s.car_type || s.car || "TBD")}</td><td>${s.is_playoff ? `<span class="badge blue">Playoff race</span>` : `<span class="muted">Regular season</span>`}</td></tr>`).join("") : emptyRow(6, "Schedule pending.");
     }
 
     function renderStewards() {
