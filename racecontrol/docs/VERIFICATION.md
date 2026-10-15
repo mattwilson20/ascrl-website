@@ -28,7 +28,7 @@ The complete route/file inventory is in the [README](../README.md). The implemen
 
 ## Not implemented or not yet verified
 
-- **Hosting and real account acceptance:** Supabase/Discord/Vercel projects and DNS must be configured. Browser testing of authenticated hosted workflows and persistent OAuth sessions still needs those services.
+- **Hosting and real account acceptance:** Supabase, Discord, and Vercel projects now exist, and the application is live on its Vercel URL. See [the hosted setup record](HOSTED-SETUP.md) for deployed versions and verified public routes. Discord credentials, custom DNS, and authenticated hosted workflows are still being completed.
 - **Additional import adapters:** endurance driver changes, AI fields, other export envelopes and stage-result files. Unsupported formats are rejected.
 - **Additional automation:** automatic suspension thresholds, future-penalty carry-forward when a driver skips a race, bots, notifications, payments, replay storage and iRacing API access.
 - **Advanced championship formats:** playoffs/chase resets, arbitrary custom bonus formulas, separate class championships, configurable team tiebreaker chains and retrospective rule/team reassignment. The documented finish/stage/bonus/drop/team modes are implemented.
