@@ -11,7 +11,7 @@ Updated October 15, 2026 (America/Chicago).
 - Initial deployment: `dpl_6MKPQsbTYZ44iac5iqddZrpUXybg`, status READY.
 - Custom-domain deployment: `dpl_9TGhdN5ftbarUavxaMJDxmDsjMRb`, status READY; production build and TypeScript checking passed.
 - Application source: `racecontrol/` on `codex/ascrl-race-control`, commit `363b8897a968cf795847d31d09337e8481fbcbd1`.
-- Initial deployment was uploaded with the authenticated Vercel CLI from the application directory. Vercel project root is currently `.`; Git-based automatic deployment is not configured yet. When connecting the repository, set its root to `racecontrol` and select the dedicated branch before triggering builds.
+- Initial deployment was uploaded with the authenticated Vercel CLI. Git automatic deployment is now connected to `mattwilson20/ascrl-website`, branch `codex/ascrl-race-control`, with root directory `racecontrol`; an actual Git-triggered production deployment passed.
 - Runtime: Node.js 24, Next.js, `pnpm install --frozen-lockfile`, `pnpm build`.
 - Supabase organization: `ASCRL` (`mbtuvbnslodxxhwnhsar`), Free plan.
 - Supabase project: `ASCRL Race Control` (`ixchlspfwllsmwjxqipr`), healthy, `us-east-1`, PostgreSQL 17.11.
@@ -76,8 +76,24 @@ Supabase's security advisor still reports the intentionally exposed SECURITY DEF
 - Anonymous HTTPS requests to the homepage and league directory returned 200 without private test data; direct requests to the private league and standings returned 404.
 - The unrelated-identity SQL test exercises RLS/RPC permissions but does not replace a second real Discord-account browser test.
 
-## Remaining setup
+## Additional acceptance and Git deployment on October 15
 
-- Further acceptance: second real Discord account, session refresh/sign-out, stage correction through the hosted UI, and two independent concurrent publication sessions. Core authenticated import/publication and database penalty reversal have passed.
-- Git-based automatic deployments remain disabled. Automatic approval review rejected connecting the repository while the intended branch and root were not pinned. CLI deployment remains available from this application directory.
-- Backup/restore acceptance remains outstanding. The Free plan requires regular off-site logical exports; daily managed backups require a paid plan. No plan upgrade or paid backup service has been purchased. See [Supabase backup guidance](https://supabase.com/docs/guides/platform/backups).
+- Git is connected to `mattwilson20/ascrl-website`, production branch `codex/ascrl-race-control`, root `racecontrol`. Preview deployments are disabled and the project build guard skips every other branch. Builds were blocked while establishing the connection and branch configuration.
+- Commit `bd8c5baa185be3ddf2415f628165d1b49e54893f` automatically triggered deployment `dpl_AcJF3mfKjA6FByvDA1kuXyGL5dYz`, which reached Ready and received `racecontrol.ascrl.online`. See [Git deployment](GIT-DEPLOYMENT.md).
+- Two independent hosted PostgreSQL connections simultaneously published the same fresh preview in a second explicitly private test season. Both succeeded; verification found exactly one publication audit event, revision 1, 21 original results, 21 scores, one committed import with a cleared payload, and one start per driver.
+- The hosted **Correct stage scoring** form passed. The private race is labeled `Private concurrency / invented stage test`; its stage order is artificial test data, not claimed to come from the export. Reversing the two test stage positions changed totals from 50/44 to 49/45 while preserving the race finish and championship start counts. The correction was audited once.
+- `supabase/operations/verify_hosted_concurrency.sql` and the updated original fixture check both passed on hosted PostgreSQL.
+- The user has no second Discord account available. The unrelated-identity database isolation checks passed, but the second real-account browser check is unavailable.
+
+## Backup and session acceptance
+
+- The custom-domain session created at 12:01 UTC successfully refreshed after expiry at 13:05 UTC. The authenticated private race remained accessible, and the database session recorded its refresh. Sign-out removed the authenticated navigation and a subsequent Control room request redirected to login. A new Discord sign-in completed and returned the owner to the authenticated control room.
+- Encrypted Free-plan export and an isolated PostgreSQL 17.11 restore passed. The restored database retained all 21 application RLS tables, auth identity, both private scoring fixtures, originals and migration records. Both SQL acceptance scripts passed locally after restoration; the live database was not a restore target.
+- Windows Task Scheduler ran the encrypted backup successfully at 13:08 UTC and returned result 0, producing a new verified archive. Daily 3 a.m. local-time and Windows sign-in triggers are installed. Private Windows-encrypted credentials are stored outside OneDrive; only encrypted backups go in its Documents folder. See [backup operations](BACKUPS.md).
+- No paid plan upgrade has been purchased.
+
+## Operational limits
+
+- The backup PC must be running, online and signed in. OneDrive must remain healthy; an independent cloud-copy check has not been performed.
+- A second real Discord-account browser test remains unavailable because the owner has no second account. Database isolation checks with an unrelated identity passed.
+- The database restore test does not restore the Supabase hosting platform, OAuth provider configuration or DNS. Their settings and credentials require separate recovery records.

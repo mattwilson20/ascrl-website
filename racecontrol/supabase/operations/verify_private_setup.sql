@@ -6,7 +6,8 @@ declare s uuid; l uuid; actor uuid;
 begin
   select se.id, le.id into strict s,l
   from public.rc_seasons se join public.rc_leagues le on le.id=se.league_id
-  where le.slug='setup-verification-20261015' and not le.is_public;
+  where le.slug='setup-verification-20261015' and not le.is_public
+    and se.name='Commissioning check — not official';
   select user_id into strict actor from public.rc_memberships
   where league_id=l and role='commissioner' and status='active';
   perform set_config('ascrl.check_season',s::text,true);
