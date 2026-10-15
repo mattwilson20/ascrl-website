@@ -1,13 +1,15 @@
 # Hosted setup record
 
-Updated October 14, 2026 (America/Chicago).
+Updated October 15, 2026 (America/Chicago).
 
 ## Services
 
 - Vercel team: `ASCRL` (`ascrl`), Hobby plan.
 - Vercel project: `ascrl-race-control` (`prj_lo4YhxREHakDjMo31AvVBQbfP5FG`).
-- Current live URL: https://ascrl-race-control.vercel.app
+- Current live URL: https://racecontrol.ascrl.online
+- Secondary deployment alias: https://ascrl-race-control.vercel.app
 - Initial deployment: `dpl_6MKPQsbTYZ44iac5iqddZrpUXybg`, status READY.
+- Custom-domain deployment: `dpl_9TGhdN5ftbarUavxaMJDxmDsjMRb`, status READY; production build and TypeScript checking passed.
 - Application source: `racecontrol/` on `codex/ascrl-race-control`, commit `363b8897a968cf795847d31d09337e8481fbcbd1`.
 - Initial deployment was uploaded with the authenticated Vercel CLI from the application directory. Vercel project root is currently `.`; Git-based automatic deployment is not configured yet. When connecting the repository, set its root to `racecontrol` and select the dedicated branch before triggering builds.
 - Runtime: Node.js 24, Next.js, `pnpm install --frozen-lockfile`, `pnpm build`.
@@ -29,6 +31,7 @@ All six source migrations were applied through Supabase's migration tool, which 
 | `202610140004_imports.sql` | `20261015034521` | `ascrl_imports` |
 | `202610140005_penalties.sql` | `20261015034541` | `ascrl_penalties` |
 | `202610140006_incidents.sql` | `20261015034624` | `ascrl_incidents` |
+| `supabase/operations/preview_cleanup.sql` (hosted maintenance) | `20261015115725` | `ascrl_preview_cleanup` |
 
 Do not replay these files or run `supabase db push` against this project without first reconciling this remote history with the local source filenames. The scoring migration initially encountered a tool-session error; remote history was inspected before retrying, and it was applied once successfully.
 
@@ -51,12 +54,30 @@ Supabase's security advisor still reports the intentionally exposed SECURITY DEF
 - `/admin`, `/imports/new`, and `/settings` redirect anonymous visitors to `/login`.
 - Anonymous management RPC calls return HTTP 401.
 - Anonymous reads of the private driver/account identity column return HTTP 401 (`42501`, insufficient privilege).
-- The browser shows the live homepage with zero leagues, championships, and results. No official data has been seeded.
+- The public homepage and league directory contain no official championship data. A clearly labeled private commissioning league holds the genuine sample publication for verification.
+
+## Authentication, domain, and maintenance
+
+- Discord credentials were saved by the user in Supabase. A real Discord sign-in returned to the control room, created the profile, and verified the account email. The authenticated user's UUID was checked against the Discord identity before assigning Platform Owner access.
+- Supabase Site URL is `https://racecontrol.ascrl.online`. Exact allowed callbacks are `https://racecontrol.ascrl.online/auth/callback` and `https://ascrl-race-control.vercel.app/auth/callback`.
+- Bluehost CNAME `racecontrol` points to `5f43f2ed49c40fb6.vercel-dns-017.com`, TTL 15 minutes. Authoritative DNS and Vercel verification passed; HTTPS returned 200. Existing apex, www, email records, and nameservers were preserved.
+- Production `NEXT_PUBLIC_SITE_URL` is `https://racecontrol.ascrl.online`; the app was rebuilt after this change.
+- Discord login completed on the custom domain and returned to `/admin`. Authenticated league, series, season, scoring-rule, and calendar forms saved successfully there.
+- After explicit user approval, enabled `pg_cron` and the hourly `ascrl-expire-import-previews` job. It nulls only preview payloads older than 24 hours and marks those previews expired. It preserves published results, original classifications, hashes, and audit records. The first scheduled run succeeded at 12:00 UTC on October 15 with `UPDATE 0`.
+- Post-install security advisors reported only the previously documented function-exposure notices; no new notices were added by the scheduler.
+
+## End-to-end acceptance on October 15
+
+- Created the private `setup-verification-20261015` league through the production UI, then a series, season, immutable rule version, and scheduled race.
+- Uploaded the user's original `eventresult-89327098.json` through the browser, reviewed all 21 drivers, approved new records, and published the classification inside that private league. The local source file was not edited.
+- Published race: `a35c17f5-79e4-46ef-a6a2-88041c35cfa8`; private season: `a01374b4-f84b-422f-a852-dbcd5bfffe45`. The sample and preset are explicitly labeled as verification, not official championship data.
+- The hosted standings show 21 drivers, one start each, with 40/35/34 points for the first three finishers. Import status is committed and its normalized preview payload is null.
+- `supabase/operations/verify_private_setup.sql` passed against hosted PostgreSQL: publication retry idempotence, pending/active/repeated/overturned penalty behavior (40 → 30 → 40), anonymous/private isolation, denied management by an unrelated identity, and denied access to private account linkage. Test penalty mutations were rolled back; no actual penalty was retained.
+- Anonymous HTTPS requests to the homepage and league directory returned 200 without private test data; direct requests to the private league and standings returned 404.
+- The unrelated-identity SQL test exercises RLS/RPC permissions but does not replace a second real Discord-account browser test.
 
 ## Remaining setup
 
-- Discord OAuth credentials and callback settings are being configured. Real sign-in and persistent-session acceptance have not yet passed.
-- First platform owner has not been assigned; use only the verified user's own Discord-authenticated account UUID.
-- Complete the staging-league import/publication, permissions, scoring correction, penalty reversal, and concurrent-publication checks in DEPLOYMENT.md before using official results.
-- `racecontrol.ascrl.online` is attached to Vercel, but DNS is not configured. Bluehost requires a CNAME named `racecontrol` with target `5f43f2ed49c40fb6.vercel-dns-017.com`. Preserve the existing root/www/mail records and nameservers. After DNS/HTTPS verification, update the production site URL and exact Supabase callback, then redeploy.
-- Git-based automatic deployments, backups/restore acceptance, and scheduled preview cleanup remain to be configured or verified.
+- Further acceptance: second real Discord account, session refresh/sign-out, stage correction through the hosted UI, and two independent concurrent publication sessions. Core authenticated import/publication and database penalty reversal have passed.
+- Git-based automatic deployments remain disabled. Automatic approval review rejected connecting the repository while the intended branch and root were not pinned. CLI deployment remains available from this application directory.
+- Backup/restore acceptance remains outstanding. The Free plan requires regular off-site logical exports; daily managed backups require a paid plan. No plan upgrade or paid backup service has been purchased. See [Supabase backup guidance](https://supabase.com/docs/guides/platform/backups).

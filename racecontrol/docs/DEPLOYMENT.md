@@ -86,4 +86,6 @@ set payload = null, status = 'expired'
 where status = 'preview' and expires_at < now();
 ```
 
-This query preserves hashes and audit metadata and never deletes structured results. Review authenticated creation limits, add provider-level rate limiting for your deployment's traffic, and monitor logs before opening broad public registration. Restore database backups into staging before relying on them operationally.
+This query preserves hashes and audit metadata and never deletes structured results. The hosted administrator setup script is [preview_cleanup.sql](../supabase/operations/preview_cleanup.sql); it enables pg_cron and upserts a named hourly job. Review and authorize its payload-retention policy before applying it. Its installation and first successful production run are recorded in [HOSTED-SETUP.md](HOSTED-SETUP.md).
+
+Review authenticated creation limits, add provider-level rate limiting for your deployment's traffic, and monitor logs before opening broad public registration. Restore database backups into staging before relying on them operationally. Supabase's Free plan needs regular off-site logical exports; paid managed backups have not been enabled for this project. Follow the [current backup guide](https://supabase.com/docs/guides/platform/backups) when choosing a backup and restore process.
