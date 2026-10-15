@@ -1012,6 +1012,15 @@ code {
 .championship-fields:disabled {
   opacity: 0.85;
 }
+.championship-fields label {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.championship-fields .checkbox-line {
+  flex-direction: row;
+  align-items: center;
+}
 .round-list {
   display: grid;
   gap: 20px;
