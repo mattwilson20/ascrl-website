@@ -13,7 +13,7 @@ Updated October 15, 2026 (America/Chicago).
 - Application source: `racecontrol/` on `codex/ascrl-race-control`, commit `363b8897a968cf795847d31d09337e8481fbcbd1`.
 - Initial deployment was uploaded with the authenticated Vercel CLI. Git automatic deployment is now connected to `mattwilson20/ascrl-website`, branch `codex/ascrl-race-control`, with root directory `racecontrol`; an actual Git-triggered production deployment passed.
 - Runtime: Node.js 24, Next.js, `pnpm install --frozen-lockfile`, `pnpm build`.
-- Supabase organization: `ASCRL` (`mbtuvbnslodxxhwnhsar`), Free plan.
+- Supabase organization: `ASCRL` (`mbtuvbnslodxxhwnhsar`), Pro plan as of October 15, 2026.
 - Supabase project: `ASCRL Race Control` (`ixchlspfwllsmwjxqipr`), healthy, `us-east-1`, PostgreSQL 17.11.
 - Discord application: `ASCRL Race Control` (`1560132940476842114`), owned by Wilson's ASCR Team.
 
@@ -90,10 +90,13 @@ Supabase's security advisor still reports the intentionally exposed SECURITY DEF
 - The custom-domain session created at 12:01 UTC successfully refreshed after expiry at 13:05 UTC. The authenticated private race remained accessible, and the database session recorded its refresh. Sign-out removed the authenticated navigation and a subsequent Control room request redirected to login. A new Discord sign-in completed and returned the owner to the authenticated control room.
 - Encrypted Free-plan export and an isolated PostgreSQL 17.11 restore passed. The restored database retained all 21 application RLS tables, auth identity, both private scoring fixtures, originals and migration records. Both SQL acceptance scripts passed locally after restoration; the live database was not a restore target.
 - Windows Task Scheduler ran the encrypted backup successfully at 13:08 UTC and returned result 0, producing a new verified archive. Daily 3 a.m. local-time and Windows sign-in triggers are installed. Private Windows-encrypted credentials are stored outside OneDrive; only encrypted backups go in its Documents folder. See [backup operations](BACKUPS.md).
-- No paid plan upgrade has been purchased.
+- The user completed the Supabase Pro upgrade on October 15. Organization metadata confirms Pro. The backup dashboard shows physical restore points at 08:28:44 and 02:55:13 UTC that day. Daily managed backups retained seven days are the primary off-device protection; the checkout base price was $25/month. No production restore or paid point-in-time recovery was performed.
 
 ## Operational limits
 
-- The backup PC must be running, online and signed in. OneDrive must remain healthy; an independent cloud-copy check has not been performed.
+- Championship migration `20261015134209_championship_formats.sql` was applied through MCP as hosted version `20261015141204`. Both existing hosted acceptance scripts passed afterward. Local TypeScript, 54 tests (including the genuine file), and the production build passed. The local build required permission for the CSS compiler's child process outside the desktop sandbox.
+- The security advisor recognizes `rc_settings` as an authenticated security-definer API, alongside existing guarded RPCs. It requires a signed-in commissioner, fixes its search path, validates input and checks the target league. Anonymous execution is revoked. The new snapshot RPC is security-invoker. See [the advisor explanation](https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable). Pro also surfaced a leaked-password-protection notice; the app uses Discord OAuth rather than password sign-in.
+
+- Cloud managed backups and website hosting do not depend on this PC. Supplemental encrypted exports require the PC to be running, online and signed in. OneDrive sync is unhealthy and cloud upload is unverified; the user deferred its repair.
 - A second real Discord-account browser test remains unavailable because the owner has no second account. Database isolation checks with an unrelated identity passed.
 - The database restore test does not restore the Supabase hosting platform, OAuth provider configuration or DNS. Their settings and credentials require separate recovery records.

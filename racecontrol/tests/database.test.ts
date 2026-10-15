@@ -13,6 +13,7 @@ import { resolve } from "node:path";
 import { parseRaceFile } from "../src/lib/importer";
 import { STOCK_CAR_PRESET } from "../src/lib/rules";
 import { bytes, exportFixture } from "./fixtures";
+import { championshipStandings, newRound } from "../src/lib/championship";
 
 const A = "11111111-1111-4111-8111-111111111111",
   B = "22222222-2222-4222-8222-222222222222",
@@ -128,6 +129,214 @@ beforeEach(async () => {
 });
 afterEach(() => db.exec("rollback"));
 afterAll(() => db.close());
+describe("league rulebooks and championship settings", () => {
+  const config = () => ({
+    mode: "chase",
+    regularSeasonRaces: 1,
+    qualification: "points",
+    minimumStarts: 1,
+    seedBonuses: [10],
+    raceWinBonus: 5,
+    stageWinBonus: 1,
+    rounds: [{ ...newRound(2), name: "Title chase", races: 1 }],
+  });
+  const settings = (
+    command: string,
+    p: Record<string, unknown>,
+    user: string | null = A,
+  ) =>
+    query(
+      "select public.rc_settings($1,$2::jsonb) id",
+      [command, JSON.stringify(p)],
+      user,
+    );
+  const payload = () => ({
+    league_id: l,
+    season_id: season,
+    name: "Custom title",
+    version: 0,
+    config: config(),
+    drop_weeks: 0,
+    tiebreakers: ["wins", "latest_finish"],
+  });
+  const lastRace = () =>
+    manage("create_race", {
+      league_id: l,
+      season_id: season,
+      name: "Championship final",
+      track: "Test Speedway",
+      starts_at: "2026-10-19T23:30:18Z",
+    });
+  it("saves custom written rules with audit history and detects stale edits", async () => {
+    const p = {
+      league_id: l,
+      version: 0,
+      name: "Our Racing League",
+      description: "Our format",
+      rulebook: "Our own rules\nDrive clean.\n<script>plain text only</script>",
+    };
+    await settings("league_settings", p);
+    expect(
+      (
+        await query(
+          "select name,rulebook,rulebook_version from rc_leagues where id=$1",
+          [l],
+          null,
+        )
+      )[0],
+    ).toMatchObject({
+      name: p.name,
+      rulebook: p.rulebook,
+      rulebook_version: 1,
+    });
+    await expect(settings("league_settings", p)).rejects.toThrow("changed");
+    expect(
+      (
+        await query(
+          "select count(*)::int n from rc_audit where action='league_settings'",
+        )
+      )[0].n,
+    ).toBe(1);
+  });
+  it("restricts settings to commissioners of that league and snapshots to visible seasons", async () => {
+    await expect(
+      settings("championship_settings", payload(), B),
+    ).rejects.toThrow();
+    await expect(
+      settings("championship_settings", payload(), null),
+    ).rejects.toThrow();
+    await manage("membership", {
+      league_id: l,
+      user_id: S,
+      role: "steward",
+      status: "active",
+    });
+    await expect(
+      settings("championship_settings", payload(), S),
+    ).rejects.toThrow();
+    await db.query("update rc_leagues set is_public=false where id=$1", [l]);
+    expect(
+      (
+        await query("select rc_championship_snapshot($1) snapshot", [season], B)
+      )[0].snapshot,
+    ).toBeNull();
+    expect(
+      (
+        await query(
+          "select rc_championship_snapshot($1) snapshot",
+          [season],
+          null,
+        )
+      )[0].snapshot,
+    ).toBeNull();
+    expect(
+      (await query("select rc_championship_snapshot($1) snapshot", [season]))[0]
+        .snapshot.season,
+    ).toBeTruthy();
+    expect(
+      await query("select rulebook from rc_leagues where id=$1", [l], B),
+    ).toEqual([]);
+  });
+  it("validates direct RPC configurations, including nulls and unsupported fields", async () => {
+    for (const cfg of [
+      null,
+      {},
+      { mode: "unknown" },
+      { ...config(), extra: true },
+      { ...config(), regularSeasonRaces: 0 },
+      { ...config(), seedBonuses: [null] },
+      { ...config(), rounds: [{ ...newRound(), races: null }] },
+      {
+        ...config(),
+        rounds: [{ ...newRound(), resetPoints: null, addBonuses: true }],
+      },
+      { ...config(), rounds: [{ ...newRound(), winAdvance: true }] },
+    ]) {
+      await expect(
+        settings("championship_settings", { ...payload(), config: cfg }),
+      ).rejects.toThrow();
+    }
+    await expect(
+      settings("championship_settings", {
+        ...payload(),
+        tiebreakers: ["wins", "wins"],
+      }),
+    ).rejects.toThrow("repeat");
+    await expect(
+      settings("championship_settings", {
+        ...payload(),
+        tiebreakers: ["made_up"],
+      }),
+    ).rejects.toThrow("tiebreaker");
+  });
+  it("publishes a configured Chase, exposes an atomic safe snapshot and locks the format", async () => {
+    await settings("championship_settings", payload());
+    await lastRace();
+    await publish(await preview());
+    const snap = (
+      await query(
+        "select rc_championship_snapshot($1) snapshot",
+        [season],
+        null,
+      )
+    )[0].snapshot;
+    expect(snap.scores).toHaveLength(2);
+    expect(JSON.stringify(snap)).not.toContain("customer_id");
+    expect(JSON.stringify(snap)).not.toContain("original");
+    expect(championshipStandings(snap).rows.map((r) => r.total_points)).toEqual(
+      [2015, 2000],
+    );
+    await expect(
+      settings("championship_settings", { ...payload(), version: 1 }),
+    ).rejects.toThrow("lock");
+    await expect(
+      manage("create_race", {
+        league_id: l,
+        season_id: season,
+        name: "Too late",
+        track: "Test Speedway",
+        starts_at: "2026-10-26T23:30:18Z",
+      }),
+    ).rejects.toThrow("calendar locks");
+    // Written policies remain editable and versioned after racing begins.
+    await settings("league_settings", {
+      league_id: l,
+      version: 0,
+      name: "Test League A",
+      description: "",
+      rulebook: "New steward procedure",
+    });
+  });
+  it("requires a complete calendar and sequential publication without partial writes", async () => {
+    await settings("championship_settings", payload());
+    const job = await preview();
+    await expect(publish(job)).rejects.toThrow("expected 2 races");
+    expect((await query("select count(*)::int n from rc_scores"))[0].n).toBe(0);
+    const final = await lastRace();
+    const later = await preview(final, 1002);
+    await expect(publish(later)).rejects.toThrow("calendar order");
+    await publish(job);
+    await publish(later, []);
+    expect(
+      championshipStandings(
+        (
+          await query("select rc_championship_snapshot($1) snapshot", [season])
+        )[0].snapshot,
+      ).complete,
+    ).toBe(true);
+  });
+  it("rejects stale configuration writes and locks archived seasons", async () => {
+    await settings("championship_settings", payload());
+    await expect(settings("championship_settings", payload())).rejects.toThrow(
+      "changed",
+    );
+    await manage("archive_season", { league_id: l, season_id: season });
+    await expect(
+      settings("championship_settings", { ...payload(), version: 1 }),
+    ).rejects.toThrow("lock");
+  });
+});
+
 describe("PostgreSQL transactional championship flow", () => {
   it("creates a league, previews, publishes and reads public standings with custom points", async () => {
     const j = await preview();

@@ -1002,3 +1002,55 @@ code {
     transition: none !important;
   }
 }
+/* Rulebook and championship builder share the league's heritage typography. */
+.championship-fields {
+  border: 0;
+  padding: 0;
+  margin: 24px 0;
+  min-width: 0;
+}
+.championship-fields:disabled {
+  opacity: 0.85;
+}
+.round-list {
+  display: grid;
+  gap: 20px;
+}
+.round-editor {
+  padding: 22px;
+  border: 1px solid var(--line, #d3cdc0);
+  border-left: 4px solid var(--red, #b7312b);
+  border-radius: 3px;
+}
+.round-editor .section-heading {
+  margin-bottom: 20px;
+  gap: 16px;
+}
+.round-editor h3 {
+  margin: 0;
+}
+.championship-notes {
+  margin: 20px 0;
+  color: var(--muted, #646057);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+.checkbox-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.checkbox-line input {
+  width: auto;
+}
+.rulebook-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.8;
+  max-width: 85ch;
+}
+@media (max-width: 650px) {
+  .round-editor {
+    padding: 16px;
+  }
+}

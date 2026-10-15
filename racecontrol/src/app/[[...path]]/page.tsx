@@ -24,6 +24,11 @@ import {
 import { DataTable } from "@/components/data-table";
 import type { NormalizedDriver } from "@/lib/importer";
 import type { ScoringRules } from "@/lib/rules";
+import {
+  ChampionshipForm,
+  LeagueSettings,
+} from "@/components/championship-form";
+import { seasonChampionship } from "@/lib/championship-server";
 
 type Row = Record<string, any>;
 const options = (items: Row[], label = "name"): Option[] =>
@@ -75,7 +80,10 @@ const tabs = (s: Row) => (
   <div className="page-tabs">
     <Link href={"/seasons/" + s.id}>Season overview</Link>
     <Link href={"/seasons/" + s.id + "/standings"}>Championship standings</Link>
-    <Link href={"/seasons/" + s.id + "/rules"}>Scoring rules</Link>
+    <Link href={"/seasons/" + s.id + "/rules"}>
+      Rules & championship format
+    </Link>
+    <Link href={"/leagues/" + s.league_id + "#rulebook"}>League rulebook</Link>
     <Link href={"/leagues/" + s.league_id}>League dashboard</Link>
   </div>
 );
@@ -468,6 +476,29 @@ async function League({
             </Empty>
           )}
         </div>
+        <Panel
+          title={"League rulebook · version " + league.rulebook_version}
+          id="rulebook"
+        >
+          {manage ? (
+            <LeagueSettings
+              key={league.rulebook_version}
+              league={{
+                id: league.id,
+                name: league.name,
+                description: league.description,
+                rulebook: league.rulebook,
+                rulebook_version: league.rulebook_version,
+              }}
+            />
+          ) : league.rulebook ? (
+            <div className="rulebook-text">{league.rulebook}</div>
+          ) : (
+            <p className="muted">
+              The commissioner has not published a written rulebook yet.
+            </p>
+          )}
+        </Panel>
         {manage && (
           <LeagueForms
             league={id}
@@ -721,24 +752,25 @@ async function Series({ id }: { id: string }) {
 }
 async function Season({ id, section }: { id: string; section?: string }) {
   const s = await record("rc_seasons", id);
-  const [drivers, teams, races, ruleVersions, commissioner] = await Promise.all(
-    [
-      rows("rc_driver_standings", { season_id: id }, "championship_position"),
+  const [championship, teams, races, ruleVersions, commissioner] =
+    await Promise.all([
+      seasonChampionship(id),
       rows("rc_team_standings", { season_id: id }, "championship_position"),
-      rows("rc_races", { season_id: id }, "starts_at"),
+      rows("rc_races", { season_id: id }, "scheduled_at"),
       rows("rc_scoring_rules", { season_id: id }, "version"),
       can(s.league_id),
-    ],
-  );
+    ]);
   const current = ruleVersions.find((r) => r.id === s.active_rule_id);
+  const drivers = championship.rows;
+  const advanced = s.championship_config.mode !== "full_season";
   return (
     <>
       <Hero
         eyebrow={"Championship / " + s.status}
-        title={section === "rules" ? "The points system." : s.name}
+        title={section === "rules" ? "Your championship. Your rules." : s.name}
         description={
           section === "rules"
-            ? "Versioned scoring rules. Every published race records the exact version that produced its points."
+            ? "Build your points system, choose a championship format, and publish your league’s own rulebook."
             : "Follow the points battle and the race weekends that shape it."
         }
         actions={
@@ -754,6 +786,28 @@ async function Season({ id, section }: { id: string; section?: string }) {
         <SeasonRegistration season={s} />
         {section === "rules" ? (
           <>
+            <Panel
+              title={"Championship format · version " + s.championship_version}
+            >
+              <ChampionshipForm
+                key={s.championship_version}
+                season={{
+                  id: s.id,
+                  league_id: s.league_id,
+                  name: s.name,
+                  championship_config: s.championship_config,
+                  championship_version: s.championship_version,
+                  drop_weeks: s.drop_weeks,
+                  tiebreakers: s.tiebreakers,
+                }}
+                locked={
+                  s.status === "archived" ||
+                  races.some((r) => r.status === "published")
+                }
+                editable={commissioner}
+                calendarCount={races.length}
+              />
+            </Panel>
             <Panel
               title={
                 current
@@ -875,15 +929,24 @@ async function Season({ id, section }: { id: string; section?: string }) {
             <div className="section">
               <div className="section-heading">
                 <h2>Driver championship</h2>
-                <p>
-                  Search by driver, number, or team. Select a column heading to
-                  sort.
-                </p>
+                <p>{championship.phase}. Search by driver, number, or team.</p>
               </div>
               {drivers.length ? (
                 <DataTable
                   rows={drivers}
-                  columns={standingColumns}
+                  columns={
+                    advanced
+                      ? [
+                          ...standingColumns.slice(0, 2),
+                          {
+                            key: "championship_status",
+                            label: "Championship status",
+                          },
+                          ...standingColumns.slice(2),
+                          { key: "season_points", label: "Full-season points" },
+                        ]
+                      : standingColumns
+                  }
                   searchLabel="Search drivers, numbers, teams"
                 />
               ) : (
@@ -905,7 +968,9 @@ async function Season({ id, section }: { id: string; section?: string }) {
                 </Empty>
               )}
               <div className="section-heading" style={{ marginTop: 35 }}>
-                <h2>Team championship</h2>
+                <h2>
+                  Team championship{advanced ? " · full-season points" : ""}
+                </h2>
               </div>
               {teams.length ? (
                 <DataTable rows={teams} columns={teamColumns} />
@@ -1583,19 +1648,35 @@ async function Penalties() {
 }
 async function Driver({ id }: { id: string }) {
   const driver = await record("rc_drivers", id);
-  const [stats, scores, seasons, races, leagues, series] = await Promise.all([
-    rows("rc_driver_standings", { driver_id: id }),
-    rows("rc_scores", { driver_id: id }),
-    rows("rc_seasons"),
-    rows("rc_races"),
-    rows("rc_leagues"),
-    rows("rc_series"),
-  ]);
+  const [rawStats, scores, seasons, races, leagues, series] = await Promise.all(
+    [
+      rows("rc_driver_standings", { driver_id: id }),
+      rows("rc_scores", { driver_id: id }),
+      rows("rc_seasons"),
+      rows("rc_races"),
+      rows("rc_leagues"),
+      rows("rc_series"),
+    ],
+  );
+  const stats = await Promise.all(
+    rawStats.map(async (entry) => {
+      const season = seasons.find((s) => s.id === entry.season_id);
+      if (!season || season.championship_config.mode === "full_season")
+        return entry;
+      const championship = await seasonChampionship(entry.season_id);
+      return {
+        ...entry,
+        ...championship.rows.find((s) => s.driver_id === id),
+        championship_complete: championship.complete,
+      };
+    }),
+  );
   const sum = (key: string) =>
     stats.reduce((n, r) => n + Number(r[key] || 0), 0);
   const titles = stats.filter(
     (r) =>
       r.championship_position === 1 &&
+      r.championship_complete !== false &&
       seasons.find((s) => s.id === r.season_id)?.status === "archived",
   ).length;
   return (

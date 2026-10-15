@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { authorize, boundedBody, fail } from "@/lib/http";
 import { rulesSchema } from "@/lib/rules";
+import { championshipSchema } from "@/lib/championship";
 const manageCommands = [
   "create_league",
   "join_league",
@@ -40,6 +41,45 @@ export async function POST(request: Request) {
         p.config = rulesSchema.parse(p.config);
       name = "rc_manage";
       args = { command: input.command, p };
+    } else if (
+      input.command === "championship_settings" ||
+      input.command === "league_settings"
+    ) {
+      const base = {
+        league_id: z.uuid(),
+        version: z.number().int().min(0),
+        name: z.string().trim().min(2).max(100),
+      };
+      const settings =
+        input.command === "league_settings"
+          ? z
+              .object({
+                ...base,
+                description: z.string().max(2000),
+                rulebook: z.string().max(50000),
+              })
+              .parse(p)
+          : z
+              .object({
+                ...base,
+                season_id: z.uuid(),
+                config: championshipSchema,
+                drop_weeks: z.number().int().min(0).max(50),
+                tiebreakers: z
+                  .array(
+                    z.enum([
+                      "wins",
+                      "top5",
+                      "top10",
+                      "average_finish",
+                      "latest_finish",
+                    ]),
+                  )
+                  .max(5),
+              })
+              .parse(p);
+      name = "rc_settings";
+      args = { command: input.command, p: settings };
     } else if (input.command === "publish_import") {
       name = "rc_publish_import";
       args = z

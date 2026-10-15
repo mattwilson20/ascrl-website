@@ -4,9 +4,9 @@ A separate Next.js application for manually imported iRacing race results and cu
 
 ## Current delivery
 
-Implemented: persistent Supabase authentication through Discord; six permission levels; leagues, series, seasons, calendars, registrations, dated team rosters, versioned scoring; JSON validation and driver matching; transactional publication and corrections; public driver/team standings and career profiles; stages, penalties, appeals, incident reports, and immutable audit records. All scoring and permission checks run in PostgreSQL; the browser never submits official point totals.
+Implemented: persistent Supabase authentication through Discord; six permission levels; leagues, series, seasons, calendars, registrations, dated team rosters, versioned scoring; JSON validation and driver matching; transactional publication and corrections; public driver/team standings and career profiles; stages, penalties, appeals, incident reports, and immutable audit records. Leagues can publish their own written rulebook and choose full-season points, a Chase, or custom playoff rounds. Race scoring and permission checks run in PostgreSQL; postseason standings are calculated on the server from a consistent RLS-protected snapshot. The browser never submits official point totals.
 
-**Service setup is still required.** No Supabase or Vercel project existed when this was built. The code has been tested locally against PostgreSQL through PGlite, including the user's genuine export. Hosted Discord login, Supabase HTTP/session integration, concurrent multi-connection load, and Vercel deployment have not been verified. Treat this as a tested implementation awaiting deployment acceptance, not an already running production service.
+**Live at https://racecontrol.ascrl.online.** Hosted Discord login, session refresh, genuine-file publication, private-league isolation, corrections and concurrent publication passed commissioning checks. Git auto-deployment uses `codex/ascrl-race-control` and the `racecontrol` root. Supabase Pro provides managed cloud backups. See the [hosted setup record](docs/HOSTED-SETUP.md) and [verification limits](docs/VERIFICATION.md); a second real Discord-account browser test and broad-load testing remain outstanding.
 
 Read [deployment instructions](docs/DEPLOYMENT.md), [scoring and operations](docs/OPERATIONS.md), and [verification and remaining work](docs/VERIFICATION.md).
 
@@ -48,8 +48,8 @@ The test only reads that file. Never commit real exports, `.env.local`, password
 
 1. Sign in with Discord; open **Control room** and create a league. Its creator becomes commissioner.
 2. Add a series, then a season. Choose drop weeks and the tiebreaker order before the season begins.
-3. Open the season's **Scoring rules** page. Save the editable stock-car preset or your custom points table.
-4. Add a scheduled race, including the number of points-paying stages.
+3. Open **Rules & championship format**. Save your points table and choose full-season points, Chase or playoffs. In **Manage league**, write your rulebook and edit the league name/introduction. See [custom championships](docs/CHAMPIONSHIPS.md).
+4. Add scheduled races, including points-paying stages. A postseason requires its complete calendar before the first result is published.
 5. Create teams and dated rosters before publishing if you want that race to count toward a team championship.
 6. Open **Import results**; select league → series → season → race and upload the JSON downloaded from the individual iRacing results screen.
 7. Review source date/track, customer-ID matches, finishing order, and stage results. Approve each unknown driver explicitly.

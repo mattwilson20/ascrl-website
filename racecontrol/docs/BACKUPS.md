@@ -1,6 +1,14 @@
-# Encrypted backups on the Free plan
+# Cloud backups and supplemental encrypted exports
 
-The Free Supabase plan does not include managed daily backups. This setup uses PostgreSQL 17.11 logical exports, encrypted locally before writing them into OneDrive. It adds no hosting subscription.
+Supabase Pro is the primary backup service, enabled October 15, 2026. Its base price was $25/month at checkout. Managed daily database backups are retained for seven days and run in Supabase's cloud, independently of this PC or its internet connection. Vercel and Supabase already host the running website; a home internet outage does not stop the service.
+
+The project’s **Database → Backups → Scheduled backups** page was verified after the upgrade. It showed physical restore points at **2026-10-15 08:28:44 UTC** (3:28 a.m. Central) and **02:55:13 UTC**. Their presence was checked; production was not restored as a test. These snapshots predate later setup changes that day. Daily snapshots can leave up to about 24 hours of changes outside the latest recovery point. Point-in-time recovery was not purchased.
+
+To recover, review the desired timestamp in the [project backup dashboard](https://supabase.com/dashboard/project/ixchlspfwllsmwjxqipr/database/backups/scheduled), then follow Supabase’s restoration workflow. Restoration replaces the database state and can cause downtime; preserve newer recoverable data first. A separate staging-project restore test requires another project and is not included in the completed checks.
+
+Managed database backups do not include Storage object files. Race Control currently uses no Storage objects or Vault secrets. API/provider secrets, Auth configuration, Vercel settings and DNS need the separate setup record and password manager. Source code is preserved in GitHub.
+
+The existing encrypted PostgreSQL exports remain a supplemental local recovery option. **OneDrive upload is not verified:** the correct cloud account did not show the backup folder, and the user reported a sync-client restart/reinstall problem. Sync troubleshooting was deferred at the user's request. Do not count those files as an off-device backup until a cloud copy is independently verified.
 
 ## What is protected
 
@@ -35,7 +43,7 @@ The scheduled task uses the built-in Windows PowerShell executable, a fixed appl
 
 The first encrypted export passed at 12:53 UTC. A full isolated PostgreSQL 17.11 restore passed with 21 application tables, RLS on all 21, one auth user and identity, 42 scores, 42 original results and seven migration records. Both private acceptance fixtures passed after restoration. Encryption round-trip and tamper rejection also passed.
 
-An actual Task Scheduler launch completed successfully at 13:08 UTC (8:08 a.m. America/Chicago), produced a new verified encrypted archive, and returned task result 0. The next daily trigger is 3 a.m. local time. This verifies the scheduled process itself, not just a manual invocation. No paid upgrade was purchased. Off-device OneDrive upload has not been independently verified.
+An actual Task Scheduler launch completed successfully at 13:08 UTC (8:08 a.m. America/Chicago), produced a new verified encrypted archive, and returned task result 0. Another successful run produced an archive at 13:33 UTC. The next daily trigger is 3 a.m. local time. This verifies the scheduled process itself, not just a manual invocation. Supabase Pro subsequently became the primary cloud backup service; these local exports are supplemental.
 
 After rotating the database password, allow time for the Supabase pooler to pick up the change before treating an immediate authentication error as a bad password. The reset password worked after that delay during commissioning.
 
