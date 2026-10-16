@@ -1,79 +1,68 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "season": "2026-2027 Preseason",
   "title": "2027 Preseason Thunder",
   "events": [
     {
-      "series": "Cup",
       "track": "Chicagoland",
       "date": "2026-11-17",
       "results": []
     },
     {
-      "series": "ORAP",
       "track": "Las Vegas",
       "date": "2026-11-19",
       "results": []
     },
     {
-      "series": "Truck",
       "track": "Daytona",
       "date": "2026-12-01",
       "results": []
     },
     {
-      "series": "Cup",
       "track": "Richmond",
       "date": "2026-12-03",
       "results": []
     },
     {
-      "series": "ORAP",
       "track": "San Diego",
       "date": "2026-12-08",
       "results": []
     },
     {
-      "series": "Truck",
       "track": "North Wilkesboro",
       "date": "2026-12-10",
       "results": []
     },
     {
-      "series": "Cup",
       "track": "Atlanta",
       "date": "2026-12-15",
       "results": []
     },
     {
-      "series": "ORAP",
       "track": "Talladega",
       "date": "2026-12-17",
       "results": []
     },
     {
-      "series": "Truck",
       "track": "Michigan",
       "date": "2026-12-22",
       "results": []
     },
     {
-      "series": "Cup",
       "track": "San Diego",
       "date": "2026-12-29",
       "results": []
     },
     {
-      "series": "ORAP",
       "track": "Martinsville",
       "date": "2027-01-05",
       "results": []
     },
     {
-      "series": "Truck",
       "track": "St. Pete",
       "date": "2027-01-07",
       "results": []
     }
-  ]
+  ],
+  "standings": []
 }
