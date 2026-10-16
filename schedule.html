@@ -253,7 +253,8 @@
         }
     </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="heritage.css?v=20261014"><script src="heritage.js?v=20261014" defer></script>
+<link rel="stylesheet" href="heritage.css?v=20261014"><script src="heritage.js?v=20261016" defer></script>
+<link rel="stylesheet" href="season-update.css?v=20261016"><script src="season-2026.js?v=20261016"></script>
 </head>
 <body class="heritage-page page-schedule">
 
@@ -270,9 +271,9 @@
             </div>
             
             <div class="cal-header">
-                <button onclick="changeCalMonth(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+                <button aria-label="Previous calendar month" onclick="changeCalMonth(-1)"><i class="fa-solid fa-chevron-left"></i></button>
                 <h2 id="cal-month-title">FEB 2026</h2>
-                <button onclick="changeCalMonth(1)"><i class="fa-solid fa-chevron-right"></i></button>
+                <button aria-label="Next calendar month" onclick="changeCalMonth(1)"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
             
             <div class="cal-body-wrapper">
@@ -304,9 +305,10 @@
 <nav class="h-primary" aria-label="Main navigation"><a href="index.html">Home<span aria-hidden="true">↗</span></a><a href="schedule.html">Schedule<span aria-hidden="true">↗</span></a><a href="standings.html">Driver standings<span aria-hidden="true">↗</span></a><a href="teams.html">Team standings<span aria-hidden="true">↗</span></a><a href="drivers.html">Driver roster<span aria-hidden="true">↗</span></a><a href="rules.html">Sporting code<span aria-hidden="true">↗</span></a></nav>
 <button class="h-menu-toggle" type="button" data-h-menu aria-expanded="false" aria-controls="nav-menu"><span class="h-menu-icon" aria-hidden="true">☰</span> ALL PAGES</button>
 <a class="h-join" href="https://discord.gg/RgYEY5F3Kf" target="_blank" rel="noopener noreferrer">JOIN THE GRID ↗</a>
-</div><nav class="h-megamenu" id="nav-menu" aria-label="All league pages" hidden><div class="h-menu-grid"><div class="h-menu-group"><h2>Race center</h2><a href="schedule.html" id="nav-schedule">Schedule<span aria-hidden="true">↗</span></a><a href="results.html" id="nav-results">Race results<span aria-hidden="true">↗</span></a><a href="standings.html" id="nav-standings">Driver standings<span aria-hidden="true">↗</span></a><a href="teams.html" id="nav-teams">Team standings<span aria-hidden="true">↗</span></a><a href="drivers.html" id="nav-drivers">Driver roster<span aria-hidden="true">↗</span></a></div><div class="h-menu-group"><h2>League life</h2><a href="index.html" id="nav-index">Home<span aria-hidden="true">↗</span></a><a href="rules.html" id="nav-rules">Sporting code<span aria-hidden="true">↗</span></a><a href="news.html" id="nav-news">ASCR Weekly<span aria-hidden="true">↗</span></a><a href="collection.html" id="nav-collection">Collections<span aria-hidden="true">↗</span></a></div><div class="h-menu-group"><h2>Beyond the pavement</h2><a href="iracing.html" id="nav-iracing">iRacing<span aria-hidden="true">↗</span></a><a href="woo.html" id="nav-woo">World of Outlaws<span aria-hidden="true">↗</span></a></div></div><a class="h-menu-discord" href="https://discord.gg/RgYEY5F3Kf" target="_blank" rel="noopener noreferrer">Join the league on Discord ↗</a></nav></header></div>
+</div><nav class="h-megamenu" id="nav-menu" aria-label="All league pages" hidden><div class="h-menu-grid"><div class="h-menu-group"><h2>Race center</h2><a href="preseason.html">Preseason<span aria-hidden="true">↗</span></a><a href="schedule.html" id="nav-schedule">Schedule<span aria-hidden="true">↗</span></a><a href="results.html" id="nav-results">Race results<span aria-hidden="true">↗</span></a><a href="standings.html" id="nav-standings">Driver standings<span aria-hidden="true">↗</span></a><a href="teams.html" id="nav-teams">Team standings<span aria-hidden="true">↗</span></a><a href="drivers.html" id="nav-drivers">Driver roster<span aria-hidden="true">↗</span></a></div><div class="h-menu-group"><h2>League life</h2><a href="index.html" id="nav-index">Home<span aria-hidden="true">↗</span></a><a href="rules.html" id="nav-rules">Sporting code<span aria-hidden="true">↗</span></a><a href="news.html" id="nav-news">ASCR Weekly<span aria-hidden="true">↗</span></a><a href="collection.html" id="nav-collection">Collections<span aria-hidden="true">↗</span></a></div><div class="h-menu-group"><h2>Beyond the pavement</h2><a href="iracing.html" id="nav-iracing">iRacing<span aria-hidden="true">↗</span></a><a href="woo.html" id="nav-woo">World of Outlaws<span aria-hidden="true">↗</span></a></div></div><a class="h-menu-discord" href="https://discord.gg/RgYEY5F3Kf" target="_blank" rel="noopener noreferrer">Join the league on Discord ↗</a></nav></header></div>
 
     <header class="h-page-hero"><div class="h-hero-inner"><a class="h-breadcrumb" href="index.html">ASCRL HOME <span aria-hidden="true">/</span></a><p class="h-eyebrow">The race center</p><h1>Chase the green.</h1><p class="h-hero-description">Your season, track by track. Explore race weekends, the championship chase, and the full calendar.</p><div class="h-hero-stripe" aria-hidden="true"></div></div></header>
+<aside class="season-notice season-announcement" aria-label="2026 season announcement"><strong>★ 2026 champions · Scott: Cup &amp; Menards · Dakota: Xfinity</strong><p>These three championships have concluded by agreement among the title contenders, and all remaining races are cancelled. <b>The Truck championship continues.</b></p><a class="season-link" href="index.html#champions">Celebrate the champions ↗</a> &nbsp; <a class="season-link" href="preseason.html">2027 Preseason Thunder · Meet ORAP ↗</a></aside>
 
     <div class="controls-bar">
         <div class="controls-inner">
@@ -340,7 +342,8 @@
         
         <div id="reg-section">
             <h2 class="section-header">Regular Season</h2>
-            <div id="regular-grid" class="race-grid">
+            <div class="season-notice" id="series-season-notice" aria-live="polite"></div>
+        <div id="regular-grid" class="race-grid">
                 </div>
         </div>
 
@@ -355,7 +358,7 @@
 
     </main>
 
-    <footer class="h-footer"><div class="h-footer-main"><div class="h-footer-brand"><a href="index.html"><img src="assets/heritage-wordmark.webp" alt="ASCRL home" width="230" height="82"></a><p>One flag. One league. All heart.</p><span>Owned and operated by<br><strong>A&amp;M Productions LLC</strong></span></div><nav aria-label="Footer Race center"><h2>Race center</h2><a href="schedule.html">Schedule<span aria-hidden="true">↗</span></a><a href="results.html">Race results<span aria-hidden="true">↗</span></a><a href="standings.html">Driver standings<span aria-hidden="true">↗</span></a><a href="teams.html">Team standings<span aria-hidden="true">↗</span></a><a href="drivers.html">Driver roster<span aria-hidden="true">↗</span></a></nav><nav aria-label="Footer League life"><h2>League life</h2><a href="index.html">Home<span aria-hidden="true">↗</span></a><a href="rules.html">Sporting code<span aria-hidden="true">↗</span></a><a href="news.html">ASCR Weekly<span aria-hidden="true">↗</span></a><a href="collection.html">Collections<span aria-hidden="true">↗</span></a></nav><nav aria-label="Footer Beyond the pavement"><h2>Beyond the pavement</h2><a href="iracing.html">iRacing<span aria-hidden="true">↗</span></a><a href="woo.html">World of Outlaws<span aria-hidden="true">↗</span></a></nav></div><div class="h-footer-bottom"><span>© 2025–<span id="copyright-year">2026</span> American Stock Car Racing League</span><div><a href="https://www.facebook.com/share/14PeZVCH1hL/" target="_blank" rel="noopener noreferrer">Facebook ↗</a><a href="https://x.com/ASCRWeekly" target="_blank" rel="noopener noreferrer">X ↗</a><a href="mailto:contact.ascrl@gmail.com">Contact the league ↗</a></div></div></footer>
+    <footer class="h-footer"><div class="h-footer-main"><div class="h-footer-brand"><a href="index.html"><img src="assets/heritage-wordmark.webp" alt="ASCRL home" width="230" height="82"></a><p>One flag. One league. All heart.</p><span>Owned and operated by<br><strong>A&amp;M Productions LLC</strong></span></div><nav aria-label="Footer Race center"><h2>Race center</h2><a href="preseason.html">Preseason<span aria-hidden="true">↗</span></a><a href="schedule.html">Schedule<span aria-hidden="true">↗</span></a><a href="results.html">Race results<span aria-hidden="true">↗</span></a><a href="standings.html">Driver standings<span aria-hidden="true">↗</span></a><a href="teams.html">Team standings<span aria-hidden="true">↗</span></a><a href="drivers.html">Driver roster<span aria-hidden="true">↗</span></a></nav><nav aria-label="Footer League life"><h2>League life</h2><a href="index.html">Home<span aria-hidden="true">↗</span></a><a href="rules.html">Sporting code<span aria-hidden="true">↗</span></a><a href="news.html">ASCR Weekly<span aria-hidden="true">↗</span></a><a href="collection.html">Collections<span aria-hidden="true">↗</span></a></nav><nav aria-label="Footer Beyond the pavement"><h2>Beyond the pavement</h2><a href="iracing.html">iRacing<span aria-hidden="true">↗</span></a><a href="woo.html">World of Outlaws<span aria-hidden="true">↗</span></a></nav></div><div class="h-footer-bottom"><span>© 2025–<span id="copyright-year">2026</span> American Stock Car Racing League</span><div><a href="https://www.facebook.com/share/14PeZVCH1hL/" target="_blank" rel="noopener noreferrer">Facebook ↗</a><a href="https://x.com/ASCRWeekly" target="_blank" rel="noopener noreferrer">X ↗</a><a href="mailto:contact.ascrl@gmail.com">Contact the league ↗</a></div></div></footer>
 
     <script>
         // 1. NAV LOADER
@@ -381,7 +384,8 @@
         let archiveData = {};
         let driversData = {};
         let resultsData = {}; 
-        let currentSeries = 'Cup';
+        let currentSeries = new URLSearchParams(location.search).get('series') || 'Cup';
+        if(!['Cup','Xfinity','Truck','Menards'].includes(currentSeries))currentSeries='Cup';
         let countdownInterval = null;
 
         // Track Shape SVG Helper
@@ -462,7 +466,7 @@
 
             // Fetch ALL data needed
             Promise.all([
-                fetch(file).then(r => r.ok ? r.json() : {}),
+                fetch(file,{cache:"no-store"}).then(r => r.ok ? r.json() : {}),
                 fetch(FILES["2025"]).then(r => r.ok ? r.json() : {}), // Keep for defending winner check
                 fetch("drivers.json").then(r => r.ok ? r.json() : {}),
                 fetch(resultFile).then(r => r.ok ? r.json() : {}) // DYNAMIC RESULT FILE
@@ -471,7 +475,7 @@
                 archiveData = archiveSet;
                 driversData = driverSet; 
                 resultsData = resultSet;
-                renderSeries();
+                switchSeries(currentSeries);
                 
                 // If modal is open, re-render to catch changes
                 if(document.getElementById('interactive-calendar-overlay').style.display === 'flex') {
@@ -514,6 +518,7 @@
             document.getElementById('progress-container').style.display = 'block';
 
             const races = rawData[sKey];
+            document.getElementById('series-season-notice').innerHTML = ASCRL_SEASON.notice(currentSeries, document.getElementById('seasonSelect').value === 'current' ? '2026' : '2025');
             const today = new Date();
             today.setHours(0,0,0,0);
             
@@ -539,15 +544,21 @@
 
             races.forEach((race, index) => {
                 const rDate = new Date(race.date + "T12:00:00");
+                const isCancelled = race.status === 'cancelled';
                 const isPast = rDate < today;
                 const isToday = rDate.toDateString() === today.toDateString();
                 
-                if (isPast || isToday) completedRaces++;
+                if (!isCancelled && (isPast || isToday)) completedRaces++;
 
                 const month = rDate.toLocaleString('default', {month:'short'}).toUpperCase();
                 const day = rDate.getDate();
                 const dateString = `${rDate.getFullYear()}-${(rDate.getMonth()+1).toString().padStart(2, '0')}-${rDate.getDate().toString().padStart(2, '0')}`;
 
+                if (isCancelled) {
+                    const card = `<article class="race-ticket cancelled-race"><time datetime="${race.date}">${month} ${day} · ${rDate.getFullYear()}</time><h3 class="track-name">${race.track}</h3><span class="status-pill">CANCELLED · SEASON CONCLUDED</span><p>2026 ${currentSeries} champion: ${ASCRL_SEASON.champion(currentSeries)?.name || ''}. The remaining races will not be run.</p></article>`;
+                    if(race.is_chase){hasChase=true;chaseGrid.innerHTML+=card;}else regGrid.innerHTML+=card;
+                    return;
+                }
                 // --- Look up Defending Winner (if upcoming) ---
                 let defendingHtml = '';
                 if (!isPast && archiveData[sKey]) {
@@ -768,8 +779,9 @@
                 }
             });
 
-            const pct = Math.round((completedRaces / races.length) * 100);
-            document.getElementById('progress-label').innerText = `SEASON PROGRESS // ${completedRaces} OF ${races.length} RACES`;
+            const cancelledCount = races.filter(r=>r.status==='cancelled').length;
+            const pct = Math.round(((completedRaces + cancelledCount) / races.length) * 100);
+            document.getElementById('progress-label').innerText = `${document.getElementById('seasonSelect').value === 'current' ? '2026' : '2025'} CALENDAR // ${completedRaces} PAST EVENTS${cancelledCount ? " · " + cancelledCount + " CANCELLED · SEASON CONCLUDED" : " OF " + races.length + " RACES"}`;
             document.getElementById('progress-percent').innerText = `${pct}%`;
             document.getElementById('progress-fill').style.width = `${pct}%`;
 
@@ -829,6 +841,7 @@
             page.classList.add('flip-up');
 
             setTimeout(() => {
+                currentCalDate.setDate(1);
                 currentCalDate.setMonth(currentCalDate.getMonth() + offset);
                 renderInteractiveCalendar();
                 page.classList.remove('flip-up');
@@ -845,16 +858,17 @@
                 const races = rawData[key];
                 const foundRaces = races.filter(r => r.date === dateStr);
                 foundRaces.forEach(r => {
-                    dayRaces.push({ series: seriesName, track: r.track, winner: r.winner, is_chase: r.is_chase });
+                    dayRaces.push({ series: seriesName, track: r.track, winner: r.winner, is_chase: r.is_chase, status: r.status });
                 });
             });
+            if(document.getElementById('seasonSelect').value === 'current') dayRaces.push(...ASCRL_SEASON.preseason.filter(r=>r.date===dateStr).map(r=>({...r,preseason:true})));
             return dayRaces;
         }
 
         function getSeriesColorVar(seriesName) {
             const s = seriesName.toLowerCase();
             if(s === 'cup') return 'var(--cup-blue)';
-            if(s === 'xfinity') return 'var(--xfinity-purple)';
+            if(s === 'xfinity' || s === 'orap') return 'var(--xfinity-purple)';
             if(s === 'truck') return 'var(--truck-red)';
             if(s === 'menards') return 'var(--menards-yellow)';
             return '#666';
@@ -905,7 +919,7 @@
 
                     contentHtml = `<div class="cal-event-list">`;
                     races.forEach(r => {
-                        let shortTime = r.series.toLowerCase() === 'cup' ? '8:30p' : '9:20p';
+                        let shortTime = r.status==='cancelled' ? 'CANCELLED' : r.preseason ? 'PRESEASON' : r.series.toLowerCase() === 'cup' ? '8:30p' : '9:20p';
                         let shortTrack = r.track.split(' ')[0]; 
                         contentHtml += `<div class="cal-event-text"><strong>${r.series.toUpperCase()}</strong> ${shortTrack} - ${shortTime}</div>`;
                     });
@@ -942,6 +956,10 @@
             
             let html = '';
             races.forEach(r => {
+                if(r.status==='cancelled' || r.preseason){
+                    html += `<div class="day-event-card"><div class="day-event-series">${r.series} SERIES</div><h3 class="day-event-track">${r.track}</h3><p class="season-modal-cancelled">${r.status==='cancelled' ? 'CANCELLED · 2026 season concluded' : '2027 PRESEASON THUNDER'}</p>${r.preseason ? '<a class="season-link" href="preseason.html">Full preseason schedule ↗</a>' : ''}</div>`;
+                    return;
+                }
                 let qTime = r.series.toLowerCase() === 'cup' ? '8:00 PM EST' : '9:00 PM EST';
                 let rTime = r.series.toLowerCase() === 'cup' ? '8:30 PM EST' : '9:20 PM EST';
                 let sColor = getSeriesColorVar(r.series);
