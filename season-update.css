@@ -56,3 +56,18 @@
 @media(max-width:1100px){.champion-card>img{height:195px}.champion-card-copy{padding:18px}.preseason-layout{gap:30px}.season-wrap{width:calc(100% - 48px)}}
 @media(max-width:700px){.season-wrap,.season-announcement{width:calc(100% - 32px)}.championship-celebration{padding-top:30px}.champion-grid{grid-template-columns:1fr;gap:14px}.champion-card{display:grid;grid-template-columns:39% 61%;min-height:165px}.champion-card>img{height:100%;min-height:165px;object-position:center}.champion-card-copy{border-top:0;border-left:2px solid #d7b771;padding:25px 16px 20px;display:flex;flex-direction:column;justify-content:center}.champion-card h2{font-size:39px}.champion-card .champion-crown{font-size:11px;line-height:1.4}.champion-card .champion-stamp{top:8px;left:8px;font-size:9px;padding:5px 7px}.champion-card p{font-size:11px}.season-truck-callout{align-items:flex-start;flex-direction:column;gap:9px;padding:17px}.season-intro{font-size:13px}.season-kicker{font-size:10px;letter-spacing:1.5px}.preseason-feature{padding:40px 0}.preseason-layout,.preseason-page .preseason-layout{grid-template-columns:1fr;gap:30px}.preseason-page{padding-top:32px}.preseason-feature .poster-link{max-width:300px}.preseason-dates li{grid-template-columns:80px minmax(0,1fr) 48px;gap:10px}.preseason-dates strong{font-size:21px}.preseason-dates time{font-size:15px}.season-notice{padding:16px}.season-notice strong{font-size:20px}.season-champion-badge{font-size:10px}.season-link{white-space:normal}}
 @media(prefers-reduced-motion:reduce){.preseason-feature .poster-link{transform:none}}
+
+/* Official 2026 team championship; independent of live roster assignments. */
+.team-championship-wrap{margin-top:28px;margin-bottom:28px}
+.team-championship-banner{display:flex;align-items:center;gap:24px;padding:28px;margin-top:22px;border:1px solid #c0a265;border-left:5px solid #e5c47c;background:linear-gradient(115deg,#342d1c,#17263a 62%,#101b2b);box-shadow:0 12px 30px #0003}
+.team-championship-wrap .team-championship-banner{margin-top:0}
+.team-championship-trophy{flex:none;font-size:56px;line-height:1;color:#efd694;text-shadow:0 0 28px #e5c47c44}
+.team-championship-banner .season-kicker{margin:0 0 8px}
+.team-championship-banner h2{font:900 clamp(32px,4vw,52px)/1 var(--h-head,sans-serif);margin:0 0 10px;text-transform:uppercase;color:#fff;letter-spacing:.3px}
+.team-championship-description{font:500 13px/1.7 var(--h-body,sans-serif);color:#d3dfed;margin:0;max-width:680px}
+.team-championship-banner>.season-link{margin-left:auto;flex:none}
+.team-record-note{max-width:900px;margin:0 auto 22px;color:#e6d1a0;font:600 13px/1.7 var(--h-body,sans-serif)}
+.team-record-note:empty{display:none}
+.page-teams .season-champion-badge{margin-top:8px}
+@media(max-width:900px){.team-championship-banner{flex-wrap:wrap}.team-championship-banner>div:nth-child(2){flex:1;min-width:0}.team-championship-banner>.season-link{margin-left:0;width:100%}}
+@media(max-width:500px){.team-championship-banner{gap:14px;padding:20px 16px}.team-championship-trophy{font-size:36px}.team-championship-banner h2{font-size:34px}.team-championship-banner .season-kicker{font-size:10px;line-height:1.6}.team-championship-description{font-size:12px}.team-championship-wrap{margin-block:20px}}

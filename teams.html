@@ -83,6 +83,7 @@
     </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="heritage.css?v=20261014"><script src="heritage.js?v=20261016" defer></script>
+<link rel="stylesheet" href="season-update.css?v=20261020-team">
 </head>
 <body class="heritage-page page-teams">
 
@@ -96,12 +97,13 @@
 
     <header class="h-page-hero"><div class="h-hero-inner"><a class="h-breadcrumb" href="index.html">ASCRL HOME <span aria-hidden="true">/</span></a><p class="h-eyebrow">Constructors championship</p><h1>Team standings.</h1><p class="h-hero-description">Follow the organizations behind the drivers. Compare championship points and open a team to see its roster.</p><div class="h-hero-stripe" aria-hidden="true"></div></div></header>
 
+    <div class="season-wrap team-championship-wrap"><section class="team-championship-banner" aria-label="2026 Cup team champions"><div class="team-championship-trophy" aria-hidden="true">★</div><div><p class="season-kicker">2026 Cup Series · Team champions</p><h2>High Line Racing</h2><p class="team-championship-description">A championship earned together. The 2026 title, final points and contributing roster are now part of the ASCRL record book.</p></div><a class="season-link" href="teams.html#final-team-standings">View the final standings ↗</a></section></div>
     <div id="debug-log"></div>
 
-    <div class="standings-section">
+    <div class="standings-section" id="final-team-standings">
         <div class="standings-controls">
             <select id="season-select" onchange="loadSeasonData()">
-                <option value="2026">2026 Season (Current)</option>
+                <option value="2026">2026 Season</option>
                 <option value="Season_1">Season 1 (2025-26)</option>
             </select>
 
@@ -113,6 +115,7 @@
             </div>
         </div>
         
+        <p class="team-record-note" id="team-record-note" aria-live="polite"></p>
         <table class="standings-table">
             <thead>
                 <tr>
@@ -155,6 +158,18 @@
         // --- 2. DATA LOADING & CALCULATION ---
         let driversData = {}; 
         let currentSeries = 'Cup';
+        let finalTeamRecord = null;
+        let standingsLoadVersion = 0;
+        const escapeTeamText = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+        const isFinalTeamSeason = () => document.getElementById('season-select').value === '2026' && currentSeries === 'Cup';
+
+        function validFinalTeamRecord(record) {
+            return record?.schema_version === 1 && record.season === '2026' && record.series === 'Cup' && record.status === 'final'
+                && record.champion === 'HIGH LINE RACING' && Array.isArray(record.standings) && record.standings.length > 0
+                && record.standings[0].name === record.champion
+                && record.standings.every(t => typeof t.name === 'string' && Number.isFinite(t.totalPoints) && Array.isArray(t.drivers)
+                    && t.drivers.every(d => typeof d.name === 'string' && Number.isFinite(d.points)));
+        }
 
         document.addEventListener('DOMContentLoaded', () => { loadSeasonData(); });
 
@@ -171,13 +186,24 @@
         }
 
         async function loadSeasonData() {
-            document.getElementById('standings-body').innerHTML = '<tr><td colspan="3" style="text-align:center;">Calculating Data...</td></tr>';
-            
-            // For Team Standings to match Individual Standings perfectly, 
-            // we ONLY need to pull from drivers.json!
-            const dData = await fetchWithFallback("drivers.json");
-            driversData = dData || {};
-
+            const requestVersion = ++standingsLoadVersion;
+            const finalized = isFinalTeamSeason();
+            finalTeamRecord = null;
+            const tbody = document.getElementById('standings-body');
+            tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Loading team standings...</td></tr>';
+            document.getElementById('team-record-note').textContent = finalized
+                ? 'Final 2026 Cup team standings · Locked October 20, 2026. Later driver transfers do not change these points or contributing rosters.' : '';
+            // Final Cup records never fall back to current driver assignments.
+            const data = await fetchWithFallback(finalized ? 'ASCRL_Team_Championship_2026.json' : 'drivers.json');
+            if (requestVersion !== standingsLoadVersion) return;
+            if (finalized ? !validFinalTeamRecord(data) : !data) {
+                tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;padding:2rem;">' + (finalized
+                    ? 'The final standings are temporarily unavailable. High Line Racing remain the official 2026 Cup team champions. Please reload to try again.'
+                    : 'Team standings are temporarily unavailable. Please reload to try again.') + '</td></tr>';
+                return;
+            }
+            if (finalized) finalTeamRecord = data;
+            else driversData = data;
             updateStandingsTable();
         }
 
@@ -187,7 +213,7 @@
                 b.classList.remove('active');
                 if(b.dataset.series === s) b.classList.add('active');
             });
-            updateStandingsTable();
+            loadSeasonData();
         }
 
         // --- 3. TEAM CALCULATION ENGINE ---
@@ -290,7 +316,8 @@
             const tbody = document.getElementById('standings-body');
             tbody.innerHTML = '';
             
-            const teams = calculateTeamsFromDrivers(currentSeries);
+            const finalized = isFinalTeamSeason();
+            const teams = finalized ? (finalTeamRecord?.standings || []) : calculateTeamsFromDrivers(currentSeries);
 
             if(teams.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding:2rem;">No active teams or results found for ${currentSeries}.</td></tr>`;
@@ -298,7 +325,8 @@
             }
 
             teams.forEach((team, index) => {
-                let displayTeamName = team.name;
+                let displayTeamName = escapeTeamText(team.name);
+                const isChampion = finalized && team.name === finalTeamRecord?.champion;
                 let logoUrl = "";
                 let cleanName = displayTeamName.toUpperCase();
 
@@ -322,8 +350,8 @@
                 const rosterHtml = team.drivers.map(d => `
                     <div class="driver-chip">
                         <div class="chip-left">
-                            <span class="chip-num">#${d.number}</span>
-                            <span class="chip-name">${d.name}</span>
+                            <span class="chip-num">#${escapeTeamText(d.number)}</span>
+                            <span class="chip-name">${escapeTeamText(d.name)}</span>
                         </div>
                         <span class="chip-pts">${d.points} PTS</span>
                     </div>
@@ -337,7 +365,7 @@
                 tr.innerHTML = `
                     <td class="rank-cell">${index + 1}</td>
                     <td style="font-weight:bold; letter-spacing:1px; color:#fff;">
-                        ${displayTeamName} <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                        ${displayTeamName}${isChampion ? '<span class="season-champion-badge">★ 2026 Cup team champions</span>' : ''} <i class="fa-solid fa-chevron-down toggle-icon"></i>
                     </td>
                     <td class="points-cell">${team.totalPoints}</td>
                 `;
@@ -350,7 +378,7 @@
                 trDetail.innerHTML = `
                     <td colspan="3" style="padding:0;">
                         <div class="details-content">
-                            <small style="color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Contributing Drivers</small>
+                            <small style="color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">${finalized ? "2026 championship roster · Preserved at season close" : "Contributing Drivers"}</small>
                             <div class="roster-grid">
                                 ${rosterHtml}
                             </div>

@@ -1,0 +1,222 @@
+{
+  "schema_version": 1,
+  "season": "2026",
+  "series": "Cup",
+  "status": "final",
+  "champion": "HIGH LINE RACING",
+  "finalized_on": "2026-10-20",
+  "source_commit": "f4279a13eb124522861213dedc0fd70bdd5bfeb6",
+  "note": "Official championship confirmed by the league owner. Final standings and contributing rosters are preserved independently of future driver transfers and points updates. Do not regenerate from the live drivers feed.",
+  "standings": [
+    {
+      "name": "HIGH LINE RACING",
+      "totalPoints": 7269,
+      "drivers": [
+        {
+          "name": "Scott247_",
+          "number": "7",
+          "points": 2311
+        },
+        {
+          "name": "bigray-45",
+          "number": "36",
+          "points": 2236
+        },
+        {
+          "name": "Mike_8762",
+          "number": "05",
+          "points": 2190
+        },
+        {
+          "name": "xxHambone",
+          "number": "69",
+          "points": 532
+        }
+      ]
+    },
+    {
+      "name": "WHY IS IT SMOKING? MOTORSPORTS",
+      "totalPoints": 6770,
+      "drivers": [
+        {
+          "name": "ThirstTrapToby",
+          "number": "0",
+          "points": 2194
+        },
+        {
+          "name": "tophert422",
+          "number": "87",
+          "points": 2134
+        },
+        {
+          "name": "Joshua Riddle #12",
+          "number": "12",
+          "points": 2066
+        },
+        {
+          "name": "Lostcozov",
+          "number": "2",
+          "points": 376
+        }
+      ]
+    },
+    {
+      "name": "TOO BROKE RACING",
+      "totalPoints": 6610,
+      "drivers": [
+        {
+          "name": "Paul 1 lap hold 💩 Bloom",
+          "number": "29",
+          "points": 2241
+        },
+        {
+          "name": "KingG931",
+          "number": "16",
+          "points": 2225
+        },
+        {
+          "name": "Matt \"Mr. Rogers\" Wilson",
+          "number": "1",
+          "points": 2144
+        }
+      ]
+    },
+    {
+      "name": "APEX RACING",
+      "totalPoints": 5123,
+      "drivers": [
+        {
+          "name": "the_fireman199",
+          "number": "17",
+          "points": 2214
+        },
+        {
+          "name": "dakotathomas1994",
+          "number": "24",
+          "points": 2155
+        },
+        {
+          "name": "MajorBlaz33",
+          "number": "18",
+          "points": 431
+        },
+        {
+          "name": "TheReaperRhino",
+          "number": "13",
+          "points": 323
+        }
+      ]
+    },
+    {
+      "name": "BACKROW MOTORSPORTS",
+      "totalPoints": 4970,
+      "drivers": [
+        {
+          "name": "A54BUICKBANDIT",
+          "number": "60",
+          "points": 2229
+        },
+        {
+          "name": "You’reATowel",
+          "number": "41",
+          "points": 2110
+        },
+        {
+          "name": "On-A-Mission618",
+          "number": "53",
+          "points": 367
+        },
+        {
+          "name": "DaltonGregson",
+          "number": "28",
+          "points": 264
+        }
+      ]
+    },
+    {
+      "name": "RACEASYLUM GRIDLIFE",
+      "totalPoints": 4749,
+      "drivers": [
+        {
+          "name": "eRA_GarytheSnail",
+          "number": "92",
+          "points": 2221
+        },
+        {
+          "name": "RA_StabbyBear",
+          "number": "27",
+          "points": 2184
+        },
+        {
+          "name": "eRA_Chewsday",
+          "number": "23",
+          "points": 344
+        }
+      ]
+    },
+    {
+      "name": "MEAN MACHINES",
+      "totalPoints": 2180,
+      "drivers": [
+        {
+          "name": "nitro4242",
+          "number": "5",
+          "points": 2180
+        }
+      ]
+    },
+    {
+      "name": "NWAR",
+      "totalPoints": 1190,
+      "drivers": [
+        {
+          "name": "BusterTC007",
+          "number": "88",
+          "points": 580
+        },
+        {
+          "name": "HoosierDaddyMFTZ",
+          "number": "77",
+          "points": 333
+        },
+        {
+          "name": "Kerk2206",
+          "number": "22",
+          "points": 277
+        },
+        {
+          "name": "Driver 789119897262227517",
+          "number": "100",
+          "points": 0
+        }
+      ]
+    },
+    {
+      "name": "FAST AND LOOSE RACING",
+      "totalPoints": 598,
+      "drivers": [
+        {
+          "name": "BanishedCrayon",
+          "number": "59",
+          "points": 439
+        },
+        {
+          "name": "superace33",
+          "number": "33",
+          "points": 159
+        }
+      ]
+    },
+    {
+      "name": "24IX RACING",
+      "totalPoints": 225,
+      "drivers": [
+        {
+          "name": "ThePlugRyan",
+          "number": "9",
+          "points": 225
+        }
+      ]
+    }
+  ]
+}
