@@ -3,6 +3,9 @@ import{portable,validateProject}from'/pro/document.mjs';
 const bridge=window.privatePaintHost;
 const targets=new Map();let serial=0,previous='',lastRevision='',connected=false;
 const touches=new Map();
+// Repaint the 2D canvas after it becomes visible in the offscreen compositor.
+const applyView=studio.applyView.bind(studio);
+studio.applyView=view=>{applyView(view);requestAnimationFrame(()=>studio.render());};
 const visible=el=>el.getBoundingClientRect().width>0&&el.getBoundingClientRect().height>0&&!el.closest('[hidden]');
 const key=el=>{if(!el.dataset.remoteControl)el.dataset.remoteControl='c'+(++serial);targets.set(el.dataset.remoteControl,el);return el.dataset.remoteControl;};
 const label=el=>el.getAttribute('aria-label')||el.title||el.labels?.[0]?.textContent?.trim()||el.textContent?.trim()||el.id||'Edit value';
@@ -35,6 +38,7 @@ document.addEventListener('click',e=>{
  }
 },true);
 bridge.on('command',m=>{
+ if(m.type==='upload-cancel'){const el=targets.get(m.id);if(el instanceof HTMLInputElement&&el.type==='file')el.dispatchEvent(new Event('cancel'));return;}
  if(m.type==='resized'){setTimeout(()=>{studio.fitUV();studio.viewer.setCamera('perspective');studio.viewer.invalidate(12);},250);return;}
  if(m.type==='pointer'&&m.pointerType==='touch'){
   const x=m.x*(innerWidth-1),y=m.y*(innerHeight-1);

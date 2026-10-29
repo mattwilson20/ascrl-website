@@ -1,7 +1,7 @@
 const {app,BrowserWindow,ipcMain,Tray,Menu,nativeImage}=require('electron');
 const fs=require('node:fs'),fsp=require('node:fs/promises'),path=require('node:path'),http=require('node:http');
 const {pathToFileURL}=require('node:url'),{createHash,randomUUID}=require('node:crypto'),{execFileSync}=require('node:child_process');
-const {validMessage,validTGA,MAX_UPLOAD}=require('./protocol.cjs');
+const {validMessage,validTGA,editorMessage}=require('./protocol.cjs');
 const config=JSON.parse(fs.readFileSync(path.join(__dirname,'host-config.json'),'utf8').replace(/^\uFEFF/,''));
 const root=path.resolve(config.studioDirectory),runtime=path.join(process.env.LOCALAPPDATA||app.getPath('userData'),'ASCRL Paint Host');
 fs.mkdirSync(runtime,{recursive:true});app.setPath('userData',path.join(runtime,'browser-profile'));
@@ -10,7 +10,7 @@ app.commandLine.appendSwitch('disable-renderer-backgrounding');
 app.commandLine.appendSwitch('autoplay-policy','no-user-gesture-required');
 if(!app.requestSingleInstanceLock()){app.quit();return;}
 let editor,transport,server,tray,active=null,connected=false,upload=null,lastFrame=null,polling=false,backupBusy=false;
-let lastInput=Date.now(),lastBackup=0,dirty=true,frameBusy=false,frameAt=0,validatedProject,declinedSession=null;
+let lastInput=Date.now(),lastBackup=0,dirty=true,frameAt=0,pendingFrame=null,frameTimer=null,validatedProject,declinedSession=null;
 let backupQueue=Promise.resolve();const snapshotRequests=new Map();
 const runtimeFile=path.join(runtime,'status.json');
 const status=(state,extra={})=>{try{fs.writeFileSync(runtimeFile,JSON.stringify({state,at:new Date().toISOString(),pid:process.pid,connected,session:active?.id||null,...extra},null,2));}catch{};};
@@ -65,7 +65,7 @@ function input(m){
  }
  if(!validMessage(m))return;lastInput=Date.now();
  if(m.type==='resize'){editor.setContentSize(m.width,m.height);editor.webContents.send('editor-command',{type:'resized'});editor.webContents.invalidate();return;}
- if(m.type==='field'||m.type==='control'||m.type==='pointer'&&m.pointerType==='touch'){editor.webContents.send('editor-command',m);return;}
+ if(m.type==='field'||m.type==='control'||m.type==='upload-cancel'||m.type==='pointer'&&m.pointerType==='touch'){editor.webContents.send('editor-command',m);return;}
  if(m.type==='upload-start'){upload={...m,chunks:[],received:0,started:Date.now()};return;}
  if(m.type==='upload-end'){
   const f=upload;upload=null;if(!f||f.size!==f.received||Date.now()-f.started>300000)return;
@@ -129,15 +129,17 @@ app.whenReady().then(async()=>{
  editor.webContents.on('console-message',(_e,level,message)=>{if(Number(level)>=2)log('Editor: '+message);});
  editor.webContents.on('render-process-gone',(_e,d)=>{status('error',{error:'Editor process stopped: '+d.reason});closeStream();});
  editor.webContents.on('paint',(_e,_dirty,image)=>{
-  if(frameBusy||Date.now()-frameAt<40)return;frameAt=Date.now();frameBusy=true;
-  try{lastFrame={bytes:image.toJPEG(90)};if(transport&&!transport.isDestroyed())transport.webContents.send('transport-frame',lastFrame);}finally{frameBusy=false;}
+  // Coalesce, but never discard the last frame of an otherwise idle editor.
+  // Dropping a frame here can leave the remote image behind the actual controls.
+  pendingFrame=image;if(frameTimer)return;
+  frameTimer=setTimeout(()=>{frameTimer=null;const latest=pendingFrame;pendingFrame=null;if(!latest)return;frameAt=Date.now();lastFrame={bytes:latest.toJPEG(90)};if(transport&&!transport.isDestroyed())transport.webContents.send('transport-frame',lastFrame);},Math.max(0,42-(Date.now()-frameAt)));
  });
  ipcMain.on('transport-ready',e=>{if(validSender(e,transport)){if(lastFrame)transport.webContents.send('transport-frame',lastFrame);void poll();}});
  ipcMain.on('transport-answer',(e,data)=>{if(validSender(e,transport)&&data?.id===active?.id)void rpc('answer',data).catch(err=>{log(err.message);closeStream();});});
  ipcMain.on('transport-message',(e,data)=>{if(validSender(e,transport))input(data);});
  ipcMain.on('transport-connected',(e,data)=>{if(!validSender(e,transport))return;connected=!!data;editor.webContents.send('editor-connected',connected);editor.webContents.invalidate();status(connected?'connected':'ready');});
  ipcMain.on('transport-error',(e,message)=>{if(validSender(e,transport))log('Stream: '+message);});
- for(const type of ['controls','field','upload-request','status'])ipcMain.on('editor-'+type,(e,data)=>{if(validSender(e,editor))control({type,...data});});
+ for(const type of ['controls','field','upload-request','status'])ipcMain.on('editor-'+type,(e,data)=>{if(validSender(e,editor))control(editorMessage(type,data));});
  ipcMain.on('editor-save-state',(e,data)=>{if(validSender(e,editor)){dirty=true;control({type:'status',text:`${data.title||data.profile} · ${data.status}`});}});
  ipcMain.on('editor-snapshot',async(e,data)=>{if(validSender(e,editor)&&data?.doc){const saved=await snapshot(data.doc,!!data.localOnly);const done=snapshotRequests.get(data.requestId);if(done){snapshotRequests.delete(data.requestId);done(saved);}}});
  ipcMain.on('editor-download',async(e,data)=>{

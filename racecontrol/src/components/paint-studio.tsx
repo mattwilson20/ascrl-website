@@ -205,7 +205,7 @@ export default function PaintStudio() {
     }
     if (m.type === "status") setDetail(String(m.text).slice(0, 300));
     if (m.type === "field" && typeof m.id === "string") {
-      setField(m);
+      setField({...m,type:m.inputType||"text"});
       setValue(String(m.value ?? ""));
     }
     if (m.type === "controls" && Array.isArray(m.items)) {
@@ -335,6 +335,7 @@ export default function PaintStudio() {
     const point=videoPoint(r,video.current.videoWidth||r.width,video.current.videoHeight||r.height,e.clientX,e.clientY);
     if(phase==='down'&&!point.inside)return;
     if (phase === "down") {
+      video.current.focus({preventScroll:true});
       video.current.setPointerCapture(e.pointerId);
       pointerDown.current = true;
     }
@@ -606,7 +607,7 @@ export default function PaintStudio() {
           <form onSubmit={e=>{e.preventDefault();file.current?.click();}}>
             <h2>Import artwork</h2>
             <p>Choose an image, TGA, or saved paint project to send to your private workstation.</p>
-            <div><button className="button" type="submit">Choose file</button><button className="button secondary" type="button" onClick={()=>{setUploadRequest(false);uploadTarget.current=null;}}>Cancel</button></div>
+            <div><button className="button" type="submit">Choose file</button><button className="button secondary" type="button" onClick={()=>{send({type:"upload-cancel",id:uploadTarget.current});setUploadRequest(false);uploadTarget.current=null;}}>Cancel</button></div>
           </form>
         </div>,stage.current
       )}
