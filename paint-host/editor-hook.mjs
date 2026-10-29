@@ -1,8 +1,18 @@
 import{studio}from'/pro/app.mjs';
 import{portable,validateProject}from'/pro/document.mjs';
+import{TouchRelay}from'/private-touch-relay.mjs';
 const bridge=window.privatePaintHost;
 const targets=new Map();let serial=0,previous='',lastRevision='',connected=false;
-const touches=new Map();
+const touch=new TouchRelay({hitTest:(x,y)=>document.elementFromPoint(x,y),controllerFor:hit=>hit===studio.viewer.renderer.domElement?studio.touch3D:document.getElementById('uvViewport').contains(hit)?studio.touchUV:null,event:type=>new Event(type,{bubbles:true})});
+const compact=document.createElement('style');compact.textContent=`
+@media(max-width:900px) and (max-height:500px){
+ header{height:44px}.brand{display:none}header select{max-width:210px;height:40px}
+ .projectstrip{height:0;padding:0;border:0}.projectstrip #title{display:none}
+ #toggleInspector{position:absolute;right:68px;top:2px;height:40px;z-index:11}
+ .options{height:44px}main{height:calc(100dvh - 88px)}footer,.panefoot{display:none}
+ #inspector{top:44px;bottom:0}.panehead{padding:2px 5px}.workbar{min-height:44px}
+}
+`;document.head.append(compact);
 // Repaint the 2D canvas after it becomes visible in the offscreen compositor.
 const applyView=studio.applyView.bind(studio);
 studio.applyView=view=>{applyView(view);requestAnimationFrame(()=>studio.render());};
@@ -11,7 +21,7 @@ const key=el=>{if(!el.dataset.remoteControl)el.dataset.remoteControl='c'+(++seri
 const label=el=>el.getAttribute('aria-label')||el.title||el.labels?.[0]?.textContent?.trim()||el.textContent?.trim()||el.id||'Edit value';
 function descriptor(el){return{id:key(el),label:label(el).slice(0,100),type:el.tagName==='SELECT'?'select':el.type||'text',value:el.value||'',options:el.tagName==='SELECT'?[...el.options].map(o=>({value:o.value,label:o.textContent})):undefined};}
 function controls(){
- const items=[...document.querySelectorAll('button,select,input:not([type=file]),textarea')].filter(el=>visible(el)&&!el.disabled).map(el=>({id:key(el),label:label(el).slice(0,100),kind:el.tagName==='SELECT'?'select':el.tagName==='INPUT'&&!['checkbox','button'].includes(el.type)||el.tagName==='TEXTAREA'?'field':'button',value:el.value,options:el.tagName==='SELECT'?[...el.options].map(o=>({value:o.value,label:o.textContent})):undefined})).filter(x=>x.label);
+ const items=[...document.querySelectorAll('button,select,input:not([type=file]),textarea')].filter(el=>visible(el)&&!el.disabled).map(el=>({id:key(el),label:label(el).slice(0,100),kind:el.tagName==='SELECT'?'select':el.tagName==='INPUT'&&!['checkbox','button'].includes(el.type)||el.tagName==='TEXTAREA'?'field':'button',inputType:el.type||'text',value:el.value,options:el.tagName==='SELECT'?[...el.options].map(o=>({value:o.value,label:o.textContent})):undefined})).filter(x=>x.label);
  const json=JSON.stringify(items);if(json!==previous){previous=json;bridge.emit('controls',{items});}
 }
 // Downloads are intercepted inside this isolated editor. Only a verified TGA leaves the host.
@@ -39,22 +49,10 @@ document.addEventListener('click',e=>{
 },true);
 bridge.on('command',m=>{
  if(m.type==='upload-cancel'){const el=targets.get(m.id);if(el instanceof HTMLInputElement&&el.type==='file')el.dispatchEvent(new Event('cancel'));return;}
- if(m.type==='resized'){setTimeout(()=>{studio.fitUV();studio.viewer.setCamera('perspective');studio.viewer.invalidate(12);},250);return;}
+ if(m.type==='cancel-pointers'){touch.cancel();return;}
+ if(m.type==='resized'){touch.cancel();setTimeout(()=>{studio.fitUV();studio.viewer.invalidate(12);studio.render();},250);return;}
  if(m.type==='pointer'&&m.pointerType==='touch'){
-  const x=m.x*(innerWidth-1),y=m.y*(innerHeight-1);
-  if(m.phase==='down'){
-   const hit=document.elementFromPoint(x,y),three=studio.viewer.renderer.domElement,uv=document.getElementById('uvViewport');
-   const controller=hit===three?studio.touch3D:uv.contains(hit)?studio.touchUV:null;
-   touches.set(m.pointerId,{controller,hit,x,y,lastY:y});
-  }
-  const t=touches.get(m.pointerId);if(!t)return;
-  if(t.controller)t.controller.handle('pointer'+(m.phase==='cancel'?'cancel':m.phase),{pointerType:'touch',pointerId:m.pointerId,clientX:x,clientY:y,button:0,pressure:m.pressure||.5,shiftKey:!!m.shift,ctrlKey:!!m.ctrl,preventDefault(){},stopImmediatePropagation(){}});
-  else if(m.phase==='up'&&Math.hypot(x-t.x,y-t.y)<12)t.hit?.closest('button,input,select,textarea,summary')?.click();
-  else if(m.phase==='move'){
-   if(t.hit instanceof HTMLInputElement&&t.hit.type==='range'){const r=t.hit.getBoundingClientRect();const min=Number(t.hit.min)||0,max=Number(t.hit.max)||100;t.hit.value=String(min+(max-min)*Math.max(0,Math.min(1,(x-r.left)/r.width)));t.hit.dispatchEvent(new Event('input',{bubbles:true}));t.hit.dispatchEvent(new Event('change',{bubbles:true}));}
-   else {let scroll=t.hit;while(scroll&&scroll.scrollHeight<=scroll.clientHeight)scroll=scroll.parentElement;if(scroll)scroll.scrollTop+=t.lastY-y;}t.lastY=y;
-  }
-  if(m.phase==='up'||m.phase==='cancel')touches.delete(m.pointerId);return;
+  touch.handle(m,innerWidth,innerHeight);return;
  }
  const el=targets.get(m.id);if(!el||!visible(el)||el.disabled)return;
  if(m.type==='field'){
@@ -64,7 +62,7 @@ bridge.on('command',m=>{
   el.value=m.value;el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));
  }else if(m.type==='control')el.click();controls();
 });
-bridge.on('connected',value=>{connected=value;previous='';if(!value){touches.clear();studio.touch3D.reset();studio.touchUV.reset();if(studio.stroke)studio.cancelTouch();for(const el of targets.values())if(el instanceof HTMLInputElement&&el.type==='file')el.dispatchEvent(new Event('cancel'));}controls();});
+bridge.on('connected',value=>{connected=value;previous='';if(!value){touch.cancel();studio.touch3D.reset();studio.touchUV.reset();if(studio.stroke)studio.cancelTouch();for(const el of targets.values())if(el instanceof HTMLInputElement&&el.type==='file')el.dispatchEvent(new Event('cancel'));}controls();});
 // Remove routes out of this editor and the obsolete LAN pairing flow in the streamed view.
 for(const id of ['phone','phoneTransfer','phoneButton','exportPNG','downloadLegacy']){const el=document.getElementById(id);if(el)el.hidden=true;}
 for(const el of document.querySelectorAll('button'))if(/Phone \/ transfer/.test(el.textContent))el.hidden=true;

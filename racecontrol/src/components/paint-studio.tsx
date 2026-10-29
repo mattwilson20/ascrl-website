@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import "./paint-studio.css";
-import { videoPoint } from "@/lib/paint-policy";
+import { paintViewport, videoPoint } from "@/lib/paint-policy";
 
 type Backup = {
   id: string;
@@ -22,6 +22,7 @@ type Control = {
   id: string;
   label: string;
   kind: string;
+  inputType?: string;
   value?: string;
   checked?: boolean;
   options?: { value: string; label: string }[];
@@ -57,6 +58,7 @@ async function iceReady(pc: RTCPeerConnection) {
 export default function PaintStudio() {
   const video = useRef<HTMLVideoElement>(null),
     stage = useRef<HTMLDivElement>(null),
+    viewport = useRef<HTMLDivElement>(null),
     file = useRef<HTMLInputElement>(null);
   const pc = useRef<RTCPeerConnection | null>(null),
     channel = useRef<RTCDataChannel | null>(null),
@@ -72,14 +74,16 @@ export default function PaintStudio() {
     } | null>(null);
   const uploadTarget = useRef<string | null>(null),
     controls = useRef<Control[]>([]),
-    pointerDown = useRef(false);
+    pointers = useRef(new Set<number>());
+  const [expanded, setExpanded] = useState(false),
+    [showControls, setShowControls] = useState(false);
   const [online, setOnline] = useState(false),
     [connected, setConnected] = useState(false),
     [connecting, setConnecting] = useState(false);
   const [status, setStatus] = useState("Checking your private workstation…"),
     [backups, setBackups] = useState<Backup[]>([]);
   const [field, setField] = useState<Field | null>(null),
-    [restoreId,setRestoreId]=useState<string|null>(null),
+    [restoreId, setRestoreId] = useState<string | null>(null),
     [uploadRequest, setUploadRequest] = useState(false),
     [value, setValue] = useState(""),
     [tools, setTools] = useState<Control[]>([]);
@@ -102,6 +106,7 @@ export default function PaintStudio() {
       pc.current = null;
       if (video.current) video.current.srcObject = null;
       setConnected(false);
+      pointers.current.clear();
       setConnecting(false);
       setField(null);
       setRestoreId(null);
@@ -176,13 +181,51 @@ export default function PaintStudio() {
     },
     [download],
   );
-  const dimensions = () => ({
-    width: Math.max(
-      390,
-      Math.min(1600, Math.round(stage.current?.clientWidth || 1280)),
-    ),
-    height: Math.max(600, Math.min(1000, Math.round(window.innerHeight - (document.fullscreenElement ? 0 : 200)))),
-  });
+  const dimensions = () =>
+    paintViewport(
+      viewport.current?.clientWidth || 1280,
+      viewport.current?.clientHeight || 720,
+    );
+  const cancelPointers = useCallback(() => {
+    if (!pointers.current.size) return;
+    pointers.current.clear();
+    send({ type: "cancel-pointers" });
+  }, [send]);
+  useEffect(() => {
+    if (!expanded) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const escape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setExpanded(false);
+    };
+    document.addEventListener("keydown", escape);
+    return () => {
+      document.body.style.overflow = previous;
+      document.removeEventListener("keydown", escape);
+    };
+  }, [expanded]);
+  // Keep phone keyboard dialogs inside the visible viewport without resizing
+  // the remote canvas (which would move the artwork under the active finger).
+  useEffect(() => {
+    const visible = window.visualViewport;
+    const update = () => {
+      stage.current?.style.setProperty(
+        "--paint-keyboard-top",
+        `${visible?.offsetTop || 0}px`,
+      );
+      stage.current?.style.setProperty(
+        "--paint-keyboard-height",
+        `${visible?.height || window.innerHeight}px`,
+      );
+    };
+    update();
+    visible?.addEventListener("resize", update);
+    visible?.addEventListener("scroll", update);
+    return () => {
+      visible?.removeEventListener("resize", update);
+      visible?.removeEventListener("scroll", update);
+    };
+  }, []);
   const receive = async (event: MessageEvent) => {
     if (event.data instanceof ArrayBuffer) {
       const f = incoming.current;
@@ -207,7 +250,7 @@ export default function PaintStudio() {
     }
     if (m.type === "status") setDetail(String(m.text).slice(0, 300));
     if (m.type === "field" && typeof m.id === "string") {
-      setField({...m,type:m.inputType||"text"});
+      setField({ ...m, type: m.inputType || "text" });
       setValue(String(m.value ?? ""));
     }
     if (m.type === "controls" && Array.isArray(m.items)) {
@@ -253,7 +296,7 @@ export default function PaintStudio() {
         return;
       }
       setDownload({ url: URL.createObjectURL(blob), name: f.name });
-      setDetail("TGA received and verified. Use Download TGA below.");
+      setDetail("TGA received and verified. Tap Download TGA to save it.");
     }
     if (m.type === "backup-complete") {
       setDetail("Cloud recovery copy saved.");
@@ -277,7 +320,12 @@ export default function PaintStudio() {
         setStatus("Connected · Only your account has access");
         send({ type: "resize", ...dimensions() });
       };
-      dc.onclose = ()=>{if(!closing.current)void disconnect("The workstation ended the stream. Connect again to continue.");};
+      dc.onclose = () => {
+        if (!closing.current)
+          void disconnect(
+            "The workstation ended the stream. Connect again to continue.",
+          );
+      };
       peer.ontrack = (e) => {
         if (video.current) {
           video.current.srcObject = new MediaStream([e.track]);
@@ -314,34 +362,62 @@ export default function PaintStudio() {
   useEffect(() => {
     if (!connected) return;
     let timer: ReturnType<typeof setTimeout>;
+    let previous = "";
     const resize = () => {
       clearTimeout(timer);
-      timer = setTimeout(() => send({ type: "resize", ...dimensions() }), 500);
+      timer = setTimeout(() => {
+        if (field || uploadRequest) return;
+        const size = dimensions(),
+          key = `${size.width}/${size.height}`;
+        if (key === previous) return;
+        previous = key;
+        cancelPointers();
+        send({ type: "resize", ...size });
+      }, 250);
     };
-    window.addEventListener("resize", resize);
-    document.addEventListener("fullscreenchange", resize);
-    const player=video.current;
-    const preventScroll=(e:WheelEvent)=>e.preventDefault();
-    player?.addEventListener("wheel",preventScroll,{passive:false});
+    const observer = new ResizeObserver(resize);
+    if (viewport.current) observer.observe(viewport.current);
+    window.addEventListener("blur", cancelPointers);
+    const hidden = () => {
+      if (document.hidden) cancelPointers();
+    };
+    document.addEventListener("visibilitychange", hidden);
+    const player = video.current;
+    const preventScroll = (e: WheelEvent) => e.preventDefault();
+    player?.addEventListener("wheel", preventScroll, { passive: false });
     return () => {
       clearTimeout(timer);
-      window.removeEventListener("resize", resize);
-      document.removeEventListener("fullscreenchange", resize);
-      player?.removeEventListener("wheel",preventScroll);
+      observer.disconnect();
+      window.removeEventListener("blur", cancelPointers);
+      document.removeEventListener("visibilitychange", hidden);
+      player?.removeEventListener("wheel", preventScroll);
     };
-  }, [connected, send]);
+  }, [connected, send, cancelPointers, field, uploadRequest]);
   function pointer(e: React.PointerEvent<HTMLVideoElement>, phase: string) {
     if (!connected || !video.current) return;
     e.preventDefault();
     const r = video.current.getBoundingClientRect();
-    const point=videoPoint(r,video.current.videoWidth||r.width,video.current.videoHeight||r.height,e.clientX,e.clientY);
-    if(phase==='down'&&!point.inside)return;
+    const point = videoPoint(
+      r,
+      video.current.videoWidth || r.width,
+      video.current.videoHeight || r.height,
+      e.clientX,
+      e.clientY,
+    );
+    if (phase === "down" && !point.inside) return;
     if (phase === "down") {
-      video.current.focus({preventScroll:true});
+      video.current.focus({ preventScroll: true });
       video.current.setPointerCapture(e.pointerId);
-      pointerDown.current = true;
+      pointers.current.add(e.pointerId);
     }
-    if (phase === "up" || phase === "cancel") pointerDown.current = false;
+    if (
+      phase !== "down" &&
+      e.pointerType !== "mouse" &&
+      !pointers.current.has(e.pointerId)
+    )
+      return;
+    if (phase === "up" || phase === "cancel")
+      pointers.current.delete(e.pointerId);
     send({
       type: "pointer",
       phase,
@@ -363,7 +439,7 @@ export default function PaintStudio() {
     uploadTarget.current = null;
     if (!id) return;
     if (f.size > 80 * 1024 * 1024) {
-      send({type:"upload-cancel",id});
+      send({ type: "upload-cancel", id });
       setDetail("Use a file smaller than 80 MB.");
       return;
     }
@@ -388,7 +464,7 @@ export default function PaintStudio() {
       send({ type: "upload-end" });
       setDetail("Artwork sent.");
     } catch {
-      send({type:"upload-cancel",id});
+      send({ type: "upload-cancel", id });
       setDetail("Upload interrupted. Import the file again.");
     }
   }
@@ -397,7 +473,8 @@ export default function PaintStudio() {
       setField({
         id: control.id,
         label: control.label,
-        type: control.kind === "select" ? "select" : "text",
+        type:
+          control.kind === "select" ? "select" : control.inputType || "text",
         value: control.value ?? "",
         options: control.options,
       });
@@ -442,103 +519,164 @@ export default function PaintStudio() {
         <button
           className="button secondary"
           disabled={!connected}
-          onClick={() => void stage.current?.requestFullscreen()}
+          onClick={() => {
+            cancelPointers();
+            setExpanded(true);
+          }}
         >
-          Full screen
+          Expand editor
         </button>
       </div>
       <p role="status" className="paint-status">
         {status}
       </p>
-      <div className="paint-stage" ref={stage}>
-        <button className="paint-fullscreen-exit" onClick={()=>void document.exitFullscreen()}>Exit full screen</button>
-        <video
-          ref={video}
-          className={connected ? "" : "paint-video-idle"}
-          autoPlay
-          playsInline
-          muted
-          aria-label="Private Paint Studio stream"
-          tabIndex={0}
-          onPointerDown={(e) => pointer(e, "down")}
-          onPointerMove={(e) => pointer(e, "move")}
-          onPointerUp={(e) => pointer(e, "up")}
-          onPointerCancel={(e) => pointer(e, "cancel")}
-          onContextMenu={(e) => e.preventDefault()}
-          onWheel={(e) => {
-            const r=e.currentTarget.getBoundingClientRect();
-            const point=videoPoint(r,e.currentTarget.videoWidth||r.width,e.currentTarget.videoHeight||r.height,e.clientX,e.clientY);
-            if (connected && point.inside)
-              send({
-                type: "wheel",
-                deltaX: e.deltaX,
-                deltaY: e.deltaY,
-                x: point.x,
-                y: point.y,
-              });
-          }}
-          onKeyDown={(e) => {
-            if(e.key==='Escape' && document.fullscreenElement){void document.exitFullscreen();return;}
-            e.preventDefault();
-            send({
-              type: "key",
-              key: e.key,
-              phase: "down",
-              ctrl: e.ctrlKey,
-              shift: e.shiftKey,
-              alt: e.altKey,
-            });
-          }}
-          onKeyUp={(e) => {
-            e.preventDefault();
-            send({
-              type: "key",
-              key: e.key,
-              phase: "up",
-              ctrl: e.ctrlKey,
-              shift: e.shiftKey,
-              alt: e.altKey,
-            });
-          }}
-        />
-        {!connected && (
-          <div className="paint-placeholder">
-            <span>ASCRL</span>
-            <h2>Your next scheme starts here.</h2>
-            <p>
-              The editor runs on your PC. This page receives the live view and
-              exports your finished TGA.
-            </p>
-            <small>Start “Paint Studio Host” on your PC, then connect.</small>
+      <div
+        className={`paint-stage${expanded ? " paint-expanded" : ""}`}
+        ref={stage}
+      >
+        {connected && (
+          <div className="paint-stage-toolbar">
+            <button
+              type="button"
+              aria-expanded={showControls}
+              onClick={() => setShowControls(!showControls)}
+            >
+              Tools
+            </button>
+            <button type="button" onClick={() => send({ type: "backup" })}>
+              Save
+            </button>
+            {download && (
+              <a href={download.url} download={download.name}>
+                Download TGA
+              </a>
+            )}
+            <button
+              type="button"
+              className="paint-expand-toggle"
+              aria-label={expanded ? "Close expanded view" : "Expand editor"}
+              onClick={() => {
+                cancelPointers();
+                setExpanded(!expanded);
+              }}
+            >
+              {expanded ? "Close" : "Expand"}
+            </button>
           </div>
         )}
+        <div className="paint-video-slot" ref={viewport}>
+          <video
+            ref={video}
+            className={connected ? "" : "paint-video-idle"}
+            autoPlay
+            playsInline
+            muted
+            aria-label="Private Paint Studio stream"
+            tabIndex={0}
+            onPointerDown={(e) => pointer(e, "down")}
+            onPointerMove={(e) => pointer(e, "move")}
+            onPointerUp={(e) => pointer(e, "up")}
+            onPointerCancel={(e) => pointer(e, "cancel")}
+            onLostPointerCapture={(e) => {
+              if (pointers.current.has(e.pointerId)) pointer(e, "cancel");
+            }}
+            onContextMenu={(e) => e.preventDefault()}
+            onWheel={(e) => {
+              const r = e.currentTarget.getBoundingClientRect();
+              const point = videoPoint(
+                r,
+                e.currentTarget.videoWidth || r.width,
+                e.currentTarget.videoHeight || r.height,
+                e.clientX,
+                e.clientY,
+              );
+              if (connected && point.inside)
+                send({
+                  type: "wheel",
+                  deltaX: e.deltaX,
+                  deltaY: e.deltaY,
+                  x: point.x,
+                  y: point.y,
+                });
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Escape" && expanded) {
+                setExpanded(false);
+                return;
+              }
+              e.preventDefault();
+              send({
+                type: "key",
+                key: e.key,
+                phase: "down",
+                ctrl: e.ctrlKey,
+                shift: e.shiftKey,
+                alt: e.altKey,
+              });
+            }}
+            onKeyUp={(e) => {
+              e.preventDefault();
+              send({
+                type: "key",
+                key: e.key,
+                phase: "up",
+                ctrl: e.ctrlKey,
+                shift: e.shiftKey,
+                alt: e.altKey,
+              });
+            }}
+          />
+          {!connected && (
+            <div className="paint-placeholder">
+              <span>ASCRL</span>
+              <h2>Your next scheme starts here.</h2>
+              <p>
+                The editor runs on your PC. This page receives the live view and
+                exports your finished TGA.
+              </p>
+              <small>Start “Paint Studio Host” on your PC, then connect.</small>
+            </div>
+          )}
+        </div>
+        {connected && showControls && (
+          <div className="paint-controls-panel" aria-label="Editor tools">
+            <div className="paint-controls-heading">
+              <strong>Editor tools</strong>
+              <button type="button" onClick={() => setShowControls(false)}>
+                Close tools
+              </button>
+            </div>
+            <p>
+              One finger paints. Two fingers zoom and pan. Choose Orbit to
+              rotate.
+            </p>
+            <div>
+              {tools.map((c) => (
+                <button
+                  key={c.id}
+                  type="button"
+                  onClick={() => {
+                    controlAction(c);
+                    setShowControls(false);
+                  }}
+                >
+                  {c.label}
+                  {c.kind === "select" ? ` · ${c.value}` : ""}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+        {detail && (
+          <p className="paint-detail" role="status">
+            {detail}
+          </p>
+        )}
       </div>
-      {detail && (
-        <p className="paint-detail" role="status">
-          {detail}
-        </p>
-      )}
       {download && (
         <a className="button" href={download.url} download={download.name}>
           Download TGA · {download.name}
         </a>
-      )}
-      {connected && (
-        <details className="paint-quick">
-          <summary>Editor controls · accessible view</summary>
-          <div>
-            {tools.map((c) => (
-              <button
-                key={c.id}
-                className="button secondary small"
-                onClick={() => controlAction(c)}
-              >
-                {c.label}
-                {c.kind === "select" ? ` · ${c.value}` : ""}
-              </button>
-            ))}
-          </div>
-        </details>
       )}
       <div className="paint-lower">
         <div>
@@ -584,9 +722,10 @@ export default function PaintStudio() {
             continue. The original models stay on the workstation.
           </p>
           <p>
-            Use a mouse or touch. On a phone, landscape gives more room. Use
-            Orbit to rotate the car and the editor’s zoom controls for
-            precision.
+            On Android Chrome, tap Expand editor. One finger uses the selected
+            tool; two fingers zoom and pan. Choose Orbit to rotate. Both
+            portrait and landscape work. Download TGA saves the finished file to
+            your phone.
           </p>
         </aside>
       </div>
@@ -599,76 +738,142 @@ export default function PaintStudio() {
           if (f) void upload(f);
         }}
       />
-      {restoreId && stage.current && createPortal(
-        <div className="paint-modal" role="dialog" aria-modal="true" aria-label="Restore saved artwork">
-          <form onSubmit={e=>{e.preventDefault();send({type:"restore",id:restoreId});setRestoreId(null);setDetail("Preserving current artwork, then restoring your saved copy…");}}>
-            <h2>Restore saved artwork</h2>
-            <p>Your current artwork will be saved before this recovery copy is loaded.</p>
-            <div><button className="button" type="submit">Restore saved copy</button><button className="button secondary" type="button" onClick={()=>setRestoreId(null)}>Cancel</button></div>
-          </form>
-        </div>,stage.current
-      )}
-      {uploadRequest && stage.current && createPortal(
-        <div className="paint-modal" role="dialog" aria-modal="true" aria-label="Import artwork">
-          <form onSubmit={e=>{e.preventDefault();file.current?.click();}}>
-            <h2>Import artwork</h2>
-            <p>Choose an image, TGA, or saved paint project to send to your private workstation.</p>
-            <div><button className="button" type="submit">Choose file</button><button className="button secondary" type="button" onClick={()=>{send({type:"upload-cancel",id:uploadTarget.current});setUploadRequest(false);uploadTarget.current=null;}}>Cancel</button></div>
-          </form>
-        </div>,stage.current
-      )}
-      {field && stage.current && createPortal(
-        <div
-          className="paint-modal"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="paint-field-label"
-        >
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              send({ type: "field", id: field.id, value });
-              setField(null);
-            }}
+      {restoreId &&
+        stage.current &&
+        createPortal(
+          <div
+            className="paint-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Restore saved artwork"
           >
-            <h2 id="paint-field-label">{field.label}</h2>
-            {field.type === "select" ? (
-              <select
-                autoFocus
-                aria-label={field.label}
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-              >
-                {field.options?.map((o) => (
-                  <option key={o.value} value={o.value}>
-                    {o.label}
-                  </option>
-                ))}
-              </select>
-            ) : (
-              <input
-                autoFocus
-                aria-label={field.label}
-                type={field.type === "color" ? "color" : "text"}
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-              />
-            )}
-            <div>
-              <button className="button" type="submit">
-                Apply
-              </button>
-              <button
-                className="button secondary"
-                type="button"
-                onClick={() => setField(null)}
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
-        </div>, stage.current
-      )}
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                send({ type: "restore", id: restoreId });
+                setRestoreId(null);
+                setDetail(
+                  "Preserving current artwork, then restoring your saved copy…",
+                );
+              }}
+            >
+              <h2>Restore saved artwork</h2>
+              <p>
+                Your current artwork will be saved before this recovery copy is
+                loaded.
+              </p>
+              <div>
+                <button className="button" type="submit">
+                  Restore saved copy
+                </button>
+                <button
+                  className="button secondary"
+                  type="button"
+                  onClick={() => setRestoreId(null)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>,
+          stage.current,
+        )}
+      {uploadRequest &&
+        stage.current &&
+        createPortal(
+          <div
+            className="paint-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Import artwork"
+          >
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                file.current?.click();
+              }}
+            >
+              <h2>Import artwork</h2>
+              <p>
+                Choose an image, TGA, or saved paint project to send to your
+                private workstation.
+              </p>
+              <div>
+                <button className="button" type="submit">
+                  Choose file
+                </button>
+                <button
+                  className="button secondary"
+                  type="button"
+                  onClick={() => {
+                    send({ type: "upload-cancel", id: uploadTarget.current });
+                    setUploadRequest(false);
+                    uploadTarget.current = null;
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>,
+          stage.current,
+        )}
+      {field &&
+        stage.current &&
+        createPortal(
+          <div
+            className="paint-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="paint-field-label"
+          >
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                send({ type: "field", id: field.id, value });
+                setField(null);
+              }}
+            >
+              <h2 id="paint-field-label">{field.label}</h2>
+              {field.type === "select" ? (
+                <select
+                  autoFocus
+                  aria-label={field.label}
+                  value={value}
+                  onChange={(e) => setValue(e.target.value)}
+                >
+                  {field.options?.map((o) => (
+                    <option key={o.value} value={o.value}>
+                      {o.label}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                <input
+                  autoFocus
+                  aria-label={field.label}
+                  type={field.type === "color" ? "color" : "text"}
+                  inputMode={field.type === "number" ? "decimal" : "text"}
+                  value={value}
+                  onChange={(e) => setValue(e.target.value)}
+                />
+              )}
+              <div>
+                <button className="button" type="submit">
+                  Apply
+                </button>
+                <button
+                  className="button secondary"
+                  type="button"
+                  onClick={() => setField(null)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>,
+          stage.current,
+        )}
     </section>
   );
 }

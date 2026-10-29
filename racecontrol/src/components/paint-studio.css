@@ -64,34 +64,111 @@
   position: relative;
   background: #111921;
   border: 1px solid #26333e;
-  min-height: 480px;
+  height: min(820px, 80svh);
+  min-height: 380px;
+  display: flex;
+  flex-direction: column;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 18px 45px #14202c1a;
   line-height: 0;
 }
-.paint-stage:fullscreen {
+.paint-stage.paint-expanded {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  height: 100dvh;
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
   background: #10151b;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+}
+.paint-video-slot {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
 }
 .paint-stage video {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
   touch-action: none;
   max-height: 100vh;
   object-fit: contain;
 }
-.paint-stage:fullscreen video {
-  width: auto;
-  max-width: 100vw;
-  height: 100vh;
-}
 .paint-video-idle {
   visibility: hidden;
-  height: 480px !important;
+}
+.paint-pilot button,
+.paint-stage-toolbar a {
+  min-height: 44px;
+}
+.paint-stage-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  padding: 4px 8px;
+  background: #162331;
+  line-height: 1.2;
+}
+.paint-stage-toolbar button,
+.paint-stage-toolbar a,
+.paint-controls-panel button {
+  padding: 8px 12px;
+  border: 1px solid #526a80;
+  border-radius: 6px;
+  background: #203347;
+  color: #f4f7fa;
+  font-size: 13px;
+  line-height: 1.3;
+}
+.paint-stage-toolbar a {
+  display: inline-flex;
+  align-items: center;
+  background: #285844;
+  text-decoration: none;
+}
+.paint-expand-toggle {
+  margin-left: auto;
+}
+.paint-controls-panel {
+  position: absolute;
+  z-index: 20;
+  top: 54px;
+  right: 0;
+  bottom: 0;
+  width: min(100%, 460px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: #152535;
+  padding: 12px;
+  line-height: 1.5;
+  box-shadow: -10px 0 40px #0008;
+}
+.paint-controls-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.paint-controls-panel p {
+  margin: 10px 0;
+  font-size: 13px;
+  color: #adc2d5;
+}
+.paint-controls-panel > div:last-child {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.paint-controls-panel button {
+  text-align: left;
+  overflow-wrap: anywhere;
+  max-width: 100%;
 }
 .paint-placeholder {
   position: absolute;
@@ -128,8 +205,14 @@
 .paint-detail {
   background: #142638;
   border-left: 3px solid #bd5d3c;
-  padding: 12px;
-  font-size: 13px;
+  padding: 6px 10px;
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.4;
+  flex-shrink: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .paint-lower {
   display: grid;
@@ -187,12 +270,16 @@
 }
 .paint-modal {
   position: fixed;
-  inset: 0;
+  top: var(--paint-keyboard-top, 0px);
+  left: 0;
+  right: 0;
+  height: var(--paint-keyboard-height, 100dvh);
   z-index: 1000;
   background: #0e1727aa;
   display: grid;
   place-items: center;
   padding: 20px;
+  overflow: auto;
 }
 .paint-modal form {
   color: #17232c;
@@ -201,6 +288,8 @@
   padding: 26px;
   border-radius: 12px;
   width: min(100%, 460px);
+  max-height: 100%;
+  overflow-y: auto;
   box-shadow: 0 25px 70px #0005;
 }
 .paint-modal input,
@@ -226,16 +315,21 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
-.paint-pilot h1,.paint-pilot h2{color:#eef4fb}
-.paint-modal h2{color:#17232c}
-.paint-fullscreen-exit{display:none;position:absolute;right:12px;top:8px;z-index:10;background:#15283c;border:1px solid #7b9abb;color:#fff;padding:8px 14px;border-radius:6px;cursor:pointer}
-.paint-stage:fullscreen .paint-fullscreen-exit{display:block}
+.paint-pilot h1,
+.paint-pilot h2 {
+  color: #eef4fb;
+}
+.paint-modal h2 {
+  color: #17232c;
+}
 @media (max-width: 700px) {
   .paint-pilot {
     padding: 22px 12px;
   }
   .paint-heading {
     align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
   }
   .paint-badge {
     font-size: 10px;
@@ -253,13 +347,28 @@
     gap: 10px;
   }
   .paint-stage {
-    min-height: 440px;
+    min-height: 380px;
   }
   .paint-placeholder {
     padding: 20px;
   }
   .paint-modal {
-    align-items: start;
-    padding-top: 15vh;
+    padding: 12px;
   }
+}
+@media (max-height: 500px) {
+  .paint-stage {
+    height: 85svh;
+    min-height: 300px;
+  }
+  .paint-modal form {
+    padding: 16px;
+  }
+  .paint-modal h2 {
+    margin: 0;
+    font-size: 22px;
+  }
+}
+.paint-stage.paint-expanded {
+  min-height: 0;
 }

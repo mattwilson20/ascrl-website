@@ -7,7 +7,8 @@ function validMessage(m){
  case 'pointer':return ['down','move','up','cancel'].includes(m.phase)&&unit(m.x)&&unit(m.y)&&['mouse','touch','pen'].includes(m.pointerType)&&Number.isInteger(m.pointerId)&&[-1,0,1,2].includes(m.button);
  case 'wheel':return unit(m.x)&&unit(m.y)&&Number.isFinite(m.deltaX)&&Math.abs(m.deltaX)<=10000&&Number.isFinite(m.deltaY)&&Math.abs(m.deltaY)<=10000;
  case 'key':return text(m.key,32)&&['down','up'].includes(m.phase)&&!['F5','F11','F12','Meta','OS'].includes(m.key);
- case 'resize':return Number.isInteger(m.width)&&m.width>=390&&m.width<=1600&&Number.isInteger(m.height)&&m.height>=600&&m.height<=1000;
+ case 'resize':return Number.isInteger(m.width)&&m.width>=320&&m.width<=1600&&Number.isInteger(m.height)&&m.height>=240&&m.height<=1000;
+ case 'cancel-pointers':return true;
  case 'field':return text(m.id,100)&&text(m.value,20000);
  case 'control':return text(m.id,100);
  case 'upload-cancel':return text(m.id,100);

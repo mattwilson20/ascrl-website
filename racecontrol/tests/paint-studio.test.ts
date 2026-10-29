@@ -7,13 +7,53 @@ import {
   paintIdentityAllowed,
   validOffer,
   videoPoint,
+  paintViewport,
 } from "../src/lib/paint-policy";
 let db: PGlite;
-test("stream coordinates account for both letterbox directions and reject black bars",()=>{
-  expect(videoPoint({left:10,top:20,width:800,height:800},1600,800,410,420)).toEqual({x:.5,y:.5,inside:true});
-  expect(videoPoint({left:10,top:20,width:800,height:800},1600,800,410,120)).toEqual({x:.5,y:0,inside:false});
-  expect(videoPoint({left:0,top:0,width:1000,height:600},600,600,200,300)).toEqual({x:0,y:.5,inside:true});
-  expect(videoPoint({left:0,top:0,width:1000,height:600},600,600,100,300).inside).toBe(false);
+test("stream fits portrait and short landscape screens without forcing a desktop height", () => {
+  expect(paintViewport(369, 726)).toEqual({ width: 369, height: 726 });
+  expect(paintViewport(852, 315)).toEqual({ width: 852, height: 315 });
+  expect(paintViewport(320, 240)).toEqual({ width: 320, height: 240 });
+  expect(paintViewport(2560, 1440)).toEqual({ width: 1600, height: 1000 });
+  expect(paintViewport(300, 200)).toEqual({ width: 320, height: 240 });
+});
+test("stream coordinates account for both letterbox directions and reject black bars", () => {
+  expect(
+    videoPoint(
+      { left: 10, top: 20, width: 800, height: 800 },
+      1600,
+      800,
+      410,
+      420,
+    ),
+  ).toEqual({ x: 0.5, y: 0.5, inside: true });
+  expect(
+    videoPoint(
+      { left: 10, top: 20, width: 800, height: 800 },
+      1600,
+      800,
+      410,
+      120,
+    ),
+  ).toEqual({ x: 0.5, y: 0, inside: false });
+  expect(
+    videoPoint(
+      { left: 0, top: 0, width: 1000, height: 600 },
+      600,
+      600,
+      200,
+      300,
+    ),
+  ).toEqual({ x: 0, y: 0.5, inside: true });
+  expect(
+    videoPoint(
+      { left: 0, top: 0, width: 1000, height: 600 },
+      600,
+      600,
+      100,
+      300,
+    ).inside,
+  ).toBe(false);
 });
 const other = "11111111-1111-4111-8111-111111111111",
   token = "a".repeat(64);

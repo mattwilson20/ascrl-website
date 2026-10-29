@@ -65,7 +65,7 @@ function input(m){
  }
  if(!validMessage(m))return;lastInput=Date.now();
  if(m.type==='resize'){editor.setContentSize(m.width,m.height);editor.webContents.send('editor-command',{type:'resized'});editor.webContents.invalidate();return;}
- if(m.type==='field'||m.type==='control'||m.type==='upload-cancel'||m.type==='pointer'&&m.pointerType==='touch'){editor.webContents.send('editor-command',m);return;}
+ if(m.type==='field'||m.type==='control'||m.type==='upload-cancel'||m.type==='cancel-pointers'||m.type==='pointer'&&m.pointerType==='touch'){editor.webContents.send('editor-command',m);return;}
  if(m.type==='upload-start'){upload={...m,chunks:[],received:0,started:Date.now()};return;}
  if(m.type==='upload-end'){
   const f=upload;upload=null;if(!f||f.size!==f.received||Date.now()-f.started>300000)return;
@@ -107,9 +107,9 @@ app.whenReady().then(async()=>{
  const docModule=await import(pathToFileURL(path.join(root,'dist/pro/document.mjs')).href);validatedProject=docModule.validateProject;
  let handler;
  server=http.createServer(async(req,res)=>{
-  if(req.url==='/private-editor-hook.mjs'){
+  if(['/private-editor-hook.mjs','/private-touch-relay.mjs'].includes(req.url)){
    if(req.headers.host!==`127.0.0.1:${server.address().port}`){res.writeHead(403);res.end();return;}
-   res.setHeader('Content-Type','text/javascript');res.setHeader('Cache-Control','no-store');res.end(await fsp.readFile(path.join(__dirname,'editor-hook.mjs')));return;
+   res.setHeader('Content-Type','text/javascript');res.setHeader('Cache-Control','no-store');res.end(await fsp.readFile(path.join(__dirname,req.url==='/private-editor-hook.mjs'?'editor-hook.mjs':'touch-relay.mjs')));return;
   }
   // Add a host-only bridge to the local editor document without changing its original files.
   if(req.url==='/'&&req.headers.host===`127.0.0.1:${server.address().port}`){let html=await fsp.readFile(path.join(root,'dist/index.html'),'utf8');html=html.replace('</body>','<script type="module" src="/private-editor-hook.mjs"></script></body>');const hashes=[...html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g)].filter(m=>m[1]).map(m=>"'sha256-"+createHash('sha256').update(m[1]).digest('base64')+"'").join(' ');res.setHeader('Content-Security-Policy',`default-src 'self'; script-src 'self' ${hashes}; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'`);res.setHeader('Content-Type','text/html');res.setHeader('Cache-Control','no-store');res.end(html);return;}

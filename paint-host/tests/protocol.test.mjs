@@ -1,5 +1,10 @@
 import{test}from'node:test';import assert from'node:assert/strict';import protocol from'../protocol.cjs';
 const {validMessage,validTGA}=protocol;
+test('phone viewports and touch cancellation are accepted but remain bounded',()=>{
+ for(const [width,height] of [[320,240],[393,726],[852,315]])assert.equal(validMessage({type:'resize',width,height}),true);
+ for(const [width,height] of [[319,240],[320,239],[1601,800],[852,1001]])assert.equal(validMessage({type:'resize',width,height}),false);
+ assert.equal(validMessage({type:'cancel-pointers'}),true);
+});
 test('field controls keep their message type separate from the HTML input type',()=>{assert.deepEqual(protocol.editorMessage('field',{id:'c2',type:'select',value:'camaro'}),{id:'c2',type:'field',inputType:'select',value:'camaro'});assert.equal(protocol.editorMessage('status',{type:'ignored',text:'saved'}).type,'status');});
 test('only named editor operations accepted',()=>{for(const m of [{type:'eval',code:'process.exit()'},{type:'fetch',url:'file:///model.glb'},{type:'download',path:'model.glb'},{type:'key',key:'F12',phase:'down'},null])assert.equal(validMessage(m),false);});
 test('coordinates and resize are bounded',()=>{const m={type:'pointer',phase:'down',pointerType:'mouse',pointerId:1,button:0,x:.2,y:.6};assert.equal(validMessage(m),true);for(const x of [NaN,Infinity,-1,1.1,'0'])assert.equal(validMessage({...m,x}),false);assert.equal(validMessage({type:'resize',width:1280,height:800}),true);assert.equal(validMessage({type:'resize',width:100000,height:100000}),false);});

@@ -1,0 +1,85 @@
+PRIVATE PAINT STUDIO — 29 OCTOBER 2026
+
+Deployment
+https://racecontrol.ascrl.online/paint-studio
+Production release: 32a73fdc9aafcba7e8ec95ceee5ac5923bf58fc6
+Vercel deployment dpl_HJShfaUkiqGRqQKC88fdZEfiDeD6 reached READY.
+
+Scope
+Owner-only integration of the existing professional local Livery Studio.
+Camaro, Mustang and Camry original model assets remain in the original local
+editor directory. The website receives a WebRTC video stream, named controls,
+artwork uploads and verified TGA downloads. It has no model download route.
+The workstation is required to remain awake and the host must be running.
+No public GPU service, TURN relay, public tunnel, or firewall exception was added.
+The original editor and its browser workspaces were not modified.
+
+Checks completed
+- 62 site tests passed; two pre-existing optional-fixture tests skipped.
+- Five host protocol tests passed, including forbidden upload/model commands,
+  bounded input, field-message typing, and complete TGA packet validation.
+- TypeScript checking passed. Vercel production build succeeded.
+- Dependency audit found no known vulnerabilities after updating Next to 16.4.3.
+- Anonymous requests to /paint-studio, /api/paint-studio, and the Camaro GLB
+  URL return 404. API responses are private/no-store.
+- Database tests deny unrelated authenticated users and anonymous visitors;
+  deny self-grant, private credential reads, forbidden writes and TRUNCATE;
+  reject missing, incorrect, disabled and expired host credentials.
+- The owner's existing signed-in account opened the route and established an
+  encrypted stream from the PC. Disconnect/reconnect and host restarts worked.
+- Camaro and Mustang rendered through the website with their existing artwork.
+- A Mustang 3D brush stroke appeared on the correct body location and Undo
+  removed it. Local autosave produced a separate immutable recovery copy.
+- A generated SVG test logo uploaded through the website and was positioned
+  directly on the Mustang door. Original artwork was preserved in recovery.
+- Mustang standard TGA downloaded from the website and decoded as 2048x2048,
+  24-bit, top-left RLE. Its SHA-256 matched the host export exactly:
+  9a4af40b3e00096afaa3c55161d8890f4794c7add598b530f8145de0a3042ac5
+- Cloud copies of the Camaro and Mustang were saved; repeated identical copies
+  are deduplicated. Restore preserves the current project before loading a copy.
+
+Issues corrected during validation
+- Page contrast against the existing dark league theme.
+- Fullscreen click mapping with letterboxed video, fullscreen exit, resize,
+  wheel mapping, and keyboard focus for undo/redo shortcuts.
+- Latest frame delivery when the underlying editor becomes idle.
+- Repaint the UV canvas when changing views in the offscreen renderer.
+- Browser file prompts require an explicit Choose file click.
+- Separate message type from HTML field type for remote input dialogs.
+- Await a durable snapshot before restoring, instead of racing the two actions.
+- Cancel file requests on disconnect, timeout, oversize rejection or cancellation.
+- Use an in-page restore confirmation instead of a blocking browser confirm.
+- Explicit table privileges remove inherited TRUNCATE/REFERENCES/TRIGGER grants.
+
+Remaining live validation
+An old browser confirm in the earlier deployment blocked subsequent browser
+automation. The replacement in-page confirmation is deployed. The blocked tab
+must be dismissed before completing the remaining live checks:
+- Restore the Mustang's 12:57:32 AM baseline after the temporary QA logo test.
+- Clear the test-only customer ID 999999 in the host export dialog.
+- Verify Camry switching and export through the production stream.
+- Verify the replacement restore dialog and native field entry end to end.
+- Verify Android Chrome on the user's actual phone/network.
+No test export was installed into iRacing. The original browser projects and
+artwork were not used as the test workspace.
+
+Original model SHA-256 checks (unchanged)
+camaro  1311768fa582beb558302124ad8ac8e2d9dd16145e7c986095f5980575e772d3
+mustang 0055b27f95d343f299cbfaf538be65adac6523c215e010a8ed5c0804095cc324
+camry   eb5498f330f739504fa3e57f310edb9df4a380aa9f081d561a952b5ff85f169e
+
+Operating limits
+One active owner session; two-hour session expiry; 30-minute inactivity limit.
+Private cloud artwork copies: 50 MB per project / 500 MB total pilot quota.
+Host credential protected by Windows DPAPI, hash stored on the backend,
+expires after 90 days. No service-role credential is present in the host/client.
+Restrictive networks may require a TURN relay, which is not configured.
+The private host's desktop shortcut must be started after reboot.
+Keeping original model files off browsers is not an absolute anti-piracy
+guarantee. Public use and model licensing remain outside this private pilot.
+
+Supabase advisor notes
+The private host credential table intentionally has RLS with no public policies
+(default deny). The narrow security-definer host RPC is exposed to anon/auth
+roles only because it independently authenticates the scoped 256-bit host token
+on every call. These expected advisor findings were reviewed, not suppressed.

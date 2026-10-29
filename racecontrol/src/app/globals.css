@@ -870,11 +870,14 @@ code {
     font-size: 9px;
   }
   .site-header nav {
-    gap: 0;
-    justify-content: space-between;
+    gap: 18px;
+    justify-content: flex-start;
+    overflow-x: auto;
+    white-space: nowrap;
     font-size: 15px;
     letter-spacing: 0;
   }
+  .site-header nav a { flex-shrink: 0; padding: 10px 0; }
   .home-grid {
     grid-template-columns: 1fr;
     gap: 15px;
