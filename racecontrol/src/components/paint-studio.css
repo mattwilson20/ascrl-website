@@ -60,6 +60,23 @@
   font-size: 14px;
   margin: 16px 0;
 }
+.paint-connection-help {
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid #a86a45;
+  border-radius: 8px;
+  background: #30251f;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.paint-connection-help p {
+  margin: 8px 0;
+}
+.paint-connection-help small {
+  display: block;
+  overflow-wrap: anywhere;
+  color: #d4bba6;
+}
 .paint-stage {
   position: relative;
   background: #111921;

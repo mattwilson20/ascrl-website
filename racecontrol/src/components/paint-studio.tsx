@@ -1,8 +1,14 @@
 "use client";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useReducer, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import "./paint-studio.css";
 import { paintViewport, videoPoint } from "@/lib/paint-policy";
+import {
+  initialPaintConnection,
+  localNetworkPermission,
+  paintConnectionReducer,
+  PAINT_STREAM_FAILURE,
+} from "@/lib/paint-connection";
 
 type Backup = {
   id: string;
@@ -65,6 +71,9 @@ export default function PaintStudio() {
     session = useRef<string | null>(null);
   const pollBusy = useRef(false),
     closing = useRef(false),
+    attempt = useRef(0),
+    connectBusy = useRef(false),
+    connectionTimer = useRef<ReturnType<typeof setTimeout> | null>(null),
     incoming = useRef<{
       name: string;
       size: number;
@@ -81,8 +90,12 @@ export default function PaintStudio() {
   const [online, setOnline] = useState(false),
     [connected, setConnected] = useState(false),
     [connecting, setConnecting] = useState(false);
-  const [status, setStatus] = useState("Checking your private workstation…"),
-    [backups, setBackups] = useState<Backup[]>([]);
+  const [connection, dispatchConnection] = useReducer(
+    paintConnectionReducer,
+    initialPaintConnection,
+  );
+  const status = connection.message;
+  const [backups, setBackups] = useState<Backup[]>([]);
   const [field, setField] = useState<Field | null>(null),
     [restoreId, setRestoreId] = useState<string | null>(null),
     [uploadRequest, setUploadRequest] = useState(false),
@@ -92,6 +105,9 @@ export default function PaintStudio() {
     [download, setDownload] = useState<{ url: string; name: string } | null>(
       null,
     );
+  const [networkPermission, setNetworkPermission] =
+    useState<string>("unchecked");
+  const [connectionCheck, setConnectionCheck] = useState("");
   const send = useCallback((message: unknown) => {
     if (channel.current?.readyState === "open")
       channel.current.send(JSON.stringify(message));
@@ -99,12 +115,18 @@ export default function PaintStudio() {
   const disconnect = useCallback(
     async (message = "Disconnected. Your saved artwork remains on the PC.") => {
       closing.current = true;
+      const generation = ++attempt.current;
+      connectBusy.current = false;
+      if (connectionTimer.current) clearTimeout(connectionTimer.current);
+      connectionTimer.current = null;
       const id = session.current;
       session.current = null;
-      channel.current?.close();
+      const previousChannel = channel.current,
+        previousPeer = pc.current;
       channel.current = null;
-      pc.current?.close();
       pc.current = null;
+      previousChannel?.close();
+      previousPeer?.close();
       if (video.current) video.current.srcObject = null;
       setConnected(false);
       pointers.current.clear();
@@ -115,28 +137,26 @@ export default function PaintStudio() {
       uploadTarget.current = null;
       setTools([]);
       incoming.current = null;
-      setStatus(message);
+      dispatchConnection({ type: "stop", message });
       if (id)
         try {
           await api({ action: "disconnect", id });
         } catch {}
-      closing.current = false;
+      if (attempt.current === generation) closing.current = false;
     },
     [],
   );
   const refresh = useCallback(async () => {
     if (pollBusy.current) return;
     pollBusy.current = true;
+    const generation = attempt.current,
+      id = session.current;
     try {
       const d = await api();
+      if (generation !== attempt.current || id !== session.current) return;
       setOnline(d.online);
       setBackups(d.backups);
-      if (!session.current)
-        setStatus(
-          d.online
-            ? "Your PC is ready. Connect to start painting."
-            : "Your workstation is offline. Start Paint Studio Host on your PC.",
-        );
+      if (!id) dispatchConnection({ type: "availability", online: d.online });
       else if (
         !d.session ||
         d.session.id !== session.current ||
@@ -147,14 +167,21 @@ export default function PaintStudio() {
           "This session ended or was opened in another tab. Connect again.",
         );
       else {
-        if (d.session.answer && pc.current && !pc.current.remoteDescription)
+        if (d.session.answer && pc.current && !pc.current.remoteDescription) {
           await pc.current.setRemoteDescription(d.session.answer);
-        await api({ action: "heartbeat", id: session.current });
+          dispatchConnection({
+            type: "progress",
+            message: "PC answered. Establishing the encrypted video stream…",
+          });
+        }
+        if (generation === attempt.current && id === session.current)
+          await api({ action: "heartbeat", id });
       }
     } catch (e) {
-      await disconnect(
-        e instanceof Error ? e.message : "Connection unavailable",
-      );
+      if (generation === attempt.current)
+        await disconnect(
+          e instanceof Error ? e.message : "Connection unavailable",
+        );
     } finally {
       pollBusy.current = false;
     }
@@ -164,9 +191,16 @@ export default function PaintStudio() {
     const timer = setInterval(refresh, 5000);
     return () => {
       clearInterval(timer);
+      ++attempt.current;
+      if (connectionTimer.current) clearTimeout(connectionTimer.current);
       const id = session.current;
-      channel.current?.close();
-      pc.current?.close();
+      const previousChannel = channel.current,
+        previousPeer = pc.current;
+      channel.current = null;
+      pc.current = null;
+      session.current = null;
+      previousChannel?.close();
+      previousPeer?.close();
       if (id)
         fetch("/api/paint-studio", {
           method: "POST",
@@ -314,33 +348,90 @@ export default function PaintStudio() {
     }
   };
   const connect = async () => {
+    if (connectBusy.current || pc.current) return;
+    connectBusy.current = true;
+    closing.current = false;
+    const generation = ++attempt.current;
     try {
       setDownload(null);
       currentProfile.current = null;
       setDetail("");
+      setConnectionCheck("");
       setConnecting(true);
-      setStatus("Connecting to your private workstation…");
+      dispatchConnection({ type: "start" });
+      const permission = await localNetworkPermission(navigator.permissions);
+      if (generation !== attempt.current) return;
+      setNetworkPermission(permission);
+      if (permission === "denied") {
+        await disconnect(
+          "Chrome has blocked local-network access. Allow it in this site's permissions, then connect again.",
+        );
+        return;
+      }
       const peer = new RTCPeerConnection(ICE);
       pc.current = peer;
+      const current = () =>
+        pc.current === peer && generation === attempt.current;
+      const diagnose = async () => {
+        // Only aggregate connectivity information; no IPs, SDP or credentials.
+        const ice = peer.iceConnectionState,
+          transport = peer.connectionState;
+        let requests = 0,
+          responses = 0;
+        try {
+          for (const item of (await peer.getStats()).values()) {
+            if (item.type === "candidate-pair") {
+              requests += item.requestsSent || 0;
+              responses += item.responsesReceived || 0;
+            }
+          }
+        } catch {}
+        if (current())
+          setConnectionCheck(
+            `Network: ${ice} · Stream: ${transport} · Checks: ${requests} sent / ${responses} answered`,
+          );
+      };
+      connectionTimer.current = setTimeout(() => {
+        if (current() && channel.current?.readyState !== "open")
+          void (async () => {
+            await diagnose();
+            if (current())
+              await disconnect(
+                peer.remoteDescription
+                  ? PAINT_STREAM_FAILURE
+                  : "The PC did not answer in time. Keep Paint Studio Host running and tap Connect to studio to retry.",
+              );
+          })();
+      }, 45000);
       peer.addTransceiver("video", { direction: "recvonly" });
       const dc = peer.createDataChannel("paint-control", { ordered: true });
       channel.current = dc;
       dc.binaryType = "arraybuffer";
       dc.onmessage = receive;
       dc.onopen = () => {
+        if (!current()) return;
+        connectBusy.current = false;
+        if (connectionTimer.current) clearTimeout(connectionTimer.current);
+        connectionTimer.current = null;
         setConnected(true);
         setConnecting(false);
-        setStatus("Connected · Only your account has access");
+        dispatchConnection({ type: "connected" });
         send({ type: "resize", ...dimensions() });
       };
       dc.onclose = () => {
-        if (!closing.current)
-          void disconnect(
-            "The workstation ended the stream. Connect again to continue.",
-          );
+        if (current() && !closing.current)
+          void (async () => {
+            await diagnose();
+            if (current())
+              await disconnect(
+                peer.connectionState === "failed" || connectBusy.current
+                  ? PAINT_STREAM_FAILURE
+                  : "The workstation ended the stream. Connect again to continue.",
+              );
+          })();
       };
       peer.ontrack = (e) => {
-        if (video.current) {
+        if (current() && video.current) {
           video.current.srcObject = new MediaStream([e.track]);
           void video.current.play().catch(() => {});
         }
@@ -348,28 +439,36 @@ export default function PaintStudio() {
       peer.onconnectionstatechange = () => {
         if (
           ["failed", "closed"].includes(peer.connectionState) &&
+          current() &&
           !closing.current
         )
-          void disconnect(
-            "Connection lost. Your local autosaves are preserved. Connect again.",
-          );
+          void (async () => {
+            await diagnose();
+            if (current())
+              await disconnect(
+                peer.remoteDescription
+                  ? PAINT_STREAM_FAILURE
+                  : "Connection lost before the PC answered. Tap Connect to studio to retry.",
+              );
+          })();
       };
       await peer.setLocalDescription(await peer.createOffer());
       await iceReady(peer);
+      if (!current()) return;
+      dispatchConnection({ type: "progress", message: "Contacting your PC…" });
       const result = await api({
         action: "connect",
         offer: peer.localDescription?.toJSON(),
       });
+      if (!current()) {
+        void api({ action: "disconnect", id: result.id }).catch(() => {});
+        return;
+      }
       session.current = result.id;
       void refresh();
-      setTimeout(() => {
-        if (pc.current === peer && peer.connectionState !== "connected")
-          void disconnect(
-            "Could not establish the stream. This network may need a TURN relay; your models remain private.",
-          );
-      }, 35000);
     } catch (e) {
-      await disconnect(e instanceof Error ? e.message : "Could not connect.");
+      if (generation === attempt.current)
+        await disconnect(e instanceof Error ? e.message : "Could not connect.");
     }
   };
   useEffect(() => {
@@ -543,6 +642,28 @@ export default function PaintStudio() {
       <p role="status" className="paint-status">
         {status}
       </p>
+      {connection.phase === "stopped" &&
+        (status === PAINT_STREAM_FAILURE || networkPermission === "denied") && (
+          <div className="paint-connection-help">
+            <strong>Connection help for your phone</strong>
+            <p>
+              Open this page directly in Chrome. In the site permissions beside
+              the address, allow Local network access if it is listed. Keep the
+              phone and PC on the same home network, then tap Connect to studio.
+            </p>
+            <p>
+              If this still fails, the connection details below help identify
+              whether this network needs a secure relay.
+            </p>
+            {connectionCheck && <small>{connectionCheck}</small>}
+            <small>
+              Local network permission:{" "}
+              {networkPermission === "unsupported"
+                ? "not reported by this browser"
+                : networkPermission}
+            </small>
+          </div>
+        )}
       <div
         className={`paint-stage${expanded ? " paint-expanded" : ""}`}
         ref={stage}
