@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { account, configured } from "@/lib/supabase";
+import { paintIdentityAllowed } from "@/lib/paint-policy";
 import "./globals.css";
 export const metadata: Metadata = {
   title: { default: "ASCRL Race Control", template: "%s | ASCRL Race Control" },
@@ -52,6 +53,9 @@ export default async function RootLayout({
             <Link href="/leagues">Leagues</Link>
             <Link href="/schedule">Schedule</Link>
             <Link href="/admin">Control room</Link>
+            {paintIdentityAllowed(user?.id) && (
+              <Link href="/paint-studio">Paint Studio</Link>
+            )}
             <Link href="/imports/new" className="nav-import">
               Import results ↗
             </Link>

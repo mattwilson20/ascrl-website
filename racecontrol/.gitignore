@@ -8,3 +8,5 @@ coverage/
 test-results/
 .test-tmp/
 next-env.d.ts
+supabase/.temp/
+.audit-*.json
