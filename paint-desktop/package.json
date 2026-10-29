@@ -1,0 +1,10 @@
+{
+  "name": "ascrl-paint-studio",
+  "productName": "ASCRL Paint Studio",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Local NASCAR livery editor",
+  "main": "main.cjs",
+  "scripts": { "test": "node --test tests/*.test.mjs" },
+  "engines": { "electron": "45.1.0" }
+}

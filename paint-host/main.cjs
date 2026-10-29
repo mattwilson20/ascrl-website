@@ -3,6 +3,7 @@ const fs=require('node:fs'),fsp=require('node:fs/promises'),path=require('node:p
 const {pathToFileURL}=require('node:url'),{createHash,randomUUID}=require('node:crypto'),{execFileSync}=require('node:child_process');
 const {validMessage,validTGA,editorMessage}=require('./protocol.cjs');
 const {startConnectionChecks}=require('./connection-check.cjs');
+const {relayConfiguration}=require('./relay-config.cjs');
 const config=JSON.parse(fs.readFileSync(path.join(__dirname,'host-config.json'),'utf8').replace(/^\uFEFF/,''));
 const root=path.resolve(config.studioDirectory),runtime=path.join(process.env.LOCALAPPDATA||app.getPath('userData'),'ASCRL Paint Host');
 fs.mkdirSync(runtime,{recursive:true});app.setPath('userData',path.join(runtime,'browser-profile'));
@@ -12,7 +13,7 @@ app.commandLine.appendSwitch('autoplay-policy','no-user-gesture-required');
 if(!app.requestSingleInstanceLock()){app.quit();return;}
 let editor,transport,server,tray,active=null,connected=false,upload=null,lastFrame=null,polling=false,backupBusy=false;
 let connectionChecks=[];
-let lastInput=Date.now(),lastBackup=0,dirty=true,frameAt=0,pendingFrame=null,frameTimer=null,validatedProject,declinedSession=null;
+let lastInput=Date.now(),lastBackup=0,lastBackupAttempt=0,lastPollSuccess=0,artworkRevision=0,dirty=true,frameAt=0,pendingFrame=null,frameTimer=null,validatedProject,declinedSession=null;
 let backupQueue=Promise.resolve();const snapshotRequests=new Map();
 const runtimeFile=path.join(runtime,'status.json');
 const status=(state,extra={})=>{try{fs.writeFileSync(runtimeFile,JSON.stringify({state,at:new Date().toISOString(),pid:process.pid,connected,session:active?.id||null,...extra},null,2));}catch{};};
@@ -27,8 +28,10 @@ if(!/^[a-f0-9]{64}$/.test(token))throw Error('Invalid workstation credential.');
 if(!/^https:\/\/[a-z0-9]+\.supabase\.co$/.test(config.supabaseUrl))throw Error('Invalid backend URL.');
 async function rpc(action,payload={}){
  const r=await fetch(config.supabaseUrl+'/rest/v1/rpc/rc_paint_host',{method:'POST',headers:{apikey:config.publishableKey,'Content-Type':'application/json'},body:JSON.stringify({p_token:token,p_action:action,p_payload:payload}),signal:AbortSignal.timeout(action==='backup'?60000:15000)});
- const result=await r.json();if(!r.ok)throw Error(result.message||'Private host service unavailable.');return result;
+ let result;try{result=await r.json();}catch{const e=Error('Private host service returned an invalid response.');e.status=r.status;throw e;}
+ if(!r.ok){const e=Error(result.message||'Private host service unavailable.');e.status=r.status;throw e;}return result;
 }
+function temporaryServiceError(e){return e?.status===429||e?.status>=500||['TimeoutError','AbortError','TypeError'].includes(e?.name);}
 function control(data){if(transport&&!transport.isDestroyed())transport.webContents.send('transport-control',data);}
 function closeStream(){
  connected=false;active=null;upload=null;
@@ -41,7 +44,7 @@ function snapshot(doc,localOnly=false){
  const pending=backupQueue.then(()=>saveSnapshot(doc,localOnly));backupQueue=pending.catch(()=>false);return pending;
 }
 async function saveSnapshot(doc,localOnly=false){
- backupBusy=true;let saved=false;
+ backupBusy=true;let saved=false;const revision=artworkRevision;
  try{
   validatedProject(doc);
   const serialized=JSON.stringify(doc);if(Buffer.byteLength(serialized)>50*1024*1024)throw Error('This project exceeds the 50 MB cloud-copy limit. Local saves remain intact.');
@@ -49,8 +52,9 @@ async function saveSnapshot(doc,localOnly=false){
   const hash=createHash('sha256').update(serialized).digest('hex');const target=path.join(folder,doc.profile+'-'+hash+'.garage.json');
   if(!fs.existsSync(target))await fsp.writeFile(target,serialized,{flag:'wx'});
   saved=true;if(localOnly)return true;
-  const result=await rpc('backup',{doc});lastBackup=Date.now();dirty=false;control({type:'backup-complete',...result});status('ready',{lastBackup:new Date(lastBackup).toISOString()});
- }catch(e){control({type:'status',text:'Cloud copy: '+e.message});log('Cloud copy failed: '+e.message);}finally{backupBusy=false;}
+  lastBackupAttempt=Date.now();
+  const result=await rpc('backup',{doc});lastBackup=Date.now();if(revision===artworkRevision)dirty=false;control({type:'backup-complete',...result});status(connected?'connected':'ready',{lastBackup:new Date(lastBackup).toISOString()});
+ }catch(e){control({type:'status',text:(saved?'Saved on this PC. Cloud copy unavailable: ':'Artwork copy failed: ')+e.message});log('Cloud copy failed: '+e.message);}finally{backupBusy=false;}
  return saved;
 }
 function preserveCurrent(){
@@ -96,13 +100,25 @@ function input(m){
 async function poll(){
  if(polling)return;polling=true;
  try{
-  const result=await rpc('poll');const next=result.session;
+  const result=await rpc('poll');lastPollSuccess=Date.now();const next=result.session;
   if(!next){if(active)closeStream();status('ready');}
-  else if(next.id!==active?.id&&next.id!==declinedSession){closeStream();active=next;lastInput=Date.now();transport.webContents.send('transport-offer',next);status('connecting');}
+  else if(next.id!==active?.id&&next.id!==declinedSession){
+   const rtc=relayConfiguration(next.offer?.relay);
+   if(next.offer?.relay&&!rtc)throw Error('Unsupported relay configuration.');
+   closeStream();active=next;lastInput=Date.now();transport.webContents.send('transport-offer',{...next,rtc});status('connecting');
+  }
   if(connected&&Date.now()-lastInput>1800000){control({type:'status',text:'Session ended after 30 minutes without input.'});declineStream();}
-  if(connected&&dirty&&!backupBusy&&Date.now()-lastBackup>300000)editor.webContents.send('editor-snapshot');
+  // Reserve the attempt before asking the renderer, including after a failed upload.
+  // Local autosaves do not reset this timer; a failed cloud copy must not retry every poll.
+  if(connected&&dirty&&!backupBusy&&Date.now()-Math.max(lastBackup,lastBackupAttempt)>300000){lastBackupAttempt=Date.now();editor.webContents.send('editor-snapshot');}
   if(upload&&Date.now()-upload.started>300000){editor.webContents.send('editor-command',{type:'upload-cancel',id:upload.id});upload=null;}
- }catch(e){closeStream();status('offline',{error:e.message});log('Host: '+e.message);}finally{polling=false;}
+ }catch(e){
+  // A brief service outage need not destroy an already authorized stream. Never
+  // extend the session lease, ignore an authorization failure, or wait indefinitely.
+  if(active&&temporaryServiceError(e)&&Date.now()-lastPollSuccess<45000&&Date.parse(active.expires_at)>Date.now())status(connected?'connected':'connecting',{service:'retrying',error:e.message});
+  else{closeStream();status('offline',{error:e.message});}
+  log('Host: '+e.message);
+ }finally{polling=false;}
 }
 app.whenReady().then(async()=>{
  connectionChecks=await startConnectionChecks('https://racecontrol.ascrl.online',log);
@@ -138,13 +154,13 @@ app.whenReady().then(async()=>{
   frameTimer=setTimeout(()=>{frameTimer=null;const latest=pendingFrame;pendingFrame=null;if(!latest)return;frameAt=Date.now();lastFrame={bytes:latest.toJPEG(90)};if(transport&&!transport.isDestroyed())transport.webContents.send('transport-frame',lastFrame);},Math.max(0,42-(Date.now()-frameAt)));
  });
  ipcMain.on('transport-ready',e=>{if(validSender(e,transport)){if(lastFrame)transport.webContents.send('transport-frame',lastFrame);void poll();}});
- ipcMain.on('transport-answer',(e,data)=>{if(validSender(e,transport)&&data?.id===active?.id)void rpc('answer',data).catch(err=>{log(err.message);closeStream();});});
+ ipcMain.on('transport-answer',(e,data)=>{if(validSender(e,transport)&&data?.id===active?.id){const answering=active;void rpc('answer',data).catch(err=>{log(err.message);if(active===answering)closeStream();});}});
  ipcMain.on('transport-message',(e,data)=>{if(validSender(e,transport))input(data);});
  ipcMain.on('transport-connected',(e,data)=>{if(!validSender(e,transport))return;connected=!!data;editor.webContents.send('editor-connected',connected);editor.webContents.invalidate();status(connected?'connected':'ready');});
  ipcMain.on('transport-error',(e,message)=>{if(validSender(e,transport))log('Stream: '+message);});
  ipcMain.on('transport-diagnostic',(e,data)=>{if(validSender(e,transport)&&data?.id===active?.id)log('Connection: '+JSON.stringify(data));});
  for(const type of ['controls','field','upload-request','status'])ipcMain.on('editor-'+type,(e,data)=>{if(validSender(e,editor))control(editorMessage(type,data));});
- ipcMain.on('editor-save-state',(e,data)=>{if(validSender(e,editor)){dirty=true;control({type:'status',profile:data.profile,text:`${data.title||data.profile} · ${data.status}`});}});
+ ipcMain.on('editor-save-state',(e,data)=>{if(validSender(e,editor)){artworkRevision++;dirty=true;control({type:'status',profile:data.profile,text:`${data.title||data.profile} · ${data.status}`});}});
  ipcMain.on('editor-snapshot',async(e,data)=>{if(validSender(e,editor)&&data?.doc){const saved=await snapshot(data.doc,!!data.localOnly);const done=snapshotRequests.get(data.requestId);if(done){snapshotRequests.delete(data.requestId);done(saved);}}});
  ipcMain.on('editor-download',async(e,data)=>{
   if(!validSender(e,editor)||!connected)return;const bytes=Buffer.from(data.bytes||[]);

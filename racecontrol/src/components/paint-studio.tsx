@@ -10,6 +10,7 @@ import {
   paintConnectionReducer,
   PAINT_STREAM_FAILURE,
 } from "@/lib/paint-connection";
+import { DIRECT_PAINT_RTC, validatedPaintRelay } from "@/lib/paint-relay";
 
 type Backup = {
   id: string;
@@ -34,7 +35,6 @@ type Control = {
   checked?: boolean;
   options?: { value: string; label: string }[];
 };
-const ICE = { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] };
 const pause = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 async function api(body?: unknown) {
   const r = await fetch("/api/paint-studio", {
@@ -362,16 +362,19 @@ export default function PaintStudio() {
       setConnectionCheck("");
       setConnecting(true);
       dispatchConnection({ type: "start" });
+      const prepared = await api({ action: "prepare" });
+      if (generation !== attempt.current) return;
+      const relay = validatedPaintRelay(prepared.rtc);
       let permission = await localNetworkPermission(navigator.permissions);
       if (generation !== attempt.current) return;
       setNetworkPermission(permission);
-      if (permission === "denied") {
+      if (!relay && permission === "denied") {
         await disconnect(
           "Chrome has blocked local-network access. Allow it in this site's permissions, then connect again.",
         );
         return;
       }
-      if (permission === "prompt" && localCheck.current) {
+      if (!relay && permission === "prompt" && localCheck.current) {
         dispatchConnection({
           type: "progress",
           message: "Allow Chrome to connect to your PC when asked…",
@@ -408,7 +411,7 @@ export default function PaintStudio() {
         if (generation !== attempt.current) return;
         setNetworkPermission(permission);
       }
-      const peer = new RTCPeerConnection(ICE);
+      const peer = new RTCPeerConnection(relay || DIRECT_PAINT_RTC);
       pc.current = peer;
       const current = () =>
         pc.current === peer && generation === attempt.current;
@@ -456,6 +459,11 @@ export default function PaintStudio() {
         setConnected(true);
         setConnecting(false);
         dispatchConnection({ type: "connected" });
+        setDetail(
+          relay
+            ? "Connected through the secure relay. Models remain on your PC."
+            : "Connected directly to your PC.",
+        );
         send({ type: "resize", ...dimensions() });
       };
       dc.onclose = () => {
@@ -499,6 +507,7 @@ export default function PaintStudio() {
       const result = await api({
         action: "connect",
         offer: peer.localDescription?.toJSON(),
+        relayTicket: relay ? prepared.relayTicket : null,
       });
       if (!current()) {
         void api({ action: "disconnect", id: result.id }).catch(() => {});

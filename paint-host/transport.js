@@ -22,7 +22,7 @@ window.paintTransport.on('close',close);
 window.paintTransport.on('offer',async offer=>{
  close();id=offer.id;const active=id;
  try{
-  const p=new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});peer=p;
+  const p=new RTCPeerConnection(offer.rtc||{iceServers:[{urls:'stun:stun.l.google.com:19302'}]});peer=p;
   const current=()=>peer===p&&id===active;
   p.ondatachannel=e=>{if(!current())return;const c=e.channel;channel=c;c.binaryType='arraybuffer';c.onmessage=e=>{if(!current()||channel!==c)return;if(typeof e.data==='string'){if(e.data.length<=100000)try{window.paintTransport.send('message',JSON.parse(e.data));}catch{}}else if(e.data instanceof ArrayBuffer&&e.data.byteLength<=16384)window.paintTransport.send('message',{type:'upload-chunk',bytes:new Uint8Array(e.data)});};c.onopen=()=>{if(current()&&channel===c)window.paintTransport.send('connected',true);};c.onclose=()=>{if(current()&&channel===c)window.paintTransport.send('connected',false);};};
   p.onconnectionstatechange=()=>{if(!current())return;void diagnostic(p,active,'connection');if(p.connectionState==='failed')window.paintTransport.send('error','Stream connection failed.');};

@@ -7,7 +7,7 @@ function harness(){
  const handlers=new Map(),messages=[],peers=[];
  const track={},media={getVideoTracks:()=>[track]},canvas={captureStream:()=>media,getContext:()=>({})};
  class Peer{
-  constructor(){peers.push(this);this.connectionState='new';this.iceConnectionState='new';this.iceGatheringState='complete';this.localDescription={toJSON:()=>({type:'answer',sdp:'v=0'})};}
+  constructor(configuration){peers.push(this);this.configuration=configuration;this.connectionState='new';this.iceConnectionState='new';this.iceGatheringState='complete';this.localDescription={toJSON:()=>({type:'answer',sdp:'v=0'})};}
   close(){this.closed=true;this.connectionState='closed';this.onconnectionstatechange?.();}
   async setRemoteDescription(){if(this.pending)await this.pending;}
   async createAnswer(){return{type:'answer',sdp:'v=0'};}
@@ -24,6 +24,14 @@ function harness(){
  return{handlers,messages,peers};
 }
 const offer=id=>({id,offer:{type:'offer',sdp:'v=0'}});
+
+test('renderer uses the supplied validated relay configuration',async()=>{
+ const h=harness(),rtc={iceTransportPolicy:'relay',iceServers:[{urls:'turns:turn.cloudflare.com:443?transport=tcp',username:'temporary-test-user',credential:'temporary-test-credential'}]};
+ await h.handlers.get('offer')({...offer('relay-session'),rtc});
+ assert.deepEqual(h.peers[0].configuration,rtc);
+ assert.ok(h.messages.some(m=>m.name==='answer'));
+ h.handlers.get('close')();
+});
 test('an old failed handshake cannot close a newer phone connection',async()=>{
  const h=harness();let reject,enter;const entered=new Promise(resolve=>{enter=resolve;});
  const pending=h.handlers.get('offer')(offer('old'));
