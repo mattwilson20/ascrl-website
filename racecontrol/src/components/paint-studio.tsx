@@ -79,6 +79,7 @@ export default function PaintStudio() {
   const [status, setStatus] = useState("Checking your private workstation…"),
     [backups, setBackups] = useState<Backup[]>([]);
   const [field, setField] = useState<Field | null>(null),
+    [restoreId,setRestoreId]=useState<string|null>(null),
     [uploadRequest, setUploadRequest] = useState(false),
     [value, setValue] = useState(""),
     [tools, setTools] = useState<Control[]>([]);
@@ -103,6 +104,7 @@ export default function PaintStudio() {
       setConnected(false);
       setConnecting(false);
       setField(null);
+      setRestoreId(null);
       setUploadRequest(false);
       uploadTarget.current = null;
       setTools([]);
@@ -361,6 +363,7 @@ export default function PaintStudio() {
     uploadTarget.current = null;
     if (!id) return;
     if (f.size > 80 * 1024 * 1024) {
+      send({type:"upload-cancel",id});
       setDetail("Use a file smaller than 80 MB.");
       return;
     }
@@ -385,6 +388,7 @@ export default function PaintStudio() {
       send({ type: "upload-end" });
       setDetail("Artwork sent.");
     } catch {
+      send({type:"upload-cancel",id});
       setDetail("Upload interrupted. Import the file again.");
     }
   }
@@ -560,14 +564,7 @@ export default function PaintStudio() {
                   <button
                     className="button secondary small"
                     disabled={!connected}
-                    onClick={() => {
-                      if (
-                        window.confirm(
-                          "Restore this copy? Your current artwork will be saved first.",
-                        )
-                      )
-                        send({ type: "restore", id: b.id });
-                    }}
+                    onClick={() => setRestoreId(b.id)}
                   >
                     Restore
                   </button>
@@ -602,6 +599,15 @@ export default function PaintStudio() {
           if (f) void upload(f);
         }}
       />
+      {restoreId && stage.current && createPortal(
+        <div className="paint-modal" role="dialog" aria-modal="true" aria-label="Restore saved artwork">
+          <form onSubmit={e=>{e.preventDefault();send({type:"restore",id:restoreId});setRestoreId(null);setDetail("Preserving current artwork, then restoring your saved copy…");}}>
+            <h2>Restore saved artwork</h2>
+            <p>Your current artwork will be saved before this recovery copy is loaded.</p>
+            <div><button className="button" type="submit">Restore saved copy</button><button className="button secondary" type="button" onClick={()=>setRestoreId(null)}>Cancel</button></div>
+          </form>
+        </div>,stage.current
+      )}
       {uploadRequest && stage.current && createPortal(
         <div className="paint-modal" role="dialog" aria-modal="true" aria-label="Import artwork">
           <form onSubmit={e=>{e.preventDefault();file.current?.click();}}>

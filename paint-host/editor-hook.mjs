@@ -60,10 +60,11 @@ bridge.on('command',m=>{
  if(m.type==='field'){
   if(!['INPUT','SELECT','TEXTAREA'].includes(el.tagName)||['file','hidden','checkbox'].includes(el.type))return;
   if(el.tagName==='SELECT'&&![...el.options].some(o=>o.value===m.value))return;
+  if(el.id==='customerId'&&!m.value)localStorage.removeItem('garage-pro-customer');
   el.value=m.value;el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));
  }else if(m.type==='control')el.click();controls();
 });
-bridge.on('connected',value=>{connected=value;previous='';if(!value){touches.clear();studio.touch3D.reset();studio.touchUV.reset();if(studio.stroke)studio.cancelTouch();}controls();});
+bridge.on('connected',value=>{connected=value;previous='';if(!value){touches.clear();studio.touch3D.reset();studio.touchUV.reset();if(studio.stroke)studio.cancelTouch();for(const el of targets.values())if(el instanceof HTMLInputElement&&el.type==='file')el.dispatchEvent(new Event('cancel'));}controls();});
 // Remove routes out of this editor and the obsolete LAN pairing flow in the streamed view.
 for(const id of ['phone','phoneTransfer','phoneButton','exportPNG','downloadLegacy']){const el=document.getElementById(id);if(el)el.hidden=true;}
 for(const el of document.querySelectorAll('button'))if(/Phone \/ transfer/.test(el.textContent))el.hidden=true;

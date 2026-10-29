@@ -99,7 +99,7 @@ async function poll(){
   else if(next.id!==active?.id&&next.id!==declinedSession){closeStream();active=next;lastInput=Date.now();transport.webContents.send('transport-offer',next);status('connecting');}
   if(connected&&Date.now()-lastInput>1800000){control({type:'status',text:'Session ended after 30 minutes without input.'});declineStream();}
   if(connected&&dirty&&!backupBusy&&Date.now()-lastBackup>300000)editor.webContents.send('editor-snapshot');
-  if(upload&&Date.now()-upload.started>300000)upload=null;
+  if(upload&&Date.now()-upload.started>300000){editor.webContents.send('editor-command',{type:'upload-cancel',id:upload.id});upload=null;}
  }catch(e){closeStream();status('offline',{error:e.message});log('Host: '+e.message);}finally{polling=false;}
 }
 app.whenReady().then(async()=>{
