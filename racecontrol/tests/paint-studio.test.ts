@@ -6,8 +6,15 @@ import {
   PAINT_PILOT_OWNER,
   paintIdentityAllowed,
   validOffer,
+  videoPoint,
 } from "../src/lib/paint-policy";
 let db: PGlite;
+test("stream coordinates account for both letterbox directions and reject black bars",()=>{
+  expect(videoPoint({left:10,top:20,width:800,height:800},1600,800,410,420)).toEqual({x:.5,y:.5,inside:true});
+  expect(videoPoint({left:10,top:20,width:800,height:800},1600,800,410,120)).toEqual({x:.5,y:0,inside:false});
+  expect(videoPoint({left:0,top:0,width:1000,height:600},600,600,200,300)).toEqual({x:0,y:.5,inside:true});
+  expect(videoPoint({left:0,top:0,width:1000,height:600},600,600,100,300).inside).toBe(false);
+});
 const other = "11111111-1111-4111-8111-111111111111",
   token = "a".repeat(64);
 async function asUser(id: string | null, sql: string) {

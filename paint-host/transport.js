@@ -12,9 +12,10 @@ window.paintTransport.on('offer',async offer=>{
   const p=new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});peer=p;
   p.ondatachannel=e=>{channel=e.channel;channel.binaryType='arraybuffer';channel.onmessage=e=>{if(typeof e.data==='string'){if(e.data.length<=100000)try{window.paintTransport.send('message',JSON.parse(e.data));}catch{}}else if(e.data instanceof ArrayBuffer&&e.data.byteLength<=16384)window.paintTransport.send('message',{type:'upload-chunk',bytes:new Uint8Array(e.data)});};channel.onopen=()=>window.paintTransport.send('connected',true);channel.onclose=()=>window.paintTransport.send('connected',false);};
   p.onconnectionstatechange=()=>{if(p.connectionState==='failed')window.paintTransport.send('error','Stream connection failed.');};
-  await p.setRemoteDescription(offer.offer);p.addTrack(track,media);
+  await p.setRemoteDescription(offer.offer);const sender=p.addTrack(track,media);
   await p.setLocalDescription(await p.createAnswer());
   await new Promise(resolve=>{const timer=setTimeout(done,7000);function done(){clearTimeout(timer);p.removeEventListener('icegatheringstatechange',check);resolve();}function check(){if(p.iceGatheringState==='complete')done();}p.addEventListener('icegatheringstatechange',check);check();});
+  const parameters=sender.getParameters();if(parameters.encodings?.length){parameters.encodings[0].maxBitrate=6000000;parameters.encodings[0].maxFramerate=24;await sender.setParameters(parameters);}
   if(id===active)window.paintTransport.send('answer',{id:active,answer:p.localDescription.toJSON()});
  }catch(e){window.paintTransport.send('error',e.message);close();}
 });

@@ -2,7 +2,7 @@
   max-width: 1600px;
   margin: auto;
   padding: 34px 26px;
-  color: var(--ink, #17232c);
+  color: #e0e8f1;
 }
 .paint-heading {
   display: flex;
@@ -19,7 +19,7 @@
 }
 .paint-heading p {
   margin: 0;
-  color: #61717e;
+  color: #a3b4c7;
 }
 .paint-eyebrow {
   font-size: 11px;
@@ -126,7 +126,7 @@
   color: #8d9daa;
 }
 .paint-detail {
-  background: #e9edf0;
+  background: #142638;
   border-left: 3px solid #bd5d3c;
   padding: 12px;
   font-size: 13px;
@@ -145,7 +145,7 @@
 }
 .paint-lower p {
   font-size: 14px;
-  color: #61717e;
+  color: #a3b4c7;
   line-height: 1.65;
 }
 .paint-lower ul {
@@ -170,7 +170,7 @@
 }
 .paint-quick {
   padding: 14px;
-  background: #f0f2f3;
+  background: #142638;
   margin-top: 16px;
   border-radius: 8px;
 }
@@ -195,6 +195,8 @@
   padding: 20px;
 }
 .paint-modal form {
+  color: #17232c;
+  line-height: 1.5;
   background: #fff;
   padding: 26px;
   border-radius: 12px;
@@ -224,6 +226,10 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+.paint-pilot h1,.paint-pilot h2{color:#eef4fb}
+.paint-modal h2{color:#17232c}
+.paint-fullscreen-exit{display:none;position:absolute;right:12px;top:8px;z-index:10;background:#15283c;border:1px solid #7b9abb;color:#fff;padding:8px 14px;border-radius:6px;cursor:pointer}
+.paint-stage:fullscreen .paint-fullscreen-exit{display:block}
 @media (max-width: 700px) {
   .paint-pilot {
     padding: 22px 12px;

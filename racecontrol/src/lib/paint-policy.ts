@@ -4,6 +4,12 @@ export const PAINT_PILOT_OWNER = "2a20a12e-3786-481d-a77d-72d281290948";
 export function paintIdentityAllowed(userId?: string | null) {
   return userId === PAINT_PILOT_OWNER;
 }
+export function videoPoint(rect:{left:number;top:number;width:number;height:number},width:number,height:number,x:number,y:number) {
+  const scale=Math.min(rect.width/width,rect.height/height);
+  const px=(x-rect.left-(rect.width-width*scale)/2)/(width*scale);
+  const py=(y-rect.top-(rect.height-height*scale)/2)/(height*scale);
+  return {x:Math.max(0,Math.min(1,px)),y:Math.max(0,Math.min(1,py)),inside:px>=0&&px<=1&&py>=0&&py<=1};
+}
 export function validOffer(value: unknown): value is RTCSessionDescriptionInit {
   if (!value || typeof value !== "object") return false;
   const offer = value as { type?: unknown; sdp?: unknown };

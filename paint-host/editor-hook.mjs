@@ -17,7 +17,7 @@ studio.download=async(blob,name)=>{
  else {bridge.emit('snapshot',{doc:portable(studio.doc),manual:true});studio.status('Cloud recovery copy requested');}
 };
 // All project/model access stays inside this process; there is no remote URL or script executor.
-bridge.on('snapshot',()=>bridge.emit('snapshot',{doc:portable(studio.doc),manual:true}));
+bridge.on('snapshot',request=>bridge.emit('snapshot',{doc:portable(studio.doc),manual:true,requestId:request?.requestId}));
 bridge.on('seed',docs=>studio.run(async()=>{
  if(localStorage.getItem('private-host-imported-workspaces'))return;
  const car=studio.doc.profile;
@@ -35,6 +35,7 @@ document.addEventListener('click',e=>{
  }
 },true);
 bridge.on('command',m=>{
+ if(m.type==='resized'){setTimeout(()=>{studio.fitUV();studio.viewer.setCamera('perspective');studio.viewer.invalidate(12);},250);return;}
  if(m.type==='pointer'&&m.pointerType==='touch'){
   const x=m.x*(innerWidth-1),y=m.y*(innerHeight-1);
   if(m.phase==='down'){
@@ -69,4 +70,6 @@ setInterval(()=>{
  const revision=`${studio.doc?.profile}/${studio.revision}/${state}`;
  if(revision!==lastRevision){lastRevision=revision;bridge.emit('save-state',{profile:studio.doc?.profile,title:studio.doc?.title,status:state});if(state.startsWith('Saved locally'))bridge.emit('snapshot',{doc:portable(studio.doc),localOnly:true});}
 },600);
+studio.applyView('three');
+setTimeout(()=>studio.viewer.setCamera('perspective'),250);
 bridge.emit('ready',{profile:studio.doc.profile});controls();

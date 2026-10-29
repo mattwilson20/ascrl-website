@@ -10,7 +10,8 @@ app.commandLine.appendSwitch('disable-renderer-backgrounding');
 app.commandLine.appendSwitch('autoplay-policy','no-user-gesture-required');
 if(!app.requestSingleInstanceLock()){app.quit();return;}
 let editor,transport,server,tray,active=null,connected=false,upload=null,lastFrame=null,polling=false,backupBusy=false;
-let lastInput=Date.now(),lastBackup=0,dirty=true,frameBusy=false,frameAt=0,validatedProject;
+let lastInput=Date.now(),lastBackup=0,dirty=true,frameBusy=false,frameAt=0,validatedProject,declinedSession=null;
+let backupQueue=Promise.resolve();const snapshotRequests=new Map();
 const runtimeFile=path.join(runtime,'status.json');
 const status=(state,extra={})=>{try{fs.writeFileSync(runtimeFile,JSON.stringify({state,at:new Date().toISOString(),pid:process.pid,connected,session:active?.id||null,...extra},null,2));}catch{};};
 function log(message){fs.appendFileSync(path.join(runtime,'host.log'),new Date().toISOString()+' '+String(message).slice(0,400)+'\n');}
@@ -34,17 +35,27 @@ function closeStream(){
  status('ready');
 }
 function validSender(e,win){return win&&!win.isDestroyed()&&e.sender.id===win.webContents.id;}
-async function snapshot(doc,localOnly=false){
- if(backupBusy)return;backupBusy=true;
+function snapshot(doc,localOnly=false){
+ const pending=backupQueue.then(()=>saveSnapshot(doc,localOnly));backupQueue=pending.catch(()=>false);return pending;
+}
+async function saveSnapshot(doc,localOnly=false){
+ backupBusy=true;let saved=false;
  try{
   validatedProject(doc);
   const serialized=JSON.stringify(doc);if(Buffer.byteLength(serialized)>50*1024*1024)throw Error('This project exceeds the 50 MB cloud-copy limit. Local saves remain intact.');
   const folder=path.join(runtime,'artwork');await fsp.mkdir(folder,{recursive:true});
   const hash=createHash('sha256').update(serialized).digest('hex');const target=path.join(folder,doc.profile+'-'+hash+'.garage.json');
   if(!fs.existsSync(target))await fsp.writeFile(target,serialized,{flag:'wx'});
-  if(localOnly)return;
+  saved=true;if(localOnly)return true;
   const result=await rpc('backup',{doc});lastBackup=Date.now();dirty=false;control({type:'backup-complete',...result});status('ready',{lastBackup:new Date(lastBackup).toISOString()});
  }catch(e){control({type:'status',text:'Cloud copy: '+e.message});log('Cloud copy failed: '+e.message);}finally{backupBusy=false;}
+ return saved;
+}
+function preserveCurrent(){
+ return new Promise((resolve,reject)=>{const requestId=randomUUID();const timer=setTimeout(()=>{snapshotRequests.delete(requestId);reject(Error('Current artwork could not be preserved. Restore was cancelled.'));},65000);snapshotRequests.set(requestId,ok=>{clearTimeout(timer);ok?resolve():reject(Error('Current artwork could not be preserved. Restore was cancelled.'));});editor.webContents.send('editor-snapshot',{requestId});});
+}
+function declineStream(){
+ declinedSession=active?.id||null;closeStream();
 }
 function input(m){
  if(!connected||!active)return;
@@ -53,7 +64,7 @@ function input(m){
   upload.chunks.push(Buffer.from(m.bytes));upload.received+=m.bytes.byteLength;return;
  }
  if(!validMessage(m))return;lastInput=Date.now();
- if(m.type==='resize'){editor.setContentSize(m.width,m.height);editor.webContents.invalidate();return;}
+ if(m.type==='resize'){editor.setContentSize(m.width,m.height);editor.webContents.send('editor-command',{type:'resized'});editor.webContents.invalidate();return;}
  if(m.type==='field'||m.type==='control'||m.type==='pointer'&&m.pointerType==='touch'){editor.webContents.send('editor-command',m);return;}
  if(m.type==='upload-start'){upload={...m,chunks:[],received:0,started:Date.now()};return;}
  if(m.type==='upload-end'){
@@ -61,7 +72,7 @@ function input(m){
   editor.webContents.send('editor-upload',{id:f.id,name:path.basename(f.name),mime:f.mime,bytes:Buffer.concat(f.chunks)});return;
  }
  if(m.type==='backup'){editor.webContents.send('editor-snapshot');return;}
- if(m.type==='restore'){void (async()=>{try{editor.webContents.send('editor-snapshot');const result=await rpc('restore',{id:m.id});validatedProject(result.doc);editor.webContents.send('editor-restore',result.doc);}catch(e){control({type:'status',text:e.message});}})();return;}
+ if(m.type==='restore'){void (async()=>{try{await preserveCurrent();const result=await rpc('restore',{id:m.id});validatedProject(result.doc);editor.webContents.send('editor-restore',result.doc);}catch(e){control({type:'status',text:e.message});}})();return;}
  const size=editor.getContentSize(),x=Math.round((m.x||0)*(size[0]-1)),y=Math.round((m.y||0)*(size[1]-1));
  const modifiers=[...(m.ctrl?['control']:[]),...(m.shift?['shift']:[]),...(m.alt?['alt']:[])];
  try{
@@ -85,8 +96,8 @@ async function poll(){
  try{
   const result=await rpc('poll');const next=result.session;
   if(!next){if(active)closeStream();status('ready');}
-  else if(next.id!==active?.id){closeStream();active=next;lastInput=Date.now();transport.webContents.send('transport-offer',next);status('connecting');}
-  if(connected&&Date.now()-lastInput>1800000){closeStream();control({type:'status',text:'Session ended after 30 minutes without input.'});}
+  else if(next.id!==active?.id&&next.id!==declinedSession){closeStream();active=next;lastInput=Date.now();transport.webContents.send('transport-offer',next);status('connecting');}
+  if(connected&&Date.now()-lastInput>1800000){control({type:'status',text:'Session ended after 30 minutes without input.'});declineStream();}
   if(connected&&dirty&&!backupBusy&&Date.now()-lastBackup>300000)editor.webContents.send('editor-snapshot');
   if(upload&&Date.now()-upload.started>300000)upload=null;
  }catch(e){closeStream();status('offline',{error:e.message});log('Host: '+e.message);}finally{polling=false;}
@@ -128,7 +139,7 @@ app.whenReady().then(async()=>{
  ipcMain.on('transport-error',(e,message)=>{if(validSender(e,transport))log('Stream: '+message);});
  for(const type of ['controls','field','upload-request','status'])ipcMain.on('editor-'+type,(e,data)=>{if(validSender(e,editor))control({type,...data});});
  ipcMain.on('editor-save-state',(e,data)=>{if(validSender(e,editor)){dirty=true;control({type:'status',text:`${data.title||data.profile} · ${data.status}`});}});
- ipcMain.on('editor-snapshot',(e,data)=>{if(validSender(e,editor)&&data?.doc)void snapshot(data.doc,!!data.localOnly);});
+ ipcMain.on('editor-snapshot',async(e,data)=>{if(validSender(e,editor)&&data?.doc){const saved=await snapshot(data.doc,!!data.localOnly);const done=snapshotRequests.get(data.requestId);if(done){snapshotRequests.delete(data.requestId);done(saved);}}});
  ipcMain.on('editor-download',async(e,data)=>{
   if(!validSender(e,editor)||!connected)return;const bytes=Buffer.from(data.bytes||[]);
   if(!validTGA(data.name,bytes)){control({type:'status',text:'Only a valid 2048 × 2048 TGA can be exported.'});return;}
@@ -144,7 +155,7 @@ app.whenReady().then(async()=>{
   status('ready',{port});
  });
  const icon=nativeImage.createFromBuffer(Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jXioAAAAASUVORK5CYII=','base64'));
- tray=new Tray(icon);tray.setToolTip('ASCRL Paint Studio Host — private access');tray.setContextMenu(Menu.buildFromTemplate([{label:'ASCRL Paint Studio Host',enabled:false},{label:'Disconnect stream',click:closeStream},{label:'Quit host',click:()=>app.quit()}]));
+ tray=new Tray(icon);tray.setToolTip('ASCRL Paint Studio Host — private access');tray.setContextMenu(Menu.buildFromTemplate([{label:'ASCRL Paint Studio Host',enabled:false},{label:'Disconnect stream',click:declineStream},{label:'Quit host',click:()=>app.quit()}]));
  await transport.loadFile(path.join(__dirname,'transport.html'));await editor.loadURL(origin+'/');
  setInterval(poll,5000);log('Started private host. Models remain on this PC.');
 });

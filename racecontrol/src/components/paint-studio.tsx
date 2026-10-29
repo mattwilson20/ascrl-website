@@ -1,6 +1,8 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import "./paint-studio.css";
+import { videoPoint } from "@/lib/paint-policy";
 
 type Backup = {
   id: string;
@@ -77,6 +79,7 @@ export default function PaintStudio() {
   const [status, setStatus] = useState("Checking your private workstation…"),
     [backups, setBackups] = useState<Backup[]>([]);
   const [field, setField] = useState<Field | null>(null),
+    [uploadRequest, setUploadRequest] = useState(false),
     [value, setValue] = useState(""),
     [tools, setTools] = useState<Control[]>([]);
   const [detail, setDetail] = useState(""),
@@ -100,6 +103,8 @@ export default function PaintStudio() {
       setConnected(false);
       setConnecting(false);
       setField(null);
+      setUploadRequest(false);
+      uploadTarget.current = null;
       setTools([]);
       incoming.current = null;
       setStatus(message);
@@ -174,7 +179,7 @@ export default function PaintStudio() {
       390,
       Math.min(1600, Math.round(stage.current?.clientWidth || 1280)),
     ),
-    height: Math.max(600, Math.min(1000, Math.round(window.innerHeight - 200))),
+    height: Math.max(600, Math.min(1000, Math.round(window.innerHeight - (document.fullscreenElement ? 0 : 200)))),
   });
   const receive = async (event: MessageEvent) => {
     if (event.data instanceof ArrayBuffer) {
@@ -213,7 +218,7 @@ export default function PaintStudio() {
         file.current.accept =
           m.accept || ".png,.jpg,.jpeg,.webp,.svg,.tga,.json";
         file.current.value = "";
-        file.current.click();
+        setUploadRequest(true);
       }
     }
     if (
@@ -270,6 +275,7 @@ export default function PaintStudio() {
         setStatus("Connected · Only your account has access");
         send({ type: "resize", ...dimensions() });
       };
+      dc.onclose = ()=>{if(!closing.current)void disconnect("The workstation ended the stream. Connect again to continue.");};
       peer.ontrack = (e) => {
         if (video.current) {
           video.current.srcObject = new MediaStream([e.track]);
@@ -311,15 +317,23 @@ export default function PaintStudio() {
       timer = setTimeout(() => send({ type: "resize", ...dimensions() }), 500);
     };
     window.addEventListener("resize", resize);
+    document.addEventListener("fullscreenchange", resize);
+    const player=video.current;
+    const preventScroll=(e:WheelEvent)=>e.preventDefault();
+    player?.addEventListener("wheel",preventScroll,{passive:false});
     return () => {
       clearTimeout(timer);
       window.removeEventListener("resize", resize);
+      document.removeEventListener("fullscreenchange", resize);
+      player?.removeEventListener("wheel",preventScroll);
     };
   }, [connected, send]);
   function pointer(e: React.PointerEvent<HTMLVideoElement>, phase: string) {
     if (!connected || !video.current) return;
     e.preventDefault();
     const r = video.current.getBoundingClientRect();
+    const point=videoPoint(r,video.current.videoWidth||r.width,video.current.videoHeight||r.height,e.clientX,e.clientY);
+    if(phase==='down'&&!point.inside)return;
     if (phase === "down") {
       video.current.setPointerCapture(e.pointerId);
       pointerDown.current = true;
@@ -328,8 +342,8 @@ export default function PaintStudio() {
     send({
       type: "pointer",
       phase,
-      x: Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)),
-      y: Math.max(0, Math.min(1, (e.clientY - r.top) / r.height)),
+      x: point.x,
+      y: point.y,
       button: e.button,
       buttons: e.buttons,
       shift: e.shiftKey,
@@ -341,6 +355,7 @@ export default function PaintStudio() {
     });
   }
   async function upload(f: File) {
+    setUploadRequest(false);
     const id = uploadTarget.current;
     uploadTarget.current = null;
     if (!id) return;
@@ -431,6 +446,7 @@ export default function PaintStudio() {
         {status}
       </p>
       <div className="paint-stage" ref={stage}>
+        <button className="paint-fullscreen-exit" onClick={()=>void document.exitFullscreen()}>Exit full screen</button>
         <video
           ref={video}
           className={connected ? "" : "paint-video-idle"}
@@ -445,16 +461,19 @@ export default function PaintStudio() {
           onPointerCancel={(e) => pointer(e, "cancel")}
           onContextMenu={(e) => e.preventDefault()}
           onWheel={(e) => {
-            if (connected)
+            const r=e.currentTarget.getBoundingClientRect();
+            const point=videoPoint(r,e.currentTarget.videoWidth||r.width,e.currentTarget.videoHeight||r.height,e.clientX,e.clientY);
+            if (connected && point.inside)
               send({
                 type: "wheel",
                 deltaX: e.deltaX,
                 deltaY: e.deltaY,
-                x: e.nativeEvent.offsetX / (e.currentTarget.clientWidth || 1),
-                y: e.nativeEvent.offsetY / (e.currentTarget.clientHeight || 1),
+                x: point.x,
+                y: point.y,
               });
           }}
           onKeyDown={(e) => {
+            if(e.key==='Escape' && document.fullscreenElement){void document.exitFullscreen();return;}
             e.preventDefault();
             send({
               type: "key",
@@ -582,7 +601,16 @@ export default function PaintStudio() {
           if (f) void upload(f);
         }}
       />
-      {field && (
+      {uploadRequest && stage.current && createPortal(
+        <div className="paint-modal" role="dialog" aria-modal="true" aria-label="Import artwork">
+          <form onSubmit={e=>{e.preventDefault();file.current?.click();}}>
+            <h2>Import artwork</h2>
+            <p>Choose an image, TGA, or saved paint project to send to your private workstation.</p>
+            <div><button className="button" type="submit">Choose file</button><button className="button secondary" type="button" onClick={()=>{setUploadRequest(false);uploadTarget.current=null;}}>Cancel</button></div>
+          </form>
+        </div>,stage.current
+      )}
+      {field && stage.current && createPortal(
         <div
           className="paint-modal"
           role="dialog"
@@ -632,7 +660,7 @@ export default function PaintStudio() {
               </button>
             </div>
           </form>
-        </div>
+        </div>, stage.current
       )}
     </section>
   );
