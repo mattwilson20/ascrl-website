@@ -73,6 +73,7 @@ export default function PaintStudio() {
       received: number;
     } | null>(null);
   const uploadTarget = useRef<string | null>(null),
+    currentProfile = useRef<string | null>(null),
     controls = useRef<Control[]>([]),
     pointers = useRef(new Set<number>());
   const [expanded, setExpanded] = useState(false),
@@ -248,7 +249,16 @@ export default function PaintStudio() {
     } catch {
       return;
     }
-    if (m.type === "status") setDetail(String(m.text).slice(0, 300));
+    if (m.type === "status") {
+      if (["camaro", "mustang", "camry"].includes(m.profile)) {
+        if (currentProfile.current && currentProfile.current !== m.profile) {
+          setDownload(null);
+          incoming.current = null;
+        }
+        currentProfile.current = m.profile;
+      }
+      setDetail(String(m.text).slice(0, 300));
+    }
     if (m.type === "field" && typeof m.id === "string") {
       setField({ ...m, type: m.inputType || "text" });
       setValue(String(m.value ?? ""));
@@ -305,6 +315,9 @@ export default function PaintStudio() {
   };
   const connect = async () => {
     try {
+      setDownload(null);
+      currentProfile.current = null;
+      setDetail("");
       setConnecting(true);
       setStatus("Connecting to your private workstation…");
       const peer = new RTCPeerConnection(ICE);

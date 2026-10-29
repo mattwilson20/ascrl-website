@@ -2,8 +2,9 @@ PRIVATE PAINT STUDIO — 29 OCTOBER 2026
 
 Deployment
 https://racecontrol.ascrl.online/paint-studio
-Production release: 32a73fdc9aafcba7e8ec95ceee5ac5923bf58fc6
-Vercel deployment dpl_HJShfaUkiqGRqQKC88fdZEfiDeD6 reached READY.
+Mobile production release: 03bb513ed814193161e64405ff14c5fb2a41ee9c
+Vercel deployment dpl_51Tb38FLs3TxUzLQsgm4bhaoN7DM reached READY.
+Follow-up improvements and this report are on codex/ascrl-race-control.
 
 Scope
 Owner-only integration of the existing professional local Livery Studio.
@@ -15,8 +16,8 @@ No public GPU service, TURN relay, public tunnel, or firewall exception was adde
 The original editor and its browser workspaces were not modified.
 
 Checks completed
-- 62 site tests passed; two pre-existing optional-fixture tests skipped.
-- Five host protocol tests passed, including forbidden upload/model commands,
+- 63 site tests passed; two pre-existing optional-fixture tests skipped.
+- Eleven host tests passed, including forbidden upload/model commands,
   bounded input, field-message typing, and complete TGA packet validation.
 - TypeScript checking passed. Vercel production build succeeded.
 - Dependency audit found no known vulnerabilities after updating Next to 16.4.3.
@@ -51,15 +52,28 @@ Issues corrected during validation
 - Use an in-page restore confirmation instead of a blocking browser confirm.
 - Explicit table privileges remove inherited TRUNCATE/REFERENCES/TRIGGER grants.
 
-Remaining live validation
-An old browser confirm in the earlier deployment blocked subsequent browser
-automation. The replacement in-page confirmation is deployed. The blocked tab
-must be dismissed before completing the remaining live checks:
-- Restore the Mustang's 12:57:32 AM baseline after the temporary QA logo test.
-- Clear the test-only customer ID 999999 in the host export dialog.
-- Verify Camry switching and export through the production stream.
-- Verify the replacement restore dialog and native field entry end to end.
-- Verify Android Chrome on the user's actual phone/network.
+Phone and recovery checks completed
+- The previous blocked browser prompt is gone. The in-page restore confirmation
+  restored the Mustang's 12:57:32 AM baseline; the temporary QA logo is removed.
+- Verified portrait 393x852 and landscape 852x393 through the production stream.
+  The host renders at the actual video-slot dimensions instead of forcing a
+  600-pixel-tall desktop layout onto a short landscape screen.
+- Camaro, Mustang and Camry were visible through the phone-sized stream.
+- Native car selection, keyboard field entry, project menu, 2D UV view,
+  save, restore, expanded view and TGA download controls were exercised.
+- Test sponsor SVG uploaded using the native file chooser in portrait. Undo
+  removed the import; original artwork remains in the private workspace.
+- Camry TGA downloaded at 2048x2048, 24-bit RLE and matched the host bytes:
+  12054ca325cb08cb81e4dfad0f9ea4b50257c444d7d4453bd771098bf800956a
+- Test-only customer ID 999999 was cleared and the empty field verified.
+- Touch relay tests exercise layer-row taps, horizontal tool scrolling, vertical
+  inspector scrolling, gesture cancellation and a second finger crossing panes.
+  Integration tests use the installed editor's TouchController for one-finger
+  painting, cancellation on pinch, two-finger navigation and Orbit mode.
+- Expanded toolbar keeps Save, Tools and Download TGA accessible. Focus canvas
+  removes optional tool strips; normal controls can be restored at any time.
+- The user's actual Android hardware, virtual keyboard and network connection
+  remain untested. Browser viewport checks are not physical-device certification.
 No test export was installed into iRacing. The original browser projects and
 artwork were not used as the test workspace.
 

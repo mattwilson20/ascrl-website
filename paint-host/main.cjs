@@ -140,7 +140,7 @@ app.whenReady().then(async()=>{
  ipcMain.on('transport-connected',(e,data)=>{if(!validSender(e,transport))return;connected=!!data;editor.webContents.send('editor-connected',connected);editor.webContents.invalidate();status(connected?'connected':'ready');});
  ipcMain.on('transport-error',(e,message)=>{if(validSender(e,transport))log('Stream: '+message);});
  for(const type of ['controls','field','upload-request','status'])ipcMain.on('editor-'+type,(e,data)=>{if(validSender(e,editor))control(editorMessage(type,data));});
- ipcMain.on('editor-save-state',(e,data)=>{if(validSender(e,editor)){dirty=true;control({type:'status',text:`${data.title||data.profile} · ${data.status}`});}});
+ ipcMain.on('editor-save-state',(e,data)=>{if(validSender(e,editor)){dirty=true;control({type:'status',profile:data.profile,text:`${data.title||data.profile} · ${data.status}`});}});
  ipcMain.on('editor-snapshot',async(e,data)=>{if(validSender(e,editor)&&data?.doc){const saved=await snapshot(data.doc,!!data.localOnly);const done=snapshotRequests.get(data.requestId);if(done){snapshotRequests.delete(data.requestId);done(saved);}}});
  ipcMain.on('editor-download',async(e,data)=>{
   if(!validSender(e,editor)||!connected)return;const bytes=Buffer.from(data.bytes||[]);

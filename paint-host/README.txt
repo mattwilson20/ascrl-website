@@ -60,3 +60,19 @@ The host uses the existing validated brush, projection, layers, vector tools,
 masking, undo/redo, autosave, recovery and TGA encoders. Its small bridge forwards
 named controls, pointer gestures and artwork uploads; it has no remote code,
 filesystem, shell, URL-fetch or model-export command.
+
+Android Chrome:
+1. Keep this PC awake with Paint Studio Host running.
+2. Open https://racecontrol.ascrl.online/paint-studio and sign into the owner account.
+3. Tap Connect to studio, then Expand editor. Portrait and landscape are supported.
+4. One finger uses the active tool. Two fingers zoom/pan; choose Orbit to rotate.
+5. Tools opens touch-sized native controls and phone keyboard/file dialogs.
+   Focus gives the canvas more room; Controls returns the options and camera views.
+6. Save creates a cloud recovery copy. Export TGA is in the editor's project Menu.
+   After export, Download TGA remains visible in the expanded toolbar and saves
+   to the phone's Downloads. Enter the actual iRacing customer ID before exporting.
+The expanded view fills the browser without relying on a fullscreen API. Dialogs
+follow the visible keyboard viewport. Rotating preserves the current camera view;
+use the Front quarter camera preset or pinch to reframe after rotating.
+Phone viewport and gesture integration tests pass; the user's actual Android
+hardware and network connection have not yet been tested.
