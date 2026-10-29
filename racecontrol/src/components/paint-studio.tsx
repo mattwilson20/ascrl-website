@@ -6,6 +6,7 @@ import { paintViewport, videoPoint } from "@/lib/paint-policy";
 import {
   initialPaintConnection,
   localNetworkPermission,
+  localConnectionCheck,
   paintConnectionReducer,
   PAINT_STREAM_FAILURE,
 } from "@/lib/paint-connection";
@@ -108,6 +109,7 @@ export default function PaintStudio() {
   const [networkPermission, setNetworkPermission] =
     useState<string>("unchecked");
   const [connectionCheck, setConnectionCheck] = useState("");
+  const localCheck = useRef<string | null>(null);
   const send = useCallback((message: unknown) => {
     if (channel.current?.readyState === "open")
       channel.current.send(JSON.stringify(message));
@@ -156,6 +158,7 @@ export default function PaintStudio() {
       if (generation !== attempt.current || id !== session.current) return;
       setOnline(d.online);
       setBackups(d.backups);
+      localCheck.current = localConnectionCheck(d.session?.answer?.sdp);
       if (!id) dispatchConnection({ type: "availability", online: d.online });
       else if (
         !d.session ||
@@ -359,7 +362,7 @@ export default function PaintStudio() {
       setConnectionCheck("");
       setConnecting(true);
       dispatchConnection({ type: "start" });
-      const permission = await localNetworkPermission(navigator.permissions);
+      let permission = await localNetworkPermission(navigator.permissions);
       if (generation !== attempt.current) return;
       setNetworkPermission(permission);
       if (permission === "denied") {
@@ -367,6 +370,43 @@ export default function PaintStudio() {
           "Chrome has blocked local-network access. Allow it in this site's permissions, then connect again.",
         );
         return;
+      }
+      if (permission === "prompt" && localCheck.current) {
+        dispatchConnection({
+          type: "progress",
+          message: "Allow Chrome to connect to your PC when asked…",
+        });
+        try {
+          // This user-initiated, empty check triggers Chrome's network prompt.
+          // No model, artwork, session cookie or credential is sent over HTTP.
+          const options: RequestInit & { targetAddressSpace: "local" } = {
+            targetAddressSpace: "local",
+            mode: "cors",
+            credentials: "omit",
+            cache: "no-store",
+            referrerPolicy: "no-referrer",
+            signal: AbortSignal.timeout(60000),
+          };
+          const result = await fetch(localCheck.current, options);
+          if (!result.ok) throw Error("Local connection check unavailable.");
+        } catch {
+          permission = await localNetworkPermission(navigator.permissions);
+          if (generation !== attempt.current) return;
+          setNetworkPermission(permission);
+          if (permission !== "granted") {
+            await disconnect(
+              permission === "denied"
+                ? "Chrome has blocked local-network access. Allow it in this site's permissions, then connect again."
+                : "Chrome did not complete the connection permission check. Tap Connect to studio and choose Allow when Chrome asks to connect to local devices.",
+            );
+            return;
+          }
+          // Permission may be granted even if an older host has no check
+          // endpoint. Continue with the encrypted video connection.
+        }
+        permission = await localNetworkPermission(navigator.permissions);
+        if (generation !== attempt.current) return;
+        setNetworkPermission(permission);
       }
       const peer = new RTCPeerConnection(ICE);
       pc.current = peer;
@@ -643,7 +683,8 @@ export default function PaintStudio() {
         {status}
       </p>
       {connection.phase === "stopped" &&
-        (status === PAINT_STREAM_FAILURE || networkPermission === "denied") && (
+        (status === PAINT_STREAM_FAILURE ||
+          ["denied", "prompt"].includes(networkPermission)) && (
           <div className="paint-connection-help">
             <strong>Connection help for your phone</strong>
             <p>

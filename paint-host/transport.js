@@ -1,8 +1,8 @@
 const canvas=document.getElementById('screen'),ctx=canvas.getContext('2d',{alpha:false});
 const media=canvas.captureStream(30),track=media.getVideoTracks()[0];track.contentHint='detail';
-let peer=null,channel=null,id=null,busy=false,last=null;
+let peer=null,channel=null,id=null,busy=false,last=null,diagnosticTimer=null;
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
-function close(){const oldChannel=channel,oldPeer=peer;peer=null;channel=null;id=null;oldChannel?.close();oldPeer?.close();window.paintTransport.send('connected',false);}
+function close(){clearTimeout(diagnosticTimer);diagnosticTimer=null;const oldChannel=channel,oldPeer=peer;peer=null;channel=null;id=null;oldChannel?.close();oldPeer?.close();window.paintTransport.send('connected',false);}
 async function diagnostic(p,active,stage){
  if(peer!==p||id!==active)return;
  try{
@@ -34,7 +34,7 @@ window.paintTransport.on('offer',async offer=>{
   await new Promise(resolve=>{const timer=setTimeout(done,7000);function done(){clearTimeout(timer);p.removeEventListener('icegatheringstatechange',check);resolve();}function check(){if(p.iceGatheringState==='complete')done();}p.addEventListener('icegatheringstatechange',check);check();});
   if(!current())return;
   const parameters=sender.getParameters();if(parameters.encodings?.length){parameters.encodings[0].maxBitrate=6000000;parameters.encodings[0].maxFramerate=24;try{await sender.setParameters(parameters);}catch{if(current())void diagnostic(p,active,'default-bitrate');}}
-  if(current()){window.paintTransport.send('answer',{id:active,answer:p.localDescription.toJSON()});void diagnostic(p,active,'answered');}
+  if(current()){window.paintTransport.send('answer',{id:active,answer:p.localDescription.toJSON()});void diagnostic(p,active,'answered');diagnosticTimer=setTimeout(()=>{if(current())void diagnostic(p,active,'handshake-check');},5000);}
  }catch(e){if(id===active){window.paintTransport.send('error',e.message);close();}}
 });
 window.paintTransport.on('control',data=>{if(channel?.readyState==='open')channel.send(JSON.stringify(data));});

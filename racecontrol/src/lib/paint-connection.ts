@@ -46,6 +46,34 @@ export const PAINT_STREAM_FAILURE =
 
 export type LocalNetworkPermission = PermissionState | "unsupported";
 
+// Use only the owner's PC address already supplied by authenticated WebRTC
+// signaling. Never scan addresses, use public IPs or send login credentials.
+export function localConnectionCheck(sdp?: string): string | null {
+  if (typeof sdp !== "string") return null;
+  for (const line of sdp.split(/\r?\n/)) {
+    const candidate =
+      /^a=candidate:\S+ \d+ udp \d+ (\S+) \d+ typ host(?: |$)/i.exec(line);
+    if (!candidate) continue;
+    const parts = candidate[1].split(".");
+    if (
+      parts.length !== 4 ||
+      parts.some(
+        (p) =>
+          !/^\d{1,3}$/.test(p) || Number(p) > 255 || String(Number(p)) !== p,
+      )
+    )
+      continue;
+    const [a, b] = parts.map(Number);
+    if (
+      a === 10 ||
+      (a === 172 && b >= 16 && b <= 31) ||
+      (a === 192 && b === 168)
+    )
+      return `http://${candidate[1]}:4198/connection-check`;
+  }
+  return null;
+}
+
 // Older browsers do not recognize the granular name. Never query the legacy
 // local-network-access alias: it can crash older Chromium renderers.
 export async function localNetworkPermission(

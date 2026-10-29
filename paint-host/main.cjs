@@ -2,6 +2,7 @@ const {app,BrowserWindow,ipcMain,Tray,Menu,nativeImage}=require('electron');
 const fs=require('node:fs'),fsp=require('node:fs/promises'),path=require('node:path'),http=require('node:http');
 const {pathToFileURL}=require('node:url'),{createHash,randomUUID}=require('node:crypto'),{execFileSync}=require('node:child_process');
 const {validMessage,validTGA,editorMessage}=require('./protocol.cjs');
+const {startConnectionChecks}=require('./connection-check.cjs');
 const config=JSON.parse(fs.readFileSync(path.join(__dirname,'host-config.json'),'utf8').replace(/^\uFEFF/,''));
 const root=path.resolve(config.studioDirectory),runtime=path.join(process.env.LOCALAPPDATA||app.getPath('userData'),'ASCRL Paint Host');
 fs.mkdirSync(runtime,{recursive:true});app.setPath('userData',path.join(runtime,'browser-profile'));
@@ -10,6 +11,7 @@ app.commandLine.appendSwitch('disable-renderer-backgrounding');
 app.commandLine.appendSwitch('autoplay-policy','no-user-gesture-required');
 if(!app.requestSingleInstanceLock()){app.quit();return;}
 let editor,transport,server,tray,active=null,connected=false,upload=null,lastFrame=null,polling=false,backupBusy=false;
+let connectionChecks=[];
 let lastInput=Date.now(),lastBackup=0,dirty=true,frameAt=0,pendingFrame=null,frameTimer=null,validatedProject,declinedSession=null;
 let backupQueue=Promise.resolve();const snapshotRequests=new Map();
 const runtimeFile=path.join(runtime,'status.json');
@@ -103,6 +105,7 @@ async function poll(){
  }catch(e){closeStream();status('offline',{error:e.message});log('Host: '+e.message);}finally{polling=false;}
 }
 app.whenReady().then(async()=>{
+ connectionChecks=await startConnectionChecks('https://racecontrol.ascrl.online',log);
  const {createStudioHandler}=await import(pathToFileURL(path.join(root,'phone-server.mjs')).href);
  const docModule=await import(pathToFileURL(path.join(root,'dist/pro/document.mjs')).href);validatedProject=docModule.validateProject;
  let handler;
@@ -162,5 +165,5 @@ app.whenReady().then(async()=>{
  await transport.loadFile(path.join(__dirname,'transport.html'));await editor.loadURL(origin+'/');
  setInterval(poll,5000);log('Started private host. Models remain on this PC.');
 });
-app.on('before-quit',()=>{closeStream();status('stopped');server?.close();});
+app.on('before-quit',()=>{closeStream();status('stopped');server?.close();for(const check of connectionChecks)check.close();});
 app.on('window-all-closed',()=>{});
