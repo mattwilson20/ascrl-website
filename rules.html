@@ -156,6 +156,8 @@
     </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="heritage.css?v=20261014"><script src="heritage.js?v=20261016" defer></script>
+<link rel="stylesheet" href="rules-league-info.css?v=20261102">
+<meta name="description" content="ASCRL league information, regular-season race nights, qualifying and green-flag times, race settings, code of conduct, and championship points.">
 </head>
 <body class="heritage-page page-rules">
 
@@ -170,6 +172,20 @@
     <header class="h-page-hero"><div class="h-hero-inner"><a class="h-breadcrumb" href="index.html">ASCRL HOME <span aria-hidden="true">/</span></a><p class="h-eyebrow">Official ASCRL sporting code</p><h1>Race with respect.</h1><p class="h-hero-description">The standards that keep the competition fair. Review conduct, race weekend formats, and championship scoring.</p><div class="h-hero-stripe" aria-hidden="true"></div></div></header>
 
     <main class="container">
+        <section class="league-overview" id="league-info" aria-labelledby="league-info-title">
+            <p class="league-eyebrow">League info · The road to 2027</p>
+            <h2 id="league-info-title">ASCRL is looking for drivers!</h2>
+            <p class="league-intro">We welcome drivers of all speeds. You do not have to be the fastest to race with us. ASCRL averages about <strong>20–25 drivers per race</strong>, with respect for your fellow competitors at the heart of the league.</p>
+            <div class="league-times" aria-label="Standard race-night times, Eastern Standard Time">
+                <div class="league-time"><span>Qualifying</span><strong>9:00 PM <small>EST</small></strong></div>
+                <div class="league-time green-flag"><span>Green flag</span><strong>9:15 PM <small>EST</small></strong></div>
+            </div>
+            <div class="league-calendar">
+                <p><strong>Preseason:</strong> Follow the <a href="preseason.html">2027 Preseason Thunder schedule</a> for the official event dates.</p>
+                <p><strong>Regular season:</strong> Begins in January 2027.</p>
+            </div>
+            <div class="league-actions"><a class="league-join" href="https://discord.gg/RgYEY5F3Kf" target="_blank" rel="noopener noreferrer">Join ASCRL on Discord ↗</a><a class="league-join secondary" href="preseason.html">View the preseason schedule ↗</a></div>
+        </section>
         <div class="rule-section">
             <button type="button" class="rule-header" onclick="toggleRule(this)" aria-expanded="false">
                 <h2>1.0 General Conduct</h2>
@@ -188,35 +204,35 @@
             </div>
         </div>
 
-        <div class="rule-section">
-            <button type="button" class="rule-header" onclick="toggleRule(this)" aria-expanded="false">
-                <h2>2.0 Race Weekend Format</h2>
-                <span class="icon">+</span>
+        <div class="rule-section" id="race-format">
+            <button type="button" class="rule-header" onclick="toggleRule(this)" aria-expanded="true" aria-controls="race-format-content">
+                <h2>2.0 Race Nights &amp; Settings</h2>
+                <span class="icon" aria-hidden="true">−</span>
             </button>
-            <div class="rule-content">
-                <p>Standard race nights follow a strict timeline to ensure broadcast quality and driver convenience. Times listed are Eastern Standard Time (EST).</p>
-                
-                <div style="border-bottom: 1px solid #333; margin-bottom: 20px; padding-bottom: 10px;">
-                    <h3 style="color: var(--cup-blue); margin-top: 0;">Cup Series Schedule</h3>
-                    <ul>
-                        <li><strong>8:00 PM:</strong> Practice & Qualifying</li>
-                        <li><strong>8:25 PM:</strong> Mandatory Driver Briefing</li>
-                        <li><strong>8:30 PM:</strong> Green Flag / Race Start</li>
-                    </ul>
+            <div class="rule-content open" id="race-format-content">
+                <p><strong>Qualifying begins at 9:00 PM EST. Green flag is at 9:15 PM EST.</strong> Times are Eastern Standard Time for all three series.</p>
+                <div class="format-table-scroll" role="region" aria-label="Regular-season series formats" tabindex="0">
+                    <table class="format-table">
+                        <caption>Standard regular-season race nights</caption>
+                        <thead><tr><th scope="col">Series</th><th scope="col">Race night</th><th scope="col">Race distance</th><th scope="col">Wear</th></tr></thead>
+                        <tbody>
+                            <tr><th scope="row">Truck</th><td>Monday</td><td>100%</td><td>1×</td></tr>
+                            <tr><th scope="row">Cup</th><td>Tuesday</td><td>50%</td><td>2×</td></tr>
+                            <tr><th scope="row">ORAP<small>O’Reilly Auto Parts Series</small></th><td>Thursday</td><td>50%</td><td>2×</td></tr>
+                        </tbody>
+                    </table>
                 </div>
-
-                <div>
-                    <h3 style="color: #fff; margin-top: 0;">Xfinity / Truck / Menards Schedule</h3>
-                    <ul>
-                        <li><strong>8:00 PM:</strong> Open Practice / Server Launch</li>
-                        <li><strong>9:00 PM:</strong> Qualifying (Group Qualifying, 3% Race)</li>
-                        <li><strong>9:10 PM:</strong> Mandatory Driver Briefing</li>
-                        <li><strong>9:20 PM:</strong> Green Flag / Race Start</li>
-                    </ul>
-                </div>
-
-                <p style="margin-top: 20px;"><strong>Restarts:</strong> Initial start occurs in the restart zone. All subsequent restarts are double-file. The leader has lane choice.</p>
-                <p style="color: var(--primary); font-style: italic;">*Failure to attend the driver briefing may result in a back-of-the-field penalty.</p>
+                <p class="format-note"><strong>Season length:</strong> Each series has the same number of races as its real-life counterpart. Race distance is separate and follows the percentages listed above.</p>
+                <p><strong>Preseason dates:</strong> Preseason follows its own <a href="preseason.html">published event calendar</a>, rather than the regular-season weekday schedule above.</p>
+                <h3>Settings for all series</h3>
+                <ul>
+                    <li><strong>Cautions:</strong> Relaxed cautions, except on road courses, where yellows are turned off.</li>
+                    <li><strong>Stage breaks:</strong> On for all series.</li>
+                    <li><strong>Car setups:</strong> No custom setups.</li>
+                </ul>
+                <h3>Briefings &amp; restarts</h3>
+                <p>Drivers must attend the mandatory driver briefing. Failure to attend may result in a back-of-the-field penalty.</p>
+                <p><strong>Restarts:</strong> Initial start occurs in the restart zone. All subsequent restarts are double-file. The leader has lane choice.</p>
             </div>
         </div>
 
@@ -280,6 +296,7 @@
             document.querySelectorAll('.rule-content').forEach(el => {
                 if (el !== content) {
                     el.classList.remove('open');
+                    el.previousElementSibling?.setAttribute('aria-expanded', 'false');
                     el.style.maxHeight = null;
                     if(el.previousElementSibling) {
                         el.previousElementSibling.querySelector('.icon').textContent = '+';
@@ -289,6 +306,7 @@
             });
 
             content.classList.toggle('open');
+            header.setAttribute('aria-expanded', String(content.classList.contains('open')));
             
             if (content.classList.contains('open')) {
                 const expandHeight = Math.min(content.scrollHeight, SCROLL_LIMIT);
