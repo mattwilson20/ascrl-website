@@ -203,9 +203,12 @@
 
     <footer class="h-footer"><div class="h-footer-main"><div class="h-footer-brand"><a href="index.html"><img src="assets/heritage-wordmark.webp" alt="ASCRL home" width="230" height="82"></a><p>One flag. One league. All heart.</p><span>Owned and operated by<br><strong>A&amp;M Productions LLC</strong></span></div><nav aria-label="Footer Race center"><h2>Race center</h2><a href="preseason.html">Preseason<span aria-hidden="true">↗</span></a><a href="schedule.html">Schedule<span aria-hidden="true">↗</span></a><a href="results.html">Race results<span aria-hidden="true">↗</span></a><a href="standings.html">Driver standings<span aria-hidden="true">↗</span></a><a href="teams.html">Team standings<span aria-hidden="true">↗</span></a><a href="drivers.html">Driver roster<span aria-hidden="true">↗</span></a></nav><nav aria-label="Footer League life"><h2>League life</h2><a href="index.html">Home<span aria-hidden="true">↗</span></a><a href="rules.html">Sporting code<span aria-hidden="true">↗</span></a><a href="news.html">ASCR Weekly<span aria-hidden="true">↗</span></a><a href="collection.html">Collections<span aria-hidden="true">↗</span></a></nav><nav aria-label="Footer Beyond the pavement"><h2>Beyond the pavement</h2><a href="iracing.html">iRacing<span aria-hidden="true">↗</span></a><a href="woo.html">World of Outlaws<span aria-hidden="true">↗</span></a></nav></div><div class="h-footer-bottom"><span>© 2025–<span id="copyright-year">2026</span> American Stock Car Racing League</span><div><a href="https://www.facebook.com/share/14PeZVCH1hL/" target="_blank" rel="noopener noreferrer">Facebook ↗</a><a href="https://x.com/ASCRWeekly" target="_blank" rel="noopener noreferrer">X ↗</a><a href="mailto:contact.ascrl@gmail.com">Contact the league ↗</a></div></div></footer>
 
+    <script src="bot-data.js"></script>
     <script>
         const FILE_DRIVERS = "drivers.json"; 
         let raceData = {};
+        let seasonCatalog;
+        let loadVersion = 0;
         let driverData = {};
         let currentSeries = 'Cup';
 
@@ -225,7 +228,7 @@
 
             try {
                 // Step 1: Load Drivers Database FIRST
-                const driverRes = await fetch(FILE_DRIVERS);
+                const driverRes = await fetch(FILE_DRIVERS + "?v=" + Math.floor(Date.now()/30000), {cache:"no-store"});
                 if(driverRes.ok) {
                     driverData = await driverRes.json();
                 } else {
@@ -233,7 +236,9 @@
                 }
 
                 // Step 2: Load Race Data (Default to 2026)
-                await loadRaceData("2026");
+                seasonCatalog = await ASCRL_DATA.catalog();
+                ASCRL_DATA.seasons(document.getElementById('season-select'),seasonCatalog);
+                await loadRaceData(seasonCatalog.current_season);
 
             } catch (err) {
                 console.error("Initialization Error:", err);
@@ -263,14 +268,20 @@
 
         // 4. LOAD RACE DATA
         async function loadRaceData(season) {
-            const fileName = `ASCRL_Results_${season}.json`;
+            const version = ++loadVersion;
+            const fileName = seasonCatalog.seasons.find(s=>s.season===season)?.results;
+            if(!fileName)return;
+            currentSeries = ASCRL_DATA.series(document.querySelector('.series-tabs'),season,seasonCatalog,currentSeries,switchSeries);
             try {
-                const res = await fetch(fileName);
+                const res = await fetch(fileName + "?v=" + Math.floor(Date.now()/30000), {cache:"no-store"});
                 if (!res.ok) throw new Error("Season data not found");
-                raceData = await res.json();
+                const data = await res.json();
+                if(version!==loadVersion)return;
+                raceData = data;
                 populateTracks();
             } catch (err) {
                 console.error(err);
+                if(version!==loadVersion)return;
                 raceData = {};
                 document.getElementById('track-select').innerHTML = '<option>NO DATA</option>';
                 document.getElementById('results-body').innerHTML = '<tr><td colspan="7" style="text-align:center;">No data available.</td></tr>';
@@ -306,7 +317,7 @@
             const urlSeries = urlParams.get('series');
             const urlRace = urlParams.get('race');
 
-            if (urlSeries && urlRace && !window.hasAutoLoaded) {
+            if (urlSeries && urlRace && !window.hasAutoLoaded && seasonCatalog.seasons.find(s=>s.season===document.getElementById("season-select").value)?.series.some(s=>s.toLowerCase()===urlSeries.toLowerCase())) {
                 // If the URL is asking for a different series, switch to it
                 if (urlSeries.toLowerCase() !== currentSeries.toLowerCase()) {
                     switchSeries(urlSeries);
@@ -315,7 +326,7 @@
                 
                 // If we are in the correct series, select the race and show it
                 window.hasAutoLoaded = true; // Prevent it from looping
-                if (document.querySelector(`option[value="${urlRace}"]`)) {
+                if (Array.from(trackSelect.options).some(option=>option.value===urlRace)) {
                     trackSelect.value = urlRace;
                     displayResults();
                 }
@@ -412,7 +423,7 @@
             // --- A. WINNER BANNER ---
             const winner = rows.find(r => r.position == 1);
             if (winner) {
-                const wInfo = getDriverInfo(winner.driver);
+                const wInfo = winner.driver_id ? {team:winner.team} : getDriverInfo(winner.driver);
                 const cleanWinnerName = winner.driver.replace(/^#\d+\s*/, '').trim();
 
                 document.getElementById('winner-banner').style.display = 'flex';
@@ -427,16 +438,16 @@
 
             // --- B. TABLE ROWS ---
             rows.forEach(row => {
-                const info = getDriverInfo(row.driver);
+                const info = row.driver_id ? {number:row.number,team:row.team,manufacturer:row.manufacturer} : getDriverInfo(row.driver);
                 const isWinner = (row.position == 1) ? 'winner-row' : '';
                 const cleanName = row.driver.replace(/^#\d+\s*/, '').trim();
 
                 let bonus = '';
-                if(row.pole === "Yes" || row.pole === "Pole") bonus += '<span class="pill pill-pole">POLE</span>';
-                if(row.fl === "FL" || row.fl === "Yes") bonus += '<span class="pill pill-fl">FASTEST LAP</span>';
+                if(["yes","pole","true","1"].includes(String(row.pole).toLowerCase())) bonus += '<span class="pill pill-pole">POLE</span>';
+                if(["fl","yes","true","1"].includes(String(row.fl).toLowerCase())) bonus += '<span class="pill pill-fl">FASTEST LAP</span>';
 
                 let mfr = info.manufacturer || "N/A";
-                let mfrDisplay = mfr;
+                let mfrDisplay = ASCRL_DATA.escape(mfr);
                 if (mfr.toLowerCase().includes('chevy')) mfrDisplay = '<img src="https://cdn.discordapp.com/emojis/1437922651401093182.webp?size=96" style="height:20px;">';
                 else if (mfr.toLowerCase().includes('toyota')) mfrDisplay = '<img src="https://cdn.discordapp.com/emojis/1437923347370606653.webp?size=96" style="height:20px;">';
                 else if (mfr.toLowerCase().includes('ford')) mfrDisplay = '<img src="https://cdn.discordapp.com/emojis/1437922912626544886.webp?size=96" style="height:20px;">';
@@ -444,10 +455,10 @@
                 tbody.innerHTML += `
                     <tr class="${isWinner}">
                         <td class="pos-cell">${row.position}</td>
-                        <td style="font-weight:bold;">${cleanName}</td>
-                        <td>#${info.number}</td>
+                        <td style="font-weight:bold;">${ASCRL_DATA.escape(cleanName)}</td>
+                        <td>#${ASCRL_DATA.escape(info.number)}</td>
                         <td>${mfrDisplay}</td>
-                        <td class="mobile-hide team-cell">${info.team}</td>
+                        <td class="mobile-hide team-cell">${ASCRL_DATA.escape(info.team)}</td>
                         <td class="points-cell">${row.points}</td>
                         <td style="text-align:right;">${bonus}</td>
                     </tr>
