@@ -1,0 +1,26 @@
+{
+  "current_season": "2026",
+  "schema_version": 1,
+  "seasons": [
+    {
+      "results": "ASCRL_Results_2026.json",
+      "season": "2026",
+      "series": [
+        "Cup",
+        "Xfinity",
+        "Truck",
+        "Menards"
+      ]
+    },
+    {
+      "results": "ASCRL_Results_Season_1.json",
+      "season": "2025-26",
+      "series": [
+        "Cup",
+        "Xfinity",
+        "Truck",
+        "Menards"
+      ]
+    }
+  ]
+}
