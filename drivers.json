@@ -4614,6 +4614,44 @@
           }
         },
         "team": "Independent"
+      },
+      "Truck": {
+        "career_stats": {
+          "avg": 1.0,
+          "penalty_total": 0,
+          "points": 40,
+          "poles": 0,
+          "starts": 1,
+          "top10": 1,
+          "top5": 1,
+          "wins": 1
+        },
+        "current_stats": {
+          "avg": 1.0,
+          "penalty_total": 0,
+          "points": 40,
+          "poles": 0,
+          "starts": 1,
+          "top10": 1,
+          "top5": 1,
+          "wins": 1
+        },
+        "history": [],
+        "manufacturer": "N/A",
+        "number": "51",
+        "season_stats": {
+          "2026": {
+            "avg": 1.0,
+            "penalty_total": 0,
+            "points": 40,
+            "poles": 0,
+            "starts": 1,
+            "top10": 1,
+            "top5": 1,
+            "wins": 1
+          }
+        },
+        "team": "Independent"
       }
     }
   },
