@@ -2065,44 +2065,6 @@
         },
         "team": "Independent"
       },
-      "Truck": {
-        "career_stats": {
-          "avg": 13.5,
-          "penalty_total": 0,
-          "points": 47,
-          "poles": 0,
-          "starts": 2,
-          "top10": 0,
-          "top5": 0,
-          "wins": 0
-        },
-        "current_stats": {
-          "avg": 13.5,
-          "penalty_total": 0,
-          "points": 47,
-          "poles": 0,
-          "starts": 2,
-          "top10": 0,
-          "top5": 0,
-          "wins": 0
-        },
-        "history": [],
-        "manufacturer": "N/A",
-        "number": "28",
-        "season_stats": {
-          "2026": {
-            "avg": 13.5,
-            "penalty_total": 0,
-            "points": 47,
-            "poles": 0,
-            "starts": 2,
-            "top10": 0,
-            "top5": 0,
-            "wins": 0
-          }
-        },
-        "team": "Independent"
-      },
       "Xfinity": {
         "career_stats": {
           "avg": 16.5,
@@ -4879,6 +4841,44 @@
         "history": [],
         "manufacturer": "N/A",
         "number": "10",
+        "season_stats": {
+          "2026": {
+            "avg": 0,
+            "penalty_total": 0,
+            "points": 0,
+            "poles": 0,
+            "starts": 0,
+            "top10": 0,
+            "top5": 0,
+            "wins": 0
+          }
+        },
+        "team": "Independent"
+      },
+      "Truck": {
+        "career_stats": {
+          "avg": 0,
+          "penalty_total": 0,
+          "points": 0,
+          "poles": 0,
+          "starts": 0,
+          "top10": 0,
+          "top5": 0,
+          "wins": 0
+        },
+        "current_stats": {
+          "avg": 0,
+          "penalty_total": 0,
+          "points": 0,
+          "poles": 0,
+          "starts": 0,
+          "top10": 0,
+          "top5": 0,
+          "wins": 0
+        },
+        "history": [],
+        "manufacturer": "N/A",
+        "number": "25",
         "season_stats": {
           "2026": {
             "avg": 0,
