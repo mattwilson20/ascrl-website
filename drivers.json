@@ -571,23 +571,23 @@
       },
       "Truck": {
         "career_stats": {
-          "avg": 7.23,
+          "avg": 7.15,
           "penalty_total": -1574,
-          "points": 2352,
+          "points": 2384,
           "poles": 1,
-          "starts": 26,
-          "top10": 17,
-          "top5": 13,
+          "starts": 27,
+          "top10": 18,
+          "top5": 14,
           "wins": 0
         },
         "current_stats": {
-          "avg": 6.96,
+          "avg": 6.88,
           "penalty_total": -1574,
-          "points": 2269,
+          "points": 2301,
           "poles": 1,
-          "starts": 23,
-          "top10": 16,
-          "top5": 12,
+          "starts": 24,
+          "top10": 17,
+          "top5": 13,
           "wins": 0
         },
         "history": [
@@ -619,13 +619,13 @@
             "wins": 0
           },
           "2026": {
-            "avg": 6.96,
+            "avg": 6.88,
             "penalty_total": -1574,
-            "points": 2269,
+            "points": 2301,
             "poles": 1,
-            "starts": 23,
-            "top10": 16,
-            "top5": 12,
+            "starts": 24,
+            "top10": 17,
+            "top5": 13,
             "wins": 0
           }
         },
@@ -1315,22 +1315,22 @@
       },
       "Truck": {
         "career_stats": {
-          "avg": 8.21,
+          "avg": 8.18,
           "penalty_total": -1571,
-          "points": 2524,
+          "points": 2554,
           "poles": 2,
-          "starts": 33,
-          "top10": 24,
+          "starts": 34,
+          "top10": 25,
           "top5": 8,
           "wins": 0
         },
         "current_stats": {
-          "avg": 9.86,
+          "avg": 9.73,
           "penalty_total": -1571,
-          "points": 2144,
+          "points": 2174,
           "poles": 2,
-          "starts": 21,
-          "top10": 13,
+          "starts": 22,
+          "top10": 14,
           "top5": 2,
           "wins": 0
         },
@@ -1363,12 +1363,12 @@
             "wins": 0
           },
           "2026": {
-            "avg": 9.86,
+            "avg": 9.73,
             "penalty_total": -1571,
-            "points": 2144,
+            "points": 2174,
             "poles": 2,
-            "starts": 21,
-            "top10": 13,
+            "starts": 22,
+            "top10": 14,
             "top5": 2,
             "wins": 0
           }
@@ -2557,22 +2557,22 @@
       },
       "Truck": {
         "career_stats": {
-          "avg": 14.75,
+          "avg": 14.52,
           "penalty_total": 0,
-          "points": 445,
+          "points": 472,
           "poles": 0,
-          "starts": 20,
-          "top10": 3,
+          "starts": 21,
+          "top10": 4,
           "top5": 1,
           "wins": 0
         },
         "current_stats": {
-          "avg": 16.25,
+          "avg": 15.77,
           "penalty_total": 0,
-          "points": 249,
+          "points": 276,
           "poles": 0,
-          "starts": 12,
-          "top10": 1,
+          "starts": 13,
+          "top10": 2,
           "top5": 0,
           "wins": 0
         },
@@ -2605,12 +2605,12 @@
             "wins": 0
           },
           "2026": {
-            "avg": 16.25,
+            "avg": 15.77,
             "penalty_total": 0,
-            "points": 249,
+            "points": 276,
             "poles": 0,
-            "starts": 12,
-            "top10": 1,
+            "starts": 13,
+            "top10": 2,
             "top5": 0,
             "wins": 0
           }
@@ -3357,22 +3357,22 @@
       },
       "Truck": {
         "career_stats": {
-          "avg": 8.53,
+          "avg": 8.39,
           "penalty_total": -1611,
-          "points": 2101,
-          "poles": 2,
-          "starts": 17,
-          "top10": 11,
+          "points": 2133,
+          "poles": 3,
+          "starts": 18,
+          "top10": 12,
           "top5": 8,
           "wins": 1
         },
         "current_stats": {
-          "avg": 8.53,
+          "avg": 8.39,
           "penalty_total": -1611,
-          "points": 2101,
-          "poles": 2,
-          "starts": 17,
-          "top10": 11,
+          "points": 2133,
+          "poles": 3,
+          "starts": 18,
+          "top10": 12,
           "top5": 8,
           "wins": 1
         },
@@ -3381,12 +3381,12 @@
         "number": "53",
         "season_stats": {
           "2026": {
-            "avg": 8.53,
+            "avg": 8.39,
             "penalty_total": -1611,
-            "points": 2101,
-            "poles": 2,
-            "starts": 17,
-            "top10": 11,
+            "points": 2133,
+            "poles": 3,
+            "starts": 18,
+            "top10": 12,
             "top5": 8,
             "wins": 1
           }
@@ -3553,38 +3553,38 @@
       },
       "Truck": {
         "career_stats": {
-          "avg": 8.0,
+          "avg": 7.12,
           "penalty_total": 0,
-          "points": 208,
+          "points": 248,
           "poles": 0,
-          "starts": 7,
-          "top10": 4,
-          "top5": 2,
-          "wins": 1
+          "starts": 8,
+          "top10": 5,
+          "top5": 3,
+          "wins": 2
         },
         "current_stats": {
-          "avg": 8.0,
+          "avg": 7.12,
           "penalty_total": 0,
-          "points": 208,
+          "points": 248,
           "poles": 0,
-          "starts": 7,
-          "top10": 4,
-          "top5": 2,
-          "wins": 1
+          "starts": 8,
+          "top10": 5,
+          "top5": 3,
+          "wins": 2
         },
         "history": [],
         "manufacturer": "Chevy",
         "number": "20",
         "season_stats": {
           "2026": {
-            "avg": 8.0,
+            "avg": 7.12,
             "penalty_total": 0,
-            "points": 208,
+            "points": 248,
             "poles": 0,
-            "starts": 7,
-            "top10": 4,
-            "top5": 2,
-            "wins": 1
+            "starts": 8,
+            "top10": 5,
+            "top5": 3,
+            "wins": 2
           }
         },
         "team": "Independent"
@@ -4857,23 +4857,23 @@
       },
       "Truck": {
         "career_stats": {
-          "avg": 0,
+          "avg": 3.0,
           "penalty_total": 0,
-          "points": 0,
+          "points": 34,
           "poles": 0,
-          "starts": 0,
-          "top10": 0,
-          "top5": 0,
+          "starts": 1,
+          "top10": 1,
+          "top5": 1,
           "wins": 0
         },
         "current_stats": {
-          "avg": 0,
+          "avg": 3.0,
           "penalty_total": 0,
-          "points": 0,
+          "points": 34,
           "poles": 0,
-          "starts": 0,
-          "top10": 0,
-          "top5": 0,
+          "starts": 1,
+          "top10": 1,
+          "top5": 1,
           "wins": 0
         },
         "history": [],
@@ -4881,13 +4881,13 @@
         "number": "25",
         "season_stats": {
           "2026": {
-            "avg": 0,
+            "avg": 3.0,
             "penalty_total": 0,
-            "points": 0,
+            "points": 34,
             "poles": 0,
-            "starts": 0,
-            "top10": 0,
-            "top5": 0,
+            "starts": 1,
+            "top10": 1,
+            "top5": 1,
             "wins": 0
           }
         },
@@ -6739,22 +6739,22 @@
       },
       "Truck": {
         "career_stats": {
-          "avg": 8.41,
+          "avg": 8.43,
           "penalty_total": -1568,
-          "points": 2199,
+          "points": 2228,
           "poles": 0,
-          "starts": 22,
-          "top10": 15,
+          "starts": 23,
+          "top10": 16,
           "top5": 4,
           "wins": 0
         },
         "current_stats": {
-          "avg": 8.41,
+          "avg": 8.43,
           "penalty_total": -1568,
-          "points": 2199,
+          "points": 2228,
           "poles": 0,
-          "starts": 22,
-          "top10": 15,
+          "starts": 23,
+          "top10": 16,
           "top5": 4,
           "wins": 0
         },
@@ -6763,12 +6763,12 @@
         "number": "5",
         "season_stats": {
           "2026": {
-            "avg": 8.41,
+            "avg": 8.43,
             "penalty_total": -1568,
-            "points": 2199,
+            "points": 2228,
             "poles": 0,
-            "starts": 22,
-            "top10": 15,
+            "starts": 23,
+            "top10": 16,
             "top5": 4,
             "wins": 0
           }
@@ -7301,21 +7301,21 @@
       },
       "Truck": {
         "career_stats": {
-          "avg": 9.62,
+          "avg": 9.68,
           "penalty_total": 21,
-          "points": 472,
+          "points": 498,
           "poles": 0,
-          "starts": 18,
+          "starts": 19,
           "top10": 12,
           "top5": 5,
           "wins": 0
         },
         "current_stats": {
-          "avg": 9.38,
+          "avg": 9.47,
           "penalty_total": 21,
-          "points": 421,
+          "points": 447,
           "poles": 0,
-          "starts": 16,
+          "starts": 17,
           "top10": 11,
           "top5": 5,
           "wins": 0
@@ -7349,11 +7349,11 @@
             "wins": 0
           },
           "2026": {
-            "avg": 9.38,
+            "avg": 9.47,
             "penalty_total": 21,
-            "points": 421,
+            "points": 447,
             "poles": 0,
-            "starts": 16,
+            "starts": 17,
             "top10": 11,
             "top5": 5,
             "wins": 0
@@ -7785,23 +7785,23 @@
       },
       "Truck": {
         "career_stats": {
-          "avg": 7.16,
+          "avg": 7.04,
           "penalty_total": -1550,
-          "points": 2302,
+          "points": 2335,
           "poles": 2,
-          "starts": 25,
-          "top10": 22,
-          "top5": 9,
+          "starts": 26,
+          "top10": 23,
+          "top5": 10,
           "wins": 1
         },
         "current_stats": {
-          "avg": 6.79,
+          "avg": 6.68,
           "penalty_total": -1550,
-          "points": 2281,
+          "points": 2314,
           "poles": 2,
-          "starts": 24,
-          "top10": 22,
-          "top5": 9,
+          "starts": 25,
+          "top10": 23,
+          "top5": 10,
           "wins": 1
         },
         "history": [
@@ -7833,13 +7833,13 @@
             "wins": 0
           },
           "2026": {
-            "avg": 6.79,
+            "avg": 6.68,
             "penalty_total": -1550,
-            "points": 2281,
+            "points": 2314,
             "poles": 2,
-            "starts": 24,
-            "top10": 22,
-            "top5": 9,
+            "starts": 25,
+            "top10": 23,
+            "top5": 10,
             "wins": 1
           }
         },

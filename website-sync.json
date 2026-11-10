@@ -1,12 +1,12 @@
 {
   "files": {
-    "ASCRL_Results_2026.json": "84c147a5fc4b125abf3ac12ef53c7b82b5299d4057a82b529fa5550ebdac4815",
+    "ASCRL_Results_2026.json": "8310e7b6ecd6d8b02a3d312b2fe795c5b82ae8ce57fd881cde4530c465b86e00",
     "bot-seasons.json": "18def9c79dbf47cbdceafd89bfc6c6d5455c3c375cfbc331572f3ec3baa9ed00",
-    "drivers.json": "1d9db41fa950c1b436728be66599ed4001f41215b77a88e68ab58cf6ce646206",
+    "drivers.json": "eff40f8acfcda2f4fbb348901d3eebed17f2d7302b01dbaa1a40a54605bdc44a",
     "preseason.json": "995aed8be4fce832fab4956fe73381996b7ed3ea2ecd8fc516490a6bb4bb8a53"
   },
   "schema_version": 1,
   "source": "ASCRL Discord bot",
-  "source_hash": "d94be5d15bc938721601fe5e818928e95f8392fb8df5eea5cc3d005e5e1076d6",
-  "updated_at": "2026-11-07T17:56:30.363909+00:00"
+  "source_hash": "13663b786912423c2ca4ae9b805e5ef0c1683b6867eb8b004442da9641e771cc",
+  "updated_at": "2026-11-10T03:47:00.378764+00:00"
 }
