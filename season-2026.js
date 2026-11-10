@@ -1,9 +1,9 @@
 /* Official league announcement, 10 November 2026. Historical Xfinity records keep their name. */
 window.ASCRL_SEASON = (() => {
   const champions = {
-    Truck: { name: 'Mike', driver: 'Mike_8762', image: 'Mikehero.jpg', number: '05' },
     Cup: { name: 'Scott', driver: 'Scott247_', image: 'Scotthero.jpg', number: '7' },
     Xfinity: { name: 'Dakota', driver: 'dakotathomas1994', image: 'IMG_7125.jpg', number: '9' },
+    Truck: { name: 'Mike', driver: 'Mike_8762', image: 'Mikehero.jpg', number: '05' },
     Menards: { name: 'Scott', driver: 'Scott247_', image: 'Scotthero.jpg', number: '7' }
   };
   const preseason = [
