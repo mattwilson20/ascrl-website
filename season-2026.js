@@ -1,6 +1,7 @@
-/* Official league announcement, 16 October 2026. Historical Xfinity records keep their name. */
+/* Official league announcement, 10 November 2026. Historical Xfinity records keep their name. */
 window.ASCRL_SEASON = (() => {
   const champions = {
+    Truck: { name: 'Mike', driver: 'Mike_8762', image: 'Mikehero.jpg', number: '05' },
     Cup: { name: 'Scott', driver: 'Scott247_', image: 'Scotthero.jpg', number: '7' },
     Xfinity: { name: 'Dakota', driver: 'dakotathomas1994', image: 'IMG_7125.jpg', number: '9' },
     Menards: { name: 'Scott', driver: 'Scott247_', image: 'Scotthero.jpg', number: '7' }
@@ -25,7 +26,9 @@ window.ASCRL_SEASON = (() => {
   const notice = (series, year = '2026') => {
     if (year !== '2026') return '';
     const c = champion(series);
-    return c ? '<strong>★ 2026 ' + series + ' champion: ' + c.name + ' · ' + c.driver + '</strong><span>Season concluded by agreement among the championship contenders. All remaining races are cancelled.</span>' : '<strong>Truck championship · The battle continues</strong><span>The 2026 Truck season is still racing. Follow the remaining events and the fight for the title.</span>';
+    if (!c) return '';
+    const detail = series === 'Truck' ? 'Final standings: Mike finished with 2,314 points, 13 ahead of the_fireman199.' : 'Season concluded by agreement among the championship contenders. The remaining races were cancelled.';
+    return '<strong>★ 2026 ' + series + ' champion: ' + c.name + ' · ' + c.driver + '</strong><span>' + detail + '</span>';
   };
   return { champions, preseason, champion, isChampion, badge, notice };
 })();
