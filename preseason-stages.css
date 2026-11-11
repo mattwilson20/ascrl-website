@@ -1,0 +1,87 @@
+.preseason-jumps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.4rem;
+  margin: -.25rem 0 1.35rem;
+}
+.preseason-jumps a {
+  padding: .65rem 0;
+  color: #bddfff;
+  font: 700 .95rem var(--h-ui, sans-serif);
+  text-underline-offset: .27em;
+}
+.preseason-page :is(section[id], h2[id]) { scroll-margin-top: 6.5rem; }
+.preseason-page :is(summary, a):focus-visible,
+.preseason-page .score-scroll:focus-visible {
+  outline: 3px solid #f4d288;
+  outline-offset: 3px;
+}
+.stage-guide {
+  margin: 2.5rem 0;
+  padding: clamp(1rem, 3vw, 2rem);
+  border: 1px solid #43566c;
+  border-top: 3px solid #dec287;
+  background: #101f30;
+}
+.stage-guide .season-kicker { margin-bottom: .5rem; }
+.stage-guide .preseason-copy { max-width: 72ch; }
+.stage-scale {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  list-style: none;
+  padding: 0;
+  margin: 1.4rem 0 .8rem;
+  border: solid #3b5065;
+  border-width: 0 0 1px 1px;
+}
+.stage-scale li {
+  padding: .65rem .25rem;
+  text-align: center;
+  border: solid #3b5065;
+  border-width: 1px 1px 0 0;
+}
+.stage-scale span, .stage-scale strong { display: block; }
+.stage-scale span { color: #c2d3e3; font: 700 .8rem var(--h-ui, sans-serif); }
+.stage-scale strong { color: #f6d997; font: 700 1.55rem var(--h-head, sans-serif); }
+.stage-scale small { font-size: .8rem; color: #edd6a7; }
+.stage-formula, .stage-pending, .result-note {
+  font: 500 .9rem/1.55 var(--h-body, sans-serif);
+  color: #ccdbe7;
+  margin: .75rem 0 0;
+}
+.preseason-race { margin: .85rem 0; background: #101e2e; border: 1px solid #465b70; }
+.preseason-race summary {
+  padding: 1rem; cursor: pointer; color: #fff;
+  font: 700 1.25rem var(--h-head, sans-serif);
+}
+.preseason-race summary::marker { color: #e4c384; }
+.preseason-race[open] summary { border-bottom: 1px solid #465b70; }
+.race-classification { padding: clamp(.75rem, 2vw, 1.5rem); }
+.race-classification h3, .stage-result h4 {
+  margin: 0 0 .6rem;
+  font: 700 1.35rem var(--h-head, sans-serif);
+  color: #fff;
+}
+.race-classification h3:not(:first-child) { margin-top: 1.6rem; }
+.score-scroll { overflow-x: auto; }
+.score-table {
+  border-collapse: collapse; width: 100%; text-align: left;
+  font: 500 .92rem/1.45 var(--h-body, sans-serif);
+  color: #e7eff7; font-variant-numeric: tabular-nums;
+}
+.score-table :is(th, td) { padding: .65rem .45rem; border-bottom: 1px solid #33485d; }
+.score-table thead th { color: #c3d7e8; font: 700 .86rem var(--h-ui, sans-serif); }
+.score-table .numeric { text-align: right; white-space: nowrap; }
+.score-table .score-driver { overflow-wrap: anywhere; }
+.score-table .score-total { color: #f5d59a; font-weight: 700; }
+.result-awards { display: block; color: #b2cfea; font-size: .78rem; }
+.stage-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .85rem; }
+.stage-result { padding: .9rem; border: 1px solid #3e5368; }
+.stage-result h4 { color: #edcf94; }
+.stage-pending { margin: .4rem 0; }
+@media (max-width: 800px) { .stage-scale { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+@media (max-width: 650px) {
+  .stage-pair { grid-template-columns: minmax(0, 1fr); }
+  .score-table :is(th, td) { padding: .55rem .27rem; }
+  .score-table { font-size: .84rem; }
+}
