@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#060b14"><meta name="description" content="2027 ASCRL Preseason Thunder opens at Chicagoland on November 17, 2026. Find the preseason schedule, the 2026 champions and final standings.">
 <title>ASCRL | American Stock Car Racing League</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="heritage-home.css?v=20261014">
+<link rel="stylesheet" href="heritage-home.css?v=20261113-rankings">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="heritage.css?v=20261014"><script src="heritage.js?v=20261016" defer></script>
 <link rel="stylesheet" href="season-update.css?v=20261110-opener"><script src="season-2026.js?v=20261110"></script>
@@ -44,18 +44,13 @@
 <section class="section standings-section" id="standings"><div class="shell"><div class="sec-head"><div><div class="label"><span class="slash"></span>02 / CHAMPIONSHIP CONTROL</div><h2>FINAL <span class="blue">2026 STANDINGS.</span></h2></div><a href="standings.html" class="link-more">COMPLETE STANDINGS ↗</a></div><div class="standings-main"><div class="leader-table"><div class="leader-tabs" role="tablist" aria-label="Series standings"><button role="tab" data-series="Cup" aria-selected="true">CUP</button><button role="tab" data-series="Xfinity" aria-selected="false">XFINITY</button><button role="tab" data-series="Truck" aria-selected="false">TRUCK</button><button role="tab" data-series="Menards" aria-selected="false">MENARDS</button></div><div id="standings-table" aria-live="polite"><p class="loading">Loading the championship standings...</p></div><div class="table-bottom"><span>2026 · OFFICIAL DRIVER RECORDS</span><a class="link-more" href="standings.html">VIEW ALL ↗</a></div></div><aside class="trophy-card"><img class="leader-hero" id="leader-photo" alt="" hidden><div class="trophy-icon">★ ★ ★</div><h3 id="trophy-title">2026 CHAMPION / CUP</h3><div id="leader-name">LOADING...</div><div class="trophy-points" id="leader-score">— <span>POINTS</span></div><div class="swoosh"></div><p class="small dull"><span id="leader-status">Official 2026 championship results.</span></p></aside></div><div class="series-leaders" id="series-leaders" aria-live="polite"></div></div></section>
 
 <section class="section analytics-section" id="power-rankings"><div class="shell">
-  <div class="sec-head"><div><div class="label"><span class="slash"></span>03 / PERFORMANCE INDEX</div><h2>ASCRL <span class="blue">POWER RANKINGS.</span></h2></div><p class="analytics-header-copy">More than the points table. A performance rating built from points, victories, consistency and recent race momentum.</p></div>
+  <div class="sec-head"><div><div class="label"><span class="slash"></span>03 / PERFORMANCE INDEX</div><h2>ASCRL <span class="blue">POWER RANKINGS.</span></h2></div><p class="analytics-header-copy"><strong id="power-season">2026–2027 Preseason</strong><br>Official driver ratings from the ASCRL race results posted in Discord.</p></div>
   <div class="rankings-panel">
-    <div class="ranking-tabs" role="tablist" aria-label="Power rankings series">
-      <button type="button" role="tab" data-power-series="Overall" aria-selected="true">OVERALL</button>
-      <button type="button" role="tab" data-power-series="Cup" aria-selected="false">CUP</button>
-      <button type="button" role="tab" data-power-series="Xfinity" aria-selected="false">XFINITY</button>
-      <button type="button" role="tab" data-power-series="Truck" aria-selected="false">TRUCK</button>
-      <button type="button" role="tab" data-power-series="Menards" aria-selected="false">MENARDS</button>
-    </div>
-    <div class="rankings-summary"><strong id="power-category">OVERALL / TOP 10</strong><small id="power-update">Calculating from official 2026 race data...</small></div>
-    <div class="power-list" id="power-list" aria-live="polite"><p class="loading">Calculating Power Scores...</p></div>
-    <div class="rankings-note"><strong>Official ASCRL methodology:</strong> points 40% · wins 20% · consistency 25% · momentum 15%. Overall rankings also account for the level of competition in each series.</div>
+    <div class="ranking-tabs" id="power-categories" role="group" aria-label="Power rankings series" hidden></div>
+    <div class="rankings-summary"><strong id="power-category">Combined driver ratings</strong><small id="power-update">Loading official ratings…</small></div>
+    <div class="power-list" id="power-list" aria-live="polite"><p class="loading">Loading power rankings…</p></div>
+    <nav class="power-pager" id="power-pager" aria-label="Driver ratings pages" hidden><button type="button" id="power-prev">Previous</button><span id="power-page" aria-live="polite"></span><button type="button" id="power-next">Next</button></nav>
+    <div class="rankings-note"><strong>How to read this board:</strong> <span id="power-note">A driver gets a rank after their first classified result in the active season.</span></div>
   </div>
 </div></section>
 <section class="section tournament-section" id="tournament"><div class="shell">
@@ -75,6 +70,7 @@
 </main>
 <section class="section closing" id="contact"><div class="shell"><div class="label"><span class="slash"></span>A&amp;M PRODUCTIONS LLC</div><h2 class="cond" style="font-size:48px;margin:16px 0">BUSINESS INQUIRIES</h2><p class="dull">For sponsorship opportunities, league disputes, or website feedback, contact the league office.</p><a class="btn btn-primary" href="mailto:contact.ascrl@gmail.com">CONTACT.ASCRL@GMAIL.COM ↗</a><div class="footer-links" style="margin-top:28px"><a href="https://www.facebook.com/share/14PeZVCH1hL/" target="_blank" rel="noopener noreferrer">FACEBOOK ↗</a><a href="https://x.com/ASCRWeekly" target="_blank" rel="noopener noreferrer">X / ASCRWEEKLY ↗</a></div></div></section>
 <footer class="h-footer"><div class="h-footer-main"><div class="h-footer-brand"><a href="index.html"><img src="assets/heritage-wordmark.webp" alt="ASCRL home" width="230" height="82"></a><p>One flag. One league. All heart.</p><span>Owned and operated by<br><strong>A&amp;M Productions LLC</strong></span></div><nav aria-label="Footer Race center"><h2>Race center</h2><a href="preseason.html">Preseason<span aria-hidden="true">↗</span></a><a href="schedule.html">Schedule<span aria-hidden="true">↗</span></a><a href="results.html">Race results<span aria-hidden="true">↗</span></a><a href="standings.html">Driver standings<span aria-hidden="true">↗</span></a><a href="teams.html">Team standings<span aria-hidden="true">↗</span></a><a href="drivers.html">Driver roster<span aria-hidden="true">↗</span></a></nav><nav aria-label="Footer League life"><h2>League life</h2><a href="index.html">Home<span aria-hidden="true">↗</span></a><a href="rules.html">Sporting code<span aria-hidden="true">↗</span></a><a href="news.html">ASCR Weekly<span aria-hidden="true">↗</span></a><a href="collection.html">Collections<span aria-hidden="true">↗</span></a></nav><nav aria-label="Footer Beyond the pavement"><h2>Beyond the pavement</h2><a href="iracing.html">iRacing<span aria-hidden="true">↗</span></a><a href="woo.html">World of Outlaws<span aria-hidden="true">↗</span></a></nav></div><div class="h-footer-bottom"><span>© 2025–<span id="copyright-year">2026</span> American Stock Car Racing League</span><div><a href="https://www.facebook.com/share/14PeZVCH1hL/" target="_blank" rel="noopener noreferrer">Facebook ↗</a><a href="https://x.com/ASCRWeekly" target="_blank" rel="noopener noreferrer">X ↗</a><a href="mailto:contact.ascrl@gmail.com">Contact the league ↗</a></div></div></footer>
+<script src="power-rankings.js?v=20261113"></script>
 <script>
 (function(){
 'use strict';
@@ -217,80 +213,14 @@ setTournament();
 $('bracket-prev').addEventListener('click',()=>{$('cup-bracket').scrollBy({left:-295,behavior:'smooth'})});
 $('bracket-next').addEventListener('click',()=>{$('cup-bracket').scrollBy({left:295,behavior:'smooth'})});
 
-let rankingsCache={Overall:[],Cup:[],Xfinity:[],Truck:[],Menards:[]};
-let selectedPower='Overall';
-function calculatePowerRankings(driversData,resultsData){
- // Preserve the original ASCRL homepage calculation and official photo mappings.
- const momentumMap={};
- Object.keys(resultsData||{}).forEach(raceKey=>{
-  const parts=raceKey.split(' - ');
-  const s=parts[0];
-  const results=resultsData[raceKey];
-  if(!Array.isArray(results))return;
-  results.forEach(r=>{
-   const name=String(r.driver||'').replace(/^#\d+\s*/,'').trim();
-   if(!momentumMap[name])momentumMap[name]={};
-   if(!momentumMap[name][s])momentumMap[name][s]=[];
-   momentumMap[name][s].push(r.position);
-  });
- });
- const WEIGHTS={points:.40,wins:.20,consistency:.25,momentum:.15};
- const SERIES_MULT={Cup:1.0,Xfinity:.85,Truck:.70,Menards:.55};
- rankingsCache={Overall:[],Cup:[],Xfinity:[],Truck:[],Menards:[]};
- function getSeriesScore(stats,seriesName,driverName){
-  const pts=stats.points||0, wins=stats.wins||0, avg=stats.avg||40, maxPts=400;
-  const normPoints=Math.min(pts/maxPts,1.0);
-  const normWins=Math.min(wins/3,1.0);
-  const normConsist=Math.max(0,(40-avg)/39);
-  let normMom=0;
-  const recents=momentumMap[driverName]?momentumMap[driverName][seriesName]:null;
-  if(recents&&recents.length>0){
-   const last3=recents.slice(-3);
-   const avgRec=last3.reduce((a,b)=>a+b,0)/last3.length;
-   normMom=Math.max(0,(40-avgRec)/39);
-  }else normMom=normConsist;
-  return ((normPoints*WEIGHTS.points)+(normWins*WEIGHTS.wins)+(normConsist*WEIGHTS.consistency)+(normMom*WEIGHTS.momentum))*100;
- }
- Object.keys(driversData||{}).forEach(id=>{
-  const d=driversData[id];if(!d||!d.series)return;
-  const name=d.display_name||id;
-  let overallScoreSum=0,seriesCount=0,totalWins=0,primaryTeam='Independent';
-  Object.keys(d.series).forEach(s=>{
-   const entry=d.series[s],stats=entry.current_stats||entry.stats;
-   if(!stats)return;
-   const score=getSeriesScore(stats,s,name);
-   if(rankingsCache[s])rankingsCache[s].push({name,team:entry.team||'Independent',wins:stats.wins||0,score});
-   if(SERIES_MULT[s]){
-    overallScoreSum+=score*SERIES_MULT[s];seriesCount++;totalWins+=(stats.wins||0);
-    if(entry.team&&entry.team!=='Independent')primaryTeam=entry.team;
-   }
-  });
-  if(seriesCount>0)rankingsCache.Overall.push({name,team:primaryTeam,wins:totalWins,score:overallScoreSum});
- });
- Object.keys(rankingsCache).forEach(key=>rankingsCache[key].sort((a,b)=>b.score-a.score));
- renderPowerRankings(selectedPower);
-}
-function renderPowerRankings(category){
- selectedPower=category;
- document.querySelectorAll('.ranking-tabs button').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.powerSeries===category)));
- $('power-category').textContent=category.toUpperCase()+' / TOP 10';
- const data=(rankingsCache[category]||[]).slice(0,10);
- if(!data.length){$('power-list').innerHTML='<p class="loading">No ranking data available for this category.</p>';return}
- const topScore=data[0].score;
- $('power-list').innerHTML=data.map((d,i)=>{
-  const pct=topScore>0?Math.max(15,Math.min(100,d.score/topScore*100)):0;
-  return '<div class="power-entry" style="--rating-width:'+pct.toFixed(1)+'%"><div class="power-pos">'+String(i+1).padStart(2,'0')+'</div><div class="power-person"><img class="driver-portrait" loading="lazy" src="'+esc(getDriverImage(d.name))+'" alt=""><strong>'+esc(d.name)+'</strong><small>'+esc(d.team)+'</small></div><div class="power-wins">'+esc(d.wins)+'<span>WINS</span></div><div class="power-graph" role="presentation"><span style="width:'+pct.toFixed(1)+'%"></span></div><div class="power-score">'+d.score.toFixed(1)+'<span>RATING</span></div></div>';
- }).join('');
- $('power-update').textContent='2026 OFFICIAL RACING DATA · '+data.length+' DRIVERS SHOWN';
-}
-document.querySelectorAll('.ranking-tabs button').forEach(b=>b.addEventListener('click',()=>renderPowerRankings(b.dataset.powerSeries)));
+const homePreseason = json('preseason.json');
+if (window.ASCRL_POWER) window.ASCRL_POWER.load(getDriverImage, homePreseason);
+else { $('power-list').innerHTML = errorHtml; $('power-update').textContent = 'Feed unavailable'; }
 
-Promise.allSettled([json('drivers.json'),json('ASCRL_2026_Schedule.json'),json('ASCRL_Results_2026.json'),json('preseason.json')]).then(([a,b,c,p])=>{
+Promise.allSettled([json('drivers.json'),json('ASCRL_2026_Schedule.json'),json('ASCRL_Results_2026.json'),homePreseason]).then(([a,b,c,p])=>{
 if(a.status==='fulfilled'){driverData=a.value;$('driver-count').textContent=Object.keys(driverData).length;setStandings();setSeriesLeaders()}else{$('standings-table').innerHTML=errorHtml;$('leader-name').textContent='DATA UNAVAILABLE';console.error('Driver data:',a.reason)}
 setSchedule(b.status==='fulfilled'?b.value:null,p.status==='fulfilled' && Array.isArray(p.value.events)?p.value.events:ASCRL_SEASON.preseason);
 if(c.status==='fulfilled' && b.status==='fulfilled')setResults(c.value,b.value);else{$('results-grid').innerHTML=errorHtml;console.error('Results:',c.reason)}
-if(a.status==='fulfilled' && c.status==='fulfilled')calculatePowerRankings(a.value,c.value);
-else {$('power-list').innerHTML=errorHtml;$('power-update').textContent='DATA FEED UNAVAILABLE';}
 });
 })();
 </script>

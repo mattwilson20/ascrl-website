@@ -26,7 +26,7 @@
 .ranking-tabs{display:flex;gap:0;overflow-x:auto;scrollbar-width:thin;scrollbar-color:#38699b #102038;background:#12263e;border-bottom:1px solid #365473}
 .ranking-tabs button{border:0;background:transparent;border-bottom:3px solid transparent;color:#a8c1d8;white-space:nowrap;padding:17px 24px;font:800 13px var(--ui);letter-spacing:1.4px;transition:background .2s,color .2s;cursor:pointer}
 .ranking-tabs button:hover{color:#fff;background:#1d3958}
-.ranking-tabs button[aria-selected="true"]{border-bottom-color:#55aaff;color:#fff;background:#1a3859}
+.ranking-tabs button[aria-pressed="true"]{border-bottom-color:#55aaff;color:#fff;background:#1a3859}
 .rankings-summary{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:16px 24px;border-bottom:1px solid #2c4662}
 .rankings-summary strong{font:900 13px var(--ui);color:#d0e5f9;letter-spacing:1.8px;text-transform:uppercase}
 .rankings-summary small{font:700 11px var(--ui);color:#92aec9;letter-spacing:.4px}
@@ -35,8 +35,8 @@
 .power-entry:before{content:"";position:absolute;inset:0 auto 0 0;width:var(--rating-width,0%);background:linear-gradient(90deg,rgba(12,112,220,.25),rgba(0,120,255,.04));pointer-events:none}
 .power-entry>*{z-index:1;position:relative}
 .power-pos{font:900 31px var(--head);color:#8eb2d5}
-.power-entry:first-child{border-color:#4b83ba;background:#152c48}
-.power-entry:first-child .power-pos{color:#e4c16f}
+.power-entry[data-leader="true"]{border-color:#4b83ba;background:#152c48}
+.power-entry[data-leader="true"] .power-pos{color:#e4c16f}
 .power-person{min-width:0}
 .power-person strong{font:900 22px/.96 var(--head);text-transform:uppercase;overflow-wrap:anywhere;display:block}
 .power-person small{display:block;color:#a1b5c9;font:700 11px var(--ui);margin-top:6px}
@@ -48,6 +48,11 @@
 .power-score span{display:block;font:800 10px var(--ui);letter-spacing:1.2px;color:#92a8bd;margin-top:7px}
 .rankings-note{padding:15px 25px;border-top:1px solid #2c4662;color:#9fb6cb;font:700 12px/1.65 var(--ui)}
 .rankings-note strong{color:#d9eafd}
+.rankings-panel [hidden]{display:none}
+.power-pager{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;padding:0 12px 18px;color:#b6cbe1;font:700 13px var(--ui)}
+.power-pager button{border:1px solid #416386;background:#152c48;color:#e7f2ff;font:700 13px var(--ui);min-height:42px;padding:8px 16px;cursor:pointer}
+.power-pager button:disabled{color:#849ab2;border-color:#304559;background:#122033;cursor:default}
+.power-pager button:focus-visible,.ranking-tabs button:focus-visible{outline:2px solid #e4c16f;outline-offset:-3px}
 .tournament-section{background:linear-gradient(155deg,#07101d,#0d1f35 58%,#080e19);border-bottom:1px solid #284866;position:relative;overflow:hidden}
 .tournament-section:before{content:"";position:absolute;width:650px;height:650px;border:1px solid #ffffff08;border-radius:50%;right:-150px;top:-250px;box-shadow:0 0 0 100px #ffffff03,0 0 0 200px #ffffff02;pointer-events:none}
 .tournament-section .shell{position:relative}
