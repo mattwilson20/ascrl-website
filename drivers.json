@@ -7483,6 +7483,74 @@
       }
     }
   },
+  "774425608293318666": {
+    "badges": [],
+    "display_name": "lnfvmous_-",
+    "series": {
+      "Cup": {
+        "career_stats": {
+          "avg": 13.14,
+          "penalty_total": 0,
+          "points": 167,
+          "poles": 0,
+          "starts": 7,
+          "top10": 3,
+          "top5": 0,
+          "wins": 0
+        },
+        "current_stats": {
+          "avg": 0,
+          "penalty_total": 0,
+          "points": 0,
+          "poles": 0,
+          "starts": 0,
+          "top10": 0,
+          "top5": 0,
+          "wins": 0
+        },
+        "history": [
+          {
+            "season": "2025-26",
+            "stats": {
+              "avg": 13.14,
+              "penalty_total": 0,
+              "points": 167,
+              "poles": 0,
+              "starts": 7,
+              "top10": 3,
+              "top5": 0,
+              "wins": 0
+            }
+          }
+        ],
+        "manufacturer": "N/A",
+        "number": "21",
+        "season_stats": {
+          "2025-26": {
+            "avg": 13.14,
+            "penalty_total": 0,
+            "points": 167,
+            "poles": 0,
+            "starts": 7,
+            "top10": 3,
+            "top5": 0,
+            "wins": 0
+          },
+          "2026": {
+            "avg": 0,
+            "penalty_total": 0,
+            "points": 0,
+            "poles": 0,
+            "starts": 0,
+            "top10": 0,
+            "top5": 0,
+            "wins": 0
+          }
+        },
+        "team": "Independent"
+      }
+    }
+  },
   "776678428161736704": {
     "badges": [],
     "display_name": "viper24",
