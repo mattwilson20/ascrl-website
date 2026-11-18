@@ -2,7 +2,214 @@
   "events": [
     {
       "date": "2026-11-17",
-      "results": [],
+      "results": [
+        {
+          "driver": "A54BUICKBANDIT",
+          "fl": "",
+          "points": 40,
+          "pole": "",
+          "position": 1
+        },
+        {
+          "driver": "bigray-45",
+          "fl": "",
+          "points": 41,
+          "pole": "",
+          "position": 2,
+          "stage1_position": 5,
+          "stage2_position": null,
+          "stage_points": 6
+        },
+        {
+          "driver": "HoosierDaddyMFTZ",
+          "fl": "",
+          "points": 41,
+          "pole": "",
+          "position": 3,
+          "stage1_position": 4,
+          "stage2_position": null,
+          "stage_points": 7
+        },
+        {
+          "driver": "You’reATowel",
+          "fl": "",
+          "points": 33,
+          "pole": "",
+          "position": 4
+        },
+        {
+          "driver": "xxHambone",
+          "fl": "",
+          "points": 37,
+          "pole": "",
+          "position": 5,
+          "stage1_position": 7,
+          "stage2_position": 10,
+          "stage_points": 5
+        },
+        {
+          "driver": "Paul 1 lap hold 💩 Bloom",
+          "fl": "",
+          "points": 31,
+          "pole": "",
+          "position": 6
+        },
+        {
+          "driver": "Matt \"Mr. Rogers\" Wilson",
+          "fl": "FL",
+          "points": 51,
+          "pole": "Yes",
+          "position": 7,
+          "stage1_position": 2,
+          "stage2_position": 1,
+          "stage_points": 19
+        },
+        {
+          "driver": "the_fireman199",
+          "fl": "",
+          "points": 33,
+          "pole": "",
+          "position": 8,
+          "stage1_position": null,
+          "stage2_position": 7,
+          "stage_points": 4
+        },
+        {
+          "driver": "#02 Shartgun",
+          "fl": "",
+          "points": 28,
+          "pole": "",
+          "position": 9
+        },
+        {
+          "driver": "ThirstTrapToby",
+          "fl": "",
+          "points": 32,
+          "pole": "",
+          "position": 10,
+          "stage1_position": null,
+          "stage2_position": 6,
+          "stage_points": 5
+        },
+        {
+          "driver": "eRA_GarytheSnail",
+          "fl": "",
+          "points": 44,
+          "pole": "",
+          "position": 11,
+          "stage1_position": 1,
+          "stage2_position": 3,
+          "stage_points": 18
+        },
+        {
+          "driver": "On-A-Mission618",
+          "fl": "",
+          "points": 26,
+          "pole": "",
+          "position": 12,
+          "stage1_position": 10,
+          "stage2_position": null,
+          "stage_points": 1
+        },
+        {
+          "driver": "#16 KingG931",
+          "fl": "",
+          "points": 24,
+          "pole": "",
+          "position": 13
+        },
+        {
+          "driver": "RA_J_Set_",
+          "fl": "",
+          "points": 34,
+          "pole": "",
+          "position": 14,
+          "stage1_position": 9,
+          "stage2_position": 2,
+          "stage_points": 11
+        },
+        {
+          "driver": "ThePlugRyan",
+          "fl": "",
+          "points": 24,
+          "pole": "",
+          "position": 15,
+          "stage1_position": null,
+          "stage2_position": 9,
+          "stage_points": 2
+        },
+        {
+          "driver": "#54 Zachtheripper3",
+          "fl": "",
+          "points": 21,
+          "pole": "",
+          "position": 16
+        },
+        {
+          "driver": "TheReaperRhino",
+          "fl": "",
+          "points": 23,
+          "pole": "",
+          "position": 17,
+          "stage1_position": null,
+          "stage2_position": 8,
+          "stage_points": 3
+        },
+        {
+          "driver": "Ken Myers",
+          "fl": "",
+          "points": 19,
+          "pole": "",
+          "position": 18
+        },
+        {
+          "driver": "#22 Kerk2206",
+          "fl": "",
+          "points": 26,
+          "pole": "",
+          "position": 19,
+          "stage1_position": 3,
+          "stage2_position": null,
+          "stage_points": 8
+        },
+        {
+          "driver": "Scott247_",
+          "fl": "",
+          "points": 28,
+          "pole": "",
+          "position": 20,
+          "stage1_position": 6,
+          "stage2_position": 5,
+          "stage_points": 11
+        },
+        {
+          "driver": "#21 lnfvmous_-",
+          "fl": "",
+          "points": 23,
+          "pole": "",
+          "position": 21,
+          "stage1_position": null,
+          "stage2_position": 4,
+          "stage_points": 7
+        },
+        {
+          "driver": "Lostcozov",
+          "fl": "",
+          "points": 18,
+          "pole": "",
+          "position": 22,
+          "stage1_position": 8,
+          "stage2_position": null,
+          "stage_points": 3
+        },
+        {
+          "driver": "superace33",
+          "fl": "",
+          "points": 14,
+          "pole": "",
+          "position": 23
+        }
+      ],
       "track": "Chicagoland"
     },
     {
@@ -63,6 +270,290 @@
   ],
   "schema_version": 2,
   "season": "2026-2027 Preseason",
-  "standings": [],
+  "standings": [
+    {
+      "avg_finish": 7.0,
+      "driver": "Matt \"Mr. Rogers\" Wilson",
+      "points": 51,
+      "poles": 1,
+      "rank": 1,
+      "stage_points": 19,
+      "stage_wins": 1,
+      "starts": 1,
+      "top10": 1,
+      "top5": 0,
+      "wins": 0
+    },
+    {
+      "avg_finish": 11.0,
+      "driver": "eRA_GarytheSnail",
+      "points": 44,
+      "poles": 0,
+      "rank": 2,
+      "stage_points": 18,
+      "stage_wins": 1,
+      "starts": 1,
+      "top10": 0,
+      "top5": 0,
+      "wins": 0
+    },
+    {
+      "avg_finish": 2.0,
+      "driver": "bigray-45",
+      "points": 41,
+      "poles": 0,
+      "rank": 3,
+      "stage_points": 6,
+      "stage_wins": 0,
+      "starts": 1,
+      "top10": 1,
+      "top5": 1,
+      "wins": 0
+    },
+    {
+      "avg_finish": 3.0,
+      "driver": "HoosierDaddyMFTZ",
+      "points": 41,
+      "poles": 0,
+      "rank": 4,
+      "stage_points": 7,
+      "stage_wins": 0,
+      "starts": 1,
+      "top10": 1,
+      "top5": 1,
+      "wins": 0
+    },
+    {
+      "avg_finish": 1.0,
+      "driver": "A54BUICKBANDIT",
+      "points": 40,
+      "poles": 0,
+      "rank": 5,
+      "starts": 1,
+      "top10": 1,
+      "top5": 1,
+      "wins": 1
+    },
+    {
+      "avg_finish": 5.0,
+      "driver": "xxHambone",
+      "points": 37,
+      "poles": 0,
+      "rank": 6,
+      "stage_points": 5,
+      "stage_wins": 0,
+      "starts": 1,
+      "top10": 1,
+      "top5": 1,
+      "wins": 0
+    },
+    {
+      "avg_finish": 14.0,
+      "driver": "RA_J_Set_",
+      "points": 34,
+      "poles": 0,
+      "rank": 7,
+      "stage_points": 11,
+      "stage_wins": 0,
+      "starts": 1,
+      "top10": 0,
+      "top5": 0,
+      "wins": 0
+    },
+    {
+      "avg_finish": 4.0,
+      "driver": "You’reATowel",
+      "points": 33,
+      "poles": 0,
+      "rank": 8,
+      "starts": 1,
+      "top10": 1,
+      "top5": 1,
+      "wins": 0
+    },
+    {
+      "avg_finish": 8.0,
+      "driver": "the_fireman199",
+      "points": 33,
+      "poles": 0,
+      "rank": 9,
+      "stage_points": 4,
+      "stage_wins": 0,
+      "starts": 1,
+      "top10": 1,
+      "top5": 0,
+      "wins": 0
+    },
+    {
+      "avg_finish": 10.0,
+      "driver": "ThirstTrapToby",
+      "points": 32,
+      "poles": 0,
+      "rank": 10,
+      "stage_points": 5,
+      "stage_wins": 0,
+      "starts": 1,
+      "top10": 1,
+      "top5": 0,
+      "wins": 0
+    },
+    {
+      "avg_finish": 6.0,
+      "driver": "Paul 1 lap hold 💩 Bloom",
+      "points": 31,
+      "poles": 0,
+      "rank": 11,
+      "starts": 1,
+      "top10": 1,
+      "top5": 0,
+      "wins": 0
+    },
+    {
+      "avg_finish": 9.0,
+      "driver": "#02 Shartgun",
+      "points": 28,
+      "poles": 0,
+      "rank": 12,
+      "starts": 1,
+      "top10": 1,
+      "top5": 0,
+      "wins": 0
+    },
+    {
+      "avg_finish": 20.0,
+      "driver": "Scott247_",
+      "points": 28,
+      "poles": 0,
+      "rank": 13,
+      "stage_points": 11,
+      "stage_wins": 0,
+      "starts": 1,
+      "top10": 0,
+      "top5": 0,
+      "wins": 0
+    },
+    {
+      "avg_finish": 12.0,
+      "driver": "On-A-Mission618",
+      "points": 26,
+      "poles": 0,
+      "rank": 14,
+      "stage_points": 1,
+      "stage_wins": 0,
+      "starts": 1,
+      "top10": 0,
+      "top5": 0,
+      "wins": 0
+    },
+    {
+      "avg_finish": 19.0,
+      "driver": "#22 Kerk2206",
+      "points": 26,
+      "poles": 0,
+      "rank": 15,
+      "stage_points": 8,
+      "stage_wins": 0,
+      "starts": 1,
+      "top10": 0,
+      "top5": 0,
+      "wins": 0
+    },
+    {
+      "avg_finish": 13.0,
+      "driver": "#16 KingG931",
+      "points": 24,
+      "poles": 0,
+      "rank": 16,
+      "starts": 1,
+      "top10": 0,
+      "top5": 0,
+      "wins": 0
+    },
+    {
+      "avg_finish": 15.0,
+      "driver": "ThePlugRyan",
+      "points": 24,
+      "poles": 0,
+      "rank": 17,
+      "stage_points": 2,
+      "stage_wins": 0,
+      "starts": 1,
+      "top10": 0,
+      "top5": 0,
+      "wins": 0
+    },
+    {
+      "avg_finish": 17.0,
+      "driver": "TheReaperRhino",
+      "points": 23,
+      "poles": 0,
+      "rank": 18,
+      "stage_points": 3,
+      "stage_wins": 0,
+      "starts": 1,
+      "top10": 0,
+      "top5": 0,
+      "wins": 0
+    },
+    {
+      "avg_finish": 21.0,
+      "driver": "#21 lnfvmous_-",
+      "points": 23,
+      "poles": 0,
+      "rank": 19,
+      "stage_points": 7,
+      "stage_wins": 0,
+      "starts": 1,
+      "top10": 0,
+      "top5": 0,
+      "wins": 0
+    },
+    {
+      "avg_finish": 16.0,
+      "driver": "#54 Zachtheripper3",
+      "points": 21,
+      "poles": 0,
+      "rank": 20,
+      "starts": 1,
+      "top10": 0,
+      "top5": 0,
+      "wins": 0
+    },
+    {
+      "avg_finish": 18.0,
+      "driver": "Ken Myers",
+      "points": 19,
+      "poles": 0,
+      "rank": 21,
+      "starts": 1,
+      "top10": 0,
+      "top5": 0,
+      "wins": 0
+    },
+    {
+      "avg_finish": 22.0,
+      "driver": "Lostcozov",
+      "points": 18,
+      "poles": 0,
+      "rank": 22,
+      "stage_points": 3,
+      "stage_wins": 0,
+      "starts": 1,
+      "top10": 0,
+      "top5": 0,
+      "wins": 0
+    },
+    {
+      "avg_finish": 23.0,
+      "driver": "superace33",
+      "points": 14,
+      "poles": 0,
+      "rank": 23,
+      "starts": 1,
+      "top10": 0,
+      "top5": 0,
+      "wins": 0
+    }
+  ],
   "title": "2027 Preseason Thunder"
 }
