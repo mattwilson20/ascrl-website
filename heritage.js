@@ -2,7 +2,7 @@
 (() => {
  'use strict';
  const activePage=location.pathname.split('/').pop()||'index.html';
- const current=activePage==='ascrl-concept-03-heritage.html'?'index.html':activePage;
+ const current=['season-2026.html','standings.html','results.html','schedule.html','teams.html'].includes(activePage)?'history.html':activePage==='ascrl-concept-03-heritage.html'?'index.html':activePage;
  const holder=document.getElementById('nav-placeholder');
  function setMenu(open,restoreFocus=false){
   const menu=document.getElementById('nav-menu'),button=document.querySelector('[data-h-menu]');

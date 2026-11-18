@@ -1,0 +1,13 @@
+{
+  "captured_on": "2026-11-18",
+  "source_commit": "f6b0a74887d1f2088ba40e2c293df4ba23f555c4",
+  "note": "Published historical data preserved before bringing the current preseason to the front of the website. The original live data files remain in place.",
+  "files": {
+    "history/2026/drivers.json": "drivers.json",
+    "history/2026/results.json": "ASCRL_Results_2026.json",
+    "history/2026/schedule.json": "ASCRL_2026_Schedule.json",
+    "history/2025-26/results.json": "ASCRL_Results_Season_1.json",
+    "history/2025-26/standings.json": "ASCRL_Standings_Season_1.json",
+    "history/2025-26/schedule.json": "schedule.json"
+  }
+}

@@ -11,14 +11,20 @@ window.ASCRL_DATA = {
       if(data.schema_version !== 1 || !Array.isArray(data.seasons)) throw new Error('Invalid season catalog');
       data.seasons = data.seasons.filter(s => /^20\d\d(?:-\d\d)?$/.test(s.season) && /^ASCRL_Results_(?:20\d\d(?:-\d\d)?|Season_1)\.json$/.test(s.results) && Array.isArray(s.series));
       if(!data.seasons.length) throw new Error('Empty season catalog');
+      for(const season of data.seasons){if(season.season==='2026')season.results='history/2026/results.json';if(season.season==='2025-26')season.results='history/2025-26/results.json';}
+      // These selectors belong to the record book; a new live season cannot relabel the saved records.
+      data.seasons=data.seasons.filter(s=>['2026','2025-26'].includes(s.season));
+      if(data.seasons.length!==2)throw new Error('Use preserved season catalog');
+      data.current_season='2026';
       return data;
     } catch(error) {
-      return {current_season:'2026',seasons:[{season:'2026',results:'ASCRL_Results_2026.json',series:['Cup','Xfinity','Truck','Menards']},{season:'2025-26',results:'ASCRL_Results_Season_1.json',series:['Cup','Xfinity','Truck','Menards']}]};
+      return {current_season:'2026',seasons:[{season:'2026',results:'history/2026/results.json',series:['Cup','Xfinity','Truck','Menards']},{season:'2025-26',results:'history/2025-26/results.json',series:['Cup','Xfinity','Truck','Menards']}]};
     }
   },
   seasons(select, catalog) {
-    select.replaceChildren(...catalog.seasons.map(s => new Option(s.season + (s.season===catalog.current_season?' Season':' Season · Archive'),s.season)));
-    select.value = catalog.current_season;
+    select.replaceChildren(...catalog.seasons.map(s => new Option(s.season + (s.season==='2026'?' Season · Final':' Season · Records'),s.season)));
+    const requested=new URLSearchParams(location.search).get('season');
+    select.value = catalog.seasons.some(s=>s.season===requested)?requested:catalog.current_season;
   },
   series(container, season, catalog, selected, change) {
     const names = catalog.seasons.find(s=>s.season===season)?.series || ['Cup','Xfinity','Truck','Menards'];

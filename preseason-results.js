@@ -45,7 +45,8 @@
   }
 
   function driverCell(result) {
-    const name = element('span', result.driver);
+    const name = element('a', result.driver);
+    name.href = 'drivers.html?driver=' + encodeURIComponent(result.driver);
     const awards = [];
     if (['yes','1','true','pole'].includes(String(result.pole).toLowerCase())) awards.push('Pole');
     if (['fl','yes','1','true'].includes(String(result.fl).toLowerCase())) awards.push('Fastest lap');
@@ -104,6 +105,8 @@
     if (data.events.some(e => !e || typeof e.track !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(e.date) || !Array.isArray(e.results))) throw Error('Invalid event');
 
     const events = data.events.slice().sort((a,b) => a.date.localeCompare(b.date));
+    const today = new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+    const next = events.find(e=>e.date>=today && !e.results.length && !e.cancelled && !/cancelled|canceled/i.test(e.status||''));
     const schedule = document.createDocumentFragment();
     const complete = [];
     for (const event of events) {
@@ -112,7 +115,10 @@
       time.dateTime = event.date;
       time.append(element('small', dayOfWeek.format(date) + ' · ' + event.date.slice(0,4)));
       const item = element('li');
-      item.append(time, element('strong', event.track));
+      const track = element('strong', event.track);
+      track.append(element('small', event.results.length ? 'RESULTS POSTED' : event===next ? 'NEXT RACE' : event.cancelled || /cancelled|canceled/i.test(event.status||'') ? 'CANCELLED' : event.date<today ? 'AWAITING RESULTS' : 'UPCOMING', 'event-state'));
+      if(event===next)item.classList.add('is-next');
+      item.append(time, track);
       schedule.append(item);
       if (event.results.length) complete.push({event, label: event.track + ' · ' + fullDate.format(date)});
     }
@@ -125,7 +131,7 @@
       if (showStages) headers.push('Stage pts');
       headers.push('Total pts');
       const rows = data.standings.map(row => {
-        const cells = [row.rank, row.driver, row.starts, row.wins];
+        const cells = [row.rank, driverCell(row), row.starts, row.wins];
         if (showStages) cells.push(row.stage_points ?? 0);
         return [...cells, row.points];
       });
